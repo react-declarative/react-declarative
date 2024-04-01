@@ -29,7 +29,7 @@ export interface ITileProps<Data = IAnything, Payload = IAnything> {
   data: Data[];
   onSkip?: (initial: boolean) => void;
   onButtonSkip?: () => void;
-  onItemClick?: (item: { data: Data, payload: Payload }) => void;
+  onItemClick?: (item: { data: Data, payload: Payload, isSelected: boolean, toggleSelection: () => void }) => void;
   selectionMode?: SelectionMode;
   recomputeSubject?: TSubject<void>;
   rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);

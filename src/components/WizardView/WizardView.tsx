@@ -111,6 +111,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   routes,
   onLoadStart,
   onLoadEnd,
+  onSubmit = () => true,
   otherProps: upperOtherProps = {},
   ...outletProps
 }: IWizardViewProps<Data, Payload>) => {
@@ -242,6 +243,32 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
     return null;
   }, [loading, progress]);
 
+  /**
+   * Handles form submission asynchronously.
+   *
+   * @param data - The data to be submitted.
+   * @param payload - The payload associated with the submission.
+   * @param config - Configuration options for the submission.
+   * @param config.afterSave - The function to be executed after the save operation.
+   * @returns - Returns false if the submission cannot be made, otherwise returns the result of onSubmit.
+   */
+  const handleSubmit = useCallback(
+    async (
+      data: Data,
+      payload: Payload,
+      config: { afterSave: () => Promise<void> }
+    ) => {
+      if (loading) {
+        return false;
+      }
+      if (progress && progress !== 100) {
+        return false;
+      }
+      return await onSubmit(data, payload, config);
+    },
+    [onSubmit, loading, progress]
+  );
+
   return (
     <PaperView
       outlinePaper={outlinePaper}
@@ -253,7 +280,12 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       <Stepper
         className={classes.header}
         activeStep={activeStep}
-        sx={{ background: outlinePaper || transparentPaper ? "transparent !important" : "inherit" }}
+        sx={{
+          background:
+            outlinePaper || transparentPaper
+              ? "transparent !important"
+              : "inherit",
+        }}
       >
         {steps.map(({ label, icon: Icon }, idx) => (
           <Step key={idx} completed={activeStep > idx}>
@@ -269,6 +301,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
           payload={payload}
+          onSubmit={handleSubmit}
           {...outletProps}
         />
       </Box>

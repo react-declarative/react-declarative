@@ -313,6 +313,7 @@ export const OutletView = <
           return;
         }
         setPathname(location.pathname);
+        setLoading(0);
       }),
     []
   );
@@ -560,6 +561,10 @@ export const OutletView = <
         return new Set(prevInvalid);
       }),
     payload,
+    loading: !!loading,
+    setLoading: (loading: boolean) => {
+      setLoading((prevLoading) => prevLoading + (loading ? 1 : -1));
+    },
   };
 
   return (

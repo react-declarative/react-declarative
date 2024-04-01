@@ -135,6 +135,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   onTabChange,
   onLoadStart,
   onLoadEnd,
+  onSubmit = () => true,
   BeforeTabs,
   AfterTabs,
   otherProps: upperOtherProps = {},
@@ -255,6 +256,32 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     return null;
   }, [loading, progress]);
 
+  /**
+   * Handles the form submit action.
+   *
+   * @param data - The form data.
+   * @param payload - The additional payload.
+   * @param config - The configuration object.
+   * @param config.afterSave - A function called after the form is submitted successfully.
+   * @returns - A promise that resolves to a boolean indicating if the form submission is successful.
+   */
+  const handleSubmit = useCallback(
+    async (
+      data: Data,
+      payload: Payload,
+      config: { afterSave: () => Promise<void> }
+    ) => {
+      if (loading) {
+        return false;
+      }
+      if (progress && progress !== 100) {
+        return false;
+      }
+      return await onSubmit(data, payload, config);
+    },
+    [onSubmit, loading, progress]
+  );
+
   return (
     <PaperView
       outlinePaper={outlinePaper}
@@ -297,6 +324,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
           payload={payload}
+          onSubmit={handleSubmit}
           {...outletProps}
         />
       </Box>

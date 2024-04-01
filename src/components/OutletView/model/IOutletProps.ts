@@ -122,6 +122,21 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
      * Represents a payload object.
      */
     payload: Payload;
+
+    /**
+     * Represents the loading status.
+     *
+     * @typedef {boolean} Loading
+     */
+    loading: boolean;
+
+    /**
+     * Sets the loading state to indicate whether the application is currently loading data or not.
+     *
+     * @param {boolean} loading - A boolean value indicating whether the application is currently loading data.
+     * @returns {void}
+     */
+    setLoading: (loading: boolean) => void;
 }
 
 export default IOutletProps;

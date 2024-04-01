@@ -22363,6 +22363,19 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
      * Represents a payload object.
      */
     payload: Payload;
+    /**
+     * Represents the loading status.
+     *
+     * @typedef {boolean} Loading
+     */
+    loading: boolean;
+    /**
+     * Sets the loading state to indicate whether the application is currently loading data or not.
+     *
+     * @param {boolean} loading - A boolean value indicating whether the application is currently loading data.
+     * @returns {void}
+     */
+    setLoading: (loading: boolean) => void;
   }
   export default IOutletProps;
 }
@@ -23364,6 +23377,7 @@ declare module "react-declarative/components/TabsView/TabsView" {
     onTabChange,
     onLoadStart,
     onLoadEnd,
+    onSubmit,
     BeforeTabs,
     AfterTabs,
     otherProps: upperOtherProps,
@@ -24176,6 +24190,7 @@ declare module "react-declarative/components/WizardView/WizardView" {
     routes,
     onLoadStart,
     onLoadEnd,
+    onSubmit,
     otherProps: upperOtherProps,
     ...outletProps
   }: IWizardViewProps<Data, Payload>) => JSX.Element;
@@ -25802,7 +25817,12 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
     data: Data[];
     onSkip?: (initial: boolean) => void;
     onButtonSkip?: () => void;
-    onItemClick?: (item: { data: Data; payload: Payload }) => void;
+    onItemClick?: (item: {
+      data: Data;
+      payload: Payload;
+      isSelected: boolean;
+      toggleSelection: () => void;
+    }) => void;
     selectionMode?: SelectionMode;
     recomputeSubject?: TSubject<void>;
     rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);

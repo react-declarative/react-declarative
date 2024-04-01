@@ -118,6 +118,8 @@ export const TileItem = forwardRef(
         onClick={() => onItemClick && onItemClick({
           data,
           payload,
+          toggleSelection,
+          isSelected,
         })}
       >
         {React.createElement(children, {

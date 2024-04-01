@@ -109,3 +109,17 @@ payload: Payload
 ```
 
 Represents a payload object.
+
+### loading
+
+```ts
+loading: boolean
+```
+
+### setLoading
+
+```ts
+setLoading: (loading: boolean) => void
+```
+
+Sets the loading state to indicate whether the application is currently loading data or not.

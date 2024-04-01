@@ -103,7 +103,7 @@ onButtonSkip: () => void
 ### onItemClick
 
 ```ts
-onItemClick: (item: { data: Data; payload: Payload; }) => void
+onItemClick: (item: { data: Data; payload: Payload; isSelected: boolean; toggleSelection: () => void; }) => void
 ```
 
 ### selectionMode
