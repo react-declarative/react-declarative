@@ -7,6 +7,7 @@ import useChange from "../../../hooks/useChange";
  * @interface
  */
 interface IParams {
+    selectedRows?: RowId[];
     onChange: (selectedRows: RowId[]) => void;
 }
 
@@ -16,9 +17,10 @@ interface IParams {
  * @returns - An object containing the selected rows, list props, and a function to deselect all rows.
  */
 export const useListSelection = ({
+    selectedRows: defaultSelectedRows = [],
     onChange,
 }: Partial<IParams> = {}) => {
-    const [selectedRows, setSelectedRows] = useState<RowId[]>([]);
+    const [selectedRows, setSelectedRows] = useState<RowId[]>(defaultSelectedRows);
     const deselectAll = useCallback(() => setSelectedRows([]), []);
     useChange(() => {
         onChange && onChange(selectedRows);

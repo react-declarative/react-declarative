@@ -7,6 +7,7 @@ import useChange from "../../../hooks/useChange";
  * @interface
  */
 interface IParams {
+    selectedRows?: string[];
     onChange: (selectedRows: string[]) => void;
 }
 
@@ -21,9 +22,10 @@ interface IParams {
  *  - deselectAll: Function to clear all selected rows.
  */
 export const useGridSelection = ({
+    selectedRows: defaultSelectedRows = [],
     onChange,
 }: Partial<IParams> = {}) => {
-    const [selectedRows, setSelectedRows] = useState<string[]>([]);
+    const [selectedRows, setSelectedRows] = useState<string[]>(defaultSelectedRows);
     const deselectAll = useCallback(() => setSelectedRows([]), []);
     useChange(() => {
         onChange && onChange(selectedRows);

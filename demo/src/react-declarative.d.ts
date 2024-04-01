@@ -16507,6 +16507,7 @@ declare module "react-declarative/components/List/api/useListSelection" {
    * @interface
    */
   interface IParams {
+    selectedRows?: RowId[];
     onChange: (selectedRows: RowId[]) => void;
   }
   /**
@@ -16514,7 +16515,10 @@ declare module "react-declarative/components/List/api/useListSelection" {
    *
    * @returns - An object containing the selected rows, list props, and a function to deselect all rows.
    */
-  export const useListSelection: ({ onChange }?: Partial<IParams>) => {
+  export const useListSelection: ({
+    selectedRows: defaultSelectedRows,
+    onChange,
+  }?: Partial<IParams>) => {
     readonly selectedRows: RowId[];
     readonly listProps: {
       readonly selectedRows: RowId[];
@@ -25602,6 +25606,7 @@ declare module "react-declarative/components/Grid/api/useGridSelection" {
    * @interface
    */
   interface IParams {
+    selectedRows?: string[];
     onChange: (selectedRows: string[]) => void;
   }
   /**
@@ -25614,7 +25619,10 @@ declare module "react-declarative/components/Grid/api/useGridSelection" {
    *    - onSelectedRows: Function to handle selected row IDs.
    *  - deselectAll: Function to clear all selected rows.
    */
-  export const useGridSelection: ({ onChange }?: Partial<IParams>) => {
+  export const useGridSelection: ({
+    selectedRows: defaultSelectedRows,
+    onChange,
+  }?: Partial<IParams>) => {
     readonly selectedRows: string[];
     readonly gridProps: {
       readonly selectedRows: string[];
