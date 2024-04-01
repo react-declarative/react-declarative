@@ -22531,6 +22531,7 @@ declare module "react-declarative/components/PaperView/PaperView" {
         component: never;
       }
     > {
+    component?: React.ElementType;
     outlinePaper?: boolean;
     transparentPaper?: boolean;
   }
@@ -22808,6 +22809,7 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "onAnimationIterationCapture"
       | "onTransitionEnd"
       | "onTransitionEndCapture"
+      | "component"
       | "elevation"
       | "square"
     > &

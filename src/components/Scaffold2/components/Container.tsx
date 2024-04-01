@@ -102,7 +102,7 @@ export const Container = <T extends Payload = Payload>({
   const handleOptionGroupClick = (path: string, id: string) => {
     if (onOptionGroupClick) {
       const mobileOpen = onOptionGroupClick(path, id);
-      setMobileOpen(!!mobileOpen);
+      setMobileOpen(isMobile ? !!mobileOpen : false);
     } else {
       setMobileOpen(false);
     }
@@ -118,7 +118,7 @@ export const Container = <T extends Payload = Payload>({
   const handleOptionClick = (path: string, id: string) => {
     if (onOptionClick) {
       const mobileOpen = onOptionClick(path, id);
-      setMobileOpen(!!mobileOpen);
+      setMobileOpen(isMobile ? !!mobileOpen : false);
     } else {
       setMobileOpen(false);
     }

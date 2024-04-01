@@ -37,6 +37,7 @@ const useStyles = makeStyles()((theme) => ({
 interface IPaperViewProps extends Omit<PaperProps, keyof {
   component: never;
 }> {
+  component?: React.ElementType;
   outlinePaper?: boolean;
   transparentPaper?: boolean;
 }
@@ -53,6 +54,7 @@ interface IPaperViewProps extends Omit<PaperProps, keyof {
  * @returns {React.Element} The rendered paper view component.
  */
 export const PaperView = forwardRef(({
+  component,
   className,
   outlinePaper,
   transparentPaper,
@@ -66,10 +68,10 @@ export const PaperView = forwardRef(({
   }
   if (outlinePaper) {
     return (
-      <Box className={classNames(className, classes.outline, PAPERVIEW_ROOT)} {...otherProps} ref={ref}  />
+      <Box className={classNames(className, classes.outline, PAPERVIEW_ROOT)} {...otherProps} component={component} ref={ref}  />
     );
   }
-  return <Paper className={classNames(className, PAPERVIEW_ROOT)} {...otherProps} ref={ref} />;
+  return <Paper className={classNames(className, PAPERVIEW_ROOT)} {...otherProps} component={component as any} ref={ref} />;
 });
 
 export default PaperView;
