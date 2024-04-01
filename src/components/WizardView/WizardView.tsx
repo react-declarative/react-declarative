@@ -17,6 +17,7 @@ import IWizardViewProps from "./model/IWizardViewProps";
 import { OtherProps } from "./model/IWizardOutlet";
 import IAnything from "../../model/IAnything";
 
+import useActualCallback from "../../hooks/useActualCallback";
 import useLocalHistory from "../../hooks/useLocalHistory";
 import useElementSize from "../../hooks/useElementSize";
 import useSingleton from "../../hooks/useSingleton";
@@ -252,7 +253,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * @param config.afterSave - The function to be executed after the save operation.
    * @returns - Returns false if the submission cannot be made, otherwise returns the result of onSubmit.
    */
-  const handleSubmit = useCallback(
+  const handleSubmit = useActualCallback(
     async (
       data: Data,
       payload: Payload,
@@ -265,8 +266,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
         return false;
       }
       return await onSubmit(data, payload, config);
-    },
-    [onSubmit, loading, progress]
+    }
   );
 
   return (
