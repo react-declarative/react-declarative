@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useLayoutEffect, useRef } from "react";
 
 import useSinglerunAction from "./useSinglerunAction";
 import useActualCallback from "./useActualCallback";
@@ -111,6 +111,8 @@ export const useAsyncProgress = <
   const onEnd$ = useActualCallback(onEnd);
   const onBegin$ = useActualCallback(onBegin);
 
+  const isMounted = useRef(true);
+
   /**
    * Sets the progress value in the state.
    * @param {number} progress - The value of the progress.
@@ -176,6 +178,9 @@ export const useAsyncProgress = <
       let isOk = true;
       const result: (Result | null)[] = [];
       for (const { label, data } of items) {
+        if (!isMounted.current) {
+          return;
+        }
         try {
           result.push(
             await execute({
@@ -214,6 +219,10 @@ export const useAsyncProgress = <
       throwError: true,
     }
   );
+
+  useLayoutEffect(() => () => {
+    isMounted.current = false;
+  }, []);
 
   return {
     execute: useCallback((items: IProcess<Data>[]) => {
