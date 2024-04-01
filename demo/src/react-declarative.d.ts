@@ -16503,11 +16503,18 @@ declare module "react-declarative/components/List/api/useHistoryStatePagination"
 declare module "react-declarative/components/List/api/useListSelection" {
   import { RowId } from "react-declarative/model/IRowData";
   /**
+   * Represents the interface for the params.
+   * @interface
+   */
+  interface IParams {
+    onChange: (selectedRows: RowId[]) => void;
+  }
+  /**
    * A custom hook that manages the selection of rows in a list.
    *
    * @returns - An object containing the selected rows, list props, and a function to deselect all rows.
    */
-  export const useListSelection: () => {
+  export const useListSelection: ({ onChange }?: Partial<IParams>) => {
     readonly selectedRows: RowId[];
     readonly listProps: {
       readonly selectedRows: RowId[];
@@ -25591,6 +25598,13 @@ declare module "react-declarative/components/Grid/api/useGridAction" {
 
 declare module "react-declarative/components/Grid/api/useGridSelection" {
   /**
+   * Represents the interface for the params.
+   * @interface
+   */
+  interface IParams {
+    onChange: (selectedRows: string[]) => void;
+  }
+  /**
    * Hook for managing grid selection.
    *
    * @returns - An object containing the following properties:
@@ -25600,7 +25614,7 @@ declare module "react-declarative/components/Grid/api/useGridSelection" {
    *    - onSelectedRows: Function to handle selected row IDs.
    *  - deselectAll: Function to clear all selected rows.
    */
-  export const useGridSelection: () => {
+  export const useGridSelection: ({ onChange }?: Partial<IParams>) => {
     readonly selectedRows: string[];
     readonly gridProps: {
       readonly selectedRows: string[];
