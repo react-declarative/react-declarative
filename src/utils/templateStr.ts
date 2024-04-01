@@ -5,7 +5,7 @@
  * @returns - The modified string with replaced placeholders.
  */
 export const templateStr = (str: string, context: Record<string, unknown>) => {
-  return str.replace(/{[a-zA-Z]}/g, (match) => {
+  return str.replace(/{[a-zA-Z_\-0-9]+}/g, (match) => {
     const key = match.replace(/{|}/g, "")
     return typeof context[key] !== "undefined" ? String(context[key]) : "";
   });
