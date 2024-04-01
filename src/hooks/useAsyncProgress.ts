@@ -192,7 +192,7 @@ export const useAsyncProgress = <
             error: error as unknown as Error,
           };
           handleError(e);
-          if (onError$([...state$.current.errors, e])) {
+          if (!onError$([...state$.current.errors, e])) {
             setProgress(100);
             break;
           }

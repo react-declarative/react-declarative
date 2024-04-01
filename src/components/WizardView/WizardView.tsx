@@ -222,6 +222,9 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * @returns {ReactElement|null} The loader component or null.
    */
   const renderLoader = useCallback(() => {
+    if (progress === 100) {
+      return null;
+    }
     if (progress) {
       return (
         <LinearProgress

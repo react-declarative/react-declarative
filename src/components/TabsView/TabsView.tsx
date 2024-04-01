@@ -235,6 +235,9 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
    * @returns {React.ReactNode} - The loader component to be rendered.
    */
   const renderLoader = useCallback(() => {
+    if (progress === 100) {
+      return null;
+    }
     if (progress) {
       return (
         <LinearProgress
