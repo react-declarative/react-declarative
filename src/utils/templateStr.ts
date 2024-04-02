@@ -1,7 +1,7 @@
 /**
  * Replaces placeholder strings in a given template string with corresponding values from a context object.
  * @param str - The template string with placeholders to be replaced.
- * @param context - The object containing values to replace the placeholders.
+ * @param contexts - The objects containing values to replace the placeholders.
  * @returns - The modified string with replaced placeholders.
  */
 export const templateStr = (str: string, ...contexts: Record<string, unknown>[]) => {

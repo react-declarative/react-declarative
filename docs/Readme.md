@@ -35,6 +35,7 @@
 3. [Higher Order Function](./code/HOF.md)
 4. [Mathematical Logic](./code/MATH.md)
 5. [Reactive Programming](./code/RX.md)
+6. [Utility Functions](./code/UTILS.md)
 
 ## Field properties with JSDoc:
 

@@ -1,10 +1,9 @@
 import dayjs from "dayjs";
 
 /**
- * Retrieves the timestamp from the given source.
- * If no source is provided, the current timestamp is used.
+ * Calculates the timestamp in minutes based on the given source.
  *
- * @param [source] - The source object to retrieve the timestamp from. Defaults to current time.
+ * @param [source] - The source date and time. Defaults to the current date and time.
  * @returns - The timestamp in minutes.
  */
 export const getTimeStamp = (source = dayjs()) => {
