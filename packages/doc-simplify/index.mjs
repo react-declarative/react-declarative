@@ -7,11 +7,11 @@ import fs from "fs";
 dotenv.config();
 
 const GPT_PROMPT =
-  "Please write a summary for that React hook with several sentences in more human way";
+  "Please write a summary for that Typescript utility description with several sentences in more human way";
 
 async function main() {
   const model = await loadModel("Nous-Hermes-2-Mistral-7B-DPO.Q4_0.gguf");
-  const data = fs.readFileSync("../../docs/code/Hooks.md").toString();
+  const data = fs.readFileSync("../../docs/code/UTILS.md").toString();
 
   const chunks = data
     .split("\n# ")
