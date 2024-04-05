@@ -318,7 +318,7 @@ const KanbanViewInternal = <
     const itemListAll = items.filter(filterFn);
     if (withUpdateOrder) {
       itemListAll.sort(
-        ({ updatedAt: a = "1970-01-01" }, { updatedAt: b = "1970-01-01" }) =>
+        ({ updatedAt: a = new Date(0) as unknown as string }, { updatedAt: b = new Date(0) as unknown as string }) =>
           dayjs(a).isBefore(b) ? 1 : -1
       );
     }

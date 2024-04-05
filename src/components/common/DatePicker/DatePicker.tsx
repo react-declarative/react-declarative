@@ -62,8 +62,8 @@ const useStyles = makeStyles()((theme) => ({
  */
 export const DatePicker = ({
   date: upperDate = dayjs(),
-  minDate = '1900-01-01',
-  maxDate = '2100-01-01',
+  minDate = new Date(0) as unknown as string,
+  maxDate = new Date(4102434000000) as unknown as string,
   onChange = (change: any) => console.log({ change }),
   disableFuture = false,
   animateYearScrolling = true,

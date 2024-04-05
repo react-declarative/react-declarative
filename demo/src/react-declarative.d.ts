@@ -9673,7 +9673,7 @@ declare module "react-declarative/utils/templateStr" {
   /**
    * Replaces placeholder strings in a given template string with corresponding values from a context object.
    * @param str - The template string with placeholders to be replaced.
-   * @param context - The object containing values to replace the placeholders.
+   * @param contexts - The objects containing values to replace the placeholders.
    * @returns - The modified string with replaced placeholders.
    */
   export const templateStr: (
@@ -10004,7 +10004,7 @@ declare module "react-declarative/utils/compose" {
 declare module "react-declarative/utils/getMomentStamp" {
   import dayjs from "dayjs";
   export const DIMENSION = "day";
-  export const GENESIS = "1970-01-01";
+  export const GENESIS: string;
   export type stamp = number;
   /**
    * Calculates the moment stamp based on the given end date and dimension.
@@ -10035,10 +10035,9 @@ declare module "react-declarative/utils/getMomentStamp" {
 declare module "react-declarative/utils/getTimeStamp" {
   import dayjs from "dayjs";
   /**
-   * Retrieves the timestamp from the given source.
-   * If no source is provided, the current timestamp is used.
+   * Calculates the timestamp in minutes based on the given source.
    *
-   * @param [source] - The source object to retrieve the timestamp from. Defaults to current time.
+   * @param [source] - The source date and time. Defaults to the current date and time.
    * @returns - The timestamp in minutes.
    */
   export const getTimeStamp: (source?: dayjs.Dayjs) => number;

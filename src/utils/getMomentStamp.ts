@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
 export const DIMENSION = "day";
-export const GENESIS = "1970-01-01";
+export const GENESIS = new Date(0) as unknown as string;
 
 export type stamp = number;
 

@@ -25,8 +25,8 @@ import IAnything from "../../model/IAnything";
 
 import classNames from "../../utils/classNames";
 
-const MIN_DATE = "1900-01-01";
-const MAX_DATE = "2100-01-01";
+const MIN_DATE = new Date(0) as unknown as string;
+const MAX_DATE = new Date(4102434000000) as unknown as string;
 
 const useStyles = makeStyles()((theme) => ({
   container: {
