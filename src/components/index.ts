@@ -39,6 +39,7 @@ export * from './Breadcrumbs2';
 export * from './ErrorBoundary';
 export * from './ColorButton';
 
+export * from './ActionChip';
 export * from './ActionMenu';
 export * from './ActionButton';
 export * from './ActionStopIcon';

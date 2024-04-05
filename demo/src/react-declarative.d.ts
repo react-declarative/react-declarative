@@ -6,6 +6,7 @@
 //   ../../history
 //   ../../@mui/material/TextField
 //   ../../@mui/material/Box
+//   ../../@mui/material/Chip
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
@@ -13,7 +14,6 @@
 //   ../../@mui/material/Stack
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
-//   ../../@mui/material/Chip
 
 declare module "react-declarative" {
   import "./polyfills";
@@ -383,6 +383,7 @@ declare module "react-declarative" {
   export { ActionMenu } from "react-declarative/components";
   export { ActionIcon } from "react-declarative/components";
   export { ActionFab } from "react-declarative/components";
+  export { ActionChip } from "react-declarative/components";
   export {
     ActionModal,
     useActionModal,
@@ -5398,6 +5399,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/Breadcrumbs2";
   export * from "react-declarative/components/ErrorBoundary";
   export * from "react-declarative/components/ColorButton";
+  export * from "react-declarative/components/ActionChip";
   export * from "react-declarative/components/ActionMenu";
   export * from "react-declarative/components/ActionButton";
   export * from "react-declarative/components/ActionStopIcon";
@@ -17201,6 +17203,11 @@ declare module "react-declarative/components/ColorButton" {
   export { default } from "react-declarative/components/ColorButton/ColorButton";
 }
 
+declare module "react-declarative/components/ActionChip" {
+  export * from "react-declarative/components/ActionChip/ActionChip";
+  export { ActionChip } from "react-declarative/components/ActionChip/ActionChip";
+}
+
 declare module "react-declarative/components/ActionMenu" {
   export * from "react-declarative/components/ActionMenu/ActionMenu";
   export { default } from "react-declarative/components/ActionMenu/ActionMenu";
@@ -20845,6 +20852,38 @@ declare module "react-declarative/components/ColorButton/ColorButton" {
     ...props
   }: IColorButtonProps) => JSX.Element;
   export default ColorButton;
+}
+
+declare module "react-declarative/components/ActionChip/ActionChip" {
+  import { ChipProps } from "@mui/material/Chip";
+  interface IActionChipProps
+    extends Omit<
+      ChipProps,
+      keyof {
+        variant: never;
+        deleteIcon: never;
+        onClick: never;
+        onDelete: never;
+        onChange: never;
+      }
+    > {
+    value?: boolean;
+    onChange?: (value: boolean) => void | Promise<void>;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (e: Error) => void;
+    throwError?: boolean;
+  }
+  export const ActionChip: ({
+    value: upperValue,
+    onChange,
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    throwError,
+    ...otherProps
+  }: IActionChipProps) => JSX.Element;
+  export default ActionChip;
 }
 
 declare module "react-declarative/components/ActionMenu/ActionMenu" {

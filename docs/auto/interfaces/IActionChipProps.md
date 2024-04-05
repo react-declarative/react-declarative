@@ -1,0 +1,39 @@
+# IActionChipProps
+
+## Properties
+
+### value
+
+```ts
+value: boolean
+```
+
+### onChange
+
+```ts
+onChange: (value: boolean) => void | Promise<void>
+```
+
+### onLoadStart
+
+```ts
+onLoadStart: () => void
+```
+
+### onLoadEnd
+
+```ts
+onLoadEnd: (isOk: boolean) => void
+```
+
+### fallback
+
+```ts
+fallback: (e: Error) => void
+```
+
+### throwError
+
+```ts
+throwError: boolean
+```

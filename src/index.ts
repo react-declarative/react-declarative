@@ -358,6 +358,7 @@ export { ActionToggle } from './components';
 export { ActionMenu } from './components';
 export { ActionIcon } from './components';
 export { ActionFab } from './components';
+export { ActionChip } from './components';
 export { ActionModal, useActionModal, useActionModalTyped } from './components';
 export { SearchModal, useSearchModal, useSearchModalTyped } from './components';
 

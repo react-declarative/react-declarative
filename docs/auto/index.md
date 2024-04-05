@@ -290,6 +290,7 @@
 - [IErrorBoundaryProps](interfaces/IErrorBoundaryProps.md)
 - [IErrorBoundaryState](interfaces/IErrorBoundaryState.md)
 - [IColorButtonProps](interfaces/IColorButtonProps.md)
+- [IActionChipProps](interfaces/IActionChipProps.md)
 - [IActionMenuProps](interfaces/IActionMenuProps.md)
 - [IActionButtonProps](interfaces/IActionButtonProps.md)
 - [IParams](interfaces/IParams.md)
