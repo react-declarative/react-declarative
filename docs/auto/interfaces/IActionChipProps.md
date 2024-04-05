@@ -2,6 +2,12 @@
 
 ## Properties
 
+### withSingleValue
+
+```ts
+withSingleValue: boolean
+```
+
 ### value
 
 ```ts
@@ -11,7 +17,7 @@ value: boolean
 ### onChange
 
 ```ts
-onChange: (value: boolean) => void | Promise<void>
+onChange: (value: boolean) => boolean | void | Promise<boolean | void>
 ```
 
 ### onLoadStart

@@ -20867,8 +20867,11 @@ declare module "react-declarative/components/ActionChip/ActionChip" {
         onChange: never;
       }
     > {
+    withSingleValue?: boolean;
     value?: boolean;
-    onChange?: (value: boolean) => void | Promise<void>;
+    onChange?: (
+      value: boolean,
+    ) => void | boolean | undefined | Promise<void | boolean | undefined>;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
@@ -20876,6 +20879,7 @@ declare module "react-declarative/components/ActionChip/ActionChip" {
   }
   export const ActionChip: ({
     value: upperValue,
+    withSingleValue,
     onChange,
     onLoadStart,
     onLoadEnd,

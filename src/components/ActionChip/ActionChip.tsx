@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import Chip, { ChipProps } from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -16,8 +16,9 @@ interface IActionChipProps extends Omit<ChipProps, keyof {
     onDelete: never;
     onChange: never;
 }> {
+    withSingleValue?: boolean;
     value?: boolean;
-    onChange?: (value: boolean) => (void | Promise<void>);
+    onChange?: (value: boolean) => (void | boolean | undefined | Promise<void | boolean | undefined>);
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
@@ -26,6 +27,7 @@ interface IActionChipProps extends Omit<ChipProps, keyof {
 
 export const ActionChip = ({
     value: upperValue = false,
+    withSingleValue = false,
     onChange,
     onLoadStart,
     onLoadEnd,
@@ -33,13 +35,16 @@ export const ActionChip = ({
     throwError,
     ...otherProps
 }: IActionChipProps) => {
-    const [value, setValue] = useState(upperValue)
+    const [value, setValue] = useState(() => withSingleValue ? true : upperValue)
 
     const { loading, execute } = useSinglerunAction(async () => {
+        let result: Awaited<ReturnType<Exclude<typeof onChange, undefined>>>;
         if (onChange) {
-            await onChange(!value);
+            result = await onChange(!value);
         }
-        setValue(!value);
+        if (!withSingleValue) {
+            setValue(typeof result === 'boolean' ? result : !value);
+        }
     }, {
         onLoadStart,
         onLoadEnd,
@@ -47,12 +52,32 @@ export const ActionChip = ({
         throwError,
     });
 
+    const removeProps = useMemo(() => {
+        if (withSingleValue) {
+            return {};
+        }
+        return {
+            onDelete: execute,
+            deleteIcon: <Remove />,
+        };
+    }, []);
+
+    const addProps = useMemo(() => {
+        if (withSingleValue) {
+            return {};
+        }
+        return {
+            onDelete: execute,
+            deleteIcon: <Add />,
+        };
+    }, []);
+
     if (loading) {
         return (
             <Chip
                 {...otherProps}
-                onDelete={() => {}}
                 onClick={() => {}}
+                onDelete={() => {}}
                 deleteIcon={
                     <CircularProgress
                         size="12px"
@@ -68,9 +93,8 @@ export const ActionChip = ({
         return (
             <Chip
                 {...otherProps}
-                onDelete={execute}
                 onClick={execute}
-                deleteIcon={<Remove />}
+                {...removeProps}
                 variant="filled"
             />
         );
@@ -79,9 +103,8 @@ export const ActionChip = ({
     return (
         <Chip
             {...otherProps}
-            onDelete={execute}
             onClick={execute}
-            deleteIcon={<Add />}
+            {...addProps}
             variant="outlined"
         />
     );
