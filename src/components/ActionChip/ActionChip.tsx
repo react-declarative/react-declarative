@@ -52,6 +52,7 @@ export const ActionChip = ({
             <Chip
                 {...otherProps}
                 onDelete={() => {}}
+                onClick={() => {}}
                 deleteIcon={
                     <CircularProgress
                         size="12px"
@@ -68,6 +69,7 @@ export const ActionChip = ({
             <Chip
                 {...otherProps}
                 onDelete={execute}
+                onClick={execute}
                 deleteIcon={<Remove />}
                 variant="filled"
             />
@@ -78,6 +80,7 @@ export const ActionChip = ({
         <Chip
             {...otherProps}
             onDelete={execute}
+            onClick={execute}
             deleteIcon={<Add />}
             variant="outlined"
         />
