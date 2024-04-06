@@ -32,6 +32,7 @@ export const useListSelection = ({
             onSelectedRows: (rowIds: RowId[]) => setSelectedRows(rowIds),
         },
         deselectAll,
+        setSelectedRows,
     } as const;
 }
 

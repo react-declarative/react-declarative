@@ -37,6 +37,7 @@ export const useGridSelection = ({
             onSelectedRows: (rowIds: string[]) => setSelectedRows(rowIds),
         },
         deselectAll,
+        setSelectedRows,
     } as const;
 }
 

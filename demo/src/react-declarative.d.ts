@@ -16526,6 +16526,9 @@ declare module "react-declarative/components/List/api/useListSelection" {
       readonly onSelectedRows: (rowIds: RowId[]) => void;
     };
     readonly deselectAll: () => void;
+    readonly setSelectedRows: import("react").Dispatch<
+      import("react").SetStateAction<RowId[]>
+    >;
   };
   export default useListSelection;
 }
@@ -25671,6 +25674,9 @@ declare module "react-declarative/components/Grid/api/useGridSelection" {
       readonly onSelectedRows: (rowIds: string[]) => void;
     };
     readonly deselectAll: () => void;
+    readonly setSelectedRows: import("react").Dispatch<
+      import("react").SetStateAction<string[]>
+    >;
   };
   export default useGridSelection;
 }
