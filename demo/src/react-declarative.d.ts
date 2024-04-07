@@ -866,7 +866,7 @@ declare module "react-declarative" {
   };
   export const crypt: {
     crypt: (salt: string, text: string) => string;
-    decrypt: (salt: string, encoded: any) => string;
+    decrypt: (salt: string, encoded: string) => string;
   };
   export { compose } from "react-declarative/utils/compose";
   export {

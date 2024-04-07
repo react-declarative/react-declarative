@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 import ApiProvider from './context/ApiProvider';
 import OneGenesis from './components/OneGenesis';
@@ -92,8 +92,18 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     const writeTransform = useActualCallback(props.writeTransform || DEFAULT_WRITETRANSFORM);
 
     const memoizedProps = {
-        readTransform,
-        writeTransform,
+        readTransform: useCallback((value: Value, name: string, data: Data, payload: Payload) => {
+            if (value) {
+                return readTransform(value, name, data, payload);
+            }
+            return value;
+        }, []),
+        writeTransform: useCallback((value: Value, name: string, data: Data, payload: Payload) => {
+            if (value) {
+                return writeTransform(value, name, data, payload);
+            }
+            return value;
+        }, []),
     };
 
     const wrappedProps = {
