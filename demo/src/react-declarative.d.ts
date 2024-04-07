@@ -2072,7 +2072,7 @@ declare module "react-declarative/model/IField" {
 
 declare module "react-declarative/model/IEntity" {
   import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
+  import IField, { Value } from "react-declarative/model/IField";
   type exclude = "defaultValue";
   /**
    * Объект сущность представляет собой поле прикладного
@@ -2083,6 +2083,18 @@ declare module "react-declarative/model/IEntity" {
    */
   export interface IEntity<Data = IAnything, Payload = IAnything>
     extends Omit<IField<Data, Payload>, exclude> {
+    readTransform?: (
+      value: Value,
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
+    writeTransform?: (
+      value: Value,
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
     change?: (object: Data, invalidMap: Record<string, boolean>) => void;
     invalidity: (name: string, msg: string, payload: Payload) => void;
     fallback: (e: Error) => void;
@@ -2473,7 +2485,10 @@ declare module "react-declarative/model/IManaged" {
     change: never;
     name: never;
     menu: never;
+    map: never;
     menuItems: never;
+    readTransform: never;
+    writeTransform: never;
   } & IManagedShallow<Data>;
   /**
    * Свойства сущности, обернутой в компонент высшего порядка
@@ -4635,6 +4650,22 @@ declare module "react-declarative/model/IOneProps" {
       onValueChange: (value: Value) => void,
       onChange: (data: Data) => void,
     ) => void;
+    /**
+     * crypt/decrypt значения, получаемого в `makeField` из
+     * управляемого объекта
+     */
+    readTransform?: (
+      value: Value,
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
+    writeTransform?: (
+      value: Value,
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
     /**
      * Коллбек для управления контекстным меню
      */
@@ -11466,6 +11497,8 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -11692,6 +11725,8 @@ declare module "react-declarative/components/One/fields/FileField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -11918,6 +11953,8 @@ declare module "react-declarative/components/One/fields/ComboField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12086,6 +12123,8 @@ declare module "react-declarative/components/One/fields/ComponentField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12332,6 +12371,8 @@ declare module "react-declarative/components/One/fields/ItemsField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12432,6 +12473,8 @@ declare module "react-declarative/components/One/fields/LineField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12544,6 +12587,8 @@ declare module "react-declarative/components/One/fields/ProgressField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12682,6 +12727,8 @@ declare module "react-declarative/components/One/fields/RadioField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -12795,6 +12842,8 @@ declare module "react-declarative/components/One/fields/RatingField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -13011,6 +13060,8 @@ declare module "react-declarative/components/One/fields/SliderField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -13157,6 +13208,8 @@ declare module "react-declarative/components/One/fields/SwitchField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -13531,6 +13584,8 @@ declare module "react-declarative/components/One/fields/TextField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -13720,6 +13775,8 @@ declare module "react-declarative/components/One/fields/DateField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -13909,6 +13966,8 @@ declare module "react-declarative/components/One/fields/TimeField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -14258,6 +14317,8 @@ declare module "react-declarative/components/One/fields/CompleteField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -14390,6 +14451,8 @@ declare module "react-declarative/components/One/fields/TypographyField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -14583,6 +14646,8 @@ declare module "react-declarative/components/One/fields/ChooseField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -14810,6 +14875,8 @@ declare module "react-declarative/components/One/fields/YesNoField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -15316,6 +15383,8 @@ declare module "react-declarative/components/One/fields/DictField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -15500,6 +15569,8 @@ declare module "react-declarative/components/One/fields/TreeField" {
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,
@@ -27873,6 +27944,8 @@ declare module "react-declarative/components/One/components/makeField/makeField"
       isInvalid: isInvalidUpper,
       isIncorrect: isIncorrectUpper,
       isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
       change,
       fallback,
       ready,

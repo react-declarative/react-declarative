@@ -143,6 +143,8 @@ export const OneInternal = <
   outlinePaper: upperOutlinePaper = false,
   transparentPaper: upperTransparentPaper = false,
   readonly,
+  readTransform,
+  writeTransform,
   focus,
   blur,
   click,
@@ -250,6 +252,8 @@ export const OneInternal = <
             ? [field.child]
             : field.fields || [];
           const entity: IEntity<Data> = {
+            readTransform,
+            writeTransform,
             invalidity: field.invalidity || invalidity,
             readonly: readonly || field.readonly,
             prefix: currentPath,
@@ -399,6 +403,8 @@ export const OneInternal = <
             rendered,
             ready: handleReady,
             prefix: currentPath,
+            readTransform,
+            writeTransform,
             readonly: readonly || field.readonly,
             outlinePaper: entity.outlinePaper,
             transparentPaper: entity.transparentPaper,

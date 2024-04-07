@@ -7,6 +7,7 @@ import get from "../../../../../utils/get";
 import IField, { Value } from "../../../../../model/IField";
 import IManaged from "../../../../../model/IManaged";
 import IAnything from "../../../../../model/IAnything";
+import IOneProps from "../../../../../model/IOneProps";
 
 /**
  * Represents the state of a component.
@@ -60,6 +61,7 @@ interface IParams {
   object: IManaged["object"];
   config: IConfig;
   compute: IField["compute"];
+  readTransform: Exclude<IOneProps["readTransform"], undefined>;
   isVisible: Exclude<IField["isVisible"], undefined>;
   isDisabled: Exclude<IField["isDisabled"], undefined>;
   isInvalid: Exclude<IField["isInvalid"], undefined>;
@@ -80,7 +82,7 @@ interface IParams {
  *
  * @returns - The value read from the object or false if the value cannot be computed or found.
  */
-const readValue = ({ compute, name, object, payload, config }: IParams, visible: boolean) => {
+const readValue = ({ compute, readTransform, name, object, payload, config }: IParams, visible: boolean) => {
   /**
    * Используйте флаг WITH_SYNC_COMPUTE с осторожностью: может вызывать
    * тормоза рендеринга на больших формах
@@ -94,7 +96,7 @@ const readValue = ({ compute, name, object, payload, config }: IParams, visible:
    * передавать в свойство value значение null
    */
   if (!compute && name) {
-    return get(object, name) || false;
+    return readTransform(get(object, name), name, object, payload) || false;
   }
   return false;
 };

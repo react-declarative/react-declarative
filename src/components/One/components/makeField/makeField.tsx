@@ -119,6 +119,8 @@ const DEFAULT_MAP = (data: IAnything) => data;
 const DEFAULT_CLICK = () => null;
 const DEFAULT_REF = () => null;
 const DEFAULT_MENU = () => null;
+const DEFAULT_READTRANSFORM = (value: Value) => value;
+const DEFAULT_WRITETRANSFORM = (value: Value) => value;
 
 /**
  * - Оборачивает IEntity в удобную абстракцию IManaged, где сразу
@@ -150,6 +152,8 @@ export function makeField(
         isInvalid: isInvalidUpper,
         isIncorrect: isIncorrectUpper,
         isReadonly: isReadonlyUpper,
+        readTransform = DEFAULT_READTRANSFORM,
+        writeTransform = DEFAULT_WRITETRANSFORM,
         change = DEFAULT_CHANGE,
         fallback = DEFAULT_FALLBACK,
         ready = DEFAULT_READY,
@@ -240,6 +244,7 @@ export function makeField(
             disabled: fieldDisabled,
         }, {
             compute,
+            readTransform,
             config: oneConfig,
             name,
             object,
@@ -363,7 +368,7 @@ export function makeField(
                 const invalid = isInvalid(object, payload) || null;
                 const incorrect = isIncorrect(object, payload) || null;
                 const readonly = isReadonly(object, payload);
-                const newValue = get(object, name);
+                const newValue = readTransform(get(object, name), name, object, payload);
                 let isOk: boolean = newValue !== value;
                 isOk = isOk && !wasInvalid;
                 if (isOk) {
@@ -403,7 +408,7 @@ export function makeField(
                 return;
             } else {
                 const copy = deepClone(object);
-                const check = set(copy, name, debouncedValue);
+                const check = set(copy, name, writeTransform(debouncedValue, name, object, payload));
                 const invalid = isInvalid(copy, payload) || null;
                 const incorrect = isIncorrect(copy, payload) || null;
                 setInvalid(invalid);
@@ -438,7 +443,7 @@ export function makeField(
             }
             const { invalid$: wasInvalid, value$, object$ } = memory;
             const copy = deepClone(object$);
-            set(copy, name, value$);
+            set(copy, name, writeTransform(value$, name, object$, payload));
             const invalid = isInvalid(copy, payload) || null;
             const incorrect = isIncorrect(copy, payload) || null;
             if (!invalid && wasInvalid) {

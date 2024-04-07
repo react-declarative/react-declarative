@@ -1,5 +1,5 @@
 import IAnything from './IAnything';
-import IField from './IField';
+import IField, { Value } from './IField';
 
 type exclude = 'defaultValue'
 
@@ -11,6 +11,8 @@ type exclude = 'defaultValue'
  * всего целевого объекта, следуя паттерну immutable
  */
 export interface IEntity<Data = IAnything, Payload = IAnything> extends Omit<IField<Data, Payload>, exclude> {
+  readTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
+  writeTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
   change?: (object: Data, invalidMap: Record<string, boolean>) => void;
   invalidity: (name: string, msg: string, payload: Payload) => void;
   fallback: (e: Error) => void;

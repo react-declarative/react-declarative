@@ -7,7 +7,7 @@ import PropsProvider from './context/PropsProvider';
 
 import NoSsr from "../NoSsr";
 
-import IField from '../../model/IField';
+import IField, { Value } from '../../model/IField';
 import IOneProps from '../../model/IOneProps';
 import IAnything from "../../model/IAnything";
 import TypedField from "../../model/TypedField";
@@ -27,6 +27,8 @@ const DEFAULT_ONCHANGE = () => null;
 const DEFAULT_ONINVALID = () => null;
 const DEFAULT_ONLOADSTART = () => null;
 const DEFAULT_ONLOADEND = () => null;
+const DEFAULT_READTRANSFORM = (value: Value) => value;
+const DEFAULT_WRITETRANSFORM = (value: Value) => value;
 
 /**
  * Creates a json template engine called `One` with the given props.
@@ -86,6 +88,14 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         ...otherProps
     } = props;
 
+    const readTransform = useActualCallback(props.readTransform || DEFAULT_READTRANSFORM);
+    const writeTransform = useActualCallback(props.writeTransform || DEFAULT_WRITETRANSFORM);
+
+    const memoizedProps = {
+        readTransform,
+        writeTransform,
+    };
+
     const wrappedProps = {
         focus,
         blur,
@@ -114,6 +124,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     const genesisProps = {
         ...otherProps,
         ...wrappedProps,
+        ...memoizedProps,
         createField,
         createLayout,
         features,

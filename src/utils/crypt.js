@@ -19,7 +19,7 @@ export const crypt = (salt, text) => {
 
 /**
  * @param {string} salt
- * @param {string} text
+ * @param {string} encoded
  * @returns {string}
  */
 export const decrypt = (salt, encoded) => {

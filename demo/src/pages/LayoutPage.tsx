@@ -4,7 +4,7 @@ import { useState, Fragment } from 'react';
 
 import { Face } from '@mui/icons-material';
 
-import { TypedField, FieldType, OneTyped, OneSlotFactory, OtherComboSlot, OtherItemsSlot, datetime } from 'react-declarative';
+import { TypedField, FieldType, OneTyped, OneSlotFactory, OtherComboSlot, OtherItemsSlot, datetime, crypt } from 'react-declarative';
 
 import Logger from '../components/Logger';
 
@@ -47,7 +47,7 @@ const fields: TypedField<any, null>[] = [
             {
                 type: FieldType.Text,
                 title: 'First name',
-                defaultValue: 'Petr',
+                defaultValue: '5e737a7a79',
                 description: 'Your first name',
                 leadingIcon: Face,
                 focus() { console.log("focus :-)"); },
@@ -202,6 +202,18 @@ export const LayoutGrid = () => {
                     handler={() => ({
                         lists: { 0: "default" }
                     }) as any}
+                    readTransform={(value, name) => {
+                        if (name === "firstName") {
+                            return value ? crypt.decrypt("TEST", value) : "";
+                        }
+                        return value;
+                    }}
+                    writeTransform={(value, name) => {
+                        if (name === "firstName") {
+                            return value ? crypt.crypt("TEST", value as string) : "";
+                        }
+                        return value;
+                    }}
                     fields={fields}
                     change={(newData) => setData(newData)}
                 />
