@@ -102,6 +102,12 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   focus?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
   blur?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
   /**
+   * crypt/decrypt значения, получаемого в `makeField` из
+   * управляемого объекта
+   */
+  readTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
+  writeTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
+  /**
    * Коллбек для управления контекстным меню
    */
   menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;

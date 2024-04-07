@@ -12,7 +12,10 @@ type Exclude<Data = IAnything> = {
     change: never;
     name: never;
     menu: never;
+    map: never;
     menuItems: never;
+    readTransform: never;
+    writeTransform: never;
 } & IManagedShallow<Data>;
 ```
 

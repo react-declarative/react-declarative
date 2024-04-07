@@ -158,6 +158,21 @@ focus: (name: string, data: Data, payload: Payload, onValueChange: (value: Value
 blur: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+### readTransform
+
+```ts
+readTransform: (value: Value, name: string, data: Data, payload: Payload) => Value
+```
+
+crypt/decrypt значения, получаемого в `makeField` из
+управляемого объекта
+
+### writeTransform
+
+```ts
+writeTransform: (value: Value, name: string, data: Data, payload: Payload) => Value
+```
+
 ### menu
 
 ```ts
