@@ -48,9 +48,9 @@ interface IState {
 
 /**
  * @typedef {object} IModalEntity
- * @property {string} key - The key of the modal entity.
- * @property {string} id - The id of the modal entity.
- * @property {function} render - The render function for the modal entity.
+ * @property key - The key of the modal entity.
+ * @property id - The id of the modal entity.
+ * @property render - The render function for the modal entity.
  */
 const DEFAULT_MODAL: IModalEntity = {
     key: randomString(),
@@ -60,8 +60,8 @@ const DEFAULT_MODAL: IModalEntity = {
 
 /**
  * @typedef {Object} IState
- * @property {Array} modalStack - The stack of modals.
- * @property {number} count - The count.
+ * @property modalStack - The stack of modals.
+ * @property count - The count.
  */
 const INITIAL_STATE: IState = {
     modalStack: [],
@@ -105,8 +105,8 @@ export const ModalManagerProvider = ({
     /**
      * Sets the modal stack and updates the state.
      *
-     * @param {IModalEntity[]} modalStack - The new modal stack.
-     * @returns {void}
+     * @param modalStack - The new modal stack.
+     * @returns
      */
     const setModalStack = useCallback((modalStack: IModalEntity[]) => setState(({ count }) => ({
         modalStack,
@@ -126,10 +126,10 @@ export const ModalManagerProvider = ({
      * A memoized object that encapsulates modal stack operations.
      *
      * @typedef {Object} ModalStack
-     * @property {Array<IModal>} modalStack - The current modal stack.
-     * @property {Function} pop - Removes the first modal from the stack.
-     * @property {Function} push - Adds a new modal to the stack.
-     * @property {Function} clear - Clears the modal stack.
+     * @property modalStack - The current modal stack.
+     * @property pop - Removes the first modal from the stack.
+     * @property push - Adds a new modal to the stack.
+     * @property clear - Clears the modal stack.
      */
     const value = useMemo(() => ({
         modalStack: modalStack$.current,
@@ -144,7 +144,7 @@ export const ModalManagerProvider = ({
     /**
      * Creates a memoized modal entity based on the given modal stack.
      *
-     * @returns {IModalEntity} The memoized modal entity.
+     * @returns The memoized modal entity.
      *
      * @description
      * The `modal` variable is a memoized modal entity created using the `useMemo` hook.
@@ -175,8 +175,8 @@ export const ModalManagerProvider = ({
      *
      * @type {Object}
      * @description Returns a memoized version of the theme object with the MuiBackdrop component's root style overridden to have a transparent background.
-     * @param {Object} theme - The original theme object.
-     * @returns {Object} The customized theme object with the MuiBackdrop component's root style overridden.
+     * @param theme - The original theme object.
+     * @returns The customized theme object with the MuiBackdrop component's root style overridden.
      */
     const backdrop = useMemo(() => createTheme({
         ...theme,

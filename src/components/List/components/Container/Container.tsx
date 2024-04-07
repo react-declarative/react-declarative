@@ -45,13 +45,13 @@ const RESIZE_DELAY = 100;
  * @extends IListState<FilterData, RowData>
  * @extends IListCallbacks<FilterData, RowData>
  *
- * @property {string | undefined} className - The class name for the container.
- * @property {React.CSSProperties | undefined} style - The inline style for the container.
- * @property {React.ReactNode} children - The children elements of the container.
- * @property {() => void} ready - The callback function to be called when the container is ready.
- * @property {IListProps["chips"]} listChips - The list of chips for the container.
- * @property {(instance: HTMLDivElement) => void | undefined} ref - The callback function to be called when the container is mounted.
- * @property {IAutoSizerProps["onResize"] | undefined} onResize - The callback function to be called when the container is resized.
+ * @property className - The class name for the container.
+ * @property style - The inline style for the container.
+ * @property children - The children elements of the container.
+ * @property ready - The callback function to be called when the container is ready.
+ * @property listChips - The list of chips for the container.
+ * @property ref - The callback function to be called when the container is mounted.
+ * @property onResize - The callback function to be called when the container is resized.
  */
 interface IContainerProps<
   FilterData extends {} = IAnything,
@@ -88,7 +88,7 @@ interface IContainerProps<
  * The returned object contains various CSS classes (keys) with their corresponding styles (values).
  * These styles can be applied to the component's elements using the className property.
  *
- * @returns {object} An object containing CSS classes and their styles.
+ * @returns An object containing CSS classes and their styles.
  */
 const useStyles = makeStyles()({
   root: {
@@ -240,12 +240,12 @@ export const Container = <
    * Determines whether the component should render in dense mode.
    *
    * @function
-   * @returns {boolean} - True if the component should render in dense mode, false otherwise.
-   * @param {boolean} isDenseProp - Indicates if the component should render in dense mode.
-   * @param {boolean} isMobile - Indicates if the component is being rendered on a mobile device.
-   * @param {number} denseHeight - The height threshold for the component to be considered dense.
-   * @param {Object} rootElementSize - The size of the root element.
-   * @param {number} rootElementSize.height - The height of the root element.
+   * @returns - True if the component should render in dense mode, false otherwise.
+   * @param isDenseProp - Indicates if the component should render in dense mode.
+   * @param isMobile - Indicates if the component is being rendered on a mobile device.
+   * @param denseHeight - The height threshold for the component to be considered dense.
+   * @param rootElementSize - The size of the root element.
+   * @param rootElementSize.height - The height of the root element.
    */
   const isDense = useMemo(() => {
     if (isDenseProp) {

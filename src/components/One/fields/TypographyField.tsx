@@ -19,16 +19,16 @@ export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
    * Retrieves the `placeholder` property from the given `IField` object.
    * The `placeholder` property is a key of type `PickProp`.
    *
-   * @param {IField<Data, Payload>} field - The input field object.
-   * @returns {PickProp<IField<Data, Payload>, 'placeholder'>} - The `placeholder` property of the field object.
+   * @param field - The input field object.
+   * @returns - The `placeholder` property of the field object.
    */
   placeholder?: PickProp<IField<Data, Payload>, 'placeholder'>;
   /**
    * Represents the `typoVariant` property of an object.
    * @typedef {PickProp<IField<Data, Payload>, 'typoVariant'>} TypoVariant
-   * @property {IField<Data, Payload>} - The object from which the `typoVariant` property is picked.
-   * @property {'typoVariant'} - The name of the property being picked.
-   * @property {*} - The value of the `typoVariant` property.
+   * @property - The object from which the `typoVariant` property is picked.
+   * @property - The name of the property being picked.
+   * @property - The value of the `typoVariant` property.
    */
   typoVariant?: PickProp<IField<Data, Payload>, 'typoVariant'>;
   /**
@@ -39,8 +39,8 @@ export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of the data in the IField interface.
    * @template Payload - The type of the payload in the IField interface.
-   * @param {IField<Data, Payload>} obj - The object from which to get the className property.
-   * @returns {PickProp<IField<Data, Payload>, 'className'> | undefined} The value of the className property, or undefined if it doesn't exist.
+   * @param obj - The object from which to get the className property.
+   * @returns The value of the className property, or undefined if it doesn't exist.
    */
   className?: PickProp<IField<Data, Payload>, 'className'>;
   /**

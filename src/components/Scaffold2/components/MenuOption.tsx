@@ -60,10 +60,10 @@ const MenuGroup = ({
    * If `hoverPath` is equal to `option.path`, the value of `nestedLifted` is `true`.
    * Otherwise, the value of `nestedLifted` is determined by checking if `hoverPath` starts with `option.path`.
    *
-   * @returns {boolean} The calculated value of the `nestedLifted` variable.
+   * @returns The calculated value of the `nestedLifted` variable.
    *
-   * @param {string} hoverPath - The current hover path
-   * @param {string} option.path - The value of the option path
+   * @param hoverPath - The current hover path
+   * @param option.path - The value of the option path
    *
    */
   const nestedLifted = useMemo(() => {
@@ -79,7 +79,7 @@ const MenuGroup = ({
   /**
    * Calculate the lifted value based on the specified conditions.
    *
-   * @returns {boolean} The computed lifted value.
+   * @returns The computed lifted value.
    */
   const computeLifted = useActualCallback(
     () => option.lifted || activeOptionPath.includes(option.path)

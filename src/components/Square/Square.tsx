@@ -16,7 +16,7 @@ interface ISquareProps extends BoxProps {
  * A function that generates and returns a styles object using the makeStyles function from the Material-UI library.
  * The styles object contains CSS properties for different elements in a component.
  *
- * @returns {object} The generated styles object.
+ * @returns The generated styles object.
  */
 const useStyles = makeStyles()({
     root: {

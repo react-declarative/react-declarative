@@ -20,22 +20,22 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload The type of payload associated with the field.
    * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
    *
-   * @property {string} inputType - The type of input for the field.
+   * @property inputType - The type of input for the field.
    */
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   /**
    * Represents the input mode of a field in the data object payload.
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
-   * @property {string} inputMode - The input mode of the field.
+   * @property inputMode - The input mode of the field.
    */
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
   /**
    * Represents the input pattern of a field.
    *
    * @typedef {Object} inputPattern
-   * @property {string} [inputPattern.prop1] - The first property of the input pattern.
-   * @property {boolean} [inputPattern.prop2] - The second property of the input pattern.
+   * @property [inputPattern.prop1] - The first property of the input pattern.
+   * @property [inputPattern.prop2] - The second property of the input pattern.
    *
    * @typedef {import('./IField').IField<Data, Payload>} IField
    * @typedef {import('./IField').Data} Data
@@ -47,12 +47,12 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the optional prop "inputAutocomplete" for a field.
    *
    * @typedef {object} PickProp
-   * @property {IField<Data, Payload>} _field - The field to pick the prop from.
-   * @property {"inputAutocomplete"} _prop - The name of the prop to pick.
+   * @property _field - The field to pick the prop from.
+   * @property _prop - The name of the prop to pick.
    *
-   * @param {PickProp<IField<Data, Payload>, "inputAutocomplete">} inputAutocomplete - The value of the "inputAutocomplete" prop.
+   * @param inputAutocomplete - The value of the "inputAutocomplete" prop.
    *
-   * @returns {void}
+   * @returns
    */
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
   /**
@@ -60,15 +60,15 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template T - The type of the object to pick the "description" property from.
    * @template K - The keys of the properties in T.
-   * @param {T} obj - The object to pick the "description" property from.
-   * @returns {Pick<T, K>} - The picked object with "description" property.
+   * @param obj - The object to pick the "description" property from.
+   * @returns - The picked object with "description" property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
    * Reduces the size of the label for a given field.
    *
-   * @param {PickProp<IField<Data>, "labelShrink">} labelShrink - The label shrink configuration for a field.
-   * @returns {undefined}
+   * @param labelShrink - The label shrink configuration for a field.
+   * @returns
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
@@ -78,7 +78,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The payload type of the field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "keepRaw">} KeepRaw
-   * @property {boolean} keepRaw - Indicates whether to keep the raw data.
+   * @property keepRaw - Indicates whether to keep the raw data.
    */
   keepRaw?: PickProp<IField<Data, Payload>, "keepRaw">;
   /**
@@ -87,10 +87,10 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template T - The type of the object.
    * @template K - The keyof `T` representing the property to pick.
    *
-   * @param {T} obj - The object from which to pick the property.
-   * @param {K} field - The key representing the property to pick.
+   * @param obj - The object from which to pick the property.
+   * @param field - The key representing the property to pick.
    *
-   * @returns {Pick<T, K>[K]} - The value of the picked property.
+   * @returns - The value of the picked property.
    */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   /**
@@ -104,8 +104,8 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The payload type of the "IField" object.
    * @template Key - The specific property key to pick from the "IField" object.
    * @typedef PickProp
-   * @property {IField<Data, Payload>} object - The object from which the property is picked.
-   * @property {Key} prop - The specific property key to pick.
+   * @property object - The object from which the property is picked.
+   * @property prop - The specific property key to pick.
    * @returns The type of the picked property.
    */
   title?: PickProp<IField<Data, Payload>, "title">;
@@ -121,10 +121,10 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents a variable that holds the value of the "tipSelect" property.
    *
    * @typedef {PickProp<IField<Data, Payload>, "tipSelect">} TipSelect
-   * @property {IField<Data, Payload>} IField - Represents a generic field object.
-   * @property {Data} Data - Represents the generic data type.
-   * @property {Payload} Payload - Represents the generic payload type.
-   * @property {string} tipSelect - The value of the "tipSelect" property.
+   * @property IField - Represents a generic field object.
+   * @property Data - Represents the generic data type.
+   * @property Payload - Represents the generic payload type.
+   * @property tipSelect - The value of the "tipSelect" property.
    */
   tipSelect?: PickProp<IField<Data, Payload>, "tipSelect">;
   /**
@@ -135,16 +135,16 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Field - The type of field.
    *
    * @typedef PickProp - A utility type for picking properties from a type.
-   * @param {Field} field - The field to pick the `placeholder` property from.
+   * @param field - The field to pick the `placeholder` property from.
    *
-   * @returns {string | undefined} - The `placeholder` property of the given field, if present. Otherwise, `undefined`.
+   * @returns - The `placeholder` property of the given field, if present. Otherwise, `undefined`.
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
    * Retrieves the "readonly" property from the provided field object.
    *
-   * @param {IField<Data, Payload>} field - The field object.
-   * @returns {PickProp<IField<Data, Payload>, "readonly">} - The value of the "readonly" property.
+   * @param field - The field object.
+   * @returns - The value of the "readonly" property.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
@@ -161,21 +161,21 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledProp
    *
-   * @property {boolean} disabled - Specifies whether the field is disabled.
+   * @property disabled - Specifies whether the field is disabled.
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents a reference to a group within a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "groupRef">} GroupRef
-   * @property {string} groupRef - The identifier of the group.
+   * @property groupRef - The identifier of the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   /**
    * Represents the input reference of a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputRef">} InputRef
-   * @property {string} inputRef - The reference to the input element.
+   * @property inputRef - The reference to the input element.
    *
    */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
@@ -197,7 +197,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * Determines whether input formatting is allowed for a given field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
-   * @property {boolean} inputFormatterAllowed - Specifies if input formatting is allowed.
+   * @property inputFormatterAllowed - Specifies if input formatting is allowed.
    */
   inputFormatterAllowed?: PickProp<
     IField<Data, Payload>,
@@ -217,7 +217,7 @@ export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data The data type of the field.
    * @template Payload The payload type of the field.
    *
-   * @param {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace The object containing the "inputFormatterReplace" property.
+   * @param inputFormatterReplace The object containing the "inputFormatterReplace" property.
    *
    */
   inputFormatterReplace?: PickProp<

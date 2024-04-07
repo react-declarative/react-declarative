@@ -26,7 +26,7 @@ const LABEL_SHRINK = 500;
 /**
  * A function that returns an object with style classes.
  *
- * @returns {Object} The style classes object.
+ * @returns The style classes object.
  */
 const useStyles = makeStyles()({
     button: {
@@ -83,9 +83,9 @@ export const ActionFab = ({
     /**
      * Sets up a click event handler for a given element.
      *
-     * @param {function} callback - The callback function to be executed when the element is clicked.
-     * @param {Event} e - The event object passed to the callback function.
-     * @returns {void}
+     * @param callback - The callback function to be executed when the element is clicked.
+     * @param e - The event object passed to the callback function.
+     * @returns
      */
     const handleClick = useActualCallback((e: any) => {
         e.stopPropagation();

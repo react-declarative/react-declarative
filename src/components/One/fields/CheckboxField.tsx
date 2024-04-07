@@ -21,9 +21,9 @@ export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
    * @template T - The type of the variable.
    * @template K - The key to pick from the variable.
    *
-   * @param {T} variable - The variable to pick the property from.
+   * @param variable - The variable to pick the property from.
    *
-   * @returns {Pick<T, K>} - The picked property.
+   * @returns - The picked property.
    */
   title?: PickProp<IField<Data, Payload>, 'title'>;
   /**
@@ -33,9 +33,9 @@ export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The type of payload used in the field.
    * @template T - The type of the field object.
    *
-   * @param {T} field - The field object.
+   * @param field - The field object.
    *
-   * @returns {PickProp<T, "readonly">}
+   * @returns
    * The value of the 'readonly' property from the field object.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -45,9 +45,9 @@ export interface ICheckboxFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of the data payload.
    * @template Payload - The type of the payload object.
    *
-   * @param {PickProp<IField<Data, Payload>, "disabled">} disabled - The value of the "disabled" property.
+   * @param disabled - The value of the "disabled" property.
    *
-   * @returns {void}
+   * @returns
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**

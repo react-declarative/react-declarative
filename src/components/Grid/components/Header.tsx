@@ -51,13 +51,13 @@ interface IHeaderProps<T = RowData> {
  * Returns an object with styles for a table component.
  *
  * @function useStyles
- * @returns {Object} The styles object for the table.
+ * @returns The styles object for the table.
  *
- * @param {Object} theme - The theme object provided by the Material-UI theme provider.
- * @param {string} theme.palette.background.default - The default background color for the theme.
- * @param {strunumberg} theme.palette.getContrastText - The function to get the contrast text color for a given background color.
+ * @param theme - The theme object provided by the Material-UI theme provider.
+ * @param theme.palette.background.default - The default background color for the theme.
+ * @param theme.palette.getContrastText - The function to get the contrast text color for a given background color.
  *
- * @returns {Object} The styles object for the table.
+ * @returns The styles object for the table.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -155,8 +155,8 @@ export const Header = <T extends RowData>({
   /**
    * Callback function used to handle a reference to an HTMLDivElement.
    *
-   * @param {HTMLDivElement} ref - The reference to the HTMLDivElement.
-   * @returns {void}
+   * @param ref - The reference to the HTMLDivElement.
+   * @returns
    */
   const handleRef = useCallback(
     (ref: HTMLDivElement | null) => {
@@ -175,7 +175,7 @@ export const Header = <T extends RowData>({
   /**
    * Renders a checkbox component based on the current selection mode.
    *
-   * @returns {JSX.Element|null} The rendered checkbox component or null if the selection mode is not valid.
+   * @returns The rendered checkbox component or null if the selection mode is not valid.
    */
   const renderCheckbox = useCallback(() => {
     if (selectionMode === SelectionMode.Single) {

@@ -70,7 +70,7 @@ export const Scaffold = <T extends any = any> ({
     /**
      * Resolves the roles based on the provided roles and payload.
      *
-     * @returns {Promise<*>} - The resolved roles.
+     * @returns - The resolved roles.
      */
     const resolveRoles = useMemo(() => async () => {
         if (typeof roles === 'function') {
@@ -85,10 +85,10 @@ export const Scaffold = <T extends any = any> ({
      * based on their respective function values using the provided payload.
      * This function is memoized using useMemo to optimize performance.
      *
-     * @returns {Promise<Array<IMenuOption>>} - A promise that resolves to an array of updated menu options.
+     * @returns - A promise that resolves to an array of updated menu options.
      *
-     * @param {Array<IMenuOption>} options - The original options array.
-     * @param {Object} payload - The payload object used to update the option properties.
+     * @param options - The original options array.
+     * @param payload - The payload object used to update the option properties.
      *
      */
     const resolveOptions = useMemo(() => async () => {

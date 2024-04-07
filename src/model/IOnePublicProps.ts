@@ -24,9 +24,9 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of the event payload.
      * @template Field - The type of the focused field.
      *
-     * @param {Data} data - The current data of the component.
-     * @param {Payload} payload - The event payload.
-     * @param {Field} field - The focused field.
+     * @param data - The current data of the component.
+     * @param payload - The event payload.
+     * @param field - The focused field.
      *
      * @return {void} - This function does not return any value.
      */
@@ -35,9 +35,9 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * Called when the blur event is triggered on the component.
      *
      * @callback onBlurCallback
-     * @param {Data} data - The data related to the component.
-     * @param {Payload} payload - The payload associated with the blur event.
-     * @param {Field} field - The field on which the blur event occurred.
+     * @param data - The data related to the component.
+     * @param payload - The payload associated with the blur event.
+     * @param field - The field on which the blur event occurred.
      */
     onBlur?: IOneProps<Data, Payload, Field>['blur'];
     /**
@@ -49,11 +49,11 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @typeParam Payload - The payload type for the menu.
      * @typeParam Field - The field type for the menu.
      *
-     * @param {Data} data - The data associated with the menu.
-     * @param {Payload} payload - The payload associated with the menu.
-     * @param {Field} field - The field associated with the menu.
+     * @param data - The data associated with the menu.
+     * @param payload - The payload associated with the menu.
+     * @param field - The field associated with the menu.
      *
-     * @returns {void}
+     * @returns
      */
     onMenu?: IOneProps<Data, Payload, Field>['menu'];
     /**
@@ -63,7 +63,7 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of the payload being used.
      * @template Field - The type of the field being manipulated.
      *
-     * @property {IOneProps<Data, Payload, Field>['ready']} [onReady] - Optional property that defines a callback
+     * @property [onReady] - Optional property that defines a callback
      * function to be executed when the component is ready.
      */
     onReady?: IOneProps<Data, Payload, Field>['ready'];
@@ -75,9 +75,9 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of payload being passed to the callback function.
      * @template Field - The type of field being modified.
      *
-     * @param {Payload} payload - The payload passed to the callback function.
-     * @param {Field} field - The field being modified.
-     * @returns {void}
+     * @param payload - The payload passed to the callback function.
+     * @param field - The field being modified.
+     * @returns
      */
     onChange?: IOneProps<Data, Payload, Field>['change'];
     /**
@@ -87,11 +87,11 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of payload that is passed to the function.
      * @template Field - The type of field used by the component.
      *
-     * @param {Data} data - The data associated with the component.
-     * @param {Payload} payload - The payload passed to the function.
-     * @param {Field} field - The field used by the component.
+     * @param data - The data associated with the component.
+     * @param payload - The payload passed to the function.
+     * @param field - The field used by the component.
      *
-     * @returns {void}
+     * @returns
      */
     onClick?: IOneProps<Data, Payload, Field>['click'];
     /**
@@ -114,9 +114,9 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of payload passed to the event handler.
      * @template Field - The type of field associated with the event.
      *
-     * @param {Payload} payload - The payload passed to the event handler.
+     * @param payload - The payload passed to the event handler.
      *
-     * @returns {void}
+     * @returns
      */
     onLoadStart?: IOneProps<Data, Payload, Field>['loadStart'];
     /**
@@ -128,10 +128,10 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @template Payload - The type of the payload sent with the load operation.
      * @template Field - The type of the field affected by the load operation.
      *
-     * @param {Data} data - The loaded data.
-     * @param {Payload} payload - The payload sent with the load operation.
-     * @param {Field} field - The field affected by the load operation.
-     * @returns {void}
+     * @param data - The loaded data.
+     * @param payload - The payload sent with the load operation.
+     * @param field - The field affected by the load operation.
+     * @returns
      */
     onLoadEnd?: IOneProps<Data, Payload, Field>['loadEnd'];
     /**

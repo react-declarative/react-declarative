@@ -20,8 +20,8 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of the data associated with the field.
    * @template Payload - The type of the payload associated with the field.
-   * @param {IField<Data, Payload>} field - The field object from which to pick the "description" property.
-   * @returns {Pick<IField<Data, Payload>, "description">} - The picked "description" property.
+   * @param field - The field object from which to pick the "description" property.
+   * @returns - The picked "description" property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -31,9 +31,9 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The type of payload associated with the field.
    * @template T - The type of the input object from which to pick the property.
    * @template K - The type of the property to be picked.
-   * @param {T} obj - The input object from which to pick the property.
-   * @param {K} prop - The property to be picked from the input object.
-   * @returns {string} The value of the "placeholder" property of the provided PickProp type.
+   * @param obj - The input object from which to pick the property.
+   * @param prop - The property to be picked from the input object.
+   * @returns The value of the "placeholder" property of the provided PickProp type.
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
@@ -67,11 +67,11 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the configuration options for a virtual list box component.
    *
    * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
-   * @property {string} fieldName - The name of the field associated with the virtual list box.
-   * @property {number} pageSize - The number of items to display per page in the virtual list box.
-   * @property {boolean} showSearch - Determines whether to display a search input in the virtual list box.
-   * @property {boolean} multiSelect - Determines whether the virtual list box allows multiple selection.
-   * @property {string[]} selectedItems - The array of selected item values in the virtual list box.
+   * @property fieldName - The name of the field associated with the virtual list box.
+   * @property pageSize - The number of items to display per page in the virtual list box.
+   * @property showSearch - Determines whether to display a search input in the virtual list box.
+   * @property multiSelect - Determines whether the virtual list box allows multiple selection.
+   * @property selectedItems - The array of selected item values in the virtual list box.
    */
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
   /**
@@ -87,9 +87,9 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data contained in the 'IField' object.
    * @template Payload - The type of payload contained in the 'IField' object.
    *
-   * @param {readonly: PickProp<IField<Data, Payload>, "readonly">} readonly - The value of the 'readonly' property.
+   * @param readonly - The value of the 'readonly' property.
    *
-   * @returns {undefined} - This function does not return a value.
+   * @returns - This function does not return a value.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
@@ -100,7 +100,7 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
    *
-   * @property {boolean} disabled - A boolean value indicating whether the field is disabled or not.
+   * @property disabled - A boolean value indicating whether the field is disabled or not.
    *                                `true` represents that the field is disabled, while `false` indicates it is enabled.
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
@@ -117,16 +117,16 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The type of the payload object.
    * @template T - The type of the object containing the "title" property.
    *
-   * @param {T} object - The object from which to pick the "title" property.
+   * @param object - The object from which to pick the "title" property.
    *
-   * @returns {PickProp<T, "title">} - The value of the "title" property.
+   * @returns - The value of the "title" property.
    */
   title?: PickProp<IField<Data, Payload>, "title">;
   /**
    * Represents the `groupRef` property of an object.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
-   * @property {string} groupRef - The reference to a group of fields.
+   * @property groupRef - The reference to a group of fields.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }

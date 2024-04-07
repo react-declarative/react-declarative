@@ -32,7 +32,7 @@ interface ISortModalProps {
 /**
  * Function to create and return a makeStyles object with specific CSS styles.
  *
- * @returns {Object} The makeStyles object with the defined CSS styles.
+ * @returns The makeStyles object with the defined CSS styles.
  */
 const useStyles = makeStyles()((theme, _, classes) => ({
     inactive: {
@@ -128,8 +128,8 @@ export const SortModal = ({
      * Sortable columns.
      *
      * @typedef {Object[]} SortableColumns
-     * @property {boolean} sortable - Indicates if the column is sortable.
-     * @property {*} other - Other properties of the column.
+     * @property sortable - Indicates if the column is sortable.
+     * @property other - Other properties of the column.
      */
     const sortableColumns = columns
         .map(({ sortable = true, ...other }) => ({ sortable, ...other }))

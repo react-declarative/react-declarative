@@ -104,7 +104,7 @@ export const InfiniteView = ({
    * This variable is generated using the useMemo hook. It memoizes the value of the upperChildren variable
    * and updates the value only when the upperChildren variable changes.
    *
-   * @returns {*} The memoized children value.
+   * @returns The memoized children value.
    */
   const children = useMemo(() => {
     isChildrenChanged.current = true;
@@ -126,7 +126,7 @@ export const InfiniteView = ({
   /**
    * Handles a data request by invoking a callback function asynchronously.
    *
-   * @param {boolean} initial - Indicates whether it is an initial data request.
+   * @param initial - Indicates whether it is an initial data request.
    */
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (currentLoading) {
@@ -161,7 +161,7 @@ export const InfiniteView = ({
    * Then it creates a new IntersectionObserver to observe changes in the target element.
    * If the target element is intersecting with the viewport, and conditions for requesting more data are met, it calls the appropriate data request function passed in the props.
    *
-   * @param {HTMLDivElement | null} node - The reference to the HTMLDivElement.
+   * @param node - The reference to the HTMLDivElement.
    */
   const handleRef = useCallback(
     (node: HTMLDivElement | null) => {
@@ -206,7 +206,7 @@ export const InfiniteView = ({
   /**
    * A callback function to handle scrolling behavior.
    *
-   * @param {HTMLDivElement | null} node - The HTML element on which the scroll behavior will be applied.
+   * @param node - The HTML element on which the scroll behavior will be applied.
    */
   const handleScroll = useCallback((node: HTMLDivElement | null) => {
     if (!node) {

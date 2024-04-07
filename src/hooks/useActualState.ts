@@ -17,7 +17,7 @@ export const useActualState = <S = undefined>(initialState?: S | (() => S)) => {
     /**
      * Updates the state using the provided dispatch function or value.
      *
-     * @param {(dispatch: Function | S) => S} dispatch - The dispatch function which receives the current state and returns a new state, or a new state value directly.
+     * @param dispatch - The dispatch function which receives the current state and returns a new state, or a new state value directly.
      */
     const handleState: typeof setState = useCallback((dispatch) => {
         let newState: S;

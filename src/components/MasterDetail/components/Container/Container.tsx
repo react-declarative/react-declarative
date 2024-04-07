@@ -73,12 +73,12 @@ interface IContainerProps {
  * Represents a container component with optional passthrough behavior.
  *
  * @typedef {Object} IContainerProps
- * @property {boolean} passthrough - Indicates if the children should be passed through the container.
- * @property {React.ReactNode} children - The children components to render inside the container.
- * @property {string} className - The CSS classes to apply to the container.
- * @property {Object} style - The inline style to apply to the container.
- * @property {Object} sx - The Box component's sx prop to apply to the container.
- * @property {string} label - The label to display above the container content.
+ * @property passthrough - Indicates if the children should be passed through the container.
+ * @property children - The children components to render inside the container.
+ * @property className - The CSS classes to apply to the container.
+ * @property style - The inline style to apply to the container.
+ * @property sx - The Box component's sx prop to apply to the container.
+ * @property label - The label to display above the container content.
  */
 export const Container = ({
     passthrough = false,

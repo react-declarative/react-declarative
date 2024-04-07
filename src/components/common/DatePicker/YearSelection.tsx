@@ -10,10 +10,10 @@ import dayjs from 'dayjs';
 /**
  * A variable that holds the styles for a component.
  * @typedef {object} useStyles
- * @property {string} container - The styles for the container.
- * @property {string} yearItem - The styles for the year item.
- * @property {string} selectedYear - The styles for the selected year item.
- * @property {string} disabled - The styles for the disabled item.
+ * @property container - The styles for the container.
+ * @property yearItem - The styles for the year item.
+ * @property selectedYear - The styles for the selected year item.
+ * @property disabled - The styles for the disabled item.
  */
 const useStyles = makeStyles()((theme) => ({
   container: {
@@ -94,8 +94,8 @@ export const YearSelection = ({
   /**
    * Callback function triggered when a year is selected.
    *
-   * @param {number} year - The selected year.
-   * @returns {void}
+   * @param year - The selected year.
+   * @returns
    */
   const onYearSelect = useCallback((year: number) => {
     const newDate = date.clone().set('year', year);

@@ -64,21 +64,21 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Retrieves the "element" property from the given object
    *
-   * @param {PickProp<IField<Data, Payload>, "element">} element - The object to extract the "element" property from
-   * @returns {PickProp<IField<Data, Payload>, "element">} - The value of the "element" property
+   * @param element - The object to extract the "element" property from
+   * @returns - The value of the "element" property
    */
   element?: PickProp<IField<Data, Payload>, "element">;
   /**
    * Represents a property of an object, where the key is "groupRef" and the value is of type PickProp<IField<Data, Payload>, "groupRef">.
    *
-   * @property {PickProp<IField<Data, Payload>, "groupRef">} groupRef - The 'groupRef' property of the object.
+   * @property groupRef - The 'groupRef' property of the object.
    */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   /**
    * Retrieves the "className" property from an object of type PickProp<IField<Data, Payload>, "className">.
    *
-   * @param {PickProp<IField<Data, Payload>, "className">} obj - The input object containing the "className" property.
-   * @returns {undefined | PickProp<IField<Data, Payload>, "className">} - The value of the "className" property if present, otherwise undefined.
+   * @param obj - The input object containing the "className" property.
+   * @returns - The value of the "className" property if present, otherwise undefined.
    * @throws {TypeError} If the input object is not of the expected type.
    */
   className?: PickProp<IField<Data, Payload>, "className">;
@@ -92,9 +92,9 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template T - The type of the variable.
    * @template K - The type of the property to be picked.
-   * @param {T} obj - The variable from which to pick the property.
-   * @param {K} prop - The property to pick from the variable.
-   * @returns {Pick<T, K>} - The picked property value.
+   * @param obj - The variable from which to pick the property.
+   * @param prop - The property to pick from the variable.
+   * @returns - The picked property value.
    */
   style?: PickProp<IField<Data, Payload>, "style">;
   /**
@@ -104,9 +104,9 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The data type.
    * @template Payload - The payload type.
    *
-   * @param {IField<Data, Payload>} - The input field.
+   * @param - The input field.
    *
-   * @returns {PickProp<IField<Data, Payload>, "sx"> | undefined} - The value of the 'sx' property.
+   * @returns - The value of the 'sx' property.
    */
   sx?: PickProp<IField<Data, Payload>, "sx">;
 }
@@ -130,7 +130,7 @@ interface IComponentFieldPrivate<Data = IAnything> {
 /**
  * A function that returns a style object based on the given configuration
  *
- * @returns {Object} The style object containing the defined CSS properties
+ * @returns The style object containing the defined CSS properties
  */
 const useStyles = makeStyles()({
   root: {

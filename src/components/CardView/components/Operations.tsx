@@ -30,7 +30,7 @@ interface IOperationsProps extends BoxProps {
  *
  * @name useStyles
  * @function
- * @returns {Object} The CSS styles object.
+ * @returns The CSS styles object.
  *
  */
 const useStyles = makeStyles()({

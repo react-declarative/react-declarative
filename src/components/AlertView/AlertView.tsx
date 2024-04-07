@@ -27,7 +27,7 @@ interface IAlertViewProps extends StackProps {
 /**
  * Returns an object with CSS classes generated using the makeStyles function.
  *
- * @returns {Object} The CSS classes object.
+ * @returns The CSS classes object.
  */
 const useStyles = makeStyles()({
     hidden: {

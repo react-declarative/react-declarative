@@ -61,12 +61,12 @@ interface ICalendarProps {
  * Represents a calendar component.
  *
  * @typedef {object} ICalendarProps
- * @property {function} onChange - Callback function triggered when a date is selected.
- * @property {function} onHeaderMonthClick - Callback function triggered when the header month is clicked.
- * @property {function} onHeaderYearClick- Callback function triggered when the header year is clicked.
- * @property {dayjs.Dayjs} minDate - The minimum selectable date.
- * @property {dayjs.Dayjs} maxDate - The maximum selectable date.
- * @property {dayjs.Dayjs} date - The currently selected date.
+ * @property onChange - Callback function triggered when a date is selected.
+ * @property onHeaderMonthClick - Callback function triggered when the header month is clicked.
+ * @property onHeaderYearClick- Callback function triggered when the header year is clicked.
+ * @property minDate - The minimum selectable date.
+ * @property maxDate - The maximum selectable date.
+ * @property date - The currently selected date.
  */
 export const Calendar = ({
   onChange,
@@ -115,7 +115,7 @@ export const Calendar = ({
   /**
    * Renders the days of a given week.
    *
-   * @param {dayjs.Dayjs} week - The week to render the days for.
+   * @param week - The week to render the days for.
    * @return {Array<JSX.Element>} - The rendered days as an array of JSX elements.
    */
   const renderDays = useCallback(
@@ -146,7 +146,7 @@ export const Calendar = ({
   /**
    * Renders the weeks within the current month.
    *
-   * @returns {React.Element[]} The rendered weeks.
+   * @returns The rendered weeks.
    *
    * @remarks
    * This function uses the currentMonth and renderDays variables to determine

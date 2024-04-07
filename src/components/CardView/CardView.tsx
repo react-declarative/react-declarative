@@ -34,9 +34,9 @@ const DEFAULT_SKIP_STEP = 25;
  *
  * @typedef {function} useStyles
  *
- * @param {object} [overrides] - Optional overrides to customize the generated CSS classes.
+ * @param [overrides] - Optional overrides to customize the generated CSS classes.
  *
- * @returns {object} - The generated CSS classes.
+ * @returns - The generated CSS classes.
  *
  * @example
  *
@@ -118,8 +118,8 @@ export const CardView = <ItemData extends IItemData = any>(
   /**
    * Set the loading state.
    *
-   * @param {boolean} loading - The loading state value.
-   * @returns {void}
+   * @param loading - The loading state value.
+   * @returns
    */
   const setLoading = useCallback(
     (loading: boolean) => setState((prevState) => ({ ...prevState, loading })),
@@ -130,7 +130,7 @@ export const CardView = <ItemData extends IItemData = any>(
   /**
    * Handles a data request.
    *
-   * @param {boolean} initial - Indicates if it is the initial request.
+   * @param initial - Indicates if it is the initial request.
    */
   const handleDataRequest = useActualCallback(async (initial: boolean) => {
     if (state.loading) {
@@ -201,12 +201,12 @@ export const CardView = <ItemData extends IItemData = any>(
   /**
    * Represents the context object for managing state in a component.
    * @type {Object}
-   * @property {Object} state - The current state object.
-   * @property {Object} action - Object containing functions to update the state.
-   * @property {Function} action.setSearch - Function to set the search value in the state.
-   * @property {Function} action.setIsAllSelected - Function to set the isAllSelected value in the state.
-   * @property {Function} action.setSelectedIds - Function to set the selectedIds value in the state.
-   * @property {Function} action.setMenuOpened - Function to set the menuOpened value in the state.
+   * @property state - The current state object.
+   * @property action - Object containing functions to update the state.
+   * @property action.setSearch - Function to set the search value in the state.
+   * @property action.setIsAllSelected - Function to set the isAllSelected value in the state.
+   * @property action.setSelectedIds - Function to set the selectedIds value in the state.
+   * @property action.setMenuOpened - Function to set the menuOpened value in the state.
    */
   const stateContext = useMemo(
     () => ({

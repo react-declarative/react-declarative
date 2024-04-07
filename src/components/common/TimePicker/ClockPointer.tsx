@@ -8,8 +8,8 @@ import classNames from '../../../utils/classNames';
 /**
  * Returns the styles object for a component using the makeStyles function with the provided theme.
  *
- * @param {Theme} theme - The theme object used for styling the component.
- * @returns {Object} - The styles object.
+ * @param theme - The theme object used for styling the component.
+ * @returns - The styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   pointer: {
@@ -54,7 +54,7 @@ export const ClockPointer = ({
   const { classes } = useStyles();
   /**
    * Returns the CSS style for rotating an element based on the angle calculated from value and max.
-   * @returns {Object} The CSS transform style object.
+   * @returns The CSS transform style object.
    */
   const getAngleStyle = useCallback(() => {
     const angle = (360 / max) * value;

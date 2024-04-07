@@ -49,10 +49,10 @@ export const ApiProvider = ({
     /**
      * storing a form target object value.
      *
-     * @param {function} callback - The function to be called to create the object.
-     * @param {array} dependencies - The dependencies that, when changed, will trigger the recalculation of the memoized value.
+     * @param callback - The function to be called to create the object.
+     * @param dependencies - The dependencies that, when changed, will trigger the recalculation of the memoized value.
      *
-     * @returns {object} - The memoized object value.
+     * @returns - The memoized object value.
      */
     const value = useMemo(() => ({
         apiRef,

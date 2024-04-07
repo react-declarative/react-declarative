@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 /**
  * A function that returns the styles for a dialog component.
- * @returns {object} The styles object for the dialog component.
+ * @returns The styles object for the dialog component.
  */
 const useStyles = makeStyles()({
   dialog: {
@@ -39,15 +39,15 @@ interface IModalDialogProps extends DialogProps {
 /**
  * Represents a modal dialog component.
  * @typedef {Object} IModalDialogProps
- * @property {ReactNode} children - The content inside the dialog.
- * @property {boolean} disabled - Specifies if the dialog is disabled.
- * @property {boolean} invalid - Specifies if the dialog is invalid.
- * @property {boolean} dividers - Specifies if the dialog content should have dividers.
- * @property {boolean} canCancel - Specifies if the dialog can be canceled.
- * @property {boolean} noSave - Specifies if the dialog has save functionality disabled.
- * @property {function} onAccept - The callback function to be executed when the 'OK' button is clicked. Default value is a function that prints 'accept'.
- * @property {function} onDismiss - The callback function to be executed when the 'Cancel' button is clicked. Default value is a function that prints 'dismiss'.
- * @property {...any} other - Any other properties that can be passed to the Dialog component.
+ * @property children - The content inside the dialog.
+ * @property disabled - Specifies if the dialog is disabled.
+ * @property invalid - Specifies if the dialog is invalid.
+ * @property dividers - Specifies if the dialog content should have dividers.
+ * @property canCancel - Specifies if the dialog can be canceled.
+ * @property noSave - Specifies if the dialog has save functionality disabled.
+ * @property onAccept - The callback function to be executed when the 'OK' button is clicked. Default value is a function that prints 'accept'.
+ * @property onDismiss - The callback function to be executed when the 'Cancel' button is clicked. Default value is a function that prints 'dismiss'.
+ * @property other - Any other properties that can be passed to the Dialog component.
  */
 export const ModalDialog = ({
   children,

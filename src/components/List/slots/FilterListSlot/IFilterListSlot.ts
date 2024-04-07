@@ -21,22 +21,22 @@ export interface IFilterListSlot<FilterData extends {} = IAnything> {
      * Represents a callback function for the onSearchChange event.
      *
      * @callback onSearchChangeCallback
-     * @param {string} search - The search keyword entered by the user.
-     * @returns {void}
+     * @param search - The search keyword entered by the user.
+     * @returns
      */
     onSearchChange?: (search: string) => void;
     /**
      * Function signature for the onFilterChange event callback.
      *
-     * @param {FilterData} data - The data object representing the filter changes.
-     * @returns {void}
+     * @param data - The data object representing the filter changes.
+     * @returns
      */
     onFilterChange?: (data: FilterData) => void;
     /**
      * Callback function called when the collapsed state changes.
      *
-     * @param {boolean} collapsed - The new collapsed state.
-     * @returns {void}
+     * @param collapsed - The new collapsed state.
+     * @returns
      */
     onCollapsedChange?: (collapsed: boolean) => void;
     /**

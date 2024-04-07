@@ -26,12 +26,12 @@ const getWeekdaysMin = () => {
 /**
  * Defines the styles for a component.
  * @typedef {Object} Styles
- * @property {string} switchHeader - The style for the switch header container.
- * @property {string} daysHeader - The style for the days header container.
- * @property {string} dayLabel - The style for the day label.
- * @property {string} dayLabelStart - The style for the day label at the start.
- * @property {string} dayLabelEnd - The style for the day label at the end.
- * @property {string} monthName - The style for the month name.
+ * @property switchHeader - The style for the switch header container.
+ * @property daysHeader - The style for the days header container.
+ * @property dayLabel - The style for the day label.
+ * @property dayLabelStart - The style for the day label at the start.
+ * @property dayLabelEnd - The style for the day label at the end.
+ * @property monthName - The style for the month name.
  */
 const useStyles = makeStyles()((theme) => ({
   switchHeader: {

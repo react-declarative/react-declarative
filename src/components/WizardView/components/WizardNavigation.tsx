@@ -48,23 +48,23 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents a component for navigating through a wizard.
  * @typedef {Object} WizardNavigation
- * @property {string} className - The CSS class name for the component.
- * @property {Object} style - The inline style object for the component.
- * @property {Object} sx - The sx prop for the component.
- * @property {boolean} disabled - Whether the component is disabled or not.
- * @property {boolean} fallback - The fallback prop for the component.
- * @property {function} onLoadStart - The onLoadStart prop for the component.
- * @property {function} onLoadEnd - The onLoadEnd prop for the component.
- * @property {function} onPrev - The onPrev prop for the component.
- * @property {function} onNext - The onNext prop for the component.
- * @property {function} AfterPrev - The AfterPrev prop for the component.
- * @property {function} BeforeNext - The BeforeNext prop for the component.
- * @property {boolean} hasPrev - Whether the component has a previous step or not.
- * @property {boolean} hasNext - Whether the component has a next step or not.
- * @property {string} labelPrev - The label for the previous button.
- * @property {string} labelNext - The label for the next button.
- * @property {boolean} throwError - Whether an error should be thrown or not.
- * @property {...otherProps} - The additional props for the component.
+ * @property className - The CSS class name for the component.
+ * @property style - The inline style object for the component.
+ * @property sx - The sx prop for the component.
+ * @property disabled - Whether the component is disabled or not.
+ * @property fallback - The fallback prop for the component.
+ * @property onLoadStart - The onLoadStart prop for the component.
+ * @property onLoadEnd - The onLoadEnd prop for the component.
+ * @property onPrev - The onPrev prop for the component.
+ * @property onNext - The onNext prop for the component.
+ * @property AfterPrev - The AfterPrev prop for the component.
+ * @property BeforeNext - The BeforeNext prop for the component.
+ * @property hasPrev - Whether the component has a previous step or not.
+ * @property hasNext - Whether the component has a next step or not.
+ * @property labelPrev - The label for the previous button.
+ * @property labelNext - The label for the next button.
+ * @property throwError - Whether an error should be thrown or not.
+ * @property - The additional props for the component.
  * @returns The rendered component.
  */
 export const WizardNavigation = ({

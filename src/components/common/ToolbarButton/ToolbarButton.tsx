@@ -10,11 +10,11 @@ import classNames from '../../../utils/classNames';
  * This variable `useStyles` is used to generate styles for a component using the `makeStyles` function
  *
  * @typedef {Object} Styles - The generated styles object with CSS class names as keys and corresponding styles as values
- * @property {string} toolbarBtn - The CSS class for toolbar button with cursor pointer and secondary text color
- * @property {string} toolbarBtnSelected - The CSS class for selected toolbar button with primary text color
+ * @property toolbarBtn - The CSS class for toolbar button with cursor pointer and secondary text color
+ * @property toolbarBtnSelected - The CSS class for selected toolbar button with primary text color
  *
- * @param {Object} theme - The theme object containing the palette with color definitions
- * @returns {Styles} - The object containing the generated CSS class names and styles
+ * @param theme - The theme object containing the palette with color definitions
+ * @returns - The object containing the generated CSS class names and styles
  */
 const useStyles = makeStyles()((theme) => ({
   toolbarBtn: {

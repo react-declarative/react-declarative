@@ -97,11 +97,11 @@ export const usePreventNavigate = ({
   /**
    * Configuration for handling loading state and blocking/unblocking functionality.
    * @typedef {Object} Config
-   * @property {Function} handleLoadStart - Function called when load starts. Increases loading count and calls onLoadStart if defined.
-   * @property {Function} handleLoadEnd - Function called when load ends. Decreases loading count and calls onLoadEnd if defined.
-   * @property {Function} unblock - Function to unblock the configuration. Calls the unsubscribeRef if defined and sets unblocked to true.
-   * @property {Function} block - Function to block the configuration. Sets unblocked to false.
-   * @property {boolean} loading - Indicates whether the configuration is currently loading.
+   * @property handleLoadStart - Function called when load starts. Increases loading count and calls onLoadStart if defined.
+   * @property handleLoadEnd - Function called when load ends. Decreases loading count and calls onLoadEnd if defined.
+   * @property unblock - Function to unblock the configuration. Calls the unsubscribeRef if defined and sets unblocked to true.
+   * @property block - Function to block the configuration. Sets unblocked to false.
+   * @property loading - Indicates whether the configuration is currently loading.
    */
   return {
     handleLoadStart: () => {

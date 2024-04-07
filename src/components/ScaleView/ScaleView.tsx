@@ -27,7 +27,7 @@ interface IScaleViewProps {
  * The returned object maps class names to their corresponding CSS styles.
  * These styles are created using the `makeStyles` function provided by the `@material-ui/core/styles` module.
  *
- * @returns {object} An object containing CSS class names and their corresponding styles.
+ * @returns An object containing CSS class names and their corresponding styles.
  *
  */
 const useStyles = makeStyles()({

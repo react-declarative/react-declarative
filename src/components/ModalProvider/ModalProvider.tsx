@@ -40,9 +40,9 @@ interface IContext {
  * Represents a hook that provides methods for rendering and manipulating modals.
  *
  * @typedef {function} IHook
- * @param {IRenderer} render - The renderer to use for rendering the modals.
- * @param {any[]} [deps] - Optional dependencies required for the hook.
- * @returns {object} An object containing the methods for showing and hiding modals.
+ * @param render - The renderer to use for rendering the modals.
+ * @param [deps] - Optional dependencies required for the hook.
+ * @returns An object containing the methods for showing and hiding modals.
  *
  * @method showModal - Show a modal.
  * @method hideModal - Hide a modal.
@@ -75,15 +75,15 @@ export const ModalProvider = ({
     /**
      * Handles the element using the useCallback hook in React.
      *
-     * @param {IRenderer} element - The element to handle.
-     * @returns {void} - No return value.
+     * @param element - The element to handle.
+     * @returns - No return value.
      */
     const handleElement = useCallback((element: IRenderer) => setElement(() => element), []);
     /**
      * Clears the element value using the useCallback hook.
      *
      * @function handleClear
-     * @returns {void}
+     * @returns
      */
     const handleClear = useCallback(() => setElement(null), []);
     /**
@@ -126,8 +126,8 @@ export const ModalProvider = ({
  * useModal is a custom hook that provides functionality to show and hide a modal.
  *
  * @typedef {Object} IHook
- * @property {Function} showModal - A function that shows the modal.
- * @property {Function} hideModal - A function that hides the modal.
+ * @property showModal - A function that shows the modal.
+ * @property hideModal - A function that hides the modal.
  *
  * @param renderer - The renderer function to be executed when the modal is shown.
  * @param deps - The dependencies array to trigger updates when the modal is shown.
@@ -143,7 +143,7 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
      * Executes the handleRender function.
      *
      * @function handleRender
-     * @returns {void}
+     * @returns
      */
     const handleRender = useCallback(() => {
         handleElement(renderer);
@@ -177,7 +177,7 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
      * Function to hide a modal.
      *
      * @function hideModal
-     * @returns {Void}
+     * @returns
      */
     const hideModal = useCallback(() => {
         setOpen(false);

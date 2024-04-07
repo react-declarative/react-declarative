@@ -48,8 +48,8 @@ export const usePreventAutofill = <T = HTMLInputElement>({
     /**
      * Handles the focus event for a component.
      *
-     * @param {React.FocusEvent<T>} e - The focus event object.
-     * @returns {void}
+     * @param e - The focus event object.
+     * @returns
      */
     const handleFocus = useCallback<React.FocusEventHandler<T>>((e) => {
         setReadOnly(false);
@@ -60,8 +60,8 @@ export const usePreventAutofill = <T = HTMLInputElement>({
      * Handles touch start event.
      *
      * @callback TouchEventHandler
-     * @param {React.TouchEvent<T>} e - The touch event object.
-     * @returns {void}
+     * @param e - The touch event object.
+     * @returns
      */
     const handleTouchStart = useCallback<React.TouchEventHandler<T>>((e) => {
         setReadOnly(false);
@@ -72,8 +72,8 @@ export const usePreventAutofill = <T = HTMLInputElement>({
      * Callback function to handle the context menu event.
      *
      * @function
-     * @param {React.MouseEvent<T>} e - The mouse event object.
-     * @returns {void}
+     * @param e - The mouse event object.
+     * @returns
      */
     const handleContextMenu = useCallback<React.MouseEventHandler<T>>((e) => {
         e.preventDefault();

@@ -98,8 +98,8 @@ export const CopyButton = ({
    * to false.
    *
    * @type {Function}
-   * @param {number} delay - The number of milliseconds to wait before executing the callback
-   * @returns {void}
+   * @param delay - The number of milliseconds to wait before executing the callback
+   * @returns
    */
   const emitClose = useMemo(
     () =>

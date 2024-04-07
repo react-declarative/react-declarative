@@ -32,7 +32,7 @@ const CELL_PADDING_LEFT = 32;
  * - separator: CSS class for a separator element.
  * - disabled: CSS class for a disabled element, with reduced opacity and disabled pointer events.
  *
- * @returns {object} The object containing CSS classes.
+ * @returns The object containing CSS classes.
  */
 const useStyles = makeStyles()({
   root: {},
@@ -134,7 +134,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   /**
    * Returns the content of a useMemo hook.
    *
-   * @param {Array} columns - An array of BodyColumn objects representing the columns.
+   * @param columns - An array of BodyColumn objects representing the columns.
    * @param  fullWidth - A boolean indicating if the content should be displayed in full width.
    * @param  row - An object representing the row data.
    * @param  disabled - A boolean indicating if the content should be disabled.

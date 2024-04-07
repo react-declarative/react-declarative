@@ -39,9 +39,9 @@ export const useConstraint = (width: number) => {
          * Configuration object for device breakpoints.
          *
          * @typedef {Object} Config
-         * @property {function} isPhoneFn - Function to determine if device is a phone.
-         * @property {function} isTabletFn - Function to determine if device is a tablet.
-         * @property {function} isDesktopFn - Function to determine if device is a desktop.
+         * @property isPhoneFn - Function to determine if device is a phone.
+         * @property isTabletFn - Function to determine if device is a tablet.
+         * @property isDesktopFn - Function to determine if device is a desktop.
          */
         return {
             isPhoneFn: match(xs, sm),
@@ -55,9 +55,9 @@ export const useConstraint = (width: number) => {
      * Configuration object for device breakpoints.
      *
      * @typedef {Object} Config
-     * @property {function} isPhoneFn - Function to determine if device is a phone.
-     * @property {function} isTabletFn - Function to determine if device is a tablet.
-     * @property {function} isDesktopFn - Function to determine if device is a desktop.
+     * @property isPhoneFn - Function to determine if device is a phone.
+     * @property isTabletFn - Function to determine if device is a tablet.
+     * @property isDesktopFn - Function to determine if device is a desktop.
      */
     return {
         isPhone: isPhoneFn(width),

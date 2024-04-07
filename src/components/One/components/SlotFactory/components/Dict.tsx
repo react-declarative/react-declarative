@@ -204,8 +204,8 @@ export const Dict = ({
 
   /**
    * @typedef {Object} CaretManager
-   * @property {() => void} render - Renders the caret position on the input element.
-   * @property {() => number | symbol} pos - Returns the current caret position or a symbol to indicate position is unavailable.
+   * @property render - Renders the caret position on the input element.
+   * @property pos - Returns the current caret position or a symbol to indicate position is unavailable.
    */
   const SearchInput = useMemo(
     (): React.FC<ISearchInputProps> =>
@@ -226,8 +226,8 @@ export const Dict = ({
         /**
          * Manages the caret position for an input element.
          * @typedef {Object} CaretManager
-         * @property {() => void} render - Renders the caret position on the input element.
-         * @property {() => number | symbol} pos - Returns the current caret position or a symbol to indicate position is unavailable.
+         * @property render - Renders the caret position on the input element.
+         * @property pos - Returns the current caret position or a symbol to indicate position is unavailable.
          */
         const caretManager = useMemo(() => {
           let lastPos: symbol | number = NEVER_POS;
@@ -305,9 +305,9 @@ export const Dict = ({
         /**
          * Returns a memoized version of a debounced function that emits change search event.
          *
-         * @param {Function} onTextChange - The function to execute when the debounced function emits a change search event.
-         * @param {number} SEARCH_DEBOUNCE - The delay, in milliseconds, for debouncing the change search event.
-         * @returns {Function} The memoized debounced function that emits change search event.
+         * @param onTextChange - The function to execute when the debounced function emits a change search event.
+         * @param SEARCH_DEBOUNCE - The delay, in milliseconds, for debouncing the change search event.
+         * @returns The memoized debounced function that emits change search event.
          */
         const emitChangeSearch = useMemo(
           () =>
@@ -329,7 +329,7 @@ export const Dict = ({
         /**
          * Callback function to handle keydown search.
          *
-         * @param {React.KeyboardEvent<HTMLDivElement>} e - The keyboard event object.
+         * @param e - The keyboard event object.
          *
          * @return {void}
          */

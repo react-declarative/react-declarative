@@ -74,9 +74,9 @@ export const ColorButton = ({
      * Creates a memoized debounced handleChange function.
      * Calls the provided onChange$ function and sets the value when invoked.
      *
-     * @param {Function} onChange$ - The onChange function to be called when the value changes.
-     * @param {number} CHANGE_DEBOUNCE - The debounce duration in milliseconds.
-     * @returns {Function} The memoized debounced handleChange function.
+     * @param onChange$ - The onChange function to be called when the value changes.
+     * @param CHANGE_DEBOUNCE - The debounce duration in milliseconds.
+     * @returns The memoized debounced handleChange function.
      *
      */
     const handleChange = useMemo(() => debounce((value) => {

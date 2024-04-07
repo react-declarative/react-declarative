@@ -48,17 +48,17 @@ export const Scaffold2 = <T extends Payload = Payload>(props: IScaffold2Props<T>
     /**
      * Creates a state manager for managing the state of an application.
      *
-     * @param {Object} config - The configuration object for the state manager.
-     * @param {Function} config.onInit - The callback function to be executed when the state manager is initialized.
-     * @param {Function} config.onLoadStart - The callback function to be executed when the loading process starts.
-     * @param {Function} config.onLoadEnd - The callback function to be executed when the loading process ends.
-     * @param {Function} config.fallback - The fallback function to be executed when an error occurs during loading.
-     * @param {Object} config.options - The options for the state manager.
-     * @param {Object} config.payload - The payload to be passed to the state manager.
-     * @param {Object} config.deps - The dependencies required by the state manager.
-     * @param {boolean} config.throwError - A flag indicating whether to throw an error when an exception occurs.
+     * @param config - The configuration object for the state manager.
+     * @param config.onInit - The callback function to be executed when the state manager is initialized.
+     * @param config.onLoadStart - The callback function to be executed when the loading process starts.
+     * @param config.onLoadEnd - The callback function to be executed when the loading process ends.
+     * @param config.fallback - The fallback function to be executed when an error occurs during loading.
+     * @param config.options - The options for the state manager.
+     * @param config.payload - The payload to be passed to the state manager.
+     * @param config.deps - The dependencies required by the state manager.
+     * @param config.throwError - A flag indicating whether to throw an error when an exception occurs.
      *
-     * @returns {Object} The state manager object.
+     * @returns The state manager object.
      */
     const stateContext = createStateManager({
         onInit,

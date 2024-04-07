@@ -56,9 +56,9 @@ export const useLayoutState = (initialData: IInitialData) => {
      * A memoized object that contains functions to update state properties.
      *
      * @typedef {Object} Action
-     * @property {function(IState['disabled']): void} setDisabled - Sets the disabled state property.
-     * @property {function(IState['readonly']): void} setReadonly - Sets the readonly state property.
-     * @property {function(IState['visible']): void} setVisible - Sets the visible state property.
+     * @property setDisabled - Sets the disabled state property.
+     * @property setReadonly - Sets the readonly state property.
+     * @property setVisible - Sets the visible state property.
      */
     const action = useMemo(() => ({
         setDisabled: (disabled: IState['disabled']) => setState((prevState) => ({ ...prevState, disabled })),

@@ -87,7 +87,7 @@ export const MonthSelection = ({
   /**
    * A callback function that is triggered when a month is selected.
    *
-   * @param {number} month - The selected month (0 - 11, where 0 represents January).
+   * @param month - The selected month (0 - 11, where 0 represents January).
    */
   const onMonthSelect = useCallback(
     (month: number) => {

@@ -40,10 +40,10 @@ export interface IAutoSizerProps<T extends any = unknown> {
 /**
  * Represents the state of an element.
  * @typedef {Object} State
- * @property {number} height - The height of the element.
- * @property {number} width - The width of the element.
- * @property {number} childHeight - The height of the child element.
- * @property {number} childWidth - The width of the child element.
+ * @property height - The height of the element.
+ * @property width - The width of the element.
+ * @property childHeight - The height of the child element.
+ * @property childWidth - The width of the child element.
  */
 type State = {
   height: number;
@@ -55,8 +55,8 @@ type State = {
 /**
  * ResizeHandler is a function that can be used to handle resizing of an HTML element.
  *
- * @param {HTMLElement} element - The HTML element to be resized.
- * @param {function} onResize - The callback function to be called when resize occurs.
+ * @param element - The HTML element to be resized.
+ * @param onResize - The callback function to be called when resize occurs.
  * @return {void}
  */
 type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
@@ -66,14 +66,14 @@ type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
  * resize listeners to an element.
  *
  * @typedef {function(Element, ResizeCallback): void} ResizeHandler
- * @param {Element} element - The element to which the resize listener will be added or removed.
- * @param {ResizeCallback} callback - The callback function to be called when the element is resized.
+ * @param element - The element to which the resize listener will be added or removed.
+ * @param callback - The callback function to be called when the element is resized.
  * @callback ResizeCallback
- * @param {Element} element - The element that has been resized.
+ * @param element - The element that has been resized.
  *
  * @typedef {object} DetectElementResize
- * @property {ResizeHandler} addResizeListener - Adds a resize listener to the specified element.
- * @property {ResizeHandler} removeResizeListener - Removes the resize listener from the specified element.
+ * @property addResizeListener - Adds a resize listener to the specified element.
+ * @property removeResizeListener - Removes the resize listener from the specified element.
  */
 type DetectElementResize = {
   addResizeListener: ResizeHandler,
@@ -121,10 +121,10 @@ export class AutoSizer<T extends unknown = object> extends React.Component<IAuto
    * Represents the state of a component.
    *
    * @typedef {object} State
-   * @property {number} height - The height of the component. Defaults to 0 if not provided.
-   * @property {number} width - The width of the component. Defaults to 0 if not provided.
-   * @property {number} childHeight - The height of the child component. Defaults to 0 if not provided.
-   * @property {number} childWidth - The width of the child component. Defaults to 0 if not provided.
+   * @property height - The height of the component. Defaults to 0 if not provided.
+   * @property width - The width of the component. Defaults to 0 if not provided.
+   * @property childHeight - The height of the child component. Defaults to 0 if not provided.
+   * @property childWidth - The width of the child component. Defaults to 0 if not provided.
    */
   state = {
     height: this.props.defaultHeight || 0,

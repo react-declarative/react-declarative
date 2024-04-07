@@ -16,7 +16,7 @@ import CalendarHeader from './CalendarHeader';
  * This variable `useStyles` is a function that returns an object with CSS classes.
  * This object defines styles for the calendar component.
  *
- * @returns {Object} An object containing CSS classes for the calendar component.
+ * @returns An object containing CSS classes for the calendar component.
  */
 const useStyles = makeStyles()((theme) => ({
   calendar: {
@@ -113,9 +113,9 @@ export const Calendar = ({
   /**
    * Renders the days of a given week.
    *
-   * @param {dayjs.Dayjs} week - The week to render the days for.
+   * @param week - The week to render the days for.
    *
-   * @returns {React.ReactNode} - The rendered days as React nodes.
+   * @returns - The rendered days as React nodes.
    */
   const renderDays = useCallback((week: dayjs.Dayjs) => {
     const end = week.clone().endOf('week');
@@ -142,7 +142,7 @@ export const Calendar = ({
   /**
    * Renders the weeks of the current month.
    *
-   * @returns {Component[]} - An array of React components representing the weeks.
+   * @returns - An array of React components representing the weeks.
    * @category Rendering
    */
   const renderWeeks = useCallback(() => {

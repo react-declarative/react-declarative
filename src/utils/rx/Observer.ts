@@ -469,8 +469,8 @@ export class Observer<Data = any> implements TObserver<Data> {
      * Creates a context for iterating asynchronously using a generator function.
      *
      * @returns The iterator context object.
-     * @property {AsyncGeneratorFunction} iterate - The generator function that can be used to iterate over the values.
-     * @property {Function} done - Marks the iteration as complete.
+     * @property iterate - The generator function that can be used to iterate over the values.
+     * @property done - Marks the iteration as complete.
      */
     public toIteratorContext = () => {
         const self = this;

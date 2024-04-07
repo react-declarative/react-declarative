@@ -29,9 +29,9 @@ export interface IEntityAdapter<T extends IEntity = any> {
     /**
      * Sets the data for the given object.
      *
-     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
+     * @param data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
      * input and returns a partial object of type T.
-     * @returns {void}
+     * @returns
      */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
 
@@ -49,13 +49,13 @@ export interface IEntityAdapter<T extends IEntity = any> {
      *
      * @function
      * @name refresh
-     * @returns {void}
+     * @returns
      */
     refresh(): void;
     /**
      * Converts the current object to its corresponding type T.
      *
-     * @returns {T} The converted object of type T.
+     * @returns The converted object of type T.
      */
     toObject(): T;
 };

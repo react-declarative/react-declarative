@@ -33,27 +33,27 @@ const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = Object.c
  * Each field type is mapped to its corresponding field component.
  *
  * @typedef {Object.<FieldType, ComponentField>} FieldTypeToComponent
- * @property {ComponentField} [FieldType.Component] - The component for rendering a generic field.
- * @property {ComponentField} [FieldType.Text] - The component for rendering a text field.
- * @property {ComponentField} [FieldType.Line] - The component for rendering a line field.
- * @property {ComponentField} [FieldType.Radio] - The component for rendering a radio field.
- * @property {ComponentField} [FieldType.Switch] - The component for rendering a switch field.
- * @property {ComponentField} [FieldType.Checkbox] - The component for rendering a checkbox field.
- * @property {ComponentField} [FieldType.Progress] - The component for rendering a progress field.
- * @property {ComponentField} [FieldType.Slider] - The component for rendering a slider field.
- * @property {ComponentField} [FieldType.Combo] - The component for rendering a combo field.
- * @property {ComponentField} [FieldType.Items] - The component for rendering an items field.
- * @property {ComponentField} [FieldType.Rating] - The component for rendering a rating field.
- * @property {ComponentField} [FieldType.Typography] - The component for rendering a typography field.
- * @property {ComponentField} [FieldType.Date] - The component for rendering a date field.
- * @property {ComponentField} [FieldType.Time] - The component for rendering a time field.
- * @property {ComponentField} [FieldType.File] - The component for rendering a file field.
- * @property {ComponentField} [FieldType.Choose] - The component for rendering a choose field.
- * @property {ComponentField} [FieldType.Complete] - The component for rendering a complete field.
- * @property {ComponentField} [FieldType.YesNo] - The component for rendering a yes/no field.
- * @property {ComponentField} [FieldType.Init] - The component for rendering an init field.
- * @property {ComponentField} [FieldType.Dict] - The component for rendering a dictionary field.
- * @property {ComponentField} [FieldType.Tree] - The component for rendering a tree field.
+ * @property [FieldType.Component] - The component for rendering a generic field.
+ * @property [FieldType.Text] - The component for rendering a text field.
+ * @property [FieldType.Line] - The component for rendering a line field.
+ * @property [FieldType.Radio] - The component for rendering a radio field.
+ * @property [FieldType.Switch] - The component for rendering a switch field.
+ * @property [FieldType.Checkbox] - The component for rendering a checkbox field.
+ * @property [FieldType.Progress] - The component for rendering a progress field.
+ * @property [FieldType.Slider] - The component for rendering a slider field.
+ * @property [FieldType.Combo] - The component for rendering a combo field.
+ * @property [FieldType.Items] - The component for rendering an items field.
+ * @property [FieldType.Rating] - The component for rendering a rating field.
+ * @property [FieldType.Typography] - The component for rendering a typography field.
+ * @property [FieldType.Date] - The component for rendering a date field.
+ * @property [FieldType.Time] - The component for rendering a time field.
+ * @property [FieldType.File] - The component for rendering a file field.
+ * @property [FieldType.Choose] - The component for rendering a choose field.
+ * @property [FieldType.Complete] - The component for rendering a complete field.
+ * @property [FieldType.YesNo] - The component for rendering a yes/no field.
+ * @property [FieldType.Init] - The component for rendering an init field.
+ * @property [FieldType.Dict] - The component for rendering a dictionary field.
+ * @property [FieldType.Tree] - The component for rendering a tree field.
  */
 Object.assign(fieldMap, {
   [FieldType.Component]: ComponentField,

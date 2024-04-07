@@ -32,7 +32,7 @@ const MIN_PAGES_COUNT = 10;
  * This variable `useStyles` is a function that generates CSS styles using the `makeStyles` function from the Material-UI library.
  *
  * @type {Function}
- * @returns {Object} The generated CSS styles.
+ * @returns The generated CSS styles.
  */
 const useStyles = makeStyles()({
     root: {
@@ -120,7 +120,7 @@ const TablePaginationContainer = (props: BoxProps) => {
     /**
      * Retrieves the label for the current selection.
      *
-     * @returns {string} The label of the current selection.
+     * @returns The label of the current selection.
      */
     const getSelectionLabel = useActualCallback(() => selectionLabel(selection.size));
     return (
@@ -229,8 +229,8 @@ export const TablePagination = ({
      * Represents the Actions variable.
      *
      * @typedef {TableActions|undefined} Actions
-     * @property {TableActions} isGrow - The value of Actions when isGrow is true.
-     * @property {undefined} undefined - The value of Actions when isGrow is false.
+     * @property isGrow - The value of Actions when isGrow is true.
+     * @property undefined - The value of Actions when isGrow is false.
      * @public
      */
     const Actions = isGrow
@@ -247,9 +247,9 @@ export const TablePagination = ({
     /**
      * Handles the arrow keydown event.
      *
-     * @param {Event} e - The keyboard event object.
-     * @param {number} go - The number of pages to move.
-     * @returns {void}
+     * @param e - The keyboard event object.
+     * @param go - The number of pages to move.
+     * @returns
      */
     const handleArrowKeydown = useActualCallback((e: any, go: number) => {
         if (count === -1) {

@@ -39,7 +39,7 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
   /**
    * Executes an action based on the given input.
    *
-   * @param {string} action - The action to be executed.
+   * @param action - The action to be executed.
    */
   const handleAction = useActualCallback((action: string) => {
     if (action === "update-now") {

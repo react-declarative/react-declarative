@@ -14,8 +14,8 @@ export interface IActionListSlot<FilterData extends {} = IAnything> {
      * Represents a list of actions.
      *
      * @typedef {Array<IListAction>} actions
-     * @property {IListAction} 0 - The first action in the list.
-     * @property {IListAction} 1 - The second action in the list.
+     * @property 0 - The first action in the list.
+     * @property 1 - The second action in the list.
      * ...
      */
     actions: IListAction[];

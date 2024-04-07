@@ -35,7 +35,7 @@ interface IGroupLayoutPrivate {
  *
  * @type {function(): object} - A function that returns an object of CSS classes.
  *
- * @returns {object} - An object containing the generated CSS classes.
+ * @returns - An object containing the generated CSS classes.
  *
  */
 const useStyles = makeStyles()({

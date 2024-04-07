@@ -34,7 +34,7 @@ export const useWindowSize = <Size extends ISize = ISize>({
     /**
      * Retrieves the current window size.
      *
-     * @returns {Object} The size of the window.
+     * @returns The size of the window.
      *                   - height: The height of the window as a whole number.
      *                   - width: The width of the window as a whole number.
      */

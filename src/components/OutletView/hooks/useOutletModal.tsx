@@ -106,10 +106,10 @@ export const useOutletModal = <
   /**
    * Handles form submission.
    *
-   * @param {Id} id - The id of the form.
-   * @param {Data | null} data - The form data.
-   * @param {Payload} payload - The payload to be submitted with the form.
-   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating the success status of the submission.
+   * @param id - The id of the form.
+   * @param data - The form data.
+   * @param payload - The payload to be submitted with the form.
+   * @returns - A promise that resolves to a boolean indicating the success status of the submission.
    */
   const handleSubmit = useCallback(async (id: Id, data: Data | null, payload: Payload) => {
     const result = await onSubmit$(id, data, payload);
@@ -123,7 +123,7 @@ export const useOutletModal = <
    * A callback function that handles closing of an outlet.
    *
    * @callback handleClose
-   * @returns {void}
+   * @returns
    */
   const handleClose = useCallback(() => {
     outletIdSubject.next(null);
@@ -167,8 +167,8 @@ export const useOutletModal = <
   /**
    * Hook for picking data.
    *
-   * @param {Id} id - The ID of the data to pick.
-   * @returns {void}
+   * @param id - The ID of the data to pick.
+   * @returns
    */
   const pickData = useCallback((id: Id) => {
     outletIdSubject.next(id);

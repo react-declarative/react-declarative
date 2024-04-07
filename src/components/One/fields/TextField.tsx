@@ -23,8 +23,8 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
    *
-   * @property {string} name - The name of the input type.
-   * @property {object} options - Additional options for the input type.
+   * @property name - The name of the input type.
+   * @property options - Additional options for the input type.
    */
   inputType?: PickProp<IField<Data, Payload>, "inputType">;
   /**
@@ -32,14 +32,14 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
    *
-   * @property {string} [inputMode] - The input mode of the field.
+   * @property [inputMode] - The input mode of the field.
    */
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
   /**
    * Represents the input pattern for a field in a data payload.
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputPattern">} inputPattern
-   * @property {string} [inputPattern.pattern] - The regular expression pattern that the input value of the field should match.
+   * @property [inputPattern.pattern] - The regular expression pattern that the input value of the field should match.
    */
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
   /**
@@ -48,7 +48,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
    * @typedef {PickProp<IField<Data, Payload>, "inputAutocomplete">} InputAutocomplete
-   * @property {boolean} inputAutocomplete - Specifies whether the input should have autocomplete feature.
+   * @property inputAutocomplete - Specifies whether the input should have autocomplete feature.
    */
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
   /**
@@ -69,7 +69,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the allowed input formatters for a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
-   * @property {string[]} allowedFormatters - An array of strings representing the allowed formatter names.
+   * @property allowedFormatters - An array of strings representing the allowed formatter names.
    */
   inputFormatterAllowed?: PickProp<IField<Data, Payload>, "inputFormatterAllowed">;
   /**
@@ -82,8 +82,8 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * Defines the input formatter replace configuration for a field.
    *
    * @typedef {Object} inputFormatterReplace
-   * @property {Function} inputFormatterReplace.dataTransform - The function used to transform the input data before formatting.
-   * @property {Function} inputFormatterReplace.payloadTransform - The function used to transform the payload before formatting.
+   * @property inputFormatterReplace.dataTransform - The function used to transform the input data before formatting.
+   * @property inputFormatterReplace.payloadTransform - The function used to transform the payload before formatting.
    */
   inputFormatterReplace?: PickProp<IField<Data, Payload>, "inputFormatterReplace">;
   /**
@@ -93,9 +93,9 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of the data associated with the field.
    * @template Payload - The type of the payload object associated with the field.
    *
-   * @param {IField<Data, Payload>} field - The field object from which to retrieve the "description" property.
+   * @param field - The field object from which to retrieve the "description" property.
    *
-   * @returns {PickProp<IField<Data, Payload>, "description">} The value of the "description" property.
+   * @returns The value of the "description" property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -123,13 +123,13 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the configuration for the leading icon ripple effect.
    *
    * @typedef {Boolean} LeadingIconRipple
-   * @property {Boolean} leadingIconRipple.enable - Indicates whether the leading icon ripple effect is enabled.
-   * @property {Number} leadingIconRipple.duration - The duration of the leading icon ripple effect in milliseconds.
+   * @property leadingIconRipple.enable - Indicates whether the leading icon ripple effect is enabled.
+   * @property leadingIconRipple.duration - The duration of the leading icon ripple effect in milliseconds.
    */
   leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
   /**
    * Represents the option to enable or disable the trailing icon ripple effect.
-   * @property {boolean} trailingIconRipple - Set to true to enable the trailing icon ripple effect,
+   * @property trailingIconRipple - Set to true to enable the trailing icon ripple effect,
    *     or false to disable it
    */
   trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
@@ -137,25 +137,25 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * The leadingIcon property represents the leading icon of a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "leadingIcon">} leadingIcon
-   * @property {string} [icon] - The icon to be displayed as the leading icon.
-   * @property {boolean} [isVisible] - Indicates if the leading icon is visible.
+   * @property [icon] - The icon to be displayed as the leading icon.
+   * @property [isVisible] - Indicates if the leading icon is visible.
    */
   leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
   /**
    * Represents the trailing icon configuration for a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "trailingIcon">} trailingIcon
-   * @property {string} icon - The path or class name of the trailing icon.
-   * @property {boolean} isVisible - Indicates whether the trailing icon is visible or hidden.
-   * @property {Function} onClick - The event handler function to be executed when the trailing icon is clicked.
+   * @property icon - The path or class name of the trailing icon.
+   * @property isVisible - Indicates whether the trailing icon is visible or hidden.
+   * @property onClick - The event handler function to be executed when the trailing icon is clicked.
    */
   trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
   /**
    * Represents the leading icon click event handler for a field in a form.
    *
    * @typedef {Function} leadingIconClick
-   * @param {PickProp<IField<Data, Payload>, "leadingIconClick">} leadingIconClick - The leadingIconClick prop of the field.
-   * @returns {void} - Nothing is returned from this function.
+   * @param leadingIconClick - The leadingIconClick prop of the field.
+   * @returns - Nothing is returned from this function.
    */
   leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
   /**
@@ -169,8 +169,8 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {(...args: any[]) => void} trailingIconClick
    *
-   * @param {...any} args - The arguments passed to the callback function.
-   * @returns {void}
+   * @param args - The arguments passed to the callback function.
+   * @returns
    */
   trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
   /**
@@ -194,16 +194,16 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template T - The type of the object that contains the "readonly" property.
    * @template Prop - The type of the "readonly" property.
-   * @param {T} object - The object to get the "readonly" property from.
-   * @returns {Prop} - The value of the "readonly" property.
+   * @param object - The object to get the "readonly" property from.
+   * @returns - The value of the "readonly" property.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
    * Specifies if the field should be automatically focused.
    *
    * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
-   * @property {boolean} [autoFocus] - Indicates if the field should receive focus automatically.
-   * @property {IField<Data, Payload>} - The interface that describes the field containing the autoFocus property.
+   * @property [autoFocus] - Indicates if the field should receive focus automatically.
+   * @property - The interface that describes the field containing the autoFocus property.
    *
    */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
@@ -217,21 +217,21 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the reference to a group in a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
-   * @property {string} groupRef - The reference to the group.
+   * @property groupRef - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Represents the input reference property of a field.
    *
    * @typedef {Object} InputRef
-   * @property {Function} current - A reference to the input element.
+   * @property current - A reference to the input element.
    */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   /**
    * Shrink option for labels.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'labelShrink'>} labelShrink
-   * @property {boolean} labelShrink - Whether to apply shrink option to labels.
+   * @property labelShrink - Whether to apply shrink option to labels.
    */
   labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
 }

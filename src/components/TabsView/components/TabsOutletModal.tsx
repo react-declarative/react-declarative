@@ -130,8 +130,8 @@ export interface ITabsModalProps<
  * The `makeStyles` function takes a callback function as a parameter, which allows you to define the styles using a theme object.
  *
  * @type {Function}
- * @param {Object} theme - The theme object provided by Material-UI.
- * @returns {Object} - The custom styles object.
+ * @param theme - The theme object provided by Material-UI.
+ * @returns - The custom styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -264,10 +264,10 @@ export const OutletModal = <
   /**
    * Calculates the requested size based on the window size.
    *
-   * @param {Object} options - The options for calculating the requested size.
-   * @param {Function} options.compute - The compute function that takes the current window size and returns the requested size.
-   * @param {number} options.debounce - The debounce time in milliseconds to delay recomputing the requested size.
-   * @returns {Object} The requested size with height, width, and sx properties.
+   * @param options - The options for calculating the requested size.
+   * @param options.compute - The compute function that takes the current window size and returns the requested size.
+   * @param options.debounce - The debounce time in milliseconds to delay recomputing the requested size.
+   * @returns The requested size with height, width, and sx properties.
    */
   const requestedSize = useWindowSize({
     compute: (size) => {

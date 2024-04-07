@@ -55,12 +55,12 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
    * Represents a memoized visibility request.
    *
    * @typedef {Object} IVisibilityRequest
-   * @property {Object} filterData - The filter data for the request.
-   * @property {Object} pagination - The pagination options for the request.
-   * @property {Array} sortModel - The sort model for the request.
-   * @property {Object} chips - The chips for the request.
-   * @property {string} search - The search query for the request.
-   * @property {Object} payload - The payload for the request.
+   * @property filterData - The filter data for the request.
+   * @property pagination - The pagination options for the request.
+   * @property sortModel - The sort model for the request.
+   * @property chips - The chips for the request.
+   * @property search - The search query for the request.
+   * @property payload - The payload for the request.
    */
   const visibilityRequest = useMemo((): IVisibilityRequest => ({
     filterData,
@@ -81,11 +81,11 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
   /**
    * Returns an array of BodyColumn objects based on the listColumns, visibilityRequest, fullWidth, and mode parameters.
    *
-   * @returns {BodyColumn[]} - Array of BodyColumn objects.
-   * @param {ListColumn[]} listColumns - Array of ListColumn objects.
-   * @param {VisibilityRequest} visibilityRequest - Visibility request object.
-   * @param {boolean} fullWidth - Indicates if the column should take up the full width.
-   * @param {string} mode - Mode of the column.
+   * @returns - Array of BodyColumn objects.
+   * @param listColumns - Array of ListColumn objects.
+   * @param visibilityRequest - Visibility request object.
+   * @param fullWidth - Indicates if the column should take up the full width.
+   * @param mode - Mode of the column.
    */
   const columns = useMemo(() => {
     const columns = wrapColumns({

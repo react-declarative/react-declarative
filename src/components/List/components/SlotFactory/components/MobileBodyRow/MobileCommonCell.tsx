@@ -67,12 +67,12 @@ const useStyles = makeStyles()({
 /**
  * Represents a mobile common cell component.
  * @typedef {Object} IMobileCommonCellProps
- * @property {string} className - The class name of the component.
- * @property {number} colSpan - The number of columns the cell should span.
- * @property {boolean} withLabel - Determines whether to display a label in the cell.
- * @property {boolean} fullWidth - Determines whether the cell should take up the full width.
- * @property {boolean} disableGutters - Determines whether to disable gutters in the cell.
- * @property {...} props - Other optional props for the component.
+ * @property className - The class name of the component.
+ * @property colSpan - The number of columns the cell should span.
+ * @property withLabel - Determines whether to display a label in the cell.
+ * @property fullWidth - Determines whether the cell should take up the full width.
+ * @property disableGutters - Determines whether to disable gutters in the cell.
+ * @property props - Other optional props for the component.
  */
 export const MobileCommonCell = ({
     className,
@@ -92,7 +92,7 @@ export const MobileCommonCell = ({
      *
      * @function
      *
-     * @returns {number | undefined} The calculated minimum height.
+     * @returns The calculated minimum height.
      *
      */
     const minHeight =  useMemo(() => {

@@ -29,7 +29,7 @@ const positions = [
  * Defines the styles for the "clockNumber" component.
  *
  * @function useStyles
- * @returns {Object} The styles object.
+ * @returns The styles object.
  */
 const useStyles = makeStyles()((theme: Theme) => ({
   clockNumber: {

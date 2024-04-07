@@ -123,8 +123,8 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   /**
    * Returns a memoized version of upperSteps filtered by a given predicate.
    *
-   * @param {Object} payload - The payload to be passed to the isVisible function.
-   * @returns {Array} - The filtered array of steps.
+   * @param payload - The payload to be passed to the isVisible function.
+   * @returns - The filtered array of steps.
    */
   const steps = useMemo(
     () => upperSteps.filter(({ isVisible = () => true }) => isVisible(payload)),
@@ -137,7 +137,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * Represents a variable to store and track the history of values.
    * @class
    *
-   * @property {Array} values - An array to store the history of values.
+   * @property values - An array to store the history of values.
    *
    * @constructor
    * Creates a new instance of the History variable.
@@ -157,11 +157,11 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * Represents additional properties for a component.
    *
    * @typedef {Object} OtherProps
-   * @property {number} size - The size of the component.
-   * @property {boolean} loading - Indicates if the component is currently loading.
-   * @property {number} progress - The progress of the component.
-   * @property {Function} setLoading - A function to set the loading state of the component.
-   * @property {Function} setProgress - A function to set the progress of the component.
+   * @property size - The size of the component.
+   * @property loading - Indicates if the component is currently loading.
+   * @property progress - The progress of the component.
+   * @property setLoading - A function to set the loading state of the component.
+   * @property setProgress - A function to set the progress of the component.
    */
   const otherProps = useMemo(
     (): OtherProps => ({
@@ -196,12 +196,12 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   /**
    * Returns the active step based on the current route and steps.
    *
-   * @returns {number} The active step index. Returns -1 if no active step is found.
+   * @returns The active step index. Returns -1 if no active step is found.
    *
-   * @param {string} path - The current route path.
-   * @param {Array} routes - The array of routes.
-   * @param {Array} steps - The array of steps.
-   * @param {Object} lastActiveStep - The last active step reference.
+   * @param path - The current route path.
+   * @param routes - The array of routes.
+   * @param steps - The array of steps.
+   * @param lastActiveStep - The last active step reference.
    *
    */
   const activeStep = useMemo(() => {
@@ -221,7 +221,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   /**
    * Render a loader component based on the state of `loading` and `progress`.
    *
-   * @returns {ReactElement|null} The loader component or null.
+   * @returns The loader component or null.
    */
   const renderLoader = useCallback(() => {
     if (progress === 100) {

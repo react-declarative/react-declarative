@@ -74,10 +74,10 @@ export const downloadBlob = (
       }
     );
     /**
-     * @param {XMLHttpRequest} xhr - The XMLHttpRequest object.
-     * @param {string} responseType - The desired response type for the XMLHttpRequest.
+     * @param xhr - The XMLHttpRequest object.
+     * @param responseType - The desired response type for the XMLHttpRequest.
      * @description Sets the response type for the given XMLHttpRequest object.
-     * @returns {void}
+     * @returns
      */
     xhr.responseType = "blob";
     xhr.open("GET", url, true);

@@ -12,8 +12,8 @@ import { ILineSlot } from '../../../slots/LineSlot';
  * The useStyles variable is used to define and retrieve custom styles
  * for a component using the makeStyles function provided by the Material-UI library.
  *
- * @param {Object} theme - The theme object provided by the Material-UI library.
- * @returns {Object} - An object containing the custom styles for the component.
+ * @param theme - The theme object provided by the Material-UI library.
+ * @returns - An object containing the custom styles for the component.
  */
 const useStyles = makeStyles()((theme) => ({
     root: {

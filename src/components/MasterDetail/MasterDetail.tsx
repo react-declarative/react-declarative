@@ -193,8 +193,8 @@ export const MasterDetail = <Payload extends any = any>({
     /**
      * Determines if the mode is a passthrough mode.
      *
-     * @param {MasterDetailMode} mode - The mode to check.
-     * @returns {boolean} - True if the mode is passthrough mode, false otherwise.
+     * @param mode - The mode to check.
+     * @returns - True if the mode is passthrough mode, false otherwise.
      */
     const isPassthrough = useMemo(() => {
         let isOk = false;

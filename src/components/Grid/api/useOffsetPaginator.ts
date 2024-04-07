@@ -109,10 +109,10 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
    * Skipped events typically occur when there is an error or exception in the execution
    * of a process or workflow, and the execution is intentionally skipped to a specific step.
    *
-   * @param {Object} event - The skip event object containing relevant information about the skip.
-   * @param {string} event.step - The step that was skipped.
-   * @param {string} event.reason - The reason for skipping the step.
-   * @param {Object} event.data - Optional data associated with the skip event.
+   * @param event - The skip event object containing relevant information about the skip.
+   * @param event.step - The step that was skipped.
+   * @param event.reason - The reason for skipping the step.
+   * @param event.data - Optional data associated with the skip event.
    * @return {void}
    */
   const {
@@ -152,7 +152,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
   /**
    * Sets the data of the component state.
    *
-   * @param {Data[] | ((prevData: Data[]) => Data[])} data - The new data to set.
+   * @param data - The new data to set.
    *   If a function is provided, it receives the previous data as a parameter and should return the updated data.
    *   If an array is provided, it replaces the current data with the new array.
    */

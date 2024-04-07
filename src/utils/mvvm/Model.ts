@@ -21,7 +21,7 @@ export interface IModelAdapter <T extends {} = any>  {
     /**
      * Sets the data for the object.
      *
-     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
+     * @param data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
      * partial object of type T.
      * @return {void}
      */
@@ -29,14 +29,14 @@ export interface IModelAdapter <T extends {} = any>  {
     /**
      * Refreshes the page.
      *
-     * @returns {void}
+     * @returns
      */
     refresh(): void;
     /**
      * Returns an object representation of the instance.
      *
      * @template T
-     * @returns {T} The object representation of the instance.
+     * @returns The object representation of the instance.
      */
     toObject(): T;
 };

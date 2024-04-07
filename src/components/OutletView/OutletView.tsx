@@ -97,9 +97,9 @@ export const OutletView = <
   /**
    * Applies a transformation to the given subject using the provided change subject function.
    *
-   * @param {Function} changeSubject - The change subject function to be used for merge.
-   * @param {string} upperChangeSubject - The subject to be merged.
-   * @returns {*} - The result of applying the transformation to the subject.
+   * @param changeSubject - The change subject function to be used for merge.
+   * @param upperChangeSubject - The subject to be merged.
+   * @returns - The result of applying the transformation to the subject.
    */
   const changeSubject = useSubject(upperChangeSubject);
 
@@ -110,7 +110,7 @@ export const OutletView = <
    * Represents the variable 'data'.
    *
    * @typedef {Object} Data
-   * @property {number} id - The identifier of outlet.
+   * @property id - The identifier of outlet.
    */
   const [data, setData] = useState(() => ({
     ...routes.reduce<Data>(
@@ -502,13 +502,13 @@ export const OutletView = <
    *
    * @typedef {Object} FormState
    *
-   * @property {Data} data - The current form data.
-   * @property {boolean} hasChanged - Indicates whether the form data has changed.
-   * @property {boolean} hasLoading - Indicates whether the form is currently loading.
-   * @property {boolean} hasInvalid - Indicates whether the form data is invalid.
-   * @property {string} id - The ID of the form (either "create" or a custom ID from `params`).
-   * @property {function} change - A function to update the form data and set the `hasChanged` flag.
-   * @property {Payload} payload - An optional payload associated with the form.
+   * @property data - The current form data.
+   * @property hasChanged - Indicates whether the form data has changed.
+   * @property hasLoading - Indicates whether the form is currently loading.
+   * @property hasInvalid - Indicates whether the form data is invalid.
+   * @property id - The ID of the form (either "create" or a custom ID from `params`).
+   * @property change - A function to update the form data and set the `hasChanged` flag.
+   * @property payload - An optional payload associated with the form.
    */
   const formState = useMemo(
     () => ({

@@ -41,10 +41,10 @@ const DEFAULT_METHOD = "GET";
 /**
  * Default configuration for the software.
  * @typedef {Object} IConfig
- * @property {string} url - The URL to be used for the request.
- * @property {string} method - The HTTP method to be used for the request.
- * @property {number} timeout - The timeout value in milliseconds for the request.
- * @property {number} interval - The interval value in milliseconds for the request.
+ * @property url - The URL to be used for the request.
+ * @property method - The HTTP method to be used for the request.
+ * @property timeout - The timeout value in milliseconds for the request.
+ * @property interval - The interval value in milliseconds for the request.
  */
 const DEFAULT_CONFIG: IConfig = {
   url: "https://httpbin.org/get",

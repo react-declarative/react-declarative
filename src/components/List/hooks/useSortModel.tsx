@@ -30,8 +30,8 @@ interface IState {
  * Provides sorting functionality for a list component.
  *
  * @typedef {Object} SortModelProvider
- * @property {ReactNode} children - The child components.
- * @property {Array.<Object>} sortModel - The initial sort model.
+ * @property children - The child components.
+ * @property sortModel - The initial sort model.
  */
 export const SortModelProvider = ({
     children,
@@ -76,8 +76,8 @@ export const SortModelProvider = ({
     /**
      * Represents the value object.
      * @typedef {Object} VariableValue
-     * @property {Array} sortModel - An array containing the sorting model.
-     * @property {Function} setSortModel - A function to handle changes to the sorting model.
+     * @property sortModel - An array containing the sorting model.
+     * @property setSortModel - A function to handle changes to the sorting model.
      */
     const value = {
         sortModel,

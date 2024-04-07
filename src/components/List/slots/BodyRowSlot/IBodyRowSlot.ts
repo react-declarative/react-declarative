@@ -28,7 +28,7 @@ export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
      * @typedef {Array<BodyColumn<RowData>>} columns
      *
      * @template RowData The type of data stored in the rows of the column.
-     * @property {number} length - The number of columns in the array.
+     * @property length - The number of columns in the array.
      * @method {function(): Iterator<BodyColumn<RowData>, undefined, undefined>} @@iterator - Returns a new Iterator object that can be used to iterate over each column in the array.
      */
     columns: BodyColumn<RowData>[];

@@ -124,8 +124,8 @@ export const Combo = ({
   /**
    * Returns a memoized value based on the given `upperValue`.
    *
-   * @param {*} upperValue - The value to compute the memoized value from.
-   * @returns {*} - The computed memoized value.
+   * @param upperValue - The value to compute the memoized value from.
+   * @returns - The computed memoized value.
    */
   const value = useMemo(() => {
     if (Array.isArray(upperValue)) {

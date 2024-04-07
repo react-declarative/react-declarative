@@ -54,9 +54,9 @@ const compareSelection = (s1: Set<string>, s2: Set<string>) => {
 /**
  * A component that provides selection functionality for its children.
  * @typedef {Object} ISelectionProviderProps
- * @property {React.ReactNode} children - The child components to wrap with selection functionality.
- * @property {string[]} selectedRows - The currently selected rows.
- * @property {function} onSelectedRows - Callback function to handle selection changes.
+ * @property children - The child components to wrap with selection functionality.
+ * @property selectedRows - The currently selected rows.
+ * @property onSelectedRows - Callback function to handle selection changes.
  */
 export const SelectionProvider = ({
     children,
@@ -81,8 +81,8 @@ export const SelectionProvider = ({
      * Represents a variable value.
      *
      * @typedef {Object} VariableValue
-     * @property {*} selection - The current selection value.
-     * @property {Function} setSelection - The function to handle selection changes.
+     * @property selection - The current selection value.
+     * @property setSelection - The function to handle selection changes.
      */
     const value = {
         selection,

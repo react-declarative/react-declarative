@@ -39,14 +39,14 @@ export interface ICardProps extends IContainerProps {
 
 /**
  * Represents a Card component.
- * @param {Object} props - The props of the Card component.
- * @param {string} props.className - The CSS class name of the Card component.
- * @param {Object} props.style - The inline styles of the Card component.
- * @param {boolean} props.disabled - Determines if the Card component is disabled.
- * @param {string} props.id - The unique identifier of the Card component.
- * @param {function} props.onDrag - The event handler for the onDrag event of the Card component.
- * @param {React.Ref} ref - The reference object for the Card component.
- * @returns {React.Element} The rendered Card component.
+ * @param props - The props of the Card component.
+ * @param props.className - The CSS class name of the Card component.
+ * @param props.style - The inline styles of the Card component.
+ * @param props.disabled - Determines if the Card component is disabled.
+ * @param props.id - The unique identifier of the Card component.
+ * @param props.onDrag - The event handler for the onDrag event of the Card component.
+ * @param ref - The reference object for the Card component.
+ * @returns The rendered Card component.
  */
 export const Card = forwardRef(
   (

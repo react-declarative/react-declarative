@@ -239,8 +239,8 @@ export const Complete = ({
   /**
    * A memoized function that handles a change event.
    *
-   * @param {string} text - The text to be processed.
-   * @returns {undefined}
+   * @param text - The text to be processed.
+   * @returns
    */
   const handleChange = useMemo(
     () =>
@@ -254,7 +254,7 @@ export const Complete = ({
   /**
    * Memoized function for handling requests.
    *
-   * @returns {void}
+   * @returns
    */
   const handleRequest = useMemo(
     () =>

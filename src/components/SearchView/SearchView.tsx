@@ -161,9 +161,9 @@ export const SearchView = <
 
   /**
    * Executes the given function after a certain delay.
-   * @param {Function} callback - The function to be executed.
-   * @param {number} delay - The delay (in milliseconds) before executing the function.
-   * @returns {void}
+   * @param callback - The function to be executed.
+   * @param delay - The delay (in milliseconds) before executing the function.
+   * @returns
    */
   const { execute } = useQueuedAction(
     async () => {
@@ -249,9 +249,9 @@ export const SearchView = <
    *
    * @function
    * @name useMemo
-   * @returns {Array} - Array of filtered items
-   * @param {function} callback - Function to be memoized
-   * @param {Array} deps - Dependency array determining when to recalculate the memoized value
+   * @returns - Array of filtered items
+   * @param callback - Function to be memoized
+   * @param deps - Dependency array determining when to recalculate the memoized value
    */
   const data = useMemo(() => {
     const valueSet = new Set<string>([state.item?.value || ""]);
@@ -280,7 +280,7 @@ export const SearchView = <
   /**
    * Sets the value of the 'open' property in the state.
    *
-   * @param {boolean} open - The new value for the 'open' property.
+   * @param open - The new value for the 'open' property.
    */
   const setOpen = useCallback(
     (open: boolean) =>
@@ -294,9 +294,9 @@ export const SearchView = <
   /**
    * handleChangeText is a callback function that updates the state of a component.
    *
-   * @param {string} value - The new value to be set in the state.
+   * @param value - The new value to be set in the state.
    *
-   * @returns {void}
+   * @returns
    */
   const handleChangeText = useCallback(
     (value: string) =>
@@ -311,8 +311,8 @@ export const SearchView = <
   /**
    * Handles the change of an item in the search.
    *
-   * @param {ISearchItem} item - The selected search item.
-   * @returns {void}
+   * @param item - The selected search item.
+   * @returns
    */
   const handleChangeItem = useCallback(
     (item: ISearchItem) =>
@@ -328,7 +328,7 @@ export const SearchView = <
   /**
    * Handle clear function to clear the state values.
    * @function handleClear
-   * @returns {void}
+   * @returns
    */
   const handleClear = useCallback(
     () =>
@@ -344,7 +344,7 @@ export const SearchView = <
    * Returns the value from the underlying callback function,
    * or an empty string if the value is falsy.
    *
-   * @returns {string} The value obtained from the callback function,
+   * @returns The value obtained from the callback function,
    *                   or an empty string if the value is falsy.
    */
   const getValue = useActualCallback(
@@ -354,7 +354,7 @@ export const SearchView = <
   /**
    * Retrieves the value of text from an external source.
    *
-   * @returns {string} The value of the text.
+   * @returns The value of the text.
    */
   const textValue = getValue();
 

@@ -38,7 +38,7 @@ export const useCachedPaginator = <FilterData extends {} = IAnything, RowData ex
     /**
      * Memoized function for handling rows.
      *
-     * @returns {Function} - The memoized function.
+     * @returns - The memoized function.
      */
     const rowsHandler = useMemo(() => singleshot((...args: any[]) => {
         if (typeof handler === 'function') {

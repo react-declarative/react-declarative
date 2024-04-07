@@ -67,8 +67,8 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
 
     /**
      * Executes a given payload asynchronously.
-     * @param {Payload} payload - The payload to be executed.
-     * @returns {Promise<Data|null>} - The result of the execution, or null if canceled.
+     * @param payload - The payload to be executed.
+     * @returns - The result of the execution, or null if canceled.
      */
     const execute = useCallback(async (payload?: Payload) => {
         if (executionRef.current) {
@@ -82,10 +82,10 @@ export const useAsyncAction = <Data extends any = any, Payload extends any = any
          * If the function throws an error, it also calls onLoadEnd with an isOk flag set to false.
          *
          * @template T - The type of the result data.
-         * @param {() => Promise<T> | T} func - The cancelable function to execute.
-         * @param {Function} onLoadStart - The callback function called before the execution of the function.
-         * @param {Function} onLoadEnd - The callback function called after the execution of the function.
-         * @returns {Promise<T | null>} - A Promise that resolves with the result of the function, or null if the function did not return anything.
+         * @param func - The cancelable function to execute.
+         * @param onLoadStart - The callback function called before the execution of the function.
+         * @param onLoadEnd - The callback function called after the execution of the function.
+         * @returns - A Promise that resolves with the result of the function, or null if the function did not return anything.
          * @throws - If the executed function throws an error, it will be rethrown.
          */
         const execution = cancelable<Data | null>(async () => {

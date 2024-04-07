@@ -46,9 +46,9 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
      * Creates a memoized function that caches the result of the
      * original function based on the provided key.
      *
-     * @param {string} key - The key used to cache the result of the function.
-     * @param {Function} run - The original function to be memoized.
-     * @returns {Function} - A memoized function that returns the cached value.
+     * @param key - The key used to cache the result of the function.
+     * @param run - The original function to be memoized.
+     * @returns - A memoized function that returns the cached value.
      */
     const wrappedFn = memoize(key, (...args) => ({
         value: run(...args),

@@ -96,10 +96,10 @@ export const OneButton = <
    * Represents the variable `data`.
    *
    * @typedef {Object} Data
-   * @property {string} name - The name of the data.
-   * @property {number} value - The value of the data.
-   * @property {boolean} isActive - Indicates whether the data is active or not.
-   * @property {Array<string>} tags - An array of tags associated with the data.
+   * @property name - The name of the data.
+   * @property value - The value of the data.
+   * @property isActive - Indicates whether the data is active or not.
+   * @property tags - An array of tags associated with the data.
    */
   const [data, { loading, error }, setData] = useAsyncValue(async () => {
     const getResult = async () => {
@@ -145,9 +145,9 @@ export const OneButton = <
    * Returns the count of non-empty values in the provided data object,
    * unless the noBadge flag is set to true which returns 0.
    *
-   * @param {Object} data - The data object to filter values from.
-   * @param {boolean} noBadge - Optional. If true, the output will always be 0.
-   * @returns {number} - The count of non-empty values in the data object.
+   * @param data - The data object to filter values from.
+   * @param noBadge - Optional. If true, the output will always be 0.
+   * @returns - The count of non-empty values in the data object.
    *
    */
   const filterCount = useMemo(
@@ -158,9 +158,9 @@ export const OneButton = <
   /**
    * Use memoized function to handle close event.
    *
-   * @param {Function} onChange - Callback function called when changes occur.
-   * @param {Object} data$ - Current data object.
-   * @returns {Function} - Memoized function to handle close event.
+   * @param onChange - Callback function called when changes occur.
+   * @param data$ - Current data object.
+   * @returns - Memoized function to handle close event.
    */
   const handleClose = useMemo(
     () =>

@@ -25,8 +25,8 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
      * the async function is executed at a time, queuing subsequent calls until the
      * previous one completes.
      *
-     * @param {Function} asyncFunc - The async function to be queued.
-     * @returns {Function} - The queued version of the async function.
+     * @param asyncFunc - The async function to be queued.
+     * @returns - The queued version of the async function.
      * @throws {TypeError} - If the input parameter is not a function.
      */
     private readonly queueFactory = queued(async (promise: Promise<object>) => await promise);
@@ -185,8 +185,8 @@ class ServiceManager {
      * A variable that represents a single shot function for waiting until a specific condition is met.
      *
      * @typedef {Function} waitForProvide
-     * @param {boolean} [verbose=false] - Whether to enable verbose mode or not.
-     * @returns {Promise} - A promise that resolves when the specified condition is met.
+     * @param [verbose=false] - Whether to enable verbose mode or not.
+     * @returns - A promise that resolves when the specified condition is met.
      *
      */
     waitForProvide = singleshot(async (verbose = false) => {
@@ -196,8 +196,8 @@ class ServiceManager {
     /**
      * Executes prefetch operation for all service instances in a service manager.
      *
-     * @param {boolean} [verbose=true] - Flag to enable verbose logging.
-     * @returns {Promise<void>} - Promise that resolves when prefetch operation is completed.
+     * @param [verbose=true] - Flag to enable verbose logging.
+     * @returns - Promise that resolves when prefetch operation is completed.
      * @throws {Error} - Throws an error if an error occurs during prefetch operation.
      */
     prefetch = singleshot(async (verbose = true) => {
@@ -225,8 +225,8 @@ class ServiceManager {
     /**
      * Unload function that unloads services and clears prefetch.
      *
-     * @param {boolean} verbose - Optional parameter to enable verbose logging.
-     * @returns {Promise} - A promise that resolves when all services are unloaded.
+     * @param verbose - Optional parameter to enable verbose logging.
+     * @returns - A promise that resolves when all services are unloaded.
      * @throws {Error} - If any error occurs during the unload process.
      */
     unload = singleshot(async (verbose = true) => {

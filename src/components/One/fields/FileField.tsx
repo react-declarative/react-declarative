@@ -47,9 +47,9 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<T, K>} PickProp
    *
-   * @param {IField<Data, Payload>} field - The field object.
+   * @param field - The field object.
    *
-   * @returns {T[K]} - The value of the field's placeholder property.
+   * @returns - The value of the field's placeholder property.
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
@@ -60,7 +60,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, 'fileAccept'>} fileAccept
    *
-   * @property {string} fileAccept - The accepted file types for the field.
+   * @property fileAccept - The accepted file types for the field.
    */
   fileAccept?: PickProp<IField<Data, Payload>, 'fileAccept'>;
   /**
@@ -70,9 +70,9 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of the data stored in the "IField" object.
    * @template Payload - The type of the payload stored in the "IField" object.
    *
-   * @param {IField<Data, Payload>} obj - The object from which to retrieve the "readonly" property.
+   * @param obj - The object from which to retrieve the "readonly" property.
    *
-   * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the "readonly" property, or undefined if it is not present.
+   * @returns - The value of the "readonly" property, or undefined if it is not present.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
@@ -91,14 +91,14 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the input reference associated with a field in a specific data payload.
    *
    * @typedef {object} IInputRef
-   * @property {PickProp<IField<Data, Payload>, 'inputRef'>} inputRef - The input reference value.
+   * @property inputRef - The input reference value.
    */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   /**
    * Label shrink value from the field data.
    *
    * @typedef {Pick<IField<Data>, "labelShrink">} labelShrink
-   * @property {boolean | undefined} [labelShrink] - The label shrink value from the field data.
+   * @property [labelShrink] - The label shrink value from the field data.
    * @private
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;

@@ -83,7 +83,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
  *
  * @function
  * @name useStyles
- * @returns {Object} The styles for the component.
+ * @returns The styles for the component.
  */
 const useStyles = makeStyles()({
   root: {
@@ -149,9 +149,9 @@ export const ListItem = <RowData extends IRowData = IAnything>({
    * Represents the primary variable.
    *
    * @typedef {React.ReactElement} Primary
-   * @property {RowData} row - The row data.
-   * @property {string | React.ReactElement} fallback - The fallback value or element.
-   * @property {Column<RowData>} column - The primary column.
+   * @property row - The row data.
+   * @property fallback - The fallback value or element.
+   * @property column - The primary column.
    */
   const primary = (
     <ColumnContent<RowData>
@@ -166,11 +166,11 @@ export const ListItem = <RowData extends IRowData = IAnything>({
    *
    * @type {ColumnContent<RowData>|null} The content displayed in the secondary column.
    *
-   * @param {RowData} row - The data of a row.
-   * @param {any} fallback - The fallback value if `secondaryColumn` is falsy.
-   * @param {Column} secondaryColumn - The secondary column to be displayed if truthy.
+   * @param row - The data of a row.
+   * @param fallback - The fallback value if `secondaryColumn` is falsy.
+   * @param secondaryColumn - The secondary column to be displayed if truthy.
    *
-   * @returns {ColumnContent<RowData>|null} The content displayed in the secondary column,
+   * @returns The content displayed in the secondary column,
    * or `null` if `secondaryColumn` is falsy.
    */
   const secondary = secondaryColumn ? (
@@ -187,9 +187,9 @@ export const ListItem = <RowData extends IRowData = IAnything>({
    * @typedef {import("path/to/ColumnContent").ColumnContent} ColumnContent
    * @typedef {import("path/to/RowData").RowData} RowData
    *
-   * @property {ColumnContent<RowData> | null} avatarColumn - The column content representing the avatar.
-   * @property {RowData} row - The row data for the avatar.
-   * @property {string} fallback - The fallback value for the avatar.
+   * @property avatarColumn - The column content representing the avatar.
+   * @property row - The row data for the avatar.
+   * @property fallback - The fallback value for the avatar.
    */
   const avatar = avararColumn ? (
     <ColumnContent<RowData>

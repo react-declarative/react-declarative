@@ -263,10 +263,10 @@ export const OneInternal = <
             /**
              * Checks if a given field is baseline aligned.
              *
-             * @param {Object} field - The field object to check.
-             * @param {Map} baselineMap - The map containing the baseline information.
-             * @param {Array} fields - The array of fields to check for baselines.
-             * @returns {boolean} Returns true if the field is baseline aligned, false otherwise.
+             * @param field - The field object to check.
+             * @param baselineMap - The map containing the baseline information.
+             * @param fields - The array of fields to check for baselines.
+             * @returns Returns true if the field is baseline aligned, false otherwise.
              */
             isBaselineAlign:
               baselineMap.get(field) === undefined
@@ -284,8 +284,8 @@ export const OneInternal = <
              * Retrieves the function associated with the given field from the click map.
              * If no function is found, returns the click map itself.
              *
-             * @param {string} field - The field to search in the click map.
-             * @returns {function|Map} - The function associated with the field, or the click map.
+             * @param field - The field to search in the click map.
+             * @returns - The function associated with the field, or the click map.
              */
             click: clickMap.has(field)
               ? clickMap.get(field)
@@ -303,8 +303,8 @@ export const OneInternal = <
              * The function takes in parameters and calls "focus" and "focus" (if they exist) passing in the parameters.
              * Then, the updated value is returned from the focusMap.
              *
-             * @param {string} field - The field to check in the focusMap.
-             * @returns {any} - The value associated with the field in the focusMap.
+             * @param field - The field to check in the focusMap.
+             * @returns - The value associated with the field in the focusMap.
              */
             focus: focusMap.has(field)
               ? focusMap.get(field)
@@ -320,8 +320,8 @@ export const OneInternal = <
              * The new entry is a function that invokes the `blur` method of the `field`, if available,
              * and then invokes the `blur` method passed as an argument.
              *
-             * @param {object} field - The field to check or add to the blur map.
-             * @returns {function} - The value associated with the field in the blur map,
+             * @param field - The field to check or add to the blur map.
+             * @returns - The value associated with the field in the blur map,
              *                       or a new function added to the blur map for the field.
              */
             blur: blurMap.has(field)
@@ -337,9 +337,9 @@ export const OneInternal = <
              * If it does not exist, create a new entry in the menuMap and associate it with a new menu function defined
              * by the provided parameters and return the menu function.
              *
-             * @param {string} field - The field to check in the menuMap.
+             * @param field - The field to check in the menuMap.
              *
-             * @returns {function} - The menu function associated with the field in the menuMap.
+             * @returns - The menu function associated with the field in the menuMap.
              */
             menu: menuMap.has(field)
               ? menuMap.get(field)
@@ -353,9 +353,9 @@ export const OneInternal = <
              * Checks if a field exists in the trMap. If the field exists, it returns the corresponding translation. If the field does not exist, it creates a new translation using the `makeTr`
              * function, stores it in the trMap, and returns the translation.
              *
-             * @param {string} field - The field to check in the trMap.
-             * @param {any} payload - The payload to use when creating a new translation.
-             * @returns {string} - The translation for the specified field.
+             * @param field - The field to check in the trMap.
+             * @param payload - The payload to use when creating a new translation.
+             * @returns - The translation for the specified field.
              */
             tr: trMap.has(field)
               ? trMap.get(field)
@@ -365,9 +365,9 @@ export const OneInternal = <
              * the corresponding itemList is returned. Otherwise, a new itemList is created using
              * makeItemList function and added to the itemListMap.
              *
-             * @param {string} field - The field for which to get the itemList.
-             * @param {any} payload - The payload to be used in makeItemList function.
-             * @returns {any[]} - The itemList for the given field.
+             * @param field - The field for which to get the itemList.
+             * @param payload - The payload to be used in makeItemList function.
+             * @returns - The itemList for the given field.
              */
             itemList: itemListMap.has(field)
               ? itemListMap.get(field)
@@ -380,24 +380,24 @@ export const OneInternal = <
            *
            * @template Data - The type of data used by the component.
            *
-           * @property {boolean} rendered - Determines if the component is rendered.
-           * @property {Function} ready - Callback function for when the component is ready.
-           * @property {string} prefix - The current path prefix.
-           * @property {boolean} readonly - Determines if the component is readonly.
-           * @property {boolean} outlinePaper - Determines if the entity has an outline paper.
-           * @property {boolean} transparentPaper - Determines if the entity has a transparent paper.
-           * @property {boolean} withNamedPlaceholders - Determines if the component has named placeholders.
-           * @property {Function} createField - Function for creating a field.
-           * @property {Function} createLayout - Function for creating a layout.
-           * @property {Array} fields - The list of fields.
-           * @property {Array} features - The list of features.
-           * @property {object} handler - The object handler.
-           * @property {boolean} invalidity - Determines if the component is invalid.
-           * @property {boolean} focus - Determines if the component is focused.
-           * @property {boolean} click - Determines if the component is clicked.
-           * @property {boolean} menu - Determines if the component has a menu.
-           * @property {boolean} blur - Determines if the component is blurred.
-           * @property {boolean} dirty - Determines if the component is dirty.
+           * @property rendered - Determines if the component is rendered.
+           * @property ready - Callback function for when the component is ready.
+           * @property prefix - The current path prefix.
+           * @property readonly - Determines if the component is readonly.
+           * @property outlinePaper - Determines if the entity has an outline paper.
+           * @property transparentPaper - Determines if the entity has a transparent paper.
+           * @property withNamedPlaceholders - Determines if the component has named placeholders.
+           * @property createField - Function for creating a field.
+           * @property createLayout - Function for creating a layout.
+           * @property fields - The list of fields.
+           * @property features - The list of features.
+           * @property handler - The object handler.
+           * @property invalidity - Determines if the component is invalid.
+           * @property focus - Determines if the component is focused.
+           * @property click - Determines if the component is clicked.
+           * @property menu - Determines if the component has a menu.
+           * @property blur - Determines if the component is blurred.
+           * @property dirty - Determines if the component is dirty.
            */
           const one: IOneInternalProps<Data> = {
             rendered,

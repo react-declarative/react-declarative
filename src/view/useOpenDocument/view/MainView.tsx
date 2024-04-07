@@ -55,9 +55,9 @@ const downloadFetch = cancelable(async (url: string, onProgress?: (progress: num
        * Set of headers used for making HTTP requests.
        *
        * @typedef {Object} Headers
-       * @property {string} Content-Type - The value of the Content-Type header.
-       * @property {string} X-Requested-With - The value of the X-Requested-With header.
-       * @property {string} Access-Control-Allow-Origin - The value of the Access-Control-Allow-Origin header.
+       * @property Content-Type - The value of the Content-Type header.
+       * @property X-Requested-With - The value of the X-Requested-With header.
+       * @property Access-Control-Allow-Origin - The value of the Access-Control-Allow-Origin header.
        */
       headers: {
         "Content-Type": "application/octet-stream",

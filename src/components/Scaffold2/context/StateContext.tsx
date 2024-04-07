@@ -117,8 +117,8 @@ export const createStateManager = ({
   /**
    * Builds groups and updates the state with the result.
    *
-   * @param {Payload} payload - The payload object to pass to isVisible, isDisabled, and isActive functions.
-   * @returns {void}
+   * @param payload - The payload object to pass to isVisible, isDisabled, and isActive functions.
+   * @returns
    */
   const buildGroups = useCallback(
     async (payload: Payload) => {
@@ -195,7 +195,7 @@ export const createStateManager = ({
    *              and buildGroups functions sequentially. It also handles error fallback or throwing the error,
    *              and invokes the onLoadEnd function with a boolean flag indicating if the initialization was
    *              successful or not. Finally, it updates the loading status by invoking the setLoading function.
-   * @returns {void}
+   * @returns
    */
   const doInit = useCallback(async () => {
     let isOk = true;

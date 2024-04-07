@@ -108,9 +108,9 @@ export const OneIcon = <
   /**
    * Waits for the rendering of data to complete.
    *
-   * @param {Array} data - The data to render.
-   * @param {number} timeout - The maximum time in milliseconds to wait for rendering to complete.
-   * @returns {Promise} - A promise that resolves when rendering is complete or rejects if it times out.
+   * @param data - The data to render.
+   * @param timeout - The maximum time in milliseconds to wait for rendering to complete.
+   * @returns - A promise that resolves when rendering is complete or rejects if it times out.
    */
   const waitForRender = useRenderWaiter([data], 10);
 
@@ -135,9 +135,9 @@ export const OneIcon = <
   /**
    * Calculate the count of filtered values based on the given data and noBadge flag.
    *
-   * @param {boolean} noBadge - A flag indicating whether to exclude badge values.
-   * @param {Object} data - The data object containing values to filter.
-   * @returns {number} - The count of filtered values.
+   * @param noBadge - A flag indicating whether to exclude badge values.
+   * @param data - The data object containing values to filter.
+   * @returns - The count of filtered values.
    */
   const filterCount = useMemo(
     () => (noBadge ? 0 : Object.values(data || {}).filter((v) => v).length),
@@ -148,7 +148,7 @@ export const OneIcon = <
    * useMemo function that creates a handle for closing an element.
    * The handle will trigger the provided onChange function with the current data and false,
    * and set the anchor element to null after waiting for changes.
-   * @returns {function} The handleClose function
+   * @returns The handleClose function
    */
   const handleClose = useMemo(
     () =>

@@ -18,9 +18,9 @@ interface ISpinnerProps extends Omit<BoxProps, keyof {
  * Represents a function that creates a spin animation.
  * @param [ms=1000] - The duration in milliseconds for the animation.
  * @returns - An object representing the spin animation.
- * @property {string} transformBox - The value for the `transformBox` CSS property.
- * @property {string} transformOrigin - The value for the `transformOrigin` CSS property.
- * @property {string} animation - The CSS animation property with keyframes and duration.
+ * @property transformBox - The value for the `transformBox` CSS property.
+ * @property transformOrigin - The value for the `transformOrigin` CSS property.
+ * @property animation - The CSS animation property with keyframes and duration.
  */
 const createSpin = (ms = 1_000) => ({
   transformBox: 'fill-box',
@@ -40,23 +40,23 @@ const createSpin = (ms = 1_000) => ({
  * It is used to define and generate custom styles for a component.
  *
  * @typedef {Object} Classes
- * @property {string} root - The class name for the root element of the component
- * @property {string} spin1 - The class name for the spin1 element of the component
- * @property {string} spin2 - The class name for the spin2 element of the component
- * @property {string} spin3 - The class name for the spin3 element of the component
- * @property {string} spin4 - The class name for the spin4 element of the component
+ * @property root - The class name for the root element of the component
+ * @property spin1 - The class name for the spin1 element of the component
+ * @property spin2 - The class name for the spin2 element of the component
+ * @property spin3 - The class name for the spin3 element of the component
+ * @property spin4 - The class name for the spin4 element of the component
  *
  * @typedef {Object} StyleFn
- * @param {Object} theme - The theme object provided by Material-UI
- * @returns {Classes} - An object containing the class names for the different elements of the component
+ * @param theme - The theme object provided by Material-UI
+ * @returns - An object containing the class names for the different elements of the component
  *
  * @function createSpin
- * @param {number} duration - The duration of the spin animation, in milliseconds
- * @returns {string} - The class name for the spin animation
+ * @param duration - The duration of the spin animation, in milliseconds
+ * @returns - The class name for the spin animation
  *
  * @function makeStyles
- * @param {StyleFn} styles - The function that generates the styles for the component
- * @returns {Classes} - An object containing the class names for the different elements of the component
+ * @param styles - The function that generates the styles for the component
+ * @returns - An object containing the class names for the different elements of the component
  *
  * @description
  * The useStyles variable is a function call to the makeStyles() hook, passing in an object

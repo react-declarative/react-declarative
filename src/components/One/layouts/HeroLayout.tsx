@@ -192,7 +192,7 @@ type IHeroRegistry<D = IAnything> =
  *
  * @function
  * @name useStyles
- * @returns {Object} - An object containing the generated styles for the component.
+ * @returns - An object containing the generated styles for the component.
  *
  * @example
  * const classes = useStyles();

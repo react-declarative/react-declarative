@@ -46,10 +46,10 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the `freeSolo` property of an object.
    *
    * @typedef {PickProp<IField<Data, Payload>, "freeSolo">} freeSolo
-   * @property {boolean} [freeSolo] - Indicates whether or not the field allows free-form input.
-   * @property {IField<Data, Payload>} field - The parent field object.
-   * @property {Data} - The type of data associated with the field.
-   * @property {Payload} - The type of payload associated with the field.
+   * @property [freeSolo] - Indicates whether or not the field allows free-form input.
+   * @property field - The parent field object.
+   * @property - The type of data associated with the field.
+   * @property - The type of payload associated with the field.
    */
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
   /**
@@ -59,9 +59,9 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The payload type of the field.
    * @typedef {boolean} noDeselect
    *
-   * @param {PickProp<IField<Data, Payload>, "noDeselect">} noDeselect - The value of the noDeselect property.
+   * @param noDeselect - The value of the noDeselect property.
    *
-   * @returns {void} - This function does not return any value.
+   * @returns - This function does not return any value.
    */
   noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
   /**
@@ -69,31 +69,31 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
    *
-   * @property {boolean} enabled - Indicates whether the virtual list box is enabled or not.
-   * @property {number} size - The number of items to render per batch in the virtual list box.
-   * @property {boolean} infiniteScroll - Indicates whether the virtual list box should support infinite scrolling or not.
-   * @property {boolean} useWindowScroll - Indicates whether the virtual list box should use window scroll or not.
+   * @property enabled - Indicates whether the virtual list box is enabled or not.
+   * @property size - The number of items to render per batch in the virtual list box.
+   * @property infiniteScroll - Indicates whether the virtual list box should support infinite scrolling or not.
+   * @property useWindowScroll - Indicates whether the virtual list box should use window scroll or not.
    */
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
   /**
    * Represents the watch item list for a specific field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "watchItemList">} watchItemList
-   * @property {Array} - An array of watch items.
+   * @property - An array of watch items.
    */
   watchItemList?: PickProp<IField<Data, Payload>, "watchItemList">;
   /**
    * Retrieves the "readonly" property from a given object of type IField<Data, Payload>.
    *
-   * @param {IField<Data, Payload>} field - The object from which to retrieve the "readonly" property.
-   * @returns {PickProp<IField<Data, Payload>, "readonly">} The value of the "readonly" property.
+   * @param field - The object from which to retrieve the "readonly" property.
+   * @returns The value of the "readonly" property.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
    * Represents the "disabled" property of a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
-   * @property {boolean} disabled - Indicates if the field is disabled or not.
+   * @property disabled - Indicates if the field is disabled or not.
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**

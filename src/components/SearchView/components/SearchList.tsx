@@ -117,7 +117,7 @@ export const SearchList = ({
 
   /**
    * Handle the end of a load operation.
-   * @param {boolean} isOk - Indicates if the load was successful.
+   * @param isOk - Indicates if the load was successful.
    */
   const handleLoadEnd = useCallback((isOk: boolean) => {
     setCurrentLoading((currentLoading) => currentLoading - 1);
@@ -136,13 +136,13 @@ export const SearchList = ({
   /**
    * Render a loader component.
    *
-   * @returns {React.Component} The rendered loader component.
+   * @returns The rendered loader component.
    *
-   * @param {function} onCreate - The callback function to invoke when creating an item.
-   * @param {object} classes - The CSS classes to apply to the rendered component.
-   * @param {boolean} loading - Indicates if the loader is currently loading.
-   * @param {object} item - The item to be rendered.
-   * @param {array} items - The items to be rendered.
+   * @param onCreate - The callback function to invoke when creating an item.
+   * @param classes - The CSS classes to apply to the rendered component.
+   * @param loading - Indicates if the loader is currently loading.
+   * @param item - The item to be rendered.
+   * @param items - The items to be rendered.
    */
   const renderLoader = useCallback(() => {
     if (!loading && !!onCreate) {
@@ -160,14 +160,14 @@ export const SearchList = ({
 
   /**
    * Renders the create button if all conditions are met.
-   * @returns {React.Element|null} The rendered create button, or null if conditions are not met.
-   * @param {function} onCreate - The callback function to be executed when the create button is clicked.
-   * @param {string} text - The text input value.
-   * @param {boolean} item - A flag indicating if an item is present.
-   * @param {Array} items - An array containing items.
-   * @param {boolean} loading - A flag indicating if data is being loaded.
-   * @param {object} classes - The CSS classes object.
-   * @param {object} payload - The payload object.
+   * @returns The rendered create button, or null if conditions are not met.
+   * @param onCreate - The callback function to be executed when the create button is clicked.
+   * @param text - The text input value.
+   * @param item - A flag indicating if an item is present.
+   * @param items - An array containing items.
+   * @param loading - A flag indicating if data is being loaded.
+   * @param classes - The CSS classes object.
+   * @param payload - The payload object.
    */
   const renderCreate = useCallback(() => {
     if (!onCreate) {

@@ -18,40 +18,40 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
    * Represents the configuration for a step slider field.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'stepSlider'>} stepSlider
-   * @property {string} [propertyName] - The name of the property for this step slider field.
-   * @property {string} [label] - The label to display for this step slider field.
-   * @property {number} [minValue] - The minimum value for the step slider.
-   * @property {number} [maxValue] - The maximum value for the step slider.
-   * @property {number} [step] - The step interval for the step slider.
-   * @property {string} [unit] - The unit of measurement for the step slider.
+   * @property [propertyName] - The name of the property for this step slider field.
+   * @property [label] - The label to display for this step slider field.
+   * @property [minValue] - The minimum value for the step slider.
+   * @property [maxValue] - The maximum value for the step slider.
+   * @property [step] - The step interval for the step slider.
+   * @property [unit] - The unit of measurement for the step slider.
    */
   stepSlider?: PickProp<IField<Data, Payload>, 'stepSlider'>;
   /**
    * The maximum value for a slider in a field of a data object payload.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'maxSlider'>} maxSlider
-   * @property {number} [maxSlider] - The maximum value for the slider. If not provided, there is no maximum limit.
+   * @property [maxSlider] - The maximum value for the slider. If not provided, there is no maximum limit.
    */
   maxSlider?: PickProp<IField<Data, Payload>, 'maxSlider'>;
   /**
    * The minimum value for a slider in a field.
    *
-   * @property {number} [minSlider] - The minimum value for a slider. If undefined, there is no minimum value.
+   * @property [minSlider] - The minimum value for a slider. If undefined, there is no minimum value.
    */
   minSlider?: PickProp<IField<Data, Payload>, 'minSlider'>;
   /**
    * Specifies the format for the labels of a slider component.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'labelFormatSlider'>} labelFormatSlider
-   * @property {string} [labelFormatSlider.format] - The format string for the labels.
+   * @property [labelFormatSlider.format] - The format string for the labels.
    */
   labelFormatSlider?: PickProp<IField<Data, Payload>, 'labelFormatSlider'>;
   /**
    * Retrieve the value of the 'leadingIconRipple' property from a given object.
    *
-   * @param {IField<Data, Payload>} obj - The object which contains the 'leadingIconRipple' property.
+   * @param obj - The object which contains the 'leadingIconRipple' property.
    *
-   * @returns {PickProp<IField<Data, Payload>, 'leadingIconRipple'>} The value of the 'leadingIconRipple' property.
+   * @returns The value of the 'leadingIconRipple' property.
    */
   leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
   /**
@@ -74,7 +74,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Sets the trailing icon of the field.
    *
-   * @param {PickProp<IField<Data, Payload>, 'trailingIcon'>} trailingIcon - The trailing icon to be set for the field.
+   * @param trailingIcon - The trailing icon to be set for the field.
    */
   trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
   /**
@@ -98,28 +98,28 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * The color of the slider track.
    *
-   * @property {string} [sliderTrackColor] - The color of the slider track. If not provided, a default color will be used.
+   * @property [sliderTrackColor] - The color of the slider track. If not provided, a default color will be used.
    */
   sliderTrackColor?: PickProp<IField<Data, Payload>, 'sliderTrackColor'>;
   /**
    * Retrieves the value of the `sliderRailColor` property from the given object.
    *
-   * @param {PickProp<IField<Data, Payload>, 'sliderRailColor'>} input - The input object.
-   * @returns {unknown} - The value of the `sliderRailColor` property.
+   * @param input - The input object.
+   * @returns - The value of the `sliderRailColor` property.
    */
   sliderRailColor?: PickProp<IField<Data, Payload>, 'sliderRailColor'>;
   /**
    * Represents the optional property 'groupRef' of an object of type `IField<Data, Payload>`.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-   * @property {string} [groupRef] - The group reference associated with the field.
+   * @property [groupRef] - The group reference associated with the field.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Retrieves the `readonly` property value from the provided object.
    *
-   * @param {IField<Data, Payload>} obj - The object from which to retrieve the `readonly` property.
-   * @returns {PickProp<IField<Data, Payload>, "readonly">} - The value of the `readonly` property.
+   * @param obj - The object from which to retrieve the `readonly` property.
+   * @returns - The value of the `readonly` property.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**

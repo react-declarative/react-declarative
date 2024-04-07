@@ -75,8 +75,8 @@ export const SearchInput = ({
    *
    * @name emitChangeSearch
    * @type {Function}
-   * @param {React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>} e - The event triggered by a change in the input or textarea element.
-   * @returns {void}
+   * @param e - The event triggered by a change in the input or textarea element.
+   * @returns
    */
   const emitChangeSearch = useMemo(
     () =>
@@ -96,8 +96,8 @@ export const SearchInput = ({
   /**
    * Handle key search function.
    *
-   * @param {React.KeyboardEvent<HTMLDivElement>} e - The keyboard event.
-   * @returns {void}
+   * @param e - The keyboard event.
+   * @returns
    */
   const handleKeySearch = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {

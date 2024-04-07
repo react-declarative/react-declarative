@@ -95,17 +95,17 @@ export interface IListActionOption<RowData extends IRowData = IAnything, Payload
   /**
    * Check if a specific condition is satisfied for the visibility of an element.
    *
-   * @param {RowData[]} selectedRows - An array of selected rows.
-   * @param {Payload} payload - The payload object containing additional data.
-   * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility of the element.
+   * @param selectedRows - An array of selected rows.
+   * @param payload - The payload object containing additional data.
+   * @returns - A Promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility of the element.
    */
   isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
   /**
    * Checks whether the entity is disabled based on the provided selected rows and payload.
    *
-   * @param {RowData[]} selectedRows - The array of selected rows.
-   * @param {Payload} payload - The payload object containing additional data.
-   * @returns {Promise<boolean> | boolean} - A promise or boolean indicating whether the entity is disabled.
+   * @param selectedRows - The array of selected rows.
+   * @param payload - The payload object containing additional data.
+   * @returns - A promise or boolean indicating whether the entity is disabled.
    */
   isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
 };
@@ -122,16 +122,16 @@ export interface IListAction<RowData extends IRowData = IAnything, Payload exten
   /**
    * Determines the visibility of a certain element based on the provided parameters.
    *
-   * @param {RowData[]} selectedRows - An array of selected rows.
-   * @param {Payload} payload - The payload containing additional information.
-   * @returns {Promise<boolean> | boolean} - A promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility directly.
+   * @param selectedRows - An array of selected rows.
+   * @param payload - The payload containing additional information.
+   * @returns - A promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility directly.
    */
   isVisible?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
   /**
    * Checks if a row or a payload is disabled
-   * @param {RowData[]} selectedRows - The selected rows to check against
-   * @param {Payload} payload - The payload to check against
-   * @returns {Promise<boolean> | boolean} - A promise that resolves with a boolean indicating if the row or the payload is disabled, or a boolean indicating if the row or the payload
+   * @param selectedRows - The selected rows to check against
+   * @param payload - The payload to check against
+   * @returns - A promise that resolves with a boolean indicating if the row or the payload is disabled, or a boolean indicating if the row or the payload
    * is disabled
    */
   isDisabled?: (selectedRows: RowData[], payload: Payload) => Promise<boolean> | boolean;
@@ -143,23 +143,23 @@ export interface IListAction<RowData extends IRowData = IAnything, Payload exten
   icon?: React.ComponentType<any>;
   /**
    * @typedef {object} IListActionOption<T>
-   * @property {T} rowData - The data of the row.
+   * @property rowData - The data of the row.
    *
    * @typedef {object} IUpdateOption<T>
-   * @property {T} rowData - The data of the row.
+   * @property rowData - The data of the row.
    *
    * @typedef {object} IResortOption<T>
-   * @property {T} rowData - The data of the row.
+   * @property rowData - The data of the row.
    *
    * @typedef {object} IDropFiltersOption<T>
-   * @property {T} rowData - The data of the row.
+   * @property rowData - The data of the row.
    *
    * @typedef {object} IAddFiltersOption<T>
-   * @property {T} rowData - The data of the row.
+   * @property rowData - The data of the row.
    *
    * @typedef {(IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[]} Options
    *
-   * @param {Options} options - An array of options.
+   * @param options - An array of options.
    */
   options?: (IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[];
 }
@@ -280,74 +280,74 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
    *
    * @function
    * @name handleDefault
-   * @returns {Promise<void>} A promise that resolves with no value.
+   * @returns A promise that resolves with no value.
    */
   handleDefault: () => Promise<void>;
   /**
    * Handles the sort model for the given sort.
    *
-   * @param {ListHandlerSortModel<RowData>} sort - The sort model to handle.
-   * @returns {void}
+   * @param sort - The sort model to handle.
+   * @returns
    */
   handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
   /**
    * Handles the filter action.
    *
-   * @param {FilterData} data - The filter data to be processed.
-   * @param {boolean} [keepPagination] - Indicates whether to keep the pagination state.
+   * @param data - The filter data to be processed.
+   * @param [keepPagination] - Indicates whether to keep the pagination state.
    *                                    Defaults to false.
-   * @returns {void}
+   * @returns
    */
   handleFilter: (data: FilterData, keepPagination?: boolean) => void;
   /**
    * Handle page change function.
    *
-   * @param {number} page - The page number being handled.
-   * @returns {void} - There is no return value.
+   * @param page - The page number being handled.
+   * @returns - There is no return value.
    */
   handlePageChange: (page: number) => void;
   /**
    * Handles a change in the limit value.
    *
-   * @param {number} limit - The new limit value.
-   * @returns {void}
+   * @param limit - The new limit value.
+   * @returns
    */
   handleLimitChange: (limit: number) => void;
   /**
    * Callback function to handle changes in rows.
    *
-   * @param {Array} rows - An array of row data.
-   * @returns {void} - This function does not return anything.
+   * @param rows - An array of row data.
+   * @returns - This function does not return anything.
    */
   handleRowsChange: (rows: RowData[]) => void;
   /**
    * Handles the event when the filters are collapsed or expanded.
    *
-   * @param {boolean} filtersCollapsed - Indicates whether the filters are collapsed or expanded.
-   * @returns {void}
+   * @param filtersCollapsed - Indicates whether the filters are collapsed or expanded.
+   * @returns
    */
   handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
   /**
    * Handles the chips list.
    *
-   * @param {ListHandlerChips} chips - The list of chips to be handled.
-   * @returns {void}
+   * @param chips - The list of chips to be handled.
+   * @returns
    */
   handleChips: (chips: ListHandlerChips) => void;
   /**
    * Reloads the data and updates the UI.
    *
-   * @param {boolean} [keepPagination=false] - Determines whether to keep the current pagination state.
+   * @param [keepPagination=false] - Determines whether to keep the current pagination state.
    *                                            If set to true, the pagination will not be reset after reloading.
    *                                            If not provided or set to false, the pagination will be reset to its initial state.
-   * @returns {Promise<void>} - A promise that resolves once the data has been reloaded and the UI has been updated.
+   * @returns - A promise that resolves once the data has been reloaded and the UI has been updated.
    */
   handleReload: (keepPagination?: boolean) => Promise<void>;
   /**
    * Handles the search action.
    *
-   * @param {string} search - The search query entered by the user.
-   * @returns {void}
+   * @param search - The search query entered by the user.
+   * @returns
    */
   handleSearch: (search: string) => void;
   /**
@@ -355,7 +355,7 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
    *
    * @function
    * @name handleRerender
-   * @returns {void}
+   * @returns
    */
   handleRerender: () => void;
   ready: () => void;
@@ -447,7 +447,7 @@ export interface IListProps<
    * Represents a custom template component for rendering a tile.
    *
    * @typedef {React.ComponentType<ITile<RowData, Payload>>} customTemplate
-   * @property {React.ComponentType<ITile<RowData, Payload>>} customTemplate - The custom template component used for rendering a tile.
+   * @property customTemplate - The custom template component used for rendering a tile.
    * @template {RowData} - The type of data for the tile row.
    * @template {Payload} - The type of payload associated with the tile.
    */
@@ -483,15 +483,15 @@ export interface IListProps<
   /**
    * Represents a function that calculates the desired height based on the provided input height.
    *
-   * @param {number} height - The input height value.
+   * @param height - The input height value.
    * @return {number} - The calculated desired height.
    */
   heightRequest?: (height: number) => number;
   /**
    * Represents a function that takes a width value and returns a number.
    *
-   * @param {number} width - The width value to pass to the function.
-   * @returns {number} - The number value returned by the function.
+   * @param width - The width value to pass to the function.
+   * @returns - The number value returned by the function.
    */
   widthRequest?: (width: number) => number;
   onRows?: (rows: RowData[]) => void;
@@ -518,15 +518,15 @@ export interface IListProps<
   /**
    * Determines if a row is disabled based on various parameters.
    *
-   * @param {RowData} row - The row data object.
-   * @param {Object} params - The parameters used to determine row disablement.
-   * @param {FilterData} params.filterData - The filter data object.
-   * @param {ListHandlerPagination} params.pagination - The pagination object.
-   * @param {ListHandlerSortModel<RowData>} params.sortModel - The sort model object.
-   * @param {ListHandlerChips<RowData>} params.chips - The chips object.
-   * @param {string} params.search - The search string.
-   * @param {Payload} params.payload - The payload object.
-   * @returns {boolean} - True if the row is disabled, false otherwise.
+   * @param row - The row data object.
+   * @param params - The parameters used to determine row disablement.
+   * @param params.filterData - The filter data object.
+   * @param params.pagination - The pagination object.
+   * @param params.sortModel - The sort model object.
+   * @param params.chips - The chips object.
+   * @param params.search - The search string.
+   * @param params.payload - The payload object.
+   * @returns - True if the row is disabled, false otherwise.
    */
   isRowDisabled?: (row: RowData, params: {
     filterData: FilterData,
@@ -539,12 +539,12 @@ export interface IListProps<
   /**
    * Returns a string containing information about the displayed rows label.
    *
-   * @param {Object} paginationInfo - An object containing pagination information.
-   * @param {number} paginationInfo.from - The starting index of the displayed rows.
-   * @param {number} paginationInfo.to - The ending index of the displayed rows.
-   * @param {number} paginationInfo.count - The total count of rows.
-   * @param {number} paginationInfo.page - The current page.
-   * @returns {string} - The label displaying information about the displayed rows.
+   * @param paginationInfo - An object containing pagination information.
+   * @param paginationInfo.from - The starting index of the displayed rows.
+   * @param paginationInfo.to - The ending index of the displayed rows.
+   * @param paginationInfo.count - The total count of rows.
+   * @param paginationInfo.page - The current page.
+   * @returns - The label displaying information about the displayed rows.
    */
   labelDisplayedRows?: (paginationInfo: {
     from: number;

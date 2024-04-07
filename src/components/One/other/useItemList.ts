@@ -31,8 +31,8 @@ interface IItemsState {
  * Represents the interface for a loading state.
  *
  * @interface ILoadingState
- * @property {boolean} loading - Indicates if the state is currently loading.
- * @property {boolean} loaded - Indicates if the state has finished loading.
+ * @property loading - Indicates if the state is currently loading.
+ * @property loaded - Indicates if the state has finished loading.
  */
 interface ILoadingState {
   loading: boolean;

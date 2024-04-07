@@ -102,9 +102,9 @@ export const YearSelection = ({
   /**
    * Handles the selection of a year.
    *
-   * @param {number} year - The year to set as the date.
+   * @param year - The year to set as the date.
    *
-   * @returns {void}
+   * @returns
    */
   const onYearSelect = useCallback(
     (year: number) => {

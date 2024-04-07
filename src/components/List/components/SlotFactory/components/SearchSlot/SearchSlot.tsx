@@ -18,7 +18,7 @@ import { ISearchSlot } from '../../../../slots/SearchSlot';
  * Returns the styles for a component.
  *
  * @function
- * @returns {Object} The styles object.
+ * @returns The styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {

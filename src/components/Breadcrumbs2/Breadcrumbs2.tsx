@@ -143,8 +143,8 @@ export const Breadcrumbs2 = <T extends any = any>({
   /**
    * Asynchronous callback for handling an action.
    *
-   * @param {string} action - The action to be processed.
-   * @returns {Promise<void>} - A promise that resolves once the action is processed.
+   * @param action - The action to be processed.
+   * @returns - A promise that resolves once the action is processed.
    */
   const onAction$ = useActualCallback(async (action: string) => {
     if (loading$.current > 1) {

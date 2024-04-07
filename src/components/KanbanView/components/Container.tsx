@@ -63,24 +63,24 @@ const useStyles = makeStyles()((theme) => ({
 
 /**
  * @typedef {Object} IContainerProps
- * @property {string} id - The ID of the container.
- * @property {string} column - The current column of the container.
- * @property {string} label - The label of the container.
- * @property {Array<string>} columns - The columns of the container.
- * @property {Subject} reloadSubject - The subject for triggering reload.
- * @property {Array<string>} rows - The initial rows of the container.
- * @property {boolean} withGoBack - Flag indicating whether to show a "Go Back" button.
- * @property {boolean} withHeaderTooltip - Flag indicating whether to show a tooltip on the header.
- * @property {any} data - The data for fetching rows.
- * @property {React.ReactElement} fallback - The fallback view to be displayed while loading rows.
- * @property {Function} onLoadEnd - The callback function called when loading ends.
- * @property {Function} onLoadStart - The callback function called before loading starts.
- * @property {Function} throwError - The callback function called when an error occurs during loading.
- * @property {boolean} disabled - Flag indicating whether the container is disabled.
- * @property {Function} onChangeColumn - The callback function called when the column is changed.
- * @property {Function} onCardLabelClick - The callback function called when the card label is clicked.
- * @property {any} payload - The payload for rendering components.
- * @property {React.ReactElement} AfterCardContent - The component to be rendered after the content.
+ * @property id - The ID of the container.
+ * @property column - The current column of the container.
+ * @property label - The label of the container.
+ * @property columns - The columns of the container.
+ * @property reloadSubject - The subject for triggering reload.
+ * @property rows - The initial rows of the container.
+ * @property withGoBack - Flag indicating whether to show a "Go Back" button.
+ * @property withHeaderTooltip - Flag indicating whether to show a tooltip on the header.
+ * @property data - The data for fetching rows.
+ * @property fallback - The fallback view to be displayed while loading rows.
+ * @property onLoadEnd - The callback function called when loading ends.
+ * @property onLoadStart - The callback function called before loading starts.
+ * @property throwError - The callback function called when an error occurs during loading.
+ * @property disabled - Flag indicating whether the container is disabled.
+ * @property onChangeColumn - The callback function called when the column is changed.
+ * @property onCardLabelClick - The callback function called when the card label is clicked.
+ * @property payload - The payload for rendering components.
+ * @property AfterCardContent - The component to be rendered after the content.
  */
 export const Container = ({
   id,

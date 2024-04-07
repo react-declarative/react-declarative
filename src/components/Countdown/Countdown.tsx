@@ -24,7 +24,7 @@ export interface ICountdownProps extends BoxProps {
  * The `useStyles` variable is a custom hook that generates a set of CSS styles
  * using the `makeStyles` function provided by the Material-UI library.
  *
- * @returns {Object} - An object that contains the generated CSS styles.
+ * @returns - An object that contains the generated CSS styles.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -97,7 +97,7 @@ export const Countdown = ({
    * Renders the inner content based on the given timeout value. If the timeout is negative, it will render the children if available, otherwise it will render a default content. If the
    * timeout is non-negative, it will render the time value based on the minutes and seconds of the timeout.
    *
-   * @returns {JSX.Element} The rendered inner content.
+   * @returns The rendered inner content.
    */
   const renderInner = useCallback(() => {
     if (+timeout < 0) {

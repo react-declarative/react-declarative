@@ -87,10 +87,10 @@ export interface IOutletModalProps<
   /**
    * Handles the onSubmit event.
    *
-   * @param {Id} id - The identifier.
-   * @param {Data|null} data - The data or null.
-   * @param {Payload} payload - The payload.
-   * @returns {Promise<boolean>|boolean} A promise resolving to a boolean or a boolean value.
+   * @param id - The identifier.
+   * @param data - The data or null.
+   * @param payload - The payload.
+   * @returns A promise resolving to a boolean or a boolean value.
    */
   onSubmit?: (
     id: Id,
@@ -101,10 +101,10 @@ export interface IOutletModalProps<
    * Represents the AfterTitle component.
    *
    * @component
-   * @param {Object} props - The component props.
-   * @param {Function} props.onClose - The function to be called when closing the component.
-   * @param {Data | null} props.data - The data to be displayed in the component.
-   * @param {string} props.id - The unique identifier for the component.
+   * @param props - The component props.
+   * @param props.onClose - The function to be called when closing the component.
+   * @param props.data - The data to be displayed in the component.
+   * @param props.id - The unique identifier for the component.
    * @return {ReactElement|null} - The rendered AfterTitle component or null if data is null.
    */
   AfterTitle?: React.ComponentType<{
@@ -115,12 +115,12 @@ export interface IOutletModalProps<
   /**
    * BeforeTitle is a React component that renders a title with a close button.
    *
-   * @param {Object} props - The props object that contains the following properties:
-   *   @param {function} props.onClose - The callback function to be called when the close button is clicked.
-   *   @param {Data|null} props.data - The data to be displayed in the component. Can be null if there is no data.
-   *   @param {string} props.id - The unique identifier for the component.
+   * @param props - The props object that contains the following properties:
+   *   @param props.onClose - The callback function to be called when the close button is clicked.
+   *   @param props.data - The data to be displayed in the component. Can be null if there is no data.
+   *   @param props.id - The unique identifier for the component.
    *
-   * @returns {React.ComponentType} The BeforeTitle component.
+   * @returns The BeforeTitle component.
    */
   BeforeTitle?: React.ComponentType<{
     onClose: () => void;
@@ -145,10 +145,10 @@ export interface IOutletModalProps<
   /**
    * Maps the payload with the given ID and data.
    *
-   * @param {Id} id - The ID of the payload.
-   * @param {Record<string, any>[]} data - The data to be mapped.
+   * @param id - The ID of the payload.
+   * @param data - The data to be mapped.
    *
-   * @returns {Payload | Promise<Payload>} - The mapped payload.
+   * @returns - The mapped payload.
    */
   mapPayload?: (
     id: Id,
@@ -157,17 +157,17 @@ export interface IOutletModalProps<
   /**
    * Maps the given data into parameters based on the provided id.
    *
-   * @param {Id} id - The identifier to map the data.
-   * @param {Record<string, any>[]} data - The data to be mapped.
-   * @returns {Params | Promise<Params>} The mapped parameters.
+   * @param id - The identifier to map the data.
+   * @param data - The data to be mapped.
+   * @returns The mapped parameters.
    */
   mapParams?: (id: Id, data: Record<string, any>[]) => Params | Promise<Params>;
   /**
    * Represents a function to initialize data based on given ID and data.
    *
-   * @param {Id} id - The ID for initialization.
-   * @param {Record<string, any>[]} data - An array of data records.
-   * @returns {Data|Promise<Data>} - The initialized data or a promise of the initialized data.
+   * @param id - The ID for initialization.
+   * @param data - An array of data records.
+   * @returns - The initialized data or a promise of the initialized data.
    */
   mapInitialData?: (
     id: Id,
@@ -268,34 +268,34 @@ const LARGE_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = ({
  * @template Params - The type of the parameters to pass to the map functions.
  *
  * @typedef {Object} OutletModal
- * @property {boolean} withActionButton - Determines whether to display an action button in the modal. Default is `false`.
- * @property {boolean} hidden - Determines whether the modal is hidden. Default is `false`.
- * @property {function} onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
- * @property {function} onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
- * @property {function} mapParams - Function to transform the outlet ID into request parameters. Default is `(id) => ({ id })`.
- * @property {function} mapInitialData - Function to map the outlet ID and additional arguments to initial data. Default is `(id) => ({ id })`.
- * @property {function} mapPayload - Function to map the outlet ID and additional arguments to payload data. Default is `(id) => ({ id })`.
- * @property {boolean} fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
- * @property {Object} sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
- * @property {function} onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
- * @property {function} onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
- * @property {Object} fallback - Fallback component to be rendered if an error occurs.
- * @property {Object} reloadSubject - Observable subject for triggering a reload of the modal.
- * @property {Object} outletIdSubject - Observable subject for providing the outlet ID.
- * @property {function} fetchState - Function to return the current fetch state. Default is `() => ({})`.
- * @property {Object} AfterTitle - Component to be rendered after the title.
- * @property {Object} BeforeTitle - Component to be rendered before the title.
- * @property {string} title - The title of the modal.
- * @property {Data} data - The initial data to be displayed in the modal. Default is `null`.
- * @property {boolean} withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
- * @property {boolean} throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
- * @property {string} submitLabel - The label of the action button. Default is "Submit".
- * @property {number} waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
- * @property {boolean} readonly - Determines whether the modal is in read-only mode. Default is `false`.
- * @property {function} onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
- * @property {function} onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
- * @property {function} onClose - Callback function that is called when the modal is closed. Default is `() => null`.
- * @property {Object} outletProps - Additional props to pass to the `OutletView` component.
+ * @property withActionButton - Determines whether to display an action button in the modal. Default is `false`.
+ * @property hidden - Determines whether the modal is hidden. Default is `false`.
+ * @property onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
+ * @property onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
+ * @property)`.
+ * @property)`.
+ * @property)`.
+ * @property fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
+ * @property sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
+ * @property onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
+ * @property onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
+ * @property fallback - Fallback component to be rendered if an error occurs.
+ * @property reloadSubject - Observable subject for triggering a reload of the modal.
+ * @property outletIdSubject - Observable subject for providing the outlet ID.
+ * @property)`.
+ * @property AfterTitle - Component to be rendered after the title.
+ * @property BeforeTitle - Component to be rendered before the title.
+ * @property title - The title of the modal.
+ * @property data - The initial data to be displayed in the modal. Default is `null`.
+ * @property withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
+ * @property throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
+ * @property submitLabel - The label of the action button. Default is "Submit".
+ * @property waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
+ * @property readonly - Determines whether the modal is in read-only mode. Default is `false`.
+ * @property onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
+ * @property onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
+ * @property onClose - Callback function that is called when the modal is closed. Default is `() => null`.
+ * @property outletProps - Additional props to pass to the `OutletView` component.
  *
  * @param props - The props for the OutletModal component.
  * @returns - The rendered outlet modal component.
@@ -340,10 +340,10 @@ export const OutletModal = <
   /**
    * Calculate the requested size based on the current window size.
    *
-   * @param {Object} options - The options for calculating the requested size.
-   * @param {Function} options.compute - The function to compute the requested size.
-   * @param {Number} options.debounce - The delay in milliseconds to debounce the window resize event.
-   * @returns {Object} The requested size object with height, width, and sx properties.
+   * @param options - The options for calculating the requested size.
+   * @param options.compute - The function to compute the requested size.
+   * @param options.debounce - The delay in milliseconds to debounce the window resize event.
+   * @returns The requested size object with height, width, and sx properties.
    */
   const requestedSize = useWindowSize({
     compute: (size) => {
@@ -429,8 +429,8 @@ export const OutletModal = <
   /**
    * Creates a render waiter for the provided data with a given timeout.
    *
-   * @param {Array} data - The data to be rendered.
-   * @param {number} timeout - The maximum time to wait for rendering in milliseconds.
+   * @param data - The data to be rendered.
+   * @param timeout - The maximum time to wait for rendering in milliseconds.
    * @return {RenderWaiter} - The render waiter object.
    */
   const waitForRender = useRenderWaiter([data], 10);

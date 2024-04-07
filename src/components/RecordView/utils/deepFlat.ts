@@ -12,9 +12,9 @@ type IDataRecords = Array<[keyof IData, IData[keyof IData]]>;
  * Represents an entry that contains path, value, and deepIndex.
  *
  * @typedef {Object} Entry
- * @property {string} path - The path of the entry.
- * @property {string} value - The value of the entry.
- * @property {number} deepIndex - The deep index of the entry.
+ * @property path - The path of the entry.
+ * @property value - The value of the entry.
+ * @property deepIndex - The deep index of the entry.
  */
 type Entry = {
   path: string;

@@ -28,13 +28,13 @@ interface ICellProps extends BoxProps {
 /**
  * Represents a cell component in a grid.
  * @typedef {Object} ICellProps
- * @property {string} className - The CSS class name for the cell.
- * @property {Object} style - The inline CSS style for the cell.
- * @property {Object} sx - The sx prop for the Box component used in the cell.
- * @property {Object} column - The column configuration for the cell.
- * @property {number} idx - The index of the cell in the grid.
- * @property {ReactNode} children - The content of the cell.
- * @property {Object} otherProps - Any additional props for the cell.
+ * @property className - The CSS class name for the cell.
+ * @property style - The inline CSS style for the cell.
+ * @property sx - The sx prop for the Box component used in the cell.
+ * @property column - The column configuration for the cell.
+ * @property idx - The index of the cell in the grid.
+ * @property children - The content of the cell.
+ * @property otherProps - Any additional props for the cell.
  */
 export const Cell = ({
   className,
@@ -55,13 +55,13 @@ export const Cell = ({
    *
    * It uses memoization to store and retrieve a previously computed value, based on the provided dependencies.
    *
-   * @returns {string} - The computed width as a string, in pixels or a custom format.
+   * @returns - The computed width as a string, in pixels or a custom format.
    *
-   * @param {Object} column - The column object.
-   * @param {number|string|function} column.width - The width of the column. It can be a number (in pixels), a string (custom format), or a function returning a number or string.
-   * @param {number} containerWidth - The width of the container.
-   * @param {number} idx - The index of the column.
-   * @param {Object} constraintManager - The constraint manager object.
+   * @param column - The column object.
+   * @param column.width - The width of the column. It can be a number (in pixels), a string (custom format), or a function returning a number or string.
+   * @param containerWidth - The width of the container.
+   * @param idx - The index of the column.
+   * @param constraintManager - The constraint manager object.
    *
    * @dependencies The computed width will be recalculated whenever any of the following dependencies change:
    * - column.width

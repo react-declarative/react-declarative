@@ -139,7 +139,7 @@ export const InfiniteView = <
   /**
    * @function gridColumns
    * @description Returns a memoized value for the grid columns array
-   * @returns {Array} The grid columns array
+   * @returns The grid columns array
    */
   const gridColumns = useMemo(() => {
     return list2grid(listColumns, payload);
@@ -150,9 +150,9 @@ export const InfiniteView = <
    *
    * @type {Array<string>}
    *
-   * @param {Array<any>} selection - The array of selected items.
+   * @param selection - The array of selected items.
    *
-   * @returns {Array<string>} - The selected rows as an array of strings.
+   * @returns - The selected rows as an array of strings.
    */
   const selectedRows = useMemo(() => {
     return [...selection] as string[]
@@ -201,7 +201,7 @@ export const InfiniteView = <
    * Resets the scroll position to the top.
    *
    * @function handleCleanRows
-   * @returns {void}
+   * @returns
    */
   const handleCleanRows = useCallback(() => {
     setState(() => ({
@@ -217,7 +217,7 @@ export const InfiniteView = <
    * This function is used with the useCallback hook to memoize any changes to the function reference.
    * It appends new rows to the existing rows in state by filtering out rows with duplicate ids.
    *
-   * @returns {void}
+   * @returns
    */
   const handleAppendRows = useCallback(
     () =>
@@ -242,8 +242,8 @@ export const InfiniteView = <
   /**
    * Handles the request for data.
    *
-   * @param {Object} request - The request object containing the necessary data parameters.
-   * @returns {Promise} - A promise that resolves with the requested data.
+   * @param request - The request object containing the necessary data parameters.
+   * @returns - A promise that resolves with the requested data.
    *
    * @throws {Error} - If the request is invalid or fails.
    */

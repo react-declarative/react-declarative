@@ -51,9 +51,9 @@ const APPLY_DELAY = 10;
  * Variable representing a CSS style object for stretching elements in a flex container.
  *
  * @type {Object}
- * @property {string} display - The CSS value for the display property, set to 'flex'.
- * @property {string} alignItems - The CSS value for the alignItems property, set to 'stretch'.
- * @property {string} justifyContent - The CSS value for the justifyContent property, set to 'stretch'.
+ * @property display - The CSS value for the display property, set to 'flex'.
+ * @property alignItems - The CSS value for the alignItems property, set to 'stretch'.
+ * @property justifyContent - The CSS value for the justifyContent property, set to 'stretch'.
  */
 const stretch = {
     display: 'flex',
@@ -63,7 +63,7 @@ const stretch = {
 
 /**
  * Custom hook for generating CSS-in-JS styles using makeStyles function from Material-UI library.
- * @returns {Object} The generated styles object.
+ * @returns The generated styles object.
  */
 const useStyles = makeStyles()({
     root: {

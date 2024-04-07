@@ -21,10 +21,10 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
    * @template T - The type of the object.
    * @template K - The literal key type.
    *
-   * @param {T} obj - The object from which to extract the property.
-   * @param {K} key - The literal key representing the property to extract.
+   * @param obj - The object from which to extract the property.
+   * @param key - The literal key representing the property to extract.
    *
-   * @returns {Pick<T, K>} - The value of the specified property.
+   * @returns - The value of the specified property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -38,9 +38,9 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The data type of the "title" property.
    * @template Payload - The payload type of the "title" property.
    *
-   * @param {IField<Data, Payload>} - The object from which the "title" property will be picked.
+   * @param - The object from which the "title" property will be picked.
    *
-   * @returns {Pick<IField<Data, Payload>, "title">} - The resulting object that only contains the "title" property.
+   * @returns - The resulting object that only contains the "title" property.
    */
   title?: PickProp<IField<Data, Payload>, "title">;
   /**
@@ -61,9 +61,9 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
    * @typedef {import('./types').PickProp} PickProp
    * @typedef {import('./types').Data} Data
    *
-   * @param {IField<Data, Payload>} readonly - The field being checked for readOnly status.
+   * @param readonly - The field being checked for readOnly status.
    *
-   * @returns {Readonly} - A boolean value indicating if the field is readOnly.
+   * @returns - A boolean value indicating if the field is readOnly.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
@@ -71,7 +71,7 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
    *
-   * @property {boolean} disabled - Indicates whether the field is disabled or not.
+   * @property disabled - Indicates whether the field is disabled or not.
    * @template Data - The type of data stored in the form.
    * @template Payload - The type of payload used for form submission.
    */

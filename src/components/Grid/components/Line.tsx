@@ -31,15 +31,15 @@ interface ILineProps {
  * A React component that represents a line.
  *
  * @component
- * @param {ILineProps} props - The properties for the line component.
- * @param {string} props.className - The additional CSS class name for the line component.
- * @param {object} props.style - The inline style object for the line component.
- * @param {object} props.sx - The inline style object for the line component using theme-ui.
- * @param {Array<IColumn>} props.columns - The columns to be rendered in the line component.
- * @param {ReactNode} props.children - The child components of the line component.
- * @param {boolean} props.withRowActions - Indicates whether or not the line component has row actions.
- * @param {React.Ref} ref - The ref for the line component.
- * @returns {ReactElement} The line component.
+ * @param props - The properties for the line component.
+ * @param props.className - The additional CSS class name for the line component.
+ * @param props.style - The inline style object for the line component.
+ * @param props.sx - The inline style object for the line component using theme-ui.
+ * @param props.columns - The columns to be rendered in the line component.
+ * @param props.children - The child components of the line component.
+ * @param props.withRowActions - Indicates whether or not the line component has row actions.
+ * @param ref - The ref for the line component.
+ * @returns The line component.
  */
 export const Line = forwardRef(
   (
@@ -52,10 +52,10 @@ export const Line = forwardRef(
     /**
      * Calculates the width of a container based on the given conditions.
      *
-     * @param {number} fullWidth - The full width of the container.
-     * @param {boolean} withRowActions - Whether the container has row actions.
+     * @param fullWidth - The full width of the container.
+     * @param withRowActions - Whether the container has row actions.
      *
-     * @returns {number} - The calculated width of the container.
+     * @returns - The calculated width of the container.
      */
     const containerWidth = useMemo(
       () => Math.max(fullWidth - (withRowActions ? ACTIONS_WIDTH : 0), 0),

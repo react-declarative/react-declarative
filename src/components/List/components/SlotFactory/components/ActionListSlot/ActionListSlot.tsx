@@ -88,8 +88,8 @@ export const ActionListSlot = <FilterData extends {}>({
   /**
    * Checks if the operations array has any elements.
    *
-   * @param {Array} operations - The array of operations to check.
-   * @returns {boolean} - True if the operations array has any elements, false otherwise.
+   * @param operations - The array of operations to check.
+   * @returns - True if the operations array has any elements, false otherwise.
    */
   const hasOperations = Array.isArray(operations) && !!operations.length;
 

@@ -52,10 +52,10 @@ export interface IRequest extends IParams {
 /**
  * Represents the initial state for the params object.
  * @typedef {object} IParams
- * @property {string} name - The initial value for the 'name' property.
- * @property {Function} menu - The initial value for the 'menu' property, which is a function that returns null.
- * @property {Array} menuItems - The initial value for the 'menuItems' property, which is an empty array.
- * @property {Function} onValueChange - The initial value for the 'onValueChange' property, which is a function that returns null.
+ * @property name - The initial value for the 'name' property.
+ * @property menu - The initial value for the 'menu' property, which is a function that returns null.
+ * @property menuItems - The initial value for the 'menuItems' property, which is an empty array.
+ * @property onValueChange - The initial value for the 'onValueChange' property, which is a function that returns null.
  */
 const INITIAL_STATE: IParams = {
   name: "",
@@ -94,7 +94,7 @@ const MENU_OPEN_DELAY = 350;
  * and it is displayed as a flex container with centered content using `alignItems` and `justifyContent`.
  *
  * @type {function(): object} useStyles - A function that returns an object with CSS styles.
- * @returns {object} The CSS styles object for the container component and its child elements.
+ * @returns The CSS styles object for the container component and its child elements.
  */
 const useStyles = makeStyles()({
   container: {
@@ -152,7 +152,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
    * @callback HandleLoadStart
    * @memberof global
    *
-   * @returns {void}
+   * @returns
    */
   const handleLoadStart = useCallback(() => {
     setLoading((loading) => loading + 1);
@@ -164,7 +164,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
    * This function is intended to be used with the `useCallback` hook.
    *
    * @function handleLoadEnd
-   * @returns {void}
+   * @returns
    */
   const handleLoadEnd = useCallback(() => {
     setLoading((loading) => Math.max(loading - 1, 0));
@@ -190,11 +190,11 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   /**
    * Calculate the managed options based on the given parameters.
    *
-   * @returns {Array<IManagedOption>} - The array of managed options.
+   * @returns - The array of managed options.
    *
-   * @param {Object} object$ - The object used for evaluating the isDisabled and isVisible functions.
-   * @param {Object} payload - The payload object.
-   * @param {Array<Object>} params$.current.menuItems - The array of menu items.
+   * @param object$ - The object used for evaluating the isDisabled and isVisible functions.
+   * @param payload - The payload object.
+   * @param params$.current.menuItems - The array of menu items.
    *
    * @throws {TypeError} - If the menuItems parameter is not an array.
    *

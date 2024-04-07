@@ -22,7 +22,7 @@ const MAX_POPUP_HEIGHT = 300;
 /**
  * A function that creates a styles object using makeStyles() function from Material-UI.
  *
- * @returns {Object} - A styles object with the following properties:
+ * @returns - A styles object with the following properties:
  *  - listBox: Represents the styling for the listBox element, including an "overflow" property set to "hidden !important".
  */
 const useStyles = makeStyles()({
@@ -42,7 +42,7 @@ const useStyles = makeStyles()({
  * @param props.role - The role attribute value for the list box container.
  * @param ref - The ref object for accessing the underlying HTMLDivElement.
  *
- * @returns {React.ReactElement} The rendered list box component.
+ * @returns The rendered list box component.
  */
 export const VirtualListBox = forwardRef(
   (

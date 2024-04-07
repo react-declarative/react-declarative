@@ -11,7 +11,7 @@ import IRowData from "./IRowData";
  * @param offset - The offset from which to start retrieving records.
  * @param payload - The payload containing additional parameters for filtering.
  *
- * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+ * @returns - A promise resolving to an array of filtered row data or an array of filtered row data.
  */
 export interface TOffsetPaginator<
     FilterData extends {} = any,

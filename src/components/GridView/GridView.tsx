@@ -33,7 +33,7 @@ interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
 /**
  * A function that returns an object with CSS styles.
  *
- * @returns {Object} The object containing CSS styles.
+ * @returns The object containing CSS styles.
  */
 const useStyles = makeStyles()({
   tile: {

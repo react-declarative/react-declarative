@@ -150,10 +150,10 @@ export const Header = ({
    *
    * @function
    * @name beforeCurrentColumn
-   * @returns {Array} - An array of columns before the current column.
+   * @returns - An array of columns before the current column.
    *
-   * @param {string} column - The current column value.
-   * @param {Array} columns - The array of columns.
+   * @param column - The current column value.
+   * @param columns - The array of columns.
    */
   const beforeCurrentColumn = useMemo(() => {
     const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
@@ -171,7 +171,7 @@ export const Header = ({
    * value of the `column` property against the `value` property of each element in the
    * `columns` array.
    *
-   * @returns {Array} The columns that come after the current column.
+   * @returns The columns that come after the current column.
    */
   const afterCurrentColumn = useMemo(() => {
     const currentColumnIdx = columns.findIndex(({ column: value }) => value === column);
@@ -185,7 +185,7 @@ export const Header = ({
    * If `withHeaderTooltip` is `false` or not provided, it will render just the chip.
    * The `onCardLabelClick` function can be provided to handle the click event on the chip.
    *
-   * @returns {React.Element} - The rendered tooltip or chip.
+   * @returns - The rendered tooltip or chip.
    */
   const renderTooltip = useCallback(() => {
     if (label === null) {

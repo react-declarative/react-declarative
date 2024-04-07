@@ -49,10 +49,10 @@ export const useListAction = <Data extends IRowData = IRowData>({
      * Represents the action to be performed on a commit operation.
      *
      * @typedef {Object} CommitAction
-     * @property {string} type - The type of action to be performed.
-     * @property {string} message - The commit message describing the action.
-     * @property {string} author - The author of the commit.
-     * @property {number} timestamp - The timestamp of when the commit was made.
+     * @property type - The type of action to be performed.
+     * @property message - The commit message describing the action.
+     * @property author - The author of the commit.
+     * @property timestamp - The timestamp of when the commit was made.
      */
     const { execute: commitAction } = useAsyncAction(async (action: string) => {
         if (onAction) {
@@ -70,11 +70,11 @@ export const useListAction = <Data extends IRowData = IRowData>({
      * Represents an action performed on a row in a commit.
      *
      * @typedef {Object} CommitRowAction
-     * @property {string} rowId - The unique identifier of the row.
-     * @property {string} action - The action performed on the row (e.g., 'add', 'update', 'delete').
-     * @property {Object} rowData - The data of the row.
-     * @property {string} [userId] - The user who performed the action. (Optional)
-     * @property {Date} timestamp - The timestamp when the action was performed.
+     * @property rowId - The unique identifier of the row.
+     * @property action - The action performed on the row (e.g., 'add', 'update', 'delete').
+     * @property rowData - The data of the row.
+     * @property [userId] - The user who performed the action. (Optional)
+     * @property timestamp - The timestamp when the action was performed.
      */
     const { execute: commitRowAction } = useAsyncAction(async (dto: {
         action: string;

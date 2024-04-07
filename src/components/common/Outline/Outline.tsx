@@ -18,8 +18,8 @@ import IField from '../../../model/IField';
  * It returns an object containing CSS styles for the strech and content classes.
  *
  * @type {Object}
- * @property {Object} strech - CSS styles for the .strech class.
- * @property {Object} content - CSS styles for the .content class.
+ * @property strech - CSS styles for the .strech class.
+ * @property content - CSS styles for the .content class.
  */
 const useStyles = makeStyles()((theme) => ({
   strech: {

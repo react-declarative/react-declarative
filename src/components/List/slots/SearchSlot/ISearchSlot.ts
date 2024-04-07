@@ -10,8 +10,8 @@ export interface ISearchSlot {
      * Represents a callback function for handling search input changes.
      *
      * @callback onSearchChangeCallback
-     * @param {string} search - The search query entered by the user.
-     * @returns {void}
+     * @param search - The search query entered by the user.
+     * @returns
      */
     onSearchChange?: (search: string) => void;
     clean: () => void;

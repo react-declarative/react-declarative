@@ -115,7 +115,7 @@ export const Content = ({
   /**
    * Function to render the inner content based on the data provided.
    *
-   * @returns {React.ReactNode} - The rendered content.
+   * @returns - The rendered content.
    */
   const renderInner = useCallback(
     () =>

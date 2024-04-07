@@ -30,7 +30,7 @@ import One from "../../One";
  *
  * @function
  * @name useStyles
- * @returns {Object} The styles for the component.
+ * @returns The styles for the component.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -174,7 +174,7 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
    * if the component is initialized.
    *
    * @callback handleCollapseEnd
-   * @param {boolean} collapsed - Indicates if the component is collapsed.
+   * @param collapsed - Indicates if the component is collapsed.
    */
   const handleCollapseEnd = useCallback(() => {
     if (isInitialized.current) {

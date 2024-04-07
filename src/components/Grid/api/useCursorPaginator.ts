@@ -80,13 +80,13 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
   /**
    * Asynchronously fetches data from a specified source.
    *
-   * @param {string} url - The URL of the data source to retrieve.
-   * @param {Object} options - Additional options for the data retrieval.
-   * @param {number} options.timeout - The maximum amount of time, in milliseconds, to wait for a response.
-   * @param {boolean} options.cache - Indicates whether the retrieved data should be cached for subsequent requests.
-   * @param {function} options.success - A callback function to handle successful data retrieval.
-   * @param {function} options.error - A callback function to handle any errors that occur during data retrieval.
-   * @returns {void}
+   * @param url - The URL of the data source to retrieve.
+   * @param options - Additional options for the data retrieval.
+   * @param options.timeout - The maximum amount of time, in milliseconds, to wait for a response.
+   * @param options.cache - Indicates whether the retrieved data should be cached for subsequent requests.
+   * @param options.success - A callback function to handle successful data retrieval.
+   * @param options.error - A callback function to handle any errors that occur during data retrieval.
+   * @returns
    */
   const { execute: fetchData } = useQueuedAction(async (initial: boolean) => {
     const [lastItem = {}] = state.current.data.slice(-1);
@@ -130,10 +130,10 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
    * Returns the lastCursor value by memoizing the computation.
    * The lastCursor is extracted from the lastItem in the state's current data array.
    *
-   * @returns {any} The value of the lastCursor.
+   * @returns The value of the lastCursor.
    *
-   * @param {Object} state - The current state object.
-   * @param {Array} state.current.data - The data array in the current state.
+   * @param state - The current state object.
+   * @param state.current.data - The data array in the current state.
    *
    */
   const lastCursor = useMemo(() => {
@@ -145,8 +145,8 @@ export const useCursorPaginator = <Data extends RowData = RowData>({
   /**
    * Sets the data in the component state.
    *
-   * @param {Data[] | ((prevData: Data[]) => Data[])} data - The new data to be set or a function that returns the new data based on the previous data.
-   * @returns {void}
+   * @param data - The new data to be set or a function that returns the new data based on the previous data.
+   * @returns
    */
   const setData = useCallback(
     (data: Data[] | ((prevData: Data[]) => Data[])) =>

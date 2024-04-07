@@ -46,10 +46,10 @@ const ROWS_PER_PAGE = [10, 25, 50];
  *
  * @function
  * @name useStyles
- * @param {object} theme - The theme object containing the desired styles.
- * @param {function} _ - A function that can be used to customize the styles based on the component's properties.
- * @param {object} classes - An object containing additional classes that can be used to customize the styles.
- * @returns {object} - The CSS styles for the component.
+ * @param theme - The theme object containing the desired styles.
+ * @param _ - A function that can be used to customize the styles based on the component's properties.
+ * @param classes - An object containing additional classes that can be used to customize the styles.
+ * @returns - The CSS styles for the component.
  *
  * @example
  * const styles = useStyles(theme, _, classes);

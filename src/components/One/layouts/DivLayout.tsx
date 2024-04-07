@@ -25,7 +25,7 @@ export interface IDivLayoutProps<Data = IAnything, Payload = IAnything> extends 
  * @template Data - The data type for the entity.
  * @extends IEntity<Data>
  *
- * @property {React.ReactNode} children - The child components to be rendered within the DivLayout.
+ * @property children - The child components to be rendered within the DivLayout.
  */
 interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;

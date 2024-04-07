@@ -43,18 +43,18 @@ const ROW_SELECTION_UNIQUE_KEY = randomString();
  * Represents the properties for the ContentRow component.
  *
  * @interface IContentRowProps
- * @property {string} [className] - The class name for the ContentRow component.
- * @property {React.CSSProperties} [style] - The inline styles for the ContentRow component.
- * @property {SxProps<any>} [sx] - The custom styling for the ContentRow component.
- * @property {IColumn[]} columns - The array of column definitions for the ContentRow component.
- * @property {RowData} row - The data for the current row.
- * @property {IGridProps["rowKey"]} rowKey - The unique key for the current row.
- * @property {IGridProps["rowActions"]} rowActions - The actions for the current row.
- * @property {IGridProps["payload"]} payload - The payload for the current row.
- * @property {IGridProps["recomputeSubject"]} recomputeSubject - The subject used for recomputation.
- * @property {IGridProps["onTableRowClick"]} onTableRowClick - The event handler for table row click.
- * @property {IGridProps["onRowAction"]} onRowAction - The event handler for row action.
- * @property {Exclude<IGridProps["rowMark"], undefined> & { clear(row: any): void }} rowMark - The mark for the current row.
+ * @property [className] - The class name for the ContentRow component.
+ * @property [style] - The inline styles for the ContentRow component.
+ * @property [sx] - The custom styling for the ContentRow component.
+ * @property columns - The array of column definitions for the ContentRow component.
+ * @property row - The data for the current row.
+ * @property rowKey - The unique key for the current row.
+ * @property rowActions - The actions for the current row.
+ * @property payload - The payload for the current row.
+ * @property recomputeSubject - The subject used for recomputation.
+ * @property onTableRowClick - The event handler for table row click.
+ * @property onRowAction - The event handler for row action.
+ * @property rowMark - The mark for the current row.
  */
 interface IContentRowProps {
   className?: string;
@@ -79,7 +79,7 @@ interface IContentRowProps {
  * The returned object represents a set of CSS rules for various elements in the UI.
  *
  * @function useStyles
- * @returns {object} The object containing the CSS styles.
+ * @returns The object containing the CSS styles.
  */
 const useStyles = makeStyles()((theme) => ({
   wrapper: {
@@ -153,20 +153,20 @@ const useStyles = makeStyles()((theme) => ({
  * Component that represents a single row in a content table.
  *
  * @component
- * @param {Object} props - The props object.
- * @param {string} props.className - The class name(s) to apply to the row.
- * @param {Object} props.style - The inline style to apply to the row.
- * @param {Object} props.sx - The extended style to apply to the row.
- * @param {string} props.rowKey - The key used to identify the row.
- * @param {Array} props.columns - The list of columns in the table.
- * @param {Array} props.rowActions - The list of actions that can be performed on the row.
- * @param {Object} props.payload - The payload to be passed to the row actions.
- * @param {Object} props.row - The data of the row.
- * @param {Subject} props.recomputeSubject - The subject to trigger recomputation of the row.
- * @param {Function} props.onTableRowClick - The function to be called when the row is clicked.
- * @param {Function} props.onRowAction - The function to be called when a row action is triggered.
- * @param {Object} props.rowMark - The function that returns the color to mark the row with.
- * @param {React.Ref} ref - The ref object for the row.
+ * @param props - The props object.
+ * @param props.className - The class name(s) to apply to the row.
+ * @param props.style - The inline style to apply to the row.
+ * @param props.sx - The extended style to apply to the row.
+ * @param props.rowKey - The key used to identify the row.
+ * @param props.columns - The list of columns in the table.
+ * @param props.rowActions - The list of actions that can be performed on the row.
+ * @param props.payload - The payload to be passed to the row actions.
+ * @param props.row - The data of the row.
+ * @param props.recomputeSubject - The subject to trigger recomputation of the row.
+ * @param props.onTableRowClick - The function to be called when the row is clicked.
+ * @param props.onRowAction - The function to be called when a row action is triggered.
+ * @param props.rowMark - The function that returns the color to mark the row with.
+ * @param ref - The ref object for the row.
  */
 export const ContentRow = forwardRef(
   (
@@ -218,8 +218,8 @@ export const ContentRow = forwardRef(
     /**
      * Callback function for handling selection of a row.
      *
-     * @param {MouseEvent} e - The event object.
-     * @returns {void}
+     * @param e - The event object.
+     * @returns
      */
     const handleSelect = useCallback(
       (e: any) => {
@@ -247,7 +247,7 @@ export const ContentRow = forwardRef(
     /**
      * Renders a checkbox or radio button based on the selection mode and current selection.
      *
-     * @returns {JSX.Element | null} The rendered checkbox or radio button.
+     * @returns The rendered checkbox or radio button.
      */
     const renderCheckbox = useCallback(() => {
       if (selectionMode === SelectionMode.Single) {

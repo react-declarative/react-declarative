@@ -32,13 +32,13 @@ export const DRAWER_BACKGROUND = "react-declarative__scaffold2Background";
  * @typedef {import('theme-ui').Theme} Theme
  *
  * @typedef {Object} itemCategory
- * @property {Function} boxShadow - A function that calculates the box shadow value for the item category.
- * @param {Theme} theme - The theme to be used for the calculation.
- * @returns {string} - The calculated box shadow value.
+ * @property boxShadow - A function that calculates the box shadow value for the item category.
+ * @param theme - The theme to be used for the calculation.
+ * @returns - The calculated box shadow value.
  *
- * @property {number} py - The padding on the y-axis for the item category.
+ * @property py - The padding on the y-axis for the item category.
  *
- * @property {number} px - The padding on the x-axis for the item category.
+ * @property px - The padding on the x-axis for the item category.
  */
 const itemCategory = {
   boxShadow: (theme: Theme) => {

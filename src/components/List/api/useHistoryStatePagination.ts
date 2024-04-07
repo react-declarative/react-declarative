@@ -187,7 +187,7 @@ export const useHistoryStatePagination = <
   /**
    * defaultQuery represents the default values for a query.
    *
-   * @returns {IQuery} - The default query object.
+   * @returns - The default query object.
    */
   const defaultQuery = useMemo((): IQuery => ({
     chipData: initialValue.chipData || DEFAULT_QUERY.chipData,
@@ -202,7 +202,7 @@ export const useHistoryStatePagination = <
    * Returns the state object from the current location.
    * If there is no state object, returns an empty object.
    *
-   * @returns {Object} The state object from the current location.
+   * @returns The state object from the current location.
    */
   const getLocationState = useCallback(() => {
     if (history.location.state) {
@@ -382,7 +382,7 @@ export const useHistoryStatePagination = <
   /**
    * Retrieves various parts of a query object.
    *
-   * @returns {Object} The query map with methods to retrieve specific parts of the query object.
+   * @returns The query map with methods to retrieve specific parts of the query object.
    */
   const getQueryMap = {
     getFilterData: (): FilterDataT<FilterData, RowData> => {
@@ -415,12 +415,12 @@ export const useHistoryStatePagination = <
    * A map of functions that can be used to update different variables.
    *
    * @typedef {Object} setQueryMap
-   * @property {function} setFilterData - Function to update filter data.
-   * @property {function} setSortModel - Function to update sort model.
-   * @property {function} setChipData - Function to update chip data.
-   * @property {function} setLimit - Function to update the limit.
-   * @property {function} setPage - Function to update the page.
-   * @property {function} setSearch - Function to update the search value.
+   * @property setFilterData - Function to update filter data.
+   * @property setSortModel - Function to update sort model.
+   * @property setChipData - Function to update chip data.
+   * @property setLimit - Function to update the limit.
+   * @property setPage - Function to update the page.
+   * @property setSearch - Function to update the search value.
    */
   const setQueryMap = {
     setFilterData: onFilterChange,

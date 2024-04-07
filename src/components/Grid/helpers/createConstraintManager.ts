@@ -29,8 +29,8 @@ export const createConstraintManager = () => {
    * Configuration object.
    *
    * @typedef {Object} Config
-   * @property {Function} memoize - The memoize function.
-   * @property {Function} clear - The clear function.
+   * @property memoize - The memoize function.
+   * @property clear - The clear function.
    */
   return {
     memoize,

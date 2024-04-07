@@ -49,7 +49,7 @@ export const SnackProvider = ({
      *
      * @name getCurrent
      * @function
-     * @returns {Object|null} The current alert object, or null if no alerts
+     * @returns The current alert object, or null if no alerts
      */
     const getCurrent = useCallback(() => {
         if (alerts.length) {

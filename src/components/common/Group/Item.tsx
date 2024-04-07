@@ -53,7 +53,7 @@ interface IItemProps extends Omit<IManagedLayout, 'hidden'> {
  * - width: "100%" - Specifies the width of the element to be 100% of its parent container.
  * - '& > *': { flex: 1 } - Specifies that all direct children of the element should take up equal space.
  *
- * @returns {Object} An object containing CSS styles for the root and container elements.
+ * @returns An object containing CSS styles for the root and container elements.
  */
 const useStyles = makeStyles()({
   root: {
@@ -130,13 +130,13 @@ export const Item = ({
     const mb = n(fieldBottomMargin);
     /**
      * Configuration object for defining responsive breakpoints and margin values.
-     * @property {number} xs - The extra small breakpoint value in pixels.
-     * @property {number} sm - The small breakpoint value in pixels.
-     * @property {number} md - The medium breakpoint value in pixels.
-     * @property {number} lg - The large breakpoint value in pixels.
-     * @property {number} xl - The extra large breakpoint value in pixels.
-     * @property {number} mr - The margin right value in pixels.
-     * @property {number} mb - The margin bottom value in pixels.
+     * @property xs - The extra small breakpoint value in pixels.
+     * @property sm - The small breakpoint value in pixels.
+     * @property md - The medium breakpoint value in pixels.
+     * @property lg - The large breakpoint value in pixels.
+     * @property xl - The extra large breakpoint value in pixels.
+     * @property mr - The margin right value in pixels.
+     * @property mb - The margin bottom value in pixels.
      */
     return {
       xs,

@@ -37,7 +37,7 @@ interface IExpansionLayoutPrivate {
  * The returned object contains CSS classes for different elements and components, such as the root, content, outlinePaper, and transparentPaper.
  * These classes can be used to apply styling and layout to the corresponding elements in a React component.
  *
- * @returns {object} An object containing CSS classes for different elements and components.
+ * @returns An object containing CSS classes for different elements and components.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {

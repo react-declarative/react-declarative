@@ -34,31 +34,31 @@ interface ICacheProviderProps {
  * Represents a cache provider used for memoization.
  *
  * @typedef {Object} CacheProvider
- * @property {Object} cacheMap - Represents a cache map used for memoization.
- * @property {Map<IField, IField['focus']>} cacheMap.focusMap - Map for focusing fields.
- * @property {Map<IField, IField['blur']>} cacheMap.blurMap - Map for blurring fields.
- * @property {Map<IField, IField['menu']>} cacheMap.menuMap - Map for field menus.
- * @property {Map<IField, IField['click']>} cacheMap.clickMap - Map for field click events.
- * @property {Map<IField, boolean>} cacheMap.baselineMap - Map for field baselines.
- * @property {Map<IField[], IField[]>} cacheMap.fieldsMap - Map for field arrays.
- * @property {Map<IField[], number>} cacheMap.statefullMap - Map for stateful fields.
- * @property {Map<IField, IField['tr']>} cacheMap.trMap - Map for translational fields.
- * @property {Map<IField, IField['shouldUpdateItemList']>} cacheMap.itemListMap - Map for items list updates.
+ * @property cacheMap - Represents a cache map used for memoization.
+ * @property cacheMap.focusMap - Map for focusing fields.
+ * @property cacheMap.blurMap - Map for blurring fields.
+ * @property cacheMap.menuMap - Map for field menus.
+ * @property cacheMap.clickMap - Map for field click events.
+ * @property cacheMap.baselineMap - Map for field baselines.
+ * @property cacheMap.fieldsMap - Map for field arrays.
+ * @property cacheMap.statefullMap - Map for stateful fields.
+ * @property cacheMap.trMap - Map for translational fields.
+ * @property cacheMap.itemListMap - Map for items list updates.
  */
 export const CacheProvider = ({ children }: ICacheProviderProps) => {
   /**
    * Represents a cache map used for memoization.
    *
    * @typedef {Object} CacheMap
-   * @property {Map<IField, IField['focus']>} focusMap - Map for focusing fields.
-   * @property {Map<IField, IField['blur']>} blurMap - Map for blurring fields.
-   * @property {Map<IField, IField['menu']>} menuMap - Map for field menus.
-   * @property {Map<IField, IField['click']>} clickMap - Map for field click events.
-   * @property {Map<IField, boolean>} baselineMap - Map for field baselines.
-   * @property {Map<IField[], IField[]>} fieldsMap - Map for field arrays.
-   * @property {Map<IField[], number>} statefullMap - Map for stateful fields.
-   * @property {Map<IField, IField['tr']>} trMap - Map for translational fields.
-   * @property {Map<IField, IField['shouldUpdateItemList']>} itemListMap - Map for items list updates.
+   * @property focusMap - Map for focusing fields.
+   * @property blurMap - Map for blurring fields.
+   * @property menuMap - Map for field menus.
+   * @property clickMap - Map for field click events.
+   * @property baselineMap - Map for field baselines.
+   * @property fieldsMap - Map for field arrays.
+   * @property statefullMap - Map for stateful fields.
+   * @property trMap - Map for translational fields.
+   * @property itemListMap - Map for items list updates.
    */
   const cacheMap = useMemo((): IContext => {
     const fnMap = Object.create(null);

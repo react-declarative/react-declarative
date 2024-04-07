@@ -104,8 +104,8 @@ export const Choose = ({
   /**
    * Handles the click event.
    *
-   * @param {Event} event - The click event object.
-   * @returns {void}
+   * @param event - The click event object.
+   * @returns
    */
     const { execute: handleClick, loading: chooseLoading } = useSinglerunAction(
     async () => {

@@ -70,15 +70,15 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
      * A handler function that makes an asynchronous request and processes the response.
      *
      * @template Data The expected response data type.
-     * @param {string} path The path of the request URL.
-     * @param {string} origin The origin of the request URL.
-     * @param {function} requestMap A function to modify the URL before making the request.
-     * @param {function} responseMap A function to modify the response JSON data.
-     * @param {function} fetchParams An optional function to provide additional fetch parameters.
-     * @param {function} onLoadBegin An optional function to call before the request is made.
-     * @param {function} onLoadEnd An optional function to call after the request is completed.
-     * @param {function} fallback An optional function to handle errors if they occur.
-     * @returns {Promise<Data | null>} A promise that resolves to the processed response data or null if the request was cancelled.
+     * @param path The path of the request URL.
+     * @param origin The origin of the request URL.
+     * @param requestMap A function to modify the URL before making the request.
+     * @param responseMap A function to modify the response JSON data.
+     * @param fetchParams An optional function to provide additional fetch parameters.
+     * @param onLoadBegin An optional function to call before the request is made.
+     * @param onLoadEnd An optional function to call after the request is completed.
+     * @param fallback An optional function to handle errors if they occur.
+     * @returns A promise that resolves to the processed response data or null if the request was cancelled.
      * @throws {Error} If an error occurs and no fallback function is provided.
      */
     const handler: OneHandler<Data> = useMemo(() => async () => {

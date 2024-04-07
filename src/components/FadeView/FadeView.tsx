@@ -42,7 +42,7 @@ interface IFadeViewProps extends FadeContainerT {
  * @function
  * @name useStyles
  *
- * @returns {object} - The styles object for the component.
+ * @returns - The styles object for the component.
  *
  */
 const useStyles = makeStyles()({

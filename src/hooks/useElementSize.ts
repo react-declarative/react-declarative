@@ -19,7 +19,7 @@ interface ISize {
  *
  * @template Size - The size type used in the class.
  *
- * @property {ISize} [defaultSize] - The default size to be used if size is not provided.
+ * @property [defaultSize] - The default size to be used if size is not provided.
  * @property [target] - The target element for the operation.
  * @property [closest] - The closest element selector.
  * @property [selector] - The element selector.
@@ -112,9 +112,9 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
          * Creates a debounced function that will only execute after a certain delay,
          * and with the latest arguments provided.
          *
-         * @param {Function} fn - The function to debounce.
-         * @param {number} delay - The delay in milliseconds before the function is executed.
-         * @returns {Function} - The debounced function.
+         * @param fn - The function to debounce.
+         * @param delay - The delay in milliseconds before the function is executed.
+         * @returns - The debounced function.
          */
         const handler = debounce((pendingSize : ISize) => {
             let mappedSize = {...compute(pendingSize)};
@@ -132,7 +132,7 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
          *
          * @class
          * @constructor
-         * @param {function} handler - The callback function that will be called when the observed element's dimensions change.
+         * @param handler - The callback function that will be called when the observed element's dimensions change.
          *   The callback function will be invoked with an object containing the updated height and width of the element.
          */
         const observer = new ResizeObserver(() => {

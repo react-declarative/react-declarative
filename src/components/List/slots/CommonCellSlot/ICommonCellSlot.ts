@@ -22,14 +22,14 @@ export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<IColum
  *
  * @template RowData - The type of row data used in the cell slot.
  *
- * @property {CommonCellColumn<RowData>} column - The column associated with the cell slot.
- * @property {RowData} row - The row data associated with the cell slot.
- * @property {number} idx - The index of the cell slot.
- * @property {number} fullWidth - The full width of the cell slot.
- * @property {boolean} disabled - Indicates if the cell slot is disabled.
- * @property {DisplayMode} mode - The display mode of the cell slot.
- * @property {IActionMenuProps['onToggle']} onMenuToggle - The function to call when the menu toggle is triggered.
- * @property {IActionMenuProps['onAction']} onAction - The function to call when an action is triggered in the menu.
+ * @property column - The column associated with the cell slot.
+ * @property row - The row data associated with the cell slot.
+ * @property idx - The index of the cell slot.
+ * @property fullWidth - The full width of the cell slot.
+ * @property disabled - Indicates if the cell slot is disabled.
+ * @property mode - The display mode of the cell slot.
+ * @property onMenuToggle - The function to call when the menu toggle is triggered.
+ * @property onAction - The function to call when an action is triggered in the menu.
  */
 export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
     column: CommonCellColumn<RowData>;
@@ -42,15 +42,15 @@ export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
      * Callback function for the toggle action of a menu.
      *
      * @callback onMenuToggle
-     * @param {boolean} isOpen - Specifies whether the menu is open or closed.
-     * @returns {void}
+     * @param isOpen - Specifies whether the menu is open or closed.
+     * @returns
      */
     onMenuToggle: IActionMenuProps['onToggle'];
     /**
      * The callback function for an action triggered in the action menu.
      *
-     * @param {string} action - The action triggered in the action menu.
-     * @returns {void}
+     * @param action - The action triggered in the action menu.
+     * @returns
      */
     onAction: IActionMenuProps['onAction']
 }

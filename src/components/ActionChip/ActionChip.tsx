@@ -9,6 +9,19 @@ import useSinglerunAction from '../../hooks/useSinglerunAction';
 import Add from '@mui/icons-material/Add';
 import Remove from '@mui/icons-material/Remove';
 
+/**
+ * Interface representing the props for the ActionChip component.
+ *
+ * @interface
+ * @extends ChipProps
+ * @property withSingleValue - Determines whether the action chip should display a single value.
+ * @property value - The current value of the action chip.
+ * @property onChange - The function to be called when the value of the action chip changes.
+ * @property onLoadStart - The function to be called when the loading starts.
+ * @property onLoadEnd - The function to be called when the loading ends.
+ * @property fallback - The function to be called if an error occurs.
+ * @property throwError - Determines whether an error should be thrown.
+ */
 interface IActionChipProps extends Omit<ChipProps, keyof {
     variant: never;
     deleteIcon: never;
@@ -25,6 +38,20 @@ interface IActionChipProps extends Omit<ChipProps, keyof {
     throwError?: boolean;
 }
 
+/**
+ * ActionChip component represents a chip with dynamic action behavior.
+ *
+ * @param [value=false] - The initial value of the chip.
+ * @param [withSingleValue=false] - Determines whether the chip should have a single value or not.
+ * @param [onChange] - The function to be called when the chip value changes.
+ * @param [onLoadStart] - The function to be called when the chip's loading state starts.
+ * @param [onLoadEnd] - The function to be called when the chip's loading state ends.
+ * @param [fallback] - The fallback content to be displayed while the chip is in the loading state.
+ * @param [throwError] - Determines whether an error should be thrown if the onChange function is not defined.
+ * @param [otherProps] - Additional props to be passed to the Chip component.
+ *
+ * @returns - The ActionChip component.
+ */
 export const ActionChip = ({
     value: upperValue = false,
     withSingleValue = false,
@@ -52,6 +79,11 @@ export const ActionChip = ({
         throwError,
     });
 
+    /**
+     * A variable that uses the `useMemo` hook to conditionally return an object with properties.
+     * If the `withSingleValue` is truthy, it returns an empty object.
+     * Otherwise, it returns an object with `onDelete` and `deleteIcon` properties.
+     */
     const removeProps = useMemo(() => {
         if (withSingleValue) {
             return {};
@@ -62,6 +94,9 @@ export const ActionChip = ({
         };
     }, []);
 
+    /**
+     * Returns an object with properties to be added based on specific conditions.
+     */
     const addProps = useMemo(() => {
         if (withSingleValue) {
             return {};

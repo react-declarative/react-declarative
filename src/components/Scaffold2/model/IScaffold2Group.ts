@@ -24,13 +24,13 @@ export interface IScaffold2Group<T = Payload> {
     /**
      * Checks if the element is visible.
      *
-     * @returns {boolean|Promise<boolean>} - True if the element is visible.
+     * @returns - True if the element is visible.
      */
     isVisible?: () => boolean | (Promise<boolean>);
     /**
      * Checks if the element is disabled.
      *
-     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a promise that resolves to a boolean value.
+     * @returns - Returns a boolean value or a promise that resolves to a boolean value.
      */
     isDisabled?: () => boolean | (Promise<boolean>);
     children: IScaffold2Option<T>[];

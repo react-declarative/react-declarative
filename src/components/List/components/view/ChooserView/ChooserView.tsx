@@ -37,7 +37,7 @@ export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
  *
  * @function
  * @name useStyles
- * @returns {Object} - An object containing CSS styles for a component.
+ * @returns - An object containing CSS styles for a component.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -150,7 +150,7 @@ export const Chooser = <
    *
    * @function handleCleanRows
    * @callback
-   * @returns {void}
+   * @returns
    *
    */
   const handleCleanRows = useCallback(() => {
@@ -164,7 +164,7 @@ export const Chooser = <
   /**
    * Function to handle appending rows to the current state rows.
    *
-   * @returns {void}
+   * @returns
    */
   const handleAppendRows = useCallback(
     () =>
@@ -189,9 +189,9 @@ export const Chooser = <
   /**
    * Handles a data request.
    *
-   * @param {object} request - The request object containing information about the data request.
-   * @param {function} callback - The callback function to be executed when the data request is handled.
-   * @returns {void}
+   * @param request - The request object containing information about the data request.
+   * @param callback - The callback function to be executed when the data request is handled.
+   * @returns
    */
   const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;

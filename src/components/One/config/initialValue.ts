@@ -4,26 +4,26 @@ import FieldType from '../../../model/FieldType';
  * Represents an initial value map for different field types.
  *
  * @typedef {Object} initialValueMap
- * @property {boolean} Checkbox - The initial value for a checkbox field.
- * @property {null} Radio - The initial value for a radio field.
- * @property {string} Text - The initial value for a text field.
- * @property {boolean} Switch - The initial value for a switch field.
- * @property {number} Progress - The initial value for a progress field.
- * @property {number} Slider - The initial value for a slider field.
- * @property {null} Combo - The initial value for a combo field.
- * @property {null} Items - The initial value for an items field.
- * @property {number} Rating - The initial value for a rating field.
- * @property {string} Typography - The initial value for a typography field.
- * @property {string} Date - The initial value for a date field.
- * @property {string} Time - The initial value for a time field.
- * @property {null} File - The initial value for a file field.
- * @property {null} Choose - The initial value for a choose field.
- * @property {null} Component - The initial value for a component field.
- * @property {string} Complete - The initial value for a complete field.
- * @property {null} Init - The initial value for an init field.
- * @property {null} YesNo - The initial value for a yes/no field.
- * @property {null} Dict - The initial value for a dictionary field.
- * @property {null} Tree - The initial value for a tree field.
+ * @property Checkbox - The initial value for a checkbox field.
+ * @property Radio - The initial value for a radio field.
+ * @property Text - The initial value for a text field.
+ * @property Switch - The initial value for a switch field.
+ * @property Progress - The initial value for a progress field.
+ * @property Slider - The initial value for a slider field.
+ * @property Combo - The initial value for a combo field.
+ * @property Items - The initial value for an items field.
+ * @property Rating - The initial value for a rating field.
+ * @property Typography - The initial value for a typography field.
+ * @property Date - The initial value for a date field.
+ * @property Time - The initial value for a time field.
+ * @property File - The initial value for a file field.
+ * @property Choose - The initial value for a choose field.
+ * @property Component - The initial value for a component field.
+ * @property Complete - The initial value for a complete field.
+ * @property Init - The initial value for an init field.
+ * @property YesNo - The initial value for a yes/no field.
+ * @property Dict - The initial value for a dictionary field.
+ * @property Tree - The initial value for a tree field.
  */
 const initialValueMap = {
   [FieldType.Checkbox]: false,

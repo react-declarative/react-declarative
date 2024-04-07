@@ -23,7 +23,7 @@ interface IDefaultFadeProps {
 /**
  * Creates a useStyles object that can be used to access CSS styles.
  *
- * @returns {Object} The useStyles object.
+ * @returns The useStyles object.
  */
 const useStyles = makeStyles()(() => ({
     root: {
@@ -60,12 +60,12 @@ const useStyles = makeStyles()(() => ({
 /**
  * Represents a component that applies a fade effect to its background.
  * @typedef {Object} IDefaultFadeProps
- * @property {string} className - The additional CSS class to be applied to the root element.
- * @property {boolean} visible - Determines if the component is visible.
- * @property {string} color - The color of the fade effect. If not provided, the default background color of the theme will be used.
- * @property {boolean} none - Determines if the fade effect should not be applied.
- * @property {string} position - The position of the fade effect. Can be either 'bottom' or 'right'.
- * @property {number} zIndex - The z-index of the root element.
+ * @property className - The additional CSS class to be applied to the root element.
+ * @property visible - Determines if the component is visible.
+ * @property color - The color of the fade effect. If not provided, the default background color of the theme will be used.
+ * @property none - Determines if the fade effect should not be applied.
+ * @property position - The position of the fade effect. Can be either 'bottom' or 'right'.
+ * @property zIndex - The z-index of the root element.
  */
 export const DefaultFade = ({
     className,
@@ -81,10 +81,10 @@ export const DefaultFade = ({
     /**
      * Returns a memoized object with background CSS property.
      *
-     * @param {object} theme - The theme object.
-     * @param {?string} color - The color value.
+     * @param theme - The theme object.
+     * @param color - The color value.
      *
-     * @returns {object} - The memoized background object.
+     * @returns - The memoized background object.
      */
     const bg = useMemo(() => {
         const fadeColor = color || theme.palette.background.default;

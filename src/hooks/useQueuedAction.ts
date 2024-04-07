@@ -71,9 +71,9 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
     /**
      * Executes the given function as a memoized value.
      *
-     * @param {Function} func - The function to execute.
-     * @param {Array} deps - An array of dependencies for memoization.
-     * @returns {Promise|null} - The result of the function execution or `null` if the result is falsy.
+     * @param func - The function to execute.
+     * @param deps - An array of dependencies for memoization.
+     * @returns - The result of the function execution or `null` if the result is falsy.
      * @throws {Error} - If an error occurs during function execution.
      */
     const execution = useMemo(() => queued(async (payload: Payload) => {
@@ -97,8 +97,8 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
     /**
      * A memoized function that can be executed with an optional payload.
      *
-     * @param {Payload} [payload] - The optional payload to be passed to the execution function.
-     * @returns {Promise} - A promise that resolves with the result of the execution function.
+     * @param [payload] - The optional payload to be passed to the execution function.
+     * @returns - A promise that resolves with the result of the execution function.
      */
     const execute = useMemo(() => async (payload?: Payload) => {
 

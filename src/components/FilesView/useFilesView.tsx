@@ -25,8 +25,8 @@ const RESIZE_DEBOUNCE = 10;
 /**
  * makeStyles is a function that takes a theme object and returns an object containing CSS styles.
  *
- * @param {object} theme - The theme object containing the color palette.
- * @returns {object} - An object containing CSS styles.
+ * @param theme - The theme object containing the color palette.
+ * @returns - An object containing CSS styles.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -71,13 +71,13 @@ const useStyles = makeStyles()((theme) => ({
  * Represents a small size request object.
  *
  * @typedef {Object} SMALL_SIZE_REQUEST
- * @property {number} height - The height of the request. Default: 0.
- * @property {number} width - The width of the request. Default: 0.
- * @property {Object} sx - The style object for the request.
- * @property {string} sx.maxHeight - The maximum height of the request's style. Default: "80%".
- * @property {string} sx.minWidth - The minimum width of the request's style. Default: "330px".
- * @property {string} sx.maxWidth - The maximum width of the request's style. Default: "450px".
- * @property {string} sx.margin - The margin of the request's style. Default: "10px".
+ * @property height - The height of the request. Default: 0.
+ * @property width - The width of the request. Default: 0.
+ * @property sx - The style object for the request.
+ * @property sx.maxHeight - The maximum height of the request's style. Default: "80%".
+ * @property sx.minWidth - The minimum width of the request's style. Default: "330px".
+ * @property sx.maxWidth - The maximum width of the request's style. Default: "450px".
+ * @property sx.margin - The margin of the request's style. Default: "10px".
  *
  */
 const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
@@ -182,12 +182,12 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
   /**
    * Computes the requested size based on the current window size.
    *
-   * @param {Object} options - The options to customize the computation.
-   * @param {function} options.compute - A function that takes the window size as an argument
+   * @param options - The options to customize the computation.
+   * @param options.compute - A function that takes the window size as an argument
    *                                     and returns an object containing the requested height, width, and sx.
-   * @param {number} options.debounce - The debounce duration in milliseconds to wait after a window resize
+   * @param options.debounce - The debounce duration in milliseconds to wait after a window resize
    *                                    before computing the requested size. Default is 300 milliseconds.
-   * @returns {Object} - The computed requested size object with height, width, and sx properties.
+   * @returns - The computed requested size object with height, width, and sx properties.
    */
   const requestedSize = useWindowSize({
     compute: (size) => {

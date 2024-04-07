@@ -63,8 +63,8 @@ export class Translate {
   /**
    * Translates the given text to another language.
    *
-   * @param {string} text - The text to be translated.
-   * @returns {string} The translated text.
+   * @param text - The text to be translated.
+   * @returns The translated text.
    */
   public translateText: (text: string) => string;
 
@@ -196,10 +196,10 @@ export class Translate {
   /**
    * Creates and returns an element based on the provided type, props, and children.
    *
-   * @param {string} type - The type of the element to create.
-   * @param {IAttributeCollection | null} props - The properties or attributes to assign to the element.
-   * @param {...any[]} children - The child elements or content to append to the element.
-   * @returns {ReturnType<typeof createElementRef>} - The created element.
+   * @param type - The type of the element to create.
+   * @param props - The properties or attributes to assign to the element.
+   * @param children - The child elements or content to append to the element.
+   * @returns - The created element.
    */
   public createElement: (
     type: string,

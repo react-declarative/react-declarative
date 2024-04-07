@@ -67,10 +67,10 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
    * Represents the last query made to the server.
    *
    * @typedef {Object} LastQuery
-   * @property {number|null} lastId - The ID of the last object fetched. Defaults to null.
-   * @property {number} offset - The offset used in pagination. Defaults to 0.
-   * @property {number} page - The current page number. Defaults to 0.
-   * @property {number} limit - The maximum number of objects to fetch per request.
+   * @property lastId - The ID of the last object fetched. Defaults to null.
+   * @property offset - The offset used in pagination. Defaults to 0.
+   * @property page - The current page number. Defaults to 0.
+   * @property limit - The maximum number of objects to fetch per request.
    */
   let lastQuery = request({
     lastId: null,

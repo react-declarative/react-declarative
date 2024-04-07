@@ -81,8 +81,8 @@ export const ActionAdd = ({
     /**
      * Executes the click event handler.
      *
-     * @param {any} e - The event object passed to the click event handler.
-     * @returns {void}
+     * @param e - The event object passed to the click event handler.
+     * @returns
      */
     const handleClick = useActualCallback((e: any) => {
         e.stopPropagation();

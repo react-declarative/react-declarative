@@ -15,9 +15,9 @@ export const useWatchChanges = (deps: any[] = []) => {
   /**
    * Creates a watcher that triggers a function callback when the dependencies change.
    *
-   * @param {Function} callback - The function to be executed when the dependencies change.
-   * @param {Array} dependencies - The dependencies to watch for changes.
-   * @returns {void}
+   * @param callback - The function to be executed when the dependencies change.
+   * @param dependencies - The dependencies to watch for changes.
+   * @returns
    */
   const watch = useChange(() => {
     changeSubject.next();

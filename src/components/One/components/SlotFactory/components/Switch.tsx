@@ -13,8 +13,8 @@ import { ISwitchSlot } from "../../../slots/SwitchSlot";
 /**
  * A function that returns the styles for a component using the material-ui makeStyles hook.
  *
- * @param {Object} theme - The material-ui theme object.
- * @returns {Object} - The styles object.
+ * @param theme - The material-ui theme object.
+ * @returns - The styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   switchBase: {

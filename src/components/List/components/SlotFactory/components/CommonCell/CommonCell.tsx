@@ -24,7 +24,7 @@ const LOAD_SOURCE = 'list-item';
 /**
  * Returns the styles object for a given component.
  *
- * @returns {Object} The styles object.
+ * @returns The styles object.
  */
 const useStyles = makeStyles()({
     stretch: {

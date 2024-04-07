@@ -239,8 +239,8 @@ export const Text = ({
   /**
    * Represents a caret manager for handling caret position in an input element.
    * @typedef {Object} CaretManager
-   * @property {Function} render - Renders the caret position in the input element.
-   * @property {Function} pos - Gets the current caret position in the input element.
+   * @property render - Renders the caret position in the input element.
+   * @property pos - Gets the current caret position in the input element.
    */
   const caretManager = useMemo(() => {
     let lastPos: symbol | number = NEVER_POS;

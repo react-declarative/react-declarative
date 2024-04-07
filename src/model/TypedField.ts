@@ -79,10 +79,10 @@ type TypedFieldFactory<Type extends FieldType, Fields extends {}, Data = IAnythi
  * @template Payload - The payload type.
  *
  * @typedef {Object} TypedFieldFactoryShallow
- * @property {Type} Type - The type of the field.
- * @property {Fields} Fields - The field definitions.
- * @property {Data} Data - The data type.
- * @property {Payload} Payload - The payload type.
+ * @property Type - The type of the field.
+ * @property Fields - The field definitions.
+ * @property Data - The data type.
+ * @property Payload - The payload type.
  */
 type TypedFieldFactoryShallow<
   Type extends FieldType,

@@ -75,8 +75,8 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * Invoke the provided function with the specified arguments and this context.
      *
-     * @param {number} time - The current time.
-     * @returns {*} - The result of invoking the function.
+     * @param time - The current time.
+     * @returns - The result of invoking the function.
      */
     const invokeFunc = useCallback((time) => {
         const args = lastArgs.current;
@@ -90,9 +90,9 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * A custom hook to start a timer with either requestAnimationFrame or setTimeout.
      *
-     * @param {Function} pendingFunc - The function to be called when the timer triggers.
-     * @param {number} wait - The time in milliseconds to wait before triggering the function.
-     * @returns {void}
+     * @param pendingFunc - The function to be called when the timer triggers.
+     * @param wait - The time in milliseconds to wait before triggering the function.
+     * @returns
      */
     const startTimer = useCallback(
         (pendingFunc, wait) => {
@@ -105,7 +105,7 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * Determines whether a function should be invoked based on the provided time.
      *
-     * @param {number} time - The current time in milliseconds.
+     * @param time - The current time in milliseconds.
      * @return {boolean} - True if the function should be invoked, false otherwise.
      */
     const shouldInvoke = useCallback(
@@ -131,8 +131,8 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * Executes the trailing edge of a debounced function.
      *
-     * @param {number} time - The timestamp of the trailing edge invocation.
-     * @returns {*} - The result of the debounced function's execution at the trailing edge.
+     * @param time - The timestamp of the trailing edge invocation.
+     * @returns - The result of the debounced function's execution at the trailing edge.
      */
     const trailingEdge = useCallback(
         (time) => {
@@ -153,7 +153,7 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
      * Executes a callback function when the timer expires.
      *
      * @callback timerExpired
-     * @returns {void}
+     * @returns
      */
     const timerExpired = useCallback(() => {
 
@@ -178,8 +178,8 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
      * A function that cancels a timer or animation frame.
      * It resets various internal variables to their initial state.
      *
-     * @param {boolean} useRAF - A flag indicating whether to use requestAnimationFrame or clearTimeout.
-     * @returns {void}
+     * @param useRAF - A flag indicating whether to use requestAnimationFrame or clearTimeout.
+     * @returns
      */
     const cancel = useCallback(() => {
         if (timerId.current) {
@@ -192,9 +192,9 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * Flushes the current value of a throttled function.
      *
-     * @returns {*} The current value of the throttled function if the timer is not set, otherwise the result of invoking `trailingEdge` function.
+     * @returns The current value of the throttled function if the timer is not set, otherwise the result of invoking `trailingEdge` function.
      *
-     * @param {Function} trailingEdge - The function to be invoked after a delay when the timer is set.
+     * @param trailingEdge - The function to be invoked after a delay when the timer is set.
      */
     const flush = useCallback(() => {
         return !timerId.current ? result.current : trailingEdge(Date.now());
@@ -210,15 +210,15 @@ export function useDebouncedCallback<T extends (...args: value[]) => ReturnType<
     /**
      * Invokes the provided function with debouncing logic.
      *
-     * @param {Function} invokeFunc - The function to be debounced.
-     * @param {boolean} leading - Whether to invoke the function on the leading edge.
-     * @param {boolean} maxing - Whether to apply the `maxWait` logic.
-     * @param {Function} shouldInvoke - A function that determines whether the debounced function should be invoked.
-     * @param {Function} startTimer - A function that starts the debouncing timer.
-     * @param {Function} timerExpired - A function that is called when the debouncing timer has expired.
-     * @param {number} wait - The delay in milliseconds before invoking the debounced function.
+     * @param invokeFunc - The function to be debounced.
+     * @param leading - Whether to invoke the function on the leading edge.
+     * @param maxing - Whether to apply the `maxWait` logic.
+     * @param shouldInvoke - A function that determines whether the debounced function should be invoked.
+     * @param startTimer - A function that starts the debouncing timer.
+     * @param timerExpired - A function that is called when the debouncing timer has expired.
+     * @param wait - The delay in milliseconds before invoking the debounced function.
      *
-     * @returns {ReturnType<T>} - The result of the debounced function.
+     * @returns - The result of the debounced function.
      */
     const debounced = useCallback(
         (...args: Parameters<T>): ReturnType<T> => {

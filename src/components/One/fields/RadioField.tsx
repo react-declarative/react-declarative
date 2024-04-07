@@ -33,7 +33,7 @@ export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents a reference to a group in a field object.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-   * @property {undefined | PickProp<IField<Data, Payload>, 'groupRef'>} groupRef - The reference to the group.
+   * @property groupRef - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**

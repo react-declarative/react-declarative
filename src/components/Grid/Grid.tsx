@@ -79,8 +79,8 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
    * A memoized function that returns the default width for a given number of columns.
    *
    * @type {Function}
-   * @param {number} columnCount - The number of columns for which to determine the default width.
-   * @returns {number} - The default width for the given number of columns.
+   * @param columnCount - The number of columns for which to determine the default width.
+   * @returns - The default width for the given number of columns.
    */
   const defaultWidthFn = useMemo(
     () => createDefaultWidthFn(upperColumns.length),
@@ -90,8 +90,8 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
   /**
    * useMemo for creating column array based on upperColumns and defaultWidthFn.
    *
-   * @param {Array} upperColumns - Array of columns configuration.
-   * @param {Function} defaultWidthFn - Default width function.
+   * @param upperColumns - Array of columns configuration.
+   * @param defaultWidthFn - Default width function.
    * @return {Array} - Array of columns with calculated width and other properties.
    */
   const columns = useMemo(
@@ -130,8 +130,8 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
   /**
    * Creates a memoized throttle function that publishes the scrollX value to the scrollXSubject.
    *
-   * @param {number} scrollX - The horizontal scroll value.
-   * @returns {Function} - The memoized throttle function.
+   * @param scrollX - The horizontal scroll value.
+   * @returns - The memoized throttle function.
    */
   const handleScrollX = useMemo(
     () =>

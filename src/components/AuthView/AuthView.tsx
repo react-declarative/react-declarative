@@ -27,7 +27,7 @@ import classNames from '../../utils/classNames';
 /**
  * Returns the classes object for styling components.
  *
- * @returns {Object} The classes object.
+ * @returns The classes object.
  */
 const useStyles = makeStyles()((theme) => ({
     root: {
@@ -187,8 +187,8 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
     /**
      * Handles the authentication process.
      *
-     * @param {Data | null} data - The data to be used for authentication.
-     * @returns {void}
+     * @param data - The data to be used for authentication.
+     * @returns
      */
     const handleAuth = useActualCallback(async (data: Data | null) => {
         if (!data) {

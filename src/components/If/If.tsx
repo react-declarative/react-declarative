@@ -117,7 +117,7 @@ export const If = <T extends any = object>({
         /**
          * Executes a cancelable asynchronous function.
          *
-         * @param {function} fn - The cancelable function to be executed.
+         * @param fn - The cancelable function to be executed.
          *
          */
         const execute = cancelable(async () => {

@@ -153,9 +153,9 @@ export const Time = ({
   /**
    * A memoized value computed from the given `value` using `useMemo`.
    *
-   * @param {any} value - The input value used to compute the `dayjsValue`.
+   * @param value - The input value used to compute the `dayjsValue`.
    *
-   * @returns {Dayjs | undefined} - The computed `dayjsValue` which is a `Dayjs` object representing the parsed `value` as a time.
+   * @returns - The computed `dayjsValue` which is a `Dayjs` object representing the parsed `value` as a time.
    *
    */
   const dayjsValue = useMemo(() => {

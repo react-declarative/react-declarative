@@ -40,7 +40,7 @@ const InternalProvider = ({
     /**
      * Retrieves sortable columns from a given list of columns.
      *
-     * @returns {Array} The list of sortable columns.
+     * @returns The list of sortable columns.
      */
     const columns = useMemo(() => {
         return listColumns.filter((column) => {

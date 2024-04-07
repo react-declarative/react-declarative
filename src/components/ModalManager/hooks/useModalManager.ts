@@ -12,8 +12,8 @@ interface IResult {
     /**
      * Pushes a modal onto the stack.
      *
-     * @param {IModal} modal - The modal object to be pushed.
-     * @returns {void}
+     * @param modal - The modal object to be pushed.
+     * @returns
      */
     push: (modal: IModal) => void;
     /**
@@ -36,10 +36,10 @@ export const useModalManager = (): IResult => {
     /**
      * Represents the result object.
      * @typedef {Object} Result
-     * @property {number} total - The total number of items in the modal stack.
-     * @property {function} push - The function that adds an item to the modal stack.
-     * @property {function} pop - The function that removes an item from the modal stack.
-     * @property {function} clear - The function that clears all items in the modal stack.
+     * @property total - The total number of items in the modal stack.
+     * @property push - The function that adds an item to the modal stack.
+     * @property pop - The function that removes an item from the modal stack.
+     * @property clear - The function that clears all items in the modal stack.
      *
      */
     return {

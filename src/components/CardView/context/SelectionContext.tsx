@@ -28,7 +28,7 @@ interface ISelectionContextProviderProps {
  * Provides context for item selection.
  *
  * @typedef {Object} ISelectionContextProviderProps
- * @property {React.ReactNode} children - The child elements to render within the provider.
+ * @property children - The child elements to render within the provider.
  */
 export const SelectionContextProvider = ({
   children,
@@ -43,8 +43,8 @@ export const SelectionContextProvider = ({
   /**
    * Toggles the selection of an item.
    *
-   * @param {IItemData["id"]} id - The ID of the item to toggle the selection for.
-   * @returns {void}
+   * @param id - The ID of the item to toggle the selection for.
+   * @returns
    */
   const toggleSelection = useActualCallback((id: IItemData["id"]) => {
     const pendingSelectedIds = new Set(state.selectedIds);
@@ -65,8 +65,8 @@ export const SelectionContextProvider = ({
    * The callback function sets the selected IDs to an empty set and the selected items to an empty map.
    *
    * @function dropSelection
-   * @param {function} useActualCallback - The callback function to be executed when `dropSelection` is invoked.
-   * @returns {void}
+   * @param useActualCallback - The callback function to be executed when `dropSelection` is invoked.
+   * @returns
    */
   const dropSelection = useActualCallback(() => {
     action.setSelectedIds(new Set());
@@ -77,9 +77,9 @@ export const SelectionContextProvider = ({
    * Represents a memoized value for the context.
    *
    * @typedef {Object} ContextValue
-   * @property {Array} selectedItems - An array of selected items.
-   * @property {Function} toggleSelection - A function to toggle the selection of items.
-   * @property {Function} dropSelection - A function to drop the selection of items.
+   * @property selectedItems - An array of selected items.
+   * @property toggleSelection - A function to toggle the selection of items.
+   * @property dropSelection - A function to drop the selection of items.
    */
   const contextValue = useMemo(() => ({
     selectedItems: [...selectedItems.values()],

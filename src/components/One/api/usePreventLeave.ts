@@ -197,11 +197,11 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
   /**
    * Represents a confirmation dialog box for picking an option.
    *
-   * @param {object} options - The configuration options for the confirmation dialog box.
-   * @param {string} options.title - The title of the confirmation dialog box.
-   * @param {string} options.msg - The message displayed in the confirmation dialog box.
+   * @param options - The configuration options for the confirmation dialog box.
+   * @param options.title - The title of the confirmation dialog box.
+   * @param options.msg - The message displayed in the confirmation dialog box.
    *
-   * @returns {boolean} - Indicates whether the user confirmed the action or not.
+   * @returns - Indicates whether the user confirmed the action or not.
    */
   const pickConfirm = useConfirm({
     title: "Continue?",

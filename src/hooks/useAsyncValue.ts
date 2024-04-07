@@ -31,8 +31,8 @@ export const useAsyncValue = <Data extends any = any>(
   /**
    * Executes an asynchronous action with parameters.
    *
-   * @param {Function} action - The asynchronous action to be executed.
-   * @param {Array} params - The parameters to be passed to the action.
+   * @param action - The asynchronous action to be executed.
+   * @param params - The parameters to be passed to the action.
    */
   const action = useAsyncAction(async () => {
     const result = await run();

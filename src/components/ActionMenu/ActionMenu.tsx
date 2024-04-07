@@ -56,7 +56,7 @@ const MENU_MIN_WIDTH = 225;
 /**
  * Returns the styles object for a component using the makeStyles hook.
  *
- * @returns {object} The styles object.
+ * @returns The styles object.
  */
 const useStyles = makeStyles()({
   root: {

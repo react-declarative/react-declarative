@@ -5,13 +5,13 @@ import IScaffold2Option, { IScaffold2OptionInternal } from '../model/IScaffold2O
  * Represents a group of records.
  *
  * @typedef {Object} GroupRecords
- * @property {string} id - The identifier of the group.
- * @property {string} name - The name of the group.
- * @property {string[]} records - An array of record IDs belonging to the group.
- * @property {number} count - The number of records in the group.
- * @property {boolean} isActive - Indicates whether the group is active or not.
- * @property {Date} createdAt - The creation date of the group.
- * @property {Date} updatedAt - The last update date of the group.
+ * @property id - The identifier of the group.
+ * @property name - The name of the group.
+ * @property records - An array of record IDs belonging to the group.
+ * @property count - The number of records in the group.
+ * @property isActive - Indicates whether the group is active or not.
+ * @property createdAt - The creation date of the group.
+ * @property updatedAt - The last update date of the group.
  */
 type GroupRecords = {
   [Prop in keyof IScaffold2Group]: IScaffold2Group[Prop];
@@ -28,8 +28,8 @@ type OptionRecords = {
 /**
  * Represents an entry that combines group records and option records.
  * @typedef {Object} Entry
- * @property {GroupRecords} groupRecords - The group records.
- * @property {OptionRecords} optionRecords - The option records.
+ * @property groupRecords - The group records.
+ * @property optionRecords - The option records.
  */
 export type Entry = GroupRecords & OptionRecords;
 

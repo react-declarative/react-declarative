@@ -29,7 +29,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 /**
  * useStyles is a function that returns the styles for a component using the makeStyles hook from the Material-UI library.
  *
- * @returns {Object} - An object containing the CSS styles for the component.
+ * @returns - An object containing the CSS styles for the component.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -232,9 +232,9 @@ export const DialogFilterListSlot = <FilterData extends {}>({
    *
    * @function
    * @name filtersCount
-   * @returns {number} - The count of valid filters.
-   * @param {Object} filterData - The object containing filter data.
-   * @returns {number} - The count of valid filters.
+   * @returns - The count of valid filters.
+   * @param filterData - The object containing filter data.
+   * @returns - The count of valid filters.
    */
   const filtersCount = useMemo(() => {
     const keys = Object.keys(filterData || {});

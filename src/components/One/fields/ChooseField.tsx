@@ -22,9 +22,9 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - Type representing the data object.
    * @template Payload - Type representing the payload object.
    *
-   * @param {IField<Data, Payload>} obj - The object from which to pick the "description" property.
+   * @param obj - The object from which to pick the "description" property.
    *
-   * @returns {Pick<IField<Data, Payload>, "description">["description"]} The value of the "description" property.
+   * @returns The value of the "description" property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -38,9 +38,9 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    * Type definition for the `title` property when using `PickProp` utility.
    * @template T - The type of the object from which to pick the property.
    * @template Prop - The name of the property to pick.
-   * @param {T} obj - The object from which to pick the property.
-   * @param {Prop} prop - The name of the property to pick.
-   * @returns {Pick<T, Prop>} - The picked property value.
+   * @param obj - The object from which to pick the property.
+   * @param prop - The name of the property to pick.
+   * @returns - The picked property value.
    */
   title?: PickProp<IField<Data, Payload>, "title">;
   /**
@@ -76,9 +76,9 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
    *
-   * @property {string} id - The unique identifier of the group.
-   * @property {string} name - The name of the group.
-   * @property {string} description - The description of the group.
+   * @property id - The unique identifier of the group.
+   * @property name - The name of the group.
+   * @property description - The description of the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
@@ -99,10 +99,10 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents a possible translation for a field in a form.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'tr'>} tr
-   * @property {string} type - The type of translation.
-   * @property {boolean} required - Indicates if the translation is required.
-   * @property {string[]} options - The list of available translation options.
-   * @property {string} defaultValue - The default translation value.
+   * @property type - The type of translation.
+   * @property required - Indicates if the translation is required.
+   * @property options - The list of available translation options.
+   * @property defaultValue - The default translation value.
    */
   tr?: PickProp<IField<Data, Payload>, 'tr'>;
 }

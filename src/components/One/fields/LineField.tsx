@@ -32,7 +32,7 @@ export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
    * @typedef {PickProp<IField<Data, Payload>, 'lineTransparent'>} lineTransparent
-   * @property {boolean} lineTransparent - The value of the 'lineTransparent' property.
+   * @property lineTransparent - The value of the 'lineTransparent' property.
    */
   lineTransparent?: PickProp<IField<Data, Payload>, 'lineTransparent'>;
   /**
@@ -40,10 +40,10 @@ export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
    *
-   * @property {string} fieldPath - The path to the group field within the form data structure.
-   * @property {boolean} [isRequired] - Indicates if the group field is required or optional.
-   * @property {string} [errorMessage] - The error message displayed when the group field is invalid.
-   * @property {string} [label] - The label displayed for the group field.
+   * @property fieldPath - The path to the group field within the form data structure.
+   * @property [isRequired] - Indicates if the group field is required or optional.
+   * @property [errorMessage] - The error message displayed when the group field is invalid.
+   * @property [label] - The label displayed for the group field.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }

@@ -15,8 +15,8 @@ export interface IContext {
     /**
      * Pushes a modal onto the stack.
      *
-     * @param {IModal} modal - The modal to push onto the stack.
-     * @returns {void}
+     * @param modal - The modal to push onto the stack.
+     * @returns
      */
     push: (modal: IModal) => void;
     /**
@@ -24,14 +24,14 @@ export interface IContext {
      *
      * @function
      * @name pop
-     * @returns {undefined}
+     * @returns
      */
     pop: () => void;
     /**
      * Clears the modal stack.
      *
      * @function
-     * @returns {void}
+     * @returns
      */
     clear: () => void;
 }

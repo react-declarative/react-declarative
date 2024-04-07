@@ -62,8 +62,8 @@ export const useStaticHandler = <Data extends IAnything = IAnything, Payload = I
     /**
      * Represents a result handler function.
      * @template Data - The type of data returned by the handler.
-     * @param {Payload} payload - The payload to be passed to the handler.
-     * @returns {Promise<Record<string, any>>} - A promise that resolves to a result object.
+     * @param payload - The payload to be passed to the handler.
+     * @returns - A promise that resolves to a result object.
      */
     const resultHandler: OneHandler<Data> = useMemo(() => async (payload: Payload) => {
         onLoadBegin && onLoadBegin();

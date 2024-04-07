@@ -967,10 +967,10 @@ declare module "react-declarative/model/TypedField" {
    * @template Payload - The payload type.
    *
    * @typedef {Object} TypedFieldFactoryShallow
-   * @property {Type} Type - The type of the field.
-   * @property {Fields} Fields - The field definitions.
-   * @property {Data} Data - The data type.
-   * @property {Payload} Payload - The payload type.
+   * @property Type - The type of the field.
+   * @property Fields - The field definitions.
+   * @property Data - The data type.
+   * @property Payload - The payload type.
    */
   type TypedFieldFactoryShallow<
     Type extends FieldType,
@@ -2128,7 +2128,7 @@ declare module "react-declarative/model/IManaged" {
      * Represents the `isVisible` property of a field in a form.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'isVisible'>} isVisible
-     * @property {boolean} isVisible - Indicates whether the field is visible or not.
+     * @property isVisible - Indicates whether the field is visible or not.
      */
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
     /**
@@ -2136,14 +2136,14 @@ declare module "react-declarative/model/IManaged" {
      * The `isDisabled` property determines whether the field is disabled or not.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'isDisabled'>} isDisabled
-     * @property {boolean} [isDisabled] - Indicates whether the field is disabled.
+     * @property [isDisabled] - Indicates whether the field is disabled.
      */
     isDisabled?: PickProp<IField<Data, Payload>, "isDisabled">;
     /**
      * Retrieves the value of the 'isReadonly' property from the given variable.
      *
-     * @param {IField<Data, Payload>} variable - The variable to retrieve the property from.
-     * @returns {PickProp<IField<Data, Payload>, 'isReadonly'>} The value of the 'isReadonly' property.
+     * @param variable - The variable to retrieve the property from.
+     * @returns The value of the 'isReadonly' property.
      */
     isReadonly?: PickProp<IField<Data, Payload>, "isReadonly">;
     /**
@@ -2151,8 +2151,8 @@ declare module "react-declarative/model/IManaged" {
      *
      * @template T - The type of the variable.
      * @template K - The property name to retrieve.
-     * @param {T} variable - The variable to extract the property from.
-     * @returns {Pick<T, K>} - The extracted 'features' property.
+     * @param variable - The variable to extract the property from.
+     * @returns - The extracted 'features' property.
      */
     features?: PickProp<IField<Data, Payload>, "features">;
     /**
@@ -2165,7 +2165,7 @@ declare module "react-declarative/model/IManaged" {
      * Represents the `phoneHidden` property of a field object.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'phoneHidden'>} phoneHidden
-     * @property {boolean} phoneHidden - Specifies whether the phone field should be hidden.
+     * @property phoneHidden - Specifies whether the phone field should be hidden.
      */
     phoneHidden?: PickProp<IField<Data, Payload>, "phoneHidden">;
     /**
@@ -2198,7 +2198,7 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'noBaseline'>} noBaseline
      *
-     * @property {boolean} [noBaseline] - Specifies whether the field has a baseline or not.
+     * @property [noBaseline] - Specifies whether the field has a baseline or not.
      */
     noBaseline?: PickProp<IField<Data, Payload>, "noBaseline">;
   }
@@ -2212,7 +2212,7 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'columnsOverride'>} columnsOverride
      *
-     * @property {string} - The name of the field for which the columns are overridden.
+     * @property - The name of the field for which the columns are overridden.
      */
     columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
     /**
@@ -2221,7 +2221,7 @@ declare module "react-declarative/model/IManaged" {
      * @typedef {keyof IField<Data, Payload>} IFieldKey
      * @typedef PickProp<IField<Data, Payload>, 'sx'> SxProp
      *
-     * @property {IFieldKey} sx - The key of the 'IField' type that represents the 'sx' property.
+     * @property sx - The key of the 'IField' type that represents the 'sx' property.
      */
     sx?: PickProp<IField<Data, Payload>, "sx">;
     /**
@@ -2243,8 +2243,8 @@ declare module "react-declarative/model/IManaged" {
      * Represents the number of columns on a desktop layout for a field in a data payload object.
      *
      * @typedef {number} desktopColumns
-     * @property {number} desktopColumns - The number of columns on a desktop layout.
-     * @property {PickProp<IField<Data, Payload>, 'desktopColumns'>} desktopColumns - Optional property to pick the 'desktopColumns' property from 'IField<Data, Payload>' interface.
+     * @property desktopColumns - The number of columns on a desktop layout.
+     * @property desktopColumns - Optional property to pick the 'desktopColumns' property from 'IField<Data, Payload>' interface.
      */
     desktopColumns?: PickProp<IField<Data, Payload>, "desktopColumns">;
     /**
@@ -2266,8 +2266,8 @@ declare module "react-declarative/model/IManaged" {
      * @template Data - The type of data.
      * @template Payload - The type of payload.
      * @template T - The type of the variable.
-     * @param {T} variable - The variable from which to pick the 'features' property.
-     * @returns {PickProp<IField<Data, Payload>, 'features'>} - The picked 'features' property.
+     * @param variable - The variable from which to pick the 'features' property.
+     * @returns - The picked 'features' property.
      */
     features?: PickProp<IField<Data, Payload>, "features">;
   }
@@ -2301,9 +2301,9 @@ declare module "react-declarative/model/IManaged" {
      * @typedef {boolean} isVisible
      * @description The `isVisible` property is used to determine whether a field is visible or hidden.
      *
-     * @param {IField<Data, Payload>} field - The field object that contains the `isVisible` property.
+     * @param field - The field object that contains the `isVisible` property.
      *
-     * @returns {boolean} - Returns `true` if the field is visible, `false` otherwise.
+     * @returns - Returns `true` if the field is visible, `false` otherwise.
      */
     isVisible?: PickProp<IField<Data, Payload>, "isVisible">;
     /**
@@ -2334,15 +2334,15 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'shouldRecompute'>} shouldRecompute
      *
-     * @property {boolean} shouldRecompute - Indicates whether the field should be recomputed.
+     * @property shouldRecompute - Indicates whether the field should be recomputed.
      */
     shouldRecompute?: PickProp<IField<Data, Payload>, "shouldRecompute">;
     /**
      * Check if 'shouldUpdateItemList' property is present in the given variable.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>} shouldUpdateItemList
-     * @param {shouldUpdateItemList} shouldUpdateItemList - The variable to be checked.
-     * @returns {boolean} - Returns true if 'shouldUpdateItemList' property is present, otherwise false.
+     * @param shouldUpdateItemList - The variable to be checked.
+     * @returns - Returns true if 'shouldUpdateItemList' property is present, otherwise false.
      */
     shouldUpdateItemList?: PickProp<
       IField<Data, Payload>,
@@ -2352,9 +2352,9 @@ declare module "react-declarative/model/IManaged" {
      * Determines if the 'shouldUpdateTr' property should be updated.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateTr'>} shouldUpdateTr
-     * @property {boolean} shouldUpdateTr.value - The current value of the 'shouldUpdateTr' property.
-     * @property {boolean} shouldUpdateTr.isReady - Indicates if the 'shouldUpdateTr' property is ready for update.
-     * @property {boolean} shouldUpdateTr.isEnabled - Determines if the 'shouldUpdateTr' property is enabled.
+     * @property shouldUpdateTr.value - The current value of the 'shouldUpdateTr' property.
+     * @property shouldUpdateTr.isReady - Indicates if the 'shouldUpdateTr' property is ready for update.
+     * @property shouldUpdateTr.isEnabled - Determines if the 'shouldUpdateTr' property is enabled.
      */
     shouldUpdateTr?: PickProp<IField<Data, Payload>, "shouldUpdateTr">;
     /**
@@ -2363,8 +2363,8 @@ declare module "react-declarative/model/IManaged" {
      * @template Payload - The type of payload associated with the field.
      * @typedef {PickProp<IField<Data, Payload>, 'debug'>} debug
      *
-     * @property {boolean} value - The value of the debug property.
-     * @property {PickProp<IField<Data, Payload>, 'debug'>} props - Additional properties of the field.
+     * @property value - The value of the debug property.
+     * @property props - Additional properties of the field.
      */
     debug?: PickProp<IField<Data, Payload>, "debug">;
     /**
@@ -2376,9 +2376,9 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<T, 'compute'>} compute
      *
-     * @param {IField<Data, Payload>} object - The `IField` object to pick the `compute` property from.
+     * @param object - The `IField` object to pick the `compute` property from.
      *
-     * @returns {compute} - The value of the `compute` property from the `IField` object.
+     * @returns - The value of the `compute` property from the `IField` object.
      */
     compute?: PickProp<IField<Data, Payload>, "compute">;
     /**
@@ -2410,7 +2410,7 @@ declare module "react-declarative/model/IManaged" {
      *
      * @template Data - The data object type.
      * @template Payload - The payload type.
-     * @property {(keyof Data | keyof Payload)[]} blur - The properties of the field to be blurred.
+     * @property blur - The properties of the field to be blurred.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'blur'>} BlurType
      */
@@ -2425,10 +2425,10 @@ declare module "react-declarative/model/IManaged" {
      * Represents the 'menu' variable.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'menu'>} menu
-     * @property {IField<Data, Payload>} - The original field object from which the 'menu' property was picked
-     * @property {Payload} menu - The 'menu' property of the field object
-     * @property {Data} menu.data - The data associated with the 'menu' property
-     * @property {Payload} menu.payload - The payload associated with the 'menu' property
+     * @property - The original field object from which the 'menu' property was picked
+     * @property menu - The 'menu' property of the field object
+     * @property menu.data - The data associated with the 'menu' property
+     * @property menu.payload - The payload associated with the 'menu' property
      */
     menu?: PickProp<IField<Data, Payload>, "menu">;
     /**
@@ -2439,15 +2439,15 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'map'>} Map
      *
-     * @property {string} key - The key associated with the map property.
-     * @property {Payload} value - The value associated with the map property.
+     * @property key - The key associated with the map property.
+     * @property value - The value associated with the map property.
      */
     map?: PickProp<IField<Data, Payload>, "map">;
     /**
      * Retrieves the defaultValue property from the given field.
      *
-     * @param {IField<Data, Payload>} field - The field to get the defaultValue from.
-     * @returns {PickProp<IField<Data, Payload>, 'defaultValue'> | undefined} - The defaultValue of the field, if defined.
+     * @param field - The field to get the defaultValue from.
+     * @returns - The defaultValue of the field, if defined.
      */
     defaultValue?: PickProp<IField<Data, Payload>, "defaultValue">;
     /**
@@ -2459,15 +2459,15 @@ declare module "react-declarative/model/IManaged" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} hidden
      *
-     * @property {T} hidden - The value of the 'hidden' property of the field.
+     * @property hidden - The value of the 'hidden' property of the field.
      */
     hidden?: PickProp<IField<Data, Payload>, "hidden">;
     /**
      * Extracts the 'features' property from the given variable.
      *
-     * @param {IField<Data, Payload>} variable - The variable to pick 'features' property from.
+     * @param variable - The variable to pick 'features' property from.
      *
-     * @returns {PickProp<IField<Data, Payload>, 'features'>} - The extracted 'features' property.
+     * @returns - The extracted 'features' property.
      */
     features?: PickProp<IField<Data, Payload>, "features">;
   }
@@ -3008,50 +3008,50 @@ declare module "react-declarative/model/IListApi" {
     /**
      * Reloads the data.
      *
-     * @param {boolean} [keepPagination] - Indicates whether to keep the current pagination state.
+     * @param [keepPagination] - Indicates whether to keep the current pagination state.
      *
-     * @returns {Promise<void>} A promise that resolves when the data has been reloaded.
+     * @returns A promise that resolves when the data has been reloaded.
      */
     reload: (keepPagination?: boolean) => Promise<void>;
     /**
      * Function to trigger a re-render of the component or element.
      *
      * @function rerender
-     * @returns {void} Returns nothing.
+     * @returns Returns nothing.
      */
     rerender: () => void;
     /**
      * Sets the limit value for a given variable.
      *
-     * @param {number} limit - The limit value to be set.
-     * @returns {void}
+     * @param limit - The limit value to be set.
+     * @returns
      */
     setLimit: (limit: number) => void;
     /**
      * Sets the current page number of the application.
      *
-     * @param {number} page - The page number to set.
-     * @returns {void}
+     * @param page - The page number to set.
+     * @returns
      */
     setPage: (page: number) => void;
     /**
      * Sets the rows for the data table.
      *
-     * @param {RowData[]} rows - An array of row data to set.
-     * @returns {void}
+     * @param rows - An array of row data to set.
+     * @returns
      */
     setRows: (rows: RowData[]) => void;
     /**
      * Sets the filter data for filtering data.
      *
-     * @param {FilterData} filterData - The filter data object.
-     * @returns {void}
+     * @param filterData - The filter data object.
+     * @returns
      */
     setFilterData: (filterData: FilterData) => void;
     /**
      * Retrieves the state of the list.
      *
-     * @returns {IListState<FilterData, RowData>} The state of the list.
+     * @returns The state of the list.
      */
     getState: () => IListState<FilterData, RowData>;
   }
@@ -3069,15 +3069,15 @@ declare module "react-declarative/model/IOneApi" {
      * Reloads the current page.
      *
      * @function reload
-     * @returns {Promise<void>} - A Promise that resolves when the page reload is completed.
+     * @returns - A Promise that resolves when the page reload is completed.
      */
     reload: () => Promise<void>;
     /**
      * Changes the provided data.
      *
-     * @param {Data} data - The data to be changed.
-     * @param {boolean} [initial=false] - Indicates if the change is an initial change.
-     * @returns {void}
+     * @param data - The data to be changed.
+     * @param [initial=false] - Indicates if the change is an initial change.
+     * @returns
      */
     change: (data: Data, initial?: boolean) => void;
     /**
@@ -3085,7 +3085,7 @@ declare module "react-declarative/model/IOneApi" {
      *
      * @function
      * @name getData
-     * @returns {Data} The retrieved data.
+     * @returns The retrieved data.
      */
     getData: () => Data;
   }
@@ -3115,11 +3115,11 @@ declare module "react-declarative/model/IListOperation" {
     /**
      * Determines if the 'isAvailable' variable is a function or a boolean.
      *
-     * @param {Array<RowData>} rowIds - Array of row identifiers.
-     * @param {boolean} isAll - Indicates if all rows are considered.
-     * @param {Payload} payload - Additional payload data.
+     * @param rowIds - Array of row identifiers.
+     * @param isAll - Indicates if all rows are considered.
+     * @param payload - Additional payload data.
      *
-     * @returns {boolean | Promise<boolean>} - A boolean value or a promise resolving to a boolean indicating availability.
+     * @returns - A boolean value or a promise resolving to a boolean indicating availability.
      */
     isAvailable?:
       | ((
@@ -3155,10 +3155,10 @@ declare module "react-declarative/model/IListRowAction" {
     /**
      * Determines the visibility of a row based on the provided row data and payload.
      *
-     * @param {RowData} row - The data for the row being evaluated.
-     * @param {Payload} payload - Additional information or data that can be used to determine the row's visibility.
+     * @param row - The data for the row being evaluated.
+     * @param payload - Additional information or data that can be used to determine the row's visibility.
      *
-     * @returns {Promise<boolean> | boolean} - A boolean value indicating whether the row should be visible or not.
+     * @returns - A boolean value indicating whether the row should be visible or not.
      *
      * @async
      */
@@ -3166,9 +3166,9 @@ declare module "react-declarative/model/IListRowAction" {
     /**
      * Checks if a row is disabled based on the row data and payload.
      *
-     * @param {RowData} row - The row data to check.
-     * @param {Payload} payload - The payload to use for checking.
-     * @returns {Promise<boolean> | boolean} - A Promise or boolean indicating if the row is disabled.
+     * @param row - The row data to check.
+     * @param payload - The payload to use for checking.
+     * @returns - A Promise or boolean indicating if the row is disabled.
      */
     isDisabled?: (row: RowData, payload: Payload) => Promise<boolean> | boolean;
     enabled?: boolean;
@@ -3285,9 +3285,9 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Check if a specific condition is satisfied for the visibility of an element.
      *
-     * @param {RowData[]} selectedRows - An array of selected rows.
-     * @param {Payload} payload - The payload object containing additional data.
-     * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility of the element.
+     * @param selectedRows - An array of selected rows.
+     * @param payload - The payload object containing additional data.
+     * @returns - A Promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility of the element.
      */
     isVisible?: (
       selectedRows: RowData[],
@@ -3296,9 +3296,9 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Checks whether the entity is disabled based on the provided selected rows and payload.
      *
-     * @param {RowData[]} selectedRows - The array of selected rows.
-     * @param {Payload} payload - The payload object containing additional data.
-     * @returns {Promise<boolean> | boolean} - A promise or boolean indicating whether the entity is disabled.
+     * @param selectedRows - The array of selected rows.
+     * @param payload - The payload object containing additional data.
+     * @returns - A promise or boolean indicating whether the entity is disabled.
      */
     isDisabled?: (
       selectedRows: RowData[],
@@ -3320,9 +3320,9 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Determines the visibility of a certain element based on the provided parameters.
      *
-     * @param {RowData[]} selectedRows - An array of selected rows.
-     * @param {Payload} payload - The payload containing additional information.
-     * @returns {Promise<boolean> | boolean} - A promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility directly.
+     * @param selectedRows - An array of selected rows.
+     * @param payload - The payload containing additional information.
+     * @returns - A promise resolving to a boolean value indicating the visibility, or a boolean value indicating the visibility directly.
      */
     isVisible?: (
       selectedRows: RowData[],
@@ -3330,9 +3330,9 @@ declare module "react-declarative/model/IListProps" {
     ) => Promise<boolean> | boolean;
     /**
      * Checks if a row or a payload is disabled
-     * @param {RowData[]} selectedRows - The selected rows to check against
-     * @param {Payload} payload - The payload to check against
-     * @returns {Promise<boolean> | boolean} - A promise that resolves with a boolean indicating if the row or the payload is disabled, or a boolean indicating if the row or the payload
+     * @param selectedRows - The selected rows to check against
+     * @param payload - The payload to check against
+     * @returns - A promise that resolves with a boolean indicating if the row or the payload is disabled, or a boolean indicating if the row or the payload
      * is disabled
      */
     isDisabled?: (
@@ -3347,23 +3347,23 @@ declare module "react-declarative/model/IListProps" {
     icon?: React.ComponentType<any>;
     /**
      * @typedef {object} IListActionOption<T>
-     * @property {T} rowData - The data of the row.
+     * @property rowData - The data of the row.
      *
      * @typedef {object} IUpdateOption<T>
-     * @property {T} rowData - The data of the row.
+     * @property rowData - The data of the row.
      *
      * @typedef {object} IResortOption<T>
-     * @property {T} rowData - The data of the row.
+     * @property rowData - The data of the row.
      *
      * @typedef {object} IDropFiltersOption<T>
-     * @property {T} rowData - The data of the row.
+     * @property rowData - The data of the row.
      *
      * @typedef {object} IAddFiltersOption<T>
-     * @property {T} rowData - The data of the row.
+     * @property rowData - The data of the row.
      *
      * @typedef {(IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[]} Options
      *
-     * @param {Options} options - An array of options.
+     * @param options - An array of options.
      */
     options?: (
       | IListActionOption<RowData>
@@ -3498,74 +3498,74 @@ declare module "react-declarative/model/IListProps" {
      *
      * @function
      * @name handleDefault
-     * @returns {Promise<void>} A promise that resolves with no value.
+     * @returns A promise that resolves with no value.
      */
     handleDefault: () => Promise<void>;
     /**
      * Handles the sort model for the given sort.
      *
-     * @param {ListHandlerSortModel<RowData>} sort - The sort model to handle.
-     * @returns {void}
+     * @param sort - The sort model to handle.
+     * @returns
      */
     handleSortModel: (sort: ListHandlerSortModel<RowData>) => void;
     /**
      * Handles the filter action.
      *
-     * @param {FilterData} data - The filter data to be processed.
-     * @param {boolean} [keepPagination] - Indicates whether to keep the pagination state.
+     * @param data - The filter data to be processed.
+     * @param [keepPagination] - Indicates whether to keep the pagination state.
      *                                    Defaults to false.
-     * @returns {void}
+     * @returns
      */
     handleFilter: (data: FilterData, keepPagination?: boolean) => void;
     /**
      * Handle page change function.
      *
-     * @param {number} page - The page number being handled.
-     * @returns {void} - There is no return value.
+     * @param page - The page number being handled.
+     * @returns - There is no return value.
      */
     handlePageChange: (page: number) => void;
     /**
      * Handles a change in the limit value.
      *
-     * @param {number} limit - The new limit value.
-     * @returns {void}
+     * @param limit - The new limit value.
+     * @returns
      */
     handleLimitChange: (limit: number) => void;
     /**
      * Callback function to handle changes in rows.
      *
-     * @param {Array} rows - An array of row data.
-     * @returns {void} - This function does not return anything.
+     * @param rows - An array of row data.
+     * @returns - This function does not return anything.
      */
     handleRowsChange: (rows: RowData[]) => void;
     /**
      * Handles the event when the filters are collapsed or expanded.
      *
-     * @param {boolean} filtersCollapsed - Indicates whether the filters are collapsed or expanded.
-     * @returns {void}
+     * @param filtersCollapsed - Indicates whether the filters are collapsed or expanded.
+     * @returns
      */
     handleFiltersCollapsed: (filtersCollapsed: boolean) => void;
     /**
      * Handles the chips list.
      *
-     * @param {ListHandlerChips} chips - The list of chips to be handled.
-     * @returns {void}
+     * @param chips - The list of chips to be handled.
+     * @returns
      */
     handleChips: (chips: ListHandlerChips) => void;
     /**
      * Reloads the data and updates the UI.
      *
-     * @param {boolean} [keepPagination=false] - Determines whether to keep the current pagination state.
+     * @param [keepPagination=false] - Determines whether to keep the current pagination state.
      *                                            If set to true, the pagination will not be reset after reloading.
      *                                            If not provided or set to false, the pagination will be reset to its initial state.
-     * @returns {Promise<void>} - A promise that resolves once the data has been reloaded and the UI has been updated.
+     * @returns - A promise that resolves once the data has been reloaded and the UI has been updated.
      */
     handleReload: (keepPagination?: boolean) => Promise<void>;
     /**
      * Handles the search action.
      *
-     * @param {string} search - The search query entered by the user.
-     * @returns {void}
+     * @param search - The search query entered by the user.
+     * @returns
      */
     handleSearch: (search: string) => void;
     /**
@@ -3573,7 +3573,7 @@ declare module "react-declarative/model/IListProps" {
      *
      * @function
      * @name handleRerender
-     * @returns {void}
+     * @returns
      */
     handleRerender: () => void;
     ready: () => void;
@@ -3670,7 +3670,7 @@ declare module "react-declarative/model/IListProps" {
      * Represents a custom template component for rendering a tile.
      *
      * @typedef {React.ComponentType<ITile<RowData, Payload>>} customTemplate
-     * @property {React.ComponentType<ITile<RowData, Payload>>} customTemplate - The custom template component used for rendering a tile.
+     * @property customTemplate - The custom template component used for rendering a tile.
      * @template {RowData} - The type of data for the tile row.
      * @template {Payload} - The type of payload associated with the tile.
      */
@@ -3706,15 +3706,15 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Represents a function that calculates the desired height based on the provided input height.
      *
-     * @param {number} height - The input height value.
+     * @param height - The input height value.
      * @return {number} - The calculated desired height.
      */
     heightRequest?: (height: number) => number;
     /**
      * Represents a function that takes a width value and returns a number.
      *
-     * @param {number} width - The width value to pass to the function.
-     * @returns {number} - The number value returned by the function.
+     * @param width - The width value to pass to the function.
+     * @returns - The number value returned by the function.
      */
     widthRequest?: (width: number) => number;
     onRows?: (rows: RowData[]) => void;
@@ -3762,15 +3762,15 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Determines if a row is disabled based on various parameters.
      *
-     * @param {RowData} row - The row data object.
-     * @param {Object} params - The parameters used to determine row disablement.
-     * @param {FilterData} params.filterData - The filter data object.
-     * @param {ListHandlerPagination} params.pagination - The pagination object.
-     * @param {ListHandlerSortModel<RowData>} params.sortModel - The sort model object.
-     * @param {ListHandlerChips<RowData>} params.chips - The chips object.
-     * @param {string} params.search - The search string.
-     * @param {Payload} params.payload - The payload object.
-     * @returns {boolean} - True if the row is disabled, false otherwise.
+     * @param row - The row data object.
+     * @param params - The parameters used to determine row disablement.
+     * @param params.filterData - The filter data object.
+     * @param params.pagination - The pagination object.
+     * @param params.sortModel - The sort model object.
+     * @param params.chips - The chips object.
+     * @param params.search - The search string.
+     * @param params.payload - The payload object.
+     * @returns - True if the row is disabled, false otherwise.
      */
     isRowDisabled?: (
       row: RowData,
@@ -3786,12 +3786,12 @@ declare module "react-declarative/model/IListProps" {
     /**
      * Returns a string containing information about the displayed rows label.
      *
-     * @param {Object} paginationInfo - An object containing pagination information.
-     * @param {number} paginationInfo.from - The starting index of the displayed rows.
-     * @param {number} paginationInfo.to - The ending index of the displayed rows.
-     * @param {number} paginationInfo.count - The total count of rows.
-     * @param {number} paginationInfo.page - The current page.
-     * @returns {string} - The label displaying information about the displayed rows.
+     * @param paginationInfo - An object containing pagination information.
+     * @param paginationInfo.from - The starting index of the displayed rows.
+     * @param paginationInfo.to - The ending index of the displayed rows.
+     * @param paginationInfo.count - The total count of rows.
+     * @param paginationInfo.page - The current page.
+     * @returns - The label displaying information about the displayed rows.
      */
     labelDisplayedRows?: (paginationInfo: {
       from: number;
@@ -3860,16 +3860,16 @@ declare module "react-declarative/model/IOption" {
     /**
      * Checks the visibility of a given payload.
      *
-     * @param {Payload} payload - The payload to check visibility for.
-     * @returns {Promise<boolean> | boolean} - A Promise that resolves to a boolean value indicating the visibility status of the payload, or a boolean value directly indicating the visibility
+     * @param payload - The payload to check visibility for.
+     * @returns - A Promise that resolves to a boolean value indicating the visibility status of the payload, or a boolean value directly indicating the visibility
      * status.
      */
     isVisible?: (payload: Payload) => Promise<boolean> | boolean;
     /**
      * Checks if the provided payload indicates that the element is disabled.
      *
-     * @param {Payload} payload - The payload to check.
-     * @returns {Promise<boolean> | boolean} - A boolean value indicating if the element is disabled.
+     * @param payload - The payload to check.
+     * @returns - A boolean value indicating if the element is disabled.
      */
     isDisabled?: (payload: Payload) => Promise<boolean> | boolean;
   }
@@ -3894,16 +3894,16 @@ declare module "react-declarative/model/IBreadcrumbsOption" {
     /**
      * Determines whether the given payload is visible.
      *
-     * @param {T} payload - The payload to be checked for visibility.
-     * @returns {Promise<boolean> | boolean} - A promise that resolves to a boolean or a direct boolean value indicating the visibility of the payload.
+     * @param payload - The payload to be checked for visibility.
+     * @returns - A promise that resolves to a boolean or a direct boolean value indicating the visibility of the payload.
      */
     isVisible?: (payload: T) => Promise<boolean> | boolean;
     /**
      * Checks if the payload is disabled.
      *
-     * @param {T} payload - The payload to check.
+     * @param payload - The payload to check.
      *
-     * @returns {Promise<boolean> | boolean} - A promise or a boolean indicating if the payload is disabled.
+     * @returns - A promise or a boolean indicating if the payload is disabled.
      */
     isDisabled?: (payload: T) => Promise<boolean> | boolean;
   }
@@ -3957,8 +3957,8 @@ declare module "react-declarative/helpers/serviceManager" {
      * A variable that represents a single shot function for waiting until a specific condition is met.
      *
      * @typedef {Function} waitForProvide
-     * @param {boolean} [verbose=false] - Whether to enable verbose mode or not.
-     * @returns {Promise} - A promise that resolves when the specified condition is met.
+     * @param [verbose=false] - Whether to enable verbose mode or not.
+     * @returns - A promise that resolves when the specified condition is met.
      *
      */
     waitForProvide: ((verbose?: any) => Promise<void>) &
@@ -3966,8 +3966,8 @@ declare module "react-declarative/helpers/serviceManager" {
     /**
      * Executes prefetch operation for all service instances in a service manager.
      *
-     * @param {boolean} [verbose=true] - Flag to enable verbose logging.
-     * @returns {Promise<void>} - Promise that resolves when prefetch operation is completed.
+     * @param [verbose=true] - Flag to enable verbose logging.
+     * @returns - Promise that resolves when prefetch operation is completed.
      * @throws {Error} - Throws an error if an error occurs during prefetch operation.
      */
     prefetch: ((verbose?: any) => Promise<void>) &
@@ -3975,8 +3975,8 @@ declare module "react-declarative/helpers/serviceManager" {
     /**
      * Unload function that unloads services and clears prefetch.
      *
-     * @param {boolean} verbose - Optional parameter to enable verbose logging.
-     * @returns {Promise} - A promise that resolves when all services are unloaded.
+     * @param verbose - Optional parameter to enable verbose logging.
+     * @returns - A promise that resolves when all services are unloaded.
      * @throws {Error} - If any error occurs during the unload process.
      */
     unload: ((verbose?: any) => Promise<void>) &
@@ -4489,33 +4489,33 @@ declare module "react-declarative/model/IMenuGroup" {
      * Determines whether the payload is in bold format.
      *
      * @typeparam T - The type of the payload.
-     * @param {T} payload - The payload to check.
-     * @returns {boolean | Promise<boolean>} - Returns `true` if the payload is in bold format,
+     * @param payload - The payload to check.
+     * @returns - Returns `true` if the payload is in bold format,
      * otherwise returns `false` or a promise that resolves to `true` or `false`.
      */
     isBold?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
     /**
      * Determines if the payload is disabled.
      *
-     * @param {T} payload - The payload to check for disablement.
+     * @param payload - The payload to check for disablement.
      * @return {boolean | Promise<boolean>} - Returns `true` if the payload is disabled, otherwise `false`.
      *
      * @callback IsDisabledCallback
-     * @param {T} payload - The payload to check for disablement.
+     * @param payload - The payload to check for disablement.
      * @return {boolean} - Returns `true` if the payload is disabled, otherwise `false`.
      *
      * @callback IsDisabledAsyncCallback
-     * @param {T} payload - The payload to check for disablement.
+     * @param payload - The payload to check for disablement.
      * @return {Promise<boolean>} - Returns a promise that resolves to `true` if the payload is disabled, otherwise `false`.
      */
     isDisabled?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
     /**
      * Determines the visibility of a payload based on specified conditions.
      *
-     * @param {((payload: T) => boolean) | ((payload: T) => Promise<boolean>)} isVisible - A function that takes a payload as a parameter and returns a boolean value or a Promise that resolves
+     * @param isVisible - A function that takes a payload as a parameter and returns a boolean value or a Promise that resolves
      * to a boolean value indicating visibility.
      *
-     * @returns {boolean | Promise<boolean>} - If the isVisible function returns a boolean value, this function will return the evaluated value. If the isVisible function returns a Promise
+     * @returns - If the isVisible function returns a boolean value, this function will return the evaluated value. If the isVisible function returns a Promise
      *, this function will return a Promise that resolves to a boolean value.
      */
     isVisible?: ((payload: T) => boolean) | ((payload: T) => Promise<boolean>);
@@ -5269,7 +5269,7 @@ declare module "react-declarative/hooks/useElementSize" {
    *
    * @template Size - The size type used in the class.
    *
-   * @property {ISize} [defaultSize] - The default size to be used if size is not provided.
+   * @property [defaultSize] - The default size to be used if size is not provided.
    * @property [target] - The target element for the operation.
    * @property [closest] - The closest element selector.
    * @property [selector] - The element selector.
@@ -6614,9 +6614,9 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of the event payload.
      * @template Field - The type of the focused field.
      *
-     * @param {Data} data - The current data of the component.
-     * @param {Payload} payload - The event payload.
-     * @param {Field} field - The focused field.
+     * @param data - The current data of the component.
+     * @param payload - The event payload.
+     * @param field - The focused field.
      *
      * @return {void} - This function does not return any value.
      */
@@ -6625,9 +6625,9 @@ declare module "react-declarative/model/IOnePublicProps" {
      * Called when the blur event is triggered on the component.
      *
      * @callback onBlurCallback
-     * @param {Data} data - The data related to the component.
-     * @param {Payload} payload - The payload associated with the blur event.
-     * @param {Field} field - The field on which the blur event occurred.
+     * @param data - The data related to the component.
+     * @param payload - The payload associated with the blur event.
+     * @param field - The field on which the blur event occurred.
      */
     onBlur?: IOneProps<Data, Payload, Field>["blur"];
     /**
@@ -6639,11 +6639,11 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @typeParam Payload - The payload type for the menu.
      * @typeParam Field - The field type for the menu.
      *
-     * @param {Data} data - The data associated with the menu.
-     * @param {Payload} payload - The payload associated with the menu.
-     * @param {Field} field - The field associated with the menu.
+     * @param data - The data associated with the menu.
+     * @param payload - The payload associated with the menu.
+     * @param field - The field associated with the menu.
      *
-     * @returns {void}
+     * @returns
      */
     onMenu?: IOneProps<Data, Payload, Field>["menu"];
     /**
@@ -6653,7 +6653,7 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of the payload being used.
      * @template Field - The type of the field being manipulated.
      *
-     * @property {IOneProps<Data, Payload, Field>['ready']} [onReady] - Optional property that defines a callback
+     * @property [onReady] - Optional property that defines a callback
      * function to be executed when the component is ready.
      */
     onReady?: IOneProps<Data, Payload, Field>["ready"];
@@ -6665,9 +6665,9 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of payload being passed to the callback function.
      * @template Field - The type of field being modified.
      *
-     * @param {Payload} payload - The payload passed to the callback function.
-     * @param {Field} field - The field being modified.
-     * @returns {void}
+     * @param payload - The payload passed to the callback function.
+     * @param field - The field being modified.
+     * @returns
      */
     onChange?: IOneProps<Data, Payload, Field>["change"];
     /**
@@ -6677,11 +6677,11 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of payload that is passed to the function.
      * @template Field - The type of field used by the component.
      *
-     * @param {Data} data - The data associated with the component.
-     * @param {Payload} payload - The payload passed to the function.
-     * @param {Field} field - The field used by the component.
+     * @param data - The data associated with the component.
+     * @param payload - The payload passed to the function.
+     * @param field - The field used by the component.
      *
-     * @returns {void}
+     * @returns
      */
     onClick?: IOneProps<Data, Payload, Field>["click"];
     /**
@@ -6704,9 +6704,9 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of payload passed to the event handler.
      * @template Field - The type of field associated with the event.
      *
-     * @param {Payload} payload - The payload passed to the event handler.
+     * @param payload - The payload passed to the event handler.
      *
-     * @returns {void}
+     * @returns
      */
     onLoadStart?: IOneProps<Data, Payload, Field>["loadStart"];
     /**
@@ -6718,10 +6718,10 @@ declare module "react-declarative/model/IOnePublicProps" {
      * @template Payload - The type of the payload sent with the load operation.
      * @template Field - The type of the field affected by the load operation.
      *
-     * @param {Data} data - The loaded data.
-     * @param {Payload} payload - The payload sent with the load operation.
-     * @param {Field} field - The field affected by the load operation.
-     * @returns {void}
+     * @param data - The loaded data.
+     * @param payload - The payload sent with the load operation.
+     * @param field - The field affected by the load operation.
+     * @returns
      */
     onLoadEnd?: IOneProps<Data, Payload, Field>["loadEnd"];
     /**
@@ -6766,7 +6766,7 @@ declare module "react-declarative/components/One/components/common/VirtualListBo
    * @param props.role - The role attribute value for the list box container.
    * @param ref - The ref object for accessing the underlying HTMLDivElement.
    *
-   * @returns {React.ReactElement} The rendered list box component.
+   * @returns The rendered list box component.
    */
   export const VirtualListBox: React.ForwardRefExoticComponent<
     IVirtualListBoxProps & React.RefAttributes<HTMLDivElement>
@@ -8062,8 +8062,8 @@ declare module "react-declarative/utils/rx/Observer" {
      * Creates a context for iterating asynchronously using a generator function.
      *
      * @returns The iterator context object.
-     * @property {AsyncGeneratorFunction} iterate - The generator function that can be used to iterate over the values.
-     * @property {Function} done - Marks the iteration as complete.
+     * @property iterate - The generator function that can be used to iterate over the values.
+     * @property done - Marks the iteration as complete.
      */
     toIteratorContext: () => {
       iterate: () => AsyncGenerator<Awaited<Data>, void, unknown>;
@@ -8414,8 +8414,8 @@ declare module "react-declarative/utils/rx/Source" {
      * @typedef {Object} Unicast
      * @template Data - The type of data the observer handles.
      *
-     * @property {function(): TObserver<Data>} factory - A factory function to create the observer.
-     * @property {boolean} isUnicasted - Indicates whether the observer is unicast.
+     * @property factory - A factory function to create the observer.
+     * @property isUnicasted - Indicates whether the observer is unicast.
      *
      * @returns - A unicast observer instance.
      */
@@ -8802,33 +8802,33 @@ declare module "react-declarative/model/TSubject" {
     /**
      * Subscribe to receive data updates.
      *
-     * @param {Function} callback - The callback function to be called when data is received.
+     * @param callback - The callback function to be called when data is received.
      *                             It takes a single parameter, `data`, of type `Data`.
      *                             The callback function is expected to have a `void` return type.
      *
-     * @returns {Function} - The unsubscribe function. Call this function to stop receiving data updates.
+     * @returns - The unsubscribe function. Call this function to stop receiving data updates.
      *                      It has a `void` return type.
      *
      * @typedef {Object} Data - The data received by the callback function.
-     * @property {*} [property1] - The first property of the data.
-     * @property {*} [property2] - The second property of the data.
-     * @property {*} [property3] - The third property of the data.
+     * @property [property1] - The first property of the data.
+     * @property [property2] - The second property of the data.
+     * @property [property3] - The third property of the data.
      */
     subscribe: (callback: (data: Data) => void) => () => void;
     /**
      * Executes the provided callback function once, and returns a cleanup function.
      *
-     * @param {Function} callback - A callback function to be executed once.
+     * @param callback - A callback function to be executed once.
      *                            - The callback function is expected to take one argument of type Data and have no return value.
      *
-     * @returns {Function} - A cleanup function that can be executed to cancel any pending or ongoing execution of the callback.
+     * @returns - A cleanup function that can be executed to cancel any pending or ongoing execution of the callback.
      */
     once: (callback: (data: Data) => void) => () => void;
     /**
      * Executes the next function with the provided data.
      *
-     * @param {Data} data - The data to be passed to the next function.
-     * @returns {void}
+     * @param data - The data to be passed to the next function.
+     * @returns
      */
     next: (data: Data) => void;
   }
@@ -8860,32 +8860,32 @@ declare module "react-declarative/model/TObserver" {
     /**
      * Unsubscribe Function
      *
-     * @returns {void}
+     * @returns
      */
     unsubscribe: () => void;
     /**
      * Applies a callback function to each value in a map and returns an observer for the result.
      *
      * @template T - The generic type of the result
-     * @param {function(value: Data): T} callbackfn - The callback function to be applied to each value
-     * @returns {TObserver<T>} - An observer for the result of the callback function
+     * @param callbackfn - The callback function to be applied to each value
+     * @returns - An observer for the result of the callback function
      */
     map: <T = unknown>(callbackfn: (value: Data) => T) => TObserver<T>;
     /**
      * Applies a callback function to each element of the Data array and flattens the result into a single array.
      *
      * @template T - The type of elements in the result array.
-     * @param {Function} callbackfn - A function that transforms each element of the Data array into an array of values.
-     * @returns {TObserver<T>} - An observer that emits the flattened array of transformed values.
+     * @param callbackfn - A function that transforms each element of the Data array into an array of values.
+     * @returns - An observer that emits the flattened array of transformed values.
      */
     flatMap: <T = any>(callbackfn: (value: Data) => T[]) => TObserver<T>;
     /**
      * Represents a function to reduce the data in an array-like structure.
      *
      * @template T - The type of the accumulator and current value.
-     * @param {function(acm: T, cur: Data): T} callbackfn - A function that accepts the accumulator (acm) and the current value (cur), and returns the new accumulator value.
-     * @param {T} begin - The initial value of the accumulator.
-     * @returns {TObserver<T>} - Returns a TObserver object to observe the reduced value.
+     * @param callbackfn - A function that accepts the accumulator (acm) and the current value (cur), and returns the new accumulator value.
+     * @param begin - The initial value of the accumulator.
+     * @returns - Returns a TObserver object to observe the reduced value.
      */
     reduce: <T = any>(
       callbackfn: (acm: T, cur: Data) => T,
@@ -8895,9 +8895,9 @@ declare module "react-declarative/model/TObserver" {
      * Asynchronously applies a callback function to each element of the data stream and returns a TObserver<T> object.
      *
      * @template T - The type of the result returned by the callback function.
-     * @param {function(value: Data): Promise<T>} callbackfn - The callback function to apply to each element of the data stream.
-     * @param {function(e: Error): void} [fallbackfn] - Optional fallback function to handle any errors that occur during the mapping process.
-     * @returns {TObserver<T>} - The observer object that can be used to subscribe and handle the mapped data stream.
+     * @param callbackfn - The callback function to apply to each element of the data stream.
+     * @param [fallbackfn] - Optional fallback function to handle any errors that occur during the mapping process.
+     * @returns - The observer object that can be used to subscribe and handle the mapped data stream.
      */
     mapAsync: <T = unknown>(
       callbackfn: (value: Data) => Promise<T>,
@@ -8905,8 +8905,8 @@ declare module "react-declarative/model/TObserver" {
     ) => TObserver<T>;
     /**
      * @template T - The type of the target observer
-     * @param {Function} callbackfn - The callback function to be executed
-     * @returns {TObserver<T>} - The observer of type T
+     * @param callbackfn - The callback function to be executed
+     * @returns - The observer of type T
      */
     operator: <T = any>(
       callbackfn: (target: TObserver<Data>) => TObserver<T>,
@@ -8914,9 +8914,9 @@ declare module "react-declarative/model/TObserver" {
     /**
      * Creates a filtered observer that applies a callback function to each value emitted by the source observer and only emits the values for which the callback returns true.
      *
-     * @param {function(value: Data): boolean} callbackfn - A function called for each value emitted by the source observer. Should return true to include the value in the filtered observer
+     * @param callbackfn - A function called for each value emitted by the source observer. Should return true to include the value in the filtered observer
      *, or false otherwise.
-     * @returns {TObserver<Data>} A new observer that only emits values for which the callback returns true.
+     * @returns A new observer that only emits values for which the callback returns true.
      */
     filter: (callbackfn: (value: Data) => boolean) => TObserver<Data>;
     /**
@@ -8924,15 +8924,15 @@ declare module "react-declarative/model/TObserver" {
      * of type `Data | T`.
      *
      * @template T - The type of the observer to merge with.
-     * @param {TObserver<T>} observer - The observer to merge with.
-     * @returns {TObserver<Data | T>} - The merged observer.
+     * @param observer - The observer to merge with.
+     * @returns - The merged observer.
      */
     merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>;
     /**
      * Represents a tap function that takes a callback function to be executed.
      *
-     * @param {callbackfn} callbackfn - The callback function to be executed.
-     * @returns {TObserver<Data>} - The observer used for subscribing to the tap function.
+     * @param callbackfn - The callback function to be executed.
+     * @returns - The observer used for subscribing to the tap function.
      *
      * @template Data - The type of data that the callback function takes as input.
      */
@@ -8940,51 +8940,51 @@ declare module "react-declarative/model/TObserver" {
     /**
      * Represents a function that splits an array into multiple arrays of a specified length.
      *
-     * @returns {TObserver<ReadonlyArray<FlatArray<Data[], 20>>>} An observer that emits an array of arrays where each subarray contains a maximum of 20 elements.
+     * @returns An observer that emits an array of arrays where each subarray contains a maximum of 20 elements.
      */
     split: () => TObserver<ReadonlyArray<FlatArray<Data[], 20>>>;
     /**
      * Creates a debounced observer with optional delay.
      *
-     * @param {number} [delay] - The delay in milliseconds before emitting the observation.
-     * @returns {TObserver<Data>} - The debounced observer.
+     * @param [delay] - The delay in milliseconds before emitting the observation.
+     * @returns - The debounced observer.
      */
     debounce: (delay?: number) => TObserver<Data>;
     /**
      * A function that returns an observer with optional interval.
      *
-     * @param {number} [interval] - The optional interval in milliseconds.
-     * @returns {TObserver<Data>} - An observer.
+     * @param [interval] - The optional interval in milliseconds.
+     * @returns - An observer.
      */
     repeat: (interval?: number) => TObserver<Data>;
     /**
      * Represents a connection with a callback function.
      * @typicalname connect
      *
-     * @param {function} callbackfn - The callback function to be executed when a value is received.
-     * @param {Data} value - The value received by the callback function.
-     * @returns {function} - A function that can be used to disconnect the connection.
+     * @param callbackfn - The callback function to be executed when a value is received.
+     * @param value - The value received by the callback function.
+     * @returns - A function that can be used to disconnect the connection.
      */
     connect: (callbackfn: (value: Data) => void) => () => void;
     /**
      * Executes a given callback function once and returns a function that can be used to cancel the execution.
      *
-     * @param {function} callbackfn - The callback function to execute once.
-     * @returns {function} - A function that can be used to cancel the execution of the callback function.
+     * @param callbackfn - The callback function to execute once.
+     * @returns - A function that can be used to cancel the execution of the callback function.
      */
     once: (callbackfn: (value: Data) => void) => () => void;
     /**
      * Represents a function that returns a TObserver object.
      *
      * @typedef {Function} share
-     * @returns {TObserver<Data>} The TObserver object
+     * @returns The TObserver object
      */
     share: () => TObserver<Data>;
     /**
      * Converts the given value to a Promise with the specified data type.
      *
      * @function toPromise
-     * @returns {Promise<Data>} A Promise with the specified data type.
+     * @returns A Promise with the specified data type.
      */
     toPromise: () => Promise<Data>;
     /**
@@ -9070,7 +9070,7 @@ declare module "react-declarative/model/TOffsetPaginator" {
    * @param offset - The offset from which to start retrieving records.
    * @param payload - The payload containing additional parameters for filtering.
    *
-   * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+   * @returns - A promise resolving to an array of filtered row data or an array of filtered row data.
    */
   export interface TOffsetPaginator<
     FilterData extends {} = any,
@@ -9099,7 +9099,7 @@ declare module "react-declarative/model/TCursorPaginator" {
    * @param lastId - The last id from which to start retrieving records.
    * @param payload - The payload containing additional parameters for filtering.
    *
-   * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+   * @returns - A promise resolving to an array of filtered row data or an array of filtered row data.
    */
   export interface TCursorPaginator<
     FilterData extends {} = any,
@@ -9154,9 +9154,9 @@ declare module "react-declarative/utils/mvvm/Entity" {
     /**
      * Sets the data for the given object.
      *
-     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
+     * @param data - The data to be set. It can be either a partial object of type T or a function that takes the previous data of type T as
      * input and returns a partial object of type T.
-     * @returns {void}
+     * @returns
      */
     setData(data: Partial<T> | ((prevData: T) => Partial<T>)): void;
     /**
@@ -9173,13 +9173,13 @@ declare module "react-declarative/utils/mvvm/Entity" {
      *
      * @function
      * @name refresh
-     * @returns {void}
+     * @returns
      */
     refresh(): void;
     /**
      * Converts the current object to its corresponding type T.
      *
-     * @returns {T} The converted object of type T.
+     * @returns The converted object of type T.
      */
     toObject(): T;
   }
@@ -9255,14 +9255,14 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Checks if a value is empty or not.
      *
-     * @param {any} value - The value to check if it is empty.
-     * @returns {boolean} - True if the value is empty, otherwise false.
+     * @param value - The value to check if it is empty.
+     * @returns - True if the value is empty, otherwise false.
      */
     isEmpty: boolean;
     /**
      * Sets the data for the items.
      *
-     * @param {T[]} items - An array of items to be set as the data.
+     * @param items - An array of items to be set as the data.
      * @return {void}
      */
     setData(items: T[]): void;
@@ -9278,12 +9278,12 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Filters an array of IEntityAdapter<T> objects based on a provided predicate function.
      *
-     * @param {function} predicate - The predicate function used to test each IEntityAdapter<T> object.
+     * @param predicate - The predicate function used to test each IEntityAdapter<T> object.
      *                              The function should accept two arguments:
      *                              - value: The current IEntityAdapter<T> object being processed.
      *                              - idx: The index of the current IEntityAdapter<T> object being processed.
      *                              The predicate function should return a boolean value indicating whether to include the entity in the filtered array.
-     * @returns {IEntityAdapter<T>[]} - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
+     * @returns - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
      */
     filter(
       predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
@@ -9291,9 +9291,9 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Finds the first element in the IEntityAdapter array that satisfies the provided testing function.
      *
-     * @param {function} predicate - The testing function that determines whether the element is found or not.
+     * @param predicate - The testing function that determines whether the element is found or not.
      *                              It should accept two parameters: value (IEntityAdapter<T>) and idx (number).
-     * @returns {IEntityAdapter<T>|undefined} - The first element that satisfies the testing function, or undefined if no such element is found.
+     * @returns - The first element that satisfies the testing function, or undefined if no such element is found.
      */
     find(
       predicate: (value: IEntityAdapter<T>, idx: number) => boolean,
@@ -9301,7 +9301,7 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Checks if any of the elements in the array satisfies the provided predicate.
      *
-     * @param {function} predicate - The predicate function to be executed for each element in the array.
+     * @param predicate - The predicate function to be executed for each element in the array.
      *        It takes two parameters:
      *          - value: The current element being processed.
      *          - idx: The index of the current element being processed.
@@ -9315,7 +9315,7 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Executes a provided function once for each entity in the adapter.
      *
-     * @param {function(value: IEntityAdapter<T>, idx: number): void} callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
+     * @param callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
      * of the entity in the adapter.
      * @return {void}
      */
@@ -9323,27 +9323,27 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Pushes one or more items onto the end of the array.
      *
-     * @param {...(T[]|T[][])} items - The items to push onto the array.
+     * @param items - The items to push onto the array.
      * @return {void}
      */
     push(...items: T[] | T[][]): void;
     /**
      * Upserts the given items into the database.
      *
-     * @param {...(T[] | T[][])} items - The items to be upserted. Can be a single array or an array of arrays.
+     * @param items - The items to be upserted. Can be a single array or an array of arrays.
      */
     upsert(...items: T[] | T[][]): void;
     /**
      * Removes the specified item from the collection.
      *
-     * @param {IEntity} item - The item to be removed from the collection.
+     * @param item - The item to be removed from the collection.
      * @return {void}
      */
     remove(item: IEntity): void;
     /**
      * Removes an entity from the collection by its id.
      *
-     * @param {IEntity['id']} id - The id of the entity to be removed.
+     * @param id - The id of the entity to be removed.
      * @return {void}
      */
     removeById(id: IEntity["id"]): void;
@@ -9356,14 +9356,14 @@ declare module "react-declarative/utils/mvvm/Collection" {
     /**
      * Finds an entity by its ID.
      *
-     * @param {IEntity['id']} id - The ID of the entity to find.
-     * @returns {IEntityAdapter<T>} - The entity adapter containing the found entity, if any.
+     * @param id - The ID of the entity to find.
+     * @returns - The entity adapter containing the found entity, if any.
      */
     findById(id: IEntity["id"]): IEntityAdapter<T>;
     /**
      * Clears the data of the object.
      *
-     * @returns {void}
+     * @returns
      */
     clear(): void;
     /**
@@ -9596,7 +9596,7 @@ declare module "react-declarative/utils/mvvm/Model" {
     /**
      * Sets the data for the object.
      *
-     * @param {Partial<T> | ((prevData: T) => Partial<T>)} data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
+     * @param data - The data to set. It can be a partial object of type T or a function that takes the previous data of type T and returns a
      * partial object of type T.
      * @return {void}
      */
@@ -9604,14 +9604,14 @@ declare module "react-declarative/utils/mvvm/Model" {
     /**
      * Refreshes the page.
      *
-     * @returns {void}
+     * @returns
      */
     refresh(): void;
     /**
      * Returns an object representation of the instance.
      *
      * @template T
-     * @returns {T} The object representation of the instance.
+     * @returns The object representation of the instance.
      */
     toObject(): T;
   }
@@ -9806,10 +9806,10 @@ declare module "react-declarative/utils/createCustomTag" {
    * Interface representing a configuration object.
    *
    * @typedef {Object} IConfig
-   * @property {function} onClick - The event handler for the click event.
-   * @param {MouseEvent} onClick.e - The MouseEvent object representing the click event.
-   * @property {function} onInit - The event handler for the initialization event.
-   * @param {HTMLDivElement} onInit.element - The HTMLDivElement object representing the element that was initialized.
+   * @property onClick - The event handler for the click event.
+   * @param onClick.e - The MouseEvent object representing the click event.
+   * @property onInit - The event handler for the initialization event.
+   * @param onInit.element - The HTMLDivElement object representing the element that was initialized.
    */
   interface IConfig {
     onClick: (e: MouseEvent) => void;
@@ -10279,7 +10279,7 @@ declare module "react-declarative/components/One/layouts/DivLayout" {
    * @template Data - The data type for the entity.
    * @extends IEntity<Data>
    *
-   * @property {React.ReactNode} children - The child components to be rendered within the DivLayout.
+   * @property children - The child components to be rendered within the DivLayout.
    */
   interface IDivLayoutPrivate<Data = IAnything> extends IEntity<Data> {
     children?: React.ReactNode;
@@ -11422,9 +11422,9 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
      * @template T - The type of the variable.
      * @template K - The key to pick from the variable.
      *
-     * @param {T} variable - The variable to pick the property from.
+     * @param variable - The variable to pick the property from.
      *
-     * @returns {Pick<T, K>} - The picked property.
+     * @returns - The picked property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
@@ -11434,9 +11434,9 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
      * @template Payload - The type of payload used in the field.
      * @template T - The type of the field object.
      *
-     * @param {T} field - The field object.
+     * @param field - The field object.
      *
-     * @returns {PickProp<T, "readonly">}
+     * @returns
      * The value of the 'readonly' property from the field object.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -11446,9 +11446,9 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
      * @template Data - The type of the data payload.
      * @template Payload - The type of the payload object.
      *
-     * @param {PickProp<IField<Data, Payload>, "disabled">} disabled - The value of the "disabled" property.
+     * @param disabled - The value of the "disabled" property.
      *
-     * @returns {void}
+     * @returns
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
@@ -11576,9 +11576,9 @@ declare module "react-declarative/components/One/fields/FileField" {
      *
      * @typedef {PickProp<T, K>} PickProp
      *
-     * @param {IField<Data, Payload>} field - The field object.
+     * @param field - The field object.
      *
-     * @returns {T[K]} - The value of the field's placeholder property.
+     * @returns - The value of the field's placeholder property.
      */
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     /**
@@ -11589,7 +11589,7 @@ declare module "react-declarative/components/One/fields/FileField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'fileAccept'>} fileAccept
      *
-     * @property {string} fileAccept - The accepted file types for the field.
+     * @property fileAccept - The accepted file types for the field.
      */
     fileAccept?: PickProp<IField<Data, Payload>, "fileAccept">;
     /**
@@ -11599,9 +11599,9 @@ declare module "react-declarative/components/One/fields/FileField" {
      * @template Data - The type of the data stored in the "IField" object.
      * @template Payload - The type of the payload stored in the "IField" object.
      *
-     * @param {IField<Data, Payload>} obj - The object from which to retrieve the "readonly" property.
+     * @param obj - The object from which to retrieve the "readonly" property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the "readonly" property, or undefined if it is not present.
+     * @returns - The value of the "readonly" property, or undefined if it is not present.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -11620,14 +11620,14 @@ declare module "react-declarative/components/One/fields/FileField" {
      * Represents the input reference associated with a field in a specific data payload.
      *
      * @typedef {object} IInputRef
-     * @property {PickProp<IField<Data, Payload>, 'inputRef'>} inputRef - The input reference value.
+     * @property inputRef - The input reference value.
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     /**
      * Label shrink value from the field data.
      *
      * @typedef {Pick<IField<Data>, "labelShrink">} labelShrink
-     * @property {boolean | undefined} [labelShrink] - The label shrink value from the field data.
+     * @property [labelShrink] - The label shrink value from the field data.
      * @private
      */
     labelShrink?: PickProp<IField<Data>, "labelShrink">;
@@ -11803,10 +11803,10 @@ declare module "react-declarative/components/One/fields/ComboField" {
      * Represents the `freeSolo` property of an object.
      *
      * @typedef {PickProp<IField<Data, Payload>, "freeSolo">} freeSolo
-     * @property {boolean} [freeSolo] - Indicates whether or not the field allows free-form input.
-     * @property {IField<Data, Payload>} field - The parent field object.
-     * @property {Data} - The type of data associated with the field.
-     * @property {Payload} - The type of payload associated with the field.
+     * @property [freeSolo] - Indicates whether or not the field allows free-form input.
+     * @property field - The parent field object.
+     * @property - The type of data associated with the field.
+     * @property - The type of payload associated with the field.
      */
     freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
     /**
@@ -11816,9 +11816,9 @@ declare module "react-declarative/components/One/fields/ComboField" {
      * @template Payload - The payload type of the field.
      * @typedef {boolean} noDeselect
      *
-     * @param {PickProp<IField<Data, Payload>, "noDeselect">} noDeselect - The value of the noDeselect property.
+     * @param noDeselect - The value of the noDeselect property.
      *
-     * @returns {void} - This function does not return any value.
+     * @returns - This function does not return any value.
      */
     noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
     /**
@@ -11826,31 +11826,31 @@ declare module "react-declarative/components/One/fields/ComboField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
      *
-     * @property {boolean} enabled - Indicates whether the virtual list box is enabled or not.
-     * @property {number} size - The number of items to render per batch in the virtual list box.
-     * @property {boolean} infiniteScroll - Indicates whether the virtual list box should support infinite scrolling or not.
-     * @property {boolean} useWindowScroll - Indicates whether the virtual list box should use window scroll or not.
+     * @property enabled - Indicates whether the virtual list box is enabled or not.
+     * @property size - The number of items to render per batch in the virtual list box.
+     * @property infiniteScroll - Indicates whether the virtual list box should support infinite scrolling or not.
+     * @property useWindowScroll - Indicates whether the virtual list box should use window scroll or not.
      */
     virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
     /**
      * Represents the watch item list for a specific field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "watchItemList">} watchItemList
-     * @property {Array} - An array of watch items.
+     * @property - An array of watch items.
      */
     watchItemList?: PickProp<IField<Data, Payload>, "watchItemList">;
     /**
      * Retrieves the "readonly" property from a given object of type IField<Data, Payload>.
      *
-     * @param {IField<Data, Payload>} field - The object from which to retrieve the "readonly" property.
-     * @returns {PickProp<IField<Data, Payload>, "readonly">} The value of the "readonly" property.
+     * @param field - The object from which to retrieve the "readonly" property.
+     * @returns The value of the "readonly" property.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
      * Represents the "disabled" property of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
-     * @property {boolean} disabled - Indicates if the field is disabled or not.
+     * @property disabled - Indicates if the field is disabled or not.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
@@ -12020,21 +12020,21 @@ declare module "react-declarative/components/One/fields/ComponentField" {
     /**
      * Retrieves the "element" property from the given object
      *
-     * @param {PickProp<IField<Data, Payload>, "element">} element - The object to extract the "element" property from
-     * @returns {PickProp<IField<Data, Payload>, "element">} - The value of the "element" property
+     * @param element - The object to extract the "element" property from
+     * @returns - The value of the "element" property
      */
     element?: PickProp<IField<Data, Payload>, "element">;
     /**
      * Represents a property of an object, where the key is "groupRef" and the value is of type PickProp<IField<Data, Payload>, "groupRef">.
      *
-     * @property {PickProp<IField<Data, Payload>, "groupRef">} groupRef - The 'groupRef' property of the object.
+     * @property groupRef - The 'groupRef' property of the object.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Retrieves the "className" property from an object of type PickProp<IField<Data, Payload>, "className">.
      *
-     * @param {PickProp<IField<Data, Payload>, "className">} obj - The input object containing the "className" property.
-     * @returns {undefined | PickProp<IField<Data, Payload>, "className">} - The value of the "className" property if present, otherwise undefined.
+     * @param obj - The input object containing the "className" property.
+     * @returns - The value of the "className" property if present, otherwise undefined.
      * @throws {TypeError} If the input object is not of the expected type.
      */
     className?: PickProp<IField<Data, Payload>, "className">;
@@ -12048,9 +12048,9 @@ declare module "react-declarative/components/One/fields/ComponentField" {
      *
      * @template T - The type of the variable.
      * @template K - The type of the property to be picked.
-     * @param {T} obj - The variable from which to pick the property.
-     * @param {K} prop - The property to pick from the variable.
-     * @returns {Pick<T, K>} - The picked property value.
+     * @param obj - The variable from which to pick the property.
+     * @param prop - The property to pick from the variable.
+     * @returns - The picked property value.
      */
     style?: PickProp<IField<Data, Payload>, "style">;
     /**
@@ -12060,9 +12060,9 @@ declare module "react-declarative/components/One/fields/ComponentField" {
      * @template Data - The data type.
      * @template Payload - The payload type.
      *
-     * @param {IField<Data, Payload>} - The input field.
+     * @param - The input field.
      *
-     * @returns {PickProp<IField<Data, Payload>, "sx"> | undefined} - The value of the 'sx' property.
+     * @returns - The value of the 'sx' property.
      */
     sx?: PickProp<IField<Data, Payload>, "sx">;
   }
@@ -12175,9 +12175,9 @@ declare module "react-declarative/components/One/fields/ItemsField" {
      *
      * @template T - The type of the object to pick the property from.
      * @template K - The key of the property to pick.
-     * @param {T} obj - The object to pick the property from.
-     * @param {K} key - The key of the property to pick.
-     * @returns {Pick<T, K>["description"] | undefined} - The value of the "description" property if it exists, otherwise undefined.
+     * @param obj - The object to pick the property from.
+     * @param key - The key of the property to pick.
+     * @returns - The value of the "description" property if it exists, otherwise undefined.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -12197,15 +12197,15 @@ declare module "react-declarative/components/One/fields/ItemsField" {
      * @template Payload - The type of payload for the field.
      * @template T - The resulting type after picking the property.
      *
-     * @param {IField<Data, Payload>} field - The object from which to pick the property.
+     * @param field - The object from which to pick the property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "outlined">["outlined"]} - The value of the "outlined" property.
+     * @returns - The value of the "outlined" property.
      */
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
     /**
      * Represents the itemList property of a field in the Data object.
      * @typedef {PickProp<IField<Data, Payload>, "itemList">} itemList
-     * @property {unknown} [itemList] - The value of the itemList property.
+     * @property [itemList] - The value of the itemList property.
      */
     itemList?: PickProp<IField<Data, Payload>, "itemList">;
     /**
@@ -12213,14 +12213,14 @@ declare module "react-declarative/components/One/fields/ItemsField" {
      *
      * @typedef {import('path/to/types').PickProp<import('path/to/types').IField<Data, Payload>, "freeSolo">} freeSolo
      * @description This property determines if the field supports selecting values that are not contained in the predefined options list.
-     * @property {boolean} [freeSolo] - A boolean value representing if the field allows free text input.
+     * @property [freeSolo] - A boolean value representing if the field allows free text input.
      */
     freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
     /**
      * Represents the configuration for a virtual list box field in a form.
      *
      * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} VirtualListBoxConfig
-     * @property {string} virtualListBox - The value of the virtualListBox property.
+     * @property virtualListBox - The value of the virtualListBox property.
      */
     virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
     /**
@@ -12233,7 +12233,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
      * Represents the "disabled" property of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
-     * @property {boolean} value - Indicates whether the field is disabled or not.
+     * @property value - Indicates whether the field is disabled or not.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
@@ -12268,15 +12268,15 @@ declare module "react-declarative/components/One/fields/ItemsField" {
      * @typeParam IField - The type of field.
      * @typeParam PickProp - The type for picking properties.
      *
-     * @property {PickProp<IField<Data, Payload>, "tr">} tr - The "tr" property of the field.
+     * @property tr - The "tr" property of the field.
      */
     tr?: PickProp<IField<Data, Payload>, "tr">;
     /**
      * Retrieves the value of the 'groupRef' property from the given object 'fieldData'.
      *
-     * @param {IField<Data, Payload>} fieldData - The object containing the 'groupRef' property.
+     * @param fieldData - The object containing the 'groupRef' property.
      *
-     * @returns {PickProp<IField<Data, Payload>, 'groupRef'> | undefined} - The value of the 'groupRef' property from 'fieldData', or undefined if it doesn't exist.
+     * @returns - The value of the 'groupRef' property from 'fieldData', or undefined if it doesn't exist.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
@@ -12290,7 +12290,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
     /**
      * Represents a variable watchItemList.
      * @typedef {PickProp<IField<Data>, "watchItemList">} watchItemList
-     * @property {IField<Data>} watchItemList - The watchItemList property of type PickProp<IField<Data>, "watchItemList">
+     * @property watchItemList - The watchItemList property of type PickProp<IField<Data>, "watchItemList">
      */
     watchItemList?: PickProp<IField<Data>, "watchItemList">;
   }
@@ -12433,7 +12433,7 @@ declare module "react-declarative/components/One/fields/LineField" {
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
      * @typedef {PickProp<IField<Data, Payload>, 'lineTransparent'>} lineTransparent
-     * @property {boolean} lineTransparent - The value of the 'lineTransparent' property.
+     * @property lineTransparent - The value of the 'lineTransparent' property.
      */
     lineTransparent?: PickProp<IField<Data, Payload>, "lineTransparent">;
     /**
@@ -12441,10 +12441,10 @@ declare module "react-declarative/components/One/fields/LineField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
      *
-     * @property {string} fieldPath - The path to the group field within the form data structure.
-     * @property {boolean} [isRequired] - Indicates if the group field is required or optional.
-     * @property {string} [errorMessage] - The error message displayed when the group field is invalid.
-     * @property {string} [label] - The label displayed for the group field.
+     * @property fieldPath - The path to the group field within the form data structure.
+     * @property [isRequired] - Indicates if the group field is required or optional.
+     * @property [errorMessage] - The error message displayed when the group field is invalid.
+     * @property [label] - The label displayed for the group field.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
@@ -12532,15 +12532,15 @@ declare module "react-declarative/components/One/fields/ProgressField" {
      * @typedef {import('./types').Payload} Payload
      * @typedef {import('./utils').PickProp<T, K>} PickProp
      *
-     * @param {IField<Data, Payload>} showPercentLabel - The field containing the showPercentLabel property.
-     * @returns {boolean} - Whether to show the percent label.
+     * @param showPercentLabel - The field containing the showPercentLabel property.
+     * @returns - Whether to show the percent label.
      */
     showPercentLabel?: PickProp<IField<Data, Payload>, "showPercentLabel">;
     /**
      * Represents a reference to a group in a field.
      *
      * @typedef {Object} groupRef
-     * @property {PickProp<IField<Data, Payload>, 'groupRef'>} [groupRef] - The group reference.
+     * @property [groupRef] - The group reference.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
@@ -12555,9 +12555,9 @@ declare module "react-declarative/components/One/fields/ProgressField" {
    * Represents a progress field component.
    *
    * @typedef {Object} ProgressField
-   * @property {number} maxPercent - The maximum percentage value for the progress field.
-   * @property {boolean} showPercentLabel - Determines if the percentage label should be displayed.
-   * @property {number} value - The current value of the progress field.
+   * @property maxPercent - The maximum percentage value for the progress field.
+   * @property showPercentLabel - Determines if the percentage label should be displayed.
+   * @property value - The current value of the progress field.
    *
    * @param props - The props object containing the properties required for the progress field.
    * @param props.maxPercent - The maximum percentage value for the progress field.
@@ -12652,7 +12652,7 @@ declare module "react-declarative/components/One/fields/RadioField" {
      * Represents a reference to a group in a field object.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-     * @property {undefined | PickProp<IField<Data, Payload>, 'groupRef'>} groupRef - The reference to the group.
+     * @property groupRef - The reference to the group.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
@@ -12777,7 +12777,7 @@ declare module "react-declarative/components/One/fields/RatingField" {
     /**
      * Retrieves the 'readonly' property value of a given field.
      *
-     * @param {IField<Data, Payload>} field - The field object to retrieve the property from.
+     * @param field - The field object to retrieve the property from.
      *
      * @return {PickProp<IField<Data, Payload>, "readonly">} - The value of the 'readonly' property.
      */
@@ -12786,7 +12786,7 @@ declare module "react-declarative/components/One/fields/RatingField" {
      * Represents the groupRef property of the IField object.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-     * @property {string} [groupRef] - The reference to the group.
+     * @property [groupRef] - The reference to the group.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
@@ -12892,40 +12892,40 @@ declare module "react-declarative/components/One/fields/SliderField" {
      * Represents the configuration for a step slider field.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'stepSlider'>} stepSlider
-     * @property {string} [propertyName] - The name of the property for this step slider field.
-     * @property {string} [label] - The label to display for this step slider field.
-     * @property {number} [minValue] - The minimum value for the step slider.
-     * @property {number} [maxValue] - The maximum value for the step slider.
-     * @property {number} [step] - The step interval for the step slider.
-     * @property {string} [unit] - The unit of measurement for the step slider.
+     * @property [propertyName] - The name of the property for this step slider field.
+     * @property [label] - The label to display for this step slider field.
+     * @property [minValue] - The minimum value for the step slider.
+     * @property [maxValue] - The maximum value for the step slider.
+     * @property [step] - The step interval for the step slider.
+     * @property [unit] - The unit of measurement for the step slider.
      */
     stepSlider?: PickProp<IField<Data, Payload>, "stepSlider">;
     /**
      * The maximum value for a slider in a field of a data object payload.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'maxSlider'>} maxSlider
-     * @property {number} [maxSlider] - The maximum value for the slider. If not provided, there is no maximum limit.
+     * @property [maxSlider] - The maximum value for the slider. If not provided, there is no maximum limit.
      */
     maxSlider?: PickProp<IField<Data, Payload>, "maxSlider">;
     /**
      * The minimum value for a slider in a field.
      *
-     * @property {number} [minSlider] - The minimum value for a slider. If undefined, there is no minimum value.
+     * @property [minSlider] - The minimum value for a slider. If undefined, there is no minimum value.
      */
     minSlider?: PickProp<IField<Data, Payload>, "minSlider">;
     /**
      * Specifies the format for the labels of a slider component.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'labelFormatSlider'>} labelFormatSlider
-     * @property {string} [labelFormatSlider.format] - The format string for the labels.
+     * @property [labelFormatSlider.format] - The format string for the labels.
      */
     labelFormatSlider?: PickProp<IField<Data, Payload>, "labelFormatSlider">;
     /**
      * Retrieve the value of the 'leadingIconRipple' property from a given object.
      *
-     * @param {IField<Data, Payload>} obj - The object which contains the 'leadingIconRipple' property.
+     * @param obj - The object which contains the 'leadingIconRipple' property.
      *
-     * @returns {PickProp<IField<Data, Payload>, 'leadingIconRipple'>} The value of the 'leadingIconRipple' property.
+     * @returns The value of the 'leadingIconRipple' property.
      */
     leadingIconRipple?: PickProp<IField<Data, Payload>, "leadingIconRipple">;
     /**
@@ -12948,7 +12948,7 @@ declare module "react-declarative/components/One/fields/SliderField" {
     /**
      * Sets the trailing icon of the field.
      *
-     * @param {PickProp<IField<Data, Payload>, 'trailingIcon'>} trailingIcon - The trailing icon to be set for the field.
+     * @param trailingIcon - The trailing icon to be set for the field.
      */
     trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
     /**
@@ -12972,28 +12972,28 @@ declare module "react-declarative/components/One/fields/SliderField" {
     /**
      * The color of the slider track.
      *
-     * @property {string} [sliderTrackColor] - The color of the slider track. If not provided, a default color will be used.
+     * @property [sliderTrackColor] - The color of the slider track. If not provided, a default color will be used.
      */
     sliderTrackColor?: PickProp<IField<Data, Payload>, "sliderTrackColor">;
     /**
      * Retrieves the value of the `sliderRailColor` property from the given object.
      *
-     * @param {PickProp<IField<Data, Payload>, 'sliderRailColor'>} input - The input object.
-     * @returns {unknown} - The value of the `sliderRailColor` property.
+     * @param input - The input object.
+     * @returns - The value of the `sliderRailColor` property.
      */
     sliderRailColor?: PickProp<IField<Data, Payload>, "sliderRailColor">;
     /**
      * Represents the optional property 'groupRef' of an object of type `IField<Data, Payload>`.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-     * @property {string} [groupRef] - The group reference associated with the field.
+     * @property [groupRef] - The group reference associated with the field.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Retrieves the `readonly` property value from the provided object.
      *
-     * @param {IField<Data, Payload>} obj - The object from which to retrieve the `readonly` property.
-     * @returns {PickProp<IField<Data, Payload>, "readonly">} - The value of the `readonly` property.
+     * @param obj - The object from which to retrieve the `readonly` property.
+     * @returns - The value of the `readonly` property.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -13113,9 +13113,9 @@ declare module "react-declarative/components/One/fields/SwitchField" {
      * @template Data - The type of the data contained in the field.
      * @template Payload - The type of the payload associated with the field.
      *
-     * @param {IField<Data, Payload>} field - An object of type IField<Data, Payload>.
+     * @param field - An object of type IField<Data, Payload>.
      *
-     * @returns {PickProp<IField<Data, Payload>, 'title'>} - The value of the 'title' property from the given field.
+     * @returns - The value of the 'title' property from the given field.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
@@ -13125,16 +13125,16 @@ declare module "react-declarative/components/One/fields/SwitchField" {
      * @template Payload - The type representing the payload of the 'groupRef' property.
      * @template IField - The interface describing the object structure.
      *
-     * @param {IField<Data, Payload>} groupRef - The object containing the 'groupRef' property to retrieve.
+     * @param groupRef - The object containing the 'groupRef' property to retrieve.
      *
-     * @returns {PickProp<IField<Data, Payload>, 'groupRef'>} - The 'groupRef' property from the given object.
+     * @returns - The 'groupRef' property from the given object.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Represents the readonly property of an IField object.
      *
      * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly?
-     * @property {boolean} [readonly] - Specifies whether the field is readonly or not.
+     * @property [readonly] - Specifies whether the field is readonly or not.
      * @public
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -13155,8 +13155,8 @@ declare module "react-declarative/components/One/fields/SwitchField" {
     /**
      * Gets the value of the switchActiveLabel property from the given field.
      *
-     * @param {IField<Data, Payload>} field - The field object from which to get the switchActiveLabel property.
-     * @returns {PickProp<IField<Data, Payload>, "switchActiveLabel">} - The value of the switchActiveLabel property.
+     * @param field - The field object from which to get the switchActiveLabel property.
+     * @returns - The value of the switchActiveLabel property.
      */
     switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
   }
@@ -13263,8 +13263,8 @@ declare module "react-declarative/components/One/fields/TextField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
      *
-     * @property {string} name - The name of the input type.
-     * @property {object} options - Additional options for the input type.
+     * @property name - The name of the input type.
+     * @property options - Additional options for the input type.
      */
     inputType?: PickProp<IField<Data, Payload>, "inputType">;
     /**
@@ -13272,14 +13272,14 @@ declare module "react-declarative/components/One/fields/TextField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
      *
-     * @property {string} [inputMode] - The input mode of the field.
+     * @property [inputMode] - The input mode of the field.
      */
     inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
     /**
      * Represents the input pattern for a field in a data payload.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputPattern">} inputPattern
-     * @property {string} [inputPattern.pattern] - The regular expression pattern that the input value of the field should match.
+     * @property [inputPattern.pattern] - The regular expression pattern that the input value of the field should match.
      */
     inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
     /**
@@ -13288,7 +13288,7 @@ declare module "react-declarative/components/One/fields/TextField" {
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
      * @typedef {PickProp<IField<Data, Payload>, "inputAutocomplete">} InputAutocomplete
-     * @property {boolean} inputAutocomplete - Specifies whether the input should have autocomplete feature.
+     * @property inputAutocomplete - Specifies whether the input should have autocomplete feature.
      */
     inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
     /**
@@ -13312,7 +13312,7 @@ declare module "react-declarative/components/One/fields/TextField" {
      * Represents the allowed input formatters for a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
-     * @property {string[]} allowedFormatters - An array of strings representing the allowed formatter names.
+     * @property allowedFormatters - An array of strings representing the allowed formatter names.
      */
     inputFormatterAllowed?: PickProp<
       IField<Data, Payload>,
@@ -13331,8 +13331,8 @@ declare module "react-declarative/components/One/fields/TextField" {
      * Defines the input formatter replace configuration for a field.
      *
      * @typedef {Object} inputFormatterReplace
-     * @property {Function} inputFormatterReplace.dataTransform - The function used to transform the input data before formatting.
-     * @property {Function} inputFormatterReplace.payloadTransform - The function used to transform the payload before formatting.
+     * @property inputFormatterReplace.dataTransform - The function used to transform the input data before formatting.
+     * @property inputFormatterReplace.payloadTransform - The function used to transform the payload before formatting.
      */
     inputFormatterReplace?: PickProp<
       IField<Data, Payload>,
@@ -13345,9 +13345,9 @@ declare module "react-declarative/components/One/fields/TextField" {
      * @template Data - The type of the data associated with the field.
      * @template Payload - The type of the payload object associated with the field.
      *
-     * @param {IField<Data, Payload>} field - The field object from which to retrieve the "description" property.
+     * @param field - The field object from which to retrieve the "description" property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "description">} The value of the "description" property.
+     * @returns The value of the "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -13375,13 +13375,13 @@ declare module "react-declarative/components/One/fields/TextField" {
      * Represents the configuration for the leading icon ripple effect.
      *
      * @typedef {Boolean} LeadingIconRipple
-     * @property {Boolean} leadingIconRipple.enable - Indicates whether the leading icon ripple effect is enabled.
-     * @property {Number} leadingIconRipple.duration - The duration of the leading icon ripple effect in milliseconds.
+     * @property leadingIconRipple.enable - Indicates whether the leading icon ripple effect is enabled.
+     * @property leadingIconRipple.duration - The duration of the leading icon ripple effect in milliseconds.
      */
     leadingIconRipple?: PickProp<IField<Data, Payload>, "leadingIconRipple">;
     /**
      * Represents the option to enable or disable the trailing icon ripple effect.
-     * @property {boolean} trailingIconRipple - Set to true to enable the trailing icon ripple effect,
+     * @property trailingIconRipple - Set to true to enable the trailing icon ripple effect,
      *     or false to disable it
      */
     trailingIconRipple?: PickProp<IField<Data, Payload>, "trailingIconRipple">;
@@ -13389,25 +13389,25 @@ declare module "react-declarative/components/One/fields/TextField" {
      * The leadingIcon property represents the leading icon of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "leadingIcon">} leadingIcon
-     * @property {string} [icon] - The icon to be displayed as the leading icon.
-     * @property {boolean} [isVisible] - Indicates if the leading icon is visible.
+     * @property [icon] - The icon to be displayed as the leading icon.
+     * @property [isVisible] - Indicates if the leading icon is visible.
      */
     leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
     /**
      * Represents the trailing icon configuration for a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "trailingIcon">} trailingIcon
-     * @property {string} icon - The path or class name of the trailing icon.
-     * @property {boolean} isVisible - Indicates whether the trailing icon is visible or hidden.
-     * @property {Function} onClick - The event handler function to be executed when the trailing icon is clicked.
+     * @property icon - The path or class name of the trailing icon.
+     * @property isVisible - Indicates whether the trailing icon is visible or hidden.
+     * @property onClick - The event handler function to be executed when the trailing icon is clicked.
      */
     trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
     /**
      * Represents the leading icon click event handler for a field in a form.
      *
      * @typedef {Function} leadingIconClick
-     * @param {PickProp<IField<Data, Payload>, "leadingIconClick">} leadingIconClick - The leadingIconClick prop of the field.
-     * @returns {void} - Nothing is returned from this function.
+     * @param leadingIconClick - The leadingIconClick prop of the field.
+     * @returns - Nothing is returned from this function.
      */
     leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
     /**
@@ -13421,8 +13421,8 @@ declare module "react-declarative/components/One/fields/TextField" {
      *
      * @typedef {(...args: any[]) => void} trailingIconClick
      *
-     * @param {...any} args - The arguments passed to the callback function.
-     * @returns {void}
+     * @param args - The arguments passed to the callback function.
+     * @returns
      */
     trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
     /**
@@ -13446,16 +13446,16 @@ declare module "react-declarative/components/One/fields/TextField" {
      *
      * @template T - The type of the object that contains the "readonly" property.
      * @template Prop - The type of the "readonly" property.
-     * @param {T} object - The object to get the "readonly" property from.
-     * @returns {Prop} - The value of the "readonly" property.
+     * @param object - The object to get the "readonly" property from.
+     * @returns - The value of the "readonly" property.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
      * Specifies if the field should be automatically focused.
      *
      * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
-     * @property {boolean} [autoFocus] - Indicates if the field should receive focus automatically.
-     * @property {IField<Data, Payload>} - The interface that describes the field containing the autoFocus property.
+     * @property [autoFocus] - Indicates if the field should receive focus automatically.
+     * @property - The interface that describes the field containing the autoFocus property.
      *
      */
     autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
@@ -13469,21 +13469,21 @@ declare module "react-declarative/components/One/fields/TextField" {
      * Represents the reference to a group in a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
-     * @property {string} groupRef - The reference to the group.
+     * @property groupRef - The reference to the group.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Represents the input reference property of a field.
      *
      * @typedef {Object} InputRef
-     * @property {Function} current - A reference to the input element.
+     * @property current - A reference to the input element.
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     /**
      * Shrink option for labels.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'labelShrink'>} labelShrink
-     * @property {boolean} labelShrink - Whether to apply shrink option to labels.
+     * @property labelShrink - Whether to apply shrink option to labels.
      */
     labelShrink?: PickProp<IField<Data, Payload>, "labelShrink">;
   }
@@ -13636,15 +13636,15 @@ declare module "react-declarative/components/One/fields/DateField" {
      *
      * @template T - The type of the object.
      * @template K - The keys of the object.
-     * @param {T} obj - The object from which to retrieve the property value.
-     * @param {K} key - The key of the property to retrieve.
-     * @returns {Pick<T, K>} - The value of the "title" property.
+     * @param obj - The object from which to retrieve the property value.
+     * @param key - The key of the property to retrieve.
+     * @returns - The value of the "title" property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
      * Retrieves the "description" property from a given object of type IField<Data, Payload>.
-     * @param {IField<Data, Payload>} field - The input field object.
-     * @returns {Pick<IField<Data, Payload>, "description">["description"]} - The value of the "description" property.
+     * @param field - The input field object.
+     * @returns - The value of the "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -13652,8 +13652,8 @@ declare module "react-declarative/components/One/fields/DateField" {
      *
      * @template Data - The type of data in the IField object.
      * @template Payload - The type of payload in the IField object.
-     * @param {IField<Data, Payload>} field - The IField object to pick the 'outlined' property from.
-     * @returns {PickProp<IField<Data, Payload>, "outlined">} - The 'outlined' property value.
+     * @param field - The IField object to pick the 'outlined' property from.
+     * @returns - The 'outlined' property value.
      */
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
     /**
@@ -13670,22 +13670,22 @@ declare module "react-declarative/components/One/fields/DateField" {
      *
      * @template Data - The data type of the field.
      * @template Payload - The payload that may be associated with the field.
-     * @param {IField<Data, Payload>} field - The field object from which to retrieve the readonly property.
-     * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the readonly property, or undefined if the property is not present.
+     * @param field - The field object from which to retrieve the readonly property.
+     * @returns - The value of the readonly property, or undefined if the property is not present.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
      * Shrink the label of a field.
      *
      * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
-     * @property {boolean} [labelShrink] - Specifies whether to shrink the label of the field.
+     * @property [labelShrink] - Specifies whether to shrink the label of the field.
      */
     labelShrink?: PickProp<IField<Data>, "labelShrink">;
     /**
      * Represents the autoFocus property of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
-     * @property {boolean} [autoFocus] - If set to true, the field will automatically receive focus when rendered.
+     * @property [autoFocus] - If set to true, the field will automatically receive focus when rendered.
      */
     autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
     /**
@@ -13701,7 +13701,7 @@ declare module "react-declarative/components/One/fields/DateField" {
      * @typedef {import("path/to/IField").Payload} Payload - The payload type of the field.
      * @typedef {import("path/to/PickProp").PickProp<IField<Data, Payload>, "inputRef">} PickPropResult - The result type of the PickProp function.
      *
-     * @property {PickPropResult} [inputRef] - The reference to the input element within a field.
+     * @property [inputRef] - The reference to the input element within a field.
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
   }
@@ -13827,17 +13827,17 @@ declare module "react-declarative/components/One/fields/TimeField" {
      *
      * @template T - The type of the object.
      * @template K - The key of the property to be picked.
-     * @param {T} obj - The object from which to pick the property.
-     * @param {K} key - The key of the property to pick.
-     * @returns {Pick<T, K>} - The value of the picked property.
+     * @param obj - The object from which to pick the property.
+     * @param key - The key of the property to pick.
+     * @returns - The value of the picked property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
      * Returns the "description" property value of the given object.
      * The object must be of type IField<Data, Payload>.
      *
-     * @param {IField<Data, Payload>} object - The object to pick the "description" property from.
-     * @returns {PickProp<IField<Data, Payload>, "description">} - The value of the "description" property.
+     * @param object - The object to pick the "description" property from.
+     * @returns - The value of the "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -13845,8 +13845,8 @@ declare module "react-declarative/components/One/fields/TimeField" {
      *
      * @template Data - The type of data consumed by the field.
      * @template Payload - The type of payload.
-     * @param {IField<Data, Payload>} field - The field to pick the "outlined" property from.
-     * @returns {PickProp<IField<Data, Payload>, "outlined">} The value of the "outlined" property.
+     * @param field - The field to pick the "outlined" property from.
+     * @returns The value of the "outlined" property.
      */
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
     /**
@@ -13855,23 +13855,23 @@ declare module "react-declarative/components/One/fields/TimeField" {
      * @template Data - The type of data for the field.
      * @template Payload - The type of payload.
      *
-     * @param {IField<Data, Payload>} field - The field object from which to retrieve the `placeholder` property.
+     * @param field - The field object from which to retrieve the `placeholder` property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "placeholder">} - The `placeholder` property of the field object.
+     * @returns - The `placeholder` property of the field object.
      */
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     /**
      * Retrieves the value of the "readonly" property from a given object that has a specific structure.
      *
-     * @param {IField<Data, Payload>} field - The input object with a specific structure.
-     * @returns {PickProp<IField<Data, Payload>, "readonly">} The value of the "readonly" property from the input object.
+     * @param field - The input object with a specific structure.
+     * @returns The value of the "readonly" property from the input object.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
      * Represents the "autoFocus" property of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
-     * @property {boolean} [autoFocus] - Whether the field should receive focus automatically.
+     * @property [autoFocus] - Whether the field should receive focus automatically.
      */
     autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
     /**
@@ -13879,15 +13879,15 @@ declare module "react-declarative/components/One/fields/TimeField" {
      *
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
-     * @param {PickProp<IField<Data, Payload>, "disabled">} disabled - The object from which to retrieve the "disabled" property.
-     * @returns {boolean} - The value of the "disabled" property.
+     * @param disabled - The object from which to retrieve the "disabled" property.
+     * @returns - The value of the "disabled" property.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
      * Represents a reference to an input element.
      *
      * @typedef {Object} InputRef
-     * @property {PickProp<IField<Data, Payload>, "inputRef">} [inputRef] - The inputRef property of an IField object.
+     * @property [inputRef] - The inputRef property of an IField object.
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     /**
@@ -14018,22 +14018,22 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template Payload The type of payload associated with the field.
      * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
      *
-     * @property {string} inputType - The type of input for the field.
+     * @property inputType - The type of input for the field.
      */
     inputType?: PickProp<IField<Data, Payload>, "inputType">;
     /**
      * Represents the input mode of a field in the data object payload.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
-     * @property {string} inputMode - The input mode of the field.
+     * @property inputMode - The input mode of the field.
      */
     inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
     /**
      * Represents the input pattern of a field.
      *
      * @typedef {Object} inputPattern
-     * @property {string} [inputPattern.prop1] - The first property of the input pattern.
-     * @property {boolean} [inputPattern.prop2] - The second property of the input pattern.
+     * @property [inputPattern.prop1] - The first property of the input pattern.
+     * @property [inputPattern.prop2] - The second property of the input pattern.
      *
      * @typedef {import('./IField').IField<Data, Payload>} IField
      * @typedef {import('./IField').Data} Data
@@ -14045,12 +14045,12 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * Represents the optional prop "inputAutocomplete" for a field.
      *
      * @typedef {object} PickProp
-     * @property {IField<Data, Payload>} _field - The field to pick the prop from.
-     * @property {"inputAutocomplete"} _prop - The name of the prop to pick.
+     * @property _field - The field to pick the prop from.
+     * @property _prop - The name of the prop to pick.
      *
-     * @param {PickProp<IField<Data, Payload>, "inputAutocomplete">} inputAutocomplete - The value of the "inputAutocomplete" prop.
+     * @param inputAutocomplete - The value of the "inputAutocomplete" prop.
      *
-     * @returns {void}
+     * @returns
      */
     inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
     /**
@@ -14058,15 +14058,15 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      *
      * @template T - The type of the object to pick the "description" property from.
      * @template K - The keys of the properties in T.
-     * @param {T} obj - The object to pick the "description" property from.
-     * @returns {Pick<T, K>} - The picked object with "description" property.
+     * @param obj - The object to pick the "description" property from.
+     * @returns - The picked object with "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
      * Reduces the size of the label for a given field.
      *
-     * @param {PickProp<IField<Data>, "labelShrink">} labelShrink - The label shrink configuration for a field.
-     * @returns {undefined}
+     * @param labelShrink - The label shrink configuration for a field.
+     * @returns
      */
     labelShrink?: PickProp<IField<Data>, "labelShrink">;
     /**
@@ -14076,7 +14076,7 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template Payload - The payload type of the field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "keepRaw">} KeepRaw
-     * @property {boolean} keepRaw - Indicates whether to keep the raw data.
+     * @property keepRaw - Indicates whether to keep the raw data.
      */
     keepRaw?: PickProp<IField<Data, Payload>, "keepRaw">;
     /**
@@ -14085,10 +14085,10 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template T - The type of the object.
      * @template K - The keyof `T` representing the property to pick.
      *
-     * @param {T} obj - The object from which to pick the property.
-     * @param {K} field - The key representing the property to pick.
+     * @param obj - The object from which to pick the property.
+     * @param field - The key representing the property to pick.
      *
-     * @returns {Pick<T, K>[K]} - The value of the picked property.
+     * @returns - The value of the picked property.
      */
     outlined?: PickProp<IField<Data, Payload>, "outlined">;
     /**
@@ -14102,8 +14102,8 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template Payload - The payload type of the "IField" object.
      * @template Key - The specific property key to pick from the "IField" object.
      * @typedef PickProp
-     * @property {IField<Data, Payload>} object - The object from which the property is picked.
-     * @property {Key} prop - The specific property key to pick.
+     * @property object - The object from which the property is picked.
+     * @property prop - The specific property key to pick.
      * @returns The type of the picked property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
@@ -14119,10 +14119,10 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * Represents a variable that holds the value of the "tipSelect" property.
      *
      * @typedef {PickProp<IField<Data, Payload>, "tipSelect">} TipSelect
-     * @property {IField<Data, Payload>} IField - Represents a generic field object.
-     * @property {Data} Data - Represents the generic data type.
-     * @property {Payload} Payload - Represents the generic payload type.
-     * @property {string} tipSelect - The value of the "tipSelect" property.
+     * @property IField - Represents a generic field object.
+     * @property Data - Represents the generic data type.
+     * @property Payload - Represents the generic payload type.
+     * @property tipSelect - The value of the "tipSelect" property.
      */
     tipSelect?: PickProp<IField<Data, Payload>, "tipSelect">;
     /**
@@ -14133,16 +14133,16 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template Field - The type of field.
      *
      * @typedef PickProp - A utility type for picking properties from a type.
-     * @param {Field} field - The field to pick the `placeholder` property from.
+     * @param field - The field to pick the `placeholder` property from.
      *
-     * @returns {string | undefined} - The `placeholder` property of the given field, if present. Otherwise, `undefined`.
+     * @returns - The `placeholder` property of the given field, if present. Otherwise, `undefined`.
      */
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     /**
      * Retrieves the "readonly" property from the provided field object.
      *
-     * @param {IField<Data, Payload>} field - The field object.
-     * @returns {PickProp<IField<Data, Payload>, "readonly">} - The value of the "readonly" property.
+     * @param field - The field object.
+     * @returns - The value of the "readonly" property.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -14159,21 +14159,21 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledProp
      *
-     * @property {boolean} disabled - Specifies whether the field is disabled.
+     * @property disabled - Specifies whether the field is disabled.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
      * Represents a reference to a group within a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "groupRef">} GroupRef
-     * @property {string} groupRef - The identifier of the group.
+     * @property groupRef - The identifier of the group.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Represents the input reference of a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputRef">} InputRef
-     * @property {string} inputRef - The reference to the input element.
+     * @property inputRef - The reference to the input element.
      *
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
@@ -14195,7 +14195,7 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * Determines whether input formatting is allowed for a given field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
-     * @property {boolean} inputFormatterAllowed - Specifies if input formatting is allowed.
+     * @property inputFormatterAllowed - Specifies if input formatting is allowed.
      */
     inputFormatterAllowed?: PickProp<
       IField<Data, Payload>,
@@ -14215,7 +14215,7 @@ declare module "react-declarative/components/One/fields/CompleteField" {
      * @template Data The data type of the field.
      * @template Payload The payload type of the field.
      *
-     * @param {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace The object containing the "inputFormatterReplace" property.
+     * @param inputFormatterReplace The object containing the "inputFormatterReplace" property.
      *
      */
     inputFormatterReplace?: PickProp<
@@ -14371,16 +14371,16 @@ declare module "react-declarative/components/One/fields/TypographyField" {
      * Retrieves the `placeholder` property from the given `IField` object.
      * The `placeholder` property is a key of type `PickProp`.
      *
-     * @param {IField<Data, Payload>} field - The input field object.
-     * @returns {PickProp<IField<Data, Payload>, 'placeholder'>} - The `placeholder` property of the field object.
+     * @param field - The input field object.
+     * @returns - The `placeholder` property of the field object.
      */
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     /**
      * Represents the `typoVariant` property of an object.
      * @typedef {PickProp<IField<Data, Payload>, 'typoVariant'>} TypoVariant
-     * @property {IField<Data, Payload>} - The object from which the `typoVariant` property is picked.
-     * @property {'typoVariant'} - The name of the property being picked.
-     * @property {*} - The value of the `typoVariant` property.
+     * @property - The object from which the `typoVariant` property is picked.
+     * @property - The name of the property being picked.
+     * @property - The value of the `typoVariant` property.
      */
     typoVariant?: PickProp<IField<Data, Payload>, "typoVariant">;
     /**
@@ -14391,8 +14391,8 @@ declare module "react-declarative/components/One/fields/TypographyField" {
      *
      * @template Data - The type of the data in the IField interface.
      * @template Payload - The type of the payload in the IField interface.
-     * @param {IField<Data, Payload>} obj - The object from which to get the className property.
-     * @returns {PickProp<IField<Data, Payload>, 'className'> | undefined} The value of the className property, or undefined if it doesn't exist.
+     * @param obj - The object from which to get the className property.
+     * @returns The value of the className property, or undefined if it doesn't exist.
      */
     className?: PickProp<IField<Data, Payload>, "className">;
     /**
@@ -14505,9 +14505,9 @@ declare module "react-declarative/components/One/fields/ChooseField" {
      * @template Data - Type representing the data object.
      * @template Payload - Type representing the payload object.
      *
-     * @param {IField<Data, Payload>} obj - The object from which to pick the "description" property.
+     * @param obj - The object from which to pick the "description" property.
      *
-     * @returns {Pick<IField<Data, Payload>, "description">["description"]} The value of the "description" property.
+     * @returns The value of the "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -14521,9 +14521,9 @@ declare module "react-declarative/components/One/fields/ChooseField" {
      * Type definition for the `title` property when using `PickProp` utility.
      * @template T - The type of the object from which to pick the property.
      * @template Prop - The name of the property to pick.
-     * @param {T} obj - The object from which to pick the property.
-     * @param {Prop} prop - The name of the property to pick.
-     * @returns {Pick<T, Prop>} - The picked property value.
+     * @param obj - The object from which to pick the property.
+     * @param prop - The name of the property to pick.
+     * @returns - The picked property value.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
@@ -14559,9 +14559,9 @@ declare module "react-declarative/components/One/fields/ChooseField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
      *
-     * @property {string} id - The unique identifier of the group.
-     * @property {string} name - The name of the group.
-     * @property {string} description - The description of the group.
+     * @property id - The unique identifier of the group.
+     * @property name - The name of the group.
+     * @property description - The description of the group.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
@@ -14582,10 +14582,10 @@ declare module "react-declarative/components/One/fields/ChooseField" {
      * Represents a possible translation for a field in a form.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'tr'>} tr
-     * @property {string} type - The type of translation.
-     * @property {boolean} required - Indicates if the translation is required.
-     * @property {string[]} options - The list of available translation options.
-     * @property {string} defaultValue - The default translation value.
+     * @property type - The type of translation.
+     * @property required - Indicates if the translation is required.
+     * @property options - The list of available translation options.
+     * @property defaultValue - The default translation value.
      */
     tr?: PickProp<IField<Data, Payload>, "tr">;
   }
@@ -14698,8 +14698,8 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      *
      * @template Data - The type of the data associated with the field.
      * @template Payload - The type of the payload associated with the field.
-     * @param {IField<Data, Payload>} field - The field object from which to pick the "description" property.
-     * @returns {Pick<IField<Data, Payload>, "description">} - The picked "description" property.
+     * @param field - The field object from which to pick the "description" property.
+     * @returns - The picked "description" property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -14709,9 +14709,9 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      * @template Payload - The type of payload associated with the field.
      * @template T - The type of the input object from which to pick the property.
      * @template K - The type of the property to be picked.
-     * @param {T} obj - The input object from which to pick the property.
-     * @param {K} prop - The property to be picked from the input object.
-     * @returns {string} The value of the "placeholder" property of the provided PickProp type.
+     * @param obj - The input object from which to pick the property.
+     * @param prop - The property to be picked from the input object.
+     * @returns The value of the "placeholder" property of the provided PickProp type.
      */
     placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
     /**
@@ -14745,11 +14745,11 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      * Represents the configuration options for a virtual list box component.
      *
      * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
-     * @property {string} fieldName - The name of the field associated with the virtual list box.
-     * @property {number} pageSize - The number of items to display per page in the virtual list box.
-     * @property {boolean} showSearch - Determines whether to display a search input in the virtual list box.
-     * @property {boolean} multiSelect - Determines whether the virtual list box allows multiple selection.
-     * @property {string[]} selectedItems - The array of selected item values in the virtual list box.
+     * @property fieldName - The name of the field associated with the virtual list box.
+     * @property pageSize - The number of items to display per page in the virtual list box.
+     * @property showSearch - Determines whether to display a search input in the virtual list box.
+     * @property multiSelect - Determines whether the virtual list box allows multiple selection.
+     * @property selectedItems - The array of selected item values in the virtual list box.
      */
     virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
     /**
@@ -14765,9 +14765,9 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      * @template Data - The type of data contained in the 'IField' object.
      * @template Payload - The type of payload contained in the 'IField' object.
      *
-     * @param {readonly: PickProp<IField<Data, Payload>, "readonly">} readonly - The value of the 'readonly' property.
+     * @param readonly - The value of the 'readonly' property.
      *
-     * @returns {undefined} - This function does not return a value.
+     * @returns - This function does not return a value.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -14778,7 +14778,7 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
      *
-     * @property {boolean} disabled - A boolean value indicating whether the field is disabled or not.
+     * @property disabled - A boolean value indicating whether the field is disabled or not.
      *                                `true` represents that the field is disabled, while `false` indicates it is enabled.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
@@ -14795,16 +14795,16 @@ declare module "react-declarative/components/One/fields/YesNoField" {
      * @template Payload - The type of the payload object.
      * @template T - The type of the object containing the "title" property.
      *
-     * @param {T} object - The object from which to pick the "title" property.
+     * @param object - The object from which to pick the "title" property.
      *
-     * @returns {PickProp<T, "title">} - The value of the "title" property.
+     * @returns - The value of the "title" property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
      * Represents the `groupRef` property of an object.
      *
      * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
-     * @property {string} groupRef - The reference to a group of fields.
+     * @property groupRef - The reference to a group of fields.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   }
@@ -14977,8 +14977,8 @@ declare module "react-declarative/components/One/fields/DictField" {
      * Represents the 'dictLimit' property of an object.
      *
      * @typedef {PickProp<IField<Data, Payload>, "dictLimit">} dictLimit
-     * @property {number} [dictLimit] - The limit for the dictionary.
-     * @returns {number} - The limit for the dictionary.
+     * @property [dictLimit] - The limit for the dictionary.
+     * @returns - The limit for the dictionary.
      */
     dictLimit?: PickProp<IField<Data, Payload>, "dictLimit">;
     /**
@@ -14987,9 +14987,9 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @template Data - The data type of the object.
      * @template Payload - The payload type of the object.
      *
-     * @param {IField<Data, Payload>} object - The object containing the "dictDelay" property.
+     * @param object - The object containing the "dictDelay" property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "dictDelay"> | undefined} The value of the "dictDelay" property, if it exists, or undefined if it does not.
+     * @returns The value of the "dictDelay" property, if it exists, or undefined if it does not.
      */
     dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
     /**
@@ -15017,21 +15017,21 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @template Data - The type of data object for the field.
      * @template Payload - The type of payload for the field.
      * @typedef {PickProp<IField<Data, Payload>, "dictOnItem">} dictOnItem?
-     * @property {boolean} dictOnItem - Indicates whether the field uses dictionary on item.
+     * @property dictOnItem - Indicates whether the field uses dictionary on item.
      */
     dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
     /**
      * Retrieves the "dictValue" property from the given object.
      *
-     * @param {PickProp<IField<Data, Payload>, "dictValue">} obj - The object from which to retrieve the "dictValue" property.
+     * @param obj - The object from which to retrieve the "dictValue" property.
      *
-     * @returns {PickProp<IField<Data, Payload>, "dictValue"> | undefined} - The value of the "dictValue" property, or undefined if it does not exist.
+     * @returns - The value of the "dictValue" property, or undefined if it does not exist.
      */
     dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
     /**
      * @typedef {Object} IField
-     * @property {Data} data - The data object
-     * @property {Payload} payload - The payload object
+     * @property data - The data object
+     * @property payload - The payload object
      */
     dictSearchText?: PickProp<IField<Data, Payload>, "dictSearchText">;
     /**
@@ -15051,8 +15051,8 @@ declare module "react-declarative/components/One/fields/DictField" {
      * Retrieves the value of the "dictCreateButton" property from the provided object,
      * which is of type PickProp<IField<Data, Payload>, "dictCreateButton">.
      *
-     * @param {PickProp<IField<Data, Payload>, "dictCreateButton">} input - The input object.
-     * @returns {undefined | someDataType} - Returns the value of the "dictCreateButton" property,
+     * @param input - The input object.
+     * @returns - Returns the value of the "dictCreateButton" property,
      *                                       which can be of type "undefined" or "someDataType".
      */
     dictCreateButton?: PickProp<IField<Data, Payload>, "dictCreateButton">;
@@ -15061,21 +15061,21 @@ declare module "react-declarative/components/One/fields/DictField" {
      *
      * @typedef {string} InputType
      *
-     * @property {string} inputType - The type of input for the field.
+     * @property inputType - The type of input for the field.
      */
     inputType?: PickProp<IField<Data, Payload>, "inputType">;
     /**
      * Represents the input mode configuration for a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
-     * @property {string | undefined} inputMode - The input mode for the field.
+     * @property inputMode - The input mode for the field.
      */
     inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
     /**
      * Represents the input pattern of a field in the form.
      *
      * @typedef {Object} PickProp<IField<Data, Payload>, "inputPattern">
-     * @property {string} [inputPattern] - The regular expression pattern that the input value of the field must match.
+     * @property [inputPattern] - The regular expression pattern that the input value of the field must match.
      */
     inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
     /**
@@ -15084,8 +15084,8 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @template Data The type of the data object.
      * @template Payload The type of the payload object.
      * @template T The type of the object.
-     * @param {T} obj The object from which to retrieve the "inputAutocomplete" property.
-     * @returns {PickProp<IField<Data, Payload>, "inputAutocomplete"> | undefined} The value of the "inputAutocomplete" property,
+     * @param obj The object from which to retrieve the "inputAutocomplete" property.
+     * @returns The value of the "inputAutocomplete" property,
      * or undefined if the property doesn't exist.
      */
     inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
@@ -15101,7 +15101,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputFormatterSymbol">} inputFormatterSymbol
      *
-     * @property {string} inputFormatterSymbol - The symbol used by the input formatter.
+     * @property inputFormatterSymbol - The symbol used by the input formatter.
      */
     inputFormatterSymbol?: PickProp<
       IField<Data, Payload>,
@@ -15111,7 +15111,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      * Represents the allowed input formatters for a field.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
-     * @property {string[]} inputFormatterAllowed - An array of allowed input formatter names.
+     * @property inputFormatterAllowed - An array of allowed input formatter names.
      */
     inputFormatterAllowed?: PickProp<
       IField<Data, Payload>,
@@ -15130,7 +15130,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      * Represents an object property `inputFormatterReplace` of the interface `IField<Data, Payload>`.
      *
      * @typedef {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace
-     * @property {string} inputFormatterReplace - The value of the `inputFormatterReplace` property.
+     * @property inputFormatterReplace - The value of the `inputFormatterReplace` property.
      * @see {@link IField}
      * @see {@link PickProp}
      */
@@ -15179,7 +15179,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      * The `readonly` property of the `IField` object.
      *
      * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly
-     * @property {boolean} value - A boolean value indicating if the field is read-only or not.
+     * @property value - A boolean value indicating if the field is read-only or not.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -15190,24 +15190,24 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @template IField - The interface of the field.
      * @template PickProp - Utility to pick a property from an interface.
      *
-     * @param {IField<Data, Payload>} field - The given field in a form.
+     * @param field - The given field in a form.
      *
-     * @returns {PickProp<IField<Data, Payload>, "disabled">} - The value of the `disabled` property.
+     * @returns - The value of the `disabled` property.
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
     /**
      * Represents the group reference property of a field in a data payload.
      * @typedef {PickProp<IField<Data, Payload>, "groupRef">} groupRef
-     * @property {string} groupRef - The group reference value.
+     * @property groupRef - The group reference value.
      */
     groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
     /**
      * Represents a reference to the input element within a field.
      *
      * @typedef {object} InputRef
-     * @property {string} name - The name of the input element.
-     * @property {string} id - The unique ID of the input element.
-     * @property {HTMLElement} element - The actual input element.
+     * @property name - The name of the input element.
+     * @property id - The unique ID of the input element.
+     * @property element - The actual input element.
      */
     inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
     /**
@@ -15228,9 +15228,9 @@ declare module "react-declarative/components/One/fields/DictField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, 'leadingIcon'>} leadingIcon
      *
-     * @property {string} [name] - The name of the leading icon.
-     * @property {string} [url] - The URL of the leading icon.
-     * @property {string} [color] - The color of the leading icon.
+     * @property [name] - The name of the leading icon.
+     * @property [url] - The URL of the leading icon.
+     * @property [color] - The color of the leading icon.
      */
     leadingIcon?: PickProp<IField<Data, Payload>, "leadingIcon">;
     /**
@@ -15240,7 +15240,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @typedef {import('path/to/IField').Data} Data - The data type used by IField.
      * @typedef {import('path/to/IField').Payload} Payload - The payload type used by IField.
      * @typedef {import('path/to/PickProp').PickProp} PickProp - The type used to pick properties from IField.
-     * @property {PickProp<IField<Data, Payload>, 'trailingIcon'>} [trailingIcon] - Optional trailing icon property.
+     * @property [trailingIcon] - Optional trailing icon property.
      */
     trailingIcon?: PickProp<IField<Data, Payload>, "trailingIcon">;
     /**
@@ -15249,9 +15249,9 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload expected when the leading icon is clicked.
      *
-     * @param {PickProp<IField<Data, Payload>, 'leadingIconClick'>} leadingIconClick - The value of the 'leadingIconClick' property.
+     * @param leadingIconClick - The value of the 'leadingIconClick' property.
      *
-     * @returns {undefined}
+     * @returns
      */
     leadingIconClick?: PickProp<IField<Data, Payload>, "leadingIconClick">;
     /**
@@ -15260,7 +15260,7 @@ declare module "react-declarative/components/One/fields/DictField" {
      * @typedef {import('path/to/IField').IField<Data, Payload>} IField
      * @template Data, Payload
      *
-     * @param {PickProp<IField<Data, Payload>, 'trailingIconClick'>} trailingIconClick - The value of the `trailingIconClick` property which defines the action to be performed when the trailing
+     * @param trailingIconClick - The value of the `trailingIconClick` property which defines the action to be performed when the trailing
      * icon is clicked.
      *
      * @description
@@ -15436,10 +15436,10 @@ declare module "react-declarative/components/One/fields/TreeField" {
      * @template T - The type of the object.
      * @template K - The literal key type.
      *
-     * @param {T} obj - The object from which to extract the property.
-     * @param {K} key - The literal key representing the property to extract.
+     * @param obj - The object from which to extract the property.
+     * @param key - The literal key representing the property to extract.
      *
-     * @returns {Pick<T, K>} - The value of the specified property.
+     * @returns - The value of the specified property.
      */
     description?: PickProp<IField<Data, Payload>, "description">;
     /**
@@ -15453,9 +15453,9 @@ declare module "react-declarative/components/One/fields/TreeField" {
      * @template Data - The data type of the "title" property.
      * @template Payload - The payload type of the "title" property.
      *
-     * @param {IField<Data, Payload>} - The object from which the "title" property will be picked.
+     * @param - The object from which the "title" property will be picked.
      *
-     * @returns {Pick<IField<Data, Payload>, "title">} - The resulting object that only contains the "title" property.
+     * @returns - The resulting object that only contains the "title" property.
      */
     title?: PickProp<IField<Data, Payload>, "title">;
     /**
@@ -15476,9 +15476,9 @@ declare module "react-declarative/components/One/fields/TreeField" {
      * @typedef {import('./types').PickProp} PickProp
      * @typedef {import('./types').Data} Data
      *
-     * @param {IField<Data, Payload>} readonly - The field being checked for readOnly status.
+     * @param readonly - The field being checked for readOnly status.
      *
-     * @returns {Readonly} - A boolean value indicating if the field is readOnly.
+     * @returns - A boolean value indicating if the field is readOnly.
      */
     readonly?: PickProp<IField<Data, Payload>, "readonly">;
     /**
@@ -15486,7 +15486,7 @@ declare module "react-declarative/components/One/fields/TreeField" {
      *
      * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
      *
-     * @property {boolean} disabled - Indicates whether the field is disabled or not.
+     * @property disabled - Indicates whether the field is disabled or not.
      * @template Data - The type of data stored in the form.
      * @template Payload - The type of payload used for form submission.
      */
@@ -15618,8 +15618,8 @@ declare module "react-declarative/model/ComponentFieldInstance" {
      * A callback function type that is called when a change event occurs.
      *
      * @callback onChange
-     * @param {Partial<Data>} data - The partial data that has changed.
-     * @returns {void}
+     * @param data - The partial data that has changed.
+     * @returns
      */
     onChange: (data: Partial<Data>) => void;
     /**
@@ -15629,26 +15629,26 @@ declare module "react-declarative/model/ComponentFieldInstance" {
      * @memberof IManaged
      * @template Data - The type of data managed by the object.
      * @template Payload - The type of payload passed to the change event handler.
-     * @param {Data} data - The updated data after the change.
-     * @param {Payload} payload - The payload passed to the change event handler.
-     * @returns {void}
+     * @param data - The updated data after the change.
+     * @param payload - The payload passed to the change event handler.
+     * @returns
      */
     onValueChange: IManaged<Data, Payload>["onChange"];
     /**
      * Represents the field data.
      *
      * @typedef {object} FieldData
-     * @property {Data} data - The data object.
+     * @property data - The data object.
      */
     _fieldData: Data;
     /**
      * Represents a field parameter for a particular field.
      *
      * @typedef {Object} IField
-     * @property {string} name - The name of the field.
-     * @property {string} type - The data type of the field.
-     * @property {boolean} required - Indicates if the field is required.
-     * @property {number} length - The maximum length of the field value.
+     * @property name - The name of the field.
+     * @property type - The data type of the field.
+     * @property required - Indicates if the field is required.
+     * @property length - The maximum length of the field value.
      */
     _fieldParams: IField;
     /**
@@ -15891,30 +15891,30 @@ declare module "react-declarative/model/IFieldMenu" {
     /**
      * Determines the visibility of an element based on the given data and payload.
      *
-     * @param {Data} data - The data used for determining visibility.
-     * @param {Payload} payload - Additional payload used for determining visibility.
-     * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean value or a boolean value indicating the visibility of the element.
+     * @param data - The data used for determining visibility.
+     * @param payload - Additional payload used for determining visibility.
+     * @returns - A Promise resolving to a boolean value or a boolean value indicating the visibility of the element.
      */
     isVisible?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
     /**
      * Checks whether the given data and payload indicate that the feature is disabled.
      *
-     * @param {Data} data - The data used to determine if the feature is disabled.
-     * @param {Payload} payload - The payload used to determine if the feature is disabled.
-     * @returns {Promise<boolean> | boolean} - Returns a Promise resolving to a boolean indicating whether the feature is disabled. If a Promise is returned, it resolves to `true` if the
+     * @param data - The data used to determine if the feature is disabled.
+     * @param payload - The payload used to determine if the feature is disabled.
+     * @returns - Returns a Promise resolving to a boolean indicating whether the feature is disabled. If a Promise is returned, it resolves to `true` if the
      * feature is disabled, otherwise it resolves to `false`. If a boolean is returned directly, it indicates whether the feature is disabled.
      */
     isDisabled?: (data: Data, payload: Payload) => Promise<boolean> | boolean;
     /**
      * Represents a callback function that is triggered on click event.
      * @callback onClick
-     * @param {Data} data - The data object associated with the click event.
-     * @param {Payload} payload - The payload object associated with the click event.
-     * @param {function} onValueChange - A callback function that is called when the value of `data` is changed.
+     * @param data - The data object associated with the click event.
+     * @param payload - The payload object associated with the click event.
+     * @param onValueChange - A callback function that is called when the value of `data` is changed.
      *                                  It is passed the new value as a parameter.
-     * @param {function} onChange - A callback function that is called when any change occurs in `data`.
+     * @param onChange - A callback function that is called when any change occurs in `data`.
      *                             It is passed the updated `data` object as a parameter.
-     * @returns {void}
+     * @returns
      */
     onClick?: (
       data: Data,
@@ -16811,8 +16811,8 @@ declare module "react-declarative/components/List/hooks/useSortModel" {
    * Provides sorting functionality for a list component.
    *
    * @typedef {Object} SortModelProvider
-   * @property {ReactNode} children - The child components.
-   * @property {Array.<Object>} sortModel - The initial sort model.
+   * @property children - The child components.
+   * @property sortModel - The initial sort model.
    */
   export const SortModelProvider: ({
     children,
@@ -16853,9 +16853,9 @@ declare module "react-declarative/components/List/hooks/useChips" {
    * Provides chips functionality to its children components.
    *
    * @typedef {Object} IChipsProviderProps
-   * @property {ReactNode} children - The children components of the ChipsProvider.
-   * @property {Array<{ name: string, enabled?: boolean }>} chips - The array of chips with their initial enabled state.
-   * @property {Object} chipData - The object containing chip data where the key is the chip name and the value is the chip data.
+   * @property children - The children components of the ChipsProvider.
+   * @property chips - The array of chips with their initial enabled state.
+   * @property chipData - The object containing chip data where the key is the chip name and the value is the chip data.
    */
   export const ChipsProvider: ({
     children,
@@ -16870,8 +16870,8 @@ declare module "react-declarative/components/List/hooks/useSearch" {
   type IContext = string;
   /**
    * @typedef {Object} IProps
-   * @property {IContext} value - The context value to be passed to the children.
-   * @property {React.ReactNode} children - The React node to be rendered as children.
+   * @property value - The context value to be passed to the children.
+   * @property children - The React node to be rendered as children.
    */
   interface IProps {
     value: IContext;
@@ -17089,18 +17089,18 @@ declare module "react-declarative/components/List/common/ModalFilterListSlot" {
    * ModalFilterListSlot is a component that displays a filter list with a modal.
    *
    * @typedef {Object} FilterData - The type of filter data.
-   * @property {string} className - The class name for the component.
-   * @property {Object} style - The inline style for the component.
-   * @property {FilterData} filterData - The filter data object.
-   * @property {Array} filters - The array of filters for the modal.
-   * @property {Function} change - The function to handle filter change event.
-   * @property {string} label - The label for the filter list.
-   * @property {boolean} loading - The loading state of the component.
-   * @property {boolean} withSearch - Whether to show the search input or not.
-   * @property {boolean} withToggledFilters - Whether to show the filter button or not.
-   * @property {string} search - The search query for the search input.
-   * @property {Function} onSearchChange - The function to handle search change event.
-   * @property {Function} onFilterChange - The function to handle filter change event.
+   * @property className - The class name for the component.
+   * @property style - The inline style for the component.
+   * @property filterData - The filter data object.
+   * @property filters - The array of filters for the modal.
+   * @property change - The function to handle filter change event.
+   * @property label - The label for the filter list.
+   * @property loading - The loading state of the component.
+   * @property withSearch - Whether to show the search input or not.
+   * @property withToggledFilters - Whether to show the filter button or not.
+   * @property search - The search query for the search input.
+   * @property onSearchChange - The function to handle search change event.
+   * @property onFilterChange - The function to handle filter change event.
    */
   export const ModalFilterListSlot: <FilterData extends {}>({
     className,
@@ -17625,9 +17625,9 @@ declare module "react-declarative/components/ModalProvider/ModalProvider" {
    * Represents a hook that provides methods for rendering and manipulating modals.
    *
    * @typedef {function} IHook
-   * @param {IRenderer} render - The renderer to use for rendering the modals.
-   * @param {any[]} [deps] - Optional dependencies required for the hook.
-   * @returns {object} An object containing the methods for showing and hiding modals.
+   * @param render - The renderer to use for rendering the modals.
+   * @param [deps] - Optional dependencies required for the hook.
+   * @returns An object containing the methods for showing and hiding modals.
    *
    * @method showModal - Show a modal.
    * @method hideModal - Hide a modal.
@@ -17658,8 +17658,8 @@ declare module "react-declarative/components/ModalProvider/ModalProvider" {
    * useModal is a custom hook that provides functionality to show and hide a modal.
    *
    * @typedef {Object} IHook
-   * @property {Function} showModal - A function that shows the modal.
-   * @property {Function} hideModal - A function that hides the modal.
+   * @property showModal - A function that shows the modal.
+   * @property hideModal - A function that hides the modal.
    *
    * @param renderer - The renderer function to be executed when the modal is shown.
    * @param deps - The dependencies array to trigger updates when the modal is shown.
@@ -17787,17 +17787,17 @@ declare module "react-declarative/components/ModalManager/model/IModal" {
     /**
      * Function called when the component mounts.
      *
-     * @param {number} count - The count parameter for the onMount function.
-     * @param {IModal[]} stack - The stack parameter for the onMount function.
-     * @returns {Promise<void> | void} - A Promise that resolves to void or a void value.
+     * @param count - The count parameter for the onMount function.
+     * @param stack - The stack parameter for the onMount function.
+     * @returns - A Promise that resolves to void or a void value.
      */
     onMount?: (count: number, stack: IModal[]) => Promise<void> | void;
     /**
      * Callback function called when unmounting occurs.
      *
-     * @param {number} count - The count value.
-     * @param {IModal[]} stack - The stack of modals.
-     * @returns {Promise<void> | void} - A Promise that resolves when the function completes or void if no Promise is returned.
+     * @param count - The count value.
+     * @param stack - The stack of modals.
+     * @returns - A Promise that resolves when the function completes or void if no Promise is returned.
      */
     onUnmount?: (count: number, stack: IModal[]) => Promise<void> | void;
   }
@@ -17825,8 +17825,8 @@ declare module "react-declarative/components/ModalManager/hooks/useModalManager"
     /**
      * Pushes a modal onto the stack.
      *
-     * @param {IModal} modal - The modal object to be pushed.
-     * @returns {void}
+     * @param modal - The modal object to be pushed.
+     * @returns
      */
     push: (modal: IModal) => void;
     /**
@@ -18406,15 +18406,15 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Action" {
     /**
      * Determines the visibility of an element based on a provided payload.
      *
-     * @param {T} payload - The payload used to determine the visibility.
-     * @returns {Promise<boolean> | boolean} - A promise or a boolean value indicating the visibility of the element.
+     * @param payload - The payload used to determine the visibility.
+     * @returns - A promise or a boolean value indicating the visibility of the element.
      */
     isVisible?: (payload: T) => Promise<boolean> | boolean;
     /**
      * Indicates whether a certain payload is disabled.
      *
-     * @param {T} payload - The payload to check for disabled status.
-     * @returns {Promise<boolean> | boolean} - A Promise or boolean value representing the disabled status.
+     * @param payload - The payload to check for disabled status.
+     * @returns - A Promise or boolean value representing the disabled status.
      */
     isDisabled?: (payload: T) => Promise<boolean> | boolean;
   }
@@ -18448,13 +18448,13 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     /**
      * Checks if the element is visible.
      *
-     * @returns {boolean|Promise<boolean>} - True if the element is visible.
+     * @returns - True if the element is visible.
      */
     isVisible?: () => boolean | Promise<boolean>;
     /**
      * Checks if the element is disabled.
      *
-     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a promise that resolves to a boolean value.
+     * @returns - Returns a boolean value or a promise that resolves to a boolean value.
      */
     isDisabled?: () => boolean | Promise<boolean>;
     children: IScaffold2Option<T>[];
@@ -18517,15 +18517,15 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     /**
      * Determines the visibility of a given payload.
      *
-     * @param {T} payload - The payload to check visibility for.
-     * @returns {boolean | Promise<boolean>} - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
+     * @param payload - The payload to check visibility for.
+     * @returns - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
      */
     isVisible?: (payload: T) => boolean | Promise<boolean>;
     /**
      * Checks if a payload is disabled.
      *
-     * @param {T} payload - The payload to check.
-     * @returns {boolean|Promise<boolean>} - True if the payload is disabled, false otherwise.
+     * @param payload - The payload to check.
+     * @returns - True if the payload is disabled, false otherwise.
      */
     isDisabled?: (payload: T) => boolean | Promise<boolean>;
   }
@@ -18762,13 +18762,13 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
     /**
      * Callback function triggered when a form is submitted.
      *
-     * @param {string} url - The URL where the form data will be submitted.
-     * @param {object} data - The data to be submitted. It should contain a "main" property with the following structure:
+     * @param url - The URL where the form data will be submitted.
+     * @param data - The data to be submitted. It should contain a "main" property with the following structure:
      *   - blob: The blob data to be submitted, if applicable. Can be null if no blob data is present.
      *   - mime: The MIME type of the blob data.
      *   - fileName: The name of the file associated with the blob data.
      *     Note: The "main" property can also be null if no data is to be submitted.
-     * @returns {boolean|Promise<boolean>} - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
+     * @returns - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
      */
     onSubmit?: (
       url: string,
@@ -19237,25 +19237,25 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
   /**
    * @description A list of default slots for a component.
    * @type {Array}
-   * @property {string} Checkbox Slot for a checkbox component.
-   * @property {string} Combo Slot for a comboBox component.
-   * @property {string} Items Slot for an items component.
-   * @property {string} Line Slot for a line component.
-   * @property {string} Radio Slot for a radio component.
-   * @property {string} Rating Slot for a rating component.
-   * @property {string} Progress Slot for a progress component.
-   * @property {string} Typography Slot for a typography component.
-   * @property {string} Text Slot for a text component.
-   * @property {string} Date Slot for a date component.
-   * @property {string} Time Slot for a time component.
-   * @property {string} Switch Slot for a switch component.
-   * @property {string} Slider Slot for a slider component.
-   * @property {string} File Slot for a file component.
-   * @property {string} Choose Slot for a choose component.
-   * @property {string} Complete Slot for a complete component.
-   * @property {string} YesNo Slot for a yes/no component.
-   * @property {string} Dict Slot for a dictionary component.
-   * @property {string} Tree Slot for a tree component.
+   * @property Checkbox Slot for a checkbox component.
+   * @property Combo Slot for a comboBox component.
+   * @property Items Slot for an items component.
+   * @property Line Slot for a line component.
+   * @property Radio Slot for a radio component.
+   * @property Rating Slot for a rating component.
+   * @property Progress Slot for a progress component.
+   * @property Typography Slot for a typography component.
+   * @property Text Slot for a text component.
+   * @property Date Slot for a date component.
+   * @property Time Slot for a time component.
+   * @property Switch Slot for a switch component.
+   * @property Slider Slot for a slider component.
+   * @property File Slot for a file component.
+   * @property Choose Slot for a choose component.
+   * @property Complete Slot for a complete component.
+   * @property YesNo Slot for a yes/no component.
+   * @property Dict Slot for a dictionary component.
+   * @property Tree Slot for a tree component.
    */
   export const defaultSlots: {
     CheckBox: ({
@@ -20691,8 +20691,8 @@ declare module "react-declarative/components/Translate/Translate" {
     /**
      * Translates the given text to another language.
      *
-     * @param {string} text - The text to be translated.
-     * @returns {string} The translated text.
+     * @param text - The text to be translated.
+     * @returns The translated text.
      */
     translateText: (text: string) => string;
     /**
@@ -20717,10 +20717,10 @@ declare module "react-declarative/components/Translate/Translate" {
     /**
      * Creates and returns an element based on the provided type, props, and children.
      *
-     * @param {string} type - The type of the element to create.
-     * @param {IAttributeCollection | null} props - The properties or attributes to assign to the element.
-     * @param {...any[]} children - The child elements or content to append to the element.
-     * @returns {ReturnType<typeof createElementRef>} - The created element.
+     * @param type - The type of the element to create.
+     * @param props - The properties or attributes to assign to the element.
+     * @param children - The child elements or content to append to the element.
+     * @returns - The created element.
      */
     createElement: (
       type: string,
@@ -20843,7 +20843,7 @@ declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
   }
   /**
    * @typedef {Object} IErrorBoundaryState
-   * @property {boolean} hasError - Indicates if an error has occurred.
+   * @property hasError - Indicates if an error has occurred.
    */
   interface IErrorBoundaryState {
     hasError: boolean;
@@ -22318,8 +22318,8 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
     /**
      * Renders an element for the active outlet
      *
-     * @param {IOutletProps<Data, Payload, Params> & OtherProps} props - The props to pass to the element.
-     * @returns {React.ReactElement} - The rendered element.
+     * @param props - The props to pass to the element.
+     * @returns - The rendered element.
      */
     element: (
       props: IOutletProps<Data, Payload, Params> & OtherProps,
@@ -22327,15 +22327,15 @@ declare module "react-declarative/components/OutletView/model/IOutlet" {
     /**
      * Checks if a given path is available.
      *
-     * @param {string} pathname - The path to be checked.
-     * @returns {boolean} - True if the path is available, false otherwise.
+     * @param pathname - The path to be checked.
+     * @returns - True if the path is available, false otherwise.
      */
     isAvailable?: (pathname: string) => boolean;
     /**
      * Determines if the given pathname is active.
      *
-     * @param {string} pathname - The URL pathname to check.
-     * @returns {boolean} - True if the pathname is active, false otherwise.
+     * @param pathname - The URL pathname to check.
+     * @returns - True if the pathname is active, false otherwise.
      */
     isActive: (pathname: string) => boolean;
   }
@@ -22381,31 +22381,31 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
      * A callback function that is invoked when a change event occurs.
      *
      * @callback onChangeCallback
-     * @param {Data[keyof Data]} data - The updated data value.
-     * @param {boolean} [initial=false] - Indicates whether the change is triggered initially.
-     * @returns {void}
+     * @param data - The updated data value.
+     * @param [initial=false] - Indicates whether the change is triggered initially.
+     * @returns
      */
     onChange: (data: Data[keyof Data], initial?: boolean) => void;
     /**
      * Callback function for handling an invalid event.
      *
      * @callback onInvalid
-     * @param {string} name - The name of the event that triggered the invalid event.
-     * @param {string} msg - The error message associated with the invalid event.
-     * @returns {void} - This function does not return any value.
+     * @param name - The name of the event that triggered the invalid event.
+     * @param msg - The error message associated with the invalid event.
+     * @returns - This function does not return any value.
      */
     onInvalid: (name: string, msg: string) => void;
     /**
      * Begins the save process.
      *
      * @function
-     * @returns {Promise<boolean>} A promise that resolves to a boolean value indicating if the save process has started successfully.
+     * @returns A promise that resolves to a boolean value indicating if the save process has started successfully.
      */
     beginSave: () => Promise<boolean>;
     /**
      * Executes the afterSave logic.
      *
-     * @returns {Promise<void>} A Promise that resolves once the afterSave logic is completed.
+     * @returns A Promise that resolves once the afterSave logic is completed.
      */
     afterSave: () => Promise<void>;
     /**
@@ -22419,13 +22419,13 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
      *
      * @typedef {Object} FormState
      *
-     * @property {function} change - A callback function that is triggered when the form data changes. It receives a `data` parameter of type `Data`.
-     * @property {Data} data - The current data of the form.
-     * @property {boolean} hasChanged - Indicates whether the form data has changed.
-     * @property {boolean} hasLoading - Indicates whether the form is currently loading.
-     * @property {boolean} hasInvalid - Indicates whether the form data is invalid.
-     * @property {Payload} payload - The payload associated with the form.
-     * @property {string} id - The unique identifier of the form.
+     * @property change - A callback function that is triggered when the form data changes. It receives a `data` parameter of type `Data`.
+     * @property data - The current data of the form.
+     * @property hasChanged - Indicates whether the form data has changed.
+     * @property hasLoading - Indicates whether the form is currently loading.
+     * @property hasInvalid - Indicates whether the form data is invalid.
+     * @property payload - The payload associated with the form.
+     * @property id - The unique identifier of the form.
      */
     formState: {
       change: (data: Data) => void;
@@ -22481,9 +22481,9 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
      * Represents the parameters for a function.
      *
      * @typedef {Object} Params
-     * @property {number} param1 - The first parameter of type number.
-     * @property {string} param2 - The second parameter of type string.
-     * @property {boolean} param3 - The third parameter of type boolean.
+     * @property param1 - The first parameter of type number.
+     * @property param2 - The second parameter of type string.
+     * @property param3 - The third parameter of type boolean.
      */
     params: Params;
     /**
@@ -22499,8 +22499,8 @@ declare module "react-declarative/components/OutletView/model/IOutletProps" {
     /**
      * Sets the loading state to indicate whether the application is currently loading data or not.
      *
-     * @param {boolean} loading - A boolean value indicating whether the application is currently loading data.
-     * @returns {void}
+     * @param loading - A boolean value indicating whether the application is currently loading data.
+     * @returns
      */
     setLoading: (loading: boolean) => void;
   }
@@ -22683,8 +22683,8 @@ declare module "react-declarative/components/PaperView/PaperView" {
    * @param props.className - The CSS class name for the paper view.
    * @param props.outlinePaper - Specifies whether the paper view should have an outline.
    * @param props.transparentPaper - Specifies whether the paper view should be transparent.
-   * @param {React.Ref} ref - The ref to be forwarded to the underlying HTML element.
-   * @returns {React.Element} The rendered paper view component.
+   * @param ref - The ref to be forwarded to the underlying HTML element.
+   * @returns The rendered paper view component.
    */
   export const PaperView: React.ForwardRefExoticComponent<
     Pick<
@@ -23293,10 +23293,10 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
   /**
    * Represents the state of an element.
    * @typedef {Object} State
-   * @property {number} height - The height of the element.
-   * @property {number} width - The width of the element.
-   * @property {number} childHeight - The height of the child element.
-   * @property {number} childWidth - The width of the child element.
+   * @property height - The height of the element.
+   * @property width - The width of the element.
+   * @property childHeight - The height of the child element.
+   * @property childWidth - The width of the child element.
    */
   type State = {
     height: number;
@@ -23307,8 +23307,8 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
   /**
    * ResizeHandler is a function that can be used to handle resizing of an HTML element.
    *
-   * @param {HTMLElement} element - The HTML element to be resized.
-   * @param {function} onResize - The callback function to be called when resize occurs.
+   * @param element - The HTML element to be resized.
+   * @param onResize - The callback function to be called when resize occurs.
    * @return {void}
    */
   type ResizeHandler = (element: HTMLElement, onResize: () => void) => void;
@@ -23317,14 +23317,14 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
    * resize listeners to an element.
    *
    * @typedef {function(Element, ResizeCallback): void} ResizeHandler
-   * @param {Element} element - The element to which the resize listener will be added or removed.
-   * @param {ResizeCallback} callback - The callback function to be called when the element is resized.
+   * @param element - The element to which the resize listener will be added or removed.
+   * @param callback - The callback function to be called when the element is resized.
    * @callback ResizeCallback
-   * @param {Element} element - The element that has been resized.
+   * @param element - The element that has been resized.
    *
    * @typedef {object} DetectElementResize
-   * @property {ResizeHandler} addResizeListener - Adds a resize listener to the specified element.
-   * @property {ResizeHandler} removeResizeListener - Removes the resize listener from the specified element.
+   * @property addResizeListener - Adds a resize listener to the specified element.
+   * @property removeResizeListener - Removes the resize listener from the specified element.
    */
   type DetectElementResize = {
     addResizeListener: ResizeHandler;
@@ -23349,10 +23349,10 @@ declare module "react-declarative/components/AutoSizer/AutoSizer" {
      * Represents the state of a component.
      *
      * @typedef {object} State
-     * @property {number} height - The height of the component. Defaults to 0 if not provided.
-     * @property {number} width - The width of the component. Defaults to 0 if not provided.
-     * @property {number} childHeight - The height of the child component. Defaults to 0 if not provided.
-     * @property {number} childWidth - The width of the child component. Defaults to 0 if not provided.
+     * @property height - The height of the component. Defaults to 0 if not provided.
+     * @property width - The width of the component. Defaults to 0 if not provided.
+     * @property childHeight - The height of the child component. Defaults to 0 if not provided.
+     * @property childWidth - The width of the child component. Defaults to 0 if not provided.
      */
     state: {
       height: number;
@@ -23522,11 +23522,11 @@ declare module "react-declarative/components/TabsView/model/ITabsOutlet" {
    * Represents a set of additional properties.
    *
    * @typedef {Object} OtherProps
-   * @property {ISize} size - The size of the object.
-   * @property {boolean} loading - Indicates if the object is currently loading.
-   * @property {number} progress - The progress of loading the object.
-   * @property {function} setLoading - A function to set the loading state of the object.
-   * @property {function} setProgress - A function to set the progress of loading the object.
+   * @property size - The size of the object.
+   * @property loading - Indicates if the object is currently loading.
+   * @property progress - The progress of loading the object.
+   * @property setLoading - A function to set the loading state of the object.
+   * @property setProgress - A function to set the progress of loading the object.
    */
   export type OtherProps = {
     size: ISize;
@@ -24012,15 +24012,15 @@ declare module "react-declarative/components/PingView/PingView" {
    *
    * @template P The type of the payload.
    *
-   * @property {React.ReactNode} [children] - The children elements.
-   * @property {React.ComponentType<any>} [Offline] - The component to render when offline.
-   * @property {(payload?: P) => (boolean | Promise<boolean>)} ping - The function to perform the ping.
-   * @property {(e: Error) => void} [fallback] - The function to handle errors.
-   * @property {boolean} [throwError] - A flag indicating whether to throw an error if the ping fails.
-   * @property {number} [delay=5000] - The delay (in milliseconds) between each ping.
-   * @property {P} [payload] - The payload to pass to the ping function.
-   * @property {() => void} [onOnline] - The function to call when the ping is successful.
-   * @property {() => void} [onOffline] - The function to call when the ping fails.
+   * @property [children] - The children elements.
+   * @property [Offline] - The component to render when offline.
+   * @property ping - The function to perform the ping.
+   * @property [fallback] - The function to handle errors.
+   * @property [throwError] - A flag indicating whether to throw an error if the ping fails.
+   * @property [delay=5000] - The delay (in milliseconds) between each ping.
+   * @property [payload] - The payload to pass to the ping function.
+   * @property [onOnline] - The function to call when the ping is successful.
+   * @property [onOffline] - The function to call when the ping fails.
    */
   interface IPingViewProps<P extends any = object> {
     children?: React.ReactNode;
@@ -24094,7 +24094,7 @@ declare module "react-declarative/components/HtmlView/HtmlView" {
        * Represents a Sanitizer class.
        *
        * @typedef {function} Sanitizer
-       * @param {...*} params - The parameters required to construct a Sanitizer object.
+       * @param params - The parameters required to construct a Sanitizer object.
        * @constructor
        */
       Sanitizer: new (
@@ -24352,23 +24352,23 @@ declare module "react-declarative/components/WizardView/components/WizardNavigat
   /**
    * Represents a component for navigating through a wizard.
    * @typedef {Object} WizardNavigation
-   * @property {string} className - The CSS class name for the component.
-   * @property {Object} style - The inline style object for the component.
-   * @property {Object} sx - The sx prop for the component.
-   * @property {boolean} disabled - Whether the component is disabled or not.
-   * @property {boolean} fallback - The fallback prop for the component.
-   * @property {function} onLoadStart - The onLoadStart prop for the component.
-   * @property {function} onLoadEnd - The onLoadEnd prop for the component.
-   * @property {function} onPrev - The onPrev prop for the component.
-   * @property {function} onNext - The onNext prop for the component.
-   * @property {function} AfterPrev - The AfterPrev prop for the component.
-   * @property {function} BeforeNext - The BeforeNext prop for the component.
-   * @property {boolean} hasPrev - Whether the component has a previous step or not.
-   * @property {boolean} hasNext - Whether the component has a next step or not.
-   * @property {string} labelPrev - The label for the previous button.
-   * @property {string} labelNext - The label for the next button.
-   * @property {boolean} throwError - Whether an error should be thrown or not.
-   * @property {...otherProps} - The additional props for the component.
+   * @property className - The CSS class name for the component.
+   * @property style - The inline style object for the component.
+   * @property sx - The sx prop for the component.
+   * @property disabled - Whether the component is disabled or not.
+   * @property fallback - The fallback prop for the component.
+   * @property onLoadStart - The onLoadStart prop for the component.
+   * @property onLoadEnd - The onLoadEnd prop for the component.
+   * @property onPrev - The onPrev prop for the component.
+   * @property onNext - The onNext prop for the component.
+   * @property AfterPrev - The AfterPrev prop for the component.
+   * @property BeforeNext - The BeforeNext prop for the component.
+   * @property hasPrev - Whether the component has a previous step or not.
+   * @property hasNext - Whether the component has a next step or not.
+   * @property labelPrev - The label for the previous button.
+   * @property labelNext - The label for the next button.
+   * @property throwError - Whether an error should be thrown or not.
+   * @property - The additional props for the component.
    * @returns The rendered component.
    */
   export const WizardNavigation: ({
@@ -24415,9 +24415,9 @@ declare module "react-declarative/components/WizardView/components/WizardContain
    * It is created using `forwardRef` to allow obtaining a reference to the rendered DOM element for external usage.
    *
    * @component
-   * @param {React.ForwardedRef<unknown>} ref - A forwarded reference to the underlying WizardContainerInternal component.
-   * @param {IWizardContainerProps} props - The props for the WizardContainer component.
-   * @returns {React.ReactElement} The rendered WizardContainer component.
+   * @param ref - A forwarded reference to the underlying WizardContainerInternal component.
+   * @param props - The props for the WizardContainer component.
+   * @returns The rendered WizardContainer component.
    */
   export const WizardContainer: React.FC<IWizardContainerProps>;
   export default WizardContainer;
@@ -24432,11 +24432,11 @@ declare module "react-declarative/components/WizardView/model/IWizardOutlet" {
    * Represents additional properties for a component.
    *
    * @typedef {Object} OtherProps
-   * @property {ISize} size - The size of the component.
-   * @property {boolean} loading - Specifies if the component is being loaded.
-   * @property {function} setLoading - Sets the loading state of the component.
-   * @property {number} progress - The progress of the component.
-   * @property {function} setProgress - Sets the progress of the component.
+   * @property size - The size of the component.
+   * @property loading - Specifies if the component is being loaded.
+   * @property setLoading - Sets the loading state of the component.
+   * @property progress - The progress of the component.
+   * @property setProgress - Sets the progress of the component.
    *
    * @since 1.0.0
    */
@@ -24527,7 +24527,7 @@ declare module "react-declarative/components/WizardView/model/IWizardModalProps"
    * Represents the additional properties for a modal component.
    *
    * @typedef {Object} ModalOtherProps
-   * @property {function} onClose - The function to be called when the modal is closed.
+   * @property onClose - The function to be called when the modal is closed.
    */
   type ModalOtherProps = {
     onClose: () => void;
@@ -26810,9 +26810,9 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
      * @component
      * @category UI Components
      *
-     * @param {any} props - The properties of the Copyright component.
+     * @param props - The properties of the Copyright component.
      *
-     * @returns {React.ComponentType<any>} The Copyright React component.
+     * @returns The Copyright React component.
      */
     Copyright?: React.ComponentType<any>;
     /**
@@ -26820,23 +26820,23 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
      * The function takes a `name` parameter of type `string` and returns `void`.
      *
      * @typedef {function} onAction
-     * @param {string} name - The name of the action being performed.
-     * @returns {void}
+     * @param name - The name of the action being performed.
+     * @returns
      */
     onAction?: (name: string) => void;
     /**
      * Callback function that is triggered when an option is clicked.
      *
-     * @param {string} path - The path of the option.
-     * @param {string} id - The ID of the option.
-     * @returns {undefined | boolean} - Returns undefined or a boolean value based on the processing of the option click.
+     * @param path - The path of the option.
+     * @param id - The ID of the option.
+     * @returns - Returns undefined or a boolean value based on the processing of the option click.
      */
     onOptionClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Function called when an option group is clicked.
      *
-     * @param {string} path - The path of the option group.
-     * @param {string} id - The ID of the clicked option group.
+     * @param path - The path of the option group.
+     * @param id - The ID of the clicked option group.
      * @return {undefined | boolean} - Returns undefined or a boolean value.
      */
     onOptionGroupClick?: (
@@ -26846,10 +26846,10 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
     /**
      * Represents a callback for when a tab change event occurs.
      *
-     * @param {string} path - The current path of the tab.
-     * @param {string} tab - The name of the tab that was changed to.
-     * @param {string} id - The unique identifier of the tab.
-     * @returns {void}
+     * @param path - The current path of the tab.
+     * @param tab - The name of the tab that was changed to.
+     * @param id - The unique identifier of the tab.
+     * @returns
      */
     onTabChange?: (path: string, tab: string, id: string) => void;
     children: React.ReactNode;
@@ -26863,21 +26863,21 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
      * Represents a callback function that will be invoked when a load operation starts.
      *
      * @callback onLoadStart
-     * @returns {void}
+     * @returns
      */
     onLoadStart?: () => void;
     /**
      * Represents a callback function that is called when the loading process ends.
      *
      * @callback onLoadEnd
-     * @param {boolean} isOk - A boolean value indicating whether the loading process was successful.
-     * @returns {void} This callback does not return anything.
+     * @param isOk - A boolean value indicating whether the loading process was successful.
+     * @returns This callback does not return anything.
      */
     onLoadEnd?: (isOk: boolean) => void;
     /**
      * Represents a function that acts as a fallback, which is executed when an error occurs.
-     * @param {Error} e - The error that occurred.
-     * @returns {void}
+     * @param e - The error that occurred.
+     * @returns
      */
     fallback?: (e: Error) => void;
     /**
@@ -26969,24 +26969,24 @@ declare module "react-declarative/components/common/Group/Group" {
    * Group component
    *
    * @typedef {Object} Group
-   * @property {string} className - The class name of the group
-   * @property {string} columns - The columns property of the group
-   * @property {string} phoneColumns - The phone columns property of the group
-   * @property {string} tabletColumns - The tablet columns property of the group
-   * @property {string} desktopColumns - The desktop columns property of the group
-   * @property {React.ReactNode} children - The children of the group
-   * @property {boolean} isItem - Whether the group is an item
-   * @property {boolean} isBaselineAlign - Whether to align the group baseline
-   * @property {object} style - The style object of the group
-   * @property {string} columnsOverride - The columns override property of the group
-   * @property {string} sx - The sx property of the group
-   * @property {string} fieldRightMargin - The right margin of the field
-   * @property {string} fieldBottomMargin - The bottom margin of the field
-   * @property {function} onClick - The onClick event handler of the group
-   * @property {function} onFocus - The onFocus event handler of the group
-   * @property {function} onContextMenu - The onContextMenu event handler of the group
-   * @property {Object} ...otherProps - Other props passed to the group
-   * @property {React.Ref<HTMLDivElement>} ref - The ref of the group
+   * @property className - The class name of the group
+   * @property columns - The columns property of the group
+   * @property phoneColumns - The phone columns property of the group
+   * @property tabletColumns - The tablet columns property of the group
+   * @property desktopColumns - The desktop columns property of the group
+   * @property children - The children of the group
+   * @property isItem - Whether the group is an item
+   * @property isBaselineAlign - Whether to align the group baseline
+   * @property style - The style object of the group
+   * @property columnsOverride - The columns override property of the group
+   * @property sx - The sx property of the group
+   * @property fieldRightMargin - The right margin of the field
+   * @property fieldBottomMargin - The bottom margin of the field
+   * @property onClick - The onClick event handler of the group
+   * @property onFocus - The onFocus event handler of the group
+   * @property onContextMenu - The onContextMenu event handler of the group
+   * @property ...otherProps - Other props passed to the group
+   * @property ref - The ref of the group
    *
    * @param Group - The Group component function
    * @returns The rendered component
@@ -27210,9 +27210,9 @@ declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAdd
     /**
      * Determines the visibility of an element based on selected rows and payload.
      *
-     * @param {RowData[]} selectedRows - Array of selected rows.
-     * @param {Payload} payload - Input payload.
-     * @returns {Promise<boolean> | boolean} - A Promise that resolves to a boolean indicating the visibility of the element, or a boolean indicating the visibility directly.
+     * @param selectedRows - Array of selected rows.
+     * @param payload - Input payload.
+     * @returns - A Promise that resolves to a boolean indicating the visibility of the element, or a boolean indicating the visibility directly.
      */
     isVisible?: (
       selectedRows: RowData[],
@@ -27221,9 +27221,9 @@ declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAdd
     /**
      * Checks if the provided rows are disabled based on the given payload.
      *
-     * @param {RowData[]} selectedRows - The selected rows to be checked.
-     * @param {Payload} payload - The payload used to determine if the rows are disabled.
-     * @returns {Promise<boolean> | boolean} - A Promise resolving to a boolean indicating if the rows are disabled.
+     * @param selectedRows - The selected rows to be checked.
+     * @param payload - The payload used to determine if the rows are disabled.
+     * @returns - A Promise resolving to a boolean indicating if the rows are disabled.
      */
     isDisabled?: (
       selectedRows: RowData[],
@@ -27267,9 +27267,9 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
     /**
      * Determines if the element is visible based on the selected rows and payload.
      *
-     * @param {RowData[]} selectedRows - The selected rows to check against.
-     * @param {Payload} payload - The payload to evaluate.
-     * @returns {Promise<boolean> | boolean} - True if the element is visible, false otherwise.
+     * @param selectedRows - The selected rows to check against.
+     * @param payload - The payload to evaluate.
+     * @returns - True if the element is visible, false otherwise.
      */
     isVisible?: (
       selectedRows: RowData[],
@@ -27278,9 +27278,9 @@ declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFab
     /**
      * Determines whether a specific feature is disabled based on the selected rows and payload.
      *
-     * @param {RowData[]} selectedRows - The selected rows.
-     * @param {Payload} payload - The payload.
-     * @returns {Promise<boolean> | boolean} - A promise that resolves to a boolean or a boolean value.
+     * @param selectedRows - The selected rows.
+     * @param payload - The payload.
+     * @returns - A promise that resolves to a boolean or a boolean value.
      */
     isDisabled?: (
       selectedRows: RowData[],
@@ -27364,7 +27364,7 @@ declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot
      * @typedef {Array<BodyColumn<RowData>>} columns
      *
      * @template RowData The type of data stored in the rows of the column.
-     * @property {number} length - The number of columns in the array.
+     * @property length - The number of columns in the array.
      * @method {function(): Iterator<BodyColumn<RowData>, undefined, undefined>} @@iterator - Returns a new Iterator object that can be used to iterate over each column in the array.
      */
     columns: BodyColumn<RowData>[];
@@ -27438,14 +27438,14 @@ declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCe
    *
    * @template RowData - The type of row data used in the cell slot.
    *
-   * @property {CommonCellColumn<RowData>} column - The column associated with the cell slot.
-   * @property {RowData} row - The row data associated with the cell slot.
-   * @property {number} idx - The index of the cell slot.
-   * @property {number} fullWidth - The full width of the cell slot.
-   * @property {boolean} disabled - Indicates if the cell slot is disabled.
-   * @property {DisplayMode} mode - The display mode of the cell slot.
-   * @property {IActionMenuProps['onToggle']} onMenuToggle - The function to call when the menu toggle is triggered.
-   * @property {IActionMenuProps['onAction']} onAction - The function to call when an action is triggered in the menu.
+   * @property column - The column associated with the cell slot.
+   * @property row - The row data associated with the cell slot.
+   * @property idx - The index of the cell slot.
+   * @property fullWidth - The full width of the cell slot.
+   * @property disabled - Indicates if the cell slot is disabled.
+   * @property mode - The display mode of the cell slot.
+   * @property onMenuToggle - The function to call when the menu toggle is triggered.
+   * @property onAction - The function to call when an action is triggered in the menu.
    */
   export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
     column: CommonCellColumn<RowData>;
@@ -27458,15 +27458,15 @@ declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCe
      * Callback function for the toggle action of a menu.
      *
      * @callback onMenuToggle
-     * @param {boolean} isOpen - Specifies whether the menu is open or closed.
-     * @returns {void}
+     * @param isOpen - Specifies whether the menu is open or closed.
+     * @returns
      */
     onMenuToggle: IActionMenuProps["onToggle"];
     /**
      * The callback function for an action triggered in the action menu.
      *
-     * @param {string} action - The action triggered in the action menu.
-     * @returns {void}
+     * @param action - The action triggered in the action menu.
+     * @returns
      */
     onAction: IActionMenuProps["onAction"];
   }
@@ -27547,8 +27547,8 @@ declare module "react-declarative/components/List/slots/ActionListSlot/IActionLi
      * Represents a list of actions.
      *
      * @typedef {Array<IListAction>} actions
-     * @property {IListAction} 0 - The first action in the list.
-     * @property {IListAction} 1 - The second action in the list.
+     * @property 0 - The first action in the list.
+     * @property 1 - The second action in the list.
      * ...
      */
     actions: IListAction[];
@@ -27626,22 +27626,22 @@ declare module "react-declarative/components/List/slots/FilterListSlot/IFilterLi
      * Represents a callback function for the onSearchChange event.
      *
      * @callback onSearchChangeCallback
-     * @param {string} search - The search keyword entered by the user.
-     * @returns {void}
+     * @param search - The search keyword entered by the user.
+     * @returns
      */
     onSearchChange?: (search: string) => void;
     /**
      * Function signature for the onFilterChange event callback.
      *
-     * @param {FilterData} data - The data object representing the filter changes.
-     * @returns {void}
+     * @param data - The data object representing the filter changes.
+     * @returns
      */
     onFilterChange?: (data: FilterData) => void;
     /**
      * Callback function called when the collapsed state changes.
      *
-     * @param {boolean} collapsed - The new collapsed state.
-     * @returns {void}
+     * @param collapsed - The new collapsed state.
+     * @returns
      */
     onCollapsedChange?: (collapsed: boolean) => void;
     /**
@@ -27689,8 +27689,8 @@ declare module "react-declarative/components/List/slots/OperationListSlot/IOpera
      * Represents a list of operations to perform on an IList.
      *
      * @typedef {Object} IListOperation
-     * @property {string} name - The name of the operation.
-     * @property {any[]} parameters - The parameters required for the operation.
+     * @property name - The name of the operation.
+     * @property parameters - The parameters required for the operation.
      */
     operations: IListOperation[];
     width: number;
@@ -27725,8 +27725,8 @@ declare module "react-declarative/components/List/slots/SearchSlot/ISearchSlot" 
      * Represents a callback function for handling search input changes.
      *
      * @callback onSearchChangeCallback
-     * @param {string} search - The search query entered by the user.
-     * @returns {void}
+     * @param search - The search query entered by the user.
+     * @returns
      */
     onSearchChange?: (search: string) => void;
     clean: () => void;
@@ -28356,10 +28356,10 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     /**
      * Handles the onSubmit event.
      *
-     * @param {Id} id - The identifier.
-     * @param {Data|null} data - The data or null.
-     * @param {Payload} payload - The payload.
-     * @returns {Promise<boolean>|boolean} A promise resolving to a boolean or a boolean value.
+     * @param id - The identifier.
+     * @param data - The data or null.
+     * @param payload - The payload.
+     * @returns A promise resolving to a boolean or a boolean value.
      */
     onSubmit?: (
       id: Id,
@@ -28370,10 +28370,10 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
      * Represents the AfterTitle component.
      *
      * @component
-     * @param {Object} props - The component props.
-     * @param {Function} props.onClose - The function to be called when closing the component.
-     * @param {Data | null} props.data - The data to be displayed in the component.
-     * @param {string} props.id - The unique identifier for the component.
+     * @param props - The component props.
+     * @param props.onClose - The function to be called when closing the component.
+     * @param props.data - The data to be displayed in the component.
+     * @param props.id - The unique identifier for the component.
      * @return {ReactElement|null} - The rendered AfterTitle component or null if data is null.
      */
     AfterTitle?: React.ComponentType<{
@@ -28384,12 +28384,12 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     /**
      * BeforeTitle is a React component that renders a title with a close button.
      *
-     * @param {Object} props - The props object that contains the following properties:
-     *   @param {function} props.onClose - The callback function to be called when the close button is clicked.
-     *   @param {Data|null} props.data - The data to be displayed in the component. Can be null if there is no data.
-     *   @param {string} props.id - The unique identifier for the component.
+     * @param props - The props object that contains the following properties:
+     *   @param props.onClose - The callback function to be called when the close button is clicked.
+     *   @param props.data - The data to be displayed in the component. Can be null if there is no data.
+     *   @param props.id - The unique identifier for the component.
      *
-     * @returns {React.ComponentType} The BeforeTitle component.
+     * @returns The BeforeTitle component.
      */
     BeforeTitle?: React.ComponentType<{
       onClose: () => void;
@@ -28414,10 +28414,10 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     /**
      * Maps the payload with the given ID and data.
      *
-     * @param {Id} id - The ID of the payload.
-     * @param {Record<string, any>[]} data - The data to be mapped.
+     * @param id - The ID of the payload.
+     * @param data - The data to be mapped.
      *
-     * @returns {Payload | Promise<Payload>} - The mapped payload.
+     * @returns - The mapped payload.
      */
     mapPayload?: (
       id: Id,
@@ -28426,9 +28426,9 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     /**
      * Maps the given data into parameters based on the provided id.
      *
-     * @param {Id} id - The identifier to map the data.
-     * @param {Record<string, any>[]} data - The data to be mapped.
-     * @returns {Params | Promise<Params>} The mapped parameters.
+     * @param id - The identifier to map the data.
+     * @param data - The data to be mapped.
+     * @returns The mapped parameters.
      */
     mapParams?: (
       id: Id,
@@ -28437,9 +28437,9 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     /**
      * Represents a function to initialize data based on given ID and data.
      *
-     * @param {Id} id - The ID for initialization.
-     * @param {Record<string, any>[]} data - An array of data records.
-     * @returns {Data|Promise<Data>} - The initialized data or a promise of the initialized data.
+     * @param id - The ID for initialization.
+     * @param data - An array of data records.
+     * @returns - The initialized data or a promise of the initialized data.
      */
     mapInitialData?: (
       id: Id,
@@ -28457,34 +28457,34 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
    * @template Params - The type of the parameters to pass to the map functions.
    *
    * @typedef {Object} OutletModal
-   * @property {boolean} withActionButton - Determines whether to display an action button in the modal. Default is `false`.
-   * @property {boolean} hidden - Determines whether the modal is hidden. Default is `false`.
-   * @property {function} onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
-   * @property {function} onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
-   * @property {function} mapParams - Function to transform the outlet ID into request parameters. Default is `(id) => ({ id })`.
-   * @property {function} mapInitialData - Function to map the outlet ID and additional arguments to initial data. Default is `(id) => ({ id })`.
-   * @property {function} mapPayload - Function to map the outlet ID and additional arguments to payload data. Default is `(id) => ({ id })`.
-   * @property {boolean} fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
-   * @property {Object} sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
-   * @property {function} onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
-   * @property {function} onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
-   * @property {Object} fallback - Fallback component to be rendered if an error occurs.
-   * @property {Object} reloadSubject - Observable subject for triggering a reload of the modal.
-   * @property {Object} outletIdSubject - Observable subject for providing the outlet ID.
-   * @property {function} fetchState - Function to return the current fetch state. Default is `() => ({})`.
-   * @property {Object} AfterTitle - Component to be rendered after the title.
-   * @property {Object} BeforeTitle - Component to be rendered before the title.
-   * @property {string} title - The title of the modal.
-   * @property {Data} data - The initial data to be displayed in the modal. Default is `null`.
-   * @property {boolean} withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
-   * @property {boolean} throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
-   * @property {string} submitLabel - The label of the action button. Default is "Submit".
-   * @property {number} waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
-   * @property {boolean} readonly - Determines whether the modal is in read-only mode. Default is `false`.
-   * @property {function} onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
-   * @property {function} onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
-   * @property {function} onClose - Callback function that is called when the modal is closed. Default is `() => null`.
-   * @property {Object} outletProps - Additional props to pass to the `OutletView` component.
+   * @property withActionButton - Determines whether to display an action button in the modal. Default is `false`.
+   * @property hidden - Determines whether the modal is hidden. Default is `false`.
+   * @property onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.
+   * @property onChange - Callback function that is called when the form data changes. Default is `() => undefined`.
+   * @property)`.
+   * @property)`.
+   * @property)`.
+   * @property fullScreen - Determines whether the modal should be fullscreen. Default is `true`.
+   * @property sizeRequest - Size request object that defines the height, width, and sx properties of the modal.
+   * @property onLoadStart - Callback function that is called when loading starts. Default is `undefined`.
+   * @property onLoadEnd - Callback function that is called when loading ends. Default is `undefined`.
+   * @property fallback - Fallback component to be rendered if an error occurs.
+   * @property reloadSubject - Observable subject for triggering a reload of the modal.
+   * @property outletIdSubject - Observable subject for providing the outlet ID.
+   * @property)`.
+   * @property AfterTitle - Component to be rendered after the title.
+   * @property BeforeTitle - Component to be rendered before the title.
+   * @property title - The title of the modal.
+   * @property data - The initial data to be displayed in the modal. Default is `null`.
+   * @property withStaticAction - Determines whether the action button should always be enabled. Default is `false`.
+   * @property throwError - Determines whether to throw an error if an exception occurs. Default is `false`.
+   * @property submitLabel - The label of the action button. Default is "Submit".
+   * @property waitForChangesDelay - The delay in milliseconds to wait for changes before submitting the form. Default is `0`.
+   * @property readonly - Determines whether the modal is in read-only mode. Default is `false`.
+   * @property onMount - Callback function that is called when the modal is mounted. Default is `undefined`.
+   * @property onUnmount - Callback function that is called when the modal is unmounted. Default is `undefined`.
+   * @property onClose - Callback function that is called when the modal is closed. Default is `() => null`.
+   * @property outletProps - Additional props to pass to the `OutletView` component.
    *
    * @param props - The props for the OutletModal component.
    * @returns - The rendered outlet modal component.
@@ -28553,15 +28553,15 @@ declare module "react-declarative/components/FadeView/components/FadeContainer" 
    * Represents a container component that fades out its content on certain scroll and resize events.
    *
    * @typedef {Object} FadeContainer
-   * @property {string} className - The CSS class names to apply to the root element.
-   * @property {Object} style - The inline CSS styles to apply to the root element.
-   * @property {string} color - The color of the fade effect.
-   * @property {ReactNode} children - The content to be rendered inside the container.
-   * @property {boolean} disableBottom - Whether or not to disable the bottom fade effect. Default is false.
-   * @property {boolean} disableRight - Whether or not to disable the right fade effect. Default is false.
-   * @property {number} zIndex - The z-index of the fade effect. Default is 9.
-   * @property {ReactComponent} Fade - The fade effect component to use. Default is DefaultFade.
-   * @property {string} selector - The CSS selector to find the scroll view element. Default is `.${SCROLL_VIEW_TARGER}`.
+   * @property className - The CSS class names to apply to the root element.
+   * @property style - The inline CSS styles to apply to the root element.
+   * @property color - The color of the fade effect.
+   * @property children - The content to be rendered inside the container.
+   * @property disableBottom - Whether or not to disable the bottom fade effect. Default is false.
+   * @property disableRight - Whether or not to disable the right fade effect. Default is false.
+   * @property zIndex - The z-index of the fade effect. Default is 9.
+   * @property Fade - The fade effect component to use. Default is DefaultFade.
+   * @property`.
    *
    * @returns - The rendered FadeContainer component.
    */
@@ -28885,17 +28885,17 @@ declare module "react-declarative/components/GridView/components/Card" {
    * Represents the properties for the `Card` component.
    *
    * @template P - The type for the payload data.
-   * @property {React.ReactNode} [label] - The label for the card.
-   * @property {boolean} [outlinePaper] - Whether to show the card with an outline paper.
-   * @property {boolean} [transparentPaper] - Whether to show the card with a transparent paper.
-   * @property {SxProps<any>} [sx] - The styling props for the card.
-   * @property {React.ReactNode} [children] - The content of the card.
-   * @property {string} [className] - The CSS class name for the card.
-   * @property {P} [payload] - The payload data.
-   * @property {boolean} loading - Whether the card is in a loading state.
-   * @property {React.CSSProperties} [style] - The inline style for the card.
-   * @property {React.ComponentType<{ payload: P; loading: boolean }>} [BeforeLabel] - The component to render before the label.
-   * @property {React.ComponentType<{ payload: P; loading: boolean }>} [AfterLabel] - The component to render after the label.
+   * @property [label] - The label for the card.
+   * @property [outlinePaper] - Whether to show the card with an outline paper.
+   * @property [transparentPaper] - Whether to show the card with a transparent paper.
+   * @property [sx] - The styling props for the card.
+   * @property [children] - The content of the card.
+   * @property [className] - The CSS class name for the card.
+   * @property [payload] - The payload data.
+   * @property loading - Whether the card is in a loading state.
+   * @property [style] - The inline style for the card.
+   * @property [BeforeLabel] - The component to render before the label.
+   * @property [AfterLabel] - The component to render after the label.
    */
   export interface ICardProps<P = IAnything> {
     label?: React.ReactNode;
@@ -28920,17 +28920,17 @@ declare module "react-declarative/components/GridView/components/Card" {
    * Represents a Card component.
    *
    * @typedef {Object} Card
-   * @property {?React.ReactNode} children - The content of the card.
-   * @property {boolean} outlinePaper - Whether to show an outline paper.
-   * @property {boolean} transparentPaper - Whether to show a transparent paper.
-   * @property {string} className - Additional CSS class names for the card.
-   * @property {Object} style - Additional inline styles for the card.
-   * @property {Object} sx - Custom styles for Scalable Box component.
-   * @property {string} label - The label for the card.
-   * @property {any} payload - Payload data associated with the card.
-   * @property {boolean} loading - Whether the card is in a loading state.
-   * @property {?React.ComponentType} BeforeLabel - The component to render before the label.
-   * @property {?React.ComponentType} AfterLabel - The component to render after the label.
+   * @property children - The content of the card.
+   * @property outlinePaper - Whether to show an outline paper.
+   * @property transparentPaper - Whether to show a transparent paper.
+   * @property className - Additional CSS class names for the card.
+   * @property style - Additional inline styles for the card.
+   * @property sx - Custom styles for Scalable Box component.
+   * @property label - The label for the card.
+   * @property payload - Payload data associated with the card.
+   * @property loading - Whether the card is in a loading state.
+   * @property BeforeLabel - The component to render before the label.
+   * @property AfterLabel - The component to render after the label.
    *
    * @param props - The properties passed to the Card component.
    * @returns - The rendered Card component.
@@ -29609,12 +29609,12 @@ declare module "react-declarative/components/FadeView/components/DefaultFade" {
   /**
    * Represents a component that applies a fade effect to its background.
    * @typedef {Object} IDefaultFadeProps
-   * @property {string} className - The additional CSS class to be applied to the root element.
-   * @property {boolean} visible - Determines if the component is visible.
-   * @property {string} color - The color of the fade effect. If not provided, the default background color of the theme will be used.
-   * @property {boolean} none - Determines if the fade effect should not be applied.
-   * @property {string} position - The position of the fade effect. Can be either 'bottom' or 'right'.
-   * @property {number} zIndex - The z-index of the root element.
+   * @property className - The additional CSS class to be applied to the root element.
+   * @property visible - Determines if the component is visible.
+   * @property color - The color of the fade effect. If not provided, the default background color of the theme will be used.
+   * @property none - Determines if the fade effect should not be applied.
+   * @property position - The position of the fade effect. Can be either 'bottom' or 'right'.
+   * @property zIndex - The z-index of the root element.
    */
   export const DefaultFade: ({
     className,

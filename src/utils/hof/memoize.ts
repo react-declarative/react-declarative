@@ -103,7 +103,7 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
      *
      * @function clear
      * @memberof executeFn
-     * @returns {void}
+     * @returns
      */
     executeFn.clear = clear;
 

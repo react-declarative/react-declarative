@@ -154,7 +154,7 @@ export type IFetchViewProps<P extends any = object, A = any, B = any, C = any, D
  * @description
  * The useStyles variable is used to define styles using the makeStyles hook from the Material-UI library.
  *
- * @returns {Object} styles - The object containing the defined styles.
+ * @returns styles - The object containing the defined styles.
  *
  * @example
  * // Usage example

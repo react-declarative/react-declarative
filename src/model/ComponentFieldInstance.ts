@@ -11,8 +11,8 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
    * A callback function type that is called when a change event occurs.
    *
    * @callback onChange
-   * @param {Partial<Data>} data - The partial data that has changed.
-   * @returns {void}
+   * @param data - The partial data that has changed.
+   * @returns
    */
   onChange: (data: Partial<Data>) => void;
   /**
@@ -22,26 +22,26 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
    * @memberof IManaged
    * @template Data - The type of data managed by the object.
    * @template Payload - The type of payload passed to the change event handler.
-   * @param {Data} data - The updated data after the change.
-   * @param {Payload} payload - The payload passed to the change event handler.
-   * @returns {void}
+   * @param data - The updated data after the change.
+   * @param payload - The payload passed to the change event handler.
+   * @returns
    */
   onValueChange: IManaged<Data, Payload>['onChange'];
   /**
    * Represents the field data.
    *
    * @typedef {object} FieldData
-   * @property {Data} data - The data object.
+   * @property data - The data object.
    */
   _fieldData: Data;
   /**
    * Represents a field parameter for a particular field.
    *
    * @typedef {Object} IField
-   * @property {string} name - The name of the field.
-   * @property {string} type - The data type of the field.
-   * @property {boolean} required - Indicates if the field is required.
-   * @property {number} length - The maximum length of the field value.
+   * @property name - The name of the field.
+   * @property type - The data type of the field.
+   * @property required - Indicates if the field is required.
+   * @property length - The maximum length of the field value.
    */
   _fieldParams: IField;
   /**

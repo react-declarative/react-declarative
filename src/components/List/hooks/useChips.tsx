@@ -36,9 +36,9 @@ interface IState {
  * Provides chips functionality to its children components.
  *
  * @typedef {Object} IChipsProviderProps
- * @property {ReactNode} children - The children components of the ChipsProvider.
- * @property {Array<{ name: string, enabled?: boolean }>} chips - The array of chips with their initial enabled state.
- * @property {Object} chipData - The object containing chip data where the key is the chip name and the value is the chip data.
+ * @property children - The children components of the ChipsProvider.
+ * @property chips - The array of chips with their initial enabled state.
+ * @property chipData - The object containing chip data where the key is the chip name and the value is the chip data.
  */
 export const ChipsProvider = ({
     children,
@@ -68,8 +68,8 @@ export const ChipsProvider = ({
      * Represents a set of chips and its associated change handler.
      *
      * @typedef {Object} ChipsWithChangeHandler
-     * @property {Array} chips - The array of chips.
-     * @property {Function} setChips - The function to handle changes to the chips.
+     * @property chips - The array of chips.
+     * @property setChips - The function to handle changes to the chips.
      */
     const value = {
         chips,

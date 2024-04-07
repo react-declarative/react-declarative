@@ -12,16 +12,16 @@ export interface IBreadcrumbsOption<T extends any = any> extends Omit<IOption, k
     /**
      * Determines whether the given payload is visible.
      *
-     * @param {T} payload - The payload to be checked for visibility.
-     * @returns {Promise<boolean> | boolean} - A promise that resolves to a boolean or a direct boolean value indicating the visibility of the payload.
+     * @param payload - The payload to be checked for visibility.
+     * @returns - A promise that resolves to a boolean or a direct boolean value indicating the visibility of the payload.
      */
     isVisible?: (payload: T) => (Promise<boolean> | boolean);
     /**
      * Checks if the payload is disabled.
      *
-     * @param {T} payload - The payload to check.
+     * @param payload - The payload to check.
      *
-     * @returns {Promise<boolean> | boolean} - A promise or a boolean indicating if the payload is disabled.
+     * @returns - A promise or a boolean indicating if the payload is disabled.
      */
     isDisabled?: (payload: T) => (Promise<boolean> | boolean);
 };

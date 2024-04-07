@@ -86,35 +86,35 @@ export class Entry<
    * Default props for the `defaultProps` variable.
    *
    * @type {Partial<IListProps>}
-   * @property {Function} handler - The default handler function that returns an empty array.
-   * @property {Object} payload - The default payload object.
-   * @property {Function} fallback - The default fallback function that logs an error to the console.
-   * @property {number} limit - The default limit value.
-   * @property {number} page - The default page value.
-   * @property {boolean} isChooser - The default isChooser value.
-   * @property {boolean} isInfinite - The default isInfinite value.
-   * @property {boolean} isCustom - The default isCustom value.
-   * @property {Array} filters - The default filters array.
-   * @property {Array} columns - The default columns array.
-   * @property {Array} actions - The default actions array.
-   * @property {Function} onRows - The default onRows function that returns null.
-   * @property {Function} onSortModelChange - The default onSortModelChange function that returns null.
-   * @property {Function} onFilterChange - The default onFilterChange function that returns null.
-   * @property {Function} onChipsChange - The default onChipsChange function that returns null.
-   * @property {Function} onSearchChange - The default onSearchChange function that returns null.
-   * @property {Function} onPageChange - The default onPageChange function that returns null.
-   * @property {Function} onLimitChange - The default onLimitChange function that returns null.
-   * @property {Function} labelDisplayedRows - The default labelDisplayedRows function.
-   * @property {Function} selectionLabel - The default selectionLabel function.
-   * @property {Object} filterData - The default filterData object.
-   * @property {boolean} withToggledFilters - The default withToggledFilters value.
-   * @property {boolean} withCustomFilters - The default withCustomFilters value.
-   * @property {number} fetchDebounce - The default fetchDebounce value.
-   * @property {Array} sortModel - The default sortModel array.
-   * @property {Array} chips - The default chips array.
-   * @property {Object} chipData - The default chipData object.
-   * @property {string} search - The default search value.
-   * @property {Object} slots - The default slots object.
+   * @property handler - The default handler function that returns an empty array.
+   * @property payload - The default payload object.
+   * @property fallback - The default fallback function that logs an error to the console.
+   * @property limit - The default limit value.
+   * @property page - The default page value.
+   * @property isChooser - The default isChooser value.
+   * @property isInfinite - The default isInfinite value.
+   * @property isCustom - The default isCustom value.
+   * @property filters - The default filters array.
+   * @property columns - The default columns array.
+   * @property actions - The default actions array.
+   * @property onRows - The default onRows function that returns null.
+   * @property onSortModelChange - The default onSortModelChange function that returns null.
+   * @property onFilterChange - The default onFilterChange function that returns null.
+   * @property onChipsChange - The default onChipsChange function that returns null.
+   * @property onSearchChange - The default onSearchChange function that returns null.
+   * @property onPageChange - The default onPageChange function that returns null.
+   * @property onLimitChange - The default onLimitChange function that returns null.
+   * @property labelDisplayedRows - The default labelDisplayedRows function.
+   * @property selectionLabel - The default selectionLabel function.
+   * @property filterData - The default filterData object.
+   * @property withToggledFilters - The default withToggledFilters value.
+   * @property withCustomFilters - The default withCustomFilters value.
+   * @property fetchDebounce - The default fetchDebounce value.
+   * @property sortModel - The default sortModel array.
+   * @property chips - The default chips array.
+   * @property chipData - The default chipData object.
+   * @property search - The default search value.
+   * @property slots - The default slots object.
    */
   static defaultProps: Partial<IListProps> = {
     handler: () => [],
@@ -348,7 +348,7 @@ export class Entry<
   /**
    * Creates a handle for the fetch queue.
    *
-   * @returns {Object} The handle object for the fetch queue.
+   * @returns The handle object for the fetch queue.
    */
   private handleFetchQueue = this.createHandleFetchQueue();
 

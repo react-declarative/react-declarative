@@ -40,8 +40,8 @@ export const MenuProvider = ({ children }: IMenuProviderProps) => {
    * Represents a context object with utility functions.
    *
    * @typedef {Object} IContext
-   * @property {function} createContextMenu - Function to create a context menu.
-   * @property {TSubject} requestSubject - The request subject.
+   * @property createContextMenu - Function to create a context menu.
+   * @property requestSubject - The request subject.
    */
   const value = useMemo(
     (): IContext => ({

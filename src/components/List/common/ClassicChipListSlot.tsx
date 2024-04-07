@@ -16,14 +16,14 @@ import { IChipListSlot } from "../slots/ChipListSlot";
 
 /**
  * @typedef {Object} Styles
- * @property {Object} root - The CSS properties for the root element.
- * @property {number} root.height - The height of the root element in pixels.
- * @property {string} root.width - The width of the root element as a CSS value.
- * @property {string} root.background - The background color of the root element.
+ * @property root - The CSS properties for the root element.
+ * @property root.height - The height of the root element in pixels.
+ * @property root.width - The width of the root element as a CSS value.
+ * @property root.background - The background color of the root element.
  *
  * @typedef {Function} useStyles
- * @param {Object} theme - The theme object provided by the Material-UI library.
- * @returns {Styles} The computed styles object.
+ * @param theme - The theme object provided by the Material-UI library.
+ * @returns The computed styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -94,8 +94,8 @@ export const ClassicChipListSlot = ({
   /**
    * Returns an array of enabled chips based on the provided list of chips.
    *
-   * @param {Array} listChips - The list of chips to filter and map.
-   * @returns {Array} The array of enabled chips.
+   * @param listChips - The list of chips to filter and map.
+   * @returns The array of enabled chips.
    */
   const enabledChips = listChips
     .filter(({ name }) => chips.get(name.toString()))
@@ -104,8 +104,8 @@ export const ClassicChipListSlot = ({
   /**
    * Filters and maps the given list of chips based on the presence of their names in the chips object.
    *
-   * @param {Array} listChips - The list of chips to filter and map.
-   * @returns {Array} - The filtered and mapped chips.
+   * @param listChips - The list of chips to filter and map.
+   * @returns - The filtered and mapped chips.
    */
   const disabledChips = listChips
     .filter(({ name }) => !chips.get(name.toString()))

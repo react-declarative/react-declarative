@@ -50,8 +50,8 @@ export const FeatureView = ({
    *
    * @function
    * @name useMemo
-   * @param {Array} data - The data to be used for calculating the value.
-   * @returns {Object} - The calculated value.
+   * @param data - The data to be used for calculating the value.
+   * @returns - The calculated value.
    * @typedef {Object} State - The state object.
    */
   const value = useMemo(
@@ -73,17 +73,17 @@ export const FeatureView = ({
   /**
    * Callback handler to wrap a value and its dependencies using `useCallback`
    *
-   * @param {Function} func - The function to memoize
-   * @param {Array} dependencies - The dependencies to watch for changes
-   * @returns {Function} - The memoized callback handler function
+   * @param func - The function to memoize
+   * @param dependencies - The dependencies to watch for changes
+   * @returns - The memoized callback handler function
    */
   const handler = useCallback(() => value, [data]);
 
   /**
    * A callback function that handles the change of data.
    *
-   * @param {Data} data - The data object to handle.
-   * @param {boolean} initial - Indicates whether the change is initial.
+   * @param data - The data object to handle.
+   * @param initial - Indicates whether the change is initial.
    */
   const handleChange = useCallback((data: Data, initial: boolean) => {
     if (data && !initial) {

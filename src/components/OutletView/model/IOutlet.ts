@@ -23,22 +23,22 @@ export interface IOutlet<Data = IAnything, Payload = IAnything, Params = IAnythi
     /**
      * Renders an element for the active outlet
      *
-     * @param {IOutletProps<Data, Payload, Params> & OtherProps} props - The props to pass to the element.
-     * @returns {React.ReactElement} - The rendered element.
+     * @param props - The props to pass to the element.
+     * @returns - The rendered element.
      */
     element: (props: IOutletProps<Data, Payload, Params> & OtherProps) => React.ReactElement;
     /**
      * Checks if a given path is available.
      *
-     * @param {string} pathname - The path to be checked.
-     * @returns {boolean} - True if the path is available, false otherwise.
+     * @param pathname - The path to be checked.
+     * @returns - True if the path is available, false otherwise.
      */
     isAvailable?: (pathname: string) => boolean;
     /**
      * Determines if the given pathname is active.
      *
-     * @param {string} pathname - The URL pathname to check.
-     * @returns {boolean} - True if the pathname is active, false otherwise.
+     * @param pathname - The URL pathname to check.
+     * @returns - True if the pathname is active, false otherwise.
      */
     isActive: (pathname: string) => boolean;
 }

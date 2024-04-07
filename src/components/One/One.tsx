@@ -91,6 +91,20 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     const readTransform = useActualCallback(props.readTransform || DEFAULT_READTRANSFORM);
     const writeTransform = useActualCallback(props.writeTransform || DEFAULT_WRITETRANSFORM);
 
+    /**
+     * The `memoizedProps` object stores memoized transformations for reading and writing values.
+     * This object is used to optimize performance by caching the results of calculations instead of recomputing them.
+     *
+     * @typedef {Object} memoizedProps
+     * @property readTransform - A memoized callback function that transforms a value for reading purposes.
+     *   It takes four parameters: value, name, data, and payload.
+     *   The function checks if the `value` parameter is truthy, and if so, calls the `readTransform` function with the provided parameters.
+     *   If the `value` parameter is falsy, the function returns it without calling `readTransform`.
+     * @property writeTransform - A memoized callback function that transforms a value for writing purposes.
+     *   It takes four parameters: value, name, data, and payload.
+     *   The function checks if the `value` parameter is truthy, and if so, calls the `writeTransform` function with the provided parameters.
+     *   If the `value` parameter is falsy, the function returns it without calling `writeTransform`.
+     */
     const memoizedProps = {
         readTransform: useCallback((value: Value, name: string, data: Data, payload: Payload) => {
             if (value) {
@@ -106,6 +120,20 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         }, []),
     };
 
+    /**
+     * An object representing a set of wrapped properties.
+     *
+     * @typedef {Object} WrappedProps
+     * @property focus - A function to handle the focus event.
+     * @property blur - A function to handle the blur event.
+     * @property menu - A function to handle the menu event.
+     * @property click - A function to handle the click event.
+     * @property ready - A function to handle the ready event.
+     * @property change - A function to handle the change event.
+     * @property invalidity - A function to handle the invalidity event.
+     * @property loadStart - A function to handle the loadStart event.
+     * @property loadEnd - A function to handle the loadEnd event.
+     */
     const wrappedProps = {
         focus,
         blur,
@@ -118,6 +146,25 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         loadEnd,
     };
 
+    /**
+     * @name features
+     * @type {Array<string>}
+     * @description
+     * The `features` variable is a memoized version of the `upperFeatures` variable.
+     * It stores an array of strings, representing the features that have been processed or filtered.
+     *
+     * The `useMemo` function is used to memoize the value of `upperFeatures` and update it only when necessary.
+     *
+     * If `upperFeatures` is a function, it is called and the result is assigned to `result`.
+     * If `upperFeatures` is not a function, its value is directly assigned to `result`.
+     *
+     * If `result` is not an array, it is assumed to be an object. The object is converted to an array of strings
+     * by mapping each key-value pair and keeping only the keys where the value is truthy. Null values are
+     * filtered out using the `filter` method.
+     *
+     * The resulting `result` is finally returned as the value for the memoized `features` variable.
+     *
+     */
     const features = useMemo(() => {
         let result = upperFeatures;
         if (typeof upperFeatures === 'function') {
@@ -131,6 +178,18 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         return result;
     }, []);
 
+    /**
+     * The `genesisProps` variable is an object that consists of various properties used in a particular context.
+     *
+     * @type {unknown}
+     * @typedef {Object} IOneProps
+     * @property otherProps - An array of other properties.
+     * @property wrappedProps - An array of wrapped properties.
+     * @property memoizedProps - An array of memoized properties.
+     * @property createField - A function used to create fields.
+     * @property createLayout - A function used to create layouts.
+     * @property features - An array of features.
+     */
     const genesisProps = {
         ...otherProps,
         ...wrappedProps,

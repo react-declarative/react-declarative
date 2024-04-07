@@ -33,13 +33,13 @@ const createPlaceholder = (text: string, sx?: SxProps) => () => (
 /**
  * Creates a placeholder for displaying an error message.
  *
- * @param {string} errorMessage - The error message to be displayed in the placeholder.
- * @param {object} options - The options for customizing the placeholder.
- * @param {string} options.color - The color of the placeholder text.
- * @param {number} options.fontWeight - The font weight of the placeholder text.
- * @param {number} options.fontSize - The font size of the placeholder text.
+ * @param errorMessage - The error message to be displayed in the placeholder.
+ * @param options - The options for customizing the placeholder.
+ * @param options.color - The color of the placeholder text.
+ * @param options.fontWeight - The font weight of the placeholder text.
+ * @param options.fontSize - The font size of the placeholder text.
  *
- * @returns {ErrorPlaceholder} The created error placeholder.
+ * @returns The created error placeholder.
  */
 export const ErrorPlaceholder = createPlaceholder('An error acquired', {
     color: red[500],

@@ -1,7 +1,7 @@
 /**
- * @param {string} salt
- * @param {string} text
- * @returns {string}
+ * @param salt
+ * @param text
+ * @returns
  */
 export const crypt = (salt, text) => {
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
@@ -18,9 +18,9 @@ export const crypt = (salt, text) => {
 };
 
 /**
- * @param {string} salt
- * @param {string} encoded
- * @returns {string}
+ * @param salt
+ * @param encoded
+ * @returns
  */
 export const decrypt = (salt, encoded) => {
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));

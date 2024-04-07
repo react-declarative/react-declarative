@@ -67,12 +67,12 @@ export const TileItem = forwardRef(
     /**
      * Toggle the selection of a specific row.
      *
-     * @param {function} callback - The callback function to be executed when the selection is toggled.
-     * @param {object} data - The data object containing the rowKey.
-     * @param {string} rowKey - The key identifier of the row to be toggled.
-     * @param {number} selectionMode - The selection mode determining how many rows can be selected at once.
-     * @param {Set} selection - The current selection set.
-     * @param {function} setSelection - The function to update the selection.
+     * @param callback - The callback function to be executed when the selection is toggled.
+     * @param data - The data object containing the rowKey.
+     * @param rowKey - The key identifier of the row to be toggled.
+     * @param selectionMode - The selection mode determining how many rows can be selected at once.
+     * @param selection - The current selection set.
+     * @param setSelection - The function to update the selection.
      */
     const toggleSelection = useCallback(() => {
       const id = data[rowKey];
@@ -98,9 +98,9 @@ export const TileItem = forwardRef(
     /**
      * Determines whether a specific data item is currently selected.
      *
-     * @param {Set} selection - The set containing selected row keys.
-     * @param {string} rowKey - The key for the data item to check.
-     * @returns {boolean} - True if the data item is selected, false otherwise.
+     * @param selection - The set containing selected row keys.
+     * @param rowKey - The key for the data item to check.
+     * @returns - True if the data item is selected, false otherwise.
      */
     const isSelected = useMemo(() => {
       return selection.has(data[rowKey]);

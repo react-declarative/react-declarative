@@ -98,9 +98,9 @@ export const useTabsModal = <
   /**
    * Handles submit action.
    *
-   * @param {Data | null} data - The data to submit.
-   * @param {Payload} payload - The payload to submit.
-   * @returns {Promise<boolean>} - A promise that resolves to a boolean indicating success.
+   * @param data - The data to submit.
+   * @param payload - The payload to submit.
+   * @returns - A promise that resolves to a boolean indicating success.
    */
   const handleSubmit = useCallback(
     async (data: Data | null, payload: Payload) => {
@@ -119,7 +119,7 @@ export const useTabsModal = <
    * @function
    * @name handleClose
    *
-   * @returns {void}
+   * @returns
    */
   const handleClose = useCallback(() => {
     openSubject.next(false);
@@ -129,7 +129,7 @@ export const useTabsModal = <
   /**
    * Renders a TabsOutletModal component.
    *
-   * @returns {Component} The rendered TabsOutletModal component.
+   * @returns The rendered TabsOutletModal component.
    */
   const render = useCallback(
     () => (

@@ -37,9 +37,9 @@ export const Radio = ({
     /**
      * Sets the value of a radio map.
      *
-     * @param {string|null} value - The value to set.
+     * @param value - The value to set.
      *
-     * @returns {void}
+     * @returns
      */
     const setValue = useCallback((value: string | null) => setRadioMap((prevRadioMap) => ({
         ...prevRadioMap,
@@ -49,8 +49,8 @@ export const Radio = ({
     /**
      * Handles changes in a value and triggers a callback function.
      *
-     * @param {(string|null)} value - The new value to be handled.
-     * @returns {void}
+     * @param value - The new value to be handled.
+     * @returns
      */
     const handleChange = useCallback((value: string | null) => {
         setValue(value);

@@ -27,15 +27,15 @@ export interface IProgressFieldProps<Data = IAnything, Payload = IAnything> {
    * @typedef {import('./types').Payload} Payload
    * @typedef {import('./utils').PickProp<T, K>} PickProp
    *
-   * @param {IField<Data, Payload>} showPercentLabel - The field containing the showPercentLabel property.
-   * @returns {boolean} - Whether to show the percent label.
+   * @param showPercentLabel - The field containing the showPercentLabel property.
+   * @returns - Whether to show the percent label.
    */
   showPercentLabel?: PickProp<IField<Data, Payload>, "showPercentLabel">;
   /**
    * Represents a reference to a group in a field.
    *
    * @typedef {Object} groupRef
-   * @property {PickProp<IField<Data, Payload>, 'groupRef'>} [groupRef] - The group reference.
+   * @property [groupRef] - The group reference.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }
@@ -52,9 +52,9 @@ export interface IProgressFieldPrivate<Data = IAnything> {
  * Represents a progress field component.
  *
  * @typedef {Object} ProgressField
- * @property {number} maxPercent - The maximum percentage value for the progress field.
- * @property {boolean} showPercentLabel - Determines if the percentage label should be displayed.
- * @property {number} value - The current value of the progress field.
+ * @property maxPercent - The maximum percentage value for the progress field.
+ * @property showPercentLabel - Determines if the percentage label should be displayed.
+ * @property value - The current value of the progress field.
  *
  * @param props - The props object containing the properties required for the progress field.
  * @param props.maxPercent - The maximum percentage value for the progress field.

@@ -55,10 +55,10 @@ const useStyles = makeStyles()((theme) => ({
  * Represents the properties of a content component.
  *
  * @typedef {Object} IContentProps
- * @property {string} id - The ID of the content.
- * @property {IAnything} data - The data associated with the content.
- * @property {IAnything} payload - The payload of the content.
- * @property {IBoardRowInternal[]} rows - The internal representation of the content rows.
+ * @property id - The ID of the content.
+ * @property data - The data associated with the content.
+ * @property payload - The payload of the content.
+ * @property rows - The internal representation of the content rows.
  */
 export interface IContentProps {
   id: string;

@@ -6,15 +6,15 @@ import { useState, useEffect } from 'react';
  *
  * @template P The type of the payload.
  *
- * @property {React.ReactNode} [children] - The children elements.
- * @property {React.ComponentType<any>} [Offline] - The component to render when offline.
- * @property {(payload?: P) => (boolean | Promise<boolean>)} ping - The function to perform the ping.
- * @property {(e: Error) => void} [fallback] - The function to handle errors.
- * @property {boolean} [throwError] - A flag indicating whether to throw an error if the ping fails.
- * @property {number} [delay=5000] - The delay (in milliseconds) between each ping.
- * @property {P} [payload] - The payload to pass to the ping function.
- * @property {() => void} [onOnline] - The function to call when the ping is successful.
- * @property {() => void} [onOffline] - The function to call when the ping fails.
+ * @property [children] - The children elements.
+ * @property [Offline] - The component to render when offline.
+ * @property ping - The function to perform the ping.
+ * @property [fallback] - The function to handle errors.
+ * @property [throwError] - A flag indicating whether to throw an error if the ping fails.
+ * @property [delay=5000] - The delay (in milliseconds) between each ping.
+ * @property [payload] - The payload to pass to the ping function.
+ * @property [onOnline] - The function to call when the ping is successful.
+ * @property [onOffline] - The function to call when the ping fails.
  */
 interface IPingViewProps<P extends any = object> {
     children?: React.ReactNode;

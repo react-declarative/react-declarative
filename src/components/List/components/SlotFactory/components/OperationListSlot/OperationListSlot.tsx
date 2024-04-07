@@ -32,11 +32,11 @@ const LABEL_SHRINK = 500;
  * A function that generates styles for a component based on the provided theme.
  *
  * @typedef {Object} Styles
- * @property {string} root - Styles for the root element.
- * @property {string} container - Styles for the container element.
- * @property {string} content - Styles for the content element.
- * @property {string} label - Styles for the label element.
- * @property {string} checkbox - Styles for the checkbox element.
+ * @property root - Styles for the root element.
+ * @property container - Styles for the container element.
+ * @property content - Styles for the content element.
+ * @property label - Styles for the label element.
+ * @property checkbox - Styles for the checkbox element.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -113,7 +113,7 @@ export const OperationListSlot = ({
    * Invokes the `useActualCallback` function with the `onOperation` callback function
    * to handle a specific operation.
    *
-   * @param {function} onOperation - The callback function to execute for the operation.
+   * @param onOperation - The callback function to execute for the operation.
    */
   const handleOperation = useActualCallback(onOperation);
 

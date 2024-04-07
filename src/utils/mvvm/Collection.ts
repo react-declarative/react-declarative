@@ -36,14 +36,14 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Checks if a value is empty or not.
      *
-     * @param {any} value - The value to check if it is empty.
-     * @returns {boolean} - True if the value is empty, otherwise false.
+     * @param value - The value to check if it is empty.
+     * @returns - True if the value is empty, otherwise false.
      */
     isEmpty: boolean;
     /**
      * Sets the data for the items.
      *
-     * @param {T[]} items - An array of items to be set as the data.
+     * @param items - An array of items to be set as the data.
      * @return {void}
      */
     setData(items: T[]): void;
@@ -59,26 +59,26 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Filters an array of IEntityAdapter<T> objects based on a provided predicate function.
      *
-     * @param {function} predicate - The predicate function used to test each IEntityAdapter<T> object.
+     * @param predicate - The predicate function used to test each IEntityAdapter<T> object.
      *                              The function should accept two arguments:
      *                              - value: The current IEntityAdapter<T> object being processed.
      *                              - idx: The index of the current IEntityAdapter<T> object being processed.
      *                              The predicate function should return a boolean value indicating whether to include the entity in the filtered array.
-     * @returns {IEntityAdapter<T>[]} - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
+     * @returns - An array of IEntityAdapter<T> objects that satisfy the provided predicate.
      */
     filter(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T>[];
     /**
      * Finds the first element in the IEntityAdapter array that satisfies the provided testing function.
      *
-     * @param {function} predicate - The testing function that determines whether the element is found or not.
+     * @param predicate - The testing function that determines whether the element is found or not.
      *                              It should accept two parameters: value (IEntityAdapter<T>) and idx (number).
-     * @returns {IEntityAdapter<T>|undefined} - The first element that satisfies the testing function, or undefined if no such element is found.
+     * @returns - The first element that satisfies the testing function, or undefined if no such element is found.
      */
     find(predicate: (value: IEntityAdapter<T>, idx: number) => boolean): IEntityAdapter<T> | undefined;
     /**
      * Checks if any of the elements in the array satisfies the provided predicate.
      *
-     * @param {function} predicate - The predicate function to be executed for each element in the array.
+     * @param predicate - The predicate function to be executed for each element in the array.
      *        It takes two parameters:
      *          - value: The current element being processed.
      *          - idx: The index of the current element being processed.
@@ -90,7 +90,7 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Executes a provided function once for each entity in the adapter.
      *
-     * @param {function(value: IEntityAdapter<T>, idx: number): void} callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
+     * @param callbackfn - The function to execute for each entity. It accepts two arguments: the current entity value and the index
      * of the entity in the adapter.
      * @return {void}
      */
@@ -98,27 +98,27 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Pushes one or more items onto the end of the array.
      *
-     * @param {...(T[]|T[][])} items - The items to push onto the array.
+     * @param items - The items to push onto the array.
      * @return {void}
      */
     push(...items: (T[] | T[][])): void;
     /**
      * Upserts the given items into the database.
      *
-     * @param {...(T[] | T[][])} items - The items to be upserted. Can be a single array or an array of arrays.
+     * @param items - The items to be upserted. Can be a single array or an array of arrays.
      */
     upsert(...items: (T[] | T[][])): void;
     /**
      * Removes the specified item from the collection.
      *
-     * @param {IEntity} item - The item to be removed from the collection.
+     * @param item - The item to be removed from the collection.
      * @return {void}
      */
     remove(item: IEntity): void;
     /**
      * Removes an entity from the collection by its id.
      *
-     * @param {IEntity['id']} id - The id of the entity to be removed.
+     * @param id - The id of the entity to be removed.
      * @return {void}
      */
     removeById(id: IEntity['id']): void;
@@ -131,14 +131,14 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Finds an entity by its ID.
      *
-     * @param {IEntity['id']} id - The ID of the entity to find.
-     * @returns {IEntityAdapter<T>} - The entity adapter containing the found entity, if any.
+     * @param id - The ID of the entity to find.
+     * @returns - The entity adapter containing the found entity, if any.
      */
     findById(id: IEntity['id']): IEntityAdapter<T>;
     /**
      * Clears the data of the object.
      *
-     * @returns {void}
+     * @returns
      */
     clear(): void;
     /**

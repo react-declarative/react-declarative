@@ -39,8 +39,8 @@ const globalStyles = (theme: Theme) => ({
  *
  * @function
  *
- * @param {Object} theme - The theme object.
- * @returns {Object} The styles object for the component.
+ * @param theme - The theme object.
+ * @returns The styles object for the component.
  */
 const useStyles = makeStyles()((theme) => ({
   ...globalStyles(theme),
@@ -85,8 +85,8 @@ export const TimePicker = ({
   /**
    * A callback function to handle change in time.
    *
-   * @param {dayjs.Dayjs} time - The time value that was changed.
-   * @returns {void}
+   * @param time - The time value that was changed.
+   * @returns
    */
   const handleChange = useCallback((time: dayjs.Dayjs) => {
     if (time.format('a') !== state.meridiemMode) {

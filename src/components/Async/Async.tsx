@@ -94,8 +94,8 @@ export const Async = <T extends any = object>({
          * Executes a cancelable asynchronous function.
          *
          * @function
-         * @param {Function} fn - The asynchronous function to execute.
-         * @returns {Promise} - A promise that resolves with the result of the function or null if the function returns undefined.
+         * @param fn - The asynchronous function to execute.
+         * @returns - A promise that resolves with the result of the function or null if the function returns undefined.
          * @throws {Error} - If an error occurs during execution of the function, it will be thrown.
          */
         const execute = cancelable(async () => {

@@ -15,8 +15,8 @@ export const PAPERVIEW_ROOT = 'react-declatative__PaperView-root';
  * Creates a custom set of styles using the makeStyles hook from Material-UI.
  * The returned styles object provides CSS classes for the outlined element.
  *
- * @param {Object} theme - The theme object from Material-UI.
- * @returns {Object} - An object containing CSS classes for the outlined element.
+ * @param theme - The theme object from Material-UI.
+ * @returns - An object containing CSS classes for the outlined element.
  */
 const useStyles = makeStyles()((theme) => ({
   outline: {
@@ -50,8 +50,8 @@ interface IPaperViewProps extends Omit<PaperProps, keyof {
  * @param props.className - The CSS class name for the paper view.
  * @param props.outlinePaper - Specifies whether the paper view should have an outline.
  * @param props.transparentPaper - Specifies whether the paper view should be transparent.
- * @param {React.Ref} ref - The ref to be forwarded to the underlying HTML element.
- * @returns {React.Element} The rendered paper view component.
+ * @param ref - The ref to be forwarded to the underlying HTML element.
+ * @returns The rendered paper view component.
  */
 export const PaperView = forwardRef(({
   component,

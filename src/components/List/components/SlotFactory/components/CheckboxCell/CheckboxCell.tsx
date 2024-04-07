@@ -30,7 +30,7 @@ export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
  *
  * @name useStyles
  * @function
- * @returns {object} The generated styles object.
+ * @returns The generated styles object.
  */
 const useStyles = makeStyles()({
     root: {
@@ -74,8 +74,8 @@ export const CheckboxCell = <RowData extends IRowData = IAnything>({
     /**
      * Creates a toggle handler function for a given row using the useToggleHandler utility.
      *
-     * @param {Object} row - The row object to be toggled.
-     * @returns {Function} - A toggle handler function.
+     * @param row - The row object to be toggled.
+     * @returns - A toggle handler function.
      */
     const createToggleHandler = useToggleHandler(row);
 

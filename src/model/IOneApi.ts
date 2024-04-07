@@ -9,15 +9,15 @@ export interface IOneApi<Data = IAnything> {
      * Reloads the current page.
      *
      * @function reload
-     * @returns {Promise<void>} - A Promise that resolves when the page reload is completed.
+     * @returns - A Promise that resolves when the page reload is completed.
      */
     reload: () => Promise<void>;
     /**
      * Changes the provided data.
      *
-     * @param {Data} data - The data to be changed.
-     * @param {boolean} [initial=false] - Indicates if the change is an initial change.
-     * @returns {void}
+     * @param data - The data to be changed.
+     * @param [initial=false] - Indicates if the change is an initial change.
+     * @returns
      */
     change: (data: Data, initial?: boolean) => void;
     /**
@@ -25,7 +25,7 @@ export interface IOneApi<Data = IAnything> {
      *
      * @function
      * @name getData
-     * @returns {Data} The retrieved data.
+     * @returns The retrieved data.
      */
     getData: () => Data;
 };

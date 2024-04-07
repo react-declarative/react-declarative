@@ -41,7 +41,7 @@ export const TimePickerModal = ({
    * A callback function that handles accepting changes to a current time value.
    *
    * @callback handleAccept
-   * @param {number} time - The new time value to be accepted.
+   * @param time - The new time value to be accepted.
    */
   const handleAccept = useCallback(() => onChange(time), [time]);
   /**

@@ -20,9 +20,9 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template T - The type of the object to pick the property from.
    * @template K - The key of the property to pick.
-   * @param {T} obj - The object to pick the property from.
-   * @param {K} key - The key of the property to pick.
-   * @returns {Pick<T, K>["description"] | undefined} - The value of the "description" property if it exists, otherwise undefined.
+   * @param obj - The object to pick the property from.
+   * @param key - The key of the property to pick.
+   * @returns - The value of the "description" property if it exists, otherwise undefined.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -42,15 +42,15 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The type of payload for the field.
    * @template T - The resulting type after picking the property.
    *
-   * @param {IField<Data, Payload>} field - The object from which to pick the property.
+   * @param field - The object from which to pick the property.
    *
-   * @returns {PickProp<IField<Data, Payload>, "outlined">["outlined"]} - The value of the "outlined" property.
+   * @returns - The value of the "outlined" property.
    */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   /**
    * Represents the itemList property of a field in the Data object.
    * @typedef {PickProp<IField<Data, Payload>, "itemList">} itemList
-   * @property {unknown} [itemList] - The value of the itemList property.
+   * @property [itemList] - The value of the itemList property.
    */
   itemList?: PickProp<IField<Data, Payload>, "itemList">;
   /**
@@ -58,14 +58,14 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @typedef {import('path/to/types').PickProp<import('path/to/types').IField<Data, Payload>, "freeSolo">} freeSolo
    * @description This property determines if the field supports selecting values that are not contained in the predefined options list.
-   * @property {boolean} [freeSolo] - A boolean value representing if the field allows free text input.
+   * @property [freeSolo] - A boolean value representing if the field allows free text input.
    */
   freeSolo?: PickProp<IField<Data, Payload>, "freeSolo">;
   /**
    * Represents the configuration for a virtual list box field in a form.
    *
    * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} VirtualListBoxConfig
-   * @property {string} virtualListBox - The value of the virtualListBox property.
+   * @property virtualListBox - The value of the virtualListBox property.
    */
   virtualListBox?: PickProp<IField<Data, Payload>, "virtualListBox">;
   /**
@@ -78,7 +78,7 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the "disabled" property of a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
-   * @property {boolean} value - Indicates whether the field is disabled or not.
+   * @property value - Indicates whether the field is disabled or not.
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
@@ -113,15 +113,15 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
    * @typeParam IField - The type of field.
    * @typeParam PickProp - The type for picking properties.
    *
-   * @property {PickProp<IField<Data, Payload>, "tr">} tr - The "tr" property of the field.
+   * @property tr - The "tr" property of the field.
    */
   tr?: PickProp<IField<Data, Payload>, "tr">;
   /**
    * Retrieves the value of the 'groupRef' property from the given object 'fieldData'.
    *
-   * @param {IField<Data, Payload>} fieldData - The object containing the 'groupRef' property.
+   * @param fieldData - The object containing the 'groupRef' property.
    *
-   * @returns {PickProp<IField<Data, Payload>, 'groupRef'> | undefined} - The value of the 'groupRef' property from 'fieldData', or undefined if it doesn't exist.
+   * @returns - The value of the 'groupRef' property from 'fieldData', or undefined if it doesn't exist.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
@@ -135,7 +135,7 @@ export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a variable watchItemList.
    * @typedef {PickProp<IField<Data>, "watchItemList">} watchItemList
-   * @property {IField<Data>} watchItemList - The watchItemList property of type PickProp<IField<Data>, "watchItemList">
+   * @property watchItemList - The watchItemList property of type PickProp<IField<Data>, "watchItemList">
    */
   watchItemList?: PickProp<IField<Data>, "watchItemList">;
 }

@@ -13,7 +13,7 @@ interface IErrorBoundaryProps {
 
 /**
  * @typedef {Object} IErrorBoundaryState
- * @property {boolean} hasError - Indicates if an error has occurred.
+ * @property hasError - Indicates if an error has occurred.
  */
 interface IErrorBoundaryState {
   hasError: boolean;

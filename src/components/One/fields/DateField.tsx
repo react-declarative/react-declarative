@@ -20,15 +20,15 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template T - The type of the object.
    * @template K - The keys of the object.
-   * @param {T} obj - The object from which to retrieve the property value.
-   * @param {K} key - The key of the property to retrieve.
-   * @returns {Pick<T, K>} - The value of the "title" property.
+   * @param obj - The object from which to retrieve the property value.
+   * @param key - The key of the property to retrieve.
+   * @returns - The value of the "title" property.
    */
   title?: PickProp<IField<Data, Payload>, "title">;
   /**
    * Retrieves the "description" property from a given object of type IField<Data, Payload>.
-   * @param {IField<Data, Payload>} field - The input field object.
-   * @returns {Pick<IField<Data, Payload>, "description">["description"]} - The value of the "description" property.
+   * @param field - The input field object.
+   * @returns - The value of the "description" property.
    */
   description?: PickProp<IField<Data, Payload>, "description">;
   /**
@@ -36,8 +36,8 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data in the IField object.
    * @template Payload - The type of payload in the IField object.
-   * @param {IField<Data, Payload>} field - The IField object to pick the 'outlined' property from.
-   * @returns {PickProp<IField<Data, Payload>, "outlined">} - The 'outlined' property value.
+   * @param field - The IField object to pick the 'outlined' property from.
+   * @returns - The 'outlined' property value.
    */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   /**
@@ -54,22 +54,22 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The data type of the field.
    * @template Payload - The payload that may be associated with the field.
-   * @param {IField<Data, Payload>} field - The field object from which to retrieve the readonly property.
-   * @returns {PickProp<IField<Data, Payload>, "readonly"> | undefined} - The value of the readonly property, or undefined if the property is not present.
+   * @param field - The field object from which to retrieve the readonly property.
+   * @returns - The value of the readonly property, or undefined if the property is not present.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
    * Shrink the label of a field.
    *
    * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
-   * @property {boolean} [labelShrink] - Specifies whether to shrink the label of the field.
+   * @property [labelShrink] - Specifies whether to shrink the label of the field.
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
    * Represents the autoFocus property of a field.
    *
    * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
-   * @property {boolean} [autoFocus] - If set to true, the field will automatically receive focus when rendered.
+   * @property [autoFocus] - If set to true, the field will automatically receive focus when rendered.
    */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
   /**
@@ -85,7 +85,7 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
    * @typedef {import("path/to/IField").Payload} Payload - The payload type of the field.
    * @typedef {import("path/to/PickProp").PickProp<IField<Data, Payload>, "inputRef">} PickPropResult - The result type of the PickProp function.
    *
-   * @property {PickPropResult} [inputRef] - The reference to the input element within a field.
+   * @property [inputRef] - The reference to the input element within a field.
    */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
 }

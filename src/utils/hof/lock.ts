@@ -49,8 +49,8 @@ export const lock = <T extends any = any, P extends any[] = any[]>(promise: (...
      * Executes a function, after waiting for the unlock signal.
      *
      * @function
-     * @param {...P} args - The arguments to pass to the function.
-     * @returns {Promise<ReturnType>} - A promise that resolves to the value returned by the function.
+     * @param args - The arguments to pass to the function.
+     * @returns - A promise that resolves to the value returned by the function.
      */
     const executeFn = queued(async (...args: P) => {
         await waitForUnlock();

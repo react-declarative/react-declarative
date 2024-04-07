@@ -29,7 +29,7 @@ import useReload from "../../../../hooks/useReload";
 /**
  * Returns the styles object for a component.
  * @function
- * @returns {object} The styles object.
+ * @returns The styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {

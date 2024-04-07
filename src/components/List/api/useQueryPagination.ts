@@ -196,8 +196,8 @@ export const useQueryPagination = <
      *
      * @typeparam {FilterData} - The type of the filter data
      * @typeparam {RowData} - The type of the row data
-     * @param {object} state - The state object containing the filter data, sort model, chip data, limit, page, and search values
-     * @returns {IQuery<FilterData, RowData>} - The memoized query object
+     * @param state - The state object containing the filter data, sort model, chip data, limit, page, and search values
+     * @returns - The memoized query object
      */
     const query = useMemo<IQuery<FilterData, RowData>>(() => ({
         filterData: JSON.parse(state.filterData || "{}"),
@@ -302,8 +302,8 @@ export const useQueryPagination = <
     /**
      * Retrieves various properties from the query object.
      * @typedef {Object} FilterData
-     * @property {FilterData} filterData - The filter data.
-     * @property {RowData} rowData - The row data.
+     * @property filterData - The filter data.
+     * @property rowData - The row data.
      */
     const getQueryMap = {
         getFilterData: (): FilterDataT<FilterData, RowData> => {
@@ -336,12 +336,12 @@ export const useQueryPagination = <
      * Query map for setting various properties.
      *
      * @type {Object}
-     * @property {Function} setFilterData - Sets the filter data.
-     * @property {Function} setSortModel - Sets the sort model.
-     * @property {Function} setChipData - Sets the chip data.
-     * @property {Function} setLimit - Sets the limit.
-     * @property {Function} setPage - Sets the page.
-     * @property {Function} setSearch - Sets the search.
+     * @property setFilterData - Sets the filter data.
+     * @property setSortModel - Sets the sort model.
+     * @property setChipData - Sets the chip data.
+     * @property setLimit - Sets the limit.
+     * @property setPage - Sets the page.
+     * @property setSearch - Sets the search.
      */
     const setQueryMap = {
         setFilterData: onFilterChange,

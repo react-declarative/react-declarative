@@ -13,50 +13,50 @@ export interface IListApi<FilterData extends {} = IAnything, RowData extends IRo
     /**
      * Reloads the data.
      *
-     * @param {boolean} [keepPagination] - Indicates whether to keep the current pagination state.
+     * @param [keepPagination] - Indicates whether to keep the current pagination state.
      *
-     * @returns {Promise<void>} A promise that resolves when the data has been reloaded.
+     * @returns A promise that resolves when the data has been reloaded.
      */
     reload: (keepPagination?: boolean) => Promise<void>;
     /**
      * Function to trigger a re-render of the component or element.
      *
      * @function rerender
-     * @returns {void} Returns nothing.
+     * @returns Returns nothing.
      */
     rerender: () => void;
     /**
      * Sets the limit value for a given variable.
      *
-     * @param {number} limit - The limit value to be set.
-     * @returns {void}
+     * @param limit - The limit value to be set.
+     * @returns
      */
     setLimit: (limit: number) => void;
     /**
      * Sets the current page number of the application.
      *
-     * @param {number} page - The page number to set.
-     * @returns {void}
+     * @param page - The page number to set.
+     * @returns
      */
     setPage: (page: number) => void;
     /**
      * Sets the rows for the data table.
      *
-     * @param {RowData[]} rows - An array of row data to set.
-     * @returns {void}
+     * @param rows - An array of row data to set.
+     * @returns
      */
     setRows: (rows: RowData[]) => void;
     /**
      * Sets the filter data for filtering data.
      *
-     * @param {FilterData} filterData - The filter data object.
-     * @returns {void}
+     * @param filterData - The filter data object.
+     * @returns
      */
     setFilterData: (filterData: FilterData) => void;
     /**
      * Retrieves the state of the list.
      *
-     * @returns {IListState<FilterData, RowData>} The state of the list.
+     * @returns The state of the list.
      */
     getState: () => IListState<FilterData, RowData>;
 }

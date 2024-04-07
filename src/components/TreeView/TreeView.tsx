@@ -59,7 +59,7 @@ type ITreeViewProps = {
  * Function to create and return an object of CSS styles using the makeStyles hook from Material-UI.
  *
  * @function useStyles
- * @returns {Object} The object containing CSS styles.
+ * @returns The object containing CSS styles.
  */
 const useStyles = makeStyles()((theme) => ({
   ul: {

@@ -15,7 +15,7 @@ import wordForm from "../../../utils/wordForm";
  * A function that creates and returns styles for a component based on Material-UI's `makeStyles` hook.
  *
  * @function
- * @returns {Object} The styles object containing styling rules for the component.
+ * @returns The styles object containing styling rules for the component.
  */
 const useStyles = makeStyles()({
   root: {

@@ -18,7 +18,7 @@ export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Retrieves the 'readonly' property value of a given field.
    *
-   * @param {IField<Data, Payload>} field - The field object to retrieve the property from.
+   * @param field - The field object to retrieve the property from.
    *
    * @return {PickProp<IField<Data, Payload>, "readonly">} - The value of the 'readonly' property.
    */
@@ -27,7 +27,7 @@ export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the groupRef property of the IField object.
    *
    * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
-   * @property {string} [groupRef] - The reference to the group.
+   * @property [groupRef] - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**

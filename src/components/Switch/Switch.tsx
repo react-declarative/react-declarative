@@ -149,7 +149,7 @@ export const Switch = ({
   /**
    * Memoized function to sort items based on their paths
    *
-   * @returns {Array} Sorted list of items
+   * @returns Sorted list of items
    */
   const items = useMemo(() => {
     return [...upperItems].sort(
@@ -244,7 +244,7 @@ export const Switch = ({
   /**
    * Returns a memoized callback that handles state for switching routes.
    *
-   * @returns {Promise<ISwitchResult>} A promise that resolves to the result of the switch operation.
+   * @returns A promise that resolves to the result of the switch operation.
    */
   const handleState = useMemo(
     () => async (): Promise<ISwitchResult> => {

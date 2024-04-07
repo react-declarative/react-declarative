@@ -68,7 +68,7 @@ const DRAWER_WIDTH = 256;
  *. Its child elements have a flex: 1 property applied to them to fill the available space.
  *
  * @function
- * @returns {Object} The CSS classes as an object.
+ * @returns The CSS classes as an object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {

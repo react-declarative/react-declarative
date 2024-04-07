@@ -20,7 +20,7 @@ import classNames from '../../utils/classNames';
  *
  * @function
  * @name useStyles
- * @returns {Object} - The generated CSS styles for the component.
+ * @returns - The generated CSS styles for the component.
  */
 const useStyles = makeStyles()((theme) => ({
     root: {

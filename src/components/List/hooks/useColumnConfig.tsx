@@ -36,34 +36,34 @@ interface ISortModalProps {
  * Defines the styles for a component.
  *
  * @typedef {Object} useStyles
- * @property {Object} inactive - The styles for the inactive state.
- * @property {number} inactive.opacity - The opacity value for the inactive state.
- * @property {Object} container - The styles for the container element.
- * @property {string} container.boxSizing - The box sizing property for the container element.
- * @property {string} container.width - The width property for the container element. It uses the minimum value between 100vw - 100px and 400px.
- * @property {number} container.height - The height property for the container element.
- * @property {Object} list - The styles for the list element.
- * @property {string} list.boxSizing - The box sizing property for the list element.
- * @property {string} list.width - The width property for the list element.
- * @property {string} list.&gt; .className:nth-of-type(2n) - The background property for the list element when its second child has a specific class.
- * @property {Object} item - The styles for the item element.
- * @property {Object} item.&gt; .MuiListItemText-root &gt; .MuiTypography-root - The styles for the typography element inside the item element.
- * @property {string} item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.width - The width property for the typography element.
- * @property {string} item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.overflow - The overflow property for the typography element.
- * @property {string} item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.textOverflow - The text overflow property for the typography element.
- * @property {Object} item_right_side - The styles for the right side of the item element.
- * @property {string} item_right_side.display - The display property for the right side of the item element.
- * @property {string} item_right_side.alignItems - The align items property for the right side of the item element.
- * @property {string} item_right_side.gap - The gap property for the right side of the item element.
- * @property {Object} dialog_wrapper - The styles for the dialog wrapper element.
- * @property {string} dialog_wrapper.width - The width property for the dialog wrapper element.
- * @property {string} dialog_wrapper.maxwidth - The max width property for the dialog wrapper element.
- * @property {string} dialog_wrapper.boxSizing - The box sizing property for the dialog wrapper element.
- * @property {Object} dialog - The styles for the dialog element.
- * @property {Object} dialog.&gt;:first-of-type - The styles for the first dialog element.
- * @property {number} dialog.&gt;:first-of-type.padding - The padding property for the first dialog element.
- * @property {string} dialog.width - The width property for the dialog element.
- * @property {string} dialog.boxSizing - The box sizing property for the dialog element.
+ * @property inactive - The styles for the inactive state.
+ * @property inactive.opacity - The opacity value for the inactive state.
+ * @property container - The styles for the container element.
+ * @property container.boxSizing - The box sizing property for the container element.
+ * @property container.width - The width property for the container element. It uses the minimum value between 100vw - 100px and 400px.
+ * @property container.height - The height property for the container element.
+ * @property list - The styles for the list element.
+ * @property list.boxSizing - The box sizing property for the list element.
+ * @property list.width - The width property for the list element.
+ * @property list.&gt; .className:nth-of-type(2n) - The background property for the list element when its second child has a specific class.
+ * @property item - The styles for the item element.
+ * @property item.&gt; .MuiListItemText-root &gt; .MuiTypography-root - The styles for the typography element inside the item element.
+ * @property item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.width - The width property for the typography element.
+ * @property item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.overflow - The overflow property for the typography element.
+ * @property item.&gt; .MuiListItemText-root &gt; .MuiTypography-root.textOverflow - The text overflow property for the typography element.
+ * @property item_right_side - The styles for the right side of the item element.
+ * @property item_right_side.display - The display property for the right side of the item element.
+ * @property item_right_side.alignItems - The align items property for the right side of the item element.
+ * @property item_right_side.gap - The gap property for the right side of the item element.
+ * @property dialog_wrapper - The styles for the dialog wrapper element.
+ * @property dialog_wrapper.width - The width property for the dialog wrapper element.
+ * @property dialog_wrapper.maxwidth - The max width property for the dialog wrapper element.
+ * @property dialog_wrapper.boxSizing - The box sizing property for the dialog wrapper element.
+ * @property dialog - The styles for the dialog element.
+ * @property dialog.&gt;:first-of-type - The styles for the first dialog element.
+ * @property dialog.&gt;:first-of-type.padding - The padding property for the first dialog element.
+ * @property dialog.width - The width property for the dialog element.
+ * @property dialog.boxSizing - The box sizing property for the dialog element.
  */
 const useStyles = makeStyles()((theme, _, classes: any) => ({
   inactive: {
@@ -130,7 +130,7 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
   /**
    * Represents a storage manager variable.
    *
-   * @returns {object} - The storage manager object.
+   * @returns - The storage manager object.
    */
   const storageManager = useMemo(
     () => {
@@ -295,10 +295,10 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
   /**
    * Configuration object for rendering a table.
    * @typedef {Object} Config
-   * @property {boolean} open - Specifies if the modal is open or closed.
-   * @property {function} render - Function used to render the modal.
-   * @property {Array} columns - Array of columns in the modal, sorted in the specified order.
-   * @property {function} pickColumns - Function used to open the column selection.
+   * @property open - Specifies if the modal is open or closed.
+   * @property render - Function used to render the modal.
+   * @property columns - Array of columns in the modal, sorted in the specified order.
+   * @property pickColumns - Function used to open the column selection.
    */
   return {
     open,

@@ -5,7 +5,7 @@ import IWizardOutletProps from "./IWizardOutletProps";
  * Represents the additional properties for a modal component.
  *
  * @typedef {Object} ModalOtherProps
- * @property {function} onClose - The function to be called when the modal is closed.
+ * @property onClose - The function to be called when the modal is closed.
  */
 type ModalOtherProps = {
   onClose: () => void;

@@ -156,13 +156,13 @@ const useStyles = makeStyles()((theme) => ({
  * Represents the size request for a small wizard modal.
  *
  * @typedef {object} IWizardSizeRequest
- * @property {number} height - The height of the wizard modal.
- * @property {number} width - The width of the wizard modal.
- * @property {object} sx - The style object for the wizard modal.
- * @property {string} sx.maxHeight - The maximum height of the wizard modal as a CSS value.
- * @property {string} sx.minWidth - The minimum width of the wizard modal as a CSS value.
- * @property {string} sx.maxWidth - The maximum width of the wizard modal as a CSS value.
- * @property {string} sx.margin - The margin of the wizard modal as a CSS value.
+ * @property height - The height of the wizard modal.
+ * @property width - The width of the wizard modal.
+ * @property sx - The style object for the wizard modal.
+ * @property sx.maxHeight - The maximum height of the wizard modal as a CSS value.
+ * @property sx.minWidth - The minimum width of the wizard modal as a CSS value.
+ * @property sx.maxWidth - The maximum width of the wizard modal as a CSS value.
+ * @property sx.margin - The margin of the wizard modal as a CSS value.
  */
 const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
   height: 0,
@@ -264,10 +264,10 @@ export const OutletModal = <
 
   /**
    * Compute the requested size based on the current window size.
-   * @param {Object} options - The options for computing the requested size.
-   * @param {Function} options.compute - The function to compute the requested size.
-   * @param {number} options.debounce - The debounce delay for resizing events.
-   * @returns {Object} - The computed requested size.
+   * @param options - The options for computing the requested size.
+   * @param options.compute - The function to compute the requested size.
+   * @param options.debounce - The debounce delay for resizing events.
+   * @returns - The computed requested size.
    */
   const requestedSize = useWindowSize({
     compute: (size) => {
@@ -341,9 +341,9 @@ export const OutletModal = <
   /**
    * A function that returns a promise that resolves when a render is completed.
    *
-   * @param {Array} data - An array of data used for rendering.
-   * @param {number} timeout - The maximum amount of time (in milliseconds) to wait for a render to complete.
-   * @returns {Promise} A promise that resolves when the render is completed.
+   * @param data - An array of data used for rendering.
+   * @param timeout - The maximum amount of time (in milliseconds) to wait for a render to complete.
+   * @returns A promise that resolves when the render is completed.
    */
   const waitForRender = useRenderWaiter([data], 10);
 

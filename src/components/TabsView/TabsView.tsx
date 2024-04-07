@@ -31,7 +31,7 @@ const LOADER_HEIGHT = 4;
  *
  * @function
  * @name useStyles
- * @returns {Object} - Object with CSS classes
+ * @returns - Object with CSS classes
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -171,12 +171,12 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
 
   /**
    * @typedef {Object} OtherProps
-   * @property {number} size - The size of the props
-   * @property {boolean} loading - Indicates if the props are currently loading
-   * @property {number} progress - The progress of the props loading
-   * @property {function} setLoading - Function to set the loading state
-   * @property {function} setProgress - Function to set the progress of the props loading
-   * @property {object} upperOtherProps - Additional props to be included
+   * @property size - The size of the props
+   * @property loading - Indicates if the props are currently loading
+   * @property progress - The progress of the props loading
+   * @property setLoading - Function to set the loading state
+   * @property setProgress - Function to set the progress of the props loading
+   * @property upperOtherProps - Additional props to be included
    */
   const otherProps = useMemo(
     (): OtherProps => ({
@@ -213,8 +213,8 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
    *
    * @function
    * @name activeStep
-   * @returns {number} The index of the active step. Returns -1 if no active step is found.
-   * @param {string} path - The current route path.
+   * @returns The index of the active step. Returns -1 if no active step is found.
+   * @param path - The current route path.
    *
    */
   const activeStep = useMemo(() => {
@@ -234,7 +234,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   /**
    * Renders a loader component based on the state of loading and progress.
    *
-   * @returns {React.ReactNode} - The loader component to be rendered.
+   * @returns - The loader component to be rendered.
    */
   const renderLoader = useCallback(() => {
     if (progress === 100) {

@@ -112,9 +112,9 @@ export interface IScaffold2Props<T = Payload> {
      * @component
      * @category UI Components
      *
-     * @param {any} props - The properties of the Copyright component.
+     * @param props - The properties of the Copyright component.
      *
-     * @returns {React.ComponentType<any>} The Copyright React component.
+     * @returns The Copyright React component.
      */
     Copyright?: React.ComponentType<any>;
     /**
@@ -122,33 +122,33 @@ export interface IScaffold2Props<T = Payload> {
      * The function takes a `name` parameter of type `string` and returns `void`.
      *
      * @typedef {function} onAction
-     * @param {string} name - The name of the action being performed.
-     * @returns {void}
+     * @param name - The name of the action being performed.
+     * @returns
      */
     onAction?: (name: string) => void;
     /**
      * Callback function that is triggered when an option is clicked.
      *
-     * @param {string} path - The path of the option.
-     * @param {string} id - The ID of the option.
-     * @returns {undefined | boolean} - Returns undefined or a boolean value based on the processing of the option click.
+     * @param path - The path of the option.
+     * @param id - The ID of the option.
+     * @returns - Returns undefined or a boolean value based on the processing of the option click.
      */
     onOptionClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Function called when an option group is clicked.
      *
-     * @param {string} path - The path of the option group.
-     * @param {string} id - The ID of the clicked option group.
+     * @param path - The path of the option group.
+     * @param id - The ID of the clicked option group.
      * @return {undefined | boolean} - Returns undefined or a boolean value.
      */
     onOptionGroupClick?: (path: string, id: string) => void | undefined | boolean;
     /**
      * Represents a callback for when a tab change event occurs.
      *
-     * @param {string} path - The current path of the tab.
-     * @param {string} tab - The name of the tab that was changed to.
-     * @param {string} id - The unique identifier of the tab.
-     * @returns {void}
+     * @param path - The current path of the tab.
+     * @param tab - The name of the tab that was changed to.
+     * @param id - The unique identifier of the tab.
+     * @returns
      */
     onTabChange?: (path: string, tab: string, id: string) => void;
     children: React.ReactNode;
@@ -162,21 +162,21 @@ export interface IScaffold2Props<T = Payload> {
      * Represents a callback function that will be invoked when a load operation starts.
      *
      * @callback onLoadStart
-     * @returns {void}
+     * @returns
      */
     onLoadStart?: () => void;
     /**
      * Represents a callback function that is called when the loading process ends.
      *
      * @callback onLoadEnd
-     * @param {boolean} isOk - A boolean value indicating whether the loading process was successful.
-     * @returns {void} This callback does not return anything.
+     * @param isOk - A boolean value indicating whether the loading process was successful.
+     * @returns This callback does not return anything.
      */
     onLoadEnd?: (isOk: boolean) => void;
     /**
      * Represents a function that acts as a fallback, which is executed when an error occurs.
-     * @param {Error} e - The error that occurred.
-     * @returns {void}
+     * @param e - The error that occurred.
+     * @returns
      */
     fallback?: (e: Error) => void;
     /**

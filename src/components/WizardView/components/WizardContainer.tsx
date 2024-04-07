@@ -70,9 +70,9 @@ const WizardContainerInternal = (
  * It is created using `forwardRef` to allow obtaining a reference to the rendered DOM element for external usage.
  *
  * @component
- * @param {React.ForwardedRef<unknown>} ref - A forwarded reference to the underlying WizardContainerInternal component.
- * @param {IWizardContainerProps} props - The props for the WizardContainer component.
- * @returns {React.ReactElement} The rendered WizardContainer component.
+ * @param ref - A forwarded reference to the underlying WizardContainerInternal component.
+ * @param props - The props for the WizardContainer component.
+ * @returns The rendered WizardContainer component.
  */
 export const WizardContainer = forwardRef(
   WizardContainerInternal

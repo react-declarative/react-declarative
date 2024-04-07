@@ -131,7 +131,7 @@ export const SecretView = ({
   /**
    * Handles keydown events and performs certain actions based on the key pressed.
    *
-   * @param {string} key - The key pressed.
+   * @param key - The key pressed.
    */
   const handleKeydown = useActualCallback((key: string) => {
     if (state.current.approved) {

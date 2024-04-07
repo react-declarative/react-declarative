@@ -21,9 +21,9 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
    * @template Data - The type of the data contained in the field.
    * @template Payload - The type of the payload associated with the field.
    *
-   * @param {IField<Data, Payload>} field - An object of type IField<Data, Payload>.
+   * @param field - An object of type IField<Data, Payload>.
    *
-   * @returns {PickProp<IField<Data, Payload>, 'title'>} - The value of the 'title' property from the given field.
+   * @returns - The value of the 'title' property from the given field.
    */
   title?: PickProp<IField<Data, Payload>, 'title'>;
   /**
@@ -33,16 +33,16 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
    * @template Payload - The type representing the payload of the 'groupRef' property.
    * @template IField - The interface describing the object structure.
    *
-   * @param {IField<Data, Payload>} groupRef - The object containing the 'groupRef' property to retrieve.
+   * @param groupRef - The object containing the 'groupRef' property to retrieve.
    *
-   * @returns {PickProp<IField<Data, Payload>, 'groupRef'>} - The 'groupRef' property from the given object.
+   * @returns - The 'groupRef' property from the given object.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Represents the readonly property of an IField object.
    *
    * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly?
-   * @property {boolean} [readonly] - Specifies whether the field is readonly or not.
+   * @property [readonly] - Specifies whether the field is readonly or not.
    * @public
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -63,8 +63,8 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Gets the value of the switchActiveLabel property from the given field.
    *
-   * @param {IField<Data, Payload>} field - The field object from which to get the switchActiveLabel property.
-   * @returns {PickProp<IField<Data, Payload>, "switchActiveLabel">} - The value of the switchActiveLabel property.
+   * @param field - The field object from which to get the switchActiveLabel property.
+   * @returns - The value of the switchActiveLabel property.
    */
   switchActiveLabel?: PickProp<IField<Data, Payload>, "switchActiveLabel">;
 }

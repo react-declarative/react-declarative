@@ -42,7 +42,7 @@ interface IGroupPrivate {
  * Returns the styles for a component.
  *
  * @function useStyles
- * @returns {Object} The styles for a component.
+ * @returns The styles for a component.
  */
 const useStyles = makeStyles()({
   root: {
@@ -57,24 +57,24 @@ const useStyles = makeStyles()({
  * Group component
  *
  * @typedef {Object} Group
- * @property {string} className - The class name of the group
- * @property {string} columns - The columns property of the group
- * @property {string} phoneColumns - The phone columns property of the group
- * @property {string} tabletColumns - The tablet columns property of the group
- * @property {string} desktopColumns - The desktop columns property of the group
- * @property {React.ReactNode} children - The children of the group
- * @property {boolean} isItem - Whether the group is an item
- * @property {boolean} isBaselineAlign - Whether to align the group baseline
- * @property {object} style - The style object of the group
- * @property {string} columnsOverride - The columns override property of the group
- * @property {string} sx - The sx property of the group
- * @property {string} fieldRightMargin - The right margin of the field
- * @property {string} fieldBottomMargin - The bottom margin of the field
- * @property {function} onClick - The onClick event handler of the group
- * @property {function} onFocus - The onFocus event handler of the group
- * @property {function} onContextMenu - The onContextMenu event handler of the group
- * @property {Object} ...otherProps - Other props passed to the group
- * @property {React.Ref<HTMLDivElement>} ref - The ref of the group
+ * @property className - The class name of the group
+ * @property columns - The columns property of the group
+ * @property phoneColumns - The phone columns property of the group
+ * @property tabletColumns - The tablet columns property of the group
+ * @property desktopColumns - The desktop columns property of the group
+ * @property children - The children of the group
+ * @property isItem - Whether the group is an item
+ * @property isBaselineAlign - Whether to align the group baseline
+ * @property style - The style object of the group
+ * @property columnsOverride - The columns override property of the group
+ * @property sx - The sx property of the group
+ * @property fieldRightMargin - The right margin of the field
+ * @property fieldBottomMargin - The bottom margin of the field
+ * @property onClick - The onClick event handler of the group
+ * @property onFocus - The onFocus event handler of the group
+ * @property onContextMenu - The onContextMenu event handler of the group
+ * @property ...otherProps - Other props passed to the group
+ * @property ref - The ref of the group
  *
  * @param Group - The Group component function
  * @returns The rendered component

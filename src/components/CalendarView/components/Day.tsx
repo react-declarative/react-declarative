@@ -99,17 +99,17 @@ export const Day = ({ onChange, day }: IDayProps) => {
    *
    * @function currentStamp
    *
-   * @returns {number} The current timestamp.
+   * @returns The current timestamp.
    */
   const currentStamp = useMemo(() => getMomentStamp(day), []);
 
   /**
    * Executes a given code block or function.
    *
-   * @param {Function} code - The code block or function to be executed.
-   * @param {Object} [context] - The optional context in which the code should be executed.
-   * @param {...*} [args] - The optional arguments to be passed to the code block or function.
-   * @returns {*} - The result of executing the code. If the code block or function throws an error,
+   * @param code - The code block or function to be executed.
+   * @param [context] - The optional context in which the code should be executed.
+   * @param [args] - The optional arguments to be passed to the code block or function.
+   * @returns - The result of executing the code. If the code block or function throws an error,
    *                the error will be caught and logged, and undefined will be returned.
    *
    */

@@ -188,11 +188,11 @@ export const CustomView = <
    * @function handleCleanRows
    * @callback
    *
-   * @param {function} setState - The function to set the state.
-   * @param {Array} upperRows - The updated rows.
-   * @param {Array} upperFilterData - The updated filter data.
+   * @param setState - The function to set the state.
+   * @param upperRows - The updated rows.
+   * @param upperFilterData - The updated filter data.
    *
-   * @returns {void}
+   * @returns
    */
   const handleCleanRows = useCallback(() => {
     setState(() => ({
@@ -206,7 +206,7 @@ export const CustomView = <
    * A callback function used to handle appending rows to the state.
    *
    * @callback handleAppendRows
-   * @returns {void}
+   * @returns
    */
   const handleAppendRows = useCallback(
     () =>

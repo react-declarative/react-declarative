@@ -57,13 +57,13 @@ export const useManagedCompute = ({
    * Recomputes the compute function when the provided dependencies change.
    *
    * @callback tickRecompute
-   * @param {function} compute - The compute function to be recomputed.
-   * @param {boolean} initial - Indicates if it is the initial computation or not.
-   * @param {object} prevObject - The previous object state.
-   * @param {object} object - The current object state.
-   * @param {object} payload - The payload object to be used in the recomputation.
-   * @param {object} managedCompute - The managed compute object.
-   * @returns {void}
+   * @param compute - The compute function to be recomputed.
+   * @param initial - Indicates if it is the initial computation or not.
+   * @param prevObject - The previous object state.
+   * @param object - The current object state.
+   * @param payload - The payload object to be used in the recomputation.
+   * @param managedCompute - The managed compute object.
+   * @returns
    */
   const tickRecompute = useCallback(() => {
     if (!compute) {

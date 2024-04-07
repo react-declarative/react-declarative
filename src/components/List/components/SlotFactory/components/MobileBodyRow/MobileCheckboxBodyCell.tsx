@@ -11,7 +11,7 @@ import CheckboxCellSlot, { ICheckboxCellSlot } from '../../../../slots/CheckboxC
  *
  * @function
  * @name useStyles
- * @returns {Object} - The generated styles object.
+ * @returns - The generated styles object.
  *
  */
 const useStyles = makeStyles()({

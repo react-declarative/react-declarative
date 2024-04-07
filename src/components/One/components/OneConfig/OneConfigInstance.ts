@@ -20,15 +20,15 @@ export interface IConfig {
 /**
  * Represents the initial configuration for a software module.
  * @typedef {Object} IConfig
- * @property {boolean} WITH_DIRTY_CLICK_LISTENER - Whether to include a dirty click listener in the module. Default is true.
- * @property {boolean} WITH_MOBILE_READONLY_FALLBACK - Whether to include a mobile readonly fallback in the module. Default is true.
- * @property {boolean} WITH_WAIT_FOR_MOVE_LISTENER - Whether to include a wait for move listener in the module. Default is true.
- * @property {boolean} WITH_WAIT_FOR_TAB_LISTENER - Whether to include a wait for tab listener in the module. Default is true.
- * @property {boolean} WITH_WAIT_FOR_TOUCH_LISTENER - Whether to include a wait for touch listener in the module. Default is true.
- * @property {boolean} WITH_DISMOUNT_LISTENER - Whether to include a dismount listener in the module. Default is true.
- * @property {boolean} WITH_SYNC_COMPUTE - Whether to include a sync compute feature in the module. Default is false.
- * @property {number} CUSTOM_FIELD_DEBOUNCE - The custom field debounce time for the module. Default is FIELD_DEBOUNCE.
- * @property {*} FIELD_BLUR_DEBOUNCE - The field blur debounce time for the module. Default is BLUR_DEBOUNCE.
+ * @property WITH_DIRTY_CLICK_LISTENER - Whether to include a dirty click listener in the module. Default is true.
+ * @property WITH_MOBILE_READONLY_FALLBACK - Whether to include a mobile readonly fallback in the module. Default is true.
+ * @property WITH_WAIT_FOR_MOVE_LISTENER - Whether to include a wait for move listener in the module. Default is true.
+ * @property WITH_WAIT_FOR_TAB_LISTENER - Whether to include a wait for tab listener in the module. Default is true.
+ * @property WITH_WAIT_FOR_TOUCH_LISTENER - Whether to include a wait for touch listener in the module. Default is true.
+ * @property WITH_DISMOUNT_LISTENER - Whether to include a dismount listener in the module. Default is true.
+ * @property WITH_SYNC_COMPUTE - Whether to include a sync compute feature in the module. Default is false.
+ * @property CUSTOM_FIELD_DEBOUNCE - The custom field debounce time for the module. Default is FIELD_DEBOUNCE.
+ * @property FIELD_BLUR_DEBOUNCE - The field blur debounce time for the module. Default is BLUR_DEBOUNCE.
  */
 const INITIAL_CONFIG: IConfig = {
     WITH_DIRTY_CLICK_LISTENER: true,

@@ -28,15 +28,15 @@ export interface IScaffold2Option<T = Payload> {
     /**
      * Determines the visibility of a given payload.
      *
-     * @param {T} payload - The payload to check visibility for.
-     * @returns {boolean | Promise<boolean>} - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
+     * @param payload - The payload to check visibility for.
+     * @returns - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
      */
     isVisible?: (payload: T) => boolean | (Promise<boolean>);
     /**
      * Checks if a payload is disabled.
      *
-     * @param {T} payload - The payload to check.
-     * @returns {boolean|Promise<boolean>} - True if the payload is disabled, false otherwise.
+     * @param payload - The payload to check.
+     * @returns - True if the payload is disabled, false otherwise.
      */
     isDisabled?: (payload: T) => boolean | (Promise<boolean>);
 }

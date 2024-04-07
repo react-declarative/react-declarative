@@ -38,13 +38,13 @@ interface IParams {
   /**
    * Callback function triggered when a form is submitted.
    *
-   * @param {string} url - The URL where the form data will be submitted.
-   * @param {object} data - The data to be submitted. It should contain a "main" property with the following structure:
+   * @param url - The URL where the form data will be submitted.
+   * @param data - The data to be submitted. It should contain a "main" property with the following structure:
    *   - blob: The blob data to be submitted, if applicable. Can be null if no blob data is present.
    *   - mime: The MIME type of the blob data.
    *   - fileName: The name of the file associated with the blob data.
    *     Note: The "main" property can also be null if no data is to be submitted.
-   * @returns {boolean|Promise<boolean>} - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
+   * @returns - Returns a boolean value or a Promise resolving to a boolean value indicating the success of the submission.
    */
   onSubmit?: (
     url: string,
@@ -65,9 +65,9 @@ interface IRequest {
 
 /**
  * @typedef {Object} IOutletModal
- * @property {string} id - The ID of the modal page.
- * @property {React.Component} element - The React component to render for this modal.
- * @property {function(url: string): boolean} isActive - Function that determines if this modal page is active based on the current URL.
+ * @property id - The ID of the modal page.
+ * @property element - The React component to render for this modal.
+ * @property isActive - Function that determines if this modal page is active based on the current URL.
  */
 const routes: IOutletModal[] = [
   {

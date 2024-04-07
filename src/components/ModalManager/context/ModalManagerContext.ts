@@ -5,10 +5,10 @@ import IContext from '../model/IContext';
  * The context for the ModalManager component.
  *
  * @typedef {Object} ModalManagerContext
- * @property {Array} modalStack - The stack of modals currently being displayed.
- * @property {Function} pop - Function to remove the top modal from the stack.
- * @property {Function} push - Function to add a new modal to the stack.
- * @property {Function} clear - Function to clear all modals from the stack.
+ * @property modalStack - The stack of modals currently being displayed.
+ * @property pop - Function to remove the top modal from the stack.
+ * @property push - Function to add a new modal to the stack.
+ * @property clear - Function to clear all modals from the stack.
  */
 export const ModalManagerContext = createContext<IContext>({
     /**

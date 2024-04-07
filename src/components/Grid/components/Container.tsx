@@ -32,8 +32,8 @@ interface Props {
 
 /**
  * Custom hook to generate styles using the makeStyles() function from Material-UI.
- * @param {Object} theme - The theme object provided by the Material-UI theme provider.
- * @returns {Object} - The generated styles object.
+ * @param theme - The theme object provided by the Material-UI theme provider.
+ * @returns - The generated styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -75,13 +75,13 @@ const useStyles = makeStyles()((theme) => ({
  * Represents a container component that wraps and displays its children.
  *
  * @typedef {Object} Props - The props for the Container component.
- * @property {boolean} outlinePaper - Determines whether to display outline paper for the Container.
- * @property {boolean} transparentPaper - Determines whether the Container paper is transparent.
- * @property {string} className - The CSS class name for the Container.
- * @property {Object} style - The CSS styles for the Container.
- * @property {Object} sx - The theme styles for the Container.
- * @property {ReactNode} header - The header content for the Container.
- * @property {ReactNode} children - The children elements of the Container.
+ * @property outlinePaper - Determines whether to display outline paper for the Container.
+ * @property transparentPaper - Determines whether the Container paper is transparent.
+ * @property className - The CSS class name for the Container.
+ * @property style - The CSS styles for the Container.
+ * @property sx - The theme styles for the Container.
+ * @property header - The header content for the Container.
+ * @property children - The children elements of the Container.
  */
 export const Container = ({
   outlinePaper,
@@ -104,9 +104,9 @@ export const Container = ({
    * Singleton instance of `ResizeObserver` used to track and handle element resizing.
    *
    * @typedef {Object} ResizeObserver
-   * @property {Function} useSingleton - Singleton pattern wrapper function.
-   * @property {Function} clear - Clear the constraint manager.
-   * @property {Function} setSize - Set the size of the target element.
+   * @property useSingleton - Singleton pattern wrapper function.
+   * @property clear - Clear the constraint manager.
+   * @property setSize - Set the size of the target element.
    */
   const resizeObserver = useSingleton(
     () =>

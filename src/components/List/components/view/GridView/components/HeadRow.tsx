@@ -38,21 +38,21 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
    * visibilityRequest - Represents a memoized visibility request.
    *
    * @typedef {Object} IVisibilityRequest
-   * @property {Object} filterData - The filter data object.
-   * @property {Object} pagination - The pagination object.
-   * @property {Array} sortModel - The sort model array.
-   * @property {Object} chips - The chips object.
-   * @property {string} search - The search string.
-   * @property {Object} payload - The payload object.
+   * @property filterData - The filter data object.
+   * @property pagination - The pagination object.
+   * @property sortModel - The sort model array.
+   * @property chips - The chips object.
+   * @property search - The search string.
+   * @property payload - The payload object.
    *
-   * @param {Object} filterData - The filter data to include in the visibility request.
-   * @param {Object} pagination - The pagination to include in the visibility request.
-   * @param {Array} sortModel - The sort model to include in the visibility request.
-   * @param {Object} chips - The chips to include in the visibility request.
-   * @param {string} search - The search string to include in the visibility request.
-   * @param {Object} payload - The payload to include in the visibility request.
+   * @param filterData - The filter data to include in the visibility request.
+   * @param pagination - The pagination to include in the visibility request.
+   * @param sortModel - The sort model to include in the visibility request.
+   * @param chips - The chips to include in the visibility request.
+   * @param search - The search string to include in the visibility request.
+   * @param payload - The payload to include in the visibility request.
    *
-   * @returns {IVisibilityRequest} - The memoized visibility request object.
+   * @returns - The memoized visibility request object.
    */
   const visibilityRequest = useMemo(
     (): IVisibilityRequest => ({
@@ -70,9 +70,9 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
    * Represents the columns used in a particular component.
    *
    * @typedef {Object} HeadColumn
-   * @property {string} title - The title of the column.
-   * @property {number} width - The width of the column.
-   * @property {boolean} isVisible - Indicates whether the column is visible.
+   * @property title - The title of the column.
+   * @property width - The width of the column.
+   * @property isVisible - Indicates whether the column is visible.
    */
   const columns = useMemo(
     () =>

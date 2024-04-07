@@ -118,8 +118,8 @@ export const Items = ({
      * Memoized value casted to array.
      *
      * @type {Array}
-     * @param {any} upperValue - The value used to compute the memoized array.
-     * @returns {Array} - The memoized array value.
+     * @param upperValue - The value used to compute the memoized array.
+     * @returns - The memoized array value.
      */
     const arrayValue = useMemo(() => {
         if (typeof upperValue === 'string') {
@@ -137,8 +137,8 @@ export const Items = ({
     /**
      * Memoizes the value based on the input array value.
      *
-     * @param {any[]} arrayValue - The array value.
-     * @returns {any} - The memoized value.
+     * @param arrayValue - The array value.
+     * @returns - The memoized value.
      */
     const value = useMemo(() => {
         if (compareArray(prevValue.current, arrayValue)) {

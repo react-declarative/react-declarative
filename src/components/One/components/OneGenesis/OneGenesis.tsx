@@ -37,7 +37,7 @@ const BASE_CLASS = "react-declarative__oneGenesis";
 /**
  * The variable `useStyles` is a function that returns a makeStyles hook. This hook is used to create classes for styling components using the Material-UI library.
  *
- * @returns {Function} A makeStyles hook function.
+ * @returns A makeStyles hook function.
  */
 const useStyles = makeStyles()({
   readonly: {
@@ -107,7 +107,7 @@ export const OneGenesis = <
    * function created using the useCallback hook.
    *
    * @function handleReady
-   * @returns {void}
+   * @returns
    */
   const handleReady = useCallback(() => {
     const { current: ready } = ready$;
@@ -121,10 +121,10 @@ export const OneGenesis = <
   /**
    * Handles the change event by validating the new data and calling the provided callback function if the data is valid.
    *
-   * @param {Data} newData - The new data being passed to the event handler.
-   * @param {boolean} initial - Indicates if the data is being changed initially or not.
+   * @param newData - The new data being passed to the event handler.
+   * @param initial - Indicates if the data is being changed initially or not.
    *
-   * @returns {void}
+   * @returns
    */
   const handleChange = useCallback((newData: Data, initial: boolean) => {
     const { current: change } = change$;
@@ -143,12 +143,12 @@ export const OneGenesis = <
   /**
    * Represents the state parameters.
    * @typedef {Object} StateParams
-   * @property {Object} props - The additional properties.
-   * @property {undefined} context - The context information.
-   * @property {Object} fields - The fields snapshot.
-   * @property {function} change - The change handler function.
-   * @property {Object} features - The feature details.
-   * @property {Object} payload - The payload information.
+   * @property props - The additional properties.
+   * @property context - The context information.
+   * @property fields - The fields snapshot.
+   * @property change - The change handler function.
+   * @property features - The feature details.
+   * @property payload - The payload information.
    */
   const stateParams = {
     ...props,
@@ -163,13 +163,13 @@ export const OneGenesis = <
    * Represents the view parameters for rendering a view.
    *
    * @typedef {Object} ViewParams
-   * @property {Object} props - The props to pass to the view component.
-   * @property {undefined} context - The context of the view.
-   * @property {Object} fields - The fields snapshot for the view.
-   * @property {function} ready - The callback function to handle the ready state.
-   * @property {Object} features - The features for the view.
-   * @property {Object} payload - The payload for the view.
-   * @property {boolean} rendered - Indicates whether the view has been rendered.
+   * @property props - The props to pass to the view component.
+   * @property context - The context of the view.
+   * @property fields - The fields snapshot for the view.
+   * @property ready - The callback function to handle the ready state.
+   * @property features - The features for the view.
+   * @property payload - The payload for the view.
+   * @property rendered - Indicates whether the view has been rendered.
    */
   const viewParams = {
     ...props,

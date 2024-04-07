@@ -72,7 +72,7 @@ const defaultFormatter = (value: React.ReactNode) => {
 /**
  * Custom hook for generating styles using the makeStyles function from Material-UI.
  *
- * @returns {Object} The generated styles.
+ * @returns The generated styles.
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -199,9 +199,9 @@ const CardItemInternal = <ItemData extends IItemData = any>(
    * useMemo to transform an object into an array of key-value pairs
    * and optionally filter the desired fields.
    *
-   * @param {Function} callback - The callback function to be memoized.
-   * @param {array} dependencies - The dependencies array to trigger memoization.
-   * @returns {array} - The transformed and filtered array of entries.
+   * @param callback - The callback function to be memoized.
+   * @param dependencies - The dependencies array to trigger memoization.
+   * @returns - The transformed and filtered array of entries.
    */
   const entries = useMemo(() => {
     let result = Object.entries(item);
@@ -215,12 +215,12 @@ const CardItemInternal = <ItemData extends IItemData = any>(
    * Represents the media for a card item.
    *
    * @type {Object}
-   * @property {Function} cardMedia - A memoized function that returns the formatted media for the card item.
-   * @property {Function} cardMedia.formatMedia - A function that formats the media for the card item.
-   * @property {Any} cardMedia.item - The item used to format the media.
+   * @property cardMedia - A memoized function that returns the formatted media for the card item.
+   * @property cardMedia.formatMedia - A function that formats the media for the card item.
+   * @property cardMedia.item - The item used to format the media.
    *
-   * @param {Any} item - The item that is used to format the media.
-   * @returns {Object} The media for the card item.
+   * @param item - The item that is used to format the media.
+   * @returns The media for the card item.
    */
   const cardMedia = useMemo(() => {
     return formatMedia(item);
@@ -230,12 +230,12 @@ const CardItemInternal = <ItemData extends IItemData = any>(
    * Executes a callback function when the handleClick event is triggered.
    *
    * @callback handleClick
-   * @param {function} onCardClick - The callback function to be executed when the card is clicked.
-   * @param {object} state - The state object.
-   * @param {boolean} state.menuOpened - The flag whether the menu is opened.
-   * @param {object} item - The item object.
-   * @param {*} item - The item value.
-   * @returns {void}
+   * @param onCardClick - The callback function to be executed when the card is clicked.
+   * @param state - The state object.
+   * @param state.menuOpened - The flag whether the menu is opened.
+   * @param item - The item object.
+   * @param item - The item value.
+   * @returns
    */
   const handleClick = useCallback(() => {
     if (!state.menuOpened) {

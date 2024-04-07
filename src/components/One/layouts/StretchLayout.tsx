@@ -36,7 +36,7 @@ interface IStretchLayoutPrivate<Data = IAnything> extends IEntity<Data> {
 
 /**
  * Custom hook for applying styles to a component.
- * @returns {object} The generated styles.
+ * @returns The generated styles.
  */
 const useStyles = makeStyles()({
     root: {

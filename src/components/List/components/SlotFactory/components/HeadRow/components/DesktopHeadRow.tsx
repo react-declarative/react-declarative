@@ -35,7 +35,7 @@ const CELL_PADDING_LEFT = 32;
 /**
  * A custom hook to generate styles for a component using Material-UI's `makeStyles` function.
  *
- * @returns {Object} The generated styles object.
+ * @returns The generated styles object.
  */
 const useStyles = makeStyles()((theme) => ({
   cell: {
@@ -196,8 +196,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
   /**
    * A callback function to handle sorting toggle.
    *
-   * @param {string} id - The id of the sort target.
-   * @returns {void}
+   * @param id - The id of the sort target.
+   * @returns
    */
   const handleSortToggle = useCallback(
     (id: string) => {
@@ -250,8 +250,8 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
   /**
    * Returns the rendered content of the table columns.
    *
-   * @param {Array<HeadColumn>} columns - The array of table columns.
-   * @returns {Array<React.ReactNode>} - The rendered content of the table columns.
+   * @param columns - The array of table columns.
+   * @returns - The rendered content of the table columns.
    */
   const content = useMemo(() => {
     /**

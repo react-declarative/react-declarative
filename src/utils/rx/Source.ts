@@ -168,8 +168,8 @@ export class Source {
      * @typedef {Object} Unicast
      * @template Data - The type of data the observer handles.
      *
-     * @property {function(): TObserver<Data>} factory - A factory function to create the observer.
-     * @property {boolean} isUnicasted - Indicates whether the observer is unicast.
+     * @property factory - A factory function to create the observer.
+     * @property isUnicasted - Indicates whether the observer is unicast.
      *
      * @returns - A unicast observer instance.
      */

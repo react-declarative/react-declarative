@@ -2,10 +2,10 @@
  * Interface representing a configuration object.
  *
  * @typedef {Object} IConfig
- * @property {function} onClick - The event handler for the click event.
- * @param {MouseEvent} onClick.e - The MouseEvent object representing the click event.
- * @property {function} onInit - The event handler for the initialization event.
- * @param {HTMLDivElement} onInit.element - The HTMLDivElement object representing the element that was initialized.
+ * @property onClick - The event handler for the click event.
+ * @param onClick.e - The MouseEvent object representing the click event.
+ * @property onInit - The event handler for the initialization event.
+ * @param onInit.element - The HTMLDivElement object representing the element that was initialized.
  */
 interface IConfig {
     onClick: (e: MouseEvent) => void;

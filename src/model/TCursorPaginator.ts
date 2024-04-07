@@ -10,7 +10,7 @@ import IRowData, { RowId } from "./IRowData";
  * @param lastId - The last id from which to start retrieving records.
  * @param payload - The payload containing additional parameters for filtering.
  *
- * @returns {Promise<RowData[]> | RowData[]} - A promise resolving to an array of filtered row data or an array of filtered row data.
+ * @returns - A promise resolving to an array of filtered row data or an array of filtered row data.
  */
 export interface TCursorPaginator<
     FilterData extends {} = any,

@@ -39,7 +39,7 @@ interface IOutlineLayoutPrivate {
  * A function that generates and returns the styles object for a component.
  *
  * @function
- * @returns {Object} The styles object for the component.
+ * @returns The styles object for the component.
  *
  */
 const useStyles = makeStyles()({

@@ -144,13 +144,13 @@ const useStyles = makeStyles()((theme) => ({
  * configuring the size of a modal component. It is of type `IActionModalProps['sizeRequest']`.
  *
  * @returns The size configuration object.
- * @property {number} height - The height of the modal component. This value is set to 0.
- * @property {number} width - The width of the modal component. This value is set to 0.
- * @property {object} sx - An object with additional style properties for the modal component.
- * @property {string} sx.maxHeight - The maximum height of the modal component. This value is set to "80%".
- * @property {string} sx.minWidth - The minimum width of the modal component. This value is set to "330px".
- * @property {string} sx.maxWidth - The maximum width of the modal component. This value is set to "450px".
- * @property {string} sx.margin - The margin around the modal component. This value is set to "10px".
+ * @property height - The height of the modal component. This value is set to 0.
+ * @property width - The width of the modal component. This value is set to 0.
+ * @property sx - An object with additional style properties for the modal component.
+ * @property sx.maxHeight - The maximum height of the modal component. This value is set to "80%".
+ * @property sx.minWidth - The minimum width of the modal component. This value is set to "330px".
+ * @property sx.maxWidth - The maximum width of the modal component. This value is set to "450px".
+ * @property sx.margin - The margin around the modal component. This value is set to "10px".
  */
 const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
   height: 0,
@@ -267,11 +267,11 @@ export const ActionModal = <
   /**
    * Calculate the requested size based on the window size.
    *
-   * @param {Object} options - The options to customize the calculation.
-   * @param {function} options.compute - The function to compute the requested size based on the window size.
-   * @param {number} options.debounce - The debounce delay in milliseconds to prevent frequent recalculations.
+   * @param options - The options to customize the calculation.
+   * @param options.compute - The function to compute the requested size based on the window size.
+   * @param options.debounce - The debounce delay in milliseconds to prevent frequent recalculations.
    *
-   * @returns {Object} - The requested size object with height, width, and sx properties.
+   * @returns - The requested size object with height, width, and sx properties.
    */
   const requestedSize = useWindowSize({
     compute: (size) => {
@@ -336,9 +336,9 @@ export const ActionModal = <
   /**
    * Creates a render waiter function to wait for a specified time limit before rendering the data.
    *
-   * @param {Array} data - The data to be rendered.
-   * @param {number} timeout - The time limit in milliseconds to wait for rendering.
-   * @returns {Function} - The render waiter function.
+   * @param data - The data to be rendered.
+   * @param timeout - The time limit in milliseconds to wait for rendering.
+   * @returns - The render waiter function.
    */
   const waitForRender = useRenderWaiter([data], 10);
 

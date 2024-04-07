@@ -111,7 +111,7 @@ export const Copy = ({
    *
    * A callback function that handles the click event.
    *
-   * @param {Object} e - The click event object.
+   * @param e - The click event object.
    */
   const handleClick = useCallback(
     async (e: any) => {

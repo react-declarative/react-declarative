@@ -26,8 +26,8 @@ const FILTER_CHARS = [',', ';', '-', '@'];
 /**
  * Represents an empty response.
  *
- * @property {Array} rows - An empty array representing no data rows.
- * @property {?number} total - A nullable total representing no data total.
+ * @property rows - An empty array representing no data rows.
+ * @property total - A nullable total representing no data total.
  */
 const EMPTY_RESPONSE = {
     rows: [],
@@ -233,15 +233,15 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
      * A memoized function that queues the resolve function and returns its result.
      * The resolve function is executed asynchronously.
      *
-     * @param {Function} rowsHandler - The resolve function to be queued.
-     * @param {FilterData} filterData - The filter data for the resolve function.
-     * @param {ListHandlerPagination} pagination - The pagination options for the resolve function.
-     * @param {ListHandlerSortModel} sort - The sort options for the resolve function.
-     * @param {ListHandlerChips} chips - The chips data for the resolve function.
-     * @param {string} search - The search term for the resolve function.
-     * @param {IAnything} payload - The payload for the resolve function.
+     * @param rowsHandler - The resolve function to be queued.
+     * @param filterData - The filter data for the resolve function.
+     * @param pagination - The pagination options for the resolve function.
+     * @param sort - The sort options for the resolve function.
+     * @param chips - The chips data for the resolve function.
+     * @param search - The search term for the resolve function.
+     * @param payload - The payload for the resolve function.
      *
-     * @returns {Promise} - A promise that resolves to the result of the resolve function.
+     * @returns - A promise that resolves to the result of the resolve function.
      */
     const queuedResolve = useMemo(() => queued(async (
         filterData: FilterData,
@@ -262,13 +262,13 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
      * Asynchronous ListHandler function that processes filter data, pagination, sorting, chips, search, and payload.
      *
      * @callback ListHandler
-     * @param {FilterData} filterData - The filter data to be processed
-     * @param {Pagination} pagination - The pagination information to be applied
-     * @param {Sort} sort - The sorting information to be applied
-     * @param {Chips} chips - The chips information to be applied
-     * @param {Search} search - The search information to be applied
-     * @param {Payload} payload - Additional payload information
-     * @returns {Promise<{rows: RowData[], total: number|null}>} - The processed rows and total count
+     * @param filterData - The filter data to be processed
+     * @param pagination - The pagination information to be applied
+     * @param sort - The sorting information to be applied
+     * @param chips - The chips information to be applied
+     * @param search - The search information to be applied
+     * @param payload - Additional payload information
+     * @returns - The processed rows and total count
      */
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search, payload) => {
         filterData = removeEmptyFilters(filterData) as FilterData;

@@ -15,7 +15,7 @@ import IField from '../../../model/IField';
 /**
  * Returns the CSS classes based on the provided styles.
  *
- * @returns {Object} The CSS classes object.
+ * @returns The CSS classes object.
  */
 const useStyles = makeStyles()({
   strech: {

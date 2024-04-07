@@ -192,10 +192,10 @@ const KanbanViewInternal = <
   /**
    * Fetches transformed rows from a given set of rows.
    *
-   * @param {string} id - The ID used for fetching the rows.
-   * @param {IAnything} data - Additional data used for transformations.
-   * @param {IBoardRow[]} rows - The rows to be transformed.
-   * @returns {Promise<IBoardRowInternal[]>} The transformed rows.
+   * @param id - The ID used for fetching the rows.
+   * @param data - Additional data used for transformations.
+   * @param rows - The rows to be transformed.
+   * @returns The transformed rows.
    */
   const fetchRows = useMemo(
     () =>
@@ -236,8 +236,8 @@ const KanbanViewInternal = <
   /**
    * A memoized function that fetches a label.
    *
-   * @param {string} _ - The unused parameter.
-   * @param {Function} fn - A function that returns a React node or a promise that resolves to a React node.
+   * @param _ - The unused parameter.
+   * @param fn - A function that returns a React node or a promise that resolves to a React node.
    * @return {Promise<React.ReactNode>} - A promise that resolves to a React node.
    */
   const fetchLabel = useMemo(
@@ -302,13 +302,13 @@ const KanbanViewInternal = <
    *  5. Returns the final `itemMap`.
    *
    *
-   * @param {IBoardItem<Data, Payload, ColumnType>[]} items - The list of board items.
-   * @param {ColumnType} columns - The list of columns.
-   * @param {function} filterFn - The filter function used to filter the items.
-   * @param {boolean} withUpdateOrder - Flag indicating whether to sort the items based on `updatedAt` property.
-   * @param {...any} deps - Additional dependencies used by `useMemo()` hook.
+   * @param items - The list of board items.
+   * @param columns - The list of columns.
+   * @param filterFn - The filter function used to filter the items.
+   * @param withUpdateOrder - Flag indicating whether to sort the items based on `updatedAt` property.
+   * @param deps - Additional dependencies used by `useMemo()` hook.
    *
-   * @returns {Map<ColumnType, IBoardItem<Data, Payload, ColumnType>[]>} - The memoized map of items grouped by columns.
+   * @returns - The memoized map of items grouped by columns.
    */
   const itemMap = useMemo(() => {
     const itemMap = new Map<
@@ -338,9 +338,9 @@ const KanbanViewInternal = <
    * Retrieves a list of columns from a given array of objects using the "columns" key.
    * This list is memoized using React's useMemo hook, ensuring that it is only computed when the dependencies change.
    *
-   * @param {Array} columns - The array of objects containing columns.
+   * @param columns - The array of objects containing columns.
    *
-   * @returns {Array} - The resulting list of columns.
+   * @returns - The resulting list of columns.
    */
   const columnList = useMemo(() => columns.map(({ column }) => column), []);
   const defaultColor = useMemo(
