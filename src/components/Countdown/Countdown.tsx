@@ -70,7 +70,7 @@ export const Countdown = ({
   /**
    * Represents the timeout value.
    *
-   * @typedef {Date} Timeout
+   * @typedef Timeout
    */
   const timeout = useMemo(() => {
     const date = new Date(expireAt);

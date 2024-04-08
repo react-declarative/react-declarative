@@ -96,7 +96,7 @@ export const Async = <T extends any = object>({
          * @function
          * @param fn - The asynchronous function to execute.
          * @returns - A promise that resolves with the result of the function or null if the function returns undefined.
-         * @throws {Error} - If an error occurs during execution of the function, it will be thrown.
+         * @throws - If an error occurs during execution of the function, it will be thrown.
          */
         const execute = cancelable(async () => {
             let isOk = true;
@@ -122,7 +122,7 @@ export const Async = <T extends any = object>({
          * Executes a process asynchronously.
          *
          * @returns A promise that resolves when the process completes.
-         * @throws {Error} If an error occurs and throwError is set to true.
+         * @throws If an error occurs and throwError is set to true.
          */
         const process = async () => {
             let isCanceled = false;

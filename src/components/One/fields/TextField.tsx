@@ -21,7 +21,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data being handled by the field.
    * @template Payload - The type of payload associated with the field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputType">} inputType
+   * @typedef inputType
    *
    * @property name - The name of the input type.
    * @property options - Additional options for the input type.
@@ -30,7 +30,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * The inputMode variable is an optional property that represents the input mode of a field in a form.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
+   * @typedef inputMode
    *
    * @property [inputMode] - The input mode of the field.
    */
@@ -38,7 +38,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the input pattern for a field in a data payload.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputPattern">} inputPattern
+   * @typedef inputPattern
    * @property [inputPattern.pattern] - The regular expression pattern that the input value of the field should match.
    */
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
@@ -47,7 +47,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
-   * @typedef {PickProp<IField<Data, Payload>, "inputAutocomplete">} InputAutocomplete
+   * @typedef InputAutocomplete
    * @property inputAutocomplete - Specifies whether the input should have autocomplete feature.
    */
   inputAutocomplete?: PickProp<IField<Data, Payload>, "inputAutocomplete">;
@@ -62,26 +62,26 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Specifies the input formatter symbol for a given field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterSymbol">} inputFormatterSymbol
+   * @typedef inputFormatterSymbol
    */
   inputFormatterSymbol?: PickProp<IField<Data, Payload>, "inputFormatterSymbol">;
   /**
    * Represents the allowed input formatters for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
+   * @typedef inputFormatterAllowed
    * @property allowedFormatters - An array of strings representing the allowed formatter names.
    */
   inputFormatterAllowed?: PickProp<IField<Data, Payload>, "inputFormatterAllowed">;
   /**
    * Represents an input formatter template used in a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterTemplate">} InputFormatterTemplate
+   * @typedef InputFormatterTemplate
    */
   inputFormatterTemplate?: PickProp<IField<Data, Payload>, "inputFormatterTemplate">;
   /**
    * Defines the input formatter replace configuration for a field.
    *
-   * @typedef {Object} inputFormatterReplace
+   * @typedef inputFormatterReplace
    * @property inputFormatterReplace.dataTransform - The function used to transform the input data before formatting.
    * @property inputFormatterReplace.payloadTransform - The function used to transform the payload before formatting.
    */
@@ -122,7 +122,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the configuration for the leading icon ripple effect.
    *
-   * @typedef {Boolean} LeadingIconRipple
+   * @typedef LeadingIconRipple
    * @property leadingIconRipple.enable - Indicates whether the leading icon ripple effect is enabled.
    * @property leadingIconRipple.duration - The duration of the leading icon ripple effect in milliseconds.
    */
@@ -136,7 +136,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * The leadingIcon property represents the leading icon of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "leadingIcon">} leadingIcon
+   * @typedef leadingIcon
    * @property [icon] - The icon to be displayed as the leading icon.
    * @property [isVisible] - Indicates if the leading icon is visible.
    */
@@ -144,7 +144,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the trailing icon configuration for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "trailingIcon">} trailingIcon
+   * @typedef trailingIcon
    * @property icon - The path or class name of the trailing icon.
    * @property isVisible - Indicates whether the trailing icon is visible or hidden.
    * @property onClick - The event handler function to be executed when the trailing icon is clicked.
@@ -153,7 +153,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the leading icon click event handler for a field in a form.
    *
-   * @typedef {Function} leadingIconClick
+   * @typedef leadingIconClick
    * @param leadingIconClick - The leadingIconClick prop of the field.
    * @returns - Nothing is returned from this function.
    */
@@ -167,7 +167,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * where `IField<Data, Payload>` is a generic type representing a field with
    * `Data` and `Payload` types.
    *
-   * @typedef {(...args: any[]) => void} trailingIconClick
+   * @typedef trailingIconClick
    *
    * @param args - The arguments passed to the callback function.
    * @returns
@@ -176,7 +176,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the number of input rows required for a field.
    *
-   * @typedef {number} InputRows
+   * @typedef InputRows
    */
   inputRows?: PickProp<IField<Data, Payload>, "inputRows">;
   /**
@@ -186,7 +186,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Payload - The type of the payload for the field.
    * @template T - The type of the field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} T
+   * @typedef T
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
@@ -201,7 +201,7 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Specifies if the field should be automatically focused.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
+   * @typedef autoFocus
    * @property [autoFocus] - Indicates if the field should receive focus automatically.
    * @property - The interface that describes the field containing the autoFocus property.
    *
@@ -210,27 +210,27 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the `disabled` property of a field in a form.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
+   * @typedef Disabled
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents the reference to a group in a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
+   * @typedef GroupRef
    * @property groupRef - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Represents the input reference property of a field.
    *
-   * @typedef {Object} InputRef
+   * @typedef InputRef
    * @property current - A reference to the input element.
    */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   /**
    * Shrink option for labels.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'labelShrink'>} labelShrink
+   * @typedef labelShrink
    * @property labelShrink - Whether to apply shrink option to labels.
    */
   labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
@@ -255,7 +255,7 @@ export interface ITextFieldPrivate<Data = IAnything> {
 /**
  * TextField component
  *
- * @typedef {Object} TextField
+ * @typedef TextField
  * @param invalid - Indicates if the input value is invalid
  * @param incorrect - Indicates if the input value is incorrect
  * @param value - The current value of the input field

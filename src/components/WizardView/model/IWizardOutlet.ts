@@ -6,7 +6,7 @@ import IWizardOutletProps from "./IWizardOutletProps";
 /**
  * Represents additional properties for a component.
  *
- * @typedef {Object} OtherProps
+ * @typedef OtherProps
  * @property size - The size of the component.
  * @property loading - Specifies if the component is being loaded.
  * @property setLoading - Sets the loading state of the component.

@@ -51,7 +51,7 @@ export interface IRequest extends IParams {
 
 /**
  * Represents the initial state for the params object.
- * @typedef {object} IParams
+ * @typedef IParams
  * @property name - The initial value for the 'name' property.
  * @property menu - The initial value for the 'menu' property, which is a function that returns null.
  * @property menuItems - The initial value for the 'menuItems' property, which is an empty array.
@@ -196,7 +196,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
    * @param payload - The payload object.
    * @param params$.current.menuItems - The array of menu items.
    *
-   * @throws {TypeError} - If the menuItems parameter is not an array.
+   * @throws - If the menuItems parameter is not an array.
    *
    */
   const options = useMemo(

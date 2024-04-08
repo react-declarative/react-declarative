@@ -94,7 +94,7 @@ export const useMediaStreamBuilder = ({
      * @async
      * @function requestScreenCapture
      * @returns - A Promise that resolves when the screen capture is successfully requested.
-     * @throws {Error} - Throws an error if the screen capture request fails and throwError is set to true.
+     * @throws - Throws an error if the screen capture request fails and throwError is set to true.
      */
     const requestScreenCapture = useActualCallback(async () => {
         let isOk = true;

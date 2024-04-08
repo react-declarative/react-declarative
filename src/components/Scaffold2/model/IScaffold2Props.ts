@@ -27,13 +27,13 @@ export interface IScaffold2Props<T = Payload> {
     /**
      * An array of dependencies.
      *
-     * @typedef {any[]} Dependencies
+     * @typedef Dependencies
      */
     deps?: any[];
     /**
      * Specifies the active option path.
      *
-     * @typedef {string} activeOptionPath
+     * @typedef activeOptionPath
      * @description This variable holds the path of the currently active option.
      *              The path is represented as a string value.
      */
@@ -41,7 +41,7 @@ export interface IScaffold2Props<T = Payload> {
     /**
      * Represents the path of the active tab.
      *
-     * @typedef {string} activeTabPath
+     * @typedef activeTabPath
      *
      * @description
      * The `activeTabPath` variable is an optional string that represents the path of the active tab.
@@ -51,7 +51,7 @@ export interface IScaffold2Props<T = Payload> {
     /**
      * Represents the type definition for the `AfterAppName` variable.
      *
-     * @typedef {import('react').ComponentType<any>} AfterAppName
+     * @typedef AfterAppName
      *
      * @description
      * A variable of type `React.ComponentType<any>` representing a React component.
@@ -61,13 +61,13 @@ export interface IScaffold2Props<T = Payload> {
      * Represents a React component BeforeActionMenu.
      *
      * @component
-     * @typedef {React.ComponentType<any>} BeforeActionMenu
+     * @typedef BeforeActionMenu
      */
     BeforeActionMenu?: React.ComponentType<any>;
     /**
      * BeforeSearch is a React component type used for rendering a component before the search functionality.
      *
-     * @typedef {React.ComponentType<any>} BeforeSearch
+     * @typedef BeforeSearch
      * @memberof module:components
      * @see {@link https://reactjs.org/docs/react-component.html|React.ComponentType}
      */
@@ -88,21 +88,21 @@ export interface IScaffold2Props<T = Payload> {
     /**
      * Type definition for the variable AfterMenuContent.
      *
-     * @typedef {React.ComponentType<any>} AfterMenuContent
+     * @typedef AfterMenuContent
      * @description A React component type that represents the content to be rendered after a menu component.
      */
     AfterMenuContent?: React.ComponentType<any>;
     /**
      * Represents the `BeforeContent` variable.
      *
-     * @typedef {React.ComponentType<any>} BeforeContent
+     * @typedef BeforeContent
      * @description This variable is a React component type that can accept any props. It is typically used to render content that should appear before the main content within a parent component
      */
     BeforeContent?: React.ComponentType<any>;
     /**
      * Represents a React component type for rendering content after the main content.
      *
-     * @typedef {React.ComponentType<any>} AfterContent
+     * @typedef AfterContent
      */
     AfterContent?: React.ComponentType<any>;
     /**
@@ -121,7 +121,7 @@ export interface IScaffold2Props<T = Payload> {
      * Represents a optional callback function that is triggered when an action is performed.
      * The function takes a `name` parameter of type `string` and returns `void`.
      *
-     * @typedef {function} onAction
+     * @typedef onAction
      * @param name - The name of the action being performed.
      * @returns
      */
@@ -153,7 +153,7 @@ export interface IScaffold2Props<T = Payload> {
     onTabChange?: (path: string, tab: string, id: string) => void;
     children: React.ReactNode;
     /**
-     * @typedef {() => (void | Promise<void>)} onInit
+     * @typedef onInit
      * @description Represents a function that may or may not initialize something.
      * The function returns either void or a Promise that resolves to void.
      */
@@ -182,7 +182,7 @@ export interface IScaffold2Props<T = Payload> {
     /**
      * Indicates whether an error should be thrown.
      *
-     * @typedef {boolean} throwError
+     * @typedef throwError
      */
     throwError?: boolean;
     /**

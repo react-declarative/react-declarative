@@ -70,7 +70,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents a small size request object.
  *
- * @typedef {Object} SMALL_SIZE_REQUEST
+ * @typedef SMALL_SIZE_REQUEST
  * @property height - The height of the request. Default: 0.
  * @property width - The width of the request. Default: 0.
  * @property sx - The style object for the request.
@@ -98,7 +98,7 @@ const SMALL_SIZE_REQUEST: IParams['sizeRequest'] = () => ({
  * @param sizeRequest.height - The original height value.
  * @param sizeRequest.width - The original width value.
  * @returns - The modified size request object.
- * @throws {TypeError} - If the sizeRequest parameter is not an object or if height and width are not numbers.
+ * @throws - If the sizeRequest parameter is not an object or if height and width are not numbers.
  *
  */
 const LARGE_SIZE_REQUEST: IParams['sizeRequest'] = ({

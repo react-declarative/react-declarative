@@ -52,7 +52,7 @@ export const useGridAction = <Data extends IAnything = IAnything>({
     /**
      * Represents a commit action that can be performed on a version control system.
      *
-     * @typedef {Object} CommitAction
+     * @typedef CommitAction
      * @property action - The type of commit action to be performed. Valid values are 'add', 'update', and 'delete'.
      * @property path - The path to the file or directory on which the commit action is to be performed.
      * @property content - The content of the file to be added or updated. Null for 'delete' actions.
@@ -73,7 +73,7 @@ export const useGridAction = <Data extends IAnything = IAnything>({
     /**
      * Represents a commit row action.
      *
-     * @typedef {Object} commitRowAction
+     * @typedef commitRowAction
      * @property action - The action performed on the row.
      * @property rowIndex - The index of the row.
      * @property rowData - The data associated with the row.

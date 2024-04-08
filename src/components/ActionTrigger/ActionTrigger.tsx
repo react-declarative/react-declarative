@@ -55,7 +55,7 @@ export const ActionTrigger = <T extends any = object>({
     /**
      * Represents the asynchronous properties.
      *
-     * @typedef {Object} AsyncProps
+     * @typedef AsyncProps
      * @property fallback - The callback function to be called while the asynchronous operation is in progress.
      * @property onLoadStart - The callback function to be called when the asynchronous operation starts.
      * @property onLoadEnd - The callback function to be called when the asynchronous operation ends.

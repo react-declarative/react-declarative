@@ -23,7 +23,7 @@ export interface IEntityAdapter<T extends IEntity = any> {
     /**
      * An identifier representing the unique identity of an entity.
      *
-     * @typedef {string|number} IEntityId
+     * @typedef IEntityId
      */
     id: IEntity['id'];
     /**

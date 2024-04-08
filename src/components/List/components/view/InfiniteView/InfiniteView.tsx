@@ -245,7 +245,7 @@ export const InfiniteView = <
    * @param request - The request object containing the necessary data parameters.
    * @returns - A promise that resolves with the requested data.
    *
-   * @throws {Error} - If the request is invalid or fails.
+   * @throws - If the request is invalid or fails.
    */
   const { execute: handleDataRequest } = useSinglerunAction(async () => {
     let isOk = true;

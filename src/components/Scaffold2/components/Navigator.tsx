@@ -29,9 +29,9 @@ import Search from "./Search";
 export const DRAWER_BACKGROUND = "react-declarative__scaffold2Background";
 
 /**
- * @typedef {import('theme-ui').Theme} Theme
+ * @typedef Theme
  *
- * @typedef {Object} itemCategory
+ * @typedef itemCategory
  * @property boxShadow - A function that calculates the box shadow value for the item category.
  * @param theme - The theme to be used for the calculation.
  * @returns - The calculated box shadow value.

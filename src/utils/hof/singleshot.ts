@@ -34,7 +34,7 @@ export const singleshot = <T extends (...args: any[]) => any>(run: T): T & IClea
      * Clears the given array or object by removing all its properties or elements.
      *
      * @param target - The array or object to be cleared.
-     * @throws {TypeError} If the target is not an array or an object.
+     * @throws If the target is not an array or an object.
      *
      */
     fn.clear = () => {

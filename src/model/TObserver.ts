@@ -116,7 +116,7 @@ export interface TObserver<Data = unknown> {
     /**
      * Represents a function that returns a TObserver object.
      *
-     * @typedef {Function} share
+     * @typedef share
      * @returns The TObserver object
      */
     share: () => TObserver<Data>;

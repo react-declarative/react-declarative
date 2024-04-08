@@ -4,7 +4,7 @@ import IContext from '../model/IContext';
 /**
  * The context for the ModalManager component.
  *
- * @typedef {Object} ModalManagerContext
+ * @typedef ModalManagerContext
  * @property modalStack - The stack of modals currently being displayed.
  * @property pop - Function to remove the top modal from the stack.
  * @property push - Function to add a new modal to the stack.
@@ -19,7 +19,7 @@ export const ModalManagerContext = createContext<IContext>({
     /**
      * Removes and returns the top element from the stack.
      *
-     * @throws {Error} Throws an error if no context is provided for ModalManager.
+     * @throws Throws an error if no context is provided for ModalManager.
      */
     pop: () => {
         throw new Error('ModalManager no context provided');
@@ -27,7 +27,7 @@ export const ModalManagerContext = createContext<IContext>({
     /**
      * Throws an error indicating that the ModalManager has no context provided.
      *
-     * @throws {Error} Indicates that ModalManager no context provided.
+     * @throws Indicates that ModalManager no context provided.
      */
     push: () => {
         throw new Error('ModalManager no context provided');
@@ -35,7 +35,7 @@ export const ModalManagerContext = createContext<IContext>({
     /**
      * Clear function of ModalManager.
      *
-     * @throws {Error} Throws an error if no context is provided.
+     * @throws Throws an error if no context is provided.
      */
     clear: () => {
         throw new Error('ModalManager no context provided');

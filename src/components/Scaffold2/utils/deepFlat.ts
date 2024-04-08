@@ -4,7 +4,7 @@ import IScaffold2Option, { IScaffold2OptionInternal } from '../model/IScaffold2O
 /**
  * Represents a group of records.
  *
- * @typedef {Object} GroupRecords
+ * @typedef GroupRecords
  * @property id - The identifier of the group.
  * @property name - The name of the group.
  * @property records - An array of record IDs belonging to the group.
@@ -27,7 +27,7 @@ type OptionRecords = {
 
 /**
  * Represents an entry that combines group records and option records.
- * @typedef {Object} Entry
+ * @typedef Entry
  * @property groupRecords - The group records.
  * @property optionRecords - The option records.
  */
@@ -36,7 +36,7 @@ export type Entry = GroupRecords & OptionRecords;
 /**
  * Represents a record that can be either an `IScaffold2Group` or an `IScaffold2Option`.
  *
- * @typedef {IScaffold2Group | IScaffold2Option} Record
+ * @typedef Record
  */
 type Record = IScaffold2Group | IScaffold2Option;
 

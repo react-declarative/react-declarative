@@ -23,7 +23,7 @@ const PAYLOAD_METHODS: any[] = ['POST', 'PUT', 'PATCH'];
  * @param input - The resource URL or an instance of the URL class.
  * @param [init] - The request options.
  * @returns - The response data as a Promise.
- * @throws {FetchError} - If an error occurs during the request.
+ * @throws - If an error occurs during the request.
  */
 export const fetchApi = async <T = any>(input: RequestInfo | URL, init?: RequestInit): Promise<T> => {
     const request = input instanceof URL ? input.toString() : input;

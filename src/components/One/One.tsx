@@ -95,7 +95,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
      * The `memoizedProps` object stores memoized transformations for reading and writing values.
      * This object is used to optimize performance by caching the results of calculations instead of recomputing them.
      *
-     * @typedef {Object} memoizedProps
+     * @typedef memoizedProps
      * @property readTransform - A memoized callback function that transforms a value for reading purposes.
      *   It takes four parameters: value, name, data, and payload.
      *   The function checks if the `value` parameter is truthy, and if so, calls the `readTransform` function with the provided parameters.
@@ -123,7 +123,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
     /**
      * An object representing a set of wrapped properties.
      *
-     * @typedef {Object} WrappedProps
+     * @typedef WrappedProps
      * @property focus - A function to handle the focus event.
      * @property blur - A function to handle the blur event.
      * @property menu - A function to handle the menu event.
@@ -182,7 +182,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
      * The `genesisProps` variable is an object that consists of various properties used in a particular context.
      *
      * @type {unknown}
-     * @typedef {Object} IOneProps
+     * @typedef IOneProps
      * @property otherProps - An array of other properties.
      * @property wrappedProps - An array of wrapped properties.
      * @property memoizedProps - An array of memoized properties.

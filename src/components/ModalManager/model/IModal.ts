@@ -11,7 +11,7 @@ export interface IModal {
     /**
      * Function called when the component initializes.
      *
-     * @typedef {function} onInit
+     * @typedef onInit
      * @return {Promise<void> | void} Returns a Promise that resolves when the initialization is complete, or undefined if there is no need for an asynchronous operation.
      */
     onInit?: () => (Promise<void> | void);

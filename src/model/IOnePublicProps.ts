@@ -137,7 +137,7 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
     /**
      * Represents the features of a variable.
      *
-     * @typedef {Record<string, Value> | string[] | (() => (string[] | Record<string, Value>))} Features
+     * @typedef Features
      */
     features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
 };

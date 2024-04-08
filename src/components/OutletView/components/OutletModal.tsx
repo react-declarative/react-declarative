@@ -267,7 +267,7 @@ const LARGE_SIZE_REQUEST: IOutletModalProps['sizeRequest'] = ({
  * @template Payload - The type of the payload to be passed when submitting the form.
  * @template Params - The type of the parameters to pass to the map functions.
  *
- * @typedef {Object} OutletModal
+ * @typedef OutletModal
  * @property withActionButton - Determines whether to display an action button in the modal. Default is `false`.
  * @property hidden - Determines whether the modal is hidden. Default is `false`.
  * @property onSubmit - Callback function that is called when the form is submitted. Default is `() => true`.

@@ -25,7 +25,7 @@ const layoutMap: { [key in FieldType]?: Layout } = Object.create(null);
 /**
  * Variable to map field types to corresponding layout classes.
  *
- * @typedef {Object} FieldTypeMap
+ * @typedef FieldTypeMap
  * @property FieldType.Group - Group layout class.
  * @property FieldType.Box - Box layout class.
  * @property FieldType.Paper - Paper layout class.

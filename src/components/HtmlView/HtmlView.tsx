@@ -30,7 +30,7 @@ declare global {
         /**
          * Represents a Sanitizer class.
          *
-         * @typedef {function} Sanitizer
+         * @typedef Sanitizer
          * @param params - The parameters required to construct a Sanitizer object.
          * @constructor
          */

@@ -27,7 +27,7 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
      *
      * @param asyncFunc - The async function to be queued.
      * @returns - The queued version of the async function.
-     * @throws {TypeError} - If the input parameter is not a function.
+     * @throws - If the input parameter is not a function.
      */
     private readonly queueFactory = queued(async (promise: Promise<object>) => await promise);
 
@@ -262,7 +262,7 @@ class ServiceManager {
      *
      * @param key - The key to be checked for circular dependency.
      *
-     * @throws {Error} Circular Dependency detected
+     * @throws Circular Dependency detected
      *
      */
     private _checkCircularDependency = (key: Key) => {
@@ -338,7 +338,7 @@ class ServiceManager {
      * @param key - The key of the service.
      * @param [verbose=true] - Whether to display console errors when the service is unknown.
      * @returns - The service instance.
-     * @throws {never} - Throws an error if the service is unknown and `verbose` is `true`.
+     * @throws - Throws an error if the service is unknown and `verbose` is `true`.
      */
     inject = <T = object>(key: Key, verbose = true): T => {
         if (this._instances.has(key)) {
@@ -367,7 +367,7 @@ class ServiceManager {
     /**
      * A variable that represents a single shot function for waiting until a specific condition is met.
      *
-     * @typedef {Function} waitForProvide
+     * @typedef waitForProvide
      * @param [verbose=false] - Whether to enable verbose mode or not.
      * @returns - A promise that resolves when the specified condition is met.
      *
@@ -381,7 +381,7 @@ class ServiceManager {
      *
      * @param [verbose=true] - Flag to enable verbose logging.
      * @returns - Promise that resolves when prefetch operation is completed.
-     * @throws {Error} - Throws an error if an error occurs during prefetch operation.
+     * @throws - Throws an error if an error occurs during prefetch operation.
      */
     prefetch = singleshot(async (verbose = true) => {
         this.unload.clear();
@@ -410,7 +410,7 @@ class ServiceManager {
      *
      * @param verbose - Optional parameter to enable verbose logging.
      * @returns - A promise that resolves when all services are unloaded.
-     * @throws {Error} - If any error occurs during the unload process.
+     * @throws - If any error occurs during the unload process.
      */
     unload = singleshot(async (verbose = true) => {
         this.prefetch.clear();

@@ -4,14 +4,14 @@ import IData from '../model/IData';
 
 /**
  * Represents a collection of records, where each record is a tuple containing a key-value pair.
- * @typedef {Array<[keyof IData, IData[keyof IData]]>} IDataRecords
+ * @typedef IDataRecords
  */
 type IDataRecords = Array<[keyof IData, IData[keyof IData]]>;
 
 /**
  * Represents an entry that contains path, value, and deepIndex.
  *
- * @typedef {Object} Entry
+ * @typedef Entry
  * @property path - The path of the entry.
  * @property value - The value of the entry.
  * @property deepIndex - The deep index of the entry.

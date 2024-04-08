@@ -31,7 +31,7 @@ export const HourView = ({
   /**
    * Represents the value of AM/PM format from a given date object.
    *
-   * @typedef {number} ampmValue
+   * @typedef ampmValue
    */
   const ampmValue = Number(date.format('hh'));
   return (

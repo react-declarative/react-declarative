@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 
 /**
  * A variable that holds the styles for a component.
- * @typedef {object} useStyles
+ * @typedef useStyles
  * @property container - The styles for the container.
  * @property yearItem - The styles for the year item.
  * @property selectedYear - The styles for the selected year item.

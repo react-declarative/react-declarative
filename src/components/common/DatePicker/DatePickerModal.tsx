@@ -21,7 +21,7 @@ interface IDatePickerModalProps {
 /**
  * A modal component that displays a date picker.
  *
- * @typedef {object} IDatePickerModalProps
+ * @typedef IDatePickerModalProps
  * @property onChange - Callback function invoked when the selected date changes.
  * @property animateYearScrolling - If true, animates the scrolling between years in the year selection popup. Default is false.
  * @property openToYearSelection - If true, opens the date picker directly to the year selection view. Default is false.

@@ -5,7 +5,7 @@ export const MINUTES = 'minutes';
 /**
  * Represents the center point of a coordinate system.
  *
- * @typedef {Object} Center
+ * @typedef Center
  * @property x - The x-coordinate of the center point.
  * @property y - The y-coordinate of the center point.
  */
@@ -17,7 +17,7 @@ const center = {
 /**
  * Represents a base point with x and y coordinates.
  *
- * @typedef {Object} BasePoint
+ * @typedef BasePoint
  * @property x - The x coordinate of the base point.
  * @property y - The y coordinate of the base point.
  */

@@ -80,7 +80,7 @@ export const Reveal = ({
 
     /**
      * Represents a map of animation effects.
-     * @typedef {Object} AnimationMap
+     * @typedef AnimationMap
      * @property slideDown - The class name for the slide down animation effect.
      * @property fadeIn - The class name for the fade in animation effect.
      * @property scale - The class name for the scale animation effect.

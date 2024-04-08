@@ -54,7 +54,7 @@ export const BodyRow = <RowData extends IRowData = IAnything>({
   /**
    * Represents a memoized visibility request.
    *
-   * @typedef {Object} IVisibilityRequest
+   * @typedef IVisibilityRequest
    * @property filterData - The filter data for the request.
    * @property pagination - The pagination options for the request.
    * @property sortModel - The sort model for the request.

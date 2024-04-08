@@ -88,21 +88,21 @@ export const VisibilityView = ({
    *
    * @returns - The memoized value.
    *
-   * @typedef {Object} State - Represents the state of the memoized value.
+   * @typedef State - Represents the state of the memoized value.
    * @property [name] - The name property.
    * @property [name][value] - The value property associated with the name.
    *
-   * @typedef {Object[]} Group - Represents a group of fields.
+   * @typedef Group - Represents a group of fields.
    * @property name - The name of the group.
    * @property fields - The fields in the group.
    *
-   * @typedef {Object[]} Variant - Represents a variant of a field.
+   * @typedef Variant - Represents a variant of a field.
    * @property value - The value of the variant.
    *
-   * @typedef {Object} Field - Represents a field.
+   * @typedef Field - Represents a field.
    * @property variants - The variants of the field.
    *
-   * @typedef {Object} Data - Represents the data.
+   * @typedef Data - Represents the data.
    * @property [name] - The data associated with the name.
    */
   const value = useMemo(() => {

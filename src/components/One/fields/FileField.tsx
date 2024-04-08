@@ -45,7 +45,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The data object containing the field.
    * @template Payload - The payload type for the field.
    *
-   * @typedef {PickProp<T, K>} PickProp
+   * @typedef PickProp
    *
    * @param field - The field object.
    *
@@ -58,7 +58,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'fileAccept'>} fileAccept
+   * @typedef fileAccept
    *
    * @property fileAccept - The accepted file types for the field.
    */
@@ -78,26 +78,26 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the "disabled" property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledField
+   * @typedef DisabledField
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents a reference to a group within a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Represents the input reference associated with a field in a specific data payload.
    *
-   * @typedef {object} IInputRef
+   * @typedef IInputRef
    * @property inputRef - The input reference value.
    */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   /**
    * Label shrink value from the field data.
    *
-   * @typedef {Pick<IField<Data>, "labelShrink">} labelShrink
+   * @typedef labelShrink
    * @property [labelShrink] - The label shrink value from the field data.
    * @private
    */
@@ -108,7 +108,7 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of data for the object containing the 'upload' property.
    * @template Payload - The type of payload for the 'upload' property.
    * @template IField - The type of field for the object containing the 'upload' property.
-   * @typedef {PickProp<IField<Data, Payload>, 'upload'>} upload
+   * @typedef upload
    */
   upload?: PickProp<IField<Data, Payload>, 'upload'>;
   /**

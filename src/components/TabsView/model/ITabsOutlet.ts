@@ -6,7 +6,7 @@ import ITabsOutletProps from "./ITabsOutletProps";
 /**
  * Represents a set of additional properties.
  *
- * @typedef {Object} OtherProps
+ * @typedef OtherProps
  * @property size - The size of the object.
  * @property loading - Indicates if the object is currently loading.
  * @property progress - The progress of loading the object.

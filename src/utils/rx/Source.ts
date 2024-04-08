@@ -165,7 +165,7 @@ export class Source {
     };
 
     /**
-     * @typedef {Object} Unicast
+     * @typedef Unicast
      * @template Data - The type of data the observer handles.
      *
      * @property factory - A factory function to create the observer.

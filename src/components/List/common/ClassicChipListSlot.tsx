@@ -15,13 +15,13 @@ import { IListChip } from "../../../model/IListProps";
 import { IChipListSlot } from "../slots/ChipListSlot";
 
 /**
- * @typedef {Object} Styles
+ * @typedef Styles
  * @property root - The CSS properties for the root element.
  * @property root.height - The height of the root element in pixels.
  * @property root.width - The width of the root element as a CSS value.
  * @property root.background - The background color of the root element.
  *
- * @typedef {Function} useStyles
+ * @typedef useStyles
  * @param theme - The theme object provided by the Material-UI library.
  * @returns The computed styles object.
  */

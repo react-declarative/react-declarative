@@ -32,7 +32,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
      * Function that returns a promise that resolves when listeners are present or if the instance is disposed.
      *
      * @returns A promise that resolves to true if the instance is disposed, or false if listeners are present.
-     * @throws {Error} If any error occurs during the process.
+     * @throws If any error occurs during the process.
      */
     private _waitForListeners = () => new Promise<boolean>(async (res, rej) => {
         let isDisposed = false;
@@ -74,7 +74,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
      * @param data - The data to set. It can be either a partial object of type T or a function that takes the previous data of type T and returns
      * a partial object of type T.
      * @returns - A promise that resolves when the data is set.
-     * @throws {EntityNotFoundError} - If the entity (with the given ID) is not found in the collection.
+     * @throws - If the entity (with the given ID) is not found in the collection.
      */
     public setData = async (data: Partial<T> | ((prevData: T) => Partial<T>)) => {
         try {
@@ -97,7 +97,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
      * Refreshes the entity asynchronously.
      *
      * @returns A Promise that resolves once the entity is refreshed.
-     * @throws {Error} If an error occurs while refreshing the entity.
+     * @throws If an error occurs while refreshing the entity.
      */
     public refresh = async () => {
         try {
@@ -121,7 +121,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
      *
      * @memberOf [variable name]
      *
-     * @throws {Error} If the entity is not found in the collection.
+     * @throws If the entity is not found in the collection.
      *
      * @return A plain JavaScript object representing the current entity.
      */
@@ -140,7 +140,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
     /**
      * Retrieves the entity with the specified ID from the current collection.
      *
-     * @throws {Error} If the entity is not found in the collection.
+     * @throws If the entity is not found in the collection.
      *
      * @returns The entity with the specified ID.
      */

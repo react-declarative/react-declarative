@@ -31,7 +31,7 @@ const LABEL_SHRINK = 500;
 /**
  * A function that generates styles for a component based on the provided theme.
  *
- * @typedef {Object} Styles
+ * @typedef Styles
  * @property root - Styles for the root element.
  * @property container - Styles for the container element.
  * @property content - Styles for the content element.

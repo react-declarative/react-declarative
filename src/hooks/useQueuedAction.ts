@@ -74,7 +74,7 @@ export const useQueuedAction = <Data extends any = any, Payload extends any = an
      * @param func - The function to execute.
      * @param deps - An array of dependencies for memoization.
      * @returns - The result of the function execution or `null` if the result is falsy.
-     * @throws {Error} - If an error occurs during function execution.
+     * @throws - If an error occurs during function execution.
      */
     const execution = useMemo(() => queued(async (payload: Payload) => {
         let isOk = true;

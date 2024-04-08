@@ -54,7 +54,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents the properties of a content component.
  *
- * @typedef {Object} IContentProps
+ * @typedef IContentProps
  * @property id - The ID of the content.
  * @property data - The data associated with the content.
  * @property payload - The payload of the content.

@@ -7,7 +7,7 @@ export interface INode {
   /**
    * Represents an array of child nodes excluding the "child" property (recursion).
    *
-   * @typedef {Array<Omit<INode, "child">>} ChildArray
+   * @typedef ChildArray
    */
   child?: Omit<INode, "child">[];
 }

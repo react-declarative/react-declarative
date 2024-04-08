@@ -26,7 +26,7 @@ interface ISideMenuProps {
 
 /**
  * Represents a side menu component.
- * @typedef {Object} SideMenu
+ * @typedef SideMenu
  * @param paddingLeft - The left padding of the side menu.
  * @param selected - The currently selected option.
  * @param options - The list of menu options.
@@ -91,7 +91,7 @@ export const SideMenu = ({
     /**
      * Represents a child element in a menu.
      *
-     * @typedef {Object} Child
+     * @typedef Child
      * @property key - The unique key of the child element.
      * @property item - The item object passed as props to the child element.
      * @property currentPadding - The current padding of the child element.

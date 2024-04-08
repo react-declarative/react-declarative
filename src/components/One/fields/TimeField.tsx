@@ -63,7 +63,7 @@ export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the "autoFocus" property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
+   * @typedef autoFocus
    * @property [autoFocus] - Whether the field should receive focus automatically.
    */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
@@ -79,13 +79,13 @@ export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a reference to an input element.
    *
-   * @typedef {Object} InputRef
+   * @typedef InputRef
    * @property [inputRef] - The inputRef property of an IField object.
    */
   inputRef?: PickProp<IField<Data, Payload>, "inputRef">;
   /**
    * Represents the shrink property of the label in a field.
-   * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
+   * @typedef labelShrink
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
 }

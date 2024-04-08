@@ -25,7 +25,7 @@ export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
   placeholder?: PickProp<IField<Data, Payload>, 'placeholder'>;
   /**
    * Represents the `typoVariant` property of an object.
-   * @typedef {PickProp<IField<Data, Payload>, 'typoVariant'>} TypoVariant
+   * @typedef TypoVariant
    * @property - The object from which the `typoVariant` property is picked.
    * @property - The name of the property being picked.
    * @property - The value of the `typoVariant` property.
@@ -55,7 +55,7 @@ export interface ITypographyFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents a reference to a group in a field.
    * This reference is optional.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }

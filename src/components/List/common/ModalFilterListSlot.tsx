@@ -82,7 +82,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * ModalFilterListSlot is a component that displays a filter list with a modal.
  *
- * @typedef {Object} FilterData - The type of filter data.
+ * @typedef FilterData - The type of filter data.
  * @property className - The class name for the component.
  * @property style - The inline style for the component.
  * @property filterData - The filter data object.

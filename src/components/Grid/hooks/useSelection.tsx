@@ -53,7 +53,7 @@ const compareSelection = (s1: Set<string>, s2: Set<string>) => {
 /**
  * A provider component that manages the selection state of rows in a grid.
  *
- * @typedef {Object} ISelectionProviderProps
+ * @typedef ISelectionProviderProps
  * @property children - The components wrapped by the provider.
  */
 export const SelectionProvider = ({

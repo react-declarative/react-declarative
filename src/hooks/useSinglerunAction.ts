@@ -5,7 +5,7 @@ import singlerun from '../utils/hof/singlerun';
 import useActualCallback from './useActualCallback';
 
 /**
- * @typedef {Object} IParams
+ * @typedef IParams
  * @property [fallback] - The function to be called when an error occurs.
  * @property [onLoadStart] - The function to be called when the load starts.
  * @property [onLoadEnd] - The function to be called when the load ends.

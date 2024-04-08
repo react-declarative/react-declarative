@@ -68,7 +68,7 @@ const useStyles = makeStyles()((theme) => ({
  *
  * @returns - The ActionListSlot component.
  *
- * @throws {Error} - If the action type is unknown.
+ * @throws - If the action type is unknown.
  */
 export const ActionListSlot = <FilterData extends {}>({
   className,
@@ -104,7 +104,7 @@ export const ActionListSlot = <FilterData extends {}>({
    * @param options.icon - The icon of the action.
    * @param options.action - The action function.
    * @returns The action component.
-   * @throws {Error} If the action type is unknown.
+   * @throws If the action type is unknown.
    */
   const createAction = ({
     type, 

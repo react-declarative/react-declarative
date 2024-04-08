@@ -66,7 +66,7 @@ const useStyles = makeStyles()({
 
 /**
  * Represents a mobile common cell component.
- * @typedef {Object} IMobileCommonCellProps
+ * @typedef IMobileCommonCellProps
  * @property className - The class name of the component.
  * @property colSpan - The number of columns the cell should span.
  * @property withLabel - Determines whether to display a label in the cell.

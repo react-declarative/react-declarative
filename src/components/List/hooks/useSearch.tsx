@@ -4,7 +4,7 @@ import { useContext } from "react";
 type IContext = string;
 
 /**
- * @typedef {Object} IProps
+ * @typedef IProps
  * @property value - The context value to be passed to the children.
  * @property children - The React node to be rendered as children.
  */

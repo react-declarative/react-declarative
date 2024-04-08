@@ -52,7 +52,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the 'dictLimit' property of an object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "dictLimit">} dictLimit
+   * @typedef dictLimit
    * @property [dictLimit] - The limit for the dictionary.
    * @returns - The limit for the dictionary.
    */
@@ -69,12 +69,12 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    */
   dictDelay?: PickProp<IField<Data, Payload>, "dictDelay">;
   /**
-   * @typedef {import("./types").IField<Data, Payload>} IField
-   * @typedef {import("./types").Payload} Payload
-   * @typedef {import("./types").Data} Data
-   * @typedef {import("./types").PickProp} PickProp
+   * @typedef IField
+   * @typedef Payload
+   * @typedef Data
+   * @typedef PickProp
    *
-   * @typedef {PickProp<IField<Data, Payload>, "dictSearch">} dictSearch
+   * @typedef dictSearch
    */
   dictSearch?: PickProp<IField<Data, Payload>, "dictSearch">;
   /**
@@ -84,7 +84,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a variable `dictOnText` which is optional and can be of type `PickProp<IField<Data, Payload>, "dictOnText">`.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "dictOnText">} dictOnText
+   * @typedef dictOnText
    */
   dictOnText?: PickProp<IField<Data, Payload>, "dictOnText">;
   /**
@@ -92,7 +92,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data object for the field.
    * @template Payload - The type of payload for the field.
-   * @typedef {PickProp<IField<Data, Payload>, "dictOnItem">} dictOnItem?
+   * @typedef dictOnItem?
    * @property dictOnItem - Indicates whether the field uses dictionary on item.
    */
   dictOnItem?: PickProp<IField<Data, Payload>, "dictOnItem">;
@@ -105,7 +105,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    */
   dictValue?: PickProp<IField<Data, Payload>, "dictValue">;
   /**
-   * @typedef {Object} IField
+   * @typedef IField
    * @property data - The data object
    * @property payload - The payload object
    */
@@ -113,7 +113,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the 'dictSearchItem' property of an object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "dictSearchItem">} dictSearchItem
+   * @typedef dictSearchItem
    *
    * @description
    * This property is an optional field that is used to store information related to dictionary search item.
@@ -135,7 +135,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the input type of a field.
    *
-   * @typedef {string} InputType
+   * @typedef InputType
    *
    * @property inputType - The type of input for the field.
    */
@@ -143,14 +143,14 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the input mode configuration for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputMode">} inputMode
+   * @typedef inputMode
    * @property inputMode - The input mode for the field.
    */
   inputMode?: PickProp<IField<Data, Payload>, "inputMode">;
   /**
    * Represents the input pattern of a field in the form.
    *
-   * @typedef {Object} PickProp<IField<Data, Payload>, "inputPattern">
+   * @typedef PickProp<IField<Data, Payload>, "inputPattern">
    * @property [inputPattern] - The regular expression pattern that the input value of the field must match.
    */
   inputPattern?: PickProp<IField<Data, Payload>, "inputPattern">;
@@ -175,7 +175,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a symbol used by the input formatter for a given field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterSymbol">} inputFormatterSymbol
+   * @typedef inputFormatterSymbol
    *
    * @property inputFormatterSymbol - The symbol used by the input formatter.
    */
@@ -186,7 +186,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the allowed input formatters for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterAllowed">} inputFormatterAllowed
+   * @typedef inputFormatterAllowed
    * @property inputFormatterAllowed - An array of allowed input formatter names.
    */
   inputFormatterAllowed?: PickProp<
@@ -196,7 +196,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a template for input formatter.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterTemplate">} InputFormatterTemplate
+   * @typedef InputFormatterTemplate
    */
   inputFormatterTemplate?: PickProp<
     IField<Data, Payload>,
@@ -205,7 +205,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents an object property `inputFormatterReplace` of the interface `IField<Data, Payload>`.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "inputFormatterReplace">} inputFormatterReplace
+   * @typedef inputFormatterReplace
    * @property inputFormatterReplace - The value of the `inputFormatterReplace` property.
    * @see {@link IField}
    * @see {@link PickProp}
@@ -247,14 +247,14 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data - The type of the `Data` object in `IField`.
    * @template Payload - The type of the `Payload` object in `IField`.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} PlaceholderType
+   * @typedef PlaceholderType
    *
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
    * The `readonly` property of the `IField` object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly
+   * @typedef readonly
    * @property value - A boolean value indicating if the field is read-only or not.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
@@ -273,14 +273,14 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents the group reference property of a field in a data payload.
-   * @typedef {PickProp<IField<Data, Payload>, "groupRef">} groupRef
+   * @typedef groupRef
    * @property groupRef - The group reference value.
    */
   groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
   /**
    * Represents a reference to the input element within a field.
    *
-   * @typedef {object} InputRef
+   * @typedef InputRef
    * @property name - The name of the input element.
    * @property id - The unique ID of the input element.
    * @property element - The actual input element.
@@ -289,20 +289,20 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the configuration for the leading icon ripple effect.
    *
-   * @typedef {boolean} leadingIconRipple
+   * @typedef leadingIconRipple
    * @memberof PickProp<IField<Data, Payload>, 'leadingIconRipple'>
    */
   leadingIconRipple?: PickProp<IField<Data, Payload>, 'leadingIconRipple'>;
   /**
    * Represents the trailing icon ripple configuration for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'trailingIconRipple'>} trailingIconRipple
+   * @typedef trailingIconRipple
    */
   trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
   /**
    * Represents the leading icon for a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'leadingIcon'>} leadingIcon
+   * @typedef leadingIcon
    *
    * @property [name] - The name of the leading icon.
    * @property [url] - The URL of the leading icon.
@@ -313,9 +313,9 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    * This is a variable named trailingIcon.
    * The variable is an optional property of type 'PickProp<IField<Data, Payload>, 'trailingIcon'>'.
    *
-   * @typedef {import('path/to/IField').Data} Data - The data type used by IField.
-   * @typedef {import('path/to/IField').Payload} Payload - The payload type used by IField.
-   * @typedef {import('path/to/PickProp').PickProp} PickProp - The type used to pick properties from IField.
+   * @typedef Data - The data type used by IField.
+   * @typedef Payload - The payload type used by IField.
+   * @typedef PickProp - The type used to pick properties from IField.
    * @property [trailingIcon] - Optional trailing icon property.
    */
   trailingIcon?: PickProp<IField<Data, Payload>, 'trailingIcon'>;
@@ -333,7 +333,7 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * The `trailingIconClick` property defines the action to be performed when the trailing icon of a field is clicked.
    *
-   * @typedef {import('path/to/IField').IField<Data, Payload>} IField
+   * @typedef IField
    * @template Data, Payload
    *
    * @param trailingIconClick - The value of the `trailingIconClick` property which defines the action to be performed when the trailing

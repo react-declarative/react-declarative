@@ -109,7 +109,7 @@ export const OutletView = <
   /**
    * Represents the variable 'data'.
    *
-   * @typedef {Object} Data
+   * @typedef Data
    * @property id - The identifier of outlet.
    */
   const [data, setData] = useState(() => ({
@@ -240,7 +240,7 @@ export const OutletView = <
    * @async
    * @function waitForChanges
    * @returns A Promise that resolves when changes occur.
-   * @throws {Error} If an error occurs during the process.
+   * @throws If an error occurs during the process.
    */
   const waitForChanges = async () => {
     const unblock = history.block(() => {});
@@ -500,7 +500,7 @@ export const OutletView = <
   /**
    * Memoized form state object.
    *
-   * @typedef {Object} FormState
+   * @typedef FormState
    *
    * @property data - The current form data.
    * @property hasChanged - Indicates whether the form data has changed.

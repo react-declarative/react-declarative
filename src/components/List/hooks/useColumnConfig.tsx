@@ -35,7 +35,7 @@ interface ISortModalProps {
 /**
  * Defines the styles for a component.
  *
- * @typedef {Object} useStyles
+ * @typedef useStyles
  * @property inactive - The styles for the inactive state.
  * @property inactive.opacity - The opacity value for the inactive state.
  * @property container - The styles for the container element.
@@ -294,7 +294,7 @@ export const useColumnConfig = ({ columns, storageKey }: ISortModalProps) => {
 
   /**
    * Configuration object for rendering a table.
-   * @typedef {Object} Config
+   * @typedef Config
    * @property open - Specifies if the modal is open or closed.
    * @property render - Function used to render the modal.
    * @property columns - Array of columns in the modal, sorted in the specified order.

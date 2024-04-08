@@ -64,7 +64,7 @@ interface IRequest {
 }
 
 /**
- * @typedef {Object} IOutletModal
+ * @typedef IOutletModal
  * @property id - The ID of the modal page.
  * @property element - The React component to render for this modal.
  * @property isActive - Function that determines if this modal page is active based on the current URL.

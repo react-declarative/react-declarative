@@ -25,7 +25,7 @@ export const retry = <T extends any = any, P extends any[] = any[]>(run: (...arg
          *
          * @async
          * @returns A Promise that resolves with the result of the successful call to `run`.
-         * @throws {Error} If the limit of reattempts is reached and `run` still throws an error.
+         * @throws If the limit of reattempts is reached and `run` still throws an error.
          */
         const call = async (): Promise<any> => {
             try {

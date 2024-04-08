@@ -61,29 +61,29 @@ export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Shrink the label of a field.
    *
-   * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
+   * @typedef labelShrink
    * @property [labelShrink] - Specifies whether to shrink the label of the field.
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
    * Represents the autoFocus property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "autoFocus">} autoFocus
+   * @typedef autoFocus
    * @property [autoFocus] - If set to true, the field will automatically receive focus when rendered.
    */
   autoFocus?: PickProp<IField<Data, Payload>, "autoFocus">;
   /**
    * Represents the `disabled` property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} DisabledField
+   * @typedef DisabledField
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents an optional reference to the input element within a field.
    *
-   * @typedef {import("path/to/IField").Data} Data - The data type of the field.
-   * @typedef {import("path/to/IField").Payload} Payload - The payload type of the field.
-   * @typedef {import("path/to/PickProp").PickProp<IField<Data, Payload>, "inputRef">} PickPropResult - The result type of the PickProp function.
+   * @typedef Data - The data type of the field.
+   * @typedef Payload - The payload type of the field.
+   * @typedef PickPropResult - The result type of the PickProp function.
    *
    * @property [inputRef] - The reference to the input element within a field.
    */
@@ -108,7 +108,7 @@ export interface IDateFieldPrivate<Data = IAnything> {
 /**
  * Represents a DateField component.
  *
- * @typedef {Object} DateField
+ * @typedef DateField
  * @param invalid - Specifies whether the date field is invalid.
  * @param incorrect - Specifies whether the date field has an incorrect value.
  * @param value - The value of the date field.

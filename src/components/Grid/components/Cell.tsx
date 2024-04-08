@@ -27,7 +27,7 @@ interface ICellProps extends BoxProps {
 
 /**
  * Represents a cell component in a grid.
- * @typedef {Object} ICellProps
+ * @typedef ICellProps
  * @property className - The CSS class name for the cell.
  * @property style - The inline CSS style for the cell.
  * @property sx - The sx prop for the Box component used in the cell.

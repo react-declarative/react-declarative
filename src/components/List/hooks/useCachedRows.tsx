@@ -91,7 +91,7 @@ export const CachedRowsProvider = <RowData extends IRowData = IAnything>({
 
     /**
      * Represents the value of a variable.
-     * @typedef {Object} VariableValue
+     * @typedef VariableValue
      * @property cachedRows - The cached rows of data.
      * @property selectedRows - The selected rows of data.
      */

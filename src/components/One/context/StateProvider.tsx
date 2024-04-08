@@ -135,7 +135,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
     /**
      * Represents a managed state object.
      *
-     * @typedef {Object} IState
+     * @typedef IState
      * @property object - The current object value.
      * @property setObject - A function to set the object value.
      * @property changeObject - A function to change the object value.

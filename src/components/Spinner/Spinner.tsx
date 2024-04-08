@@ -39,14 +39,14 @@ const createSpin = (ms = 1_000) => ({
  * The useStyles variable is created using the makeStyles() function, which is a hook in the Material-UI library.
  * It is used to define and generate custom styles for a component.
  *
- * @typedef {Object} Classes
+ * @typedef Classes
  * @property root - The class name for the root element of the component
  * @property spin1 - The class name for the spin1 element of the component
  * @property spin2 - The class name for the spin2 element of the component
  * @property spin3 - The class name for the spin3 element of the component
  * @property spin4 - The class name for the spin4 element of the component
  *
- * @typedef {Object} StyleFn
+ * @typedef StyleFn
  * @param theme - The theme object provided by Material-UI
  * @returns - An object containing the class names for the different elements of the component
  *

@@ -3,7 +3,7 @@ import FieldType from '../../../model/FieldType';
 /**
  * Represents an initial value map for different field types.
  *
- * @typedef {Object} initialValueMap
+ * @typedef initialValueMap
  * @property Checkbox - The initial value for a checkbox field.
  * @property Radio - The initial value for a radio field.
  * @property Text - The initial value for a text field.

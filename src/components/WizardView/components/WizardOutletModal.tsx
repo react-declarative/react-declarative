@@ -155,7 +155,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents the size request for a small wizard modal.
  *
- * @typedef {object} IWizardSizeRequest
+ * @typedef IWizardSizeRequest
  * @property height - The height of the wizard modal.
  * @property width - The width of the wizard modal.
  * @property sx - The style object for the wizard modal.
@@ -365,7 +365,7 @@ export const OutletModal = <
    * @async
    * @function
    * @returns
-   * @throws {Error} - If throwError is set to true and an error occurs.
+   * @throws - If throwError is set to true and an error occurs.
    */
   const handleAccept = async () => {
     if (loading.current) {

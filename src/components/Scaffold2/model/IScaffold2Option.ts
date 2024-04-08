@@ -64,7 +64,7 @@ export interface IScaffold2OptionInternal<T = Payload> extends Omit<IScaffold2Op
     /**
      * Represents an array of internal scaffold tabs.
      * @template T - The type of data associated with the tabs.
-     * @typedef {Array<IScaffold2TabInternal<T>>} Tabs
+     * @typedef Tabs
      */
     tabs?: IScaffold2TabInternal<T>[]
 }

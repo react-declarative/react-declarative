@@ -35,7 +35,7 @@ export const useModalManager = (): IResult => {
     const context = useContext(ModalManagerContext);
     /**
      * Represents the result object.
-     * @typedef {Object} Result
+     * @typedef Result
      * @property total - The total number of items in the modal stack.
      * @property push - The function that adds an item to the modal stack.
      * @property pop - The function that removes an item from the modal stack.

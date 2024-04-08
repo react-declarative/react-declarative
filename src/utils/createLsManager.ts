@@ -26,7 +26,7 @@ export const createLsManager = <T = Record<string, any>>(STORAGE_KEY: string) =>
      * Sets a value in the local storage.
      *
      * @param value - The value to be stored in the local storage.
-     * @throws {DOMException} - If the local storage exceeds the quota.
+     * @throws - If the local storage exceeds the quota.
      */
     setValue = (value: T) => {
         try {

@@ -146,7 +146,7 @@ export const FilesView = ({
    *
    * @param item - The item to be removed.
    * @returns - Resolves when the item has been removed successfully.
-   * @throws {Error} - If an error occurs during the removal process and throwError is true.
+   * @throws - If an error occurs during the removal process and throwError is true.
    */
   const handleRemove = async (item: string) => {
     let isOk = true;

@@ -143,7 +143,7 @@ export const If = <T extends any = object>({
          * Asynchronous function that executes a process.
          *
          * @returns A promise that resolves when the process is complete.
-         * @throws {Error} If an error occurs and `throwError` is `true`.
+         * @throws If an error occurs and `throwError` is `true`.
          */
         const process = async () => {
             try {

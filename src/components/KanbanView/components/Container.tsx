@@ -62,7 +62,7 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 /**
- * @typedef {Object} IContainerProps
+ * @typedef IContainerProps
  * @property id - The ID of the container.
  * @property column - The current column of the container.
  * @property label - The label of the container.
@@ -111,7 +111,7 @@ export const Container = ({
   /**
    * Represents the number of rows in a data set or table.
    *
-   * @typedef {number} Rows
+   * @typedef Rows
    */
   const [rows] = useAsyncValue(
     async () => {

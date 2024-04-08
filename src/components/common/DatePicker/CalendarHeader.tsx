@@ -25,7 +25,7 @@ const getWeekdaysMin = () => {
 
 /**
  * Defines the styles for a component.
- * @typedef {Object} Styles
+ * @typedef Styles
  * @property switchHeader - The style for the switch header container.
  * @property daysHeader - The style for the days header container.
  * @property dayLabel - The style for the day label.

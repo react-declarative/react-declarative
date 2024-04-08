@@ -53,7 +53,7 @@ const compareSelection = (s1: Set<string>, s2: Set<string>) => {
 
 /**
  * A component that provides selection functionality for its children.
- * @typedef {Object} ISelectionProviderProps
+ * @typedef ISelectionProviderProps
  * @property children - The child components to wrap with selection functionality.
  * @property selectedRows - The currently selected rows.
  * @property onSelectedRows - Callback function to handle selection changes.
@@ -80,7 +80,7 @@ export const SelectionProvider = ({
     /**
      * Represents a variable value.
      *
-     * @typedef {Object} VariableValue
+     * @typedef VariableValue
      * @property selection - The current selection value.
      * @property setSelection - The function to handle selection changes.
      */

@@ -47,7 +47,7 @@ interface IState {
 }
 
 /**
- * @typedef {object} IModalEntity
+ * @typedef IModalEntity
  * @property key - The key of the modal entity.
  * @property id - The id of the modal entity.
  * @property render - The render function for the modal entity.
@@ -59,7 +59,7 @@ const DEFAULT_MODAL: IModalEntity = {
 };
 
 /**
- * @typedef {Object} IState
+ * @typedef IState
  * @property modalStack - The stack of modals.
  * @property count - The count.
  */
@@ -125,7 +125,7 @@ export const ModalManagerProvider = ({
     /**
      * A memoized object that encapsulates modal stack operations.
      *
-     * @typedef {Object} ModalStack
+     * @typedef ModalStack
      * @property modalStack - The current modal stack.
      * @property pop - Removes the first modal from the stack.
      * @property push - Adds a new modal to the stack.

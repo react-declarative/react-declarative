@@ -41,7 +41,7 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Represents the readonly property of an IField object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly?
+   * @typedef readonly?
    * @property [readonly] - Specifies whether the field is readonly or not.
    * @public
    */
@@ -51,13 +51,13 @@ export interface ISwitchFieldProps<Data = IAnything, Payload = IAnything>  {
    *
    * @template Data The data type associated with the form.
    * @template Payload The payload type associated with the form.
-   * @typedef {PickProp<IField<Data, Payload>, 'disabled'>} disabled
+   * @typedef disabled
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * The switchNoColor property of the Field interface.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "switchNoColor">} switchNoColor
+   * @typedef switchNoColor
    */
   switchNoColor?: PickProp<IField<Data, Payload>, "switchNoColor">;
   /**

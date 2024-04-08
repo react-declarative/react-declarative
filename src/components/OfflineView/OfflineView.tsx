@@ -40,7 +40,7 @@ const DEFAULT_METHOD = "GET";
 
 /**
  * Default configuration for the software.
- * @typedef {Object} IConfig
+ * @typedef IConfig
  * @property url - The URL to be used for the request.
  * @property method - The HTTP method to be used for the request.
  * @property timeout - The timeout value in milliseconds for the request.

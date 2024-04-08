@@ -14,8 +14,8 @@ import classNames from '../../utils/classNames';
 /**
  * Represents the possible types of the Result class.
  *
- * @typedef {React.ReactNode} ResultType
- * @typedef {void} VoidType
+ * @typedef ResultType
+ * @typedef VoidType
  */
 type Result = React.ReactNode | void;
 
@@ -128,7 +128,7 @@ export type IFetchViewTupleProps<P extends any = object, A = any, B = any, C = a
     };
 
 /**
- * @typedef {object} IFetchViewProps
+ * @typedef IFetchViewProps
  * @template P - The type parameter for the main component props
  * @template A - The type parameter for the first additional prop
  * @template B - The type parameter for the second additional prop

@@ -182,7 +182,7 @@ export const Date = ({
 
   /**
    * Represents a caret manager for handling caret position in an input element.
-   * @typedef {Object} CaretManager
+   * @typedef CaretManager
    * @property render - Renders the caret at the last known position.
    * @property pos - Returns the current caret position in the input element.
    */

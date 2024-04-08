@@ -35,7 +35,7 @@ interface IState {
 /**
  * Provides chips functionality to its children components.
  *
- * @typedef {Object} IChipsProviderProps
+ * @typedef IChipsProviderProps
  * @property children - The children components of the ChipsProvider.
  * @property chips - The array of chips with their initial enabled state.
  * @property chipData - The object containing chip data where the key is the chip name and the value is the chip data.
@@ -67,7 +67,7 @@ export const ChipsProvider = ({
     /**
      * Represents a set of chips and its associated change handler.
      *
-     * @typedef {Object} ChipsWithChangeHandler
+     * @typedef ChipsWithChangeHandler
      * @property chips - The array of chips.
      * @property setChips - The function to handle changes to the chips.
      */

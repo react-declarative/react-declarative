@@ -138,26 +138,26 @@ export interface IListAction<RowData extends IRowData = IAnything, Payload exten
   /**
    * Represents the icon component in React.
    *
-   * @typedef {React.ComponentType<any>} IconType
+   * @typedef IconType
    */
   icon?: React.ComponentType<any>;
   /**
-   * @typedef {object} IListActionOption<T>
+   * @typedef IListActionOption<T>
    * @property rowData - The data of the row.
    *
-   * @typedef {object} IUpdateOption<T>
+   * @typedef IUpdateOption<T>
    * @property rowData - The data of the row.
    *
-   * @typedef {object} IResortOption<T>
+   * @typedef IResortOption<T>
    * @property rowData - The data of the row.
    *
-   * @typedef {object} IDropFiltersOption<T>
+   * @typedef IDropFiltersOption<T>
    * @property rowData - The data of the row.
    *
-   * @typedef {object} IAddFiltersOption<T>
+   * @typedef IAddFiltersOption<T>
    * @property rowData - The data of the row.
    *
-   * @typedef {(IListActionOption<RowData> | IUpdateOption<RowData> | IResortOption<RowData> | IDropFiltersOption<RowData> | IAddFiltersOption<RowData>)[]} Options
+   * @typedef Options
    *
    * @param options - An array of options.
    */
@@ -180,7 +180,7 @@ export interface IListChip<RowData extends IRowData = IAnything> {
  * Represents the result of a list handling operation.
  *
  * @template RowData - The type of the row data.
- * @typedef {RowData[]} ListHandlerResult
+ * @typedef ListHandlerResult
  * @typedef {{
  *   rows: RowData[];
  *   total: number | null;
@@ -193,7 +193,7 @@ export type ListHandlerResult<RowData extends IRowData = IAnything> = RowData[] 
 
 /**
  * Represents the avatar for the list item.
- * @typedef {Object} ListAvatar
+ * @typedef ListAvatar
  * @property  [src] - The source URL for the avatar image.
  * @property  [alt] - The alternate text for the avatar image.
  */
@@ -205,7 +205,7 @@ export type ListAvatar = {
 /**
  * Represents a pagination handler for a list.
  *
- * @typedef {Object} ListHandlerPagination
+ * @typedef ListHandlerPagination
  * @property  limit - The number of items to retrieve per page.
  * @property  offset - The starting index of the items to retrieve.
  */
@@ -423,7 +423,7 @@ export interface IListProps<
   /**
    * A React component that represents a list of position actions before an operation.
    *
-   * @typedef {React.ComponentType<IPositionActionListSlot<FilterData, RowData, Payload>>} BeforeOperationList
+   * @typedef BeforeOperationList
    * @template FilterData - The type of data used for filtering the list
    * @template RowData - The type of data used for each row in the list
    * @template Payload - The type of data sent as a payload during an operation
@@ -446,7 +446,7 @@ export interface IListProps<
   /**
    * Represents a custom template component for rendering a tile.
    *
-   * @typedef {React.ComponentType<ITile<RowData, Payload>>} customTemplate
+   * @typedef customTemplate
    * @property customTemplate - The custom template component used for rendering a tile.
    * @template {RowData} - The type of data for the tile row.
    * @template {Payload} - The type of payload associated with the tile.

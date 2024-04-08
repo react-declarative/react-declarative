@@ -75,7 +75,7 @@ export const useFieldMemory = ({
     /**
      * Variable representing the memory object.
      *
-     * @typedef {Object} IMemory
+     * @typedef IMemory
      * @property inputUpdate - Represents whether input has been updated.
      * @property objectUpdate - Represents whether object has been updated.
      * @property initComplete - Represents whether initialization has been completed.

@@ -19,7 +19,7 @@ export interface IConfig {
 
 /**
  * Represents the initial configuration for a software module.
- * @typedef {Object} IConfig
+ * @typedef IConfig
  * @property WITH_DIRTY_CLICK_LISTENER - Whether to include a dirty click listener in the module. Default is true.
  * @property WITH_MOBILE_READONLY_FALLBACK - Whether to include a mobile readonly fallback in the module. Default is true.
  * @property WITH_WAIT_FOR_MOVE_LISTENER - Whether to include a wait for move listener in the module. Default is true.

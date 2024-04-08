@@ -27,7 +27,7 @@ interface ISelectionContextProviderProps {
 /**
  * Provides context for item selection.
  *
- * @typedef {Object} ISelectionContextProviderProps
+ * @typedef ISelectionContextProviderProps
  * @property children - The child elements to render within the provider.
  */
 export const SelectionContextProvider = ({
@@ -76,7 +76,7 @@ export const SelectionContextProvider = ({
   /**
    * Represents a memoized value for the context.
    *
-   * @typedef {Object} ContextValue
+   * @typedef ContextValue
    * @property selectedItems - An array of selected items.
    * @property toggleSelection - A function to toggle the selection of items.
    * @property dropSelection - A function to drop the selection of items.

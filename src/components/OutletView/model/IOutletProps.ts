@@ -49,7 +49,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     /**
      * Represents the state of a form.
      *
-     * @typedef {Object} FormState
+     * @typedef FormState
      *
      * @property change - A callback function that is triggered when the form data changes. It receives a `data` parameter of type `Data`.
      * @property data - The current data of the form.
@@ -77,14 +77,14 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     /**
      * Represents the currently active option.
      *
-     * @typedef {string} activeOption
+     * @typedef activeOption
      * @description A string variable indicating the currently active option.
      */
     activeOption: string;
     /**
      * Specifies whether a variable is read-only or not.
      *
-     * @typedef {boolean} Readonly
+     * @typedef Readonly
      */
     readonly: boolean;
     /**
@@ -100,7 +100,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     /**
      * Represents the loading state of a system.
      *
-     * @typedef {boolean} hasLoading
+     * @typedef hasLoading
      */
     hasLoading: boolean;
     /**
@@ -112,7 +112,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     /**
      * Represents the parameters for a function.
      *
-     * @typedef {Object} Params
+     * @typedef Params
      * @property param1 - The first parameter of type number.
      * @property param2 - The second parameter of type string.
      * @property param3 - The third parameter of type boolean.
@@ -126,7 +126,7 @@ export interface IOutletProps<Data = IAnything, Payload = IAnything, Params = IA
     /**
      * Represents the loading status.
      *
-     * @typedef {boolean} Loading
+     * @typedef Loading
      */
     loading: boolean;
 

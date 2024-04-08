@@ -60,7 +60,7 @@ interface ICalendarProps {
 /**
  * Represents a calendar component.
  *
- * @typedef {object} ICalendarProps
+ * @typedef ICalendarProps
  * @property onChange - Callback function triggered when a date is selected.
  * @property onHeaderMonthClick - Callback function triggered when the header month is clicked.
  * @property onHeaderYearClick- Callback function triggered when the header year is clicked.

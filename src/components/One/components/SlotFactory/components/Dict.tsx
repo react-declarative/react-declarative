@@ -203,7 +203,7 @@ export const Dict = ({
   const changeSubject = useChangeSubject(value);
 
   /**
-   * @typedef {Object} CaretManager
+   * @typedef CaretManager
    * @property render - Renders the caret position on the input element.
    * @property pos - Returns the current caret position or a symbol to indicate position is unavailable.
    */
@@ -225,7 +225,7 @@ export const Dict = ({
 
         /**
          * Manages the caret position for an input element.
-         * @typedef {Object} CaretManager
+         * @typedef CaretManager
          * @property render - Renders the caret position on the input element.
          * @property pos - Returns the current caret position or a symbol to indicate position is unavailable.
          */

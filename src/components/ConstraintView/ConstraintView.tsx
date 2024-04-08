@@ -76,7 +76,7 @@ export const ConstraintView = <T extends IAnything = IAnything>({
         /**
          * Configuration object for device breakpoints.
          *
-         * @typedef {Object} Config
+         * @typedef Config
          * @property isPhone - Indicates if the device matches the phone breakpoint.
          * @property isTablet - Indicates if the device matches the tablet breakpoint.
          * @property isDesktop - Indicates if the device matches the desktop breakpoint.

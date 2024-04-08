@@ -55,7 +55,7 @@ export const useLayoutState = (initialData: IInitialData) => {
     /**
      * A memoized object that contains functions to update state properties.
      *
-     * @typedef {Object} Action
+     * @typedef Action
      * @property setDisabled - Sets the disabled state property.
      * @property setReadonly - Sets the readonly state property.
      * @property setVisible - Sets the visible state property.

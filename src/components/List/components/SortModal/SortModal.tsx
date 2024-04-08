@@ -127,7 +127,7 @@ export const SortModal = ({
     /**
      * Sortable columns.
      *
-     * @typedef {Object[]} SortableColumns
+     * @typedef SortableColumns
      * @property sortable - Indicates if the column is sortable.
      * @property other - Other properties of the column.
      */

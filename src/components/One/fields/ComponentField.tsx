@@ -51,7 +51,7 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
    * @template Data The data type to extract the property from.
    * @template Payload The type of the property to pick.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "name">} name
+   * @typedef name
    */
   name?: PickProp<IField<Data, Payload>, "name">;
   /**
@@ -79,12 +79,12 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @param obj - The input object containing the "className" property.
    * @returns - The value of the "className" property if present, otherwise undefined.
-   * @throws {TypeError} If the input object is not of the expected type.
+   * @throws If the input object is not of the expected type.
    */
   className?: PickProp<IField<Data, Payload>, "className">;
   /**
    * Represents the contextual information for watching a single field in a data structure.
-   * @typedef {PickProp<IField<Data, Payload>, "watchOneContext">} watchOneContext?
+   * @typedef watchOneContext?
    */
   watchOneContext?: PickProp<IField<Data, Payload>, "watchOneContext">;
   /**

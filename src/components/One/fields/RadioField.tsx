@@ -26,20 +26,20 @@ export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the radio value of a field.
    *
-   * @typedef {string | undefined} RadioValue
+   * @typedef RadioValue
    */
   radioValue?: PickProp<IField<Data, Payload>, "radioValue">;
   /**
    * Represents a reference to a group in a field object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    * @property groupRef - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Type definition for the "readonly" property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "readonly">} ReadonlyProp
+   * @typedef ReadonlyProp
    *
    * @description
    * This property represents the "readonly" attribute of a field.
@@ -57,7 +57,7 @@ export interface IRadioFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data The type of data passed to the field.
    * @template Payload The type of payload received by the field.
-   * @typedef {(field: IField<Data, Payload>) => boolean} PickProp
+   * @typedef PickProp
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }

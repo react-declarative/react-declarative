@@ -76,7 +76,7 @@ const useStyles = makeStyles()({
 
 /**
  * Represents an item in a grid layout.
- * @typedef {Object} Item
+ * @typedef Item
  * @param className - The CSS class to apply to the item.
  * @param style - The inline style object to apply to the item.
  * @param sx - The sx prop for the item.

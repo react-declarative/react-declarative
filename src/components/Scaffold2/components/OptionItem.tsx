@@ -36,7 +36,7 @@ interface IOptionItemProps {
 /**
  * Represents an OptionItem component.
  *
- * @typedef {Object} OptionItem
+ * @typedef OptionItem
  * @property className - The CSS class name for the component.
  * @property style - The inline styles for the component.
  * @property sx - The system styles for the component.

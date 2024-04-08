@@ -45,19 +45,19 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
   title?: PickProp<IField<Data, Payload>, "title">;
   /**
    * Type definition for a generic placeholder value.
-   * @typedef {any} Placeholder
+   * @typedef Placeholder
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
    * Represents the configuration for label shrinking in a field.
    *
-   * @typedef {boolean} LabelShrink
+   * @typedef LabelShrink
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
    * A variable that represents the `readonly` property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "readonly">} readonly? - The `readonly` property of a field.
+   * @typedef readonly? - The `readonly` property of a field.
    */
   readonly?: PickProp<IField<Data, Payload>, "readonly">;
   /**
@@ -68,13 +68,13 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type representing the object structure.
    * @template Payload - The type representing the additional properties of the field.
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
+   * @typedef disabled
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * A reference to the group that the field belongs to.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    *
    * @property id - The unique identifier of the group.
    * @property name - The name of the group.
@@ -85,7 +85,7 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
    * This variable represents the `inputRef` property of type `PickProp<IField<Data, Payload>, 'inputRef'>`.
    * It is an optional property, which means it may be undefined.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'inputRef'>} InputRef
+   * @typedef InputRef
    */
   inputRef?: PickProp<IField<Data, Payload>, 'inputRef'>;
   /**
@@ -98,7 +98,7 @@ export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a possible translation for a field in a form.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'tr'>} tr
+   * @typedef tr
    * @property type - The type of translation.
    * @property required - Indicates if the translation is required.
    * @property options - The list of available translation options.

@@ -59,7 +59,7 @@ const useStyles = makeStyles()(() => ({
 
 /**
  * Represents a component that applies a fade effect to its background.
- * @typedef {Object} IDefaultFadeProps
+ * @typedef IDefaultFadeProps
  * @property className - The additional CSS class to be applied to the root element.
  * @property visible - Determines if the component is visible.
  * @property color - The color of the fade effect. If not provided, the default background color of the theme will be used.

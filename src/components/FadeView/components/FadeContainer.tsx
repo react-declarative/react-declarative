@@ -76,7 +76,7 @@ declare var ResizeObserver: any;
 /**
  * Represents a container component that fades out its content on certain scroll and resize events.
  *
- * @typedef {Object} FadeContainer
+ * @typedef FadeContainer
  * @property className - The CSS class names to apply to the root element.
  * @property style - The inline CSS styles to apply to the root element.
  * @property color - The color of the fade effect.

@@ -20,7 +20,7 @@ interface IModalProviderProps {
 /**
  * Represents an interface for a renderer component.
  *
- * @typedef {React.ComponentType<IAnything>} IRenderer
+ * @typedef IRenderer
  *
  * @interface
  */
@@ -39,7 +39,7 @@ interface IContext {
 /**
  * Represents a hook that provides methods for rendering and manipulating modals.
  *
- * @typedef {function} IHook
+ * @typedef IHook
  * @param render - The renderer to use for rendering the modals.
  * @param [deps] - Optional dependencies required for the hook.
  * @returns An object containing the methods for showing and hiding modals.
@@ -125,7 +125,7 @@ export const ModalProvider = ({
 /**
  * useModal is a custom hook that provides functionality to show and hide a modal.
  *
- * @typedef {Object} IHook
+ * @typedef IHook
  * @property showModal - A function that shows the modal.
  * @property hideModal - A function that hides the modal.
  *

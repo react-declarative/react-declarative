@@ -38,7 +38,7 @@ export const useConstraint = (width: number) => {
         /**
          * Configuration object for device breakpoints.
          *
-         * @typedef {Object} Config
+         * @typedef Config
          * @property isPhoneFn - Function to determine if device is a phone.
          * @property isTabletFn - Function to determine if device is a tablet.
          * @property isDesktopFn - Function to determine if device is a desktop.
@@ -54,7 +54,7 @@ export const useConstraint = (width: number) => {
     /**
      * Configuration object for device breakpoints.
      *
-     * @typedef {Object} Config
+     * @typedef Config
      * @property isPhoneFn - Function to determine if device is a phone.
      * @property isTabletFn - Function to determine if device is a tablet.
      * @property isDesktopFn - Function to determine if device is a desktop.

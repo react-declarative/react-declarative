@@ -9,7 +9,7 @@ export interface IContext {
     /**
      * Represents a stack of modal objects.
      *
-     * @typedef {Array<IModal>} modalStack
+     * @typedef modalStack
      */
     modalStack: IModal[];
     /**

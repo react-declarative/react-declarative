@@ -11,7 +11,7 @@ export interface IMenuOption<T extends any = any> {
     /**
      * Represents a variable called 'icon' which is a React component type that can accept any props.
      *
-     * @typedef {React.ComponentType<any>} Icon
+     * @typedef Icon
      */
     icon?: React.ComponentType<any>;
     lifted?: boolean;

@@ -128,7 +128,7 @@ export const VirtualView = ({
   /**
    * Represents a memoized array of React children.
    *
-   * @typedef {React.Node[]} Children
+   * @typedef Children
    */
   const children = useMemo(() => {
     isChildrenChanged.current = true;

@@ -69,7 +69,7 @@ export const WaitView = <P extends any = object, T extends any = object>({
     /**
      * Represents the state of a variable.
      *
-     * @typedef {*} VariableState
+     * @typedef VariableState
      * @description The type of state that a variable can have. It can be any JavaScript value.
      */
     const [state, setState] = useState<IState<P>>({

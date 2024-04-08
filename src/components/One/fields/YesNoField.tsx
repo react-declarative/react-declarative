@@ -52,21 +52,21 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * @template K - The key of the property to be picked.
    * @template P - The type of the value of the picked property.
    *
-   * @typedef {PickProp<T, K>} PickPropWithType
+   * @typedef PickPropWithType
    * @prop {P} noDeselect - The value of the "noDeselect" property.
    *
-   * @typedef {import('./types').IField<T, Payload>} IField
-   * @typedef {import('./types').Payload} Payload
+   * @typedef IField
+   * @typedef Payload
    *
-   * @typedef {import('./types').PickProp<T, K>} PickProp
+   * @typedef PickProp
    *
-   * @typedef {PickPropWithType<IField<Data, Payload>, "noDeselect">} noDeselect
+   * @typedef noDeselect
    */
   noDeselect?: PickProp<IField<Data, Payload>, "noDeselect">;
   /**
    * Represents the configuration options for a virtual list box component.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
+   * @typedef virtualListBox
    * @property fieldName - The name of the field associated with the virtual list box.
    * @property pageSize - The number of items to display per page in the virtual list box.
    * @property showSearch - Determines whether to display a search input in the virtual list box.
@@ -78,7 +78,7 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
    * Represents the "tr" property of an object.
    *
    * @typeparam IField - Represents the object type containing the "tr" property.
-   * @typedef {PickProp<IField<Data, Payload>, "tr">} tr
+   * @typedef tr
    */
   tr?: PickProp<IField<Data, Payload>, "tr">;
   /**
@@ -95,7 +95,7 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the `disabled` property of a field object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
+   * @typedef disabled
    *
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
@@ -107,7 +107,7 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the optional property to shrink the label of a field.
    *
-   * @typedef {PickProp<IField<Data>, "labelShrink">} LabelShrink
+   * @typedef LabelShrink
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
@@ -125,7 +125,7 @@ export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the `groupRef` property of an object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} GroupRef
+   * @typedef GroupRef
    * @property groupRef - The reference to a group of fields.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;

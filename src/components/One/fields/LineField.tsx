@@ -31,14 +31,14 @@ export interface ILineFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
-   * @typedef {PickProp<IField<Data, Payload>, 'lineTransparent'>} lineTransparent
+   * @typedef lineTransparent
    * @property lineTransparent - The value of the 'lineTransparent' property.
    */
   lineTransparent?: PickProp<IField<Data, Payload>, 'lineTransparent'>;
   /**
    * Represents a reference to a group of fields.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    *
    * @property fieldPath - The path to the group field within the form data structure.
    * @property [isRequired] - Indicates if the group field is required or optional.

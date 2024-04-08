@@ -74,7 +74,7 @@ const useStyles = makeStyles()((theme) => ({
 const LOAD_SOURCE = "list-columns";
 
 /**
- * @typedef {Object} DesktopHeadRow - Represents the head row component for a desktop layout.
+ * @typedef DesktopHeadRow - Represents the head row component for a desktop layout.
  * @template RowData - The type of data in each row.
  * @param props - The props object.
  * @param props.fullWidth - Indicates if the head row should take up the full width.

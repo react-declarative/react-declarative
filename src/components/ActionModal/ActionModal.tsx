@@ -391,7 +391,7 @@ export const ActionModal = <
    * @function handleClose
    * @returns - A promise that resolves once the closing process is completed.
    *
-   * @throws {*} - Throws any error that occurred during the closing process.
+   * @throws - Throws any error that occurred during the closing process.
    */
   const handleClose = async () => {
     if (loading.current) {

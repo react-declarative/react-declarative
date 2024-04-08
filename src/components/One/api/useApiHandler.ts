@@ -79,7 +79,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
      * @param onLoadEnd An optional function to call after the request is completed.
      * @param fallback An optional function to handle errors if they occur.
      * @returns A promise that resolves to the processed response data or null if the request was cancelled.
-     * @throws {Error} If an error occurs and no fallback function is provided.
+     * @throws If an error occurs and no fallback function is provided.
      */
     const handler: OneHandler<Data> = useMemo(() => async () => {
         let url = new URL(path, origin);

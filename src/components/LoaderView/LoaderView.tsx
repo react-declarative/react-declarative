@@ -79,7 +79,7 @@ export const LoaderView = ({
      * @async
      * @function process
      * @returns A promise that resolves when the process is complete.
-     * @throws {Error} If an error occurs and `throwError` is set to `true`.
+     * @throws If an error occurs and `throwError` is set to `true`.
      */
     const process = async () => {
       let isOk = true;

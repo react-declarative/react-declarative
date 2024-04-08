@@ -301,7 +301,7 @@ export const useQueryPagination = <
 
     /**
      * Retrieves various properties from the query object.
-     * @typedef {Object} FilterData
+     * @typedef FilterData
      * @property filterData - The filter data.
      * @property rowData - The row data.
      */

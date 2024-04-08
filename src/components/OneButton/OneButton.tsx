@@ -95,7 +95,7 @@ export const OneButton = <
   /**
    * Represents the variable `data`.
    *
-   * @typedef {Object} Data
+   * @typedef Data
    * @property name - The name of the data.
    * @property value - The value of the data.
    * @property isActive - Indicates whether the data is active or not.

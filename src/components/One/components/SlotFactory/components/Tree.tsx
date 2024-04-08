@@ -52,7 +52,7 @@ export const Tree = ({
   /**
    * Represents a collection of items.
    *
-   * @typedef {Object[]} Items
+   * @typedef Items
    * @property name - The name of the item.
    * @property quantity - The quantity of the item.
    * @property [description] - The description of the item. (Optional)

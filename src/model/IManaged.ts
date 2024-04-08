@@ -18,7 +18,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     /**
      * Represents the `isVisible` property of a field in a form.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'isVisible'>} isVisible
+     * @typedef isVisible
      * @property isVisible - Indicates whether the field is visible or not.
      */
     isVisible?: PickProp<IField<Data, Payload>, 'isVisible'>;
@@ -26,7 +26,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
      * Represents the `isDisabled` property of a field in a form.
      * The `isDisabled` property determines whether the field is disabled or not.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'isDisabled'>} isDisabled
+     * @typedef isDisabled
      * @property [isDisabled] - Indicates whether the field is disabled.
      */
     isDisabled?: PickProp<IField<Data, Payload>, 'isDisabled'>;
@@ -49,26 +49,26 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     /**
      * Represents the `disabled` property of a field.
      *
-     * @typedef {boolean} Disabled
+     * @typedef Disabled
      */
     disabled?: PickProp<IField<Data, Payload>, 'disabled'>;
     /**
      * Represents the `phoneHidden` property of a field object.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'phoneHidden'>} phoneHidden
+     * @typedef phoneHidden
      * @property phoneHidden - Specifies whether the phone field should be hidden.
      */
     phoneHidden?: PickProp<IField<Data, Payload>, 'phoneHidden'>;
     /**
      * Represents the optional property 'tabletHidden' in a field object.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'tabletHidden'>} tabletHidden
+     * @typedef tabletHidden
      */
     tabletHidden?: PickProp<IField<Data, Payload>, 'tabletHidden'>;
     /**
      * Represents the optional property `desktopHidden` of type `PickProp<IField<Data, Payload>, 'desktopHidden'>`.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'desktopHidden'>} desktopHidden
+     * @typedef desktopHidden
      */
     desktopHidden?: PickProp<IField<Data, Payload>, 'desktopHidden'>;
     /**
@@ -78,7 +78,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
      * @template Data - The type of the data object.
      * @template Payload - The type of the payload object.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} Hidden
+     * @typedef Hidden
      */
     hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
     /**
@@ -87,7 +87,7 @@ export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'noBaseline'>} noBaseline
+     * @typedef noBaseline
      *
      * @property [noBaseline] - Specifies whether the field has a baseline or not.
      */
@@ -101,7 +101,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
     /**
      * Represents override columns configuration for a field.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'columnsOverride'>} columnsOverride
+     * @typedef columnsOverride
      *
      * @property - The name of the field for which the columns are overridden.
      */
@@ -109,7 +109,7 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
     /**
      * Represents the 'sx' property of the 'PickProp' type.
      *
-     * @typedef {keyof IField<Data, Payload>} IFieldKey
+     * @typedef IFieldKey
      * @typedef PickProp<IField<Data, Payload>, 'sx'> SxProp
      *
      * @property sx - The key of the 'IField' type that represents the 'sx' property.
@@ -127,13 +127,13 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
      * Represents the number of columns for the "tablet" viewport size of a field.
      * This property is optional.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'tabletColumns'>} tabletColumns
+     * @typedef tabletColumns
      */
     tabletColumns?: PickProp<IField<Data, Payload>, 'tabletColumns'>;
     /**
      * Represents the number of columns on a desktop layout for a field in a data payload object.
      *
-     * @typedef {number} desktopColumns
+     * @typedef desktopColumns
      * @property desktopColumns - The number of columns on a desktop layout.
      * @property desktopColumns - Optional property to pick the 'desktopColumns' property from 'IField<Data, Payload>' interface.
      */
@@ -141,14 +141,14 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
     /**
      * Represents the right margin of a field.
      *
-     * @typedef {number} FieldRightMargin
+     * @typedef FieldRightMargin
      */
     fieldRightMargin?: PickProp<IField<Data, Payload>, 'fieldRightMargin'>;
     /**
      * Represents the optional configuration for the bottom margin
      * of a field.
      *
-     * @typedef {number} FieldBottomMargin
+     * @typedef FieldBottomMargin
      */
     fieldBottomMargin?: PickProp<IField<Data, Payload>, 'fieldBottomMargin'>;
     /**
@@ -172,10 +172,10 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Represents the `isDisabled` property of a field object.
      *
-     * @typedef {import("<path to PickProp>").PickProp} PickProp
-     * @typedef {import("<path to IField>").IField} IField
-     * @typedef {import("<path to Data>").Data} Data
-     * @typedef {import("<path to Payload>").Payload} Payload
+     * @typedef PickProp
+     * @typedef IField
+     * @typedef Data
+     * @typedef Payload
      *
      * @type {PickProp<IField<Data, Payload>, 'isDisabled'>}
      *
@@ -189,7 +189,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Determines the visibility of a field.
      *
-     * @typedef {boolean} isVisible
+     * @typedef isVisible
      * @description The `isVisible` property is used to determine whether a field is visible or hidden.
      *
      * @param field - The field object that contains the `isVisible` property.
@@ -200,13 +200,13 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Determines if the field is readonly.
      *
-     * @typedef {boolean} isReadonly
+     * @typedef isReadonly
      */
     isReadonly?: PickProp<IField<Data, Payload>, 'isReadonly'>;
     /**
      * Represents the `isInvalid` field of a given field.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'isInvalid'>} IsInvalid
+     * @typedef IsInvalid
      */
     isInvalid?: PickProp<IField<Data, Payload>, 'isInvalid'>;
     /**
@@ -223,7 +223,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Determines if the field should be recomputed.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'shouldRecompute'>} shouldRecompute
+     * @typedef shouldRecompute
      *
      * @property shouldRecompute - Indicates whether the field should be recomputed.
      */
@@ -231,7 +231,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Check if 'shouldUpdateItemList' property is present in the given variable.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateItemList'>} shouldUpdateItemList
+     * @typedef shouldUpdateItemList
      * @param shouldUpdateItemList - The variable to be checked.
      * @returns - Returns true if 'shouldUpdateItemList' property is present, otherwise false.
      */
@@ -239,7 +239,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
     /**
      * Determines if the 'shouldUpdateTr' property should be updated.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'shouldUpdateTr'>} shouldUpdateTr
+     * @typedef shouldUpdateTr
      * @property shouldUpdateTr.value - The current value of the 'shouldUpdateTr' property.
      * @property shouldUpdateTr.isReady - Indicates if the 'shouldUpdateTr' property is ready for update.
      * @property shouldUpdateTr.isEnabled - Determines if the 'shouldUpdateTr' property is enabled.
@@ -249,7 +249,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
      * Represents the debug property of a field.
      * @template Data - The type of data associated with the field.
      * @template Payload - The type of payload associated with the field.
-     * @typedef {PickProp<IField<Data, Payload>, 'debug'>} debug
+     * @typedef debug
      *
      * @property value - The value of the debug property.
      * @property props - Additional properties of the field.
@@ -262,7 +262,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
      * @template Payload - The type of the payload used in the `IField` object.
      * @template K - The property key to pick from `IField<Data, Payload>`.
      *
-     * @typedef {PickProp<T, 'compute'>} compute
+     * @typedef compute
      *
      * @param object - The `IField` object to pick the `compute` property from.
      *
@@ -300,19 +300,19 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
      * @template Payload - The payload type.
      * @property blur - The properties of the field to be blurred.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'blur'>} BlurType
+     * @typedef BlurType
      */
     blur?: PickProp<IField<Data, Payload>, 'blur'>;
     /**
      * Represents the menuItems property of a field in a form.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'menuItems'>} menuItems
+     * @typedef menuItems
      */
     menuItems?: PickProp<IField<Data, Payload>, 'menuItems'>;
     /**
      * Represents the 'menu' variable.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'menu'>} menu
+     * @typedef menu
      * @property - The original field object from which the 'menu' property was picked
      * @property menu - The 'menu' property of the field object
      * @property menu.data - The data associated with the 'menu' property
@@ -325,7 +325,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
      * @template Data - The type of data object associated with the field.
      * @template Payload - The type of payload associated with the map property.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'map'>} Map
+     * @typedef Map
      *
      * @property key - The key associated with the map property.
      * @property value - The value associated with the map property.
@@ -345,7 +345,7 @@ export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends 
      * @template Payload - The type of payload expected when submitting the form.
      * @template T - The type of the 'hidden' property in the field.
      *
-     * @typedef {PickProp<IField<Data, Payload>, 'hidden'>} hidden
+     * @typedef hidden
      *
      * @property hidden - The value of the 'hidden' property of the field.
      */

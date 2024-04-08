@@ -56,7 +56,7 @@ const useStyles = makeStyles()({
 /**
  * Group component
  *
- * @typedef {Object} Group
+ * @typedef Group
  * @property className - The class name of the group
  * @property columns - The columns property of the group
  * @property phoneColumns - The phone columns property of the group

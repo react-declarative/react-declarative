@@ -74,7 +74,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents a container component that wraps and displays its children.
  *
- * @typedef {Object} Props - The props for the Container component.
+ * @typedef Props - The props for the Container component.
  * @property outlinePaper - Determines whether to display outline paper for the Container.
  * @property transparentPaper - Determines whether the Container paper is transparent.
  * @property className - The CSS class name for the Container.
@@ -103,7 +103,7 @@ export const Container = ({
   /**
    * Singleton instance of `ResizeObserver` used to track and handle element resizing.
    *
-   * @typedef {Object} ResizeObserver
+   * @typedef ResizeObserver
    * @property useSingleton - Singleton pattern wrapper function.
    * @property clear - Clear the constraint manager.
    * @property setSize - Set the size of the target element.

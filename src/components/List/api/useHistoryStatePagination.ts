@@ -81,7 +81,7 @@ interface IResult<
  * Represents a type that filters data for a query result.
  * @template FilterData - The type of data used for filtering.
  * @template RowData - The type of row data in the query result.
- * @typedef {Exclude<IQuery<FilterData, RowData>["filterData"], undefined>} FilterDataT
+ * @typedef FilterDataT
  */
 type FilterDataT<
   FilterData extends {} = IAnything,
@@ -94,7 +94,7 @@ type FilterDataT<
  * @template FilterData - The type of filter data. Defaults to `IAnything`.
  * @template RowData - The type of row data. Defaults to `IAnything`.
  *
- * @typedef {Exclude<IQuery<FilterData, RowData>["sortModel"], undefined>} SortModelT
+ * @typedef SortModelT
  */
 type SortModelT<
   FilterData extends {} = IAnything,
@@ -414,7 +414,7 @@ export const useHistoryStatePagination = <
   /**
    * A map of functions that can be used to update different variables.
    *
-   * @typedef {Object} setQueryMap
+   * @typedef setQueryMap
    * @property setFilterData - Function to update filter data.
    * @property setSortModel - Function to update sort model.
    * @property setChipData - Function to update chip data.

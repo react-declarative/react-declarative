@@ -30,7 +30,7 @@ export interface ICollectionAdapter<T extends IEntity = any> {
     /**
      * Represents an array of entity IDs.
      *
-     * @typedef {Array<string | number>} IEntityIds
+     * @typedef IEntityIds
      */
     ids: IEntity['id'][];
     /**
@@ -465,7 +465,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
      * Removes an item from the collection by its id.
      *
      * @param id - The id of the item to be removed.
-     * @throws {EntityNotFoundError} If the item with the given id is not found in the collection.
+     * @throws If the item with the given id is not found in the collection.
      */
     public removeById = (id: IEntity['id']) => {
         for (const [key, value] of this._items.entries()) {
@@ -504,7 +504,7 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
      *
      * @param id - The ID of the entity to find.
      * @returns - The found entity.
-     * @throws {EntityNotFoundError} - If the entity with the given ID does not exist.
+     * @throws - If the entity with the given ID does not exist.
      */
     public findById = (id: IEntity['id']) => {
         if (this._ids.has(id)) {

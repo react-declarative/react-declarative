@@ -72,7 +72,7 @@ interface IContainerProps {
 /**
  * Represents a container component with optional passthrough behavior.
  *
- * @typedef {Object} IContainerProps
+ * @typedef IContainerProps
  * @property passthrough - Indicates if the children should be passed through the container.
  * @property children - The children components to render inside the container.
  * @property className - The CSS classes to apply to the container.

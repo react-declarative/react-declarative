@@ -26,14 +26,14 @@ export interface IRatingFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the groupRef property of the IField object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    * @property [groupRef] - The reference to the group.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
   /**
    * Represents the disabled property of an input field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} disabled
+   * @typedef disabled
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }

@@ -32,7 +32,7 @@ const DEFAULT_SKIP_STEP = 25;
 /**
  * Represents a function that generates CSS classes using the makeStyles hook from Material-UI.
  *
- * @typedef {function} useStyles
+ * @typedef useStyles
  *
  * @param [overrides] - Optional overrides to customize the generated CSS classes.
  *

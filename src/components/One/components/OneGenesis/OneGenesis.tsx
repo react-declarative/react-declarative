@@ -142,7 +142,7 @@ export const OneGenesis = <
 
   /**
    * Represents the state parameters.
-   * @typedef {Object} StateParams
+   * @typedef StateParams
    * @property props - The additional properties.
    * @property context - The context information.
    * @property fields - The fields snapshot.
@@ -162,7 +162,7 @@ export const OneGenesis = <
   /**
    * Represents the view parameters for rendering a view.
    *
-   * @typedef {Object} ViewParams
+   * @typedef ViewParams
    * @property props - The props to pass to the view component.
    * @property context - The context of the view.
    * @property fields - The fields snapshot for the view.
@@ -184,7 +184,7 @@ export const OneGenesis = <
   /**
    * Determines if the baseline alignment is true.
    *
-   * @typedef {boolean} isBaselineAlign
+   * @typedef isBaselineAlign
    */
   const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
 

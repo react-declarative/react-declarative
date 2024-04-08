@@ -17,7 +17,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Represents the configuration for a step slider field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'stepSlider'>} stepSlider
+   * @typedef stepSlider
    * @property [propertyName] - The name of the property for this step slider field.
    * @property [label] - The label to display for this step slider field.
    * @property [minValue] - The minimum value for the step slider.
@@ -29,7 +29,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * The maximum value for a slider in a field of a data object payload.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'maxSlider'>} maxSlider
+   * @typedef maxSlider
    * @property [maxSlider] - The maximum value for the slider. If not provided, there is no maximum limit.
    */
   maxSlider?: PickProp<IField<Data, Payload>, 'maxSlider'>;
@@ -42,7 +42,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Specifies the format for the labels of a slider component.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'labelFormatSlider'>} labelFormatSlider
+   * @typedef labelFormatSlider
    * @property [labelFormatSlider.format] - The format string for the labels.
    */
   labelFormatSlider?: PickProp<IField<Data, Payload>, 'labelFormatSlider'>;
@@ -62,13 +62,13 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
    * The `trailingIconRipple` property defines the behavior and appearance of the ripple effect when
    * interacting with the trailing icon.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'trailingIconRipple'>} trailingIconRipple
+   * @typedef trailingIconRipple
    */
   trailingIconRipple?: PickProp<IField<Data, Payload>, 'trailingIconRipple'>;
   /**
    * Represents the leading icon of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'leadingIcon'>} leadingIcon
+   * @typedef leadingIcon
    */
   leadingIcon?: PickProp<IField<Data, Payload>, 'leadingIcon'>;
   /**
@@ -81,18 +81,18 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
    * This variable represents an optional function called leadingIconClick, which is a property of the IField interface. It is picked from the PickProp type, using the 'leadingIconClick
    *' key.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'leadingIconClick'>} leadingIconClick
+   * @typedef leadingIconClick
    */
   leadingIconClick?: PickProp<IField<Data, Payload>, 'leadingIconClick'>;
   /**
    * Represents the event handler for when the trailing icon of a field is clicked.
-   * @typedef {PickProp<IField<Data, Payload>, 'trailingIconClick'>} trailingIconClick
+   * @typedef trailingIconClick
    */
   trailingIconClick?: PickProp<IField<Data, Payload>, 'trailingIconClick'>;
   /**
    * The color of the slider thumb.
    *
-   * @typedef {string} SliderThumbColor
+   * @typedef SliderThumbColor
    */
   sliderThumbColor?: PickProp<IField<Data, Payload>, 'sliderThumbColor'>;
   /**
@@ -111,7 +111,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Represents the optional property 'groupRef' of an object of type `IField<Data, Payload>`.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    * @property [groupRef] - The group reference associated with the field.
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
@@ -125,7 +125,7 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
   /**
    * Represents the `disabled` property extracted from a field.
    *
-   * @typedef {boolean | undefined} DisabledValue
+   * @typedef DisabledValue
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
 }

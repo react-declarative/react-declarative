@@ -100,7 +100,7 @@ export const SelectionProvider = ({
     /**
      * Represents a variable value containing selection and a function to set the selection.
      *
-     * @typedef {object} Value
+     * @typedef Value
      * @property selection - The selected value.
      * @property setSelection - A function to handle selection changes.
      */

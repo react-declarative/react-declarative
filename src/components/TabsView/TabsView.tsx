@@ -170,7 +170,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   const lastActiveStep = useRef(-1);
 
   /**
-   * @typedef {Object} OtherProps
+   * @typedef OtherProps
    * @property size - The size of the props
    * @property loading - Indicates if the props are currently loading
    * @property progress - The progress of the props loading

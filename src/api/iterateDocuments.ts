@@ -35,7 +35,7 @@ interface IConfig<Data extends IRowData = IRowData> {
  *
  * @returns An asynchronous generator that yields an array of documents.
  *
- * @throws {Error} If the response length is greater than the specified limit.
+ * @throws If the response length is greater than the specified limit.
  */
 export const iterateDocuments = async function* <Data extends IRowData = IRowData>({
   totalDocuments = TOTAL_DOCUMENTS,
@@ -66,7 +66,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   /**
    * Represents the last query made to the server.
    *
-   * @typedef {Object} LastQuery
+   * @typedef LastQuery
    * @property lastId - The ID of the last object fetched. Defaults to null.
    * @property offset - The offset used in pagination. Defaults to 0.
    * @property page - The current page number. Defaults to 0.

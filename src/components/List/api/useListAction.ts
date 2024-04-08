@@ -48,7 +48,7 @@ export const useListAction = <Data extends IRowData = IRowData>({
     /**
      * Represents the action to be performed on a commit operation.
      *
-     * @typedef {Object} CommitAction
+     * @typedef CommitAction
      * @property type - The type of action to be performed.
      * @property message - The commit message describing the action.
      * @property author - The author of the commit.
@@ -69,7 +69,7 @@ export const useListAction = <Data extends IRowData = IRowData>({
     /**
      * Represents an action performed on a row in a commit.
      *
-     * @typedef {Object} CommitRowAction
+     * @typedef CommitRowAction
      * @property rowId - The unique identifier of the row.
      * @property action - The action performed on the row (e.g., 'add', 'update', 'delete').
      * @property rowData - The data of the row.

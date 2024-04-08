@@ -90,7 +90,7 @@ export const Choose = ({
   /**
    * Represents the value of an input.
    *
-   * @typedef {string|number|boolean|null} inputValue
+   * @typedef inputValue
    */
     const [inputValue, { loading: currentLoading }] = useAsyncValue(
     async () => {

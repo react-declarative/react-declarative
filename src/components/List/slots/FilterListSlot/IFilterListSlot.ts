@@ -13,7 +13,7 @@ export interface IFilterListSlot<FilterData extends {} = IAnything> {
     /**
      * Represents an array of field filters.
      *
-     * @typedef {Array<IField<FilterData>>} FilterArray
+     * @typedef FilterArray
      */
     filters: IField<FilterData>[];
     change: (data: FilterData) => void;

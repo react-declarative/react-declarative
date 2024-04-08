@@ -24,7 +24,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data associated with the field.
    * @template Payload - The type of payload associated with the field.
-   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} FieldPlaceholder
+   * @typedef FieldPlaceholder
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
@@ -33,19 +33,19 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    * @template T - The type of the input object.
    * @template K - The name of the property to pick from the input object.
    *
-   * @typedef {Pick<T, K>} PickProp
+   * @typedef PickProp
    */
   outlined?: PickProp<IField<Data, Payload>, "outlined">;
   /**
    * Represents a list of items from a specific field's data payload.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "itemList">} itemList
+   * @typedef itemList
    */
   itemList?: PickProp<IField<Data, Payload>, "itemList">;
   /**
    * Represents the `freeSolo` property of an object.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "freeSolo">} freeSolo
+   * @typedef freeSolo
    * @property [freeSolo] - Indicates whether or not the field allows free-form input.
    * @property field - The parent field object.
    * @property - The type of data associated with the field.
@@ -57,7 +57,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The data type of the field.
    * @template Payload - The payload type of the field.
-   * @typedef {boolean} noDeselect
+   * @typedef noDeselect
    *
    * @param noDeselect - The value of the noDeselect property.
    *
@@ -67,7 +67,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents a virtual list box configuration.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "virtualListBox">} virtualListBox
+   * @typedef virtualListBox
    *
    * @property enabled - Indicates whether the virtual list box is enabled or not.
    * @property size - The number of items to render per batch in the virtual list box.
@@ -78,7 +78,7 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the watch item list for a specific field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "watchItemList">} watchItemList
+   * @typedef watchItemList
    * @property - An array of watch items.
    */
   watchItemList?: PickProp<IField<Data, Payload>, "watchItemList">;
@@ -92,14 +92,14 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the "disabled" property of a field.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
+   * @typedef Disabled
    * @property disabled - Indicates if the field is disabled or not.
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
   /**
    * Represents the property `labelShrink` which is an optional pick property of type `PickProp<IField<Data>, "labelShrink">`.
    *
-   * @typedef {PickProp<IField<Data>, "labelShrink">} labelShrink
+   * @typedef labelShrink
    */
   labelShrink?: PickProp<IField<Data>, "labelShrink">;
   /**
@@ -109,14 +109,14 @@ export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents an optional property "tr" of type PickProp<IField<Data, Payload>, "tr">.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "tr">} tr
+   * @typedef tr
    */
   tr?: PickProp<IField<Data, Payload>, "tr">;
   /**
    * This variable represents a reference to a group within a field's data payload.
    * It is an optional property and is of type `PickProp<IField<Data, Payload>, 'groupRef'>`.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'groupRef'>} groupRef
+   * @typedef groupRef
    */
   groupRef?: PickProp<IField<Data, Payload>, 'groupRef'>;
 }

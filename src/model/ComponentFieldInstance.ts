@@ -30,14 +30,14 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   /**
    * Represents the field data.
    *
-   * @typedef {object} FieldData
+   * @typedef FieldData
    * @property data - The data object.
    */
   _fieldData: Data;
   /**
    * Represents a field parameter for a particular field.
    *
-   * @typedef {Object} IField
+   * @typedef IField
    * @property name - The name of the field.
    * @property type - The data type of the field.
    * @property required - Indicates if the field is required.
@@ -47,7 +47,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   /**
    * Represents the context variable.
    *
-   * @typedef {Record<string, any>} Context
+   * @typedef Context
    */
   context: Record<string, any>;
   /**
@@ -72,7 +72,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
   /**
    * Represents the state of disablement.
    *
-   * @typedef {boolean} Disabled
+   * @typedef Disabled
    */
   disabled: boolean;
   /**

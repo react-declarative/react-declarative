@@ -17,7 +17,7 @@ export interface IRef<T = any> {
 
 /**
  * Represents a function that can take any number of arguments and return any value.
- * @typedef {Function} Function
+ * @typedef Function
  * @param  {...any} args - The arguments to be passed to the function.
  * @return {any} The result of the function execution.
  */

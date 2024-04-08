@@ -52,7 +52,7 @@ export const FeatureView = ({
    * @name useMemo
    * @param data - The data to be used for calculating the value.
    * @returns - The calculated value.
-   * @typedef {Object} State - The state object.
+   * @typedef State - The state object.
    */
   const value = useMemo(
     () => {

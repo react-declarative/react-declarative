@@ -37,7 +37,7 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
   /**
    * visibilityRequest - Represents a memoized visibility request.
    *
-   * @typedef {Object} IVisibilityRequest
+   * @typedef IVisibilityRequest
    * @property filterData - The filter data object.
    * @property pagination - The pagination object.
    * @property sortModel - The sort model array.
@@ -69,7 +69,7 @@ export const HeadRow = ({ fullWidth, mode }: IHeadRowProps) => {
   /**
    * Represents the columns used in a particular component.
    *
-   * @typedef {Object} HeadColumn
+   * @typedef HeadColumn
    * @property title - The title of the column.
    * @property width - The width of the column.
    * @property isVisible - Indicates whether the column is visible.

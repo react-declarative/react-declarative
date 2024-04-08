@@ -14,7 +14,7 @@ export interface TSubject<Data = unknown> {
    * @returns - The unsubscribe function. Call this function to stop receiving data updates.
    *                      It has a `void` return type.
    *
-   * @typedef {Object} Data - The data received by the callback function.
+   * @typedef Data - The data received by the callback function.
    * @property [property1] - The first property of the data.
    * @property [property2] - The second property of the data.
    * @property [property3] - The third property of the data.

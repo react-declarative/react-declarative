@@ -48,18 +48,18 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
    *
    * @template Data - The type of data for the field.
    * @template Payload - The type of payload for the field.
-   * @typedef {PickProp<IField<Data, Payload>, "placeholder">} placeholder
+   * @typedef placeholder
    */
   placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
   /**
    * Specifies if a field is readOnly.
    *
-   * @typedef {boolean} Readonly
+   * @typedef Readonly
    *
-   * @typedef {import('./types').IField<Data, Payload>} IField
-   * @typedef {import('./types').Payload} Payload
-   * @typedef {import('./types').PickProp} PickProp
-   * @typedef {import('./types').Data} Data
+   * @typedef IField
+   * @typedef Payload
+   * @typedef PickProp
+   * @typedef Data
    *
    * @param readonly - The field being checked for readOnly status.
    *
@@ -69,7 +69,7 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the `disabled` property of a field in a form.
    *
-   * @typedef {PickProp<IField<Data, Payload>, "disabled">} Disabled
+   * @typedef Disabled
    *
    * @property disabled - Indicates whether the field is disabled or not.
    * @template Data - The type of data stored in the form.
@@ -79,7 +79,7 @@ export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
   /**
    * Represents the item tree of a specific field in the data payload.
    *
-   * @typedef {PickProp<IField<Data, Payload>, 'itemTree'>} ItemTree
+   * @typedef ItemTree
    */
   itemTree?: PickProp<IField<Data, Payload>, 'itemTree'>;
 }

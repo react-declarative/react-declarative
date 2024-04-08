@@ -57,7 +57,7 @@ interface IContentProps {
 /**
  * Defines the styles for a component.
  *
- * @typedef {Object} StylesObject
+ * @typedef StylesObject
  * @property content - The styles for the content element.
  * @property noData - The styles for the noData element.
  */

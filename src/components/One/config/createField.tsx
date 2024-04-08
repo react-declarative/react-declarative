@@ -32,7 +32,7 @@ const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = Object.c
  * fieldMap represents a collection of field types and their corresponding field components.
  * Each field type is mapped to its corresponding field component.
  *
- * @typedef {Object.<FieldType, ComponentField>} FieldTypeToComponent
+ * @typedef FieldTypeToComponent
  * @property [FieldType.Component] - The component for rendering a generic field.
  * @property [FieldType.Text] - The component for rendering a text field.
  * @property [FieldType.Line] - The component for rendering a line field.

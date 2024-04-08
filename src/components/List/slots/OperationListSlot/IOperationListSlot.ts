@@ -11,7 +11,7 @@ export interface IOperationListSlot {
     /**
      * Represents a list of operations to perform on an IList.
      *
-     * @typedef {Object} IListOperation
+     * @typedef IListOperation
      * @property name - The name of the operation.
      * @property parameters - The parameters required for the operation.
      */

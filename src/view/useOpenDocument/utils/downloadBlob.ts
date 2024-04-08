@@ -4,7 +4,7 @@
  * @param url - The URL of the blob to download.
  * @param [onProgress] - A callback function to be called with the download progress (0-100).
  * @returns - A promise that resolves with the downloaded blob.
- * @throws {Error} - If the download fails with a non-200 status code.
+ * @throws - If the download fails with a non-200 status code.
  */
 export const downloadBlob = (
   url: string,

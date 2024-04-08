@@ -156,7 +156,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   /**
    * Represents additional properties for a component.
    *
-   * @typedef {Object} OtherProps
+   * @typedef OtherProps
    * @property size - The size of the component.
    * @property loading - Indicates if the component is currently loading.
    * @property progress - The progress of the component.

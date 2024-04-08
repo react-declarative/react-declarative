@@ -22,7 +22,7 @@ export type HeadColumn<RowData extends IRowData = IAnything> = Omit<IColumn<RowD
 export interface IHeadRowSlot<RowData extends IRowData = IAnything>  {
     /**
      * Represents an array of column headers with associated row data.
-     * @typedef {HeadColumn<RowData>[]} Columns
+     * @typedef Columns
      * @template RowData The type of data contained in each column's rows.
      */
     columns: HeadColumn<RowData>[];

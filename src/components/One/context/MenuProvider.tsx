@@ -39,7 +39,7 @@ export const MenuProvider = ({ children }: IMenuProviderProps) => {
   /**
    * Represents a context object with utility functions.
    *
-   * @typedef {Object} IContext
+   * @typedef IContext
    * @property createContextMenu - Function to create a context menu.
    * @property requestSubject - The request subject.
    */

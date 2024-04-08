@@ -25,7 +25,7 @@ export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
     disabled: boolean;
     /**
      * Represents an array of body columns.
-     * @typedef {Array<BodyColumn<RowData>>} columns
+     * @typedef columns
      *
      * @template RowData The type of data stored in the rows of the column.
      * @property length - The number of columns in the array.

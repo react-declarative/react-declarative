@@ -148,7 +148,7 @@ export const ListItem = <RowData extends IRowData = IAnything>({
   /**
    * Represents the primary variable.
    *
-   * @typedef {React.ReactElement} Primary
+   * @typedef Primary
    * @property row - The row data.
    * @property fallback - The fallback value or element.
    * @property column - The primary column.
@@ -184,8 +184,8 @@ export const ListItem = <RowData extends IRowData = IAnything>({
   /**
    * Represents an avatar.
    *
-   * @typedef {import("path/to/ColumnContent").ColumnContent} ColumnContent
-   * @typedef {import("path/to/RowData").RowData} RowData
+   * @typedef ColumnContent
+   * @typedef RowData
    *
    * @property avatarColumn - The column content representing the avatar.
    * @property row - The row data for the avatar.

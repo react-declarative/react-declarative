@@ -29,7 +29,7 @@ interface IState {
 /**
  * Provides sorting functionality for a list component.
  *
- * @typedef {Object} SortModelProvider
+ * @typedef SortModelProvider
  * @property children - The child components.
  * @property sortModel - The initial sort model.
  */
@@ -75,7 +75,7 @@ export const SortModelProvider = ({
 
     /**
      * Represents the value object.
-     * @typedef {Object} VariableValue
+     * @typedef VariableValue
      * @property sortModel - An array containing the sorting model.
      * @property setSortModel - A function to handle changes to the sorting model.
      */

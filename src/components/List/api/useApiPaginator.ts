@@ -155,7 +155,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
      * @param chips - The chips data to apply.
      * @param search - The search data to apply.
      * @returns The list result containing the filtered, sorted, and paginated data.
-     * @throws {Error} If an error occurred during the execution.
+     * @throws If an error occurred during the execution.
      */
     const handler: ListHandler<FilterData, RowData> = useMemo(() => async (filterData, pagination, sort, chips, search) => {
         filterData = removeEmptyFilters(filterData) as FilterData;

@@ -38,7 +38,7 @@ interface IModalDialogProps extends DialogProps {
 
 /**
  * Represents a modal dialog component.
- * @typedef {Object} IModalDialogProps
+ * @typedef IModalDialogProps
  * @property children - The content inside the dialog.
  * @property disabled - Specifies if the dialog is disabled.
  * @property invalid - Specifies if the dialog is invalid.

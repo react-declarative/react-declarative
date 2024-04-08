@@ -1,6 +1,6 @@
 /**
  * Represents a function that renders a modal and returns React node.
- * @typedef {() => React.ReactNode} ModalRender
+ * @typedef ModalRender
  */
 export type ModalRender = () => React.ReactNode;
 

@@ -47,7 +47,7 @@ const useStyles = makeStyles()((theme) => ({
 
 /**
  * Represents a component for navigating through a wizard.
- * @typedef {Object} WizardNavigation
+ * @typedef WizardNavigation
  * @property className - The CSS class name for the component.
  * @property style - The inline style object for the component.
  * @property sx - The sx prop for the component.

@@ -6,7 +6,7 @@ import useActualCallback from './useActualCallback';
 /**
  * Interface for defining optional parameters for a function.
  *
- * @typedef {object} IParams
+ * @typedef IParams
  * @property [fallback] - Function to handle error if it occurs.
  * @property [onLoadStart] - Function to be called when loading starts.
  * @property [onLoadEnd] - Function to be called when loading ends,

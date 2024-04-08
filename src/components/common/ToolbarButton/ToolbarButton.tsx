@@ -9,7 +9,7 @@ import classNames from '../../../utils/classNames';
 /**
  * This variable `useStyles` is used to generate styles for a component using the `makeStyles` function
  *
- * @typedef {Object} Styles - The generated styles object with CSS class names as keys and corresponding styles as values
+ * @typedef Styles - The generated styles object with CSS class names as keys and corresponding styles as values
  * @property toolbarBtn - The CSS class for toolbar button with cursor pointer and secondary text color
  * @property toolbarBtnSelected - The CSS class for selected toolbar button with primary text color
  *
@@ -29,7 +29,7 @@ const useStyles = makeStyles()((theme) => ({
 /**
  * Represents a toolbar button component.
  *
- * @typedef {Object} ToolbarButton
+ * @typedef ToolbarButton
  * @param selected - Sets the selected state of the button. Default is false.
  * @param className - Additional classes to apply to the button.
  * @param label - The text label to display on the button.

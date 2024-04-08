@@ -97,7 +97,7 @@ export interface ICardProps<P = IAnything> {
 /**
  * Represents a Card component.
  *
- * @typedef {Object} Card
+ * @typedef Card
  * @property children - The content of the card.
  * @property outlinePaper - Whether to show an outline paper.
  * @property transparentPaper - Whether to show a transparent paper.

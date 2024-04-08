@@ -46,7 +46,7 @@ export interface State {
 /**
  * Props interface for the component.
  *
- * @typedef {Object} Props
+ * @typedef Props
  * @property data - The data object used by the component.
  * @property search - The search keyword used by the component.
  * @property withExpandAll - Indicates whether to display the expand all button.
@@ -82,7 +82,7 @@ export interface Hook extends Omit<Context, keyof {
 /**
  * SearchProvider is a component that provides search functionality for a data set.
  *
- * @typedef {object} Props - The props for the SearchProvider component.
+ * @typedef Props - The props for the SearchProvider component.
  * @property children - The children nodes of the SearchProvider component.
  * @property search - The initial search query. Default value is an empty string.
  * @property withExpandAll - Flag to indicate if all namespaces should be expanded. Default value is false.

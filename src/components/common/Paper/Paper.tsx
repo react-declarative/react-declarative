@@ -57,7 +57,7 @@ interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
 /**
  * Represents a Paper component that displays a block of content with a paper-like background.
  *
- * @typedef {Object} Paper
+ * @typedef Paper
  * @param [className=""] - The additional CSS class name(s) to apply to the Paper component.
  * @param [style] - The inline style object to apply to the Paper component.
  * @param children - The content to be rendered inside the Paper component.

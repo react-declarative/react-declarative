@@ -33,7 +33,7 @@ interface ICacheProviderProps {
 /**
  * Represents a cache provider used for memoization.
  *
- * @typedef {Object} CacheProvider
+ * @typedef CacheProvider
  * @property cacheMap - Represents a cache map used for memoization.
  * @property cacheMap.focusMap - Map for focusing fields.
  * @property cacheMap.blurMap - Map for blurring fields.
@@ -49,7 +49,7 @@ export const CacheProvider = ({ children }: ICacheProviderProps) => {
   /**
    * Represents a cache map used for memoization.
    *
-   * @typedef {Object} CacheMap
+   * @typedef CacheMap
    * @property focusMap - Map for focusing fields.
    * @property blurMap - Map for blurring fields.
    * @property menuMap - Map for field menus.

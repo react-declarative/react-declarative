@@ -228,7 +228,7 @@ export const TablePagination = ({
     /**
      * Represents the Actions variable.
      *
-     * @typedef {TableActions|undefined} Actions
+     * @typedef Actions
      * @property isGrow - The value of Actions when isGrow is true.
      * @property undefined - The value of Actions when isGrow is false.
      * @public

@@ -29,7 +29,7 @@ export interface IColumn<
   /**
    * Represents the width of an element.
    *
-   * @typedef {(string | ((width: number) => string | number))} Width
+   * @typedef Width
    */
   width: string | ((width: number) => string | number);
   minHeight?: string | number;
