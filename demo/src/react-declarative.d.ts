@@ -3991,7 +3991,18 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns
      */
     clear: () => void;
+    /**
+     * Converts a resolution tree to a YAML UML representation.
+     * Prints the UML representation to the console and returns it as a string.
+     *
+     * @returns The YAML UML representation of the resolution tree.
+     */
     toUML: (maxNesting?: number) => string;
+    /**
+     * Disable UML log collection. Increase performance
+     * on production
+     */
+    disableUML: () => void;
   }
   global {
     interface Window {
@@ -4074,6 +4085,11 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns The YAML UML representation of the resolution tree.
      */
     toUML: () => string;
+    /**
+     * Disable UML log collection. Increase performance
+     * on production
+     */
+    disableUML: () => void;
   };
   const provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void,
     waitForProvide: (verbose?: boolean) => Promise<void>,

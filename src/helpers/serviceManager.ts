@@ -199,35 +199,22 @@ class ResolutionManager {
      *
      * @returns The YAML UML representation of the resolution tree.
      */
-    toYamlUML = (maxNesting = 5) => {
+    toYamlUML = (maxNesting = 3) => {
         console.log(`ResolutionManager building UML for ${this._name}`);
         if (this.canceled) {
             console.log(`ResolutionManager collecting UML canceled due to async resolve found`);
             return "";
         }
-        const rootNodeSet = new Set(this.nodes.map(({ key }) => key));
         const lines: string[] = [];
         const process = (items: IResolutionNode[], level = 0) => {
-            if (level >= maxNesting) {
-                return;
-            }
             for (const { key, nodes } of items) {
                 const space = [...new Array(level)].fill(this.UML_STEP).join('');
-                const rootNodes = nodes.filter(({ key }) => rootNodeSet.has(key));
-                const childNodes = nodes.filter(({ key }) => !rootNodeSet.has(key));
-                if (rootNodes.length || childNodes.length) {
+                if (nodes.length && level < maxNesting) {
                     lines.push(`${space}${String(key)}:`);
+                    process(nodes, level + 1);
                 } else {
                     lines.push(`${space}${String(key)}: ""`);
                     continue;
-                }
-                if (rootNodes.length) {
-                    rootNodes.forEach(({ key }) => {
-                        lines.push(`${space}${this.UML_STEP}${String(key)}: ""`);
-                    })
-                }
-                if (childNodes.length) {
-                    process(nodes, level + 1);
                 }
             }
         };
@@ -469,7 +456,19 @@ class ServiceManager {
         this.unload.clear();
     };
 
-    toUML = (maxNesting = 5) => this.resolutionManager.toYamlUML(maxNesting);
+    /**
+     * Converts a resolution tree to a YAML UML representation.
+     * Prints the UML representation to the console and returns it as a string.
+     *
+     * @returns The YAML UML representation of the resolution tree.
+     */
+    toUML = (maxNesting = 3) => this.resolutionManager.toYamlUML(maxNesting);
+
+    /**
+     * Disable UML log collection. Increase performance
+     * on production
+     */
+    disableUML = () => this.resolutionManager.cancelResolution();
 
 };
 
@@ -571,6 +570,11 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
      * @returns The YAML UML representation of the resolution tree.
      */
     toUML = () => this._serviceManager.toUML();
+    /**
+     * Disable UML log collection. Increase performance
+     * on production
+     */
+    disableUML = () => this._serviceManager.disableUML();
 };
 
 const {
