@@ -3991,7 +3991,7 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns
      */
     clear: () => void;
-    toUML: () => string;
+    toUML: (maxNesting?: number) => string;
   }
   global {
     interface Window {

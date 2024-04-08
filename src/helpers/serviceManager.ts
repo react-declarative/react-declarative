@@ -82,6 +82,9 @@ interface IResolutionNode {
 
 /**
  * @see https://www.planttext.com/
+ * @see https://www.plantuml.com/plantuml/uml/
+ * @see https://plantuml.github.io/plantuml-core/raw.html
+ * @see https://github.com/plantuml
  */
 class ResolutionManager {
 
@@ -196,21 +199,35 @@ class ResolutionManager {
      *
      * @returns The YAML UML representation of the resolution tree.
      */
-    toYamlUML = () => {
+    toYamlUML = (maxNesting = 5) => {
         console.log(`ResolutionManager building UML for ${this._name}`);
         if (this.canceled) {
             console.log(`ResolutionManager collecting UML canceled due to async resolve found`);
             return "";
         }
+        const rootNodeSet = new Set(this.nodes.map(({ key }) => key));
         const lines: string[] = [];
         const process = (items: IResolutionNode[], level = 0) => {
+            if (level >= maxNesting) {
+                return;
+            }
             for (const { key, nodes } of items) {
                 const space = [...new Array(level)].fill(this.UML_STEP).join('');
-                if (nodes.length) {
+                const rootNodes = nodes.filter(({ key }) => rootNodeSet.has(key));
+                const childNodes = nodes.filter(({ key }) => !rootNodeSet.has(key));
+                if (rootNodes.length || childNodes.length) {
                     lines.push(`${space}${String(key)}:`);
-                    process(nodes, level + 1);
                 } else {
                     lines.push(`${space}${String(key)}: ""`);
+                    continue;
+                }
+                if (rootNodes.length) {
+                    rootNodes.forEach(({ key }) => {
+                        lines.push(`${space}${this.UML_STEP}${String(key)}: ""`);
+                    })
+                }
+                if (childNodes.length) {
+                    process(nodes, level + 1);
                 }
             }
         };
@@ -452,7 +469,7 @@ class ServiceManager {
         this.unload.clear();
     };
 
-    toUML = () => this.resolutionManager.toYamlUML();
+    toUML = (maxNesting = 5) => this.resolutionManager.toYamlUML(maxNesting);
 
 };
 
