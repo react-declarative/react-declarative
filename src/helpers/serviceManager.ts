@@ -70,6 +70,101 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
     };
 };
 
+interface IResolutionNode {
+    key: Key;
+    nodes: IResolutionNode[];
+}
+
+/**
+ * @see https://www.planttext.com/
+ */
+class ResolutionManager {
+
+    UML_STEP = '\t';
+
+    nodeMap = new Map<Key, IResolutionNode>();
+
+    nodes: IResolutionNode[] = [];
+    entries: IResolutionNode[] = [];
+
+    provide = 0;
+
+    private get isRootNodeState() {
+        return this.provide === 0;
+    }
+
+    private get isPendingProvideState() {
+        const [lastItem = null] = this.entries;
+        return !!lastItem;
+    }
+
+    constructor(private readonly _name = 'root') { }
+
+    private createNode = (key: Key) => {
+        const node = this.nodeMap.has(key) ? this.nodeMap.get(key) : this.nodeMap.set(key, { key, nodes: [] }).get(key);
+        return node!;
+    }
+
+    beginProvide = (key: Key) => {
+        this.entries.unshift(this.createNode(key));
+        this.provide += 1;
+    };
+
+    endProvide = (_: Key) => {
+        this.entries.shift();
+        this.provide -= 1;
+    };
+
+    doInject = (key: Key) => {
+        const [lastItem = null] = this.entries;
+        const node: IResolutionNode = {
+            key,
+            nodes: [],
+        };
+        if (lastItem) {
+            lastItem.nodes.push(node);
+        } else {
+            this.nodes.push(node);
+            this.entries.unshift(node);
+        }
+    };
+
+    beginInject = (key: Key, verbose: boolean) => {
+        verbose && console.log(`resolutionManager beginInject key=${String(key)} root=${this.isRootNodeState} pending=${this.isPendingProvideState}`);
+        const [lastItem] = this.entries;
+        const node = this.createNode(key);
+        if (this.isRootNodeState) {
+            this.nodes.push(node);
+        }
+        if (this.isPendingProvideState) {
+            lastItem.nodes.push(node);
+        }
+    };
+
+    endInject = (key: Key, verbose: boolean) => {
+        verbose && console.log(`resolutionManager endInject key=${String(key)} root=${this.isRootNodeState} pending=${this.isPendingProvideState}`);
+    };
+
+    toYamlUML = () => {
+        console.log(`ResolutionManager building UML for ${this._name}`);
+        const lines: string[] = [];
+        const process = (items: IResolutionNode[], level = 0) => {
+            for (const { key, nodes } of items) {
+                const space = [...new Array(level)].fill(this.UML_STEP).join('');
+                if (nodes.length) {
+                    lines.push(`${space}${String(key)}:`);
+                    process(nodes, level + 1);
+                } else {
+                    lines.push(`${space}${String(key)}: ""`);
+                }
+            }
+        };
+        process(this.nodes);
+        return ['@startyaml', ...lines, '@endyaml'].join('\n');
+    };
+
+}
+
 /**
  * Class representing a Service Manager.
  */
@@ -82,6 +177,8 @@ class ServiceManager {
 
     private _resolutionOrder: Key[] = [];
     private _reverseCounter = 0;
+
+    private resolutionManager = new ResolutionManager(this._name);
 
     constructor(private readonly _name = 'root') { }
 
@@ -149,7 +246,16 @@ class ServiceManager {
         if (this._creators.has(key)) {
             return;
         }
-        this._creators.set(key, ctor as unknown as () => object);
+        const creator = () => {
+            this.resolutionManager.beginProvide(key);
+            const result = ctor();
+            if (result instanceof Promise) {
+                void 0;
+            }
+            this.resolutionManager.endProvide(key);
+            return result as unknown as object;
+        };
+        this._creators.set(key, creator);
     };
 
     /**
@@ -163,13 +269,17 @@ class ServiceManager {
      */
     inject = <T = object>(key: Key, verbose = true): T => {
         if (this._instances.has(key)) {
+            this.resolutionManager.beginInject(key, verbose);
             const instance = this._instances.get(key);
+            this.resolutionManager.endInject(key, verbose);
             return instance as unknown as T;
         } else if (this._creators.has(key)) {
             this._checkCircularDependency(key);
             const index = Math.max(this._resolutionOrder.length - 1, 0);
             this._reverseCounter++;
+            this.resolutionManager.beginInject(key, verbose);
             const factoryResult = this._creators.get(key)!();
+            this.resolutionManager.endInject(key, verbose);
             const instance = factoryResult instanceof Promise ? new this.InstanceRef(key, factoryResult) : factoryResult;
             this._reverseCounter--;
             this._updateResolutionOrder(index);
@@ -269,6 +379,8 @@ class ServiceManager {
         this.unload.clear();
     };
 
+    toUML = () => this.resolutionManager.toYamlUML();
+
 };
 
 /**
@@ -362,6 +474,8 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
      * @returns Returns nothing.
      */
     clear = () => this._serviceManager.clear();
+
+    toUML = () => this._serviceManager.toUML();
 };
 
 const {

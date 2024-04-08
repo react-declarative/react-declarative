@@ -1,5 +1,7 @@
 # IActionChipProps
 
+Interface representing the props for the ActionChip component.
+
 ## Properties
 
 ### withSingleValue

@@ -865,8 +865,8 @@ declare module "react-declarative" {
     dateStamp: (str?: string) => number;
   };
   export const crypt: {
-    crypt: (salt: string, text: string) => string;
-    decrypt: (salt: string, encoded: string) => string;
+    crypt: (salt: any, text: any) => any;
+    decrypt: (salt: any, encoded: any) => any;
   };
   export { compose } from "react-declarative/utils/compose";
   export {
@@ -3991,6 +3991,7 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns
      */
     clear: () => void;
+    toUML: () => string;
   }
   global {
     interface Window {
@@ -4066,6 +4067,7 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns Returns nothing.
      */
     clear: () => void;
+    toUML: () => string;
   };
   const provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void,
     waitForProvide: (verbose?: boolean) => Promise<void>,
@@ -20930,6 +20932,19 @@ declare module "react-declarative/components/ColorButton/ColorButton" {
 
 declare module "react-declarative/components/ActionChip/ActionChip" {
   import { ChipProps } from "@mui/material/Chip";
+  /**
+   * Interface representing the props for the ActionChip component.
+   *
+   * @interface
+   * @extends ChipProps
+   * @property withSingleValue - Determines whether the action chip should display a single value.
+   * @property value - The current value of the action chip.
+   * @property onChange - The function to be called when the value of the action chip changes.
+   * @property onLoadStart - The function to be called when the loading starts.
+   * @property onLoadEnd - The function to be called when the loading ends.
+   * @property fallback - The function to be called if an error occurs.
+   * @property throwError - Determines whether an error should be thrown.
+   */
   interface IActionChipProps
     extends Omit<
       ChipProps,
@@ -20951,6 +20966,20 @@ declare module "react-declarative/components/ActionChip/ActionChip" {
     fallback?: (e: Error) => void;
     throwError?: boolean;
   }
+  /**
+   * ActionChip component represents a chip with dynamic action behavior.
+   *
+   * @param [value=false] - The initial value of the chip.
+   * @param [withSingleValue=false] - Determines whether the chip should have a single value or not.
+   * @param [onChange] - The function to be called when the chip value changes.
+   * @param [onLoadStart] - The function to be called when the chip's loading state starts.
+   * @param [onLoadEnd] - The function to be called when the chip's loading state ends.
+   * @param [fallback] - The fallback content to be displayed while the chip is in the loading state.
+   * @param [throwError] - Determines whether an error should be thrown if the onChange function is not defined.
+   * @param [otherProps] - Additional props to be passed to the Chip component.
+   *
+   * @returns - The ActionChip component.
+   */
   export const ActionChip: ({
     value: upperValue,
     withSingleValue,
