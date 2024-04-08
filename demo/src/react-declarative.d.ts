@@ -4067,6 +4067,12 @@ declare module "react-declarative/helpers/serviceManager" {
      * @returns Returns nothing.
      */
     clear: () => void;
+    /**
+     * Converts a resolution tree to a YAML UML representation.
+     * Prints the UML representation to the console and returns it as a string.
+     *
+     * @returns The YAML UML representation of the resolution tree.
+     */
     toUML: () => string;
   };
   const provide: <T = object>(key: Key, ctor: () => T | Promise<T>) => void,

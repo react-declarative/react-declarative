@@ -26,9 +26,9 @@
 12. [Form schema](./code/Schema.md)
 13. [Routing](./code/Routing.md)
 14. [Route Outlets](./code/OutletView.md)
-15. [react-declarative.d.ts](./code/react-declarative.md)
+15. [Dependency Injection](./code/DI.md)
 
-**Other functionality**
+**Additional functionality**
 
 1. [Components](./code/Components.md)
 2. [Hooks](./code/Hooks.md)
@@ -36,6 +36,10 @@
 4. [Mathematical Logic](./code/MATH.md)
 5. [Reactive Programming](./code/RX.md)
 6. [Utility Functions](./code/UTILS.md)
+
+**Other**
+
+1. [react-declarative.d.ts](./code/react-declarative.md)
 
 ## Field properties with JSDoc:
 

@@ -547,7 +547,12 @@ export const serviceManager = new class implements Omit<IServiceManager, keyof {
      * @returns Returns nothing.
      */
     clear = () => this._serviceManager.clear();
-
+    /**
+     * Converts a resolution tree to a YAML UML representation.
+     * Prints the UML representation to the console and returns it as a string.
+     *
+     * @returns The YAML UML representation of the resolution tree.
+     */
     toUML = () => this._serviceManager.toUML();
 };
 
