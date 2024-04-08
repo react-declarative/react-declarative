@@ -70,6 +70,11 @@ const createInstanceRef = (name: string) => class InstanceRef<T extends object> 
     };
 };
 
+/**
+ * Represents a resolution node used in a resolution process.
+ *
+ * @interface
+ */
 interface IResolutionNode {
     key: Key;
     nodes: IResolutionNode[];
@@ -80,19 +85,32 @@ interface IResolutionNode {
  */
 class ResolutionManager {
 
-    UML_STEP = '\t';
+    private UML_STEP = '\t';
 
-    nodeMap = new Map<Key, IResolutionNode>();
+    private  nodeMap = new Map<Key, IResolutionNode>();
 
-    nodes: IResolutionNode[] = [];
-    entries: IResolutionNode[] = [];
+    private nodes: IResolutionNode[] = [];
+    private entries: IResolutionNode[] = [];
 
-    provide = 0;
+    private provide = 0;
 
+    private canceled = false;
+
+    /**
+     * Checks if the current state is the root node state.
+     *
+     * @returns True if the state is the root node state, otherwise false.
+     */
     private get isRootNodeState() {
         return this.provide === 0;
     }
 
+    /**
+     * Checks if there is a pending provide state.
+     *
+     * @private
+     * @returns Returns true if there is a pending provide state, otherwise false.
+     */
     private get isPendingProvideState() {
         const [lastItem = null] = this.entries;
         return !!lastItem;
@@ -100,36 +118,54 @@ class ResolutionManager {
 
     constructor(private readonly _name = 'root') { }
 
+    /**
+     * Getting node by key or creates a new one with the given key.
+     *
+     * @param key - The key for the new node.
+     * @returns - The created node.
+     */
     private createNode = (key: Key) => {
         const node = this.nodeMap.has(key) ? this.nodeMap.get(key) : this.nodeMap.set(key, { key, nodes: [] }).get(key);
         return node!;
     }
 
+    /**
+     * Adds a new entry to the beginning of the 'entries' array and increments the 'provide' count by 1.
+     *
+     * @param key - The key to be used for creating the new entry.
+     */
     beginProvide = (key: Key) => {
+        if (this.canceled) {
+            return;
+        }
         this.entries.unshift(this.createNode(key));
         this.provide += 1;
     };
 
+    /**
+     * Decrements the "provide" count and removes the first entry from the "entries" array.
+     *
+     * @param _ - The input parameter is not used.
+     * @returns
+     */
     endProvide = (_: Key) => {
+        if (this.canceled) {
+            return;
+        }
         this.entries.shift();
         this.provide -= 1;
     };
 
-    doInject = (key: Key) => {
-        const [lastItem = null] = this.entries;
-        const node: IResolutionNode = {
-            key,
-            nodes: [],
-        };
-        if (lastItem) {
-            lastItem.nodes.push(node);
-        } else {
-            this.nodes.push(node);
-            this.entries.unshift(node);
-        }
-    };
-
+    /**
+     * Begins the injection process for the given key.
+     *
+     * @param key - The key to inject.
+     * @param verbose - Indicates if the injection process should be logged to the console.
+     */
     beginInject = (key: Key, verbose: boolean) => {
+        if (this.canceled) {
+            return;
+        }
         verbose && console.log(`resolutionManager beginInject key=${String(key)} root=${this.isRootNodeState} pending=${this.isPendingProvideState}`);
         const [lastItem] = this.entries;
         const node = this.createNode(key);
@@ -141,12 +177,31 @@ class ResolutionManager {
         }
     };
 
+    /**
+     * Ends the injection process and logs information if verbose is true.
+     *
+     * @param key - The key for the injection process.
+     * @param verbose - Specifies whether to log the information.
+     */
     endInject = (key: Key, verbose: boolean) => {
+        if (this.canceled) {
+            return;
+        }
         verbose && console.log(`resolutionManager endInject key=${String(key)} root=${this.isRootNodeState} pending=${this.isPendingProvideState}`);
     };
 
+    /**
+     * Converts a resolution tree to a YAML UML representation.
+     * Prints the UML representation to the console and returns it as a string.
+     *
+     * @returns The YAML UML representation of the resolution tree.
+     */
     toYamlUML = () => {
         console.log(`ResolutionManager building UML for ${this._name}`);
+        if (this.canceled) {
+            console.log(`ResolutionManager collecting UML canceled due to async resolve found`);
+            return;
+        }
         const lines: string[] = [];
         const process = (items: IResolutionNode[], level = 0) => {
             for (const { key, nodes } of items) {
@@ -162,6 +217,24 @@ class ResolutionManager {
         process(this.nodes);
         return ['@startyaml', ...lines, '@endyaml'].join('\n');
     };
+
+    /**
+     * Cancels the resolution process.
+     * Sets the 'canceled' flag to true,
+     * resets the 'provide' value to 0,
+     * clears the 'nodeMap' object,
+     * and empties the 'nodes' and 'entries' arrays.
+     *
+     * @function cancelResolution
+     * @returns
+     */
+    cancelResolution = () => {
+        this.canceled = true;
+        this.provide = 0;
+        this.nodeMap.clear();
+        this.nodes = [];
+        this.entries = [];
+    }
 
 }
 
@@ -250,7 +323,7 @@ class ServiceManager {
             this.resolutionManager.beginProvide(key);
             const result = ctor();
             if (result instanceof Promise) {
-                void 0;
+                this.resolutionManager.cancelResolution();
             }
             this.resolutionManager.endProvide(key);
             return result as unknown as object;
