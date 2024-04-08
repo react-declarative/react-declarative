@@ -200,7 +200,7 @@ class ResolutionManager {
         console.log(`ResolutionManager building UML for ${this._name}`);
         if (this.canceled) {
             console.log(`ResolutionManager collecting UML canceled due to async resolve found`);
-            return;
+            return "";
         }
         const lines: string[] = [];
         const process = (items: IResolutionNode[], level = 0) => {
