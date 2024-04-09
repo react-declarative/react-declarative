@@ -104,7 +104,7 @@ const Snack = ({
               await resultSubject.next(false);
             }}
           >
-            <CloseIcon />
+            <CloseIcon sx={{ display: 'flex' }} />
           </ActionButton>
         </Stack>
       )}
