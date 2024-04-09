@@ -9,11 +9,13 @@ import Snackbar from '@mui/material/Snackbar';
 import randomString from '../utils/randomString';
 
 import useSubject from './useSubject';
+import useSingleton from './useSingleton';
 import useActualValue from './useActualValue';
 import useRenderWaiter from './useRenderWaiter';
 
-import CloseIcon from '@mui/icons-material/Close';
 import TSubject from '../model/TSubject';
+
+import CloseIcon from '@mui/icons-material/Close';
 
 const HIDE_DURATION = 6000;
 
@@ -61,25 +63,14 @@ const Snack = ({
   button = "Open",
 }: ISnackProps) => {
   const { loading, handleLoadStart, handleLoadEnd } = usePreventAction();
+  const key = useSingleton(randomString);
   return (
     <Snackbar
       open
-      key={randomString()}
+      key={key}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       autoHideDuration={duration}
-      onClose={async () => {
-        if (!loading) {
-          let isOk = true;
-          handleLoadStart();
-          try {
-            await resultSubject.next(false);
-          } catch {
-            isOk = false;
-          } finally {
-            handleLoadEnd(isOk);
-          }
-        }
-      }}
+      onClose={() => false}
       message={message}
       action={<>
         <ActionButton
