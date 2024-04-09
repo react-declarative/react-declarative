@@ -13,6 +13,8 @@ import useSingleton from './useSingleton';
 import useActualValue from './useActualValue';
 import useRenderWaiter from './useRenderWaiter';
 
+import CloseIcon from '@mui/icons-material/Close';
+
 import TSubject from '../model/TSubject';
 
 const HIDE_DURATION = 6000;
@@ -88,6 +90,11 @@ const Snack = ({
           </ActionButton>
           <ActionButton
             variant="outlined"
+            sx={{ 
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             disabled={loading}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
@@ -97,7 +104,7 @@ const Snack = ({
               await resultSubject.next(false);
             }}
           >
-            {button}
+            <CloseIcon />
           </ActionButton>
         </Stack>
       )}
