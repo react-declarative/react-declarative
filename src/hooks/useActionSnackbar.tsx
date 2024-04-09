@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import { useTheme } from '@mui/material';
 
 import ActionButton, { usePreventAction } from '../components/ActionButton';
 
@@ -64,6 +65,7 @@ const Snack = ({
   button = "Open",
 }: ISnackProps) => {
   const { loading, handleLoadStart, handleLoadEnd } = usePreventAction();
+  const theme = useTheme();
   const key = useSingleton(randomString);
   return (
     <Snackbar
@@ -73,6 +75,15 @@ const Snack = ({
       autoHideDuration={duration}
       onClose={() => false}
       message={message}
+      ContentProps={{
+        sx:{
+          background: theme.palette.background.paper,
+          color: theme.palette.getContrastText(theme.palette.background.paper),
+          "& > *": {
+            color: theme.palette.getContrastText(theme.palette.background.paper),
+          },
+        }
+      }}
       action={(
         <Stack direction="row" gap={1} mr={1} alignItems="center">
           <ActionButton
@@ -157,7 +168,11 @@ export const useActionSnackbar = ({
 
   return {
     resultSubject,
-    render: () => <>{element}</>,
+    render: () => (
+      <>
+        {element}
+      </>
+    ),
     pickData: useCallback(async ({
       message,
       button = "Open",
