@@ -1,29 +1,125 @@
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
-import Button from '@mui/material/Button';
+import ActionButton, { usePreventAction } from '../components/ActionButton';
+import ActionIcon from '../components/ActionIcon';
+
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
 
 import randomString from '../utils/randomString';
 
-import CloseIcon from '@mui/icons-material/Close';
-import { ActionButton } from '../components';
 import useSubject from './useSubject';
 import useActualValue from './useActualValue';
 import useRenderWaiter from './useRenderWaiter';
 
+import CloseIcon from '@mui/icons-material/Close';
+import TSubject from '../model/TSubject';
+
 const HIDE_DURATION = 6000;
 
+/**
+ * Represents a set of parameters for a specific task.
+ *
+ * @interface IParams
+ */
 interface IParams {
   duration: number;
 }
 
+/**
+ * Represents a snack notification.
+ *
+ * @interface
+ */
 interface ISnack {
   message: string;
   button?: string;
 }
 
+/**
+ * Represents the properties required for a Snack.
+ * @interface
+ */
+interface ISnackProps extends ISnack {
+  resultSubject: TSubject<boolean>;
+  duration: number;
+}
+
+/**
+ * Represents a snack component.
+ *
+ * @typedef ISnackProps
+ * @property resultSubject - The subject that emits the result of the snack action.
+ * @property duration - The duration for which the snack should be displayed.
+ * @property message - The message to be displayed in the snack.
+ * @property [button="Open"] - The label for the action button in the snack.
+ */
+const Snack = ({
+  resultSubject,
+  duration,
+  message,
+  button = "Open",
+}: ISnackProps) => {
+  const { loading, handleLoadStart, handleLoadEnd } = usePreventAction();
+  return (
+    <Snackbar
+      open
+      key={randomString()}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      autoHideDuration={duration}
+      onClose={async () => {
+        if (!loading) {
+          let isOk = true;
+          handleLoadStart();
+          try {
+            await resultSubject.next(false);
+          } catch {
+            isOk = false;
+          } finally {
+            handleLoadEnd(isOk);
+          }
+        }
+      }}
+      message={message}
+      action={<>
+        <ActionButton
+          disabled={loading}
+          onLoadStart={handleLoadStart}
+          onLoadEnd={handleLoadEnd}
+          color="secondary"
+          size="small"
+          onClick={async () => {
+            await resultSubject.next(true);
+          }}
+        >
+          {button}
+        </ActionButton>
+        <ActionIcon
+          disabled={loading}
+          size={18}
+          onLoadStart={handleLoadStart}
+          onLoadEnd={handleLoadEnd}
+          color="inherit"
+          onClick={async () => {
+            await resultSubject.next(false);
+          }}
+        >
+          <CloseIcon fontSize="small" />
+        </ActionIcon>
+      </>}
+    />
+  );
+}
+
+/**
+ * A hook for displaying a snackbar with an action button.
+ *
+ * @param [options] - Optional parameters for the snackbar.
+ * @param [options.duration] - The duration in milliseconds for which the snackbar is displayed.
+ * @returns An object with two methods:
+ *   - render: A method that renders the snackbar.
+ *   - pickData: A method that displays the snackbar and waits for the user response.
+ */
 export const useActionSnackbar = ({
   duration = HIDE_DURATION,
 }: Partial<IParams>) => {
@@ -39,37 +135,19 @@ export const useActionSnackbar = ({
     setElement(null);
   }), []);
 
+  /**
+   * Render a snack bar with a message and button.
+   *
+   * @param message - The message to be displayed in the snack bar.
+   * @param button - The label for the button in the snack bar.
+   * @returns - The rendered snack bar component.
+   */
   const renderSnack = useCallback((message: string, button: string) => (
-    <Snackbar
-      open
-      key={randomString()}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      autoHideDuration={duration}
-      onClose={() => {
-        resultSubject.next(false);
-      }}
+    <Snack
       message={message}
-      action={<React.Fragment>
-        <ActionButton
-          color="secondary"
-          size="small"
-          onClick={() => {
-            resultSubject.next(true);
-          }}
-        >
-          {button}
-        </ActionButton>
-        <IconButton
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={() => {
-            resultSubject.next(false);
-          }}
-        >
-          <CloseIcon fontSize="small" />
-        </IconButton>
-      </React.Fragment>}
+      button={button}
+      duration={duration}
+      resultSubject={resultSubject}
     />
   ), []);
 
@@ -80,7 +158,7 @@ export const useActionSnackbar = ({
       button = "Open",
     }: ISnack) => {
       if (element$.current) {
-        resultSubject.next(false);
+        await resultSubject.next(false);
         await waitForRender();
       }
       setElement(
