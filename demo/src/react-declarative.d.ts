@@ -6139,6 +6139,7 @@ declare module "react-declarative/hooks/useActionSnackbar" {
    */
   interface IParams {
     duration: number;
+    onResult: (result: boolean) => void;
   }
   /**
    * Represents a snack notification.
@@ -6158,7 +6159,11 @@ declare module "react-declarative/hooks/useActionSnackbar" {
    *   - render: A method that renders the snackbar.
    *   - pickData: A method that displays the snackbar and waits for the user response.
    */
-  export const useActionSnackbar: ({ duration }: Partial<IParams>) => {
+  export const useActionSnackbar: ({
+    duration,
+    onResult,
+  }?: Partial<IParams>) => {
+    resultSubject: import("..").Subject<boolean>;
     render: () => JSX.Element;
     pickData: ({ message, button }: ISnack) => Promise<boolean>;
   };

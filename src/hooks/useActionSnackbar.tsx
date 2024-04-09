@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 import ActionButton, { usePreventAction } from '../components/ActionButton';
-import ActionIcon from '../components/ActionIcon';
 
 import Snackbar from '@mui/material/Snackbar';
+import Stack from '@mui/material/Stack';
 
 import randomString from '../utils/randomString';
 
@@ -15,8 +15,6 @@ import useRenderWaiter from './useRenderWaiter';
 
 import TSubject from '../model/TSubject';
 
-import CloseIcon from '@mui/icons-material/Close';
-
 const HIDE_DURATION = 6000;
 
 /**
@@ -26,6 +24,7 @@ const HIDE_DURATION = 6000;
  */
 interface IParams {
   duration: number;
+  onResult: (result: boolean) => void;
 }
 
 /**
@@ -72,32 +71,36 @@ const Snack = ({
       autoHideDuration={duration}
       onClose={() => false}
       message={message}
-      action={<>
-        <ActionButton
-          disabled={loading}
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-          color="secondary"
-          size="small"
-          onClick={async () => {
-            await resultSubject.next(true);
-          }}
-        >
-          {button}
-        </ActionButton>
-        <ActionIcon
-          disabled={loading}
-          size={18}
-          onLoadStart={handleLoadStart}
-          onLoadEnd={handleLoadEnd}
-          color="inherit"
-          onClick={async () => {
-            await resultSubject.next(false);
-          }}
-        >
-          <CloseIcon fontSize="small" />
-        </ActionIcon>
-      </>}
+      action={(
+        <Stack direction="row" gap={1} mr={1} alignItems="center">
+          <ActionButton
+            variant="contained"
+            disabled={loading}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            color="primary"
+            size="small"
+            onClick={async () => {
+              await resultSubject.next(true);
+            }}
+          >
+            {button}
+          </ActionButton>
+          <ActionButton
+            variant="outlined"
+            disabled={loading}
+            onLoadStart={handleLoadStart}
+            onLoadEnd={handleLoadEnd}
+            color="primary"
+            size="small"
+            onClick={async () => {
+              await resultSubject.next(false);
+            }}
+          >
+            {button}
+          </ActionButton>
+        </Stack>
+      )}
     />
   );
 }
@@ -113,7 +116,8 @@ const Snack = ({
  */
 export const useActionSnackbar = ({
   duration = HIDE_DURATION,
-}: Partial<IParams>) => {
+  onResult = () => {},
+}: Partial<IParams> = {}) => {
 
   const [element, setElement] = useState<React.ReactNode>(null);
   const element$ = useActualValue(element);
@@ -125,6 +129,8 @@ export const useActionSnackbar = ({
   useEffect(() => resultSubject.subscribe(() => {
     setElement(null);
   }), []);
+
+  useEffect(() => resultSubject.subscribe(onResult), []);
 
   /**
    * Render a snack bar with a message and button.
@@ -143,6 +149,7 @@ export const useActionSnackbar = ({
   ), []);
 
   return {
+    resultSubject,
     render: () => <>{element}</>,
     pickData: useCallback(async ({
       message,
