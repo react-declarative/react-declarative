@@ -163,6 +163,7 @@ declare module "react-declarative" {
   import { useMediaStreamBuilder } from "react-declarative/hooks/useMediaStreamBuilder";
   import { useCollection } from "react-declarative/hooks/useCollection";
   import { useRequestSnackbar } from "react-declarative/hooks/useRequestSnackbar";
+  import { useActionSnackbar } from "react-declarative/hooks/useActionSnackbar";
   import { useModal } from "react-declarative/components/ModalProvider";
   import { useSnack } from "react-declarative/components/SnackProvider";
   import { useSize } from "react-declarative/components/SizeProvider";
@@ -619,6 +620,7 @@ declare module "react-declarative" {
   export { useCollection };
   export { useMediaStreamBuilder };
   export { useRequestSnackbar };
+  export { useActionSnackbar };
   export { useOne, useOneTyped };
   export { useDate, useTime };
   export { useConfirm };
@@ -6127,6 +6129,40 @@ declare module "react-declarative/hooks/useRequestSnackbar" {
     render: () => JSX.Element;
   };
   export default useRequestSnackbar;
+}
+
+declare module "react-declarative/hooks/useActionSnackbar" {
+  /**
+   * Represents a set of parameters for a specific task.
+   *
+   * @interface IParams
+   */
+  interface IParams {
+    duration: number;
+  }
+  /**
+   * Represents a snack notification.
+   *
+   * @interface
+   */
+  interface ISnack {
+    message: string;
+    button?: string;
+  }
+  /**
+   * A hook for displaying a snackbar with an action button.
+   *
+   * @param [options] - Optional parameters for the snackbar.
+   * @param [options.duration] - The duration in milliseconds for which the snackbar is displayed.
+   * @returns An object with two methods:
+   *   - render: A method that renders the snackbar.
+   *   - pickData: A method that displays the snackbar and waits for the user response.
+   */
+  export const useActionSnackbar: ({ duration }: Partial<IParams>) => {
+    render: () => JSX.Element;
+    pickData: ({ message, button }: ISnack) => Promise<boolean>;
+  };
+  export default useActionSnackbar;
 }
 
 declare module "react-declarative/components/ModalProvider" {
