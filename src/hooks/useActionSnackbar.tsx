@@ -185,7 +185,7 @@ export const useActionSnackbar = ({
       );
       return await resultSubject.toPromise();
     }, []),
-    close: () => resultSubject.next(false),
+    close: useCallback(() => resultSubject.next(false), []),
   }
 }
 
