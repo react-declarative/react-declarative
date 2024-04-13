@@ -6163,9 +6163,9 @@ declare module "react-declarative/hooks/useActionSnackbar" {
     duration,
     onResult,
   }?: Partial<IParams>) => {
-    resultSubject: import("..").Subject<boolean>;
     render: () => JSX.Element;
     pickData: ({ message, button }: ISnack) => Promise<boolean>;
+    close: () => Promise<void>;
   };
   export default useActionSnackbar;
 }

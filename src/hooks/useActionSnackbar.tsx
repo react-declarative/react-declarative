@@ -167,7 +167,6 @@ export const useActionSnackbar = ({
   ), []);
 
   return {
-    resultSubject,
     render: () => (
       <>
         {element}
@@ -186,6 +185,7 @@ export const useActionSnackbar = ({
       );
       return await resultSubject.toPromise();
     }, []),
+    close: () => resultSubject.next(false),
   }
 }
 
