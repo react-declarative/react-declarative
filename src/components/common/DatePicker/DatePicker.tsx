@@ -7,6 +7,8 @@ import Toolbar from '@mui/material/Toolbar';
 
 import dayjs from 'dayjs';
 
+import getGenesisStamp from '../../../utils/getGenesisStamp';
+
 import ToolbarButton from '../ToolbarButton';
 import YearSelection from './YearSelection';
 import Calendar from './Calendar';
@@ -62,7 +64,7 @@ const useStyles = makeStyles()((theme) => ({
  */
 export const DatePicker = ({
   date: upperDate = dayjs(),
-  minDate = new Date(0) as unknown as string,
+  minDate = getGenesisStamp() as unknown as string,
   maxDate = new Date(4102434000000) as unknown as string,
   onChange = (change: any) => console.log({ change }),
   disableFuture = false,

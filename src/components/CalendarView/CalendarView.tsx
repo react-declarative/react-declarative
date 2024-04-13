@@ -23,9 +23,10 @@ import useSingleton from "../../hooks/useSingleton";
 import ICalendarViewProps from "./model/ICalendarViewProps";
 import IAnything from "../../model/IAnything";
 
+import getGenesisStamp from "../../utils/getGenesisStamp";
 import classNames from "../../utils/classNames";
 
-const MIN_DATE = new Date(0) as unknown as string;
+const MIN_DATE = getGenesisStamp() as unknown as string;
 const MAX_DATE = new Date(4102434000000) as unknown as string;
 
 const useStyles = makeStyles()((theme) => ({

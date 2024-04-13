@@ -879,6 +879,7 @@ declare module "react-declarative" {
     getTimeStamp,
     fromTimeStamp,
   } from "react-declarative/utils/getTimeStamp";
+  export { getGenesisStamp } from "react-declarative/utils/getGenesisStamp";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
@@ -10102,7 +10103,7 @@ declare module "react-declarative/utils/compose" {
 declare module "react-declarative/utils/getMomentStamp" {
   import dayjs from "dayjs";
   export const DIMENSION = "day";
-  export const GENESIS: string;
+  export const GENESIS: dayjs.Dayjs;
   export type stamp = number;
   /**
    * Calculates the moment stamp based on the given end date and dimension.
@@ -10146,6 +10147,15 @@ declare module "react-declarative/utils/getTimeStamp" {
    */
   export const fromTimeStamp: (stamp: number) => dayjs.Dayjs;
   export default getTimeStamp;
+}
+
+declare module "react-declarative/utils/getGenesisStamp" {
+  import dayjs from "dayjs";
+  /**
+   * @returns The initial moment stamp for London (UTC)
+   */
+  export const getGenesisStamp: () => dayjs.Dayjs;
+  export default getGenesisStamp;
 }
 
 declare module "react-declarative/api/resolveDocuments" {

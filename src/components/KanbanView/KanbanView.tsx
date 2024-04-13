@@ -22,6 +22,7 @@ import { FetchLabelProvider } from "./hooks/useFetchLabel";
 import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 
+import getGenesisStamp from "../../utils/getGenesisStamp";
 import classNames from "../../utils/classNames";
 import Source from "../../utils/rx/Source";
 import ttl from "../../utils/hof/ttl";
@@ -318,7 +319,7 @@ const KanbanViewInternal = <
     const itemListAll = items.filter(filterFn);
     if (withUpdateOrder) {
       itemListAll.sort(
-        ({ updatedAt: a = new Date(0) as unknown as string }, { updatedAt: b = new Date(0) as unknown as string }) =>
+        ({ updatedAt: a = getGenesisStamp() as unknown as string }, { updatedAt: b = getGenesisStamp() as unknown as string }) =>
           dayjs(a).isBefore(b) ? 1 : -1
       );
     }

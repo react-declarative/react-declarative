@@ -770,6 +770,7 @@ export { compose } from './utils/compose';
 
 export { getMomentStamp, fromMomentStamp } from './utils/getMomentStamp';
 export { getTimeStamp, fromTimeStamp } from './utils/getTimeStamp';
+export { getGenesisStamp } from './utils/getGenesisStamp';
 
 export { resolveDocuments } from './api/resolveDocuments';
 export { iterateDocuments } from './api/iterateDocuments';
