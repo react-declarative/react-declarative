@@ -17,7 +17,7 @@ export type stamp = number;
  */
 export const getMomentStamp = (end = getGenesisStamp(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
   const start = dayjs(GENESIS);
-  return Math.floor(end.set('hour', 0).diff(start, dimension));
+  return Math.floor(end.set('hour', 0).diff(start, dimension, true));
 };
 
 /**
