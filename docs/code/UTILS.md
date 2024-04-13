@@ -371,6 +371,10 @@ The `fromMomentStamp` function in TypeScript is a utility that allows you to con
 
 Inside the function, it first creates a new `dayjs` object using the constant `GENESIS`, which represents a base or start point in time. It then adds the `stamp` to this base moment in time, using the specified `dimension` as the unit of time. Finally, it returns the resulting `dayjs` object representing the moment in time corresponding to the added timestamp.
 
+# getGenesisStamp
+
+The purpose of `getGenesisStamp` is to provide the starting moment in time for London, adjusted to Coordinated Universal Time (UTC). It relies on the `dayjs` library for handling dates and times. If no specific timestamp is given when calling the function, it defaults to the beginning of time, which is the Unix epoch (00:00:00 UTC on January 1, 1970). The function then adjusts this timestamp to have an hour of 0, effectively setting it to midnight in London time. Finally, the function is exported as the default function of the module for use elsewhere in the codebase which quite helpful to deal with timezone issues.
+
 # getRouteItem
 
 The `getRouteItem` function is a utility that helps find the matching route from an array of routes based on a given pathname. It works by iterating through each route item and compiling the path of the current route into a regular expression using `pathToRegexp`. If the provided pathname matches any of the compiled regular expressions, it returns that route and stops further iteration. If no match is found for any route, it returns null. This function is useful in routing systems where you need to determine the appropriate route for a given pathname.
