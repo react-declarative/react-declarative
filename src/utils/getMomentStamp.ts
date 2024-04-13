@@ -15,7 +15,7 @@ export type stamp = number;
  * @param [dimension=DIMENSION] - The dimension to calculate the difference in. Defaults to DIMENSION.
  * @returns - The moment stamp representing the difference between the end date and the start date.
  */
-export const getMomentStamp = (end = getGenesisStamp(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
+export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
   const start = dayjs(GENESIS);
   return Math.floor(end.set('hour', 0).diff(start, dimension, true));
 };

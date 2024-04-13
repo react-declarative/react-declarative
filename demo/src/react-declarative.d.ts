@@ -10154,7 +10154,7 @@ declare module "react-declarative/utils/getGenesisStamp" {
   /**
    * @returns The initial moment stamp for London (UTC)
    */
-  export const getGenesisStamp: () => dayjs.Dayjs;
+  export const getGenesisStamp: (stamp?: dayjs.Dayjs) => dayjs.Dayjs;
   export default getGenesisStamp;
 }
 

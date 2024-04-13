@@ -1,7 +1,5 @@
 import dayjs from 'dayjs';
 
-import getGenesisStamp from './getGenesisStamp';
-
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
 export const TIME_PLACEHOLDER = 'HH:MM';
 
@@ -70,7 +68,7 @@ export class Date {
      */
     toStamp = () => {
         const start = dayjs(new window.Date(0));
-        let now = getGenesisStamp();
+        let now = dayjs().set('hour', 0);
         now = now.set('date', this.day);
         now = now.set('month', this.month - 1);
         now = now.set('year', this.year);

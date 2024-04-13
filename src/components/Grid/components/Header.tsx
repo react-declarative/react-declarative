@@ -238,6 +238,10 @@ export const Header = <T extends RowData>({
           return (
             <Cell
               key={rowId}
+              sx={{
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
               className={classNames(classes.headerCell, {
                 [classes.headerCellClick]: Boolean(onClickHeaderColumn),
                 [classes.coloredHeaderCell]:
