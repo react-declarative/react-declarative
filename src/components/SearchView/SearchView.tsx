@@ -50,6 +50,7 @@ const useStyles = makeStyles()({
     minHeight: 425,
     minWidth: 290,
     maxHeight: '45vh',
+    scrollbarWidth: 'none',
     overflowY: 'auto',
     overflowX: 'hidden',
   },

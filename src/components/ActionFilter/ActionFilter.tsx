@@ -186,6 +186,7 @@ export const ActionFilter = ({
                         maxHeight: '45vh',
                         overflowY:'auto',
                         overflowX: 'hidden',
+                        scrollbarWidth: 'none',
                     },
                 }}
             >
