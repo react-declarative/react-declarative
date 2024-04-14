@@ -94,3 +94,15 @@ This property defines a callback function that is invoked when the loading of da
 ```ts
 features: string[] | Record<string, Value> | (() => string[] | Record<string, Value>)
 ```
+
+### readTransform
+
+```ts
+readTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
+```
+
+### writeTransform
+
+```ts
+writeTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
+```

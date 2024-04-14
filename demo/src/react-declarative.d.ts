@@ -6468,8 +6468,8 @@ declare module "react-declarative/hooks/useOne" {
     large?: boolean;
     handler?: OneHandler<Data, Payload>;
     payload?: IOneProps<Data, Payload, Field>["payload"];
-    readTransform?: IOneProps<Data, Payload, Field>["readTransform"];
-    writeTransform?: IOneProps<Data, Payload, Field>["writeTransform"];
+    readTransform?: IOnePublicProps<Data, Payload, Field>["readTransform"];
+    writeTransform?: IOnePublicProps<Data, Payload, Field>["writeTransform"];
     features?: IOnePublicProps<Data, Payload, Field>["features"];
     waitForChangesDelay?: number;
   }
@@ -6677,6 +6677,8 @@ declare module "react-declarative/model/IOnePublicProps" {
       IOneProps<Data, Payload, Field>,
       keyof {
         features: never;
+        readTransform: never;
+        writeTransform: never;
       }
     > {
     /**
@@ -6810,6 +6812,23 @@ declare module "react-declarative/model/IOnePublicProps" {
       | Record<string, Value>
       | string[]
       | (() => string[] | Record<string, Value>);
+    /**
+     * Represents the field value transform factory
+     *
+     * @typedef Features
+     */
+    readTransform?: (
+      value: string | string[],
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
+    writeTransform?: (
+      value: string | string[],
+      name: string,
+      data: Data,
+      payload: Payload,
+    ) => Value;
   }
   export default IOnePublicProps;
 }
@@ -21686,8 +21705,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     payload?: IOneProps<Data, Payload>["payload"];
     changeSubject?: IOneProps<Data, Payload>["changeSubject"];
     reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
-    readTransform?: IOneProps<Data, Payload>["readTransform"];
-    writeTransform?: IOneProps<Data, Payload>["writeTransform"];
+    readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
+    writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
     onSubmit?: (
       data: Data | null,
       payload: Payload,

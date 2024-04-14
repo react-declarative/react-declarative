@@ -108,13 +108,13 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
      */
     const memoizedProps = {
         readTransform: useCallback((value: Value, name: string, data: Data, payload: Payload) => {
-            if (value) {
+            if (typeof value === 'string' || Array.isArray(value)) {
                 return readTransform(value, name, data, payload);
             }
             return value;
         }, []),
         writeTransform: useCallback((value: Value, name: string, data: Data, payload: Payload) => {
-            if (value) {
+            if (typeof value === 'string' || Array.isArray(value)) {
                 return writeTransform(value, name, data, payload);
             }
             return value;

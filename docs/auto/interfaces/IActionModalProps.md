@@ -121,13 +121,13 @@ reloadSubject: TSubject<void>
 ### readTransform
 
 ```ts
-readTransform: (value: Value, name: string, data: Data, payload: Payload) => Value
+readTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
 ```
 
 ### writeTransform
 
 ```ts
-writeTransform: (value: Value, name: string, data: Data, payload: Payload) => Value
+writeTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
 ```
 
 ### onSubmit

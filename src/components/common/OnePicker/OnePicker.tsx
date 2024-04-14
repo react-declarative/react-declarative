@@ -30,8 +30,8 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload>["payload"];
-  readTransform?: IOneProps<Data, Payload>["readTransform"];
-  writeTransform?: IOneProps<Data, Payload>["writeTransform"];
+  readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
+  writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
   features?: IOnePublicProps<Data, Payload>["features"];
   title?: string;
   fields: IField[];

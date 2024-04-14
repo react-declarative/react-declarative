@@ -35,8 +35,8 @@ interface IParams<
   large?: boolean;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>["payload"];
-  readTransform?: IOneProps<Data, Payload, Field>["readTransform"];
-  writeTransform?: IOneProps<Data, Payload, Field>["writeTransform"];
+  readTransform?: IOnePublicProps<Data, Payload, Field>["readTransform"];
+  writeTransform?: IOnePublicProps<Data, Payload, Field>["writeTransform"];
   features?: IOnePublicProps<Data, Payload, Field>["features"];
   waitForChangesDelay?: number;
 }

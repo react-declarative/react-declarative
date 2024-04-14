@@ -66,8 +66,8 @@ export interface IActionModalProps<
   payload?: IOneProps<Data, Payload>["payload"];
   changeSubject?: IOneProps<Data, Payload>["changeSubject"];
   reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
-  readTransform?: IOneProps<Data, Payload>["readTransform"];
-  writeTransform?: IOneProps<Data, Payload>["writeTransform"];
+  readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
+  writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
   onSubmit?: (
     data: Data | null,
     payload: Payload,

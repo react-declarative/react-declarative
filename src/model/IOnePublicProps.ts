@@ -16,6 +16,8 @@ import IOneProps from "./IOneProps";
 export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = IField<Data>>
     extends Omit<IOneProps<Data, Payload, Field>, keyof {
         features: never;
+        readTransform: never;
+        writeTransform: never;
     }> {
     /**
      * Represents an alternative way to provide data into
@@ -145,6 +147,13 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
      * @typedef Features
      */
     features?: Record<string, Value> | string[] | (() => (string[] | Record<string, Value>));
+    /**
+     * Represents the field value transform factory
+     *
+     * @typedef Features
+     */
+    readTransform?: (value: string | string[], name: string, data: Data, payload: Payload) => Value;
+    writeTransform?: (value: string | string[], name: string, data: Data, payload: Payload) => Value;
 };
 
 export default IOnePublicProps;
