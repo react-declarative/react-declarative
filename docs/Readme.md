@@ -4,9 +4,11 @@
 
 ## Articles:
 
-1. [React components for undirected data flow](./other/react-components-for-data-flow.md)
-2. [MobX onion architecture](./other/onion-architecture-mobx.md)
-3. [DataGrid software design to reduce app cost](./other/datagrid-software-design.md)
+1. [The code as the side effect](./other/code-sideeffect.md)
+
+2. [React components for undirected data flow](./other/react-components-for-data-flow.md)
+3. [MobX onion architecture](./other/onion-architecture-mobx.md)
+4. [DataGrid software design to reduce app cost](./other/datagrid-software-design.md)
 
 ## Source Description:
 
