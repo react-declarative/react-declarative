@@ -56,7 +56,7 @@ SelectingFormValuesForm = connect((state) => {
 )(SelectingFormValuesForm)
 ```
 
-The `mapStateToProps` function in this usage has an infinite list of returned values, which expands with each development iteration along with the interface defining the form implements a new field. It's procedure code, not functional
+The `mapStateToProps` function in this usage has an infinite list of returned values, which expands when each development iteration along with the interface defining the form implements a new field. It's procedure code, not functional
 
 ## Solution
 
