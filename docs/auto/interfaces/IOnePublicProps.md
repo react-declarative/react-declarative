@@ -4,6 +4,15 @@ Represents the interface for the public properties of the class IOnePublicProps.
 
 ## Properties
 
+### data
+
+```ts
+data: Data
+```
+
+Represents an alternative way to provide data into
+component except `handler`. The casual way more native to React developers
+
 ### onFocus
 
 ```ts

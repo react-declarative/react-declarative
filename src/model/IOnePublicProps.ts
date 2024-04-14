@@ -18,6 +18,11 @@ export interface IOnePublicProps<Data = IAnything, Payload = IAnything, Field = 
         features: never;
     }> {
     /**
+     * Represents an alternative way to provide data into
+     * component except `handler`. The casual way more native to React developers
+     */
+    data?: Data | null;
+    /**
      * Represents an optional onFocus event handler.
      *
      * @template Data - The data type of the component.

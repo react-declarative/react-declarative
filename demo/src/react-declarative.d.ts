@@ -6674,6 +6674,11 @@ declare module "react-declarative/model/IOnePublicProps" {
       }
     > {
     /**
+     * Represents an alternative way to provide data into
+     * component except `handler`. The casual way more native to React developers
+     */
+    data?: Data | null;
+    /**
      * Represents an optional onFocus event handler.
      *
      * @template Data - The data type of the component.
@@ -10152,7 +10157,9 @@ declare module "react-declarative/utils/getTimeStamp" {
 declare module "react-declarative/utils/getGenesisStamp" {
   import dayjs from "dayjs";
   /**
-   * @returns The initial moment stamp for London (UTC)
+   * Gets the initial moment stamp for London (UTC).
+   * @param [stamp=dayjs(0)] - Optional. The timestamp to start from. Default is the Unix epoch.
+   * @returns The dayjs moment stamp for London (UTC).
    */
   export const getGenesisStamp: (stamp?: dayjs.Dayjs) => dayjs.Dayjs;
   export default getGenesisStamp;

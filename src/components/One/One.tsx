@@ -14,6 +14,7 @@ import TypedField from "../../model/TypedField";
 import IOnePublicProps from "../../model/IOnePublicProps";
 
 import useActualCallback from '../../hooks/useActualCallback';
+import useManagedProps from './hooks/useManagedProps';
 
 import createFieldInternal from './config/createField';
 import createLayoutInternal from './config/createLayout';
@@ -62,7 +63,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         changeSubject,
         reloadSubject,
         updateSubject,
-    } = props;
+    } = useManagedProps(props);
 
     const onFocus = useActualCallback(props.onFocus || DEFAULT_ONFOCUS);
     const onBlur = useActualCallback(props.onBlur || DEFAULT_ONBLUR);
