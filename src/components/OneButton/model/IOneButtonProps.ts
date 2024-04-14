@@ -4,6 +4,7 @@ import IOneProps, { OneHandler } from "../../../model/IOneProps";
 
 import { ButtonProps } from "@mui/material/Button";
 
+import IOnePublicProps from "../../../model/IOnePublicProps";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
@@ -45,6 +46,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onInvalid?: IOneProps<Data, Payload>['invalidity'];
   onFocus?: IOneProps<Data, Payload>['focus'];
   onBlur?: IOneProps<Data, Payload>['blur'];
+  readTransform?: IOnePublicProps<Data, Payload>['readTransform'];
+  writeTransform?: IOnePublicProps<Data, Payload>['writeTransform'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
   badgeOverlap?: "rectangular" | "circular";
   badgeSx?: SxProps<any>;
