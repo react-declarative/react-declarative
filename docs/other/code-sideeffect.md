@@ -94,7 +94,7 @@ const fields: TypedField[] = [
 />
 ```
 
-The created component can: 
+The `<One />` component can: 
 
 - **Render Markup** 
 
