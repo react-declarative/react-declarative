@@ -480,6 +480,8 @@ export interface IListProps<
   sizeByElement?: boolean;
   selectedRows?: RowId[];
   features?: IOnePublicProps<FilterData>['features'];
+  readTransform?: IOnePublicProps<FilterData>['readTransform'];
+  writeTransform?: IOnePublicProps<FilterData>['writeTransform'];
   /**
    * Represents a function that calculates the desired height based on the provided input height.
    *

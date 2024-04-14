@@ -35,6 +35,8 @@ interface IParams<
   large?: boolean;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>["payload"];
+  readTransform?: IOneProps<Data, Payload, Field>["readTransform"];
+  writeTransform?: IOneProps<Data, Payload, Field>["writeTransform"];
   features?: IOnePublicProps<Data, Payload, Field>["features"];
   waitForChangesDelay?: number;
 }
@@ -79,6 +81,8 @@ export const useOne = <
   handler: defaultHandler,
   payload: defaultPayload,
   waitForChangesDelay,
+  readTransform,
+  writeTransform,
   features,
 }: IParams<Data, Payload, Field>) => {
   const changeRef = useRef<Fn>();
@@ -137,6 +141,8 @@ export const useOne = <
         title={state$.current.currentTitle}
         handler={state$.current.currentHandler}
         payload={state$.current.currentPayload}
+        readTransform={readTransform}
+        writeTransform={writeTransform}
         onChange={handleChange}
         features={features}
       />

@@ -30,6 +30,8 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload>["payload"];
+  readTransform?: IOneProps<Data, Payload>["readTransform"];
+  writeTransform?: IOneProps<Data, Payload>["writeTransform"];
   features?: IOnePublicProps<Data, Payload>["features"];
   title?: string;
   fields: IField[];
@@ -67,6 +69,8 @@ export const OnePicker = <
   features,
   large,
   title,
+  readTransform,
+  writeTransform,
   open = true,
 }: IOnePickerProps<Data, Payload>) => {
   const [data, setData] = useState<Data | null>(null);
@@ -157,6 +161,8 @@ export const OnePicker = <
         <One
           change={handleChange}
           invalidity={handleInvalid}
+          readTransform={readTransform}
+          writeTransform={writeTransform}
           handler={handler}
           payload={payload}
           fields={fields}

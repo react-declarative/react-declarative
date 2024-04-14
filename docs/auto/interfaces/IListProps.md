@@ -145,6 +145,18 @@ selectedRows: RowId[]
 features: string[] | Record<string, Value> | (() => string[] | Record<string, Value>)
 ```
 
+### readTransform
+
+```ts
+readTransform: (value: Value, name: string, data: FilterData, payload: any) => Value
+```
+
+### writeTransform
+
+```ts
+writeTransform: (value: Value, name: string, data: FilterData, payload: any) => Value
+```
+
 ### heightRequest
 
 ```ts

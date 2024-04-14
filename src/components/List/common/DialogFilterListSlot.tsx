@@ -118,6 +118,8 @@ export const DialogFilterListSlot = <FilterData extends {}>({
 
   const {
     filterLabel,
+    readTransform,
+    writeTransform,
   } = useProps();
 
   const { render, pickData: pickFilters } = useActionModal({
@@ -131,6 +133,8 @@ export const DialogFilterListSlot = <FilterData extends {}>({
         <Close />
       </IconButton>
     ),
+    readTransform,
+    writeTransform,
     outlinePaper: true,
     handler: filterData,
     title: filterLabel,

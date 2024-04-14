@@ -66,6 +66,8 @@ export interface IActionModalProps<
   payload?: IOneProps<Data, Payload>["payload"];
   changeSubject?: IOneProps<Data, Payload>["changeSubject"];
   reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
+  readTransform?: IOneProps<Data, Payload>["readTransform"];
+  writeTransform?: IOneProps<Data, Payload>["writeTransform"];
   onSubmit?: (
     data: Data | null,
     payload: Payload,
@@ -259,6 +261,8 @@ export const ActionModal = <
   submitLabel = "Submit",
   AfterTitle,
   BeforeTitle,
+  readTransform,
+  writeTransform,
 }: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
 
@@ -478,6 +482,8 @@ export const ActionModal = <
             fields={fields}
             dirty={dirty}
             features={features}
+            readTransform={readTransform}
+            writeTransform={writeTransform}
           />
         </Box>
         {!readonly && withActionButton && (

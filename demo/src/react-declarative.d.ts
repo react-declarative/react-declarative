@@ -3706,6 +3706,8 @@ declare module "react-declarative/model/IListProps" {
     sizeByElement?: boolean;
     selectedRows?: RowId[];
     features?: IOnePublicProps<FilterData>["features"];
+    readTransform?: IOnePublicProps<FilterData>["readTransform"];
+    writeTransform?: IOnePublicProps<FilterData>["writeTransform"];
     /**
      * Represents a function that calculates the desired height based on the provided input height.
      *
@@ -6466,6 +6468,8 @@ declare module "react-declarative/hooks/useOne" {
     large?: boolean;
     handler?: OneHandler<Data, Payload>;
     payload?: IOneProps<Data, Payload, Field>["payload"];
+    readTransform?: IOneProps<Data, Payload, Field>["readTransform"];
+    writeTransform?: IOneProps<Data, Payload, Field>["writeTransform"];
     features?: IOnePublicProps<Data, Payload, Field>["features"];
     waitForChangesDelay?: number;
   }
@@ -6498,6 +6502,8 @@ declare module "react-declarative/hooks/useOne" {
     handler: defaultHandler,
     payload: defaultPayload,
     waitForChangesDelay,
+    readTransform,
+    writeTransform,
     features,
   }: IParams<Data, Payload, Field>) => ({
     handler,
@@ -21680,6 +21686,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     payload?: IOneProps<Data, Payload>["payload"];
     changeSubject?: IOneProps<Data, Payload>["changeSubject"];
     reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
+    readTransform?: IOneProps<Data, Payload>["readTransform"];
+    writeTransform?: IOneProps<Data, Payload>["writeTransform"];
     onSubmit?: (
       data: Data | null,
       payload: Payload,
@@ -21781,6 +21789,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     submitLabel,
     AfterTitle,
     BeforeTitle,
+    readTransform,
+    writeTransform,
   }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
   export default ActionModal;
 }
@@ -21880,6 +21890,8 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     onLoadEnd,
     onLoadStart,
     onInvalid,
+    readTransform,
+    writeTransform,
     AfterTitle,
     outlinePaper,
     transparentPaper,

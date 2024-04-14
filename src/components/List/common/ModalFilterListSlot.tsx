@@ -112,7 +112,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 }: IFilterListSlot) => {
   const payload = usePayload();
 
-  const { filterLabel } = useProps();
+  const { filterLabel, readTransform, writeTransform } = useProps();
 
   const { render, pickData: pickFilters } = useActionModal({
     AfterTitle: ({
@@ -129,6 +129,8 @@ export const ModalFilterListSlot = <FilterData extends {}>({
     outlinePaper: true,
     handler: filterData,
     title: filterLabel,
+    readTransform,
+    writeTransform,
     payload,
     fields: filters,
     onSubmit: (data) => {

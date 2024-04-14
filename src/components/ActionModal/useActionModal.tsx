@@ -104,6 +104,8 @@ export const useActionModal = <
   onLoadEnd,
   onLoadStart,
   onInvalid,
+  readTransform,
+  writeTransform,
   AfterTitle,
   outlinePaper,
   transparentPaper,
@@ -211,6 +213,8 @@ export const useActionModal = <
         throwError={throwError}
         onSubmit={handleSubmit}
         features={features}
+        readTransform={readTransform}
+        writeTransform={writeTransform}
         title={title}
         dirty={dirty}
         param={param}

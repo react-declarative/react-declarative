@@ -192,6 +192,15 @@ git clone https://github.com/react-declarative/nft-mint-tool.git
 git clone https://github.com/react-declarative/react-pocketbase-crm.git
 ```
 
+**6. ChatGPT Pharma Seller**
+
+> [!NOTE]
+> GitHub repo: [https://github.com/react-declarative/chatgpt-pharma-seller](https://github.com/react-declarative/chatgpt-pharma-seller)
+
+```bash
+git clone https://github.com/react-declarative/chatgpt-pharma-seller.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
