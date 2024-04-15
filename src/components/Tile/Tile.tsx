@@ -136,6 +136,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
             <TileItem
               key={item[rowKey] || idx}
               rowColor={rowColor(item)}
+              index={idx}
               payload={payload}
               data={item}
               rowKey={rowKey}

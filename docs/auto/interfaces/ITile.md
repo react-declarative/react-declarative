@@ -10,6 +10,12 @@ Represents a tile.
 data: Data
 ```
 
+### index
+
+```ts
+index: number
+```
+
 ### payload
 
 ```ts

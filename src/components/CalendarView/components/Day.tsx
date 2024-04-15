@@ -213,10 +213,11 @@ export const Day = ({ onChange, day }: IDayProps) => {
               setAnchorEl(null);
             }}
           >
-            {({ data, rowMark }) =>
+            {({ data, rowMark, index }) =>
               createElement(renderItem, {
                 ...data,
                 rowMark,
+                index,
                 onDaySelect: () => onChange(day),
               })
             }

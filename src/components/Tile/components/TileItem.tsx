@@ -17,6 +17,7 @@ import ITileProps from "../model/ITileProps";
  */
 interface ITileItemProps {
   className?: string;
+  index: number;
   style?: React.CSSProperties;
   data: IAnything;
   payload: IAnything;
@@ -37,6 +38,7 @@ export const TileItem = forwardRef(
     {
       className,
       style,
+      index,
       data,
       payload,
       rowKey,
@@ -126,6 +128,7 @@ export const TileItem = forwardRef(
           toggleSelection,
           data,
           payload,
+          index,
           rowMark: rowMarkColor,
           isSelected,
         })}
