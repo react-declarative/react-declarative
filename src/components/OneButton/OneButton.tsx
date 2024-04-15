@@ -177,6 +177,7 @@ export const OneButton = <
         await waitForChanges();
         onChange && onChange(data$.current, false);
         setAnchorEl(null);
+        setReadonly(false);
       }),
     []
   );

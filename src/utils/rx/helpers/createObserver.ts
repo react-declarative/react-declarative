@@ -13,6 +13,7 @@ import { TObserver } from "../Observer";
 export const createObserver = <Data = any>(factory: () => TObserver<Data>): TObserver<Data> => ({
     tap: (callbackfn) => factory().tap(callbackfn),
     debounce: (delay) => factory().debounce(delay),
+    delay: (delay) => factory().delay(delay),
     repeat: (interval) => factory().repeat(interval),
     filter: (callbackfn) => factory().filter(callbackfn),
     map: (callbackfn) => factory().map(callbackfn),

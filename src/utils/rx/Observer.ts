@@ -3,8 +3,11 @@ import EventEmitter from "./EventEmitter";
 import TObserver from "../../model/TObserver";
 
 import compose from '../compose';
+import sleep from "../sleep";
+
 import queued from "../hof/queued";
 import debounce from "../hof/debounce";
+
 import { CANCELED_SYMBOL } from "../hof/cancelable";
 
 const OBSERVER_EVENT = Symbol('observer-subscribe');
@@ -333,12 +336,41 @@ export class Observer<Data = any> implements TObserver<Data> {
     };
 
     /**
+     * Creates a delayed observer that emits values at a specified delay.
+     *
+     * @param delay - The delay (in milliseconds) between value emissions.
+     * @returns The debounced observer.
+     */
+    public delay = (delay?: number): Observer<Data> => {
+        let unsubscribeRef: Fn;
+        const dispose = compose(
+            () => this.tryDispose(),
+            () => unsubscribeRef(),
+        );
+        const observer = new Observer<Data>(dispose);
+        let isCanceled = false;
+        const handler = queued(async (value: Data) => {
+            await sleep(delay);
+            if (!isCanceled) {
+                await observer.emit(value);
+            }
+        });
+        this._subscribe(observer, handler);
+        unsubscribeRef = compose(
+            () => handler.clear(),
+            () => this._unsubscribe(handler),
+            () => { isCanceled = true; },
+        );
+        return observer;
+    };
+
+    /**
      * Emits the specified data to all observers.
      *
      * @param data - The data to be emitted.
      */
-    public emit = (data: Data) => {
-        this.broadcast.emit(OBSERVER_EVENT, data);
+    public emit = async (data: Data) => {
+        await this.broadcast.emit(OBSERVER_EVENT, data);
     };
 
     /**

@@ -148,6 +148,18 @@ export class Subject<Data = any> implements TSubject<Data>, TObservable<Data> {
     };
 
     /**
+     * Creates a delayed observer with an optional delay.
+     * @param [delay] - The delay in milliseconds before emitting the data.
+     * @returns - The delayed observer.
+     */
+    public delay = (delay?: number): TObserver<Data> => {
+        let unsubscribeRef: Function;
+        const observer = new Observer<Data>(() => unsubscribeRef());
+        unsubscribeRef = this.subscribe(observer.emit);
+        return observer.delay(delay);
+    };
+
+    /**
      * Creates an observer that repeats emitting values at a specified interval.
      *
      * @param [interval] - The time interval at which to repeat emitting values.
