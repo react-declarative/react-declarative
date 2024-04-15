@@ -29,7 +29,7 @@ import IAnything from "../../model/IAnything";
 
 const ONEBUTTON_CONTENT = 'react-declarative__oneButtonContent';
 const WAIT_FOR_CHANGES_DELAY = 600;
-const MOUSE_OUT_DEBOUNCE = 45;
+const MOUSE_OUT_DEBOUNCE = 15;
 
 const useStyles = makeStyles()((theme) => ({
   content: {
@@ -98,6 +98,7 @@ export const OneButton = <
   const payload = useSingleton(upperPayload);
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [readonly, setReadonly] = useState(false);
 
   /**
    * Represents the variable `data`.
@@ -172,6 +173,7 @@ export const OneButton = <
   const handleClose = useMemo(
     () =>
       singlerun(async () => {
+        setReadonly(true);
         await waitForChanges();
         onChange && onChange(data$.current, false);
         setAnchorEl(null);
@@ -246,6 +248,7 @@ export const OneButton = <
           fields={fields}
           payload={payload}
           handler={() => data}
+          readonly={readonly}
           onChange={(data, initial) => {
             if (!initial) {
               setData(data);

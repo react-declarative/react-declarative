@@ -20466,6 +20466,8 @@ declare module "react-declarative/components/OneButton/OneButton" {
     onFocus,
     onBlur,
     onInvalid,
+    readTransform,
+    writeTransform,
     ...buttonProps
   }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
   export default OneButton;
@@ -28250,6 +28252,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
   import { SxProps } from "@mui/material";
   import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
   import { ButtonProps } from "@mui/material/Button";
+  import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   /**
@@ -28296,6 +28299,8 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
     onInvalid?: IOneProps<Data, Payload>["invalidity"];
     onFocus?: IOneProps<Data, Payload>["focus"];
     onBlur?: IOneProps<Data, Payload>["blur"];
+    readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
+    writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
     badgeColor?:
       | "primary"
       | "secondary"

@@ -62,6 +62,18 @@ onFocus: (name: string, data: Data, payload: Payload, onValueChange: (value: Val
 onBlur: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+### readTransform
+
+```ts
+readTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
+```
+
+### writeTransform
+
+```ts
+writeTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
+```
+
 ### badgeColor
 
 ```ts
