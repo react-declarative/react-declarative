@@ -18,6 +18,7 @@ import IAnything from "../../../../../model/IAnything";
 import IRowData from "../../../../../model/IRowData";
 
 import useSubject from "../../../../../hooks/useSubject";
+import useScrollManager from "../../../hooks/useScrollManager";
 import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
@@ -119,7 +120,12 @@ export const Chooser = <
 ) => {
   const { classes } = useStyles();
 
+  const scrollManager = useScrollManager();
   const scrollYSubject = useSubject<number>();
+
+  useEffect(() => scrollManager.scrollYSubject.subscribe(() => {
+    scrollYSubject.next(0);
+  }), []);
 
   const {
     rows: upperRows,

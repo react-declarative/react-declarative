@@ -16,6 +16,7 @@ import IRowData from "../../../../../model/IRowData";
 
 import useReload from "../../../hooks/useReload";
 
+import useScrollManager from "../../../hooks/useScrollManager";
 import useSubject from "../../../../../hooks/useSubject";
 import useSelection from "../../../hooks/useSelection";
 
@@ -115,7 +116,12 @@ export const CustomView = <
 ) => {
   const { classes } = useStyles();
 
+  const scrollManager = useScrollManager();
   const scrollYSubject = useSubject<number>();
+
+  useEffect(() => scrollManager.scrollYSubject.subscribe(() => {
+    scrollYSubject.next(0);
+  }), []);
 
   const { selection, setSelection } = useSelection();
 

@@ -1,8 +1,12 @@
+import Subject from "../../../utils/rx/Subject";
+
 /**
  * Scroll Manager
  * Manages the scrolling behavior of a given HTML element.
  */
 export const createScrollManager = () => new class {
+
+    readonly scrollYSubject = new Subject<number>();
 
     _currentElement?: HTMLElement;
 
@@ -51,6 +55,7 @@ export const createScrollManager = () => new class {
         if (this._currentElement) {
             this._currentElement.scrollTo(this._lastScrollX, 0);
         }
+        this.scrollYSubject.next(0);
     };
 
     /**
