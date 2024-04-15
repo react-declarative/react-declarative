@@ -16,6 +16,12 @@ className: string
 style: CSSProperties
 ```
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
 ### outlinePaper
 
 ```ts

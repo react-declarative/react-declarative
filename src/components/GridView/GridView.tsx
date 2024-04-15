@@ -5,7 +5,7 @@ import { makeStyles } from "../../styles";
 
 import Card, { ICardProps } from "./components/Card";
 import Grid, { IGridProps, RowData } from "../Grid";
-import Tile, { ITileProps } from "../Tile";
+import Tile, { ITileProps, TileMode } from "../Tile";
 
 import useSingleton from "../../hooks/useSingleton";
 import useMediaContext from "../../hooks/useMediaContext";
@@ -21,6 +21,7 @@ import IAnything from "../../model/IAnything";
 interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
+  tileMode?: TileMode;
   outlinePaper?: boolean;
   transparentPaper?: boolean;
   sx?: SxProps<any>;
@@ -62,6 +63,7 @@ export const GridView = <
   AfterLabel,
   payload: upperPayload,
   mobileItem: MobileItem,
+  tileMode,
   outlinePaper,
   transparentPaper,
   loading,
@@ -86,6 +88,7 @@ export const GridView = <
           className={classes.tile}
           payload={payload}
           loading={loading}
+          mode={tileMode}
         >
           {MobileItem}
         </Tile>

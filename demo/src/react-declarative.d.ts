@@ -25168,7 +25168,7 @@ declare module "react-declarative/components/GridView/GridView" {
   import { SxProps } from "@mui/material";
   import { ICardProps } from "react-declarative/components/GridView/components/Card";
   import { IGridProps, RowData } from "react-declarative/components/Grid";
-  import { ITileProps } from "react-declarative/components/Tile";
+  import { ITileProps, TileMode } from "react-declarative/components/Tile";
   import IAnything from "react-declarative/model/IAnything";
   /**
    * Interface for GridView component props.
@@ -25180,6 +25180,7 @@ declare module "react-declarative/components/GridView/GridView" {
     extends IGridProps<T, P> {
     className?: string;
     style?: React.CSSProperties;
+    tileMode?: TileMode;
     outlinePaper?: boolean;
     transparentPaper?: boolean;
     sx?: SxProps<any>;
@@ -25206,6 +25207,7 @@ declare module "react-declarative/components/GridView/GridView" {
     AfterLabel,
     payload: upperPayload,
     mobileItem: MobileItem,
+    tileMode,
     outlinePaper,
     transparentPaper,
     loading,
