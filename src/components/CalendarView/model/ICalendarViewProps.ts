@@ -10,6 +10,8 @@ import { stamp } from "../../../utils/getMomentStamp";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 
+import { TileMode } from "../../Tile";
+
 /**
  * Interface representing the props for the CalendarView component.
  *
@@ -58,6 +60,7 @@ export interface ICalendarViewProps<
   date?: dayjs.Dayjs;
   minDate?: dayjs.Dayjs;
   maxDate?: dayjs.Dayjs;
+  tileMode?: TileMode;
   onChange?: (date: dayjs.Dayjs | null) => void;
   renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
   onItemClick: (item: { data: Data, payload: Payload }) => void;

@@ -5,6 +5,7 @@ import SelectionMode from '../../../model/SelectionMode';
 import TSubject from "../../../model/TSubject";
 
 import ITile from "./ITile";
+import TileMode from "./TileMode";
 
 /**
  * Represents the properties required for the `ITile` component.
@@ -13,6 +14,7 @@ import ITile from "./ITile";
  * @template Payload - The type of payload used in the tile.
  */
 export interface ITileProps<Data = IAnything, Payload = IAnything> {
+  mode?: TileMode;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;

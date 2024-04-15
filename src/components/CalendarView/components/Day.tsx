@@ -74,7 +74,7 @@ interface IDayProps {
 export const Day = ({ onChange, day }: IDayProps) => {
   const { classes } = useStyles();
 
-  const { BeforeDayHeader, AfterDayHeader, onItemClick } = usePropsContext();
+  const { BeforeDayHeader, AfterDayHeader, onItemClick, tileMode } = usePropsContext();
 
   const [request] = useRequestContext();
   const {
@@ -199,6 +199,7 @@ export const Day = ({ onChange, day }: IDayProps) => {
           }
         >
           <Tile
+            mode={tileMode}
             sx={{
               height: "calc(356px - 48px)",
               width: "356px",

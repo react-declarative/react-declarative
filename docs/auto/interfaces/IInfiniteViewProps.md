@@ -4,6 +4,12 @@ Represents the props for the InfiniteView component.
 
 ## Properties
 
+### withScrollbar
+
+```ts
+withScrollbar: boolean
+```
+
 ### className
 
 ```ts

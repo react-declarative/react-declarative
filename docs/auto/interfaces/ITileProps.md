@@ -4,6 +4,12 @@ Represents the properties required for the `ITile` component.
 
 ## Properties
 
+### mode
+
+```ts
+mode: TileMode
+```
+
 ### className
 
 ```ts

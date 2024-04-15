@@ -1,4 +1,5 @@
 import * as React from "react";
+import { createElement } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -8,15 +9,17 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 import VirtualView from "../VirtualView";
+import InfiniteView from "../InfiniteView";
 
 import TileItem from "./components/TileItem";
 
 import { SelectionProvider } from "./hooks/useSelection";
 import { RowMarkProvider } from "./hooks/useRowMark";
+import useSingleton from "../../hooks/useSingleton";
 
 import IAnything from "../../model/IAnything";
 import ITileProps from "./model/ITileProps";
-import useSingleton from "../../hooks/useSingleton";
+import TileMode from "./model/TileMode";
 
 const DEFAULT_MIN_HEIGHT = 72;
 const DEFAULT_BUFFER_SIZE = 25;
@@ -70,6 +73,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   data,
   loading,
   hasMore,
+  mode = TileMode.Virtual,
   bufferSize = DEFAULT_BUFFER_SIZE,
   minRowHeight = DEFAULT_MIN_HEIGHT,
   payload: upperPayload = {} as Payload,
@@ -92,6 +96,49 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
+  const renderChildren = () => (
+    <>
+      {!loading && !errorMessage && data.length === 0 && (
+        <Box className={classes.noData}>
+          <Typography variant="body1">No data</Typography>
+        </Box>
+      )}
+      {errorMessage && (
+        <Box className={classes.noData}>
+          <Typography color="error" variant="body1">
+            {errorMessage}
+          </Typography>
+        </Box>
+      )}
+      {data.map((item, idx) => (
+        <TileItem
+          key={item[rowKey] || idx}
+          rowColor={rowColor(item)}
+          index={idx}
+          payload={payload}
+          data={item}
+          rowKey={rowKey}
+          selectionMode={selectionMode}
+          onItemClick={onItemClick}
+        >
+          {children}
+        </TileItem>
+      ))}
+      {data.length > 0 &&
+        !errorMessage &&
+        onButtonSkip &&
+        !onSkip &&
+        !loading &&
+        hasMore && (
+          <Box className={classes.noData}>
+            <Button variant="outlined" onClick={onButtonSkip}>
+              Show More
+            </Button>
+          </Box>
+        )}
+    </>
+  );
+
   return (
     <SelectionProvider
       onSelectedRows={onSelectedRows}
@@ -102,63 +149,25 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
         rowKey={rowKey}
         rowMark={rowMark}
       >
-        <VirtualView
-          withScrollbar
-          component={List}
-          className={className}
-          style={style}
-          sx={sx}
-          scrollYSubject={scrollYSubject}
-          scrollXSubject={scrollXSubject}
-          minRowHeight={minRowHeight}
-          bufferSize={bufferSize}
-          loading={loading}
-          hasMore={hasMore}
-          onDataRequest={(initial) => {
+        {createElement(mode === TileMode.Virtual ? VirtualView : InfiniteView, {
+          withScrollbar: true,
+          component: List,
+          className,
+          style,
+          sx,
+          scrollYSubject,
+          scrollXSubject,
+          minRowHeight: minRowHeight as never,
+          bufferSize,
+          loading,
+          hasMore,
+          onDataRequest: (initial) => {
             if (onSkip && hasMore) {
               onSkip(initial);
             }
-          }}
-        >
-          {!loading && !errorMessage && data.length === 0 && (
-            <Box className={classes.noData}>
-              <Typography variant="body1">No data</Typography>
-            </Box>
-          )}
-          {errorMessage && (
-            <Box className={classes.noData}>
-              <Typography color="error" variant="body1">
-                {errorMessage}
-              </Typography>
-            </Box>
-          )}
-          {data.map((item, idx) => (
-            <TileItem
-              key={item[rowKey] || idx}
-              rowColor={rowColor(item)}
-              index={idx}
-              payload={payload}
-              data={item}
-              rowKey={rowKey}
-              selectionMode={selectionMode}
-              onItemClick={onItemClick}
-            >
-              {children}
-            </TileItem>
-          ))}
-          {data.length > 0 &&
-            !errorMessage &&
-            onButtonSkip &&
-            !onSkip &&
-            !loading &&
-            hasMore && (
-              <Box className={classes.noData}>
-                <Button variant="outlined" onClick={onButtonSkip}>
-                  Show More
-                </Button>
-              </Box>
-            )}
-        </VirtualView>
+          },
+          children: renderChildren(),
+        })}
       </RowMarkProvider>
     </SelectionProvider>
   );

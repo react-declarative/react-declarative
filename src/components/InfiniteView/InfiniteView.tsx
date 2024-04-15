@@ -19,10 +19,11 @@ import sleep from "../../utils/sleep";
  * Represents the props for the InfiniteView component.
  */
 interface IInfiniteViewProps extends BoxProps {
+  withScrollbar?: boolean;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
-  children?: React.ReactNode;
+  children: React.ReactNode;
   hasMore?: boolean;
   loading?: boolean;
   scrollXSubject?: TSubject<number>;
@@ -40,6 +41,10 @@ const useStyles = makeStyles()({
     minHeight: '50px',
     width: '100%',
     overflowY: 'auto',
+    overflowX: 'hidden',
+  },
+  hideScrollbar: {
+    scrollbarWidth: 'none',
   },
   container: {
     position: 'absolute',
@@ -72,6 +77,7 @@ const useStyles = makeStyles()({
  * @returns Rendered component
  */
 export const InfiniteView = ({
+  withScrollbar = false,
   className,
   style,
   sx,
@@ -235,7 +241,9 @@ export const InfiniteView = ({
   return (
     <Box
       {...otherProps}
-      className={classNames(className, classes.root)}
+      className={classNames(className, classes.root, {
+        [classes.hideScrollbar]: !withScrollbar,
+      })}
       style={style}
       sx={sx}
       ref={handleScroll}

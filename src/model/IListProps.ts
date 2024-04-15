@@ -19,6 +19,7 @@ import ITile from '../components/Tile/model/ITile';
 import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
+import { TileMode } from '../components';
 
 /**
  * An interface representing the update options for a list action.
@@ -452,6 +453,10 @@ export interface IListProps<
    * @template {Payload} - The type of payload associated with the tile.
    */
   customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+  /**
+   * Tiling mode for custom template
+   */
+  tileMode?: TileMode;
   /**
    * Represents the minimum height for a custom template.
    *

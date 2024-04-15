@@ -83,6 +83,7 @@ declare module "react-declarative" {
   > = IArrayPaginatorParamsInternal<FilterData, RowData>;
   export type IOneApiHandlerParams<Data = any> =
     IApiHandlerParamsInternal<Data>;
+  export { TileMode } from "react-declarative/components";
   export { FieldType } from "react-declarative/model/FieldType";
   export { ColumnType } from "react-declarative/model/ColumnType";
   export { ActionType } from "react-declarative/model/ActionType";
@@ -2912,6 +2913,114 @@ declare module "react-declarative/components/One/api/useApiHandler" {
   export default useApiHandler;
 }
 
+declare module "react-declarative/components" {
+  /**
+   * The TypeScript code is a bunch of export statements.
+   *
+   * This file behaves as a central hub for exporting values (like components, functions, or variables) from individual modules. Each `export * from './ModuleName';` statement takes all exports from a corresponding module file and re-exports them.
+   *
+   * Let's break down each line:
+   *
+   * `export * from './One';` - This line of code is exporting everything that the file `One.ts` (or `One.tsx`, `One.js`, `One.jsx` depending on your setup) exports, from its current location. The same goes for all the other lines as well.
+   *
+   * So if `./One` was exporting a function called `function1` like this:
+   *
+   * ```typescript
+   * export function function1() {
+   *     return "I'm function 1";
+   * }
+   * ```
+   * Then, with this export in the main file, you will be able to import it elsewhere like:
+   *
+   * ```typescript
+   * import { function1 } from './theMainFile';
+   * ```
+   *
+   * This kind of structure is used to streamline imports in larger projects, where you want to import many things from one place rather than from individual files.
+   */
+  export * from "react-declarative/components/One";
+  export * from "react-declarative/components/OneIcon";
+  export * from "react-declarative/components/OneButton";
+  export * from "react-declarative/components/Dot";
+  export * from "react-declarative/components/List";
+  export * from "react-declarative/components/NoSsr";
+  export * from "react-declarative/components/Switch";
+  export * from "react-declarative/components/Center";
+  export * from "react-declarative/components/Square";
+  export * from "react-declarative/components/Scaffold";
+  export * from "react-declarative/components/Scaffold2";
+  export * from "react-declarative/components/Translate";
+  export * from "react-declarative/components/Breadcrumbs";
+  export * from "react-declarative/components/Breadcrumbs2";
+  export * from "react-declarative/components/ErrorBoundary";
+  export * from "react-declarative/components/ColorButton";
+  export * from "react-declarative/components/ActionChip";
+  export * from "react-declarative/components/ActionMenu";
+  export * from "react-declarative/components/ActionButton";
+  export * from "react-declarative/components/ActionStopIcon";
+  export * from "react-declarative/components/ActionFab";
+  export * from "react-declarative/components/ActionFilter";
+  export * from "react-declarative/components/ActionTrigger";
+  export * from "react-declarative/components/ActionIcon";
+  export * from "react-declarative/components/ActionToggle";
+  export * from "react-declarative/components/ActionModal";
+  export * from "react-declarative/components/SearchModal";
+  export * from "react-declarative/components/SearchView";
+  export * from "react-declarative/components/SizeProvider";
+  export * from "react-declarative/components/ModalProvider";
+  export * from "react-declarative/components/SnackProvider";
+  export * from "react-declarative/components/ConstraintView";
+  export * from "react-declarative/components/ScrollTopView";
+  export * from "react-declarative/components/OutletView";
+  export * from "react-declarative/components/AlertView";
+  export * from "react-declarative/components/PaperView";
+  export * from "react-declarative/components/DragDropView";
+  export * from "react-declarative/components/FilesView";
+  export * from "react-declarative/components/ScrollView";
+  export * from "react-declarative/components/ScaleView";
+  export * from "react-declarative/components/AutoSizer";
+  export * from "react-declarative/components/FadeView";
+  export * from "react-declarative/components/TabsView";
+  export * from "react-declarative/components/FetchView";
+  export * from "react-declarative/components/WaitView";
+  export * from "react-declarative/components/PingView";
+  export * from "react-declarative/components/HtmlView";
+  export * from "react-declarative/components/OfflineView";
+  export * from "react-declarative/components/RevealView";
+  export * from "react-declarative/components/SecretView";
+  export * from "react-declarative/components/VisibilityView";
+  export * from "react-declarative/components/WizardView";
+  export * from "react-declarative/components/PortalView";
+  export * from "react-declarative/components/RecordView";
+  export * from "react-declarative/components/ErrorView";
+  export * from "react-declarative/components/AuthView";
+  export * from "react-declarative/components/CardView";
+  export * from "react-declarative/components/KanbanView";
+  export * from "react-declarative/components/ReloadView";
+  export * from "react-declarative/components/InfiniteView";
+  export * from "react-declarative/components/VirtualView";
+  export * from "react-declarative/components/LoaderView";
+  export * from "react-declarative/components/FeatureView";
+  export * from "react-declarative/components/CalendarView";
+  export * from "react-declarative/components/DocumentView";
+  export * from "react-declarative/components/ImageView";
+  export * from "react-declarative/components/TreeView";
+  export * from "react-declarative/components/GridView";
+  export * from "react-declarative/components/ChatView";
+  export * from "react-declarative/components/Grid";
+  export * from "react-declarative/components/Tile";
+  export * from "react-declarative/components/Spinner";
+  export * from "react-declarative/components/Async";
+  export * from "react-declarative/components/Copy";
+  export * from "react-declarative/components/If";
+  export * from "react-declarative/components/CopyButton";
+  export * from "react-declarative/components/SubjectBinding";
+  export * from "react-declarative/components/Countdown";
+  export * from "react-declarative/components/Chip";
+  export * from "react-declarative/components/ScrollAdjust";
+  export * from "react-declarative/components/MasterDetail";
+}
+
 declare module "react-declarative/model/FieldType" {
   /**
    * Represents the type of a field in a <One /> component.
@@ -3196,6 +3305,7 @@ declare module "react-declarative/model/IListProps" {
   import ITile from "react-declarative/components/Tile/model/ITile";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
+  import { TileMode } from "react-declarative/components";
   /**
    * An interface representing the update options for a list action.
    *
@@ -3679,6 +3789,10 @@ declare module "react-declarative/model/IListProps" {
      * @template {Payload} - The type of payload associated with the tile.
      */
     customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+    /**
+     * Tiling mode for custom template
+     */
+    tileMode?: TileMode;
     /**
      * Represents the minimum height for a custom template.
      *
@@ -5417,114 +5531,6 @@ declare module "react-declarative/hooks/useChange" {
     stopWatch: () => void;
   };
   export default useChange;
-}
-
-declare module "react-declarative/components" {
-  /**
-   * The TypeScript code is a bunch of export statements.
-   *
-   * This file behaves as a central hub for exporting values (like components, functions, or variables) from individual modules. Each `export * from './ModuleName';` statement takes all exports from a corresponding module file and re-exports them.
-   *
-   * Let's break down each line:
-   *
-   * `export * from './One';` - This line of code is exporting everything that the file `One.ts` (or `One.tsx`, `One.js`, `One.jsx` depending on your setup) exports, from its current location. The same goes for all the other lines as well.
-   *
-   * So if `./One` was exporting a function called `function1` like this:
-   *
-   * ```typescript
-   * export function function1() {
-   *     return "I'm function 1";
-   * }
-   * ```
-   * Then, with this export in the main file, you will be able to import it elsewhere like:
-   *
-   * ```typescript
-   * import { function1 } from './theMainFile';
-   * ```
-   *
-   * This kind of structure is used to streamline imports in larger projects, where you want to import many things from one place rather than from individual files.
-   */
-  export * from "react-declarative/components/One";
-  export * from "react-declarative/components/OneIcon";
-  export * from "react-declarative/components/OneButton";
-  export * from "react-declarative/components/Dot";
-  export * from "react-declarative/components/List";
-  export * from "react-declarative/components/NoSsr";
-  export * from "react-declarative/components/Switch";
-  export * from "react-declarative/components/Center";
-  export * from "react-declarative/components/Square";
-  export * from "react-declarative/components/Scaffold";
-  export * from "react-declarative/components/Scaffold2";
-  export * from "react-declarative/components/Translate";
-  export * from "react-declarative/components/Breadcrumbs";
-  export * from "react-declarative/components/Breadcrumbs2";
-  export * from "react-declarative/components/ErrorBoundary";
-  export * from "react-declarative/components/ColorButton";
-  export * from "react-declarative/components/ActionChip";
-  export * from "react-declarative/components/ActionMenu";
-  export * from "react-declarative/components/ActionButton";
-  export * from "react-declarative/components/ActionStopIcon";
-  export * from "react-declarative/components/ActionFab";
-  export * from "react-declarative/components/ActionFilter";
-  export * from "react-declarative/components/ActionTrigger";
-  export * from "react-declarative/components/ActionIcon";
-  export * from "react-declarative/components/ActionToggle";
-  export * from "react-declarative/components/ActionModal";
-  export * from "react-declarative/components/SearchModal";
-  export * from "react-declarative/components/SearchView";
-  export * from "react-declarative/components/SizeProvider";
-  export * from "react-declarative/components/ModalProvider";
-  export * from "react-declarative/components/SnackProvider";
-  export * from "react-declarative/components/ConstraintView";
-  export * from "react-declarative/components/ScrollTopView";
-  export * from "react-declarative/components/OutletView";
-  export * from "react-declarative/components/AlertView";
-  export * from "react-declarative/components/PaperView";
-  export * from "react-declarative/components/DragDropView";
-  export * from "react-declarative/components/FilesView";
-  export * from "react-declarative/components/ScrollView";
-  export * from "react-declarative/components/ScaleView";
-  export * from "react-declarative/components/AutoSizer";
-  export * from "react-declarative/components/FadeView";
-  export * from "react-declarative/components/TabsView";
-  export * from "react-declarative/components/FetchView";
-  export * from "react-declarative/components/WaitView";
-  export * from "react-declarative/components/PingView";
-  export * from "react-declarative/components/HtmlView";
-  export * from "react-declarative/components/OfflineView";
-  export * from "react-declarative/components/RevealView";
-  export * from "react-declarative/components/SecretView";
-  export * from "react-declarative/components/VisibilityView";
-  export * from "react-declarative/components/WizardView";
-  export * from "react-declarative/components/PortalView";
-  export * from "react-declarative/components/RecordView";
-  export * from "react-declarative/components/ErrorView";
-  export * from "react-declarative/components/AuthView";
-  export * from "react-declarative/components/CardView";
-  export * from "react-declarative/components/KanbanView";
-  export * from "react-declarative/components/ReloadView";
-  export * from "react-declarative/components/InfiniteView";
-  export * from "react-declarative/components/VirtualView";
-  export * from "react-declarative/components/LoaderView";
-  export * from "react-declarative/components/FeatureView";
-  export * from "react-declarative/components/CalendarView";
-  export * from "react-declarative/components/DocumentView";
-  export * from "react-declarative/components/ImageView";
-  export * from "react-declarative/components/TreeView";
-  export * from "react-declarative/components/GridView";
-  export * from "react-declarative/components/ChatView";
-  export * from "react-declarative/components/Grid";
-  export * from "react-declarative/components/Tile";
-  export * from "react-declarative/components/Spinner";
-  export * from "react-declarative/components/Async";
-  export * from "react-declarative/components/Copy";
-  export * from "react-declarative/components/If";
-  export * from "react-declarative/components/CopyButton";
-  export * from "react-declarative/components/SubjectBinding";
-  export * from "react-declarative/components/Countdown";
-  export * from "react-declarative/components/Chip";
-  export * from "react-declarative/components/ScrollAdjust";
-  export * from "react-declarative/components/MasterDetail";
 }
 
 declare module "react-declarative/hooks/useModel" {
@@ -17289,36 +17295,6 @@ declare module "react-declarative/components/List/hooks/useColumnConfig" {
   export default useColumnConfig;
 }
 
-declare module "react-declarative/components/Tile/model/ITile" {
-  import IAnything from "react-declarative/model/IAnything";
-  /**
-   * Represents a tile.
-   * @template Data - The type of the data stored in the tile.
-   * @template Payload - The type of the payload stored in the tile.
-   */
-  export interface ITile<Data = IAnything, Payload = IAnything> {
-    data: Data;
-    index: number;
-    payload: Payload;
-    isSelected: boolean;
-    rowMark: string;
-    toggleSelection: () => void;
-  }
-  export default ITile;
-}
-
-declare module "react-declarative/components/Async" {
-  export * from "react-declarative/components/Async/Async";
-  export { default } from "react-declarative/components/Async/Async";
-}
-
-declare module "react-declarative/components/One/components/SlotFactory" {
-  export * from "react-declarative/components/One/components/SlotFactory/SlotFactory";
-  export * from "react-declarative/components/One/components/SlotFactory/SlotContext";
-  export * from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
-  export { default } from "react-declarative/components/One/components/SlotFactory/SlotFactory";
-}
-
 declare module "react-declarative/components/One" {
   export * from "react-declarative/components/One/One";
   export * from "react-declarative/components/One/slots";
@@ -17695,6 +17671,7 @@ declare module "react-declarative/components/Grid" {
 
 declare module "react-declarative/components/Tile" {
   export * from "react-declarative/components/Tile/Tile";
+  export * from "react-declarative/components/Tile/model/TileMode";
   export * from "react-declarative/components/Tile/model/ITile";
   export * from "react-declarative/components/Tile/model/ITileProps";
   export { default } from "react-declarative/components/Tile/Tile";
@@ -17703,6 +17680,11 @@ declare module "react-declarative/components/Tile" {
 declare module "react-declarative/components/Spinner" {
   export * from "react-declarative/components/Spinner/Spinner";
   export { default } from "react-declarative/components/Spinner/Spinner";
+}
+
+declare module "react-declarative/components/Async" {
+  export * from "react-declarative/components/Async/Async";
+  export { default } from "react-declarative/components/Async/Async";
 }
 
 declare module "react-declarative/components/Copy" {
@@ -17746,6 +17728,31 @@ declare module "react-declarative/components/MasterDetail" {
   export { IMasterDetailOption } from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
   export { MasterDetailMode } from "react-declarative/components/MasterDetail/model/MasterDetailMode";
   export { default } from "react-declarative/components/MasterDetail/MasterDetail";
+}
+
+declare module "react-declarative/components/Tile/model/ITile" {
+  import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a tile.
+   * @template Data - The type of the data stored in the tile.
+   * @template Payload - The type of the payload stored in the tile.
+   */
+  export interface ITile<Data = IAnything, Payload = IAnything> {
+    data: Data;
+    index: number;
+    payload: Payload;
+    isSelected: boolean;
+    rowMark: string;
+    toggleSelection: () => void;
+  }
+  export default ITile;
+}
+
+declare module "react-declarative/components/One/components/SlotFactory" {
+  export * from "react-declarative/components/One/components/SlotFactory/SlotFactory";
+  export * from "react-declarative/components/One/components/SlotFactory/SlotContext";
+  export * from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
+  export { default } from "react-declarative/components/One/components/SlotFactory/SlotFactory";
 }
 
 declare module "react-declarative/components/ModalProvider/ModalProvider" {
@@ -19295,489 +19302,6 @@ declare module "react-declarative/components/List/components/SlotFactory/ISlotFa
     ChipListSlot: ComponentType<IChipListSlot>;
     OperationListSlot: ComponentType<IOperationListSlot>;
     SearchSlot: ComponentType<ISearchSlot>;
-  }
-  export default ISlotFactoryContext;
-}
-
-declare module "react-declarative/components/Async/Async" {
-  import * as React from "react";
-  import TSubject from "react-declarative/model/TSubject";
-  /**
-   * Represents the properties for an asynchronous component.
-   * @template T - The type of the payload.
-   */
-  export interface IAsyncProps<T extends any = object> {
-    loading?: boolean;
-    reloadSubject?: TSubject<void>;
-    children: (p: T) => Result | Promise<Result>;
-    fallback?: (e: Error) => void;
-    Loader?: React.ComponentType<any>;
-    Error?: React.ComponentType<any>;
-    onLoadStart?: () => void;
-    onLoadEnd?: (isOk: boolean) => void;
-    payload?: T;
-    deps?: any[];
-    throwError?: boolean;
-  }
-  type Result = React.ReactNode | void;
-  /**
-   * Async
-   * @template T - The type of the payload data.
-   * @param params - The parameters object.
-   * @param params.reloadSubject - The subject used to trigger a reload of the async data.
-   * @param params.loading - A boolean indicating whether the async data is currently being loaded.
-   * @param params.children - The children component that renders the async data.
-   * @param params.fallback - The fallback component to render in case of an error.
-   * @param params.Loader - The loader component to render while the async data is being loaded.
-   * @param params.Error - The error component to render in case of an error.
-   * @param params.onLoadStart - A function to be called when the async data loading starts.
-   * @param params.onLoadEnd - A function to be called when the async data loading ends.
-   * @param params.payload - The payload data to be passed to the children component.
-   * @param params.deps - The dependencies of the async data.
-   * @param params.throwError - A boolean indicating whether to throw an error in case of an error or to fallback.
-   * @returns - The rendered component.
-   */
-  export const Async: <T extends unknown = object>({
-    reloadSubject: upperReloadSubject,
-    loading: upperLoading,
-    children,
-    fallback,
-    Loader,
-    Error,
-    onLoadStart,
-    onLoadEnd,
-    payload,
-    deps,
-    throwError,
-  }: IAsyncProps<T>) => JSX.Element;
-  export default Async;
-}
-
-declare module "react-declarative/components/One/components/SlotFactory/SlotFactory" {
-  import * as React from "react";
-  import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
-  /**
-   * Represents the properties for the ISlotFactory component.
-   * @interface
-   */
-  interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
-    children: React.ReactNode;
-  }
-  /**
-   * SlotFactory function
-   * @param param - Slots prop for SlotFactory
-   * @param param.children - React node to be rendered as children
-   * @returns React node containing the children with the provided slots
-   */
-  export const SlotFactory: ({
-    children,
-    ...currentSlots
-  }: Partial<ISlotFactoryProps>) => JSX.Element;
-  export default SlotFactory;
-}
-
-declare module "react-declarative/components/One/components/SlotFactory/SlotContext" {
-  import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
-  /**
-   * @description A list of default slots for a component.
-   * @type {Array}
-   * @property Checkbox Slot for a checkbox component.
-   * @property Combo Slot for a comboBox component.
-   * @property Items Slot for an items component.
-   * @property Line Slot for a line component.
-   * @property Radio Slot for a radio component.
-   * @property Rating Slot for a rating component.
-   * @property Progress Slot for a progress component.
-   * @property Typography Slot for a typography component.
-   * @property Text Slot for a text component.
-   * @property Date Slot for a date component.
-   * @property Time Slot for a time component.
-   * @property Switch Slot for a switch component.
-   * @property Slider Slot for a slider component.
-   * @property File Slot for a file component.
-   * @property Choose Slot for a choose component.
-   * @property Complete Slot for a complete component.
-   * @property YesNo Slot for a yes/no component.
-   * @property Dict Slot for a dictionary component.
-   * @property Tree Slot for a tree component.
-   */
-  export const defaultSlots: {
-    CheckBox: ({
-      disabled,
-      onChange,
-      title,
-      value,
-    }: import("../..").ICheckBoxSlot) => JSX.Element;
-    Combo: ({
-      value: upperValue,
-      disabled,
-      readonly,
-      description,
-      placeholder,
-      outlined,
-      itemList,
-      virtualListBox,
-      watchItemList,
-      labelShrink,
-      noDeselect,
-      freeSolo,
-      title,
-      dirty,
-      invalid,
-      incorrect,
-      withContextMenu,
-      tr,
-      onChange,
-    }: import("../..").IComboSlot) => JSX.Element;
-    Items: ({
-      value: upperValue,
-      disabled,
-      readonly,
-      description,
-      placeholder,
-      outlined,
-      itemList,
-      freeSolo,
-      noDeselect,
-      virtualListBox,
-      watchItemList,
-      labelShrink,
-      dirty,
-      invalid,
-      incorrect,
-      title,
-      tr,
-      onChange,
-      withContextMenu,
-    }: import("../..").IItemsSlot) => JSX.Element;
-    Line: ({
-      title,
-      lineTransparent,
-    }: import("../..").ILineSlot) => JSX.Element;
-    Radio: ({
-      disabled,
-      onChange,
-      title,
-      radioValue,
-      value,
-      name,
-    }: import("../..").IRadioSlot) => JSX.Element;
-    Rating: ({
-      value,
-      disabled,
-      readonly,
-      onChange,
-    }: import("../..").IRatingSlot) => JSX.Element;
-    Progress: ({
-      maxPercent,
-      showPercentLabel,
-      value,
-    }: import("../..").IProgressSlot) => JSX.Element;
-    Typography: ({
-      value,
-      placeholder,
-      typoVariant,
-      style,
-    }: import("../..").ITypographySlot) => JSX.Element;
-    Text: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      inputType,
-      inputMode,
-      inputPattern,
-      labelShrink,
-      description,
-      outlined,
-      title,
-      leadingIcon: li,
-      trailingIcon: ti,
-      leadingIconClick: lic,
-      trailingIconClick: tic,
-      leadingIconRipple: lir,
-      trailingIconRipple: tir,
-      inputRows: rows,
-      placeholder,
-      inputAutocomplete: autoComplete,
-      inputFormatterSymbol: symbol,
-      inputFormatterAllowed: allowed,
-      inputFormatterReplace: replace,
-      inputFormatterTemplate: template,
-      inputFormatter,
-      dirty,
-      loading,
-      autoFocus,
-      inputRef,
-      onChange,
-    }: import("../..").ITextSlot) => JSX.Element;
-    Date: ({
-      invalid,
-      incorrect,
-      value: upperValue,
-      disabled,
-      readonly,
-      description,
-      outlined,
-      title,
-      placeholder,
-      labelShrink,
-      dirty,
-      autoFocus,
-      inputRef,
-      onChange,
-      withContextMenu,
-    }: import("../..").IDateSlot) => JSX.Element;
-    Time: ({
-      invalid,
-      incorrect,
-      value: upperValue,
-      disabled,
-      readonly,
-      description,
-      outlined,
-      title,
-      labelShrink,
-      placeholder,
-      dirty,
-      autoFocus,
-      inputRef,
-      onChange,
-      withContextMenu,
-    }: import("../..").ITimeSlot) => JSX.Element;
-    Switch: ({
-      disabled,
-      value,
-      onChange,
-      title,
-      switchNoColor,
-      switchActiveLabel,
-    }: import("../..").ISwitchSlot) => JSX.Element;
-    Slider: ({
-      value,
-      onChange,
-      leadingIcon: li,
-      trailingIcon: ti,
-      leadingIconClick: lic,
-      trailingIconClick: tic,
-      leadingIconRipple: lir,
-      trailingIconRipple: tir,
-      labelFormatSlider,
-      stepSlider,
-      disabled,
-      readonly,
-      maxSlider,
-      minSlider,
-    }: import("../..").ISliderSlot) => JSX.Element;
-    File: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      description,
-      outlined,
-      labelShrink,
-      title,
-      placeholder,
-      dirty,
-      loading: upperLoading,
-      inputRef,
-      onChange,
-      fileAccept,
-      name,
-      upload,
-      view,
-    }: import("../..").IFileSlot) => JSX.Element;
-    Choose: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      description,
-      outlined,
-      title,
-      placeholder,
-      labelShrink,
-      dirty,
-      loading: upperLoading,
-      inputRef,
-      onChange,
-      choose,
-      tr,
-    }: import("../..").IChooseSlot) => JSX.Element;
-    Complete: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      inputType,
-      inputMode,
-      inputPattern,
-      labelShrink,
-      description,
-      outlined,
-      keepRaw,
-      title,
-      placeholder,
-      inputAutocomplete: autoComplete,
-      dirty,
-      loading: upperLoading,
-      tip,
-      tipSelect,
-      autoFocus,
-      onChange,
-      inputFormatterSymbol: symbol,
-      inputFormatterAllowed: allowed,
-      inputFormatterReplace: replace,
-      inputFormatterTemplate: template,
-      inputFormatter,
-      withContextMenu,
-    }: import("../..").ICompleteSlot) => JSX.Element;
-    YesNo: ({
-      value: upperValue,
-      disabled,
-      readonly,
-      description,
-      placeholder,
-      outlined,
-      virtualListBox,
-      labelShrink,
-      noDeselect,
-      title,
-      tr,
-      dirty,
-      invalid,
-      incorrect,
-      onChange,
-    }: import("../..").IYesNoSlot) => JSX.Element;
-    Dict: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      inputType,
-      inputMode,
-      inputPattern,
-      inputAutocomplete,
-      description,
-      outlined,
-      title,
-      placeholder,
-      dirty,
-      loading,
-      inputRef,
-      onChange,
-      dictLimit,
-      dictDelay,
-      dictOnText,
-      dictOnItem,
-      dictSearch,
-      dictValue,
-      dictSearchText,
-      dictOnAppend,
-      dictSearchItem,
-      dictCreateButton,
-      inputFormatterSymbol: symbol,
-      inputFormatterAllowed: allowed,
-      inputFormatterReplace: replace,
-      inputFormatterTemplate: template,
-      inputFormatter,
-      leadingIcon: li,
-      trailingIcon: ti,
-      leadingIconClick: lic,
-      trailingIconClick: tic,
-      leadingIconRipple: lir,
-      trailingIconRipple: tir,
-    }: import("../..").IDictSlot) => JSX.Element;
-    Tree: ({
-      invalid,
-      incorrect,
-      value,
-      disabled,
-      readonly,
-      description,
-      outlined,
-      title,
-      placeholder,
-      dirty,
-      loading: upperLoading,
-      onChange,
-      itemTree,
-    }: import("../..").ITreeSlot) => JSX.Element;
-  };
-  export const SlotContext: import("react").Context<ISlotFactoryContext>;
-  export default SlotContext;
-}
-
-declare module "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext" {
-  import { ComponentType } from "react";
-  import { IProgressSlot } from "react-declarative/components/One/slots/ProgressSlot";
-  import { ICheckBoxSlot } from "react-declarative/components/One/slots/CheckBoxSlot";
-  import { IItemsSlot } from "react-declarative/components/One/slots/ItemsSlot";
-  import { IComboSlot } from "react-declarative/components/One/slots/ComboSlot";
-  import { ILineSlot } from "react-declarative/components/One/slots/LineSlot";
-  import { IRadioSlot } from "react-declarative/components/One/slots/RadioSlot";
-  import { IRatingSlot } from "react-declarative/components/One/slots/RatingSlot";
-  import { ITypographySlot } from "react-declarative/components/One/slots/TypographySlot";
-  import { ITextSlot } from "react-declarative/components/One/slots/TextSlot";
-  import { IDateSlot } from "react-declarative/components/One/slots/DateSlot";
-  import { ITimeSlot } from "react-declarative/components/One/slots/TimeSlot";
-  import { ISwitchSlot } from "react-declarative/components/One/slots/SwitchSlot";
-  import { ISliderSlot } from "react-declarative/components/One/slots/SliderSlot";
-  import { IFileSlot } from "react-declarative/components/One/slots/FileSlot/IFileSlot";
-  import { IChooseSlot } from "react-declarative/components/One/slots/ChooseSlot";
-  import { ICompleteSlot } from "react-declarative/components/One/slots/CompleteSlot";
-  import { IYesNoSlot } from "react-declarative/components/One/slots/YesNoSlot";
-  import { IDictSlot } from "react-declarative/components/One/slots/DictSlot";
-  import { ITreeSlot } from "react-declarative/components/One/slots/TreeSlot";
-  /**
-   * A context object that provides access to various component types used by the slot factory.
-   * @typedef ISlotFactoryContext
-   * @property CheckBox - The component type for Checkbox slots.
-   * @property Combo - The component type for Combo slots.
-   * @property YesNo - The component type for YesNo slots.
-   * @property Items - The component type for Items slots.
-   * @property Line - The component type for Line slots.
-   * @property Progress - The component type for Progress slots.
-   * @property Radio - The component type for Radio slots.
-   * @property Rating - The component type for Rating slots.
-   * @property Typography - The component type for Typography slots.
-   * @property Text - The component type for Text slots.
-   * @property Date - The component type for Date slots.
-   * @property Time - The component type for Time slots.
-   * @property Switch - The component type for Switch slots.
-   * @property Slider - The component type for Slider slots.
-   * @property File - The component type for File slots.
-   * @property Choose - The component type for Choose slots.
-   * @property Complete - The component type for Complete slots.
-   * @property Dict - The component type for Dict slots.
-   * @property Tree - The component type for Tree slots.
-   */
-  export interface ISlotFactoryContext {
-    CheckBox: ComponentType<ICheckBoxSlot>;
-    Combo: ComponentType<IComboSlot>;
-    YesNo: ComponentType<IYesNoSlot>;
-    Items: ComponentType<IItemsSlot>;
-    Line: ComponentType<ILineSlot>;
-    Progress: ComponentType<IProgressSlot>;
-    Radio: ComponentType<IRadioSlot>;
-    Rating: ComponentType<IRatingSlot>;
-    Typography: ComponentType<ITypographySlot>;
-    Text: ComponentType<ITextSlot>;
-    Date: ComponentType<IDateSlot>;
-    Time: ComponentType<ITimeSlot>;
-    Switch: ComponentType<ISwitchSlot>;
-    Slider: ComponentType<ISliderSlot>;
-    File: ComponentType<IFileSlot>;
-    Choose: ComponentType<IChooseSlot>;
-    Complete: ComponentType<ICompleteSlot>;
-    Dict: ComponentType<IDictSlot>;
-    Tree: ComponentType<ITreeSlot>;
   }
   export default ISlotFactoryContext;
 }
@@ -25215,10 +24739,11 @@ declare module "react-declarative/components/InfiniteView/InfiniteView" {
    * Represents the props for the InfiniteView component.
    */
   interface IInfiniteViewProps extends BoxProps {
+    withScrollbar?: boolean;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
-    children?: React.ReactNode;
+    children: React.ReactNode;
     hasMore?: boolean;
     loading?: boolean;
     scrollXSubject?: TSubject<number>;
@@ -25248,6 +24773,7 @@ declare module "react-declarative/components/InfiniteView/InfiniteView" {
    * @returns Rendered component
    */
   export const InfiniteView: ({
+    withScrollbar,
     className,
     style,
     sx,
@@ -26261,6 +25787,7 @@ declare module "react-declarative/components/Tile/Tile" {
     data,
     loading,
     hasMore,
+    mode,
     bufferSize,
     minRowHeight,
     payload: upperPayload,
@@ -26282,12 +25809,21 @@ declare module "react-declarative/components/Tile/Tile" {
   export default Tile;
 }
 
+declare module "react-declarative/components/Tile/model/TileMode" {
+  export enum TileMode {
+    Virtual = "virtual",
+    Intersection = "intersection",
+  }
+  export default TileMode;
+}
+
 declare module "react-declarative/components/Tile/model/ITileProps" {
   import { SxProps } from "@mui/material";
   import IAnything from "react-declarative/model/IAnything";
   import SelectionMode from "react-declarative/model/SelectionMode";
   import TSubject from "react-declarative/model/TSubject";
   import ITile from "react-declarative/components/Tile/model/ITile";
+  import TileMode from "react-declarative/components/Tile/model/TileMode";
   /**
    * Represents the properties required for the `ITile` component.
    *
@@ -26295,6 +25831,7 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
    * @template Payload - The type of payload used in the tile.
    */
   export interface ITileProps<Data = IAnything, Payload = IAnything> {
+    mode?: TileMode;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
@@ -26355,6 +25892,60 @@ declare module "react-declarative/components/Spinner/Spinner" {
     ...otherProps
   }: ISpinnerProps) => JSX.Element;
   export default Spinner;
+}
+
+declare module "react-declarative/components/Async/Async" {
+  import * as React from "react";
+  import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for an asynchronous component.
+   * @template T - The type of the payload.
+   */
+  export interface IAsyncProps<T extends any = object> {
+    loading?: boolean;
+    reloadSubject?: TSubject<void>;
+    children: (p: T) => Result | Promise<Result>;
+    fallback?: (e: Error) => void;
+    Loader?: React.ComponentType<any>;
+    Error?: React.ComponentType<any>;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    payload?: T;
+    deps?: any[];
+    throwError?: boolean;
+  }
+  type Result = React.ReactNode | void;
+  /**
+   * Async
+   * @template T - The type of the payload data.
+   * @param params - The parameters object.
+   * @param params.reloadSubject - The subject used to trigger a reload of the async data.
+   * @param params.loading - A boolean indicating whether the async data is currently being loaded.
+   * @param params.children - The children component that renders the async data.
+   * @param params.fallback - The fallback component to render in case of an error.
+   * @param params.Loader - The loader component to render while the async data is being loaded.
+   * @param params.Error - The error component to render in case of an error.
+   * @param params.onLoadStart - A function to be called when the async data loading starts.
+   * @param params.onLoadEnd - A function to be called when the async data loading ends.
+   * @param params.payload - The payload data to be passed to the children component.
+   * @param params.deps - The dependencies of the async data.
+   * @param params.throwError - A boolean indicating whether to throw an error in case of an error or to fallback.
+   * @returns - The rendered component.
+   */
+  export const Async: <T extends unknown = object>({
+    reloadSubject: upperReloadSubject,
+    loading: upperLoading,
+    children,
+    fallback,
+    Loader,
+    Error,
+    onLoadStart,
+    onLoadEnd,
+    payload,
+    deps,
+    throwError,
+  }: IAsyncProps<T>) => JSX.Element;
+  export default Async;
 }
 
 declare module "react-declarative/components/Copy/Copy" {
@@ -26761,6 +26352,435 @@ declare module "react-declarative/components/MasterDetail/model/MasterDetailMode
   export default MasterDetailMode;
 }
 
+declare module "react-declarative/components/One/components/SlotFactory/SlotFactory" {
+  import * as React from "react";
+  import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * Represents the properties for the ISlotFactory component.
+   * @interface
+   */
+  interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
+    children: React.ReactNode;
+  }
+  /**
+   * SlotFactory function
+   * @param param - Slots prop for SlotFactory
+   * @param param.children - React node to be rendered as children
+   * @returns React node containing the children with the provided slots
+   */
+  export const SlotFactory: ({
+    children,
+    ...currentSlots
+  }: Partial<ISlotFactoryProps>) => JSX.Element;
+  export default SlotFactory;
+}
+
+declare module "react-declarative/components/One/components/SlotFactory/SlotContext" {
+  import ISlotFactoryContext from "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * @description A list of default slots for a component.
+   * @type {Array}
+   * @property Checkbox Slot for a checkbox component.
+   * @property Combo Slot for a comboBox component.
+   * @property Items Slot for an items component.
+   * @property Line Slot for a line component.
+   * @property Radio Slot for a radio component.
+   * @property Rating Slot for a rating component.
+   * @property Progress Slot for a progress component.
+   * @property Typography Slot for a typography component.
+   * @property Text Slot for a text component.
+   * @property Date Slot for a date component.
+   * @property Time Slot for a time component.
+   * @property Switch Slot for a switch component.
+   * @property Slider Slot for a slider component.
+   * @property File Slot for a file component.
+   * @property Choose Slot for a choose component.
+   * @property Complete Slot for a complete component.
+   * @property YesNo Slot for a yes/no component.
+   * @property Dict Slot for a dictionary component.
+   * @property Tree Slot for a tree component.
+   */
+  export const defaultSlots: {
+    CheckBox: ({
+      disabled,
+      onChange,
+      title,
+      value,
+    }: import("../..").ICheckBoxSlot) => JSX.Element;
+    Combo: ({
+      value: upperValue,
+      disabled,
+      readonly,
+      description,
+      placeholder,
+      outlined,
+      itemList,
+      virtualListBox,
+      watchItemList,
+      labelShrink,
+      noDeselect,
+      freeSolo,
+      title,
+      dirty,
+      invalid,
+      incorrect,
+      withContextMenu,
+      tr,
+      onChange,
+    }: import("../..").IComboSlot) => JSX.Element;
+    Items: ({
+      value: upperValue,
+      disabled,
+      readonly,
+      description,
+      placeholder,
+      outlined,
+      itemList,
+      freeSolo,
+      noDeselect,
+      virtualListBox,
+      watchItemList,
+      labelShrink,
+      dirty,
+      invalid,
+      incorrect,
+      title,
+      tr,
+      onChange,
+      withContextMenu,
+    }: import("../..").IItemsSlot) => JSX.Element;
+    Line: ({
+      title,
+      lineTransparent,
+    }: import("../..").ILineSlot) => JSX.Element;
+    Radio: ({
+      disabled,
+      onChange,
+      title,
+      radioValue,
+      value,
+      name,
+    }: import("../..").IRadioSlot) => JSX.Element;
+    Rating: ({
+      value,
+      disabled,
+      readonly,
+      onChange,
+    }: import("../..").IRatingSlot) => JSX.Element;
+    Progress: ({
+      maxPercent,
+      showPercentLabel,
+      value,
+    }: import("../..").IProgressSlot) => JSX.Element;
+    Typography: ({
+      value,
+      placeholder,
+      typoVariant,
+      style,
+    }: import("../..").ITypographySlot) => JSX.Element;
+    Text: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      inputType,
+      inputMode,
+      inputPattern,
+      labelShrink,
+      description,
+      outlined,
+      title,
+      leadingIcon: li,
+      trailingIcon: ti,
+      leadingIconClick: lic,
+      trailingIconClick: tic,
+      leadingIconRipple: lir,
+      trailingIconRipple: tir,
+      inputRows: rows,
+      placeholder,
+      inputAutocomplete: autoComplete,
+      inputFormatterSymbol: symbol,
+      inputFormatterAllowed: allowed,
+      inputFormatterReplace: replace,
+      inputFormatterTemplate: template,
+      inputFormatter,
+      dirty,
+      loading,
+      autoFocus,
+      inputRef,
+      onChange,
+    }: import("../..").ITextSlot) => JSX.Element;
+    Date: ({
+      invalid,
+      incorrect,
+      value: upperValue,
+      disabled,
+      readonly,
+      description,
+      outlined,
+      title,
+      placeholder,
+      labelShrink,
+      dirty,
+      autoFocus,
+      inputRef,
+      onChange,
+      withContextMenu,
+    }: import("../..").IDateSlot) => JSX.Element;
+    Time: ({
+      invalid,
+      incorrect,
+      value: upperValue,
+      disabled,
+      readonly,
+      description,
+      outlined,
+      title,
+      labelShrink,
+      placeholder,
+      dirty,
+      autoFocus,
+      inputRef,
+      onChange,
+      withContextMenu,
+    }: import("../..").ITimeSlot) => JSX.Element;
+    Switch: ({
+      disabled,
+      value,
+      onChange,
+      title,
+      switchNoColor,
+      switchActiveLabel,
+    }: import("../..").ISwitchSlot) => JSX.Element;
+    Slider: ({
+      value,
+      onChange,
+      leadingIcon: li,
+      trailingIcon: ti,
+      leadingIconClick: lic,
+      trailingIconClick: tic,
+      leadingIconRipple: lir,
+      trailingIconRipple: tir,
+      labelFormatSlider,
+      stepSlider,
+      disabled,
+      readonly,
+      maxSlider,
+      minSlider,
+    }: import("../..").ISliderSlot) => JSX.Element;
+    File: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      description,
+      outlined,
+      labelShrink,
+      title,
+      placeholder,
+      dirty,
+      loading: upperLoading,
+      inputRef,
+      onChange,
+      fileAccept,
+      name,
+      upload,
+      view,
+    }: import("../..").IFileSlot) => JSX.Element;
+    Choose: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      description,
+      outlined,
+      title,
+      placeholder,
+      labelShrink,
+      dirty,
+      loading: upperLoading,
+      inputRef,
+      onChange,
+      choose,
+      tr,
+    }: import("../..").IChooseSlot) => JSX.Element;
+    Complete: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      inputType,
+      inputMode,
+      inputPattern,
+      labelShrink,
+      description,
+      outlined,
+      keepRaw,
+      title,
+      placeholder,
+      inputAutocomplete: autoComplete,
+      dirty,
+      loading: upperLoading,
+      tip,
+      tipSelect,
+      autoFocus,
+      onChange,
+      inputFormatterSymbol: symbol,
+      inputFormatterAllowed: allowed,
+      inputFormatterReplace: replace,
+      inputFormatterTemplate: template,
+      inputFormatter,
+      withContextMenu,
+    }: import("../..").ICompleteSlot) => JSX.Element;
+    YesNo: ({
+      value: upperValue,
+      disabled,
+      readonly,
+      description,
+      placeholder,
+      outlined,
+      virtualListBox,
+      labelShrink,
+      noDeselect,
+      title,
+      tr,
+      dirty,
+      invalid,
+      incorrect,
+      onChange,
+    }: import("../..").IYesNoSlot) => JSX.Element;
+    Dict: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      inputType,
+      inputMode,
+      inputPattern,
+      inputAutocomplete,
+      description,
+      outlined,
+      title,
+      placeholder,
+      dirty,
+      loading,
+      inputRef,
+      onChange,
+      dictLimit,
+      dictDelay,
+      dictOnText,
+      dictOnItem,
+      dictSearch,
+      dictValue,
+      dictSearchText,
+      dictOnAppend,
+      dictSearchItem,
+      dictCreateButton,
+      inputFormatterSymbol: symbol,
+      inputFormatterAllowed: allowed,
+      inputFormatterReplace: replace,
+      inputFormatterTemplate: template,
+      inputFormatter,
+      leadingIcon: li,
+      trailingIcon: ti,
+      leadingIconClick: lic,
+      trailingIconClick: tic,
+      leadingIconRipple: lir,
+      trailingIconRipple: tir,
+    }: import("../..").IDictSlot) => JSX.Element;
+    Tree: ({
+      invalid,
+      incorrect,
+      value,
+      disabled,
+      readonly,
+      description,
+      outlined,
+      title,
+      placeholder,
+      dirty,
+      loading: upperLoading,
+      onChange,
+      itemTree,
+    }: import("../..").ITreeSlot) => JSX.Element;
+  };
+  export const SlotContext: import("react").Context<ISlotFactoryContext>;
+  export default SlotContext;
+}
+
+declare module "react-declarative/components/One/components/SlotFactory/ISlotFactoryContext" {
+  import { ComponentType } from "react";
+  import { IProgressSlot } from "react-declarative/components/One/slots/ProgressSlot";
+  import { ICheckBoxSlot } from "react-declarative/components/One/slots/CheckBoxSlot";
+  import { IItemsSlot } from "react-declarative/components/One/slots/ItemsSlot";
+  import { IComboSlot } from "react-declarative/components/One/slots/ComboSlot";
+  import { ILineSlot } from "react-declarative/components/One/slots/LineSlot";
+  import { IRadioSlot } from "react-declarative/components/One/slots/RadioSlot";
+  import { IRatingSlot } from "react-declarative/components/One/slots/RatingSlot";
+  import { ITypographySlot } from "react-declarative/components/One/slots/TypographySlot";
+  import { ITextSlot } from "react-declarative/components/One/slots/TextSlot";
+  import { IDateSlot } from "react-declarative/components/One/slots/DateSlot";
+  import { ITimeSlot } from "react-declarative/components/One/slots/TimeSlot";
+  import { ISwitchSlot } from "react-declarative/components/One/slots/SwitchSlot";
+  import { ISliderSlot } from "react-declarative/components/One/slots/SliderSlot";
+  import { IFileSlot } from "react-declarative/components/One/slots/FileSlot/IFileSlot";
+  import { IChooseSlot } from "react-declarative/components/One/slots/ChooseSlot";
+  import { ICompleteSlot } from "react-declarative/components/One/slots/CompleteSlot";
+  import { IYesNoSlot } from "react-declarative/components/One/slots/YesNoSlot";
+  import { IDictSlot } from "react-declarative/components/One/slots/DictSlot";
+  import { ITreeSlot } from "react-declarative/components/One/slots/TreeSlot";
+  /**
+   * A context object that provides access to various component types used by the slot factory.
+   * @typedef ISlotFactoryContext
+   * @property CheckBox - The component type for Checkbox slots.
+   * @property Combo - The component type for Combo slots.
+   * @property YesNo - The component type for YesNo slots.
+   * @property Items - The component type for Items slots.
+   * @property Line - The component type for Line slots.
+   * @property Progress - The component type for Progress slots.
+   * @property Radio - The component type for Radio slots.
+   * @property Rating - The component type for Rating slots.
+   * @property Typography - The component type for Typography slots.
+   * @property Text - The component type for Text slots.
+   * @property Date - The component type for Date slots.
+   * @property Time - The component type for Time slots.
+   * @property Switch - The component type for Switch slots.
+   * @property Slider - The component type for Slider slots.
+   * @property File - The component type for File slots.
+   * @property Choose - The component type for Choose slots.
+   * @property Complete - The component type for Complete slots.
+   * @property Dict - The component type for Dict slots.
+   * @property Tree - The component type for Tree slots.
+   */
+  export interface ISlotFactoryContext {
+    CheckBox: ComponentType<ICheckBoxSlot>;
+    Combo: ComponentType<IComboSlot>;
+    YesNo: ComponentType<IYesNoSlot>;
+    Items: ComponentType<IItemsSlot>;
+    Line: ComponentType<ILineSlot>;
+    Progress: ComponentType<IProgressSlot>;
+    Radio: ComponentType<IRadioSlot>;
+    Rating: ComponentType<IRatingSlot>;
+    Typography: ComponentType<ITypographySlot>;
+    Text: ComponentType<ITextSlot>;
+    Date: ComponentType<IDateSlot>;
+    Time: ComponentType<ITimeSlot>;
+    Switch: ComponentType<ISwitchSlot>;
+    Slider: ComponentType<ISliderSlot>;
+    File: ComponentType<IFileSlot>;
+    Choose: ComponentType<IChooseSlot>;
+    Complete: ComponentType<ICompleteSlot>;
+    Dict: ComponentType<IDictSlot>;
+    Tree: ComponentType<ITreeSlot>;
+  }
+  export default ISlotFactoryContext;
+}
+
 declare module "react-declarative/components/common/ListPicker/ListPicker" {
   import IRowData, { RowId } from "react-declarative/model/IRowData";
   import IListProps from "react-declarative/model/IListProps";
@@ -26891,6 +26911,7 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
   import { stamp } from "react-declarative/utils/getMomentStamp";
   import IAnything from "react-declarative/model/IAnything";
   import TSubject from "react-declarative/model/TSubject";
+  import { TileMode } from "react-declarative/components/Tile";
   /**
    * Interface representing the props for the CalendarView component.
    *
@@ -26943,6 +26964,7 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
     date?: dayjs.Dayjs;
     minDate?: dayjs.Dayjs;
     maxDate?: dayjs.Dayjs;
+    tileMode?: TileMode;
     onChange?: (date: dayjs.Dayjs | null) => void;
     renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
     onItemClick: (item: { data: Data; payload: Payload }) => void;
@@ -28105,22 +28127,10 @@ declare module "react-declarative/components/List/slots/SearchSlot/SearchSlot" {
   export default SearchSlot;
 }
 
-declare module "react-declarative/components/One/slots/ProgressSlot" {
-  export * from "react-declarative/components/One/slots/ProgressSlot/IProgressSlot";
-  export * from "react-declarative/components/One/slots/ProgressSlot/ProgressSlot";
-  export { default } from "react-declarative/components/One/slots/ProgressSlot/ProgressSlot";
-}
-
 declare module "react-declarative/components/One/slots/CheckBoxSlot" {
   export * from "react-declarative/components/One/slots/CheckBoxSlot/ICheckBoxSlot";
   export * from "react-declarative/components/One/slots/CheckBoxSlot/CheckBoxSlot";
   export { default } from "react-declarative/components/One/slots/CheckBoxSlot/CheckBoxSlot";
-}
-
-declare module "react-declarative/components/One/slots/ItemsSlot" {
-  export * from "react-declarative/components/One/slots/ItemsSlot/IItemsSlot";
-  export * from "react-declarative/components/One/slots/ItemsSlot/ItemsSlot";
-  export { default } from "react-declarative/components/One/slots/ItemsSlot/ItemsSlot";
 }
 
 declare module "react-declarative/components/One/slots/ComboSlot" {
@@ -28129,10 +28139,22 @@ declare module "react-declarative/components/One/slots/ComboSlot" {
   export { default } from "react-declarative/components/One/slots/ComboSlot/ComboSlot";
 }
 
+declare module "react-declarative/components/One/slots/ItemsSlot" {
+  export * from "react-declarative/components/One/slots/ItemsSlot/IItemsSlot";
+  export * from "react-declarative/components/One/slots/ItemsSlot/ItemsSlot";
+  export { default } from "react-declarative/components/One/slots/ItemsSlot/ItemsSlot";
+}
+
 declare module "react-declarative/components/One/slots/LineSlot" {
   export * from "react-declarative/components/One/slots/LineSlot/ILineSlot";
   export * from "react-declarative/components/One/slots/LineSlot/LineSlot";
   export { default } from "react-declarative/components/One/slots/LineSlot/LineSlot";
+}
+
+declare module "react-declarative/components/One/slots/ProgressSlot" {
+  export * from "react-declarative/components/One/slots/ProgressSlot/IProgressSlot";
+  export * from "react-declarative/components/One/slots/ProgressSlot/ProgressSlot";
+  export { default } from "react-declarative/components/One/slots/ProgressSlot/ProgressSlot";
 }
 
 declare module "react-declarative/components/One/slots/RadioSlot" {
@@ -28147,16 +28169,28 @@ declare module "react-declarative/components/One/slots/RatingSlot" {
   export { default } from "react-declarative/components/One/slots/RatingSlot/RatingSlot";
 }
 
-declare module "react-declarative/components/One/slots/TypographySlot" {
-  export * from "react-declarative/components/One/slots/TypographySlot/ITypographySlot";
-  export * from "react-declarative/components/One/slots/TypographySlot/TypographySlot";
-  export { default } from "react-declarative/components/One/slots/TypographySlot/TypographySlot";
+declare module "react-declarative/components/One/slots/SliderSlot" {
+  export * from "react-declarative/components/One/slots/SliderSlot/ISliderSlot";
+  export * from "react-declarative/components/One/slots/SliderSlot/SliderSlot";
+  export { default } from "react-declarative/components/One/slots/SliderSlot/SliderSlot";
+}
+
+declare module "react-declarative/components/One/slots/SwitchSlot" {
+  export * from "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot";
+  export * from "react-declarative/components/One/slots/SwitchSlot/SwitchSlot";
+  export { default } from "react-declarative/components/One/slots/SwitchSlot/SwitchSlot";
 }
 
 declare module "react-declarative/components/One/slots/TextSlot" {
   export * from "react-declarative/components/One/slots/TextSlot/ITextSlot";
   export * from "react-declarative/components/One/slots/TextSlot/TextSlot";
   export { default } from "react-declarative/components/One/slots/TextSlot/TextSlot";
+}
+
+declare module "react-declarative/components/One/slots/TypographySlot" {
+  export * from "react-declarative/components/One/slots/TypographySlot/ITypographySlot";
+  export * from "react-declarative/components/One/slots/TypographySlot/TypographySlot";
+  export { default } from "react-declarative/components/One/slots/TypographySlot/TypographySlot";
 }
 
 declare module "react-declarative/components/One/slots/DateSlot" {
@@ -28171,32 +28205,10 @@ declare module "react-declarative/components/One/slots/TimeSlot" {
   export { default } from "react-declarative/components/One/slots/TimeSlot/TimeSlot";
 }
 
-declare module "react-declarative/components/One/slots/SwitchSlot" {
-  export * from "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot";
-  export * from "react-declarative/components/One/slots/SwitchSlot/SwitchSlot";
-  export { default } from "react-declarative/components/One/slots/SwitchSlot/SwitchSlot";
-}
-
-declare module "react-declarative/components/One/slots/SliderSlot" {
-  export * from "react-declarative/components/One/slots/SliderSlot/ISliderSlot";
-  export * from "react-declarative/components/One/slots/SliderSlot/SliderSlot";
-  export { default } from "react-declarative/components/One/slots/SliderSlot/SliderSlot";
-}
-
-declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
-  import {
-    IFileFieldProps,
-    IFileFieldPrivate,
-  } from "react-declarative/components/One/fields/FileField";
-  type IFileBase = IFileFieldProps & IFileFieldPrivate;
-  /**
-   * Represents a file slot interface that extends the IFileBase interface.
-   *
-   * @interface
-   * @extends {IFileBase}
-   */
-  export interface IFileSlot extends IFileBase {}
-  export default IFileSlot;
+declare module "react-declarative/components/One/slots/FileSlot" {
+  export * from "react-declarative/components/One/slots/FileSlot/IFileSlot";
+  export * from "react-declarative/components/One/slots/FileSlot/FileSlot";
+  export { default } from "react-declarative/components/One/slots/FileSlot/FileSlot";
 }
 
 declare module "react-declarative/components/One/slots/ChooseSlot" {
@@ -28227,12 +28239,6 @@ declare module "react-declarative/components/One/slots/TreeSlot" {
   export * from "react-declarative/components/One/slots/TreeSlot/ITreeSlot";
   export * from "react-declarative/components/One/slots/TreeSlot/TreeSlot";
   export { default } from "react-declarative/components/One/slots/TreeSlot/TreeSlot";
-}
-
-declare module "react-declarative/components/One/slots/FileSlot" {
-  export * from "react-declarative/components/One/slots/FileSlot/IFileSlot";
-  export * from "react-declarative/components/One/slots/FileSlot/FileSlot";
-  export { default } from "react-declarative/components/One/slots/FileSlot/FileSlot";
 }
 
 declare module "react-declarative/components/One/components/OneConfig/OneConfig" {
@@ -29491,6 +29497,22 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailPro
   export default IMasterDetailProps;
 }
 
+declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
+  import {
+    IFileFieldProps,
+    IFileFieldPrivate,
+  } from "react-declarative/components/One/fields/FileField";
+  type IFileBase = IFileFieldProps & IFileFieldPrivate;
+  /**
+   * Represents a file slot interface that extends the IFileBase interface.
+   *
+   * @interface
+   * @extends {IFileBase}
+   */
+  export interface IFileSlot extends IFileBase {}
+  export default IFileSlot;
+}
+
 declare module "react-declarative/model/DisplayMode" {
   /**
    * Enum representing the display modes for different devices.
@@ -29528,34 +29550,6 @@ declare module "react-declarative/components/List/components/SlotFactory/compone
   export default CheckboxCell;
 }
 
-declare module "react-declarative/components/One/slots/ProgressSlot/IProgressSlot" {
-  import {
-    IProgressFieldProps,
-    IProgressFieldPrivate,
-  } from "react-declarative/components/One/fields/ProgressField";
-  /**
-   * @interface
-   * Interface for IProgressSlot.
-   * Represents a progress slot that implements IProgressFieldProps and IProgressFieldPrivate interfaces.
-   */
-  export interface IProgressSlot
-    extends IProgressFieldProps,
-      IProgressFieldPrivate {}
-  export default IProgressSlot;
-}
-
-declare module "react-declarative/components/One/slots/ProgressSlot/ProgressSlot" {
-  import IProgressSlot from "react-declarative/components/One/slots/ProgressSlot/IProgressSlot";
-  /**
-   * Represents a Progress Slot component.
-   *
-   * @param props - The props passed to the component.
-   * @returns - The rendered Progress component.
-   */
-  export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
-  export default ProgressSlot;
-}
-
 declare module "react-declarative/components/One/slots/CheckBoxSlot/ICheckBoxSlot" {
   import {
     ICheckboxFieldPrivate,
@@ -29584,34 +29578,6 @@ declare module "react-declarative/components/One/slots/CheckBoxSlot/CheckBoxSlot
    */
   export const CheckBoxSlot: (props: ICheckBoxSlot) => JSX.Element;
   export default CheckBoxSlot;
-}
-
-declare module "react-declarative/components/One/slots/ItemsSlot/IItemsSlot" {
-  import {
-    IItemsFieldPrivate,
-    IItemsFieldProps,
-  } from "react-declarative/components/One/fields/ItemsField";
-  /**
-   * Represents an interface for an ItemsSlot in a field.
-   * Extends the IItemsFieldProps and IItemsFieldPrivate interfaces.
-   *
-   * @interface IItemsSlot
-   * @extends {IItemsFieldProps}
-   * @extends {IItemsFieldPrivate}
-   */
-  export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {}
-  export default IItemsSlot;
-}
-
-declare module "react-declarative/components/One/slots/ItemsSlot/ItemsSlot" {
-  import IItemsSlot from "react-declarative/components/One/slots/ItemsSlot/IItemsSlot";
-  /**
-   * Represents a component that provides a slot for items.
-   * @param props - The component's properties.
-   * @return The rendered component.
-   */
-  export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
-  export default ItemsSlot;
 }
 
 declare module "react-declarative/components/One/slots/ComboSlot/IComboSlot" {
@@ -29644,6 +29610,34 @@ declare module "react-declarative/components/One/slots/ComboSlot/ComboSlot" {
   export default ComboSlot;
 }
 
+declare module "react-declarative/components/One/slots/ItemsSlot/IItemsSlot" {
+  import {
+    IItemsFieldPrivate,
+    IItemsFieldProps,
+  } from "react-declarative/components/One/fields/ItemsField";
+  /**
+   * Represents an interface for an ItemsSlot in a field.
+   * Extends the IItemsFieldProps and IItemsFieldPrivate interfaces.
+   *
+   * @interface IItemsSlot
+   * @extends {IItemsFieldProps}
+   * @extends {IItemsFieldPrivate}
+   */
+  export interface IItemsSlot extends IItemsFieldProps, IItemsFieldPrivate {}
+  export default IItemsSlot;
+}
+
+declare module "react-declarative/components/One/slots/ItemsSlot/ItemsSlot" {
+  import IItemsSlot from "react-declarative/components/One/slots/ItemsSlot/IItemsSlot";
+  /**
+   * Represents a component that provides a slot for items.
+   * @param props - The component's properties.
+   * @return The rendered component.
+   */
+  export const ItemsSlot: (props: IItemsSlot) => JSX.Element;
+  export default ItemsSlot;
+}
+
 declare module "react-declarative/components/One/slots/LineSlot/ILineSlot" {
   import { ILineFieldProps } from "react-declarative/components/One/fields/LineField";
   /**
@@ -29666,6 +29660,34 @@ declare module "react-declarative/components/One/slots/LineSlot/LineSlot" {
    */
   export const LineSlot: (props: ILineSlot) => JSX.Element;
   export default LineSlot;
+}
+
+declare module "react-declarative/components/One/slots/ProgressSlot/IProgressSlot" {
+  import {
+    IProgressFieldProps,
+    IProgressFieldPrivate,
+  } from "react-declarative/components/One/fields/ProgressField";
+  /**
+   * @interface
+   * Interface for IProgressSlot.
+   * Represents a progress slot that implements IProgressFieldProps and IProgressFieldPrivate interfaces.
+   */
+  export interface IProgressSlot
+    extends IProgressFieldProps,
+      IProgressFieldPrivate {}
+  export default IProgressSlot;
+}
+
+declare module "react-declarative/components/One/slots/ProgressSlot/ProgressSlot" {
+  import IProgressSlot from "react-declarative/components/One/slots/ProgressSlot/IProgressSlot";
+  /**
+   * Represents a Progress Slot component.
+   *
+   * @param props - The props passed to the component.
+   * @returns - The rendered Progress component.
+   */
+  export const ProgressSlot: (props: IProgressSlot) => JSX.Element;
+  export default ProgressSlot;
 }
 
 declare module "react-declarative/components/One/slots/RadioSlot/IRadioSlot" {
@@ -29726,33 +29748,60 @@ declare module "react-declarative/components/One/slots/RatingSlot/RatingSlot" {
   export default RatingSlot;
 }
 
-declare module "react-declarative/components/One/slots/TypographySlot/ITypographySlot" {
+declare module "react-declarative/components/One/slots/SliderSlot/ISliderSlot" {
   import {
-    ITypographyFieldPrivate,
-    ITypographyFieldProps,
-  } from "react-declarative/components/One/fields/TypographyField";
+    ISliderFieldPrivate,
+    ISliderFieldProps,
+  } from "react-declarative/components/One/fields/SliderField";
   /**
-   * The ITypographySlot interface represents a typography slot.
-   *
    * @interface
-   * @extends ITypographyFieldProps
-   * @extends ITypographyFieldPrivate
+   * Represents a slider slot in a slider component.
+   *
+   * @extends {ISliderFieldProps} - Interface representing the properties of the slider field.
+   * @extends {ISliderFieldPrivate} - Interface representing the private properties of the slider field.
    */
-  export interface ITypographySlot
-    extends ITypographyFieldProps,
-      ITypographyFieldPrivate {}
-  export default ITypographySlot;
+  export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {}
+  export default ISliderSlot;
 }
 
-declare module "react-declarative/components/One/slots/TypographySlot/TypographySlot" {
-  import ITypographySlot from "react-declarative/components/One/slots/TypographySlot/ITypographySlot";
+declare module "react-declarative/components/One/slots/SliderSlot/SliderSlot" {
+  import ISliderSlot from "react-declarative/components/One/slots/SliderSlot/ISliderSlot";
   /**
-   * Represents a slot for typography components.
-   * @param props - The properties for the typography slot.
-   * @returns A typography component.
+   * Represents a Slider component wrapped in a SlotContext.
+   *
+   * @param props - The props object that contains the properties for the Slider component.
+   * @returns The Slider component with the given props.
    */
-  export const TypographySlot: (props: ITypographySlot) => JSX.Element;
-  export default TypographySlot;
+  export const SliderSlot: (props: ISliderSlot) => JSX.Element;
+  export default SliderSlot;
+}
+
+declare module "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot" {
+  import {
+    ISwitchFieldPrivate,
+    ISwitchFieldProps,
+  } from "react-declarative/components/One/fields/SwitchField";
+  /**
+   * Represents a switch slot.
+   *
+   * @interface ISwitchSlot
+   * @extends {ISwitchFieldProps}
+   * @extends {ISwitchFieldPrivate}
+   */
+  export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {}
+  export default ISwitchSlot;
+}
+
+declare module "react-declarative/components/One/slots/SwitchSlot/SwitchSlot" {
+  import ISwitchSlot from "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot";
+  /**
+   * Represents a Switch Slot component.
+   *
+   * @param props - The properties for the Switch Slot component.
+   * @returns The rendered Switch component with the given properties.
+   */
+  export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
+  export default SwitchSlot;
 }
 
 declare module "react-declarative/components/One/slots/TextSlot/ITextSlot" {
@@ -29780,6 +29829,35 @@ declare module "react-declarative/components/One/slots/TextSlot/TextSlot" {
    */
   export const TextSlot: (props: ITextSlot) => JSX.Element;
   export default TextSlot;
+}
+
+declare module "react-declarative/components/One/slots/TypographySlot/ITypographySlot" {
+  import {
+    ITypographyFieldPrivate,
+    ITypographyFieldProps,
+  } from "react-declarative/components/One/fields/TypographyField";
+  /**
+   * The ITypographySlot interface represents a typography slot.
+   *
+   * @interface
+   * @extends ITypographyFieldProps
+   * @extends ITypographyFieldPrivate
+   */
+  export interface ITypographySlot
+    extends ITypographyFieldProps,
+      ITypographyFieldPrivate {}
+  export default ITypographySlot;
+}
+
+declare module "react-declarative/components/One/slots/TypographySlot/TypographySlot" {
+  import ITypographySlot from "react-declarative/components/One/slots/TypographySlot/ITypographySlot";
+  /**
+   * Represents a slot for typography components.
+   * @param props - The properties for the typography slot.
+   * @returns A typography component.
+   */
+  export const TypographySlot: (props: ITypographySlot) => JSX.Element;
+  export default TypographySlot;
 }
 
 declare module "react-declarative/components/One/slots/DateSlot/IDateSlot" {
@@ -29836,60 +29914,15 @@ declare module "react-declarative/components/One/slots/TimeSlot/TimeSlot" {
   export default TimeSlot;
 }
 
-declare module "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot" {
-  import {
-    ISwitchFieldPrivate,
-    ISwitchFieldProps,
-  } from "react-declarative/components/One/fields/SwitchField";
+declare module "react-declarative/components/One/slots/FileSlot/FileSlot" {
+  import IFileSlot from "react-declarative/components/One/slots/FileSlot/IFileSlot";
   /**
-   * Represents a switch slot.
-   *
-   * @interface ISwitchSlot
-   * @extends {ISwitchFieldProps}
-   * @extends {ISwitchFieldPrivate}
+   * Represents a file slot component.
+   * @param props - The props for the file slot component.
+   * @returns The rendered file slot component.
    */
-  export interface ISwitchSlot extends ISwitchFieldProps, ISwitchFieldPrivate {}
-  export default ISwitchSlot;
-}
-
-declare module "react-declarative/components/One/slots/SwitchSlot/SwitchSlot" {
-  import ISwitchSlot from "react-declarative/components/One/slots/SwitchSlot/ISwitchSlot";
-  /**
-   * Represents a Switch Slot component.
-   *
-   * @param props - The properties for the Switch Slot component.
-   * @returns The rendered Switch component with the given properties.
-   */
-  export const SwitchSlot: (props: ISwitchSlot) => JSX.Element;
-  export default SwitchSlot;
-}
-
-declare module "react-declarative/components/One/slots/SliderSlot/ISliderSlot" {
-  import {
-    ISliderFieldPrivate,
-    ISliderFieldProps,
-  } from "react-declarative/components/One/fields/SliderField";
-  /**
-   * @interface
-   * Represents a slider slot in a slider component.
-   *
-   * @extends {ISliderFieldProps} - Interface representing the properties of the slider field.
-   * @extends {ISliderFieldPrivate} - Interface representing the private properties of the slider field.
-   */
-  export interface ISliderSlot extends ISliderFieldProps, ISliderFieldPrivate {}
-  export default ISliderSlot;
-}
-
-declare module "react-declarative/components/One/slots/SliderSlot/SliderSlot" {
-  import ISliderSlot from "react-declarative/components/One/slots/SliderSlot/ISliderSlot";
-  /**
-   * Represents a Slider component wrapped in a SlotContext.
-   *
-   * @param props - The props object that contains the properties for the Slider component.
-   * @returns The Slider component with the given props.
-   */
-  export const SliderSlot: (props: ISliderSlot) => JSX.Element;
-  export default SliderSlot;
+  export const FileSlot: (props: IFileSlot) => JSX.Element;
+  export default FileSlot;
 }
 
 declare module "react-declarative/components/One/slots/ChooseSlot/IChooseSlot" {
@@ -30030,17 +30063,6 @@ declare module "react-declarative/components/One/slots/TreeSlot/TreeSlot" {
    */
   export const TreeSlot: (props: ITreeSlot) => JSX.Element;
   export default TreeSlot;
-}
-
-declare module "react-declarative/components/One/slots/FileSlot/FileSlot" {
-  import IFileSlot from "react-declarative/components/One/slots/FileSlot/IFileSlot";
-  /**
-   * Represents a file slot component.
-   * @param props - The props for the file slot component.
-   * @returns The rendered file slot component.
-   */
-  export const FileSlot: (props: IFileSlot) => JSX.Element;
-  export default FileSlot;
 }
 
 declare module "react-declarative/components/One/components/OneConfig/OneConfigInstance" {

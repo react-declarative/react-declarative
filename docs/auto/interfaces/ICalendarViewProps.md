@@ -124,6 +124,12 @@ minDate: dayjs.Dayjs
 maxDate: dayjs.Dayjs
 ```
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
 ### onChange
 
 ```ts

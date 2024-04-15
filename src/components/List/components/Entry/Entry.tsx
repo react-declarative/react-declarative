@@ -48,6 +48,8 @@ import createScrollManager from "../../helpers/createScrollManager";
 import createConstraintManager from "../../helpers/createConstraintManager";
 import ignoreSymbols from "../../helpers/ignoreSymbols";
 
+import { TileMode } from "../../../Tile";
+
 import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
@@ -141,6 +143,7 @@ export class Entry<
     withToggledFilters: false,
     withCustomFilters: false,
     fetchDebounce: LIST_FETCH_DEBOUNCE,
+    tileMode: TileMode.Virtual,
     sortModel: [],
     chips: [],
     chipData: {},

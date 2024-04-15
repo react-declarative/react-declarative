@@ -49,6 +49,14 @@ It is used to render the list of available actions, typically used for filtering
 customTemplate: ComponentType<ITile<RowData, Payload>>
 ```
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
+Tiling mode for custom template
+
 ### customTemplateMinHeight
 
 ```ts

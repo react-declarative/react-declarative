@@ -134,6 +134,7 @@ export const CustomView = <
     customTemplateMinHeight = DEFAULT_ITEM_SIZE,
     withLoader = false,
     onRowClick,
+    tileMode,
   } = props;
 
   const reload = useReload();
@@ -247,6 +248,7 @@ export const CustomView = <
         <Box className={classes.container}>
           <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
             <Tile
+              mode={tileMode}
               scrollYSubject={scrollYSubject}
               minRowHeight={customTemplateMinHeight}
               hasMore={hasMore}
