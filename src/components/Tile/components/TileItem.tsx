@@ -110,6 +110,7 @@ export const TileItem = forwardRef(
 
     return (
       <ListItemButton
+        disableRipple
         ref={ref}
         className={className}
         style={style}

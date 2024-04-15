@@ -143,7 +143,7 @@ export class Entry<
     withToggledFilters: false,
     withCustomFilters: false,
     fetchDebounce: LIST_FETCH_DEBOUNCE,
-    tileMode: TileMode.Virtual,
+    tileMode: TileMode.Intersection,
     sortModel: [],
     chips: [],
     chipData: {},
