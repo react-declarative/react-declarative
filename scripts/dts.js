@@ -43,7 +43,7 @@ fs.copyFileSync(
     'dist/index.modern.js',
 );
 
-fs.copyFileSync(
+fs.existsSync("demo") && fs.copyFileSync(
     'dist/index.d.ts',
     'demo/src/react-declarative.d.ts',
 );
