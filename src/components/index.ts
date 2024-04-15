@@ -93,6 +93,7 @@ export * from './DocumentView';
 export * from './ImageView';
 export * from './TreeView';
 export * from './GridView';
+export * from './ChatView';
 
 export * from './Grid';
 export * from './Tile';

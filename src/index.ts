@@ -298,6 +298,7 @@ export { TabsView } from './components';
 export { SearchView, ISearchItem } from './components';
 export { WizardView, WizardNavigation, WizardContainer } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
+export { ChatView, ChatController } from './components';
 
 import { IBoard as IBoardInternal } from './components';
 import { IBoardColumn as IBoardColumnInternal } from './components';

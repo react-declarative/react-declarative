@@ -316,6 +316,7 @@ declare module "react-declarative" {
     VIRTUAL_VIEW_ROOT,
     VIRTUAL_VIEW_CHILD,
   } from "react-declarative/components";
+  export { ChatView, ChatController } from "react-declarative/components";
   import { IBoard as IBoardInternal } from "react-declarative/components";
   import { IBoardColumn as IBoardColumnInternal } from "react-declarative/components";
   import { IBoardItem as IBoardItemInternal } from "react-declarative/components";
@@ -5511,6 +5512,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/ImageView";
   export * from "react-declarative/components/TreeView";
   export * from "react-declarative/components/GridView";
+  export * from "react-declarative/components/ChatView";
   export * from "react-declarative/components/Grid";
   export * from "react-declarative/components/Tile";
   export * from "react-declarative/components/Spinner";
@@ -17662,6 +17664,20 @@ declare module "react-declarative/components/GridView" {
   export { default } from "react-declarative/components/GridView/GridView";
 }
 
+declare module "react-declarative/components/ChatView" {
+  export { ChatController } from "react-declarative/components/ChatView/helpers/ChatController";
+  export { AudioMediaRecorder } from "react-declarative/components/ChatView/helpers/AudioMediaRecorder";
+  export { ActionRequest } from "react-declarative/components/ChatView/model/ActionRequest";
+  export { AudioActionRequest } from "react-declarative/components/ChatView/model/AudioActionRequest";
+  export { CustomActionRequest } from "react-declarative/components/ChatView/model/CustomActionRequest";
+  export { FileActionRequest } from "react-declarative/components/ChatView/model/FileActionRequest";
+  export { MultiSelectActionRequest } from "react-declarative/components/ChatView/model/MultiSelectActionRequest";
+  export { SelectActionRequest } from "react-declarative/components/ChatView/model/SelectActionRequest";
+  export { TextActionRequest } from "react-declarative/components/ChatView/model/TextActionRequest";
+  export * from "react-declarative/components/ChatView/ChatView";
+  export { default } from "react-declarative/components/ChatView/ChatView";
+}
+
 declare module "react-declarative/components/Grid" {
   export * from "react-declarative/components/Grid/Grid";
   export * from "react-declarative/components/Grid/api/useOffsetPaginator";
@@ -25671,6 +25687,180 @@ declare module "react-declarative/components/GridView/GridView" {
   export default GridView;
 }
 
+declare module "react-declarative/components/ChatView/helpers/ChatController" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  import ChatOption from "react-declarative/components/ChatView/model/ChatOption";
+  import Message from "react-declarative/components/ChatView/model/Message";
+  import MessageContent from "react-declarative/components/ChatView/model/MessageContent";
+  import OnActionChanged from "react-declarative/components/ChatView/model/OnActionChanged";
+  import OnActionResponsed from "react-declarative/components/ChatView/model/OnActionResponsed";
+  import OnMessagesChanged from "react-declarative/components/ChatView/model/OnMessagesChanged";
+  export class ChatController {
+    constructor(option?: ChatOption);
+    addMessage(message: Message<MessageContent>): Promise<number>;
+    updateMessage(index: number, message: Message<MessageContent>): void;
+    removeMessage(index: number): void;
+    getMessages(): Message<MessageContent>[];
+    setMessages(messages: Message<MessageContent>[]): void;
+    clearMessages(): void;
+    addOnMessagesChanged(callback: OnMessagesChanged): void;
+    removeOnMessagesChanged(callback: OnMessagesChanged): void;
+    setActionRequest<T extends ActionRequest>(
+      request: T,
+      onResponse?: OnActionResponsed,
+    ): Promise<ActionResponse>;
+    cancelActionRequest(): void;
+    getActionRequest(): ActionRequest | undefined;
+    setActionResponse(
+      request: ActionRequest,
+      response: ActionResponse,
+    ): Promise<void>;
+    getActionResponses(): ActionResponse[];
+    addOnActionChanged(callback: OnActionChanged): void;
+    removeOnActionChanged(callback: OnActionChanged): void;
+    getOption(): ChatOption;
+  }
+  export default ChatController;
+}
+
+declare module "react-declarative/components/ChatView/helpers/AudioMediaRecorder" {
+  export class AudioMediaRecorder {
+    static getInstance(): AudioMediaRecorder;
+    constructor();
+    initialize(): Promise<AudioMediaRecorder>;
+    startRecord(): Promise<void>;
+    stopRecord(): Promise<Blob>;
+  }
+  export default AudioMediaRecorder;
+}
+
+declare module "react-declarative/components/ChatView/model/ActionRequest" {
+  import { ActionResponse } from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface ActionRequest {
+    type: string;
+    always?: boolean;
+    addMessage?: boolean;
+    response?: ActionResponse;
+  }
+  export default ActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/AudioActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import { AudioActionResponse } from "react-declarative/components/ChatView/model/AudioActionResponse";
+  export interface AudioActionRequest extends ActionRequest {
+    type: "audio";
+    sendButtonText?: string;
+    response?: AudioActionResponse;
+  }
+  export default AudioActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/CustomActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import CustomActionResponse from "react-declarative/components/ChatView/model/CustomActionResponse";
+  export interface CustomActionRequest extends ActionRequest {
+    type: "custom";
+    Component: JSX.Element;
+    response?: CustomActionResponse;
+  }
+  export default CustomActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/FileActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import FileActionResponse from "react-declarative/components/ChatView/model/FileActionResponse";
+  export interface FileActionRequest extends ActionRequest {
+    type: "file";
+    accept?: string;
+    multiple?: boolean;
+    response?: FileActionResponse;
+    sendButtonText?: string;
+  }
+  export default FileActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/MultiSelectActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import MultiSelectActionResponse from "react-declarative/components/ChatView/model/MultiSelectActionResponse";
+  export interface MultiSelectActionRequest extends ActionRequest {
+    type: "multi-select";
+    options: {
+      value: string;
+      text: string;
+    }[];
+    sendButtonText?: string;
+    response?: MultiSelectActionResponse;
+  }
+  export default MultiSelectActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/SelectActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import SelectActionResponse from "react-declarative/components/ChatView/model/SelectActionResponse";
+  export interface SelectActionRequest extends ActionRequest {
+    type: "select";
+    options: {
+      value: string;
+      text: string;
+    }[];
+    response?: SelectActionResponse;
+  }
+  export default SelectActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/model/TextActionRequest" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import TextActionResponse from "react-declarative/components/ChatView/model/TextActionResponse";
+  export interface TextActionRequest extends ActionRequest {
+    type: "text";
+    defaultValue?: string;
+    placeholder?: string;
+    sendButtonText?: string;
+    response?: TextActionResponse;
+  }
+  export default TextActionRequest;
+}
+
+declare module "react-declarative/components/ChatView/ChatView" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import { ChatController } from "react-declarative/components/ChatView/helpers/ChatController";
+  interface IChatViewProps {
+    chatController: ChatController;
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps;
+  }
+  /**
+   * @example
+   * function App(): React.ReactElement {
+   *  const [chatCtl] = React.useState(new ChatController());
+   *
+   *  React.useMemo(async () => {
+   *    // Chat content is displayed using ChatController
+   *    await chatCtl.addMessage({
+   *      type: 'text',
+   *      content: `Hello, What's your name.`,
+   *      self: false,
+   *    });
+   *    const name = await chatCtl.setActionRequest({ type: 'text' });
+   *  }, [chatCtl]);
+   *
+   *  // Only one component used for display
+   *  return <Chat chatController={chatCtl} />;
+   * }
+   */
+  export const ChatView: ({
+    chatController,
+    className,
+    style,
+    sx,
+  }: IChatViewProps) => JSX.Element;
+  export default ChatView;
+}
+
 declare module "react-declarative/components/Grid/Grid" {
   import IGridProps from "react-declarative/components/Grid/model/IGridProps";
   /**
@@ -29114,6 +29304,127 @@ declare module "react-declarative/components/GridView/components/Card" {
     AfterLabel,
   }: ICardProps) => JSX.Element;
   export default Card;
+}
+
+declare module "react-declarative/components/ChatView/model/ActionResponse" {
+  export interface ActionResponse {
+    type: string;
+    value: string;
+    error?: Error;
+  }
+  export default ActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/ChatOption" {
+  export interface ChatOption {
+    delay?: number;
+    showDateTime?: boolean;
+  }
+  export default ChatOption;
+}
+
+declare module "react-declarative/components/ChatView/model/Message" {
+  import MessageContent from "react-declarative/components/ChatView/model/MessageContent";
+  export interface Message<C extends MessageContent> {
+    type: string;
+    content: C;
+    self: boolean;
+    username?: string;
+    avatar?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+  }
+  export default Message;
+}
+
+declare module "react-declarative/components/ChatView/model/MessageContent" {
+  export type MessageContent = string | JSX.Element;
+  export default MessageContent;
+}
+
+declare module "react-declarative/components/ChatView/model/OnActionChanged" {
+  import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface OnActionChanged {
+    (request: ActionRequest, response?: ActionResponse): void;
+  }
+  export default OnActionChanged;
+}
+
+declare module "react-declarative/components/ChatView/model/OnActionResponsed" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface OnActionResponsed {
+    (response: ActionResponse): void;
+  }
+  export default OnActionResponsed;
+}
+
+declare module "react-declarative/components/ChatView/model/OnMessagesChanged" {
+  import Message from "react-declarative/components/ChatView/model/Message";
+  import MessageContent from "react-declarative/components/ChatView/model/MessageContent";
+  export interface OnMessagesChanged {
+    (messages: Message<MessageContent>[]): void;
+  }
+  export default OnMessagesChanged;
+}
+
+declare module "react-declarative/components/ChatView/model/AudioActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface AudioActionResponse extends ActionResponse {
+    type: "audio";
+    audio?: Blob;
+  }
+  export default AudioActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/CustomActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface CustomActionResponse extends ActionResponse {
+    type: "custom";
+  }
+  export default CustomActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/FileActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface FileActionResponse extends ActionResponse {
+    type: "file";
+    files: File[];
+  }
+  export default FileActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/MultiSelectActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface MultiSelectActionResponse extends ActionResponse {
+    type: "multi-select";
+    options: {
+      value: string;
+      text: string;
+    }[];
+  }
+  export default MultiSelectActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/SelectActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface SelectActionResponse extends ActionResponse {
+    type: "select";
+    option: {
+      value: string;
+      text: string;
+    };
+  }
+  export default SelectActionResponse;
+}
+
+declare module "react-declarative/components/ChatView/model/TextActionResponse" {
+  import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  export interface TextActionResponse extends ActionResponse {
+    type: "text";
+  }
+  export default TextActionResponse;
 }
 
 declare module "react-declarative/components/Grid/model/Dimension" {
