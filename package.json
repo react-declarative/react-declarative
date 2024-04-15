@@ -52,7 +52,7 @@
   "scripts": {
     "start": "sh ./scripts/start.sh",
     "build": "rimraf dist && node ./scripts/build.js && npm run typedef && npm run docs",
-    "build:simple": "rimraf dist && node ./scripts/build.js && npm run typedef",
+    "build:nodocs": "rimraf dist && node ./scripts/build.js && npm run typedef",
     "build:docker": "docker-compose up",
     "typedef": "tsc --emitDeclarationOnly --outDir ./dist/types && node ./scripts/dts.js",
     "postinstall": "node ./scripts/postinstall.js",
