@@ -8095,11 +8095,18 @@ declare module "react-declarative/utils/rx/Observer" {
      */
     debounce: (delay?: number | undefined) => Observer<Data>;
     /**
+     * Creates a delayed observer that emits values at a specified delay.
+     *
+     * @param delay - The delay (in milliseconds) between value emissions.
+     * @returns The debounced observer.
+     */
+    delay: (delay?: number | undefined) => Observer<Data>;
+    /**
      * Emits the specified data to all observers.
      *
      * @param data - The data to be emitted.
      */
-    emit: (data: Data) => void;
+    emit: (data: Data) => Promise<void>;
     /**
      * Subscribes to the `OBSERVER_EVENT` and invokes the provided callback function.
      * Emits the `CONNECT_EVENT`.
@@ -8312,6 +8319,12 @@ declare module "react-declarative/utils/rx/Subject" {
      * @returns - The debounced observer.
      */
     debounce: (delay?: number | undefined) => TObserver<Data>;
+    /**
+     * Creates a delayed observer with an optional delay.
+     * @param [delay] - The delay in milliseconds before emitting the data.
+     * @returns - The delayed observer.
+     */
+    delay: (delay?: number | undefined) => TObserver<Data>;
     /**
      * Creates an observer that repeats emitting values at a specified interval.
      *
@@ -9046,6 +9059,13 @@ declare module "react-declarative/model/TObserver" {
      * @returns - The debounced observer.
      */
     debounce: (delay?: number) => TObserver<Data>;
+    /**
+     * Creates a delayed observer with optional delay.
+     *
+     * @param [delay] - The delay in milliseconds before emitting the observation.
+     * @returns - The debounced observer.
+     */
+    delay: (delay?: number) => TObserver<Data>;
     /**
      * A function that returns an observer with optional interval.
      *
@@ -20466,6 +20486,8 @@ declare module "react-declarative/components/OneButton/OneButton" {
     onFocus,
     onBlur,
     onInvalid,
+    readTransform,
+    writeTransform,
     ...buttonProps
   }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
   export default OneButton;
@@ -28250,6 +28272,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
   import { SxProps } from "@mui/material";
   import IOneProps, { OneHandler } from "react-declarative/model/IOneProps";
   import { ButtonProps } from "@mui/material/Button";
+  import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
   /**
@@ -28296,6 +28319,8 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
     onInvalid?: IOneProps<Data, Payload>["invalidity"];
     onFocus?: IOneProps<Data, Payload>["focus"];
     onBlur?: IOneProps<Data, Payload>["blur"];
+    readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
+    writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
     badgeColor?:
       | "primary"
       | "secondary"

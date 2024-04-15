@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -15,16 +15,21 @@ import useRenderWaiter from "../../hooks/useRenderWaiter";
 import useActualValue from "../../hooks/useActualValue";
 import useAsyncValue from "../../hooks/useAsyncValue";
 import useSingleton from "../../hooks/useSingleton";
+import useSubject from "../../hooks/useSubject";
 import useChange from "../../hooks/useChange";
 
 import getInitialData from "../../utils/getInitialData";
 import singlerun from "../../utils/hof/singlerun";
+import debounce from "../../utils/hof/debounce";
+import classNames from "../../utils/classNames";
 import deepMerge from "../../utils/deepMerge";
 import sleep from "../../utils/sleep";
 
 import IAnything from "../../model/IAnything";
 
+const ONEBUTTON_CONTENT = 'react-declarative__oneButtonContent';
 const WAIT_FOR_CHANGES_DELAY = 600;
+const MOUSE_OUT_DEBOUNCE = 15;
 
 const useStyles = makeStyles()((theme) => ({
   content: {
@@ -93,6 +98,7 @@ export const OneButton = <
   const payload = useSingleton(upperPayload);
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [readonly, setReadonly] = useState(false);
 
   /**
    * Represents the variable `data`.
@@ -167,12 +173,37 @@ export const OneButton = <
   const handleClose = useMemo(
     () =>
       singlerun(async () => {
+        setReadonly(true);
         await waitForChanges();
         onChange && onChange(data$.current, false);
         setAnchorEl(null);
+        setReadonly(false);
       }),
     []
   );
+
+  const changeSubject = useSubject<void>();
+
+  useEffect(() => {
+      if (!anchorEl) {
+          return;
+      }
+      let unsubscribeRef = changeSubject.once(() => {
+          const handler = debounce(({ clientX, clientY }: MouseEvent) => {
+              const target = document.elementFromPoint(clientX, clientY);
+              if (!target?.closest(`.${ONEBUTTON_CONTENT}`)) {
+                handleClose();
+                unsubscribeRef && unsubscribeRef();
+              }
+          }, MOUSE_OUT_DEBOUNCE);
+          document.addEventListener('mousemove', handler);
+          unsubscribeRef = () => {
+              document.removeEventListener('mousemove', handler);
+              handler.clear();
+          };
+      });
+      return () => unsubscribeRef();
+  }, [anchorEl]);
 
   if (loading || error) {
     return null;
@@ -211,18 +242,20 @@ export const OneButton = <
         }}
       >
         <One
-          className={classes.content}
+          className={classNames(classes.content, ONEBUTTON_CONTENT)}
           sx={oneSx}
           transparentPaper
           fieldDebounce={fieldDebounce}
           fields={fields}
           payload={payload}
           handler={() => data}
+          readonly={readonly}
           onChange={(data, initial) => {
             if (!initial) {
               setData(data);
               setInvalid(false);
               onChange && onChange(data, false);
+              changeSubject.next();
             }
           }}
           onInvalid={(name, msg, payload) => {

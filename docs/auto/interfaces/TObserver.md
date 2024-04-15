@@ -92,6 +92,14 @@ debounce: (delay?: number) => TObserver<Data>
 
 Creates a debounced observer with optional delay.
 
+### delay
+
+```ts
+delay: (delay?: number) => TObserver<Data>
+```
+
+Creates a delayed observer with optional delay.
+
 ### repeat
 
 ```ts

@@ -91,6 +91,13 @@ export interface TObserver<Data = unknown> {
      */
     debounce: (delay?: number) => TObserver<Data>;
     /**
+     * Creates a delayed observer with optional delay.
+     *
+     * @param [delay] - The delay in milliseconds before emitting the observation.
+     * @returns - The debounced observer.
+     */
+    delay: (delay?: number) => TObserver<Data>;
+    /**
      * A function that returns an observer with optional interval.
      *
      * @param [interval] - The optional interval in milliseconds.
