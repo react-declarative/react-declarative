@@ -7,14 +7,14 @@ import OnActionChanged from '../model/OnActionChanged';
 import OnActionResponsed from '../model/OnActionResponsed';
 import OnMessagesChanged from '../model/OnMessagesChanged';
 
-/** 
+/**
  * @interface ChatState - Interface representing the state of the chat.
- * @property option - The chat options.
- * @property messages - The array of messages.
- * @property action - The current action.
- * @property actionHistory - The history of actions.
- * @property onMessagesChanged - Array of event handlers for messages changed.
- * @property onActionChanged - Array of event handlers for action changed.
+ * @property {ChatOption} option - The chat options.
+ * @property {Message<MessageContent>[]} messages - The array of messages.
+ * @property {Action} action - The current action.
+ * @property {Action[]} actionHistory - The history of actions.
+ * @property {OnMessagesChanged[]} onMessagesChanged - Array of event handlers for messages changed.
+ * @property {OnActionChanged[]} onActionChanged - Array of event handlers for action changed.
  */
 interface ChatState {
     option: ChatOption;
@@ -25,11 +25,11 @@ interface ChatState {
     onActionChanged: OnActionChanged[];
 }
 
-/** 
+/**
  * @interface Action - Interface representing an action.
- * @property request - The action request.
- * @property responses - The array of action responses.
- * @property onResnponsed - Array of event handlers for action responsed.
+ * @property {ActionRequest} request - The action request.
+ * @property {ActionResponse[]} responses - The array of action responses.
+ * @property {OnActionResponsed[]} onResnponsed - Array of event handlers for action responsed.
  */
 interface Action {
     request: ActionRequest;
@@ -37,24 +37,43 @@ interface Action {
     onResnponsed: OnActionResponsed[];
 }
 
+/**
+ * Class representing a Chat Controller.
+ */
 export class ChatController {
+    /**
+     * The state of the chat.
+     */
     private state: ChatState;
 
+    /**
+     * The default chat options.
+     */
     private defaultOption: ChatOption = {
         delay: 300,
     };
 
+    /**
+     * The default empty action.
+     */
     private emptyAction: Action = {
         request: { type: 'empty' },
         responses: [],
         onResnponsed: [],
     };
 
+    /**
+     * The default action request.
+     */
     private defaultActionRequest = {
         always: false,
         addMessage: true,
     };
 
+    /**
+     * Constructs an instance of ChatController.
+     * @param {ChatOption} [option] - The chat options.
+     */
     constructor(option?: ChatOption) {
         this.state = {
             option: { ...this.defaultOption, ...option },
@@ -66,6 +85,11 @@ export class ChatController {
         };
     }
 
+    /**
+     * Adds a message to the chat.
+     * @param {Message<MessageContent>} message - The message to add.
+     * @returns {Promise<number>} A Promise resolving to the index of the added message.
+     */
     addMessage(message: Message<MessageContent>): Promise<number> {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -79,6 +103,11 @@ export class ChatController {
         });
     }
 
+    /**
+     * Updates a message in the chat.
+     * @param {number} index - The index of the message to update.
+     * @param {Message<MessageContent>} message - The updated message.
+     */
     updateMessage(index: number, message: Message<MessageContent>): void {
         if (message !== this.state.messages[index]) {
             const { createdAt } = this.state.messages[index];
@@ -90,40 +119,71 @@ export class ChatController {
         this.callOnMessagesChanged();
     }
 
+    /**
+     * Removes a message from the chat.
+     * @param {number} index - The index of the message to remove.
+     */
     removeMessage(index: number): void {
         this.state.messages[index].deletedAt = new Date();
         this.callOnMessagesChanged();
     }
 
+    /**
+     * Gets all messages in the chat.
+     * @returns {Message<MessageContent>[]} An array of messages.
+     */
     getMessages(): Message<MessageContent>[] {
         return this.state.messages;
     }
 
+    /**
+     * Sets the messages in the chat.
+     * @param {Message<MessageContent>[]} messages - The messages to set.
+     */
     setMessages(messages: Message<MessageContent>[]): void {
         this.clearMessages();
         this.state.messages = [...messages];
         this.callOnMessagesChanged();
     }
 
+    /**
+     * Clears all messages from the chat.
+     */
     clearMessages(): void {
         this.state.messages = [];
         this.callOnMessagesChanged();
     }
 
+    /**
+     * Calls all event handlers for messages changed.
+     */
     private callOnMessagesChanged(): void {
         this.state.onMessagesChanged.map((h) => h(this.state.messages));
     }
 
+    /**
+     * Adds an event handler for messages changed.
+     * @param {OnMessagesChanged} callback - The event handler to add.
+     */
     addOnMessagesChanged(callback: OnMessagesChanged): void {
         this.state.onMessagesChanged.push(callback);
     }
 
+    /**
+     * Removes an event handler for messages changed.
+     * @param {OnMessagesChanged} callback - The event handler to remove.
+     */
     removeOnMessagesChanged(callback: OnMessagesChanged): void {
         const idx = this.state.onMessagesChanged.indexOf(callback);
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         this.state.onActionChanged[idx] = (): void => { };
     }
 
+    /**
+     * Sets the action request and its response handlers.
+     * @param {T extends ActionRequest} request - The action request.
+     * @param {OnActionResponsed} [onResponse] - The response handler.
+     * @returns {Promise<ActionResponse>} A Promise resolving to the action response.
+     */
     setActionRequest<T extends ActionRequest>(
         request: T,
         onResponse?: OnActionResponsed,
@@ -134,7 +194,6 @@ export class ChatController {
             onResnponsed: [],
         };
 
-        // See setActionResponse method
         return new Promise((resolve, reject) => {
             if (!request.always) {
                 const returnResponse = (response: ActionResponse): void => {
@@ -161,11 +220,18 @@ export class ChatController {
         });
     }
 
+    /**
+     * Cancels the current action request.
+     */
     cancelActionRequest(): void {
         this.state.action = this.emptyAction;
         this.callOnActionChanged(this.emptyAction.request);
     }
 
+    /**
+     * Gets the current action request.
+     * @returns {ActionRequest | undefined} The current action request.
+     */
     getActionRequest(): ActionRequest | undefined {
         const { request, responses } = this.state.action;
         if (!request.always && responses.length > 0) {
@@ -175,6 +241,12 @@ export class ChatController {
         return request;
     }
 
+    /**
+     * Sets the action response and triggers related actions.
+     * @param {ActionRequest} request - The action request.
+     * @param {ActionResponse} response - The action response.
+     * @returns {Promise<void>} A Promise resolving when the action response is processed.
+     */
     async setActionResponse(
         request: ActionRequest,
         response: ActionResponse,
@@ -201,10 +273,19 @@ export class ChatController {
         onResnponsed.map((h) => h(response));
     }
 
+    /**
+     * Gets all action responses.
+     * @returns {ActionResponse[]} An array of action responses.
+     */
     getActionResponses(): ActionResponse[] {
         return this.state.action.responses;
     }
 
+    /**
+     * Calls all event handlers for action changed.
+     * @param {ActionRequest} request - The action request.
+     * @param {ActionResponse} [response] - The action response.
+     */
     private callOnActionChanged(
         request: ActionRequest,
         response?: ActionResponse,
@@ -212,16 +293,27 @@ export class ChatController {
         this.state.onActionChanged.map((h) => h(request, response));
     }
 
+    /**
+     * Adds an event handler for action changed.
+     * @param {OnActionChanged} callback - The event handler to add.
+     */
     addOnActionChanged(callback: OnActionChanged): void {
         this.state.onActionChanged.push(callback);
     }
 
+    /**
+     * Removes an event handler for action changed.
+     * @param {OnActionChanged} callback - The event handler to remove.
+     */
     removeOnActionChanged(callback: OnActionChanged): void {
         const idx = this.state.onActionChanged.indexOf(callback);
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
         this.state.onActionChanged[idx] = (): void => { };
     }
 
+    /**
+     * Gets the chat options.
+     * @returns {ChatOption} The chat options.
+     */
     getOption(): ChatOption {
         return this.state.option;
     }
