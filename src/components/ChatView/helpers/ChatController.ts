@@ -72,7 +72,7 @@ export class ChatController {
 
     /**
      * Constructs an instance of ChatController.
-     * @param {ChatOption} [option] - The chat options.
+     * @param [option] - The chat options.
      */
     constructor(option?: ChatOption) {
         this.state = {
@@ -87,8 +87,8 @@ export class ChatController {
 
     /**
      * Adds a message to the chat.
-     * @param {Message<MessageContent>} message - The message to add.
-     * @returns {Promise<number>} A Promise resolving to the index of the added message.
+     * @param message - The message to add.
+     * @returns A Promise resolving to the index of the added message.
      */
     addMessage(message: Message<MessageContent>): Promise<number> {
         return new Promise((resolve) => {
@@ -105,8 +105,8 @@ export class ChatController {
 
     /**
      * Updates a message in the chat.
-     * @param {number} index - The index of the message to update.
-     * @param {Message<MessageContent>} message - The updated message.
+     * @param index - The index of the message to update.
+     * @param message - The updated message.
      */
     updateMessage(index: number, message: Message<MessageContent>): void {
         if (message !== this.state.messages[index]) {
@@ -121,7 +121,7 @@ export class ChatController {
 
     /**
      * Removes a message from the chat.
-     * @param {number} index - The index of the message to remove.
+     * @param index - The index of the message to remove.
      */
     removeMessage(index: number): void {
         this.state.messages[index].deletedAt = new Date();
@@ -130,7 +130,7 @@ export class ChatController {
 
     /**
      * Gets all messages in the chat.
-     * @returns {Message<MessageContent>[]} An array of messages.
+     * @returns An array of messages.
      */
     getMessages(): Message<MessageContent>[] {
         return this.state.messages;
@@ -138,7 +138,7 @@ export class ChatController {
 
     /**
      * Sets the messages in the chat.
-     * @param {Message<MessageContent>[]} messages - The messages to set.
+     * @param messages - The messages to set.
      */
     setMessages(messages: Message<MessageContent>[]): void {
         this.clearMessages();
@@ -163,7 +163,7 @@ export class ChatController {
 
     /**
      * Adds an event handler for messages changed.
-     * @param {OnMessagesChanged} callback - The event handler to add.
+     * @param callback - The event handler to add.
      */
     addOnMessagesChanged(callback: OnMessagesChanged): void {
         this.state.onMessagesChanged.push(callback);
@@ -171,7 +171,7 @@ export class ChatController {
 
     /**
      * Removes an event handler for messages changed.
-     * @param {OnMessagesChanged} callback - The event handler to remove.
+     * @param callback - The event handler to remove.
      */
     removeOnMessagesChanged(callback: OnMessagesChanged): void {
         const idx = this.state.onMessagesChanged.indexOf(callback);
@@ -180,9 +180,9 @@ export class ChatController {
 
     /**
      * Sets the action request and its response handlers.
-     * @param {T extends ActionRequest} request - The action request.
-     * @param {OnActionResponsed} [onResponse] - The response handler.
-     * @returns {Promise<ActionResponse>} A Promise resolving to the action response.
+     * @param request - The action request.
+     * @param [onResponse] - The response handler.
+     * @returns A Promise resolving to the action response.
      */
     setActionRequest<T extends ActionRequest>(
         request: T,
@@ -230,7 +230,7 @@ export class ChatController {
 
     /**
      * Gets the current action request.
-     * @returns {ActionRequest | undefined} The current action request.
+     * @returns The current action request.
      */
     getActionRequest(): ActionRequest | undefined {
         const { request, responses } = this.state.action;
@@ -243,9 +243,9 @@ export class ChatController {
 
     /**
      * Sets the action response and triggers related actions.
-     * @param {ActionRequest} request - The action request.
-     * @param {ActionResponse} response - The action response.
-     * @returns {Promise<void>} A Promise resolving when the action response is processed.
+     * @param request - The action request.
+     * @param response - The action response.
+     * @returns A Promise resolving when the action response is processed.
      */
     async setActionResponse(
         request: ActionRequest,
@@ -275,7 +275,7 @@ export class ChatController {
 
     /**
      * Gets all action responses.
-     * @returns {ActionResponse[]} An array of action responses.
+     * @returns An array of action responses.
      */
     getActionResponses(): ActionResponse[] {
         return this.state.action.responses;
@@ -283,8 +283,8 @@ export class ChatController {
 
     /**
      * Calls all event handlers for action changed.
-     * @param {ActionRequest} request - The action request.
-     * @param {ActionResponse} [response] - The action response.
+     * @param request - The action request.
+     * @param [response] - The action response.
      */
     private callOnActionChanged(
         request: ActionRequest,
@@ -295,7 +295,7 @@ export class ChatController {
 
     /**
      * Adds an event handler for action changed.
-     * @param {OnActionChanged} callback - The event handler to add.
+     * @param callback - The event handler to add.
      */
     addOnActionChanged(callback: OnActionChanged): void {
         this.state.onActionChanged.push(callback);
@@ -303,7 +303,7 @@ export class ChatController {
 
     /**
      * Removes an event handler for action changed.
-     * @param {OnActionChanged} callback - The event handler to remove.
+     * @param callback - The event handler to remove.
      */
     removeOnActionChanged(callback: OnActionChanged): void {
         const idx = this.state.onActionChanged.indexOf(callback);
@@ -312,7 +312,7 @@ export class ChatController {
 
     /**
      * Gets the chat options.
-     * @returns {ChatOption} The chat options.
+     * @returns The chat options.
      */
     getOption(): ChatOption {
         return this.state.option;
