@@ -8,7 +8,7 @@ Represents a location reload callback with clear cache argument.
 ### reload
 
 ```ts
-reload: { (): void; (forceReload: boolean): void; (forceReload: boolean): void; }
+reload: { (): void; (forceReload: boolean): void; }
 ```
 
 Reloads the current page.

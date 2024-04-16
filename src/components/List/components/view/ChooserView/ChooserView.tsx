@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useEffect, useCallback } from "react";
+import { createElement } from "react";
 
 import { makeStyles } from "../../../../../styles";
 
@@ -16,6 +17,7 @@ import IListProps, {
 } from "../../../../../model/IListProps";
 import IAnything from "../../../../../model/IAnything";
 import IRowData from "../../../../../model/IRowData";
+import TileMode from "../../../../../model/TileMode";
 
 import useSubject from "../../../../../hooks/useSubject";
 import useScrollManager from "../../../hooks/useScrollManager";
@@ -26,8 +28,10 @@ import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
 import ModalLoader from "./components/ModalLoader";
 import ListItem from "./components/ListItem";
 
-import Container from "../../Container";
 import VirtualView from "../../../../VirtualView";
+import InfiniteView from "../../../../InfiniteView";
+
+import Container from "../../Container";
 
 const DEFAULT_ITEM_SIZE = 75;
 
@@ -130,6 +134,7 @@ export const Chooser = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
+    tileMode = TileMode.Virtual,
     offset,
     limit,
     total,
@@ -209,29 +214,34 @@ export const Chooser = <
     }
   });
 
+  const renderChild = () => (
+    <>
+      {!loading && state.rows.length === 0 && (
+        <MatListItem className={classes.empty}>
+          <ListItemIcon>
+            <NotInterested />
+          </ListItemIcon>
+          <ListItemText primary="Empty" secondary="Nothing found" />
+        </MatListItem>
+      )}
+      {state.rows.map((row, idx) => (
+        <ListItem key={`${row.id}-${idx}`} row={row} />
+      ))}
+    </>
+  );
+
   return (
     <Container<FilterData, RowData> {...props} {...state}>
       <Box ref={elementRef} className={classes.root}>
         <Box className={classes.container}>
           <Box position="relative" style={{ height: rootHeight, width: dialogWidth }}>
-            <VirtualView
-              scrollYSubject={scrollYSubject}
-              minRowHeight={DEFAULT_ITEM_SIZE}
-              onDataRequest={async () => void await handleDataRequest()}
-              sx={{ height: rootHeight, width: dialogWidth }}
-            >
-              {!loading && state.rows.length === 0 && (
-                <MatListItem className={classes.empty}>
-                  <ListItemIcon>
-                    <NotInterested />
-                  </ListItemIcon>
-                  <ListItemText primary="Empty" secondary="Nothing found" />
-                </MatListItem>
-              )}
-              {state.rows.map((row, idx) => (
-                <ListItem key={`${row.id}-${idx}`} row={row} />
-              ))}
-            </VirtualView>
+            {createElement(tileMode === TileMode.Virtual ? VirtualView : InfiniteView, {
+              scrollYSubject,
+              minRowHeight: DEFAULT_ITEM_SIZE as never,
+              onDataRequest: async () => void await handleDataRequest(),
+              sx: { height: rootHeight, width: dialogWidth },
+              children: renderChild(),
+            })}
             <ModalLoader open={withLoader && loading} />
           </Box>
         </Box>

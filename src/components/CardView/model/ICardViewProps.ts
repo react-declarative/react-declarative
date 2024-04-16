@@ -5,6 +5,7 @@ import TSubject from "../../../model/TSubject";
 
 import ICardViewOperation from "./ICardViewOperation";
 import ICardViewAction from "./ICardViewAction";
+import TileMode from "../../../model/TileMode";
 import IItemData from "./IItemData";
 
 /**
@@ -17,6 +18,7 @@ import IItemData from "./IItemData";
  * @extends {BoxProps}
  */
 export interface ICardViewProps<ItemData extends IItemData = any, Payload extends any = any> extends BoxProps {
+    tileMode?: TileMode;
     handler: ItemData[] | ((search: string, skip: number) => (ItemData[] | Promise<ItemData[]>));
     scrollXSubject?: TSubject<number>;
     scrollYSubject?: TSubject<number>;

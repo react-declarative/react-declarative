@@ -44,6 +44,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     style,
     sx,
     outlinePaper,
+    tileMode,
     transparentPaper,
     header,
     columns: upperColumns,
@@ -171,6 +172,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
             {!!loading && <Loader />}
             <Content
               recomputeSubject={recomputeSubject}
+              tileMode={tileMode}
               rowMark={rowMark}
               columns={columns}
               data={data}

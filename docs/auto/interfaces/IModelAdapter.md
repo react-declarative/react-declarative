@@ -17,7 +17,7 @@ Represents a variable of unknown type T.
 ### setData
 
 ```ts
-setData: { (data: Partial<T> | ((prevData: T) => Partial<T>)): void; (data: Partial<T> | ((prevData: T) => Partial<T>)): void; }
+setData: (data: Partial<T> | ((prevData: T) => Partial<T>)) => void
 ```
 
 Sets the data for the object.
@@ -25,7 +25,7 @@ Sets the data for the object.
 ### refresh
 
 ```ts
-refresh: { (): void; (): void; }
+refresh: () => void
 ```
 
 Refreshes the page.
@@ -33,7 +33,7 @@ Refreshes the page.
 ### toObject
 
 ```ts
-toObject: { (): T; (): T; }
+toObject: () => T
 ```
 
 Returns an object representation of the instance.

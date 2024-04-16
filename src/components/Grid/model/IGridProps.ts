@@ -4,13 +4,15 @@ import { SxProps } from '@mui/material';
 import IColumn from './IColumn';
 import RowData from './RowData';
 import IGridAction from './IGridAction';
-import IAnything from '../../../model/IAnything';
 import TSort from './TSort';
+
+import IAnything from '../../../model/IAnything';
+import SelectionMode from '../../../model/SelectionMode';
+import TileMode from '../../../model/TileMode';
 
 import { IVirtualViewProps } from '../../VirtualView';
 
 import { TSubject } from '../../../utils/rx/Subject';
-import SelectionMode from '../../../model/SelectionMode';
 
 /**
  * Represents the properties of the IGrid component.
@@ -19,6 +21,7 @@ import SelectionMode from '../../../model/SelectionMode';
  * @template P - The type of the payload.
  */
 export interface IGridProps<T = RowData, P = IAnything> {
+  tileMode?: TileMode;
   outlinePaper?: boolean;
   transparentPaper?: boolean;
   className?: string;

@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useMemo, useEffect } from "react";
+import { createElement } from "react";
+
 import { SxProps } from "@mui/material";
 
 import { makeStyles } from "../../../styles";
@@ -11,11 +13,13 @@ import Typography from "@mui/material/Typography";
 import IColumn from "../model/IColumn";
 import IGridProps from "../model/IGridProps";
 import RowData from "../model/RowData";
+import TileMode from "../../../model/TileMode";
 
 import Line from "./Line";
 import ContentRow from "./ContentRow";
 
 import VirtualView from "../../VirtualView";
+import InfiniteView from "../../InfiniteView";
 
 import classNames from "../../../utils/classNames";
 import memoize from "../../../utils/hof/memoize";
@@ -33,6 +37,7 @@ interface IContentProps {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
+  tileMode?: TileMode;
   recomputeSubject: IGridProps["recomputeSubject"];
   scrollXSubject: IGridProps["scrollYSubject"];
   scrollYSubject: IGridProps["scrollXSubject"];
@@ -117,6 +122,7 @@ export const Content = ({
   errorMessage,
   rowActions,
   payload,
+  tileMode = TileMode.Virtual,
   minRowHeight = DEFAULT_ROW_HEIGHT,
   bufferSize,
   onTableRowClick,
@@ -147,30 +153,8 @@ export const Content = ({
     []
   );
 
-  return (
-    <VirtualView
-      withScrollbar
-      className={classNames(className, classes.content)}
-      style={style}
-      sx={sx}
-      scrollXSubject={scrollXSubject}
-      scrollYSubject={scrollYSubject}
-      minRowHeight={minRowHeight}
-      bufferSize={bufferSize}
-      loading={loading}
-      hasMore={hasMore}
-      onDataRequest={(initial) => {
-        if (onSkip && hasMore) {
-          onSkip(initial);
-        }
-      }}
-      onScroll={(e) => {
-        const target = e.target as HTMLDivElement;
-        if (onScrollX) {
-          onScrollX(target.scrollLeft);
-        }
-      }}
-    >
+  const renderChild = () => (
+    <>
       {!loading && !errorMessage && data.length === 0 && (
         <Line columns={columns} withRowActions={!!rowActions?.length}>
           <Box
@@ -227,8 +211,33 @@ export const Content = ({
             </Box>
           </Line>
         )}
-    </VirtualView>
-  );
+    </>
+  )
+
+  return createElement(tileMode === TileMode.Virtual ? VirtualView : InfiniteView, {
+    withScrollbar: true,
+    className: classNames(className, classes.content),
+    style,
+    sx,
+    scrollXSubject,
+    scrollYSubject,
+    minRowHeight: minRowHeight as never,
+    bufferSize,
+    loading,
+    hasMore,
+    onDataRequest: (initial) => {
+      if (onSkip && hasMore) {
+        onSkip(initial);
+      }
+    },
+    onScroll: (e) => {
+      const target = e.target as HTMLDivElement;
+      if (onScrollX) {
+        onScrollX(target.scrollLeft);
+      }
+    },
+    children: renderChild(),
+  });
 };
 
 export default Content;

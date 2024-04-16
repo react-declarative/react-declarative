@@ -5,11 +5,11 @@
 ### clear
 
 ```ts
-clear: { (): void; (): void; }
+clear: () => void
 ```
 
 ### cancel
 
 ```ts
-cancel: { (): void; (): void; }
+cancel: () => void
 ```

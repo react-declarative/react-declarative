@@ -5,7 +5,7 @@ import SelectionMode from '../../../model/SelectionMode';
 import TSubject from "../../../model/TSubject";
 
 import ITile from "./ITile";
-import TileMode from "./TileMode";
+import TileMode from "../../../model/TileMode";
 
 /**
  * Represents the properties required for the `ITile` component.

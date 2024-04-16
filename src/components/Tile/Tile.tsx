@@ -19,7 +19,7 @@ import useSingleton from "../../hooks/useSingleton";
 
 import IAnything from "../../model/IAnything";
 import ITileProps from "./model/ITileProps";
-import TileMode from "./model/TileMode";
+import TileMode from "../../model/TileMode";
 
 const DEFAULT_MIN_HEIGHT = 72;
 const DEFAULT_BUFFER_SIZE = 25;

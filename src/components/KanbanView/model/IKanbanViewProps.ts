@@ -3,6 +3,7 @@ import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
 import TSubject from "../../../model/TSubject";
+import TileMode from "../../../model/TileMode";
 
 /**
  * Represents the properties for the KanbanView component.
@@ -14,6 +15,7 @@ import TSubject from "../../../model/TSubject";
 export interface IKanbanViewProps<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     reloadSubject?: TSubject<void>;
     ref?: React.Ref<HTMLDivElement | undefined>;
+    tileMode?: TileMode;
     deps?: any[];
     withUpdateOrder?: boolean;
     withGoBack?: boolean;

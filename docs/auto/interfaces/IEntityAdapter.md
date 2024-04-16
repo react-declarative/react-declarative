@@ -23,7 +23,7 @@ Represents a variable of type T.
 ### setData
 
 ```ts
-setData: { (data: Partial<T> | ((prevData: T) => Partial<T>)): void; (data: Partial<T> | ((prevData: T) => Partial<T>)): void; }
+setData: (data: Partial<T> | ((prevData: T) => Partial<T>)) => void
 ```
 
 Sets the data for the given object.
@@ -31,7 +31,7 @@ Sets the data for the given object.
 ### refresh
 
 ```ts
-refresh: { (): void; (): void; }
+refresh: () => void
 ```
 
 Refreshes the view or data associated with the current state.
@@ -42,7 +42,7 @@ Note that this method does not return any value.
 ### toObject
 
 ```ts
-toObject: { (): T; (): T; }
+toObject: () => T
 ```
 
 Converts the current object to its corresponding type T.

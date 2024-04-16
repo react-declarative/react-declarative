@@ -64,8 +64,7 @@ export type IListApiPaginatorParams<FilterData extends {} = IAnything, RowData e
 export type ILastArrayPaginatorParams<FilterData extends {} = IAnything, RowData extends IRowData = IAnything>  = IArrayPaginatorParamsInternal<FilterData, RowData>;
 export type IOneApiHandlerParams<Data = any>  = IApiHandlerParamsInternal<Data>;
 
-export { TileMode } from './components';
-
+export { TileMode } from './model/TileMode';
 export { FieldType } from './model/FieldType';
 export { ColumnType } from './model/ColumnType';
 export { ActionType } from './model/ActionType';

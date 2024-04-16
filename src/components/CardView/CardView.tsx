@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState, useCallback, useMemo, useEffect } from "react";
+import { createElement } from "react";
 
 import { makeStyles } from "../../styles";
 
@@ -7,6 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import VirtualView from "../VirtualView";
+import InfiniteView from "../InfiniteView";
 
 import Operations from "./components/Operations";
 import CardItem, { MIN_ROW_HEIGHT } from "./components/CardItem";
@@ -14,6 +16,7 @@ import Footer from "./components/Footer";
 import Search from "./components/Search";
 
 import ICardViewProps from "./model/ICardViewProps";
+import TileMode from "../../model/TileMode";
 import IItemData from "./model/IItemData";
 
 import { SelectionContextProvider } from "./context/SelectionContext";
@@ -92,6 +95,7 @@ export const CardView = <ItemData extends IItemData = any>(
     sx,
     operations,
     handler,
+    tileMode = TileMode.Virtual,
     reloadSubject: upperReloadSubject,
     scrollXSubject,
     scrollYSubject: upperScrollYSubject,
@@ -237,6 +241,18 @@ export const CardView = <ItemData extends IItemData = any>(
     }),
     [state]
   );
+  const renderChild = () => (
+    <>
+      {!state.items.length && (
+        <Typography className={classes.placeholder}>
+          {state.loading ? "Loading" : "Nothing found"}
+        </Typography>
+      )}
+      {state.items.map((item, idx) => (
+        <CardItem key={`${item.id}-${idx}`} item={item} />
+      ))}
+    </>
+  );
   return (
     <PropsContextProvider value={props}>
       <PayloadContextProvider value={payload}>
@@ -252,24 +268,16 @@ export const CardView = <ItemData extends IItemData = any>(
                 {!!operations?.length && (
                   <Operations disabled={state.loading} />
                 )}
-                <VirtualView
-                  className={classes.content}
-                  loading={state.loading}
-                  hasMore={state.hasMore}
-                  onDataRequest={handleDataRequest}
-                  scrollXSubject={scrollXSubject}
-                  scrollYSubject={scrollYSubject}
-                  minRowHeight={MIN_ROW_HEIGHT}
-                >
-                  {!state.items.length && (
-                    <Typography className={classes.placeholder}>
-                      {state.loading ? "Loading" : "Nothing found"}
-                    </Typography>
-                  )}
-                  {state.items.map((item, idx) => (
-                    <CardItem key={`${item.id}-${idx}`} item={item} />
-                  ))}
-                </VirtualView>
+                {createElement(tileMode === TileMode.Virtual ? VirtualView: InfiniteView, {
+                  className: classes.content,
+                  loading: state.loading,
+                  hasMore: state.hasMore,
+                  onDataRequest: handleDataRequest,
+                  scrollXSubject,
+                  scrollYSubject,
+                  minRowHeight: MIN_ROW_HEIGHT as never,
+                  children: renderChild(),
+                })}
                 {!noFooter && <Footer />}
               </Box>
             </Box>

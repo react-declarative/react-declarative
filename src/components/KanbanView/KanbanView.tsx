@@ -1,5 +1,7 @@
 import * as React from "react";
+import { createElement } from "react";
 import { useEffect, useMemo, useRef, useState, forwardRef } from "react";
+
 import { alpha, darken } from "@mui/material";
 import dayjs from "dayjs";
 
@@ -10,6 +12,7 @@ import Typography from "@mui/material/Typography";
 
 import ScrollView, { SCROLL_VIEW_TARGER } from "../ScrollView";
 import VirtualView from "../VirtualView";
+import InfiniteView from "../InfiniteView";
 
 import Card from "./components/Card";
 
@@ -30,6 +33,7 @@ import compose from "../../utils/compose";
 
 import IBoardRowInternal from "./model/IBoardRowInternal";
 import IAnything from "../../model/IAnything";
+import TileMode from "../../model/TileMode";
 import IBoardRow from "./model/IBoardRow";
 
 const DEFAULT_BUFFERSIZE = 15;
@@ -154,6 +158,7 @@ const KanbanViewInternal = <
     className,
     payload: upperPayload = {} as Payload,
     disabled = false,
+    tileMode = TileMode.Virtual,
     items,
     style,
     sx,
@@ -367,6 +372,40 @@ const KanbanViewInternal = <
             <ScrollView withScrollbar hideOverflowY className={classes.content}>
               {columns.map(({ column, rows, label, color = defaultColor }, idx) => {
                 const itemList = itemMap.get(column) || [];
+
+                const renderChild = () => (
+                  <>
+                    {itemList.map((document) => (
+                      <Card
+                        reloadSubject={reloadSubject}
+                        withGoBack={withGoBack}
+                        withHeaderTooltip={withHeaderTooltip}
+                        payload={payload}
+                        key={document.id}
+                        onChangeColumn={(id, ...args) => {
+                          fetchLabel.clear(id);
+                          fetchRows.clear(id);
+                          onChangeColumn && onChangeColumn(id, ...args);
+                        }}
+                        onDrag={() => {
+                          dragId.current = document.id;
+                        }}
+                        disabled={disabled}
+                        columns={columns}
+                        rows={rows}
+                        label={document.label || cardLabel}
+                        AfterCardContent={AfterCardContent}
+                        onCardLabelClick={onCardLabelClick}
+                        onLoadStart={onLoadStart}
+                        onLoadEnd={onLoadEnd}
+                        fallback={fallback}
+                        throwError={throwError}
+                        {...document}
+                      />
+                    ))}
+                  </>
+                );
+
                 return (
                   <Box
                     key={`${column}-${idx}`}
@@ -443,40 +482,12 @@ const KanbanViewInternal = <
                         background: color,
                       }}
                     >
-                      <VirtualView
-                        bufferSize={bufferSize}
-                        className={classes.list}
-                        minRowHeight={minRowHeight}
-                      >
-                        {itemList.map((document) => (
-                          <Card
-                            reloadSubject={reloadSubject}
-                            withGoBack={withGoBack}
-                            withHeaderTooltip={withHeaderTooltip}
-                            payload={payload}
-                            key={document.id}
-                            onChangeColumn={(id, ...args) => {
-                              fetchLabel.clear(id);
-                              fetchRows.clear(id);
-                              onChangeColumn && onChangeColumn(id, ...args);
-                            }}
-                            onDrag={() => {
-                              dragId.current = document.id;
-                            }}
-                            disabled={disabled}
-                            columns={columns}
-                            rows={rows}
-                            label={document.label || cardLabel}
-                            AfterCardContent={AfterCardContent}
-                            onCardLabelClick={onCardLabelClick}
-                            onLoadStart={onLoadStart}
-                            onLoadEnd={onLoadEnd}
-                            fallback={fallback}
-                            throwError={throwError}
-                            {...document}
-                          />
-                        ))}
-                      </VirtualView>
+                      {createElement(tileMode === TileMode.Virtual ? VirtualView : InfiniteView, {
+                        bufferSize,
+                        className: classes.list,
+                        minRowHeight: minRowHeight as never,
+                        children: renderChild(),
+                      })}
                     </Box>
                   </Box>
                 );
@@ -503,92 +514,92 @@ KanbanViewInternal.enableScrollOnDrag =
       speed?: number;
     } = {}
   ) =>
-  () => {
-    const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
-      `.${SCROLL_VIEW_TARGER}`
-    );
-
-    if (!scrollViewTarget) {
-      console.warn("KanbanViewInternal enableScrollOnDrag ref is undefined");
-      return () => undefined;
-    }
-
-    let isDragging = false;
-    let clientX = 0;
-
-    const dragOverSubject = Source.create<MouseEvent>((next) => {
-      document.addEventListener("dragover", next);
-      return () => document.removeEventListener("dragover", next);
-    });
-
-    const dragStateSubject = Source.create<boolean>((next) => {
-      const handler =
-        (enter = true) =>
-        () =>
-          next(enter);
-      const leave = handler(false);
-      const enter = handler(true);
-      document.body.addEventListener("dragstart", enter);
-      document.body.addEventListener("dragend", leave);
-      return () => {
-        document.body.removeEventListener("dragend", leave);
-        document.body.removeEventListener("dragstart", enter);
-      };
-    });
-
-    const scrollStateSubject = Source.create<number>((next) => {
-      let scrollInterval: NodeJS.Timer | null = null;
-
-      const handler = () => {
-        if (!isDragging) {
-          return;
-        }
-        const { left, right } = scrollViewTarget.getBoundingClientRect();
-        if (clientX < left + threshold) {
-          next(Math.max(scrollViewTarget.scrollLeft - speed, 0));
-        } else if (clientX > right - threshold) {
-          next(scrollViewTarget.scrollLeft + speed);
-        }
-      };
-
-      const unDragState = dragStateSubject.connect((isDragging) => {
-        scrollInterval && clearInterval(scrollInterval);
-        if (isDragging) {
-          scrollInterval = setInterval(handler, 10);
-        }
-      });
-
-      return compose(
-        () => scrollInterval && clearInterval(scrollInterval),
-        unDragState
+    () => {
+      const scrollViewTarget = ref.current?.querySelector<HTMLDivElement>(
+        `.${SCROLL_VIEW_TARGER}`
       );
-    });
 
-    const unDragOver = dragOverSubject.connect((event) => {
-      clientX = event.clientX;
-    });
+      if (!scrollViewTarget) {
+        console.warn("KanbanViewInternal enableScrollOnDrag ref is undefined");
+        return () => undefined;
+      }
 
-    const unDragState = dragStateSubject.connect((dragging) => {
-      isDragging = dragging;
-    });
+      let isDragging = false;
+      let clientX = 0;
 
-    const touchStartSubject = Source.create<TouchEvent>((next) => {
-      document.addEventListener("touchstart", next, {
-        passive: true,
+      const dragOverSubject = Source.create<MouseEvent>((next) => {
+        document.addEventListener("dragover", next);
+        return () => document.removeEventListener("dragover", next);
       });
-      return () => document.removeEventListener("touchstart", next);
-    });
 
-    const unScrollState = scrollStateSubject.connect((left) => {
-      scrollViewTarget.scrollLeft = left;
-    });
+      const dragStateSubject = Source.create<boolean>((next) => {
+        const handler =
+          (enter = true) =>
+            () =>
+              next(enter);
+        const leave = handler(false);
+        const enter = handler(true);
+        document.body.addEventListener("dragstart", enter);
+        document.body.addEventListener("dragend", leave);
+        return () => {
+          document.body.removeEventListener("dragend", leave);
+          document.body.removeEventListener("dragstart", enter);
+        };
+      });
 
-    const disposeFn = compose(unDragOver, unDragState, unScrollState);
+      const scrollStateSubject = Source.create<number>((next) => {
+        let scrollInterval: NodeJS.Timer | null = null;
 
-    const unTouchStart = touchStartSubject.connect(disposeFn);
+        const handler = () => {
+          if (!isDragging) {
+            return;
+          }
+          const { left, right } = scrollViewTarget.getBoundingClientRect();
+          if (clientX < left + threshold) {
+            next(Math.max(scrollViewTarget.scrollLeft - speed, 0));
+          } else if (clientX > right - threshold) {
+            next(scrollViewTarget.scrollLeft + speed);
+          }
+        };
 
-    return compose(disposeFn, unTouchStart);
-  };
+        const unDragState = dragStateSubject.connect((isDragging) => {
+          scrollInterval && clearInterval(scrollInterval);
+          if (isDragging) {
+            scrollInterval = setInterval(handler, 10);
+          }
+        });
+
+        return compose(
+          () => scrollInterval && clearInterval(scrollInterval),
+          unDragState
+        );
+      });
+
+      const unDragOver = dragOverSubject.connect((event) => {
+        clientX = event.clientX;
+      });
+
+      const unDragState = dragStateSubject.connect((dragging) => {
+        isDragging = dragging;
+      });
+
+      const touchStartSubject = Source.create<TouchEvent>((next) => {
+        document.addEventListener("touchstart", next, {
+          passive: true,
+        });
+        return () => document.removeEventListener("touchstart", next);
+      });
+
+      const unScrollState = scrollStateSubject.connect((left) => {
+        scrollViewTarget.scrollLeft = left;
+      });
+
+      const disposeFn = compose(unDragOver, unDragState, unScrollState);
+
+      const unTouchStart = touchStartSubject.connect(disposeFn);
+
+      return compose(disposeFn, unTouchStart);
+    };
 
 /**
  * @template Data, Payload, ColumnType
