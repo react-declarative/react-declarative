@@ -7,6 +7,15 @@ import OnActionChanged from '../model/OnActionChanged';
 import OnActionResponsed from '../model/OnActionResponsed';
 import OnMessagesChanged from '../model/OnMessagesChanged';
 
+/** 
+ * @interface ChatState - Interface representing the state of the chat.
+ * @property option - The chat options.
+ * @property messages - The array of messages.
+ * @property action - The current action.
+ * @property actionHistory - The history of actions.
+ * @property onMessagesChanged - Array of event handlers for messages changed.
+ * @property onActionChanged - Array of event handlers for action changed.
+ */
 interface ChatState {
     option: ChatOption;
     messages: Message<MessageContent>[];
@@ -16,6 +25,12 @@ interface ChatState {
     onActionChanged: OnActionChanged[];
 }
 
+/** 
+ * @interface Action - Interface representing an action.
+ * @property request - The action request.
+ * @property responses - The array of action responses.
+ * @property onResnponsed - Array of event handlers for action responsed.
+ */
 interface Action {
     request: ActionRequest;
     responses: ActionResponse[];

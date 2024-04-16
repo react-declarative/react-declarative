@@ -1,5 +1,7 @@
 # ActionResponse
 
+Represents the response structure for actions.
+
 ## Properties
 
 ### type

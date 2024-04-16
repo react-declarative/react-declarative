@@ -25266,6 +25266,14 @@ declare module "react-declarative/components/ChatView/helpers/AudioMediaRecorder
 
 declare module "react-declarative/components/ChatView/model/ActionRequest" {
   import { ActionResponse } from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * Represents a request for an action.
+   * @typedef ActionRequest
+   * @property type - The type of the action.
+   * @property [always] - Indicates if the action should always be performed.
+   * @property [addMessage] - Indicates if a message should be added.
+   * @property [response] - The response object associated with the action.
+   */
   export interface ActionRequest {
     type: string;
     always?: boolean;
@@ -25278,6 +25286,13 @@ declare module "react-declarative/components/ChatView/model/ActionRequest" {
 declare module "react-declarative/components/ChatView/model/AudioActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import { AudioActionResponse } from "react-declarative/components/ChatView/model/AudioActionResponse";
+  /**
+   * @interface Represents an action request specific to audio interactions.
+   * @extends {ActionRequest}
+   * @property type - Specifies the type of action request.
+   * @property [sendButtonText] - Text to display on the button for sending audio.
+   * @property [response] - Response object for the audio action.
+   */
   export interface AudioActionRequest extends ActionRequest {
     type: "audio";
     sendButtonText?: string;
@@ -25289,6 +25304,13 @@ declare module "react-declarative/components/ChatView/model/AudioActionRequest" 
 declare module "react-declarative/components/ChatView/model/CustomActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import CustomActionResponse from "react-declarative/components/ChatView/model/CustomActionResponse";
+  /**
+   * @interface CustomActionRequest - Interface representing a custom action request.
+   * @extends {ActionRequest} - Extends ActionRequest interface.
+   * @property type - The type of the request. Value is 'custom'.
+   * @property Component - The JSX element representing the custom action.
+   * @property [response] - The response for the custom action (optional).
+   */
   export interface CustomActionRequest extends ActionRequest {
     type: "custom";
     Component: JSX.Element;
@@ -25300,6 +25322,15 @@ declare module "react-declarative/components/ChatView/model/CustomActionRequest"
 declare module "react-declarative/components/ChatView/model/FileActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import FileActionResponse from "react-declarative/components/ChatView/model/FileActionResponse";
+  /**
+   * @interface FileActionRequest - Interface representing a file action request.
+   * @extends {ActionRequest} - Extends ActionRequest interface.
+   * @property type - The type of the request. Value is 'file'.
+   * @property [accept] - The file types accepted (optional).
+   * @property [multiple] - Whether multiple files can be selected (optional).
+   * @property [response] - The response for the file action (optional).
+   * @property [sendButtonText] - The text for the send button (optional).
+   */
   export interface FileActionRequest extends ActionRequest {
     type: "file";
     accept?: string;
@@ -25313,6 +25344,14 @@ declare module "react-declarative/components/ChatView/model/FileActionRequest" {
 declare module "react-declarative/components/ChatView/model/MultiSelectActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import MultiSelectActionResponse from "react-declarative/components/ChatView/model/MultiSelectActionResponse";
+  /**
+   * @interface MultiSelectActionRequest - Interface representing a multi-select action request.
+   * @extends {ActionRequest} - Extends ActionRequest interface.
+   * @property type - The type of the request. Value is 'multi-select'.
+   * @property options - The options for multi-select.
+   * @property [sendButtonText] - The text for the send button (optional).
+   * @property [response] - The response for the multi-select action (optional).
+   */
   export interface MultiSelectActionRequest extends ActionRequest {
     type: "multi-select";
     options: {
@@ -25328,6 +25367,13 @@ declare module "react-declarative/components/ChatView/model/MultiSelectActionReq
 declare module "react-declarative/components/ChatView/model/SelectActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import SelectActionResponse from "react-declarative/components/ChatView/model/SelectActionResponse";
+  /**
+   * @interface SelectActionRequest - Interface representing a select action request.
+   * @extends {ActionRequest} - Extends ActionRequest interface.
+   * @property type - The type of the request. Value is 'select'.
+   * @property options - The options for selection.
+   * @property [response] - The response for the select action (optional).
+   */
   export interface SelectActionRequest extends ActionRequest {
     type: "select";
     options: {
@@ -25342,6 +25388,15 @@ declare module "react-declarative/components/ChatView/model/SelectActionRequest"
 declare module "react-declarative/components/ChatView/model/TextActionRequest" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import TextActionResponse from "react-declarative/components/ChatView/model/TextActionResponse";
+  /**
+   * @interface TextActionRequest - Interface representing a text action request.
+   * @extends {ActionRequest} - Extends ActionRequest interface.
+   * @property type - The type of the request. Value is 'text'.
+   * @property [defaultValue] - The default value for the text input (optional).
+   * @property [placeholder] - The placeholder text for the text input (optional).
+   * @property [sendButtonText] - The text for the send button (optional).
+   * @property [response] - The response for the text action (optional).
+   */
   export interface TextActionRequest extends ActionRequest {
     type: "text";
     defaultValue?: string;
@@ -25356,6 +25411,13 @@ declare module "react-declarative/components/ChatView/ChatView" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
   import { ChatController } from "react-declarative/components/ChatView/helpers/ChatController";
+  /**
+   * @interface IChatViewProps - Interface representing props for a chat view component.
+   * @property chatController - The chat controller associated with the chat view.
+   * @property [className] - Additional CSS class name(s) for styling (optional).
+   * @property [style] - Inline style object for additional styling (optional).
+   * @property [sx] - The system props from Theme UI for additional styling (optional).
+   */
   interface IChatViewProps {
     chatController: ChatController;
     className?: string;
@@ -25812,6 +25874,12 @@ declare module "react-declarative/components/Tile/Tile" {
 }
 
 declare module "react-declarative/components/Tile/model/TileMode" {
+  /**
+   * @enum {string} TileMode - Enumeration representing tile modes.
+   * @readonly
+   * @property Virtual - Virtual tile mode.
+   * @property Intersection - Intersection tile mode.
+   */
   export enum TileMode {
     Virtual = "virtual",
     Intersection = "intersection",
@@ -29316,6 +29384,13 @@ declare module "react-declarative/components/GridView/components/Card" {
 }
 
 declare module "react-declarative/components/ChatView/model/ActionResponse" {
+  /**
+   * Represents the response structure for actions.
+   * @interface ActionResponse
+   * @property type - The type of the response.
+   * @property value - The value of the response.
+   * @property [error] - Optional error object if an error occurred during the action.
+   */
   export interface ActionResponse {
     type: string;
     value: string;
@@ -29325,6 +29400,11 @@ declare module "react-declarative/components/ChatView/model/ActionResponse" {
 }
 
 declare module "react-declarative/components/ChatView/model/ChatOption" {
+  /**
+   * @interface ChatOption - Interface representing options for a chat.
+   * @property [delay] - The delay in milliseconds before displaying a message (optional).
+   * @property [showDateTime] - Whether to display date and time for each message (optional).
+   */
   export interface ChatOption {
     delay?: number;
     showDateTime?: boolean;
@@ -29334,6 +29414,18 @@ declare module "react-declarative/components/ChatView/model/ChatOption" {
 
 declare module "react-declarative/components/ChatView/model/Message" {
   import MessageContent from "react-declarative/components/ChatView/model/MessageContent";
+  /**
+   * @interface Message - Interface representing a message.
+   * @template C - Type parameter for the content of the message.
+   * @property type - The type of the message.
+   * @property content - The content of the message.
+   * @property self - Indicates whether the message is sent by the current user.
+   * @property [username] - The username associated with the message (optional).
+   * @property [avatar] - The avatar associated with the message (optional).
+   * @property [createdAt] - The creation date of the message (optional).
+   * @property [updatedAt] - The last update date of the message (optional).
+   * @property [deletedAt] - The deletion date of the message (optional).
+   */
   export interface Message<C extends MessageContent> {
     type: string;
     content: C;
@@ -29348,6 +29440,9 @@ declare module "react-declarative/components/ChatView/model/Message" {
 }
 
 declare module "react-declarative/components/ChatView/model/MessageContent" {
+  /**
+   * @typedef MessageContent - Type representing the content of a message, which can be a string or a JSX element.
+   */
   export type MessageContent = string | JSX.Element;
   export default MessageContent;
 }
@@ -29355,6 +29450,12 @@ declare module "react-declarative/components/ChatView/model/MessageContent" {
 declare module "react-declarative/components/ChatView/model/OnActionChanged" {
   import ActionRequest from "react-declarative/components/ChatView/model/ActionRequest";
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @callback OnActionChanged - Function signature for the action changed event handler.
+   * @param request - The action request.
+   * @param [response] - The action response (optional).
+   * @returns {void}
+   */
   export interface OnActionChanged {
     (request: ActionRequest, response?: ActionResponse): void;
   }
@@ -29363,6 +29464,11 @@ declare module "react-declarative/components/ChatView/model/OnActionChanged" {
 
 declare module "react-declarative/components/ChatView/model/OnActionResponsed" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @callback OnActionResponsed - Function signature for the action responsed event handler.
+   * @param response - The action response.
+   * @returns {void}
+   */
   export interface OnActionResponsed {
     (response: ActionResponse): void;
   }
@@ -29372,6 +29478,11 @@ declare module "react-declarative/components/ChatView/model/OnActionResponsed" {
 declare module "react-declarative/components/ChatView/model/OnMessagesChanged" {
   import Message from "react-declarative/components/ChatView/model/Message";
   import MessageContent from "react-declarative/components/ChatView/model/MessageContent";
+  /**
+   * @callback OnMessagesChanged - Function signature for the messages changed event handler.
+   * @param messages - The array of messages.
+   * @returns {void}
+   */
   export interface OnMessagesChanged {
     (messages: Message<MessageContent>[]): void;
   }
@@ -29380,6 +29491,12 @@ declare module "react-declarative/components/ChatView/model/OnMessagesChanged" {
 
 declare module "react-declarative/components/ChatView/model/AudioActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface AudioActionResponse - Interface representing an audio action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'audio'.
+   * @property [audio] - The audio data (optional).
+   */
   export interface AudioActionResponse extends ActionResponse {
     type: "audio";
     audio?: Blob;
@@ -29389,6 +29506,11 @@ declare module "react-declarative/components/ChatView/model/AudioActionResponse"
 
 declare module "react-declarative/components/ChatView/model/CustomActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface CustomActionResponse - Interface representing a custom action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'custom'.
+   */
   export interface CustomActionResponse extends ActionResponse {
     type: "custom";
   }
@@ -29397,6 +29519,12 @@ declare module "react-declarative/components/ChatView/model/CustomActionResponse
 
 declare module "react-declarative/components/ChatView/model/FileActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface FileActionResponse - Interface representing a file action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'file'.
+   * @property files - The array of files.
+   */
   export interface FileActionResponse extends ActionResponse {
     type: "file";
     files: File[];
@@ -29406,6 +29534,12 @@ declare module "react-declarative/components/ChatView/model/FileActionResponse" 
 
 declare module "react-declarative/components/ChatView/model/MultiSelectActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface MultiSelectActionResponse - Interface representing a multi-select action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'multi-select'.
+   * @property options - The options selected in the multi-select response.
+   */
   export interface MultiSelectActionResponse extends ActionResponse {
     type: "multi-select";
     options: {
@@ -29418,6 +29552,12 @@ declare module "react-declarative/components/ChatView/model/MultiSelectActionRes
 
 declare module "react-declarative/components/ChatView/model/SelectActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface SelectActionResponse - Interface representing a select action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'select'.
+   * @property option - The selected option.
+   */
   export interface SelectActionResponse extends ActionResponse {
     type: "select";
     option: {
@@ -29430,6 +29570,11 @@ declare module "react-declarative/components/ChatView/model/SelectActionResponse
 
 declare module "react-declarative/components/ChatView/model/TextActionResponse" {
   import ActionResponse from "react-declarative/components/ChatView/model/ActionResponse";
+  /**
+   * @interface TextActionResponse - Interface representing a text action response.
+   * @extends {ActionResponse} - Extends ActionResponse interface.
+   * @property type - The type of the response. Value is 'text'.
+   */
   export interface TextActionResponse extends ActionResponse {
     type: "text";
   }
