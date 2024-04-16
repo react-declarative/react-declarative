@@ -16,13 +16,33 @@ interface ITextInputProps {
   actionRequest: TextActionRequest;
 }
 
+/**
+ * Represents a text input component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param props.actionRequest - The action request object.
+ * @returns React component.
+ */
 export const TextInput = ({
   chatController,
   actionRequest,
 }: ITextInputProps) => {
+  /**
+   * Chat controller object.
+   * @type {Object}
+   */
   const chatCtl = chatController;
+
+  /**
+   * State for input value.
+   * @type {[string, function]} Array containing the input value and the setter function.
+   */
   const [value, setValue] = React.useState(actionRequest.defaultValue);
 
+  /**
+   * Sets the response with the entered text.
+   * @returns {void}
+   */
   const setResponse = React.useCallback((): void => {
     if (value) {
       const res: TextActionResponse = { type: 'text', value };
@@ -31,6 +51,11 @@ export const TextInput = ({
     }
   }, [actionRequest, chatCtl, value]);
 
+  /**
+   * Handles key down events.
+   * @param {React.KeyboardEvent<HTMLTextAreaElement>} e - The keyboard event object.
+   * @returns {void}
+   */
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
       if (e.nativeEvent.isComposing) {
@@ -45,6 +70,10 @@ export const TextInput = ({
     [setResponse],
   );
 
+  /**
+   * Text for the send button.
+   * @type {string}
+   */
   const sendButtonText = actionRequest.sendButtonText
     ? actionRequest.sendButtonText
     : 'Send';

@@ -16,12 +16,29 @@ interface ISelectInputProps {
   actionRequest: SelectActionRequest;
 }
 
+/**
+ * Represents a select input component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param props.actionRequest - The action request object.
+ * @returns React component.
+ */
 export const SelectInput = ({
   chatController,
   actionRequest,
 }: ISelectInputProps) => {
+  /**
+   * Chat controller object.
+   * @type {Object}
+   */
   const chatCtl = chatController;
 
+  /**
+   * Sets the response with the selected option.
+   * @param {string} value - The selected value.
+   * @returns {void}
+   * @throws {Error} Throws an error if the value is unknown.
+   */
   const setResponse = React.useCallback(
     (value: string): void => {
       const option = actionRequest.options.find((o) => o.value === value);

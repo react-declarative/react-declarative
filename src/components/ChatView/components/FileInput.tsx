@@ -25,13 +25,34 @@ interface IFileInputProps {
   actionRequest: FileActionRequest;
 }
 
+/**
+ * Represents a file input component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param props.actionRequest - The action request object.
+ * @returns React component.
+ */
 export const FileInput = ({
   chatController,
   actionRequest,
 }: IFileInputProps) => {
+  /**
+   * Chat controller object.
+   * @type {Object}
+   */
   const chatCtl = chatController;
+
+  /**
+   * State for files.
+   * @type {[File[], function]} Array containing the files array and the setter function.
+   */
   const [files, setFiles] = React.useState<File[]>([]);
 
+  /**
+   * Handles file change.
+   * @param {FileList | null} fileList - The list of files.
+   * @returns {void}
+   */
   const handleFileChange = React.useCallback(
     (fileList: FileList | null): void => {
       // Convert FileList to File[]
@@ -49,6 +70,10 @@ export const FileInput = ({
     [],
   );
 
+  /**
+   * Sets the response with selected files.
+   * @returns {void}
+   */
   const setResponse = React.useCallback((): void => {
     if (files.length > 0) {
       const value = files.map((f) => f.name).toString();
@@ -57,6 +82,10 @@ export const FileInput = ({
     }
   }, [actionRequest, chatCtl, files]);
 
+  /**
+   * Text for the send button.
+   * @type {string}
+   */
   const sendButtonText = actionRequest.sendButtonText
     ? actionRequest.sendButtonText
     : 'Send';

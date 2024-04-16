@@ -17,15 +17,46 @@ interface IAudioInputProps {
   actionRequest: AudioActionRequest;
 }
 
+/**
+ * Represents an audio input component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param props.actionRequest - The action request object.
+ * @returns React component.
+ */
 export const AudioInput = ({
   chatController,
   actionRequest,
 }: IAudioInputProps) => {
+  /**
+   * Chat controller object.
+   * @type {Object}
+   */
   const chatCtl = chatController;
+
+  /**
+   * State for audio recording.
+   * @type {[AudioMediaRecorder, function]} Array containing the audio recorder instance and the setter function.
+   */
   const [audioRec] = React.useState(AudioMediaRecorder.getInstance());
+
+  /**
+   * State for recording status.
+   * @type {[boolean, function]} Array containing the boolean value of whether recording is stopped and the setter function.
+   */
   const [stopped, setStopped] = React.useState(true);
+
+  /**
+   * State for audio blob.
+   * @type {[Blob | undefined, function]} Array containing the audio blob and the setter function.
+   */
   const [audio, setAudio] = React.useState<Blob | undefined>();
 
+  /**
+   * Handles errors during audio recording.
+   * @param {Error} error - The error object.
+   * @returns {void}
+   */
   const handleError = React.useCallback(
     (error: Error): void => {
       const value: AudioActionResponse = {
@@ -38,6 +69,10 @@ export const AudioInput = ({
     [actionRequest, chatCtl],
   );
 
+  /**
+   * Handles the start of audio recording.
+   * @returns {Promise<void>}
+   */
   const handleStart = React.useCallback(async (): Promise<void> => {
     try {
       await audioRec.initialize();
@@ -48,6 +83,10 @@ export const AudioInput = ({
     }
   }, [audioRec, handleError]);
 
+  /**
+   * Handles the stop of audio recording.
+   * @returns {Promise<void>}
+   */
   const handleStop = React.useCallback(async (): Promise<void> => {
     try {
       const a = await audioRec.stopRecord();
@@ -58,6 +97,10 @@ export const AudioInput = ({
     }
   }, [audioRec, handleError]);
 
+  /**
+   * Sends the audio response.
+   * @returns {void}
+   */
   const sendResponse = React.useCallback((): void => {
     if (audio) {
       const value: AudioActionResponse = {
@@ -70,6 +113,10 @@ export const AudioInput = ({
     }
   }, [actionRequest, audio, chatCtl]);
 
+  /**
+   * Text for the send button.
+   * @type {string}
+   */
   const sendButtonText = actionRequest.sendButtonText
     ? actionRequest.sendButtonText
     : 'Send';

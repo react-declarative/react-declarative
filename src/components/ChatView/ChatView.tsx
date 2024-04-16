@@ -55,6 +55,13 @@ interface IChatViewProps {
 }
 
 /**
+ * Represents a chat view component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param [props.className] - Additional class name(s) for the component.
+ * @param [props.style] - Inline styles for the component.
+ * @param [props.sx] - The sx prop from Theme UI for custom styling.
+ * @returns React component.
  * @example
  * function App(): React.ReactElement {
  *  const [chatCtl] = React.useState(new ChatController());

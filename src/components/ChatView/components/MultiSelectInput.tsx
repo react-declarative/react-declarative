@@ -16,13 +16,34 @@ interface IMultiSelectInputProps {
   actionRequest: MultiSelectActionRequest;
 }
 
+/**
+ * Represents a multi-select input component.
+ * @param props - The props object.
+ * @param props.chatController - The chat controller object.
+ * @param props.actionRequest - The action request object.
+ * @returns React component.
+ */
 export const MultiSelectInput = ({
   chatController,
   actionRequest,
 }: IMultiSelectInputProps) => {
+  /**
+   * Chat controller object.
+   * @type {Object}
+   */
   const chatCtl = chatController;
+
+  /**
+   * State for selected values.
+   * @type {[string[], function]} Array containing the selected values array and the setter function.
+   */
   const [values, setValues] = React.useState<string[]>([]);
 
+  /**
+   * Handles selection of values.
+   * @param {string} value - The selected value.
+   * @returns {void}
+   */
   const handleSelect = React.useCallback(
     (value: string): void => {
       if (!values.includes(value)) {
@@ -34,6 +55,10 @@ export const MultiSelectInput = ({
     [values],
   );
 
+  /**
+   * Sets the response with selected options.
+   * @returns {void}
+   */
   const setResponse = React.useCallback((): void => {
     const options = actionRequest.options.filter((o) =>
       values.includes(o.value),
@@ -48,6 +73,10 @@ export const MultiSelectInput = ({
     setValues([]);
   }, [actionRequest, chatCtl, values]);
 
+  /**
+   * Text for the send button.
+   * @type {string}
+   */
   const sendButtonText = actionRequest.sendButtonText
     ? actionRequest.sendButtonText
     : 'Send';
