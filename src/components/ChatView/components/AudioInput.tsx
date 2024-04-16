@@ -7,6 +7,11 @@ import AudioActionRequest from '../model/AudioActionRequest';
 import AudioActionResponse from '../model/AudioActionResponse';
 import AudioMediaRecorder from '../helpers/AudioMediaRecorder';
 
+/** 
+ * @interface IAudioInputProps - Interface representing props for an audio input component.
+ * @property chatController - The chat controller associated with the audio input.
+ * @property actionRequest - The action request for the audio input.
+ */
 interface IAudioInputProps {
   chatController: ChatController;
   actionRequest: AudioActionRequest;

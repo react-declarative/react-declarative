@@ -6,6 +6,11 @@ import ChatController from '../helpers/ChatController';
 import MultiSelectActionRequest from '../model/MultiSelectActionRequest';
 import MultiSelectActionResponse from '../model/MultiSelectActionResponse';
 
+/** 
+ * @interface IMultiSelectInputProps - Interface representing props for a multi-select input component.
+ * @property chatController - The chat controller associated with the multi-select input.
+ * @property actionRequest - The action request for the multi-select input.
+ */
 interface IMultiSelectInputProps {
   chatController: ChatController;
   actionRequest: MultiSelectActionRequest;

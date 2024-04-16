@@ -40,6 +40,13 @@ const useStyles = makeStyles()((theme) => ({
     }
 }));
 
+/** 
+ * @interface IChatViewProps - Interface representing props for a chat view component.
+ * @property chatController - The chat controller associated with the chat view.
+ * @property [className] - Additional CSS class name(s) for styling (optional).
+ * @property [style] - Inline style object for additional styling (optional).
+ * @property [sx] - The system props from Theme UI for additional styling (optional).
+ */
 interface IChatViewProps {
     chatController: ChatController;
     className?: string;

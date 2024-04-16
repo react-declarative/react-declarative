@@ -6,6 +6,11 @@ import ChatController from '../helpers/ChatController';
 import TextActionRequest from '../model/TextActionRequest';
 import TextActionResponse from '../model/TextActionResponse';
 
+/** 
+ * @interface ITextInputProps - Interface representing props for a text input component.
+ * @property chatController - The chat controller associated with the text input.
+ * @property actionRequest - The action request for the text input.
+ */
 interface ITextInputProps {
   chatController: ChatController;
   actionRequest: TextActionRequest;

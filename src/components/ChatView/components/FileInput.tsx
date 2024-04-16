@@ -15,6 +15,11 @@ import ChatController from '../helpers/ChatController';
 import FileActionRequest from '../model/FileActionRequest';
 import FileActionResponse from '../model/FileActionResponse';
 
+/** 
+ * @interface IFileInputProps - Interface representing props for a file input component.
+ * @property chatController - The chat controller associated with the file input.
+ * @property actionRequest - The action request for the file input.
+ */
 interface IFileInputProps {
   chatController: ChatController;
   actionRequest: FileActionRequest;

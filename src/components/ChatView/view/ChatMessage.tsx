@@ -5,6 +5,13 @@ import { Avatar, Box, Grow, Typography } from '@mui/material';
 import Message from '../model/Message';
 import MessageContent from '../model/MessageContent';
 
+/** 
+ * @interface IChatMessageProps - Interface representing props for a chat message component.
+ * @property id - The unique identifier of the message.
+ * @property message - The message object.
+ * @property showDate - Indicates whether to show the date.
+ * @property showTime - Indicates whether to show the time.
+ */
 interface IChatMessageProps {
   id: string;
   message: Message<MessageContent>;

@@ -6,6 +6,11 @@ import ChatController from '../helpers/ChatController';
 import SelectActionRequest from '../model/SelectActionRequest';
 import SelectActionResponse from '../model/SelectActionResponse';
 
+/** 
+ * @interface ISelectInputProps - Interface representing props for a select input component.
+ * @property chatController - The chat controller associated with the select input.
+ * @property actionRequest - The action request for the select input.
+ */
 interface ISelectInputProps {
   chatController: ChatController;
   actionRequest: SelectActionRequest;
