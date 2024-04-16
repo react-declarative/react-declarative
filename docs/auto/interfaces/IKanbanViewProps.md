@@ -16,6 +16,12 @@ reloadSubject: TSubject<void>
 ref: Ref<HTMLDivElement>
 ```
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
 ### deps
 
 ```ts

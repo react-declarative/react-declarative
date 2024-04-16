@@ -4,6 +4,12 @@ Represents the properties of the IGrid component.
 
 ## Properties
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
 ### outlinePaper
 
 ```ts

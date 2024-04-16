@@ -5,12 +5,13 @@ import { makeStyles } from "../../styles";
 
 import Card, { ICardProps } from "./components/Card";
 import Grid, { IGridProps, RowData } from "../Grid";
-import Tile, { ITileProps, TileMode } from "../Tile";
+import Tile, { ITileProps } from "../Tile";
 
 import useSingleton from "../../hooks/useSingleton";
 import useMediaContext from "../../hooks/useMediaContext";
 
 import IAnything from "../../model/IAnything";
+import TileMode from "../../model/TileMode";
 
 /**
  * Interface for GridView component props.

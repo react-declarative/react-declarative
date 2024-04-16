@@ -4,6 +4,12 @@ Represents the properties for the CardView component.
 
 ## Properties
 
+### tileMode
+
+```ts
+tileMode: TileMode
+```
+
 ### handler
 
 ```ts

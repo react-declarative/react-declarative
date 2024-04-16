@@ -48,7 +48,7 @@ import createScrollManager from "../../helpers/createScrollManager";
 import createConstraintManager from "../../helpers/createConstraintManager";
 import ignoreSymbols from "../../helpers/ignoreSymbols";
 
-import { TileMode } from "../../../Tile";
+import TileMode from "../../../../model/TileMode";
 
 import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
 import { FilterDataProvider } from "../../hooks/useFilterData";

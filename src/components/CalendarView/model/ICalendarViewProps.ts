@@ -10,7 +10,7 @@ import { stamp } from "../../../utils/getMomentStamp";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
 
-import { TileMode } from "../../Tile";
+import TileMode from "../../../model/TileMode";
 
 /**
  * Interface representing the props for the CalendarView component.

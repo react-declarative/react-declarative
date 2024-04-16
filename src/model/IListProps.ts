@@ -4,6 +4,7 @@ import {
 
 import ActionType from './ActionType';
 import SelectionMode from './SelectionMode';
+import TileMode from './TileMode';
 
 import IAnything from './IAnything';
 import IRowData, { RowId } from './IRowData';
@@ -19,7 +20,6 @@ import ITile from '../components/Tile/model/ITile';
 import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
-import { TileMode } from '../components';
 
 /**
  * An interface representing the update options for a list action.
