@@ -25225,40 +25225,140 @@ declare module "react-declarative/components/ChatView/helpers/ChatController" {
   import OnActionChanged from "react-declarative/components/ChatView/model/OnActionChanged";
   import OnActionResponsed from "react-declarative/components/ChatView/model/OnActionResponsed";
   import OnMessagesChanged from "react-declarative/components/ChatView/model/OnMessagesChanged";
+  /**
+   * Class representing a Chat Controller.
+   */
   export class ChatController {
+    /**
+     * Constructs an instance of ChatController.
+     * @param [option] - The chat options.
+     */
     constructor(option?: ChatOption);
+    /**
+     * Adds a message to the chat.
+     * @param message - The message to add.
+     * @returns A Promise resolving to the index of the added message.
+     */
     addMessage(message: Message<MessageContent>): Promise<number>;
+    /**
+     * Updates a message in the chat.
+     * @param index - The index of the message to update.
+     * @param message - The updated message.
+     */
     updateMessage(index: number, message: Message<MessageContent>): void;
+    /**
+     * Removes a message from the chat.
+     * @param index - The index of the message to remove.
+     */
     removeMessage(index: number): void;
+    /**
+     * Gets all messages in the chat.
+     * @returns An array of messages.
+     */
     getMessages(): Message<MessageContent>[];
+    /**
+     * Sets the messages in the chat.
+     * @param messages - The messages to set.
+     */
     setMessages(messages: Message<MessageContent>[]): void;
+    /**
+     * Clears all messages from the chat.
+     */
     clearMessages(): void;
+    /**
+     * Adds an event handler for messages changed.
+     * @param callback - The event handler to add.
+     */
     addOnMessagesChanged(callback: OnMessagesChanged): void;
+    /**
+     * Removes an event handler for messages changed.
+     * @param callback - The event handler to remove.
+     */
     removeOnMessagesChanged(callback: OnMessagesChanged): void;
+    /**
+     * Sets the action request and its response handlers.
+     * @param request - The action request.
+     * @param [onResponse] - The response handler.
+     * @returns A Promise resolving to the action response.
+     */
     setActionRequest<T extends ActionRequest>(
       request: T,
       onResponse?: OnActionResponsed,
     ): Promise<ActionResponse>;
+    /**
+     * Cancels the current action request.
+     */
     cancelActionRequest(): void;
+    /**
+     * Gets the current action request.
+     * @returns The current action request.
+     */
     getActionRequest(): ActionRequest | undefined;
+    /**
+     * Sets the action response and triggers related actions.
+     * @param request - The action request.
+     * @param response - The action response.
+     * @returns A Promise resolving when the action response is processed.
+     */
     setActionResponse(
       request: ActionRequest,
       response: ActionResponse,
     ): Promise<void>;
+    /**
+     * Gets all action responses.
+     * @returns An array of action responses.
+     */
     getActionResponses(): ActionResponse[];
+    /**
+     * Adds an event handler for action changed.
+     * @param callback - The event handler to add.
+     */
     addOnActionChanged(callback: OnActionChanged): void;
+    /**
+     * Removes an event handler for action changed.
+     * @param callback - The event handler to remove.
+     */
     removeOnActionChanged(callback: OnActionChanged): void;
+    /**
+     * Gets the chat options.
+     * @returns The chat options.
+     */
     getOption(): ChatOption;
   }
   export default ChatController;
 }
 
 declare module "react-declarative/components/ChatView/helpers/AudioMediaRecorder" {
+  /**
+   * A singleton class for handling audio recording using the MediaRecorder API.
+   */
   export class AudioMediaRecorder {
+    /**
+     * Retrieves the singleton instance of AudioMediaRecorder.
+     * @returns The singleton instance of AudioMediaRecorder.
+     */
     static getInstance(): AudioMediaRecorder;
+    /**
+     * Constructs an instance of AudioMediaRecorder.
+     * Throws an error if window.MediaRecorder is undefined.
+     */
     constructor();
+    /**
+     * Initializes the MediaRecorder instance.
+     * @returns A Promise resolving to the initialized AudioMediaRecorder instance.
+     */
     initialize(): Promise<AudioMediaRecorder>;
+    /**
+     * Starts recording audio.
+     * @returns A Promise resolving when recording starts.
+     * @throws Throws an error if the MediaRecorder instance is not initialized.
+     */
     startRecord(): Promise<void>;
+    /**
+     * Stops recording audio.
+     * @returns A Promise resolving to the recorded audio Blob.
+     * @throws Throws an error if the MediaRecorder instance is not initialized.
+     */
     stopRecord(): Promise<Blob>;
   }
   export default AudioMediaRecorder;
@@ -25425,6 +25525,13 @@ declare module "react-declarative/components/ChatView/ChatView" {
     sx?: SxProps;
   }
   /**
+   * Represents a chat view component.
+   * @param props - The props object.
+   * @param props.chatController - The chat controller object.
+   * @param [props.className] - Additional class name(s) for the component.
+   * @param [props.style] - Inline styles for the component.
+   * @param [props.sx] - The sx prop from Theme UI for custom styling.
+   * @returns React component.
    * @example
    * function App(): React.ReactElement {
    *  const [chatCtl] = React.useState(new ChatController());
