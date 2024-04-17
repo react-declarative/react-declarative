@@ -83,6 +83,7 @@ import { IOption as IOptionInternal } from './model/IOption';
 import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from './model/IBreadcrumbsOption';
 
 export { createServiceManager } from './helpers/serviceManager';
+export { websocketManager } from './helpers/websocketManager';
 export { serviceManager } from './helpers/serviceManager';
 
 import { IService as IServiceInternal } from './helpers/serviceManager';

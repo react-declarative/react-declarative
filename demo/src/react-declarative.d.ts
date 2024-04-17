@@ -97,6 +97,7 @@ declare module "react-declarative" {
   import { IOption as IOptionInternal } from "react-declarative/model/IOption";
   import { IBreadcrumbsOption as IBreadcrumbsOptionInternal } from "react-declarative/model/IBreadcrumbsOption";
   export { createServiceManager } from "react-declarative/helpers/serviceManager";
+  export { websocketManager } from "react-declarative/helpers/websocketManager";
   export { serviceManager } from "react-declarative/helpers/serviceManager";
   import { IService as IServiceInternal } from "react-declarative/helpers/serviceManager";
   export type IService = IServiceInternal;
@@ -4232,6 +4233,32 @@ declare module "react-declarative/helpers/serviceManager" {
     dispose: () => Promise<void>;
   };
   export default createServiceManager;
+}
+
+declare module "react-declarative/helpers/websocketManager" {
+  import Subject from "react-declarative/utils/rx/Subject";
+  /**
+   * WebSocket manager for handling WebSocket disconnect event
+   */
+  export const websocketManager: {
+    /**
+     * Subject for handling WebSocket close events.
+     * @type The subject for close events.
+     * @private
+     */
+    readonly _closeSubject: Subject<CloseEvent>;
+    /**
+     * Initializes the WebSocket manager by overriding the native WebSocket class.
+     */
+    init: () => void;
+    /**
+     * Subscribes to WebSocket close events.
+     * @param fn - The function to call when a WebSocket is closed.
+     * @returns An unsubscribe function.
+     */
+    listenDisconnect: (fn: (e: CloseEvent) => void) => () => void;
+  };
+  export default websocketManager;
 }
 
 declare module "react-declarative/helpers/routeManager" {
