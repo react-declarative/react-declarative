@@ -493,6 +493,8 @@ declare module "react-declarative" {
   export { DialogFilterListSlot } from "react-declarative/components";
   export { ModalFilterListSlot } from "react-declarative/components";
   export { ModernChipListSlot } from "react-declarative/components";
+  export { DenseFilterListSlot } from "react-declarative/components";
+  export { ListRules } from "react-declarative/components";
   import { Translate } from "react-declarative/components";
   export { Translate };
   export const registerTr: (
@@ -2855,7 +2857,9 @@ declare module "react-declarative/components/List" {
   export { DialogFilterListSlot } from "react-declarative/components/List/common/DialogFilterListSlot";
   export { ModalFilterListSlot } from "react-declarative/components/List/common/ModalFilterListSlot";
   export { ModernChipListSlot } from "react-declarative/components/List/common/ModernChipListSlot";
+  export { DenseFilterListSlot } from "react-declarative/components/List/common/DenseFilterListSlot";
   export * from "react-declarative/components/List/hooks/useColumnConfig";
+  export * as ListRules from "react-declarative/components/List/rules";
   export { default } from "react-declarative/components/List/List";
 }
 
@@ -17334,6 +17338,11 @@ declare module "react-declarative/components/List/common/ModernChipListSlot" {
   export default ModernChipListSlot;
 }
 
+declare module "react-declarative/components/List/common/DenseFilterListSlot" {
+  export * from "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot";
+  export { default } from "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot";
+}
+
 declare module "react-declarative/components/List/hooks/useColumnConfig" {
   import IColumn from "react-declarative/model/IColumn";
   /**
@@ -17357,6 +17366,10 @@ declare module "react-declarative/components/List/hooks/useColumnConfig" {
     pickColumns: () => void;
   };
   export default useColumnConfig;
+}
+
+declare module "react-declarative/components/List/rules" {
+  export * from "react-declarative/components/List/rules/denceFilterRule";
 }
 
 declare module "react-declarative/components/One" {
@@ -19368,6 +19381,33 @@ declare module "react-declarative/components/List/components/SlotFactory/ISlotFa
     SearchSlot: ComponentType<ISearchSlot>;
   }
   export default ISlotFactoryContext;
+}
+
+declare module "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot" {
+  import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  export const DenseFilterListSlot: ({
+    className,
+    style,
+    filterData,
+    filters,
+    change,
+    label,
+    loading,
+    withSearch,
+    withToggledFilters,
+    search,
+    height,
+    width,
+    onSearchChange,
+    onFilterChange,
+  }: IFilterListSlot) => JSX.Element;
+  export default DenseFilterListSlot;
+}
+
+declare module "react-declarative/components/List/rules/denceFilterRule" {
+  import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
+  export const denceFilterRule: Partial<ISlotFactoryContext>;
+  export default denceFilterRule;
 }
 
 declare module "react-declarative/components/One/One" {

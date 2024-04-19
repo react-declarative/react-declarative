@@ -31,7 +31,10 @@ export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';
 export { DialogFilterListSlot } from './common/DialogFilterListSlot';
 export { ModalFilterListSlot } from './common/ModalFilterListSlot';
 export { ModernChipListSlot } from './common/ModernChipListSlot';
+export { DenseFilterListSlot } from './common/DenseFilterListSlot';
 
 export * from './hooks/useColumnConfig';
+
+export * as ListRules from './rules';
 
 export { default } from "./List";

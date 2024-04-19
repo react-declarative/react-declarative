@@ -413,6 +413,9 @@ export { ClassicFilterListSlot } from './components';
 export { DialogFilterListSlot } from './components';
 export { ModalFilterListSlot } from './components';
 export { ModernChipListSlot } from './components';
+export { DenseFilterListSlot } from './components';
+
+export { ListRules } from './components';
 
 import { Translate } from './components';
 
