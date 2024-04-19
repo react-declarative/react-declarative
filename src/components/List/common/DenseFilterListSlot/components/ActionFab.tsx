@@ -30,8 +30,8 @@ const useStyles = makeStyles()({
   },
   fab: {
     zIndex: 99,
-    minHeight: "35px !important",
-    maxHeight: "35px !important",
+    minHeight: "40px !important",
+    maxHeight: "40px !important",
   },
 });
 

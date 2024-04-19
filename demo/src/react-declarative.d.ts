@@ -2556,6 +2556,8 @@ declare module "react-declarative/model/IColumn" {
     avatar?: boolean;
     headerName?: string;
     fullName?: string;
+    fullWidth?: boolean;
+    pin?: boolean;
     description?: string;
     /**
      * Represents the width of an element.
