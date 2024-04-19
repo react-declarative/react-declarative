@@ -23,6 +23,8 @@ export { useSearch as useListSearch } from './hooks/useSearch';
 export { usePayload as useListPayload } from './hooks/usePayload';
 export { useReload as useListReload } from './hooks/useReload';
 export { useSelection as useListSelectionState } from './hooks/useSelection';
+export { useModalSort as useListModalSort } from './hooks/useModalSort';
+export { useDropFilters as useListDropFilters } from './hooks/useDropFilters';
 
 export { ClassicChipListSlot } from './common/ClassicChipListSlot';
 export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';

@@ -556,6 +556,8 @@ declare module "react-declarative" {
   export { useArrayPaginator } from "react-declarative/components";
   export { useListSelection } from "react-declarative/components";
   export { useListAction } from "react-declarative/components";
+  export { useListModalSort } from "react-declarative/components";
+  export { useListDropFilters } from "react-declarative/components";
   export { useApiPaginator } from "react-declarative/components";
   export { useCursorPaginator } from "react-declarative/components";
   export { useOffsetPaginator } from "react-declarative/components";
@@ -2846,6 +2848,8 @@ declare module "react-declarative/components/List" {
   export { usePayload as useListPayload } from "react-declarative/components/List/hooks/usePayload";
   export { useReload as useListReload } from "react-declarative/components/List/hooks/useReload";
   export { useSelection as useListSelectionState } from "react-declarative/components/List/hooks/useSelection";
+  export { useModalSort as useListModalSort } from "react-declarative/components/List/hooks/useModalSort";
+  export { useDropFilters as useListDropFilters } from "react-declarative/components/List/hooks/useDropFilters";
   export { ClassicChipListSlot } from "react-declarative/components/List/common/ClassicChipListSlot";
   export { ClassicFilterListSlot } from "react-declarative/components/List/common/ClassicFilterListSlot";
   export { DialogFilterListSlot } from "react-declarative/components/List/common/DialogFilterListSlot";
@@ -17141,6 +17145,39 @@ declare module "react-declarative/components/List/hooks/useSelection" {
     selectedRows,
   }: ISelectionProviderProps) => JSX.Element;
   export default useSelection;
+}
+
+declare module "react-declarative/components/List/hooks/useModalSort" {
+  import * as React from "react";
+  export const useModalSort: () => () => void;
+  /**
+   * Represents the properties for the ModalSortProvider component.
+   */
+  interface IModalSortProviderProps {
+    children: React.ReactNode;
+  }
+  /**
+   * ModalSortProvider is a component that acts as a provider for sorting modal functionality.
+   * It wraps the children components with the necessary providers to enable modal sorting.
+   *
+   * @param props - The component props.
+   * @param props.children - The child components to be wrapped by the modal sorting providers.
+   * @returns - The wrapped child components with modal sorting providers.
+   */
+  export const ModalSortProvider: ({
+    children,
+  }: IModalSortProviderProps) => JSX.Element;
+  export default useModalSort;
+}
+
+declare module "react-declarative/components/List/hooks/useDropFilters" {
+  /**
+   * A function that returns a callback function to handle drop filters.
+   *
+   * @returns - The callback function to handle drop filters.
+   */
+  export const useDropFilters: () => () => void;
+  export default useDropFilters;
 }
 
 declare module "react-declarative/components/List/common/ClassicChipListSlot" {

@@ -222,6 +222,7 @@
 - [ISelectionProviderProps](interfaces/ISelectionProviderProps.md)
 - [IState](interfaces/IState.md)
 - [ISelectionReloadRef](interfaces/ISelectionReloadRef.md)
+- [IModalSortProviderProps](interfaces/IModalSortProviderProps.md)
 - [ISortModalProps](interfaces/ISortModalProps.md)
 - [ITile](interfaces/ITile.md)
 - [IModalProviderProps](interfaces/IModalProviderProps.md)
