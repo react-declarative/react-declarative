@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
+import Fab from "@mui/material/Fab";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 
@@ -31,6 +32,8 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import Search from "@mui/icons-material/Search";
 import Close from "@mui/icons-material/Close";
 
+const FILTER_SHRINK = 500;
+
 const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
@@ -43,7 +46,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   container: {
     flex: 1,
-    minHeight: 60,
+    minHeight: "45px",
     maxHeight: "50vh",
     overflow: "hidden",
     overflowY: "auto",
@@ -67,7 +70,8 @@ const useStyles = makeStyles()((theme) => ({
   },
   labelContent: {
     display: "flex",
-    minHeight: "60px",
+    alignItems: "flex-end",
+    minHeight: "45px",
     "& > *:nth-of-type(1)": {
       flex: 1,
     },
@@ -209,7 +213,6 @@ export const DenseFilterListSlot = ({
     if (withSearch) {
       return (
         <TextField
-          label="Search"
           variant="standard"
           value={search}
           onChange={({ target }) => onSearchChange(target.value)}
@@ -241,7 +244,7 @@ export const DenseFilterListSlot = ({
               </InputAdornment>
             ),
           }}
-          placeholder={label}
+          placeholder={label || "Search"}
           InputLabelProps={{
             shrink: true,
           }}
@@ -257,6 +260,8 @@ export const DenseFilterListSlot = ({
     }
   };
 
+  const isShrink = width < FILTER_SHRINK;
+
   return (
     <div className={clsx(className, classes.root)} style={style}>
       <div className={classes.container}>
@@ -268,15 +273,28 @@ export const DenseFilterListSlot = ({
         })}
       >
         <Badge badgeContent={filtersCount} color="info">
-          <Button
-            startIcon={<FilterListIcon />}
-            variant="contained"
-            sx={{ fontWeight: "bold", minHeight: "35px", maxHeight: "35px" }}
-            disabled={loading}
-            onClick={pickFilters}
-          >
-            Filters
-          </Button>
+          {isShrink ? (
+            <Fab
+              sx={{ minHeight: "40px", maxHeight: "40px" }}
+              disabled={loading}
+              size="small"
+              color="primary"
+              onClick={pickFilters}
+            >
+              <FilterListIcon color="inherit" />
+            </Fab>
+          ) : (
+            <Button
+              startIcon={<FilterListIcon />}
+              variant="contained"
+              size="small"
+              sx={{ minHeight: "35px", maxHeight: "35px" }}
+              disabled={loading}
+              onClick={pickFilters}
+            >
+              Filters
+            </Button>
+          )}
         </Badge>
         {actions.map((action, idx) => (
           <Fragment key={idx}>{createAction(action)}</Fragment>
