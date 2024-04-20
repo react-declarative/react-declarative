@@ -7615,6 +7615,13 @@ declare module "react-declarative/utils/hof/singlerun" {
     clear: () => void;
   }
   /**
+   * Interface for reading task status
+   * @interface
+   */
+  interface ITaskStatus {
+    getStatus: () => "pending" | "fulfilled" | "rejected" | "ready";
+  }
+  /**
    * A class representing a task.
    *
    * @class
@@ -7644,7 +7651,7 @@ declare module "react-declarative/utils/hof/singlerun" {
    */
   export const singlerun: <T extends (...args: any[]) => any>(
     run: T,
-  ) => T & IClearable;
+  ) => T & IClearable & ITaskStatus;
   export default singlerun;
 }
 

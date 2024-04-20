@@ -7,6 +7,14 @@ export interface IClearable {
 }
 
 /**
+ * Interface for reading task status
+ * @interface
+ */
+interface ITaskStatus {
+    getStatus: () => "pending" | "fulfilled" | "rejected" | "ready";
+}
+
+/**
  * A class representing a task.
  *
  * @class
@@ -40,7 +48,7 @@ export class Task {
  * @param run - The function to be executed.
  * @returns - The wrapped function with additional clear functionality.
  */
-export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClearable => {
+export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClearable & ITaskStatus => {
     let result: Task | undefined = undefined;
     /**
      * Executes the given `run` function with the provided arguments and returns the result.
@@ -65,7 +73,14 @@ export const singlerun = <T extends (...args: any[]) => any>(run: T): T & IClear
     fn.clear = () => {
         result = undefined;
     };
-    return fn as T & IClearable;
+    /**
+     * Gets the running task status
+     * @returns 
+     */
+    fn.getStatus = () => {
+        return result?.status || "ready";
+    };
+    return fn as T & IClearable & ITaskStatus;
 };
 
 export default singlerun;

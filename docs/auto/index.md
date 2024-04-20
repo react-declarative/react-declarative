@@ -96,6 +96,7 @@
 - [IWrappedFn](interfaces/IWrappedFn.md)
 - [IWrappedFn](interfaces/IWrappedFn.md)
 - [IClearable](interfaces/IClearable.md)
+- [ITaskStatus](interfaces/ITaskStatus.md)
 - [IWrappedFn](interfaces/IWrappedFn.md)
 - [IClearable](interfaces/IClearable.md)
 - [IWrappedFn](interfaces/IWrappedFn.md)
