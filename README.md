@@ -939,7 +939,7 @@ const handleChangeData = async () => {
 
 ```
 
-<img src="./assets/icons/cubes2.svg" height="35px" align="right">
+<img src="./assets/icons/stone.svg" height="35px" align="right">
 
 ## Async pipe port
 
