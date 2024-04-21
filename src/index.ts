@@ -436,6 +436,16 @@ export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
 export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
 export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
 
+import { IScaffold3Option as IScaffold3OptionInternal } from './components/Scaffold3';
+import { IScaffold3Action as IScaffold3ActionInternal } from './components/Scaffold3';
+import { IScaffold3Group as IScaffold3GroupInternal } from './components/Scaffold3';
+import { IScaffold3Tab as IScaffold3TabInternal } from './components/Scaffold3';
+
+export type IScaffold3Action<T = any> = IScaffold3ActionInternal<T>;
+export type IScaffold3Group<T = any> = IScaffold3GroupInternal<T>;
+export type IScaffold3Option<T = any> = IScaffold3OptionInternal<T>;
+export type IScaffold3Tab<T = any> = IScaffold3TabInternal<T>;
+
 import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from './components/Breadcrumbs2';
 import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from './components/Breadcrumbs2';
 import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from './components/Breadcrumbs2';
@@ -446,6 +456,7 @@ export type IBreadcrumbs2Option<Data = any> = IBreadcrumbs2OptionInternal<Data>;
 
 export { Scaffold } from './components';
 export { Scaffold2 } from './components';
+export { Scaffold3 } from './components';
 
 export { Countdown } from './components';
 export { Spinner } from './components'; 
