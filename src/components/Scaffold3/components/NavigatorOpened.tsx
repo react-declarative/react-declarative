@@ -44,11 +44,11 @@ const itemCategory = {
 };
 
 /**
- * Interface representing the props for the Navigator component.
+ * Interface representing the props for the NavigatorOpened component.
  * @template T - The type of the payload.
  * @extends SwipeableDrawerProps - Props from SwipeableDrawer component.
  */
-interface INavigatorProps<T = Payload> {
+interface INavigatorOpenedProps<T = Payload> {
   appName?: string;
   noAppName?: boolean;
   noSearch?: boolean;
@@ -64,12 +64,12 @@ interface INavigatorProps<T = Payload> {
 }
 
 /**
- * Represents a Navigator component that displays a permanent drawer with options and content.
+ * Represents a NavigatorOpened component that displays a permanent drawer with options and content.
  *
  * @template T - The type of payload.
- * @param props - The props for the Navigator component.
- * @param props.sx - The custom styles for the Navigator component.
- * @param props.options - The options to be displayed in the Navigator component.
+ * @param props - The props for the NavigatorOpened component.
+ * @param props.sx - The custom styles for the NavigatorOpened component.
+ * @param props.options - The options to be displayed in the NavigatorOpened component.
  * @param props.appName - The name of the application.
  * @param props.noAppName - Whether to hide the application name.
  * @param props.noSearch - Whether to hide the search functionality.
@@ -82,9 +82,9 @@ interface INavigatorProps<T = Payload> {
  * @param props.onOptionClick - The function to be executed when an option is clicked.
  * @param props.onOptionGroupClick - The function to be executed when an option group is clicked.
  * @param otherProps - The additional props.
- * @returns The Navigator component.
+ * @returns The NavigatorOpened component.
  */
-export const Navigator = <T extends Payload = Payload>({
+export const NavigatorOpened = <T extends Payload = Payload>({
   options,
   appName,
   noAppName,
@@ -97,7 +97,7 @@ export const Navigator = <T extends Payload = Payload>({
   AfterContent,
   onOptionClick = () => undefined,
   onOptionGroupClick = () => undefined,
-}: INavigatorProps<T>) => (
+}: INavigatorOpenedProps<T>) => (
   <>
     {BeforeContent && <BeforeContent />}
     <List sx={{ flex: 1 }} disablePadding>
@@ -236,4 +236,4 @@ export const Navigator = <T extends Payload = Payload>({
   </>
 );
 
-export default Navigator;
+export default NavigatorOpened;

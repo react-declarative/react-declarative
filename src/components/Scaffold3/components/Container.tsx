@@ -7,7 +7,8 @@ import Box from "@mui/material/Box";
 
 import ThemeProvider from "./ThemeProvider";
 
-import Navigator from "./Navigator";
+import NavigatorOpened from "./NavigatorOpened";
+import NavigatorDense from "./NavigatorDense";
 import Header from "./Header";
 
 import usePropsContext from "../context/PropsContext";
@@ -76,12 +77,14 @@ export const Container = <T extends Payload = Payload>({
   onAction,
   children,
 }: IScaffold3InternalProps<T>) => {
-  const { noContent } = usePropsContext();
-  const [opened, setOpened] = useState(false);
-
+  
   const theme = useTheme();
   const size = useWindowSize();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
+
+  const { noContent } = usePropsContext();
+  const [opened, setOpened] = useState(!isMobile);
+  const [, setSwiping] = useState(false);
 
   const widthRequest = useMemo(() => {
     return size.width - CLOSED_WIDTH;
@@ -131,6 +134,34 @@ export const Container = <T extends Payload = Payload>({
     }
   };
 
+  const renderNavigation = () => {
+    if (opened) {
+      return (
+        <NavigatorOpened<T>
+          activeOptionPath={activeOptionPath}
+          options={options}
+          payload={payload}
+          appName={appName}
+          noAppName={noAppName}
+          noSearch={noSearch}
+          BeforeSearch={BeforeSearch}
+          AfterSearch={AfterSearch}
+          BeforeContent={BeforeContent}
+          AfterContent={AfterContent}
+          onOptionGroupClick={handleOptionGroupClick}
+          onOptionClick={handleOptionClick}
+        />
+      );
+    }
+    return (
+      <NavigatorDense
+        options={options}
+        onOptionGroupClick={handleOptionGroupClick}
+        onOptionClick={handleOptionClick}
+      />
+    )
+  };
+
   return (
     <ThemeProvider>
       <Box
@@ -146,21 +177,8 @@ export const Container = <T extends Payload = Payload>({
         }}
       >
         <CssBaseline />
-        <Drawer variant={isMobile ? "temporary" : "permanent"} opened={opened} onOpenChange={setOpened}>
-          <Navigator<T>
-            activeOptionPath={activeOptionPath}
-            options={options}
-            payload={payload}
-            appName={appName}
-            noAppName={noAppName}
-            noSearch={noSearch}
-            BeforeSearch={BeforeSearch}
-            AfterSearch={AfterSearch}
-            BeforeContent={BeforeContent}
-            AfterContent={AfterContent}
-            onOptionGroupClick={handleOptionGroupClick}
-            onOptionClick={handleOptionClick}
-          />
+        <Drawer variant={isMobile ? "temporary" : "permanent"} opened={opened} onOpenChange={setOpened} onSwipingChange={setSwiping}>
+          {renderNavigation()}
         </Drawer>
         <Box sx={{ flex: 1, display: "flex", slignItems: 'stretch', justifyContent: 'stretch', maxWidth: widthRequest, '& > *': { maxWidth: widthRequest } }}>
           <Box sx={{ display: 'flex', flexDirection: "column", flex: 1, position: 'relative' }}>

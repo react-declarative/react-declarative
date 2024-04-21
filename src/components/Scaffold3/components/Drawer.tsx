@@ -13,12 +13,14 @@ interface IDrawerProps {
     variant?: 'permanent' | 'temporary';
     opened: boolean;
     onOpenChange: (opened: boolean) => void;
+    onSwipingChange: (swiping: boolean) => void;
     children: JSX.Element;
 }
 
 export const Drawer = ({
     variant = 'temporary',
     onOpenChange,
+    onSwipingChange,
     children,
     opened,
 }: IDrawerProps) => {
@@ -39,20 +41,19 @@ export const Drawer = ({
         onSwiped: () => {
             setSwiping(false);
             onOpenChange(pendingOpenedRef.current);
+            onSwipingChange(false);
         },
         onSwiping: ({
             initial,
             deltaX,
-            dir,
-            event
+            dir
         }) => {
             if (opened$.current) {
                 return;
             }
             if (dir === 'Left' || dir === 'Right') {
-                event.stopPropagation();
-                event.preventDefault();
                 setSwiping(true);
+                onSwipingChange(true);
             }
             const [left] = initial;
             const xPos = left + deltaX;
@@ -60,6 +61,7 @@ export const Drawer = ({
             setWidth(Math.max(Math.min(xPos, OPENED_WIDTH), CLOSED_WIDTH));
             pendingOpenedRef.current = pendingOpened;
         },
+        preventScrollOnSwipe: true,
     });
 
     return (
