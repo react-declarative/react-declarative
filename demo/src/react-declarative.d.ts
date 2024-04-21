@@ -517,6 +517,14 @@ declare module "react-declarative" {
   export type IScaffold2Group<T = any> = IScaffold2GroupInternal<T>;
   export type IScaffold2Option<T = any> = IScaffold2OptionInternal<T>;
   export type IScaffold2Tab<T = any> = IScaffold2TabInternal<T>;
+  import { IScaffold3Option as IScaffold3OptionInternal } from "react-declarative/components/Scaffold3";
+  import { IScaffold3Action as IScaffold3ActionInternal } from "react-declarative/components/Scaffold3";
+  import { IScaffold3Group as IScaffold3GroupInternal } from "react-declarative/components/Scaffold3";
+  import { IScaffold3Tab as IScaffold3TabInternal } from "react-declarative/components/Scaffold3";
+  export type IScaffold3Action<T = any> = IScaffold3ActionInternal<T>;
+  export type IScaffold3Group<T = any> = IScaffold3GroupInternal<T>;
+  export type IScaffold3Option<T = any> = IScaffold3OptionInternal<T>;
+  export type IScaffold3Tab<T = any> = IScaffold3TabInternal<T>;
   import { Breadcrumbs2Type as Breadcrumbs2TypeInternal } from "react-declarative/components/Breadcrumbs2";
   import { IBreadcrumbs2Action as IBreadcrumbs2ActionInternal } from "react-declarative/components/Breadcrumbs2";
   import { IBreadcrumbs2Option as IBreadcrumbs2OptionInternal } from "react-declarative/components/Breadcrumbs2";
@@ -527,6 +535,7 @@ declare module "react-declarative" {
     IBreadcrumbs2OptionInternal<Data>;
   export { Scaffold } from "react-declarative/components";
   export { Scaffold2 } from "react-declarative/components";
+  export { Scaffold3 } from "react-declarative/components";
   export { Countdown } from "react-declarative/components";
   export { Spinner } from "react-declarative/components";
   export { Grid } from "react-declarative/components";
@@ -2960,6 +2969,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/Square";
   export * from "react-declarative/components/Scaffold";
   export * from "react-declarative/components/Scaffold2";
+  export * from "react-declarative/components/Scaffold3";
   export * from "react-declarative/components/Translate";
   export * from "react-declarative/components/Breadcrumbs";
   export * from "react-declarative/components/Breadcrumbs2";
@@ -6690,6 +6700,15 @@ declare module "react-declarative/components/Scaffold2" {
   export * from "react-declarative/components/Scaffold2/model/IScaffold2Option";
   export * from "react-declarative/components/Scaffold2/model/IScaffold2Tab";
   export { default } from "react-declarative/components/Scaffold2/Scaffold2";
+}
+
+declare module "react-declarative/components/Scaffold3" {
+  export * from "react-declarative/components/Scaffold3/Scaffold3";
+  export * from "react-declarative/components/Scaffold3/model/IScaffold3Action";
+  export * from "react-declarative/components/Scaffold3/model/IScaffold3Group";
+  export * from "react-declarative/components/Scaffold3/model/IScaffold3Option";
+  export * from "react-declarative/components/Scaffold3/model/IScaffold3Tab";
+  export { default } from "react-declarative/components/Scaffold3/Scaffold3";
 }
 
 declare module "react-declarative/components/Breadcrumbs2" {
@@ -18839,6 +18858,246 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Tab" {
   export default IScaffold2Tab;
 }
 
+declare module "react-declarative/components/Scaffold3/Scaffold3" {
+  import IScaffold3Props from "react-declarative/components/Scaffold3/model/IScaffold3Props";
+  /**
+   * Represents a scaffold component that provides state management and context providers.
+   * @function Scaffold3
+   * @param props - The props object containing the component's properties.
+   * @param [props.appName="Scaffold3"] - The name of the app.
+   * @param [props.noSearch=false] - Specifies if the search feature is disabled.
+   * @param [props.noAppName=false] - Specifies if the app name should be hidden.
+   * @param props.onInit - The callback function invoked during initialization.
+   * @param props.onLoadStart - The callback function invoked before loading data.
+   * @param props.onLoadEnd - The callback function invoked after loading data.
+   * @param props.fallback - The fallback component to render in case of an error.
+   * @param props.options - The options object.
+   * @param props.payload - The payload object.
+   * @param [props.deps=[]] - The array of dependencies.
+   * @param props.throwError - Specifies if an error should be thrown.
+   * @returns - The rendered component.
+   */
+  export const Scaffold3: <T extends unknown = any>(
+    props: IScaffold3Props<T>,
+  ) => JSX.Element;
+  export default Scaffold3;
+}
+
+declare module "react-declarative/components/Scaffold3/model/IScaffold3Action" {
+  import IOption from "react-declarative/model/IOption";
+  import Payload from "react-declarative/components/Scaffold3/model/Payload";
+  /**
+   * Represents an action for a scaffold.
+   *
+   * @template T - The type of payload.
+   */
+  export interface IScaffold3Action<T = Payload>
+    extends Omit<
+      IOption,
+      keyof {
+        isVisible: never;
+        isDisabled: never;
+      }
+    > {
+    /**
+     * Determines the visibility of an element based on a provided payload.
+     *
+     * @param payload - The payload used to determine the visibility.
+     * @returns - A promise or a boolean value indicating the visibility of the element.
+     */
+    isVisible?: (payload: T) => Promise<boolean> | boolean;
+    /**
+     * Indicates whether a certain payload is disabled.
+     *
+     * @param payload - The payload to check for disabled status.
+     * @returns - A Promise or boolean value representing the disabled status.
+     */
+    isDisabled?: (payload: T) => Promise<boolean> | boolean;
+  }
+  export default IScaffold3Action;
+}
+
+declare module "react-declarative/components/Scaffold3/model/IScaffold3Group" {
+  import React from "react";
+  import IScaffold3Option, {
+    IScaffold3OptionInternal,
+  } from "react-declarative/components/Scaffold3/model/IScaffold3Option";
+  import Payload from "react-declarative/components/Scaffold3/model/Payload";
+  /**
+   * Interface representing a group in IScaffold3.
+   *
+   * @template T - The type of payload for the options in the group.
+   *
+   * @property id - The unique identifier of the group.
+   * @property [label] - The label to be displayed for the group.
+   * @property [icon] - The icon to be displayed for the group.
+   * @property [noHeader] - Flag indicating whether to display the header for the group.
+   * @property [isVisible] - Function or Promise that returns a boolean indicating whether the group is visible.
+   * @property [isDisabled] - Function or Promise that returns a boolean indicating whether the group is disabled.
+   * @property children - The options belonging to the group.
+   */
+  export interface IScaffold3Group<T = Payload> {
+    id: string;
+    label?: string;
+    icon?: React.ComponentType;
+    noHeader?: boolean;
+    /**
+     * Checks if the element is visible.
+     *
+     * @returns - True if the element is visible.
+     */
+    isVisible?: () => boolean | Promise<boolean>;
+    /**
+     * Checks if the element is disabled.
+     *
+     * @returns - Returns a boolean value or a promise that resolves to a boolean value.
+     */
+    isDisabled?: () => boolean | Promise<boolean>;
+    children: IScaffold3Option<T>[];
+  }
+  /**
+   * Represents an internal group in the IScaffold3 component.
+   *
+   * @template T - The type of payload data.
+   * @interface IScaffold3GroupInternal
+   */
+  export interface IScaffold3GroupInternal<T = Payload>
+    extends Omit<
+      IScaffold3Group<T>,
+      keyof {
+        isVisible: never;
+        isDisabled: never;
+        children: never;
+      }
+    > {
+    path: string;
+    visible: boolean;
+    disabled: boolean;
+    /**
+     * Represents a collection of internal options for a Scaffold3 component.
+     *
+     * @template T - The type of the options.
+     */
+    children: IScaffold3OptionInternal<T>[];
+  }
+  export default IScaffold3Group;
+}
+
+declare module "react-declarative/components/Scaffold3/model/IScaffold3Option" {
+  import { SxProps } from "@mui/material";
+  import IScaffold3Tab, {
+    IScaffold3TabInternal,
+  } from "react-declarative/components/Scaffold3/model/IScaffold3Tab";
+  import Payload from "react-declarative/components/Scaffold3/model/Payload";
+  /**
+   * Interface representing an option for an IScaffold3 component.
+   * @template T - The type of the payload used by the option.
+   */
+  export interface IScaffold3Option<T = Payload> {
+    id: string;
+    label?: string;
+    lifted?: boolean;
+    pin?: boolean;
+    sx?: SxProps<any>;
+    icon?: React.ComponentType<any>;
+    /**
+     * Represents an array of `IScaffold3Tab` objects.
+     * @template T - The type of the `IScaffold3Tab` object.
+     */
+    tabs?: IScaffold3Tab<T>[];
+    /**
+     * Represents an array of options for a variable.
+     * @template T The type of the options.
+     */
+    options?: IScaffold3Option<T>[];
+    /**
+     * Determines the visibility of a given payload.
+     *
+     * @param payload - The payload to check visibility for.
+     * @returns - The visibility status. Returns a boolean if synchronous, otherwise returns a Promise<boolean>.
+     */
+    isVisible?: (payload: T) => boolean | Promise<boolean>;
+    /**
+     * Checks if a payload is disabled.
+     *
+     * @param payload - The payload to check.
+     * @returns - True if the payload is disabled, false otherwise.
+     */
+    isDisabled?: (payload: T) => boolean | Promise<boolean>;
+  }
+  /**
+   * Represents an internal option for IScaffold3.
+   *
+   * @template T - The type of the payload.
+   */
+  export interface IScaffold3OptionInternal<T = Payload>
+    extends Omit<
+      IScaffold3Option<T>,
+      keyof {
+        isVisible: never;
+        isDisabled: never;
+        options: never;
+        tabs: never;
+      }
+    > {
+    path: string;
+    visible: boolean;
+    disabled: boolean;
+    /**
+     * Options for the given variable.
+     *
+     * @template T - The type of the options.
+     */
+    options?: IScaffold3OptionInternal<T>[];
+    /**
+     * Represents an array of internal scaffold tabs.
+     * @template T - The type of data associated with the tabs.
+     * @typedef Tabs
+     */
+    tabs?: IScaffold3TabInternal<T>[];
+  }
+  export default IScaffold3Option;
+}
+
+declare module "react-declarative/components/Scaffold3/model/IScaffold3Tab" {
+  import React from "react";
+  import Payload from "react-declarative/components/Scaffold3/model/Payload";
+  /**
+   * Represents a tab in the Scaffold3 component.
+   * @template T - The payload type.
+   */
+  export interface IScaffold3Tab<T = Payload> {
+    id: string;
+    label?: string;
+    icon?: React.ComponentType<any>;
+    isVisible?: (payload: T) => Promise<boolean> | boolean;
+    isDisabled?: (payload: T) => Promise<boolean> | boolean;
+    isActive?: (payload: T) => Promise<boolean> | boolean;
+  }
+  /**
+   * Represents an internal interface for a scaffold tab.
+   * @template T - The payload type of the tab.
+   */
+  export interface IScaffold3TabInternal<T = Payload>
+    extends Omit<
+      IScaffold3Tab<T>,
+      keyof {
+        isVisible: never;
+        isDisabled: never;
+        isActive: never;
+      }
+    > {
+    id: string;
+    path: string;
+    label?: string;
+    icon?: React.ComponentType<any>;
+    visible: boolean;
+    disabled: boolean;
+    active: boolean;
+  }
+  export default IScaffold3Tab;
+}
+
 declare module "react-declarative/components/Breadcrumbs2/Breadcrumbs2" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
@@ -27596,6 +27855,219 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Props" {
 }
 
 declare module "react-declarative/components/Scaffold2/model/Payload" {
+  export type Payload = any;
+  export default Payload;
+}
+
+declare module "react-declarative/components/Scaffold3/model/IScaffold3Props" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import IScaffold3Group, {
+    IScaffold3GroupInternal,
+  } from "react-declarative/components/Scaffold3/model/IScaffold3Group";
+  import IScaffold3Action from "react-declarative/components/Scaffold3/model/IScaffold3Action";
+  import Payload from "react-declarative/components/Scaffold3/model/Payload";
+  /**
+   * Represents the properties of the IScaffold3 component.
+   */
+  export interface IScaffold3Props<T = Payload> {
+    noOptionHover?: boolean;
+    noContent?: boolean;
+    noAppName?: boolean;
+    fixedHeader?: boolean;
+    noSearch?: boolean;
+    dense?: boolean;
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps<any>;
+    appName?: string;
+    options: IScaffold3Group<T>[];
+    actions?: IScaffold3Action<T>[];
+    loading?: boolean | number;
+    payload?: T;
+    /**
+     * An array of dependencies.
+     *
+     * @typedef Dependencies
+     */
+    deps?: any[];
+    /**
+     * Specifies the active option path.
+     *
+     * @typedef activeOptionPath
+     * @description This variable holds the path of the currently active option.
+     *              The path is represented as a string value.
+     */
+    activeOptionPath: string;
+    /**
+     * Represents the path of the active tab.
+     *
+     * @typedef activeTabPath
+     *
+     * @description
+     * The `activeTabPath` variable is an optional string that represents the path of the active tab.
+     * It is used to track and store the current tab's path within the application.
+     */
+    activeTabPath?: string;
+    /**
+     * Represents the type definition for the `AfterAppName` variable.
+     *
+     * @typedef AfterAppName
+     *
+     * @description
+     * A variable of type `React.ComponentType<any>` representing a React component.
+     */
+    AfterAppName?: React.ComponentType<any>;
+    /**
+     * Represents a React component BeforeActionMenu.
+     *
+     * @component
+     * @typedef BeforeActionMenu
+     */
+    BeforeActionMenu?: React.ComponentType<any>;
+    /**
+     * BeforeSearch is a React component type used for rendering a component before the search functionality.
+     *
+     * @typedef BeforeSearch
+     * @memberof module:components
+     * @see {@link https://reactjs.org/docs/react-component.html|React.ComponentType}
+     */
+    BeforeSearch?: React.ComponentType<any>;
+    /**
+     * Represents a React component type for the AfterSearch component.
+     *
+     */
+    AfterSearch?: React.ComponentType<any>;
+    /**
+     * Represents the type definition for the BeforeMenuContent variable.
+     *
+     * @description
+     * This variable represents a React component that serves as the content to be rendered
+     * before the menu component. It can accept any props as specified by the `any` type.
+     */
+    BeforeMenuContent?: React.ComponentType<any>;
+    /**
+     * Type definition for the variable AfterMenuContent.
+     *
+     * @typedef AfterMenuContent
+     * @description A React component type that represents the content to be rendered after a menu component.
+     */
+    AfterMenuContent?: React.ComponentType<any>;
+    /**
+     * Represents the `BeforeContent` variable.
+     *
+     * @typedef BeforeContent
+     * @description This variable is a React component type that can accept any props. It is typically used to render content that should appear before the main content within a parent component
+     */
+    BeforeContent?: React.ComponentType<any>;
+    /**
+     * Represents a React component type for rendering content after the main content.
+     *
+     * @typedef AfterContent
+     */
+    AfterContent?: React.ComponentType<any>;
+    /**
+     * The Copyright component is a React component that represents a copyright notice.
+     * It can be used in a React application to display the copyright information.
+     *
+     * @component
+     * @category UI Components
+     *
+     * @param props - The properties of the Copyright component.
+     *
+     * @returns The Copyright React component.
+     */
+    Copyright?: React.ComponentType<any>;
+    /**
+     * Represents a optional callback function that is triggered when an action is performed.
+     * The function takes a `name` parameter of type `string` and returns `void`.
+     *
+     * @typedef onAction
+     * @param name - The name of the action being performed.
+     * @returns
+     */
+    onAction?: (name: string) => void;
+    /**
+     * Callback function that is triggered when an option is clicked.
+     *
+     * @param path - The path of the option.
+     * @param id - The ID of the option.
+     * @returns - Returns undefined or a boolean value based on the processing of the option click.
+     */
+    onOptionClick?: (path: string, id: string) => void | undefined | boolean;
+    /**
+     * Function called when an option group is clicked.
+     *
+     * @param path - The path of the option group.
+     * @param id - The ID of the clicked option group.
+     * @return {undefined | boolean} - Returns undefined or a boolean value.
+     */
+    onOptionGroupClick?: (
+      path: string,
+      id: string,
+    ) => void | undefined | boolean;
+    /**
+     * Represents a callback for when a tab change event occurs.
+     *
+     * @param path - The current path of the tab.
+     * @param tab - The name of the tab that was changed to.
+     * @param id - The unique identifier of the tab.
+     * @returns
+     */
+    onTabChange?: (path: string, tab: string, id: string) => void;
+    children: React.ReactNode;
+    /**
+     * @typedef onInit
+     * @description Represents a function that may or may not initialize something.
+     * The function returns either void or a Promise that resolves to void.
+     */
+    onInit?: () => void | Promise<void>;
+    /**
+     * Represents a callback function that will be invoked when a load operation starts.
+     *
+     * @callback onLoadStart
+     * @returns
+     */
+    onLoadStart?: () => void;
+    /**
+     * Represents a callback function that is called when the loading process ends.
+     *
+     * @callback onLoadEnd
+     * @param isOk - A boolean value indicating whether the loading process was successful.
+     * @returns This callback does not return anything.
+     */
+    onLoadEnd?: (isOk: boolean) => void;
+    /**
+     * Represents a function that acts as a fallback, which is executed when an error occurs.
+     * @param e - The error that occurred.
+     * @returns
+     */
+    fallback?: (e: Error) => void;
+    /**
+     * Indicates whether an error should be thrown.
+     *
+     * @typedef throwError
+     */
+    throwError?: boolean;
+  }
+  /**
+   * Represents the internal props for the IScaffold3 component.
+   *
+   * @template T - The type of payload.
+   */
+  export interface IScaffold3InternalProps<T = Payload>
+    extends Omit<
+      IScaffold3Props<T>,
+      keyof {
+        options: never;
+      }
+    > {
+    options: IScaffold3GroupInternal<T>[];
+  }
+  export default IScaffold3Props;
+}
+
+declare module "react-declarative/components/Scaffold3/model/Payload" {
   export type Payload = any;
   export default Payload;
 }
