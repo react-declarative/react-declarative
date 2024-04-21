@@ -97,6 +97,9 @@ interface ICustomState<
 > {
   rows: ICustomProps<FilterData, RowData>["rows"];
   filterData: ICustomProps<FilterData, RowData>["filterData"];
+  chips: ICustomProps<FilterData, RowData>["chips"];
+  sort: ICustomProps<FilterData, RowData>["sort"];
+  search: ICustomProps<FilterData, RowData>["search"];
 }
 
 /**
@@ -128,6 +131,9 @@ export const CustomView = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
     offset,
     limit,
     total,
@@ -187,6 +193,9 @@ export const CustomView = <
   const [state, setState] = useState<ICustomState>({
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
   });
 
   /**
@@ -205,9 +214,12 @@ export const CustomView = <
     setState(() => ({
       rows: upperRows,
       filterData: upperFilterData,
+      chips: upperChips,
+      search: upperSearch,
+      sort: upperSort,
     }));
     scrollYSubject.next(0);
-  }, [upperRows, upperFilterData]);
+  }, [upperRows, upperFilterData, upperChips, upperSearch, upperSort]);
 
   /**
    * A callback function used to handle appending rows to the state.
@@ -228,7 +240,7 @@ export const CustomView = <
   );
 
   useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handleCleanRows(), [upperFilterData]);
+  useEffect(() => handleCleanRows(), [upperFilterData, upperChips, upperSearch, upperSort]);
 
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;

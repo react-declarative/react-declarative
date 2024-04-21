@@ -94,6 +94,9 @@ interface IInfiniteState<
 > {
   rows: IInfiniteProps<FilterData, RowData>["rows"];
   filterData: IInfiniteProps<FilterData, RowData>["filterData"];
+  chips: IInfiniteProps<FilterData, RowData>["chips"];
+  sort: IInfiniteProps<FilterData, RowData>["sort"];
+  search: IInfiniteProps<FilterData, RowData>["search"];
 }
 
 /**
@@ -120,6 +123,9 @@ export const InfiniteView = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
     offset,
     limit,
     total,
@@ -194,6 +200,9 @@ export const InfiniteView = <
   const [state, setState] = useState<IInfiniteState>({
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
   });
 
   /**
@@ -207,9 +216,12 @@ export const InfiniteView = <
     setState(() => ({
       rows: upperRows,
       filterData: upperFilterData,
+      chips: upperChips,
+      search: upperSearch,
+      sort: upperSort,
     }));
     scrollYSubject.next(0);
-  }, [upperRows, upperFilterData]);
+  }, [upperRows, upperFilterData, upperChips, upperSearch, upperSort]);
 
   /**
    * Handles appending rows to state.
@@ -232,7 +244,7 @@ export const InfiniteView = <
   );
 
   useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handleCleanRows(), [upperFilterData]);
+  useEffect(() => handleCleanRows(), [upperFilterData, upperChips, upperSearch, upperSort]);
 
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;

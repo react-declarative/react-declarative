@@ -100,6 +100,9 @@ interface IChooserState<
   RowData extends IRowData = IAnything
 > {
   rows: IChooserProps<FilterData, RowData>["rows"];
+  chips: IChooserProps<FilterData, RowData>["chips"];
+  sort: IChooserProps<FilterData, RowData>["sort"];
+  search: IChooserProps<FilterData, RowData>["search"];
   filterData: IChooserProps<FilterData, RowData>["filterData"];
 }
 
@@ -130,6 +133,9 @@ export const Chooser = <
   const {
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
     offset,
     limit,
     total,
@@ -149,6 +155,9 @@ export const Chooser = <
   const [state, setState] = useState<IChooserState>({
     rows: upperRows,
     filterData: upperFilterData,
+    chips: upperChips,
+    search: upperSearch,
+    sort: upperSort,
   });
 
   /**
@@ -163,9 +172,12 @@ export const Chooser = <
     setState(() => ({
       rows: upperRows,
       filterData: upperFilterData,
+      chips: upperChips,
+      search: upperSearch,
+      sort: upperSort,
     }));
     scrollYSubject.next(0);
-  }, [upperRows, upperFilterData]);
+  }, [upperRows, upperFilterData, upperChips, upperSearch, upperSort]);
 
   /**
    * Function to handle appending rows to the current state rows.
@@ -185,7 +197,7 @@ export const Chooser = <
   );
 
   useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handleCleanRows(), [upperFilterData]);
+  useEffect(() => handleCleanRows(), [upperFilterData, upperChips, upperSearch, upperSort]);
 
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;
