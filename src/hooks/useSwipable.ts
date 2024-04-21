@@ -118,6 +118,10 @@ export interface ConfigurationOptions {
      */
     preventScrollOnSwipe: boolean;
     /**
+     * Allows to prevent event
+     */
+    noPassive: boolean;
+    /**
      * Set a rotation angle. **Default**: `0`
      */
     rotationAngle: number;
@@ -173,6 +177,7 @@ export type AttachTouch = (
 const defaultProps: ConfigurationOptions = {
     delta: 10,
     preventScrollOnSwipe: false,
+    noPassive: false,
     rotationAngle: 0,
     trackMouse: false,
     trackTouch: true,
@@ -407,7 +412,7 @@ function getHandlers(
                         onMove,
                         {
                             ...baseOptions,
-                            ...(props.preventScrollOnSwipe ? { passive: false } : {}),
+                            ...(props.preventScrollOnSwipe || props.noPassive ? { passive: false } : {}),
                         },
                     ],
                     [touchEnd, onEnd, baseOptions],

@@ -26,8 +26,11 @@ export const NavigatorDense = ({
             sx={{
                 position: 'relative',
                 scrollbarWidth: 'none',
+                overflowX: 'hidden',
+                overflowY: 'auto',
                 maxWidth: CLOSED_WIDTH,
                 minWidth: CLOSED_WIDTH,
+                height: '100vh',
             }}
         >
             <Box
@@ -56,6 +59,7 @@ export const NavigatorDense = ({
                     <Tooltip
                         key={`${id}-${idx}`}
                         title={label}
+                        PopperProps={{style:{zIndex:1000}}}
                     >
                         <Fab
                             disabled={disabled}

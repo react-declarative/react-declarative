@@ -187,7 +187,7 @@ export const Header = <T extends Payload = Payload>({
         style={style}
         sx={{
           width: "100%",
-          zIndex: 999,
+          zIndex: 995,
           ...(fixedHeader && {
             position: "absolute",
             top: 0,

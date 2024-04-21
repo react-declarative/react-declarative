@@ -61,7 +61,7 @@ export const Drawer = ({
             setWidth(Math.max(Math.min(xPos, OPENED_WIDTH), CLOSED_WIDTH));
             pendingOpenedRef.current = pendingOpened;
         },
-        preventScrollOnSwipe: true,
+        noPassive: true,
     });
 
     return (
@@ -78,11 +78,12 @@ export const Drawer = ({
                     overflowX: 'hidden',
                     overflowY: 'auto',
                     scrollbarWidth: 'none',
+                    maxHeight: '100vh',
                     background: (theme) => theme.palette.background.paper,
                     display: 'flex',
                     alignItems: 'stretch',
                     justifyContent: 'stretch',
-                    zIndex: 9999,
+                    zIndex: 998,
                 }}
                 {...handlerList}
             >
@@ -99,7 +100,7 @@ export const Drawer = ({
             </Box>
             {variant === "temporary" && (
                 <Backdrop
-                    sx={{ zIndex: 9998 }}
+                    sx={{ zIndex: 997 }}
                     open={opened || swiping}
                     onClick={() => onOpenChange(false)}
                 />

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useMediaQuery, useTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -82,6 +82,12 @@ export const Container = <T extends Payload = Payload>({
   const size = useWindowSize();
   const isMobile = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
 
+  useEffect(() => {
+    if (!isMobile) {
+      setOpened(true);
+    }
+  }, [isMobile]);
+
   const { noContent } = usePropsContext();
   const [opened, setOpened] = useState(!isMobile);
   const [, setSwiping] = useState(false);
@@ -112,7 +118,7 @@ export const Container = <T extends Payload = Payload>({
   const handleOptionGroupClick = (path: string, id: string) => {
     if (onOptionGroupClick) {
       const mobileOpen = onOptionGroupClick(path, id);
-      setOpened(isMobile ? !!mobileOpen : false);
+      opened && setOpened(isMobile ? !!mobileOpen : false);
     } else {
       setOpened(false);
     }
@@ -128,14 +134,14 @@ export const Container = <T extends Payload = Payload>({
   const handleOptionClick = (path: string, id: string) => {
     if (onOptionClick) {
       const mobileOpen = onOptionClick(path, id);
-      setOpened(isMobile ? !!mobileOpen : false);
+      opened && setOpened(isMobile ? !!mobileOpen : false);
     } else {
       setOpened(false);
     }
   };
 
   const renderNavigation = () => {
-    if (opened) {
+    if (opened || !isMobile) {
       return (
         <NavigatorOpened<T>
           activeOptionPath={activeOptionPath}
@@ -177,7 +183,7 @@ export const Container = <T extends Payload = Payload>({
         }}
       >
         <CssBaseline />
-        <Drawer variant={isMobile ? "temporary" : "permanent"} opened={opened} onOpenChange={setOpened} onSwipingChange={setSwiping}>
+        <Drawer variant={isMobile ? "temporary" : "permanent"} opened={opened || !isMobile} onOpenChange={setOpened} onSwipingChange={setSwiping}>
           {renderNavigation()}
         </Drawer>
         <Box sx={{ flex: 1, display: "flex", slignItems: 'stretch', justifyContent: 'stretch', maxWidth: widthRequest, '& > *': { maxWidth: widthRequest } }}>
@@ -215,7 +221,7 @@ export const Container = <T extends Payload = Payload>({
               width: '100vw',
               top: 0,
               left: 0,
-              zIndex: 9999,
+              zIndex: 999,
               background: (theme) => theme.palette.background.default,
             }}
           />
