@@ -79,6 +79,7 @@ export const Drawer = ({
                     overflowY: 'auto',
                     scrollbarWidth: 'none',
                     maxHeight: '100vh',
+                    minHeight: '100vh',
                     background: (theme) => theme.palette.background.paper,
                     display: 'flex',
                     alignItems: 'stretch',
@@ -89,6 +90,10 @@ export const Drawer = ({
             >
                 <Box
                     sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'stretch',
+                        justifyContent: 'stretch',
                         minWidth: OPENED_WIDTH,
                         maxWidth: OPENED_WIDTH,
                         pointerEvents: swiping ? 'none' : 'all',
