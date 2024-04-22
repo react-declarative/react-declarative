@@ -104,6 +104,7 @@
 - [IClearable](interfaces/IClearable.md)
 - [IClearable](interfaces/IClearable.md)
 - [IRef](interfaces/IRef.md)
+- [IControl](interfaces/IControl.md)
 - [IConfig](interfaces/IConfig.md)
 - [IClearable](interfaces/IClearable.md)
 - [TSubject](interfaces/TSubject.md)

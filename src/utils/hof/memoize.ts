@@ -16,6 +16,28 @@ export interface IRef<T = any> {
 }
 
 /**
+ * Represents a generic control interface with key-value pair operations.
+ * @template K The type of keys.
+ * @template V The type of values.
+ * @interface
+ */
+export interface IControl<K, V> {
+    /**
+     * Adds a key-value pair to the control.
+     * @param key The key to add.
+     * @param value The value to associate with the key.
+     */
+    add: (key: K, value: V) => void;
+
+    /**
+     * Removes a key and its associated value from the control.
+     * @param key The key to remove.
+     * @returns true if ok
+     */
+    remove: (key: K) => boolean;
+}
+
+/**
  * Represents a function that can take any number of arguments and return any value.
  * @typedef Function
  * @param  {...any} args - The arguments to be passed to the function.
@@ -45,7 +67,7 @@ export const GET_VALUE_MAP = Symbol('get-value-map');
  * @param run - The original function to be memoized
  * @returns - A memoized version of the original function with the ability to clear the cache
  */
-export const memoize = <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T): T & IClearable<K> => {
+export const memoize = <T extends (...args: A) => any, A extends any[], K = string>(key: (args: A) => K, run: T): T & IClearable<K> & IControl<K, ReturnType<T>> => {
 
     /**
      * A map that associates keys of type K with values of type IRef<ReturnType<T>>.
@@ -80,7 +102,7 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
      * @param args - The arguments to pass to the function.
      * @returns - The cached result of the function.
      */
-    const executeFn: Function & IClearable<any> = (...args: A) => {
+    const executeFn: Function & IClearable<any> & IControl<K, ReturnType<T>> = (...args: A) => {
         const k = key(args);
         let value = valueMap.get(k)?.current;
         if (value === undefined) {
@@ -107,7 +129,21 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
      */
     executeFn.clear = clear;
 
-    return executeFn as T & IClearable<K>;
+    executeFn.add = (key: K, value: ReturnType<T>) => {
+        let ref = valueMap.get(key);
+        if (ref === undefined) {
+            ref = { current: value };
+        } else {
+            ref.current = value;
+        }
+        valueMap.set(key, ref as unknown as IRef<ReturnType<T>>);
+    };
+
+    executeFn.remove = (key: K) => {
+        return valueMap.delete(key);
+    };
+
+    return executeFn as T & IClearable<K> & IControl<K, ReturnType<T>>;
 };
 
 export default memoize;

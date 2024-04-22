@@ -1,4 +1,4 @@
-import memoize, { IClearable as IClearableInternal, IRef, GET_VALUE_MAP } from './memoize';
+import memoize, { IClearable as IClearableInternal, IControl, IRef, GET_VALUE_MAP } from './memoize';
 
 /**
  * Represents the default timeout value in milliseconds.
@@ -40,7 +40,7 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
 }: {
     key?: (args: A) => K;
     timeout?: number;
-} = {}): T & IClearable<K> => {
+} = {}): T & IClearable<K> & IControl<K, ReturnType<T>> => {
 
     /**
      * Creates a memoized function that caches the result of the
@@ -100,7 +100,14 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
         }
     };
 
-    return executeFn as T & IClearable<K>;
+    executeFn.add = (key: K, value: ReturnType<T>) => wrappedFn.add(key, {
+        value,
+        ttl: Date.now(),
+    });
+
+    executeFn.remove = wrappedFn.remove;
+
+    return executeFn as T & IClearable<K> & IControl<K, ReturnType<T>>;
 };
 
 export default ttl;

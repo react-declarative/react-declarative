@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 import ColumnType from "./ColumnType";
 
 import { IListActionOption, ListHandlerChips, ListHandlerPagination, ListHandlerSortModel } from "./IListProps";
@@ -20,6 +22,7 @@ export interface IColumn<
 > {
   type: ColumnType;
   field?: string;
+  sx?: SxProps<any>;
   primary?: boolean;
   secondary?: boolean;
   avatar?: boolean;

@@ -2536,6 +2536,7 @@ declare module "react-declarative/model/IManaged" {
 }
 
 declare module "react-declarative/model/IColumn" {
+  import { SxProps } from "@mui/material";
   import ColumnType from "react-declarative/model/ColumnType";
   import {
     IListActionOption,
@@ -2560,6 +2561,7 @@ declare module "react-declarative/model/IColumn" {
   > {
     type: ColumnType;
     field?: string;
+    sx?: SxProps<any>;
     primary?: boolean;
     secondary?: boolean;
     avatar?: boolean;
@@ -7820,6 +7822,26 @@ declare module "react-declarative/utils/hof/memoize" {
     current: T;
   }
   /**
+   * Represents a generic control interface with key-value pair operations.
+   * @template K The type of keys.
+   * @template V The type of values.
+   * @interface
+   */
+  export interface IControl<K, V> {
+    /**
+     * Adds a key-value pair to the control.
+     * @param key The key to add.
+     * @param value The value to associate with the key.
+     */
+    add: (key: K, value: V) => void;
+    /**
+     * Removes a key and its associated value from the control.
+     * @param key The key to remove.
+     * @returns true if ok
+     */
+    remove: (key: K) => boolean;
+  }
+  /**
    * Defines the GET_VALUE_MAP constant.
    *
    * This symbol is used to uniquely identify the 'get-value-map' property in an object or map.
@@ -7845,7 +7867,7 @@ declare module "react-declarative/utils/hof/memoize" {
   >(
     key: (args: A) => K,
     run: T,
-  ) => T & IClearable<K>;
+  ) => T & IClearable<K> & IControl<K, ReturnType<T>>;
   export default memoize;
 }
 
@@ -7886,7 +7908,10 @@ declare module "react-declarative/utils/hof/trycatch" {
 }
 
 declare module "react-declarative/utils/hof/ttl" {
-  import { IClearable as IClearableInternal } from "react-declarative/utils/hof/memoize";
+  import {
+    IClearable as IClearableInternal,
+    IControl,
+  } from "react-declarative/utils/hof/memoize";
   /**
    * Represents a clearable object that can be garbage collected.
    *
@@ -7920,7 +7945,7 @@ declare module "react-declarative/utils/hof/ttl" {
       key?: ((args: A) => K) | undefined;
       timeout?: number | undefined;
     },
-  ) => T & IClearable<K>;
+  ) => T & IClearable<K> & IControl<K, ReturnType<T>>;
   export default ttl;
 }
 
