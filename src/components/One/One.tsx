@@ -54,7 +54,9 @@ const DEFAULT_WRITETRANSFORM = (value: Value) => value;
  * @param props.otherProps - Additional props for the component.
  * @returns - The rendered component.
  */
-export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(props: IOnePublicProps<Data, Payload, Field>) => {
+export const One = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>(args: IOnePublicProps<Data, Payload, Field>) => {
+
+    const props = useManagedProps(args);
 
     const {
         createField = createFieldInternal,
@@ -63,7 +65,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         changeSubject,
         reloadSubject,
         updateSubject,
-    } = useManagedProps(props);
+    } = props
 
     const onFocus = useActualCallback(props.onFocus || DEFAULT_ONFOCUS);
     const onBlur = useActualCallback(props.onBlur || DEFAULT_ONBLUR);

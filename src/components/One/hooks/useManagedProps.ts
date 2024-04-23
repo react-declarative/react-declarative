@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 
 import useChangeSubject from "../../../hooks/useChangeSubject";
+import useActualValue from "../../../hooks/useActualValue";
 import useSingleton from "../../../hooks/useSingleton";
 import useSubject from "../../../hooks/useSubject";
 
@@ -63,6 +64,8 @@ export const useManagedProps = <Data extends IAnything = IAnything, Payload = IA
     ...otherProps
 }: IOnePublicProps<Data, Payload, Field>): IManagedProps<Data> & IOnePublicProps<Data, Payload, Field> => {
 
+    const data$ = useActualValue(data);
+
     const UNCONTROLLED_STATE = useSingleton(data === NEVER_VALUE);
 
     if (UNCONTROLLED_STATE) {
@@ -75,13 +78,18 @@ export const useManagedProps = <Data extends IAnything = IAnything, Payload = IA
     const propsChangeSubject = useSubject(upperChangeSubject);
     const dataChangeSubject = useChangeSubject(data);
 
-    useEffect(() => propsChangeSubject.subscribe((data) => {
-        dataChangeSubject.next(data);
+    useEffect(() => dataChangeSubject.subscribe((data) => {
+        propsChangeSubject.next(data);
     }), []);
 
     return {
-        changeSubject: dataChangeSubject,
-        handler: () => data,
+        changeSubject: propsChangeSubject,
+        handler: async () => {
+            if (!data$.current) {
+                return await dataChangeSubject.toPromise();
+            }
+            return data$.current;
+        },
         ...otherProps
     };
 };

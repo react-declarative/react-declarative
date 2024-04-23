@@ -19754,7 +19754,7 @@ declare module "react-declarative/components/One/One" {
    */
   export const One: {
     <Data extends unknown = any, Payload = any, Field = IField<Data, any>>(
-      props: IOnePublicProps<Data, Payload, Field>,
+      args: IOnePublicProps<Data, Payload, Field>,
     ): JSX.Element;
     displayName: string;
     /**
