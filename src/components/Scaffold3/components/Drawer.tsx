@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Backdrop from '@mui/material/Backdrop';
 
 import useSwipeable from '../../../hooks/useSwipable';
-import useActualValue from '../../../hooks/useActualValue';
 
 import { CLOSED_WIDTH, OPENED_WIDTH, TOGGLE_WIDTH } from '../config';
 
@@ -28,8 +27,6 @@ export const Drawer = ({
     const [swiping, setSwiping] = useState(false);
     const pendingOpenedRef = useRef(opened);
 
-    const opened$ = useActualValue(opened);
-
     const computeWidth = useMemo(() => {
         if (swiping) {
             return width;
@@ -48,9 +45,6 @@ export const Drawer = ({
             deltaX,
             dir
         }) => {
-            if (opened$.current) {
-                return;
-            }
             if (dir === 'Left' || dir === 'Right') {
                 setSwiping(true);
                 onSwipingChange(true);

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { makeStyles } from '../../../styles';
 
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
@@ -9,18 +10,29 @@ import { IScaffold3GroupInternal } from "../model/IScaffold3Group";
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 
 import { CLOSED_WIDTH } from "../config";
+import { useState } from "react";
 
 interface INavigatorDenseProps {
+    swiping: boolean;
     options: IScaffold3GroupInternal[];
     onOptionClick?: (path: string, id: string) => void;
     onOptionGroupClick?: (path: string, id: string) => void;
 }
 
+const useStyles = makeStyles()({
+    hidden: {
+        visibility: 'hidden',
+    },
+});
+
 export const NavigatorDense = ({
+    swiping,
     options,
     onOptionClick = () => undefined,
     onOptionGroupClick = () => undefined,
 }: INavigatorDenseProps) => {
+    const { classes, cx } = useStyles();
+    const [tooltip, setTooltip] = useState(false);
     return (
         <Box
             sx={{
@@ -58,6 +70,16 @@ export const NavigatorDense = ({
                 }, idx) => (
                     <Tooltip
                         arrow
+                        open={tooltip}
+                        hidden={swiping}
+                        classes={{
+                            tooltip: cx({
+                                [classes.hidden]: swiping,
+                            })
+                        }}
+                        onOpen={() => setTooltip(true)}
+                        onClose={() => setTooltip(false)}
+                        placement="right"
                         key={`${id}-${idx}`}
                         title={label}
                         PopperProps={{style:{zIndex:1000}}}

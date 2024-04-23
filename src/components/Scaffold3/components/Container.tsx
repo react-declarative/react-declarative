@@ -90,7 +90,7 @@ export const Container = <T extends Payload = Payload>({
 
   const { noContent } = usePropsContext();
   const [opened, setOpened] = useState(!isMobile);
-  const [, setSwiping] = useState(false);
+  const [swiping, setSwiping] = useState(false);
 
   const widthRequest = useMemo(() => {
     return size.width - CLOSED_WIDTH;
@@ -161,6 +161,7 @@ export const Container = <T extends Payload = Payload>({
     }
     return (
       <NavigatorDense
+        swiping={swiping}
         options={options}
         onOptionGroupClick={handleOptionGroupClick}
         onOptionClick={handleOptionClick}
