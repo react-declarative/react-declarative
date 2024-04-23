@@ -8,7 +8,7 @@
 
 ![meme](./meme.png)
 
-A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look beautiful on any device...
+A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look normal on any device...
 
 <!--
 
@@ -192,13 +192,13 @@ git clone https://github.com/react-declarative/nft-mint-tool.git
 git clone https://github.com/react-declarative/react-pocketbase-crm.git
 ```
 
-**6. ChatGPT Pharma Seller**
+**6. ChatGPT Ecommerce Grid**
 
 > [!NOTE]
-> GitHub repo: [https://github.com/react-declarative/chatgpt-pharma-seller](https://github.com/react-declarative/chatgpt-pharma-seller)
+> GitHub repo: [https://github.com/react-declarative/chatgpt-ecommerce-prompt](https://github.com/react-declarative/chatgpt-ecommerce-prompt)
 
 ```bash
-git clone https://github.com/react-declarative/chatgpt-pharma-seller.git
+git clone https://github.com/react-declarative/chatgpt-ecommerce-prompt.git
 ```
 
 <img src="./assets/icons/fallen.svg" height="40px" align="right">

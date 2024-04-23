@@ -489,6 +489,8 @@ export { useListSelection } from './components';
 export { useListAction } from './components';
 export { useListModalSort } from './components';
 export { useListDropFilters } from './components';
+export { useListStateAction } from './components';
+export { useListUpsertManager } from './components';
 export { useApiPaginator } from './components';
 
 export { useCursorPaginator } from './components';

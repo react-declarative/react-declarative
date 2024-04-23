@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useMemo } from "react";
 
 import { makeStyles } from "../../../../../styles";
 
@@ -22,6 +22,7 @@ import useSelection from "../../../hooks/useSelection";
 import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
+import useUpsertManager from "../../../hooks/useUpsertManager";
 
 import ModalLoader from "./components/ModalLoader";
 
@@ -83,23 +84,6 @@ interface IInfiniteProps<
 }
 
 /**
- * Represents an infinite state interface.
- *
- * @template FilterData - The type of filter data.
- * @template RowData - The type of row data.
- */
-interface IInfiniteState<
-  FilterData extends {} = IAnything,
-  RowData extends IRowData = IAnything
-> {
-  rows: IInfiniteProps<FilterData, RowData>["rows"];
-  filterData: IInfiniteProps<FilterData, RowData>["filterData"];
-  chips: IInfiniteProps<FilterData, RowData>["chips"];
-  sort: IInfiniteProps<FilterData, RowData>["sort"];
-  search: IInfiniteProps<FilterData, RowData>["search"];
-}
-
-/**
  * InfiniteView component represents list table with infinite scroll behaviour.
  *
  * @template FilterData - The type of filter data.
@@ -118,14 +102,14 @@ export const InfiniteView = <
 
   const scrollYSubject = useSubject<number>();
 
+  const state = useUpsertManager({
+    rows: props.rows,
+    scrollYSubject,
+  });
+
   const { selection, setSelection } = useSelection();
 
   const {
-    rows: upperRows,
-    filterData: upperFilterData,
-    chips: upperChips,
-    search: upperSearch,
-    sort: upperSort,
     offset,
     limit,
     total,
@@ -197,55 +181,6 @@ export const InfiniteView = <
 
   const { handlePageChange } = props;
 
-  const [state, setState] = useState<IInfiniteState>({
-    rows: upperRows,
-    filterData: upperFilterData,
-    chips: upperChips,
-    search: upperSearch,
-    sort: upperSort,
-  });
-
-  /**
-   * Updates the state with clean rows and filter data.
-   * Resets the scroll position to the top.
-   *
-   * @function handleCleanRows
-   * @returns
-   */
-  const handleCleanRows = useCallback(() => {
-    setState(() => ({
-      rows: upperRows,
-      filterData: upperFilterData,
-      chips: upperChips,
-      search: upperSearch,
-      sort: upperSort,
-    }));
-    scrollYSubject.next(0);
-  }, [upperRows, upperFilterData, upperChips, upperSearch, upperSort]);
-
-  /**
-   * Handles appending rows to state.
-   *
-   * This function is used with the useCallback hook to memoize any changes to the function reference.
-   * It appends new rows to the existing rows in state by filtering out rows with duplicate ids.
-   *
-   * @returns
-   */
-  const handleAppendRows = useCallback(
-    () =>
-      setState(({ rows, ...state }) => {
-        const rowIds = new Set(rows.map(({ id }) => id));
-        return {
-          ...state,
-          rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
-        };
-      }),
-    [state, upperRows]
-  );
-
-  useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handleCleanRows(), [upperFilterData, upperChips, upperSearch, upperSort]);
-
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;
 
@@ -259,7 +194,10 @@ export const InfiniteView = <
    *
    * @throws - If the request is invalid or fails.
    */
-  const { execute: handleDataRequest } = useSinglerunAction(async () => {
+  const { execute: handleDataRequest } = useSinglerunAction(async (initial: boolean) => {
+    if (initial) {
+      return;
+    }
     let isOk = true;
     isOk = isOk && hasMore;
     isOk = isOk && !loading;
@@ -278,6 +216,7 @@ export const InfiniteView = <
               scrollYSubject={scrollYSubject}
               minRowHeight={DEFAULT_ITEM_SIZE}
               hasMore={hasMore}
+              loading={loading}
               bufferSize={limit * 2}
               selectedRows={selectedRows}
               onSelectedRows={(ids, initial) => {
@@ -297,7 +236,7 @@ export const InfiniteView = <
               rowColor={rowColor}
               columns={gridColumns}
               data={state.rows}
-              onSkip={async () => void await handleDataRequest()}
+              onSkip={async (initial) => void await handleDataRequest(initial)}
               sx={{ height: rootHeight, width: rootWidth }}
             />
             <ModalLoader open={withLoader && loading} />

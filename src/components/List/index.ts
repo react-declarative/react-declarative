@@ -25,6 +25,8 @@ export { useReload as useListReload } from './hooks/useReload';
 export { useSelection as useListSelectionState } from './hooks/useSelection';
 export { useModalSort as useListModalSort } from './hooks/useModalSort';
 export { useDropFilters as useListDropFilters } from './hooks/useDropFilters';
+export { useStateAction as useListStateAction } from './hooks/useStateAction'; 
+export { useUpsertManager as useListUpsertManager } from './hooks/useUpsertManager'; 
 
 export { ClassicChipListSlot } from './common/ClassicChipListSlot';
 export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';

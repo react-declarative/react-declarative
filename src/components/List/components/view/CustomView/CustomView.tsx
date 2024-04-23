@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { makeStyles } from "../../../../../styles";
 
@@ -23,6 +23,7 @@ import useSelection from "../../../hooks/useSelection";
 import useElementSize from "../../../../../hooks/useElementSize";
 import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
 import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
+import useUpsertManager from "../../../hooks/useUpsertManager";
 
 import ModalLoader from "./components/ModalLoader";
 import DefaultTemplate from "./components/DefaultTemplate";
@@ -85,24 +86,6 @@ interface ICustomProps<
 }
 
 /**
- * Represents a custom state for a specific functionality.
- *
- * @interface ICustomState
- * @template FilterData - The type of the filter data.
- * @template RowData - The type of the row data.
- */
-interface ICustomState<
-  FilterData extends {} = IAnything,
-  RowData extends IRowData = IAnything
-> {
-  rows: ICustomProps<FilterData, RowData>["rows"];
-  filterData: ICustomProps<FilterData, RowData>["filterData"];
-  chips: ICustomProps<FilterData, RowData>["chips"];
-  sort: ICustomProps<FilterData, RowData>["sort"];
-  search: ICustomProps<FilterData, RowData>["search"];
-}
-
-/**
  * CustomView component represents list with infinite scroll behaviour and custom template.
  *
  * @template FilterData - The type of filter data.
@@ -122,6 +105,11 @@ export const CustomView = <
   const scrollManager = useScrollManager();
   const scrollYSubject = useSubject<number>();
 
+  const state = useUpsertManager({
+    rows: props.rows,
+    scrollYSubject,
+  });
+
   useEffect(() => scrollManager.scrollYSubject.subscribe(() => {
     scrollYSubject.next(0);
   }), []);
@@ -129,11 +117,6 @@ export const CustomView = <
   const { selection, setSelection } = useSelection();
 
   const {
-    rows: upperRows,
-    filterData: upperFilterData,
-    chips: upperChips,
-    search: upperSearch,
-    sort: upperSort,
     offset,
     limit,
     total,
@@ -190,58 +173,6 @@ export const CustomView = <
 
   const { handlePageChange } = props;
 
-  const [state, setState] = useState<ICustomState>({
-    rows: upperRows,
-    filterData: upperFilterData,
-    chips: upperChips,
-    search: upperSearch,
-    sort: upperSort,
-  });
-
-  /**
-   * Handles cleaning the rows and updating the state.
-   *
-   * @function handleCleanRows
-   * @callback
-   *
-   * @param setState - The function to set the state.
-   * @param upperRows - The updated rows.
-   * @param upperFilterData - The updated filter data.
-   *
-   * @returns
-   */
-  const handleCleanRows = useCallback(() => {
-    setState(() => ({
-      rows: upperRows,
-      filterData: upperFilterData,
-      chips: upperChips,
-      search: upperSearch,
-      sort: upperSort,
-    }));
-    scrollYSubject.next(0);
-  }, [upperRows, upperFilterData, upperChips, upperSearch, upperSort]);
-
-  /**
-   * A callback function used to handle appending rows to the state.
-   *
-   * @callback handleAppendRows
-   * @returns
-   */
-  const handleAppendRows = useCallback(
-    () =>
-      setState(({ rows, ...state }) => {
-        const rowIds = new Set(rows.map(({ id }) => id));
-        return {
-          ...state,
-          rows: [...rows, ...upperRows.filter(({ id }) => !rowIds.has(id))],
-        };
-      }),
-    [state, upperRows]
-  );
-
-  useEffect(() => handleAppendRows(), [upperRows]);
-  useEffect(() => handleCleanRows(), [upperFilterData, upperChips, upperSearch, upperSort]);
-
   const pendingPage = Math.floor(offset / limit) + 1;
   const hasMore = !total || pendingPage * limit < total;
 
@@ -250,7 +181,10 @@ export const CustomView = <
   /**
    * Handles the data request.
    */
-  const { execute: handleDataRequest } = useSinglerunAction(async () => {
+  const { execute: handleDataRequest } = useSinglerunAction(async (initial: boolean) => {
+    if (initial) {
+      return;
+    }
     let isOk = true;
     isOk = isOk && hasMore;
     isOk = isOk && !loading;
@@ -283,7 +217,8 @@ export const CustomView = <
               rowKey="id"
               rowColor={rowColor}
               data={state.rows}
-              onSkip={async () => void await handleDataRequest()}
+              loading={loading}
+              onSkip={async (initial) => void await handleDataRequest(initial)}
               onItemClick={({ data }) => {
                 handleRowClick(data);
               }}

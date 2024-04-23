@@ -51,9 +51,12 @@ import ignoreSymbols from "../../helpers/ignoreSymbols";
 import { TileMode } from "../../../Tile";
 
 import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
+import { IStateAction, StateActionProvider } from "../../hooks/useStateAction";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
 import { SearchProvider } from "../../hooks/useSearch";
+
+import Subject from "../../../../utils/rx/Subject";
 
 import SlotFactory from "../SlotFactory";
 import CustomView from "../view/CustomView";
@@ -67,6 +70,9 @@ export class Entry<
   IListProps<FilterData, RowData, Payload, Field>,
   IListState<FilterData, RowData>
 > {
+
+  private readonly stateActionEmitter = new Subject<IStateAction>();
+
   private isMountedFlag = false;
   private isFetchingFlag = false;
   private isRerenderFlag = false;
@@ -555,7 +561,17 @@ export class Entry<
     }
     this.setLoading(true);
     try {
+      await this.stateActionEmitter.next({
+        type: "filterdata-changed",
+        keepPagination,
+        filterData,
+      })
       const { rows, total } = await this.handleRows(filterData, keepPagination);
+      await this.stateActionEmitter.next({
+        type: "rows-changed",
+        rows,
+        total,
+      });
       if (!keepPagination) {
         this.scrollManager.scrollTop();
       }
@@ -675,7 +691,11 @@ export class Entry<
    *
    * @param sort - The new sort model.
    */
-  private handleSortModel = (sort: ListHandlerSortModel) => {
+  private handleSortModel = async (sort: ListHandlerSortModel) => {
+    await this.stateActionEmitter.next({
+      type: "sort-changed",
+      sort,
+    });
     this.isFetchingFlag = true;
     this.isMountedFlag &&
       this.setState((prevState) => ({
@@ -693,7 +713,11 @@ export class Entry<
    * @param chips - The list of chips to be handled.
    * @returns
    */
-  private handleChips = (chips: ListHandlerChips) => {
+  private handleChips = async (chips: ListHandlerChips) => {
+    await this.stateActionEmitter.next({
+      type: "chips-changed",
+      chips,
+    });
     this.isFetchingFlag = true;
     this.isMountedFlag &&
       this.setState((prevState) => ({
@@ -712,7 +736,11 @@ export class Entry<
    *
    * @returns
    */
-  private handleSearch = (search: string) => {
+  private handleSearch = async (search: string) => {
+    await this.stateActionEmitter.next({
+      type: "search-changed",
+      search,
+    });
     this.isFetchingFlag = true;
     this.isMountedFlag &&
       this.setState((prevState) => ({
@@ -858,41 +886,43 @@ export class Entry<
     return (
       <NoSsr>
         <ThemeProvider>
-          <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
-            <ScrollManagerProvider payload={this.scrollManager}>
-              <ConstraintManagerProvider payload={this.constraintManager}>
-                <SelectionProvider selectedRows={this.props.selectedRows}>
-                  <CachedRowsProvider>
-                    <RowDisabledMapProvider initialState={() => new Map()}>
-                      <SortModelProvider sortModel={this.props.sortModel!}>
-                        <ChipsProvider
-                          chips={this.props.chips!}
-                          chipData={this.props.chipData!}
-                        >
-                          <FilterDataProvider value={this.state.filterData}>
-                            <PaginationProvider
-                              limit={this.state.limit}
-                              offset={this.state.offset}
-                            >
-                              <SearchProvider value={this.state.search}>
-                                <ModalSortProvider>
-                                  <SlotFactory {...this.props.slots}>
-                                    <PayloadProvider value={this.state.payload}>
-                                      {this.renderInner()}
-                                    </PayloadProvider>
-                                  </SlotFactory>
-                                </ModalSortProvider>
-                              </SearchProvider>
-                            </PaginationProvider>
-                          </FilterDataProvider>
-                        </ChipsProvider>
-                      </SortModelProvider>
-                    </RowDisabledMapProvider>
-                  </CachedRowsProvider>
-                </SelectionProvider>
-              </ConstraintManagerProvider>
-            </ScrollManagerProvider>
-          </PropProvider>
+          <StateActionProvider payload={this.stateActionEmitter}>
+            <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
+              <ScrollManagerProvider payload={this.scrollManager}>
+                <ConstraintManagerProvider payload={this.constraintManager}>
+                  <SelectionProvider selectedRows={this.props.selectedRows}>
+                    <CachedRowsProvider>
+                      <RowDisabledMapProvider initialState={() => new Map()}>
+                        <SortModelProvider sortModel={this.props.sortModel!}>
+                          <ChipsProvider
+                            chips={this.props.chips!}
+                            chipData={this.props.chipData!}
+                          >
+                            <FilterDataProvider value={this.state.filterData}>
+                              <PaginationProvider
+                                limit={this.state.limit}
+                                offset={this.state.offset}
+                              >
+                                <SearchProvider value={this.state.search}>
+                                  <ModalSortProvider>
+                                    <SlotFactory {...this.props.slots}>
+                                      <PayloadProvider value={this.state.payload}>
+                                        {this.renderInner()}
+                                      </PayloadProvider>
+                                    </SlotFactory>
+                                  </ModalSortProvider>
+                                </SearchProvider>
+                              </PaginationProvider>
+                            </FilterDataProvider>
+                          </ChipsProvider>
+                        </SortModelProvider>
+                      </RowDisabledMapProvider>
+                    </CachedRowsProvider>
+                  </SelectionProvider>
+                </ConstraintManagerProvider>
+              </ScrollManagerProvider>
+            </PropProvider>
+          </StateActionProvider>
         </ThemeProvider>
       </NoSsr>
     );

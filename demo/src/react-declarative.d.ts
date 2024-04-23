@@ -570,6 +570,8 @@ declare module "react-declarative" {
   export { useListAction } from "react-declarative/components";
   export { useListModalSort } from "react-declarative/components";
   export { useListDropFilters } from "react-declarative/components";
+  export { useListStateAction } from "react-declarative/components";
+  export { useListUpsertManager } from "react-declarative/components";
   export { useApiPaginator } from "react-declarative/components";
   export { useCursorPaginator } from "react-declarative/components";
   export { useOffsetPaginator } from "react-declarative/components";
@@ -2866,6 +2868,8 @@ declare module "react-declarative/components/List" {
   export { useSelection as useListSelectionState } from "react-declarative/components/List/hooks/useSelection";
   export { useModalSort as useListModalSort } from "react-declarative/components/List/hooks/useModalSort";
   export { useDropFilters as useListDropFilters } from "react-declarative/components/List/hooks/useDropFilters";
+  export { useStateAction as useListStateAction } from "react-declarative/components/List/hooks/useStateAction";
+  export { useUpsertManager as useListUpsertManager } from "react-declarative/components/List/hooks/useUpsertManager";
   export { ClassicChipListSlot } from "react-declarative/components/List/common/ClassicChipListSlot";
   export { ClassicFilterListSlot } from "react-declarative/components/List/common/ClassicFilterListSlot";
   export { DialogFilterListSlot } from "react-declarative/components/List/common/DialogFilterListSlot";
@@ -17257,6 +17261,68 @@ declare module "react-declarative/components/List/hooks/useDropFilters" {
    */
   export const useDropFilters: () => () => void;
   export default useDropFilters;
+}
+
+declare module "react-declarative/components/List/hooks/useStateAction" {
+  import { IRowData } from "react-declarative/model/IRowData";
+  import {
+    ListHandlerChips,
+    ListHandlerSortModel,
+  } from "react-declarative/model/IListProps";
+  import TSubject from "react-declarative/model/TSubject";
+  interface IFilterDataChangedStateAction {
+    type: "filterdata-changed";
+    filterData: Record<string, unknown>;
+    keepPagination: boolean;
+  }
+  interface IRowsChangedStateAction {
+    type: "rows-changed";
+    rows: IRowData[];
+    total: number | null;
+  }
+  interface IChipsChangedStateAction {
+    type: "chips-changed";
+    chips: ListHandlerChips;
+  }
+  interface ISearchChangedStateAction {
+    type: "search-changed";
+    search: string;
+  }
+  interface ISortChangedStateAction {
+    type: "sort-changed";
+    sort: ListHandlerSortModel;
+  }
+  export type IStateAction =
+    | IFilterDataChangedStateAction
+    | IRowsChangedStateAction
+    | IChipsChangedStateAction
+    | ISearchChangedStateAction
+    | ISortChangedStateAction;
+  export const StateActionProvider: ({
+      children,
+      payload,
+    }: {
+      children: import("react").ReactNode;
+      payload: TSubject<IStateAction>;
+    }) => JSX.Element,
+    useStateAction: () => TSubject<IStateAction>;
+  export default useStateAction;
+}
+
+declare module "react-declarative/components/List/hooks/useUpsertManager" {
+  import { IListState } from "react-declarative/model/IListProps";
+  import TSubject from "react-declarative/model/TSubject";
+  interface IParams {
+    scrollYSubject?: TSubject<number>;
+    rows: IListState["rows"];
+  }
+  export const useUpsertManager: ({
+    scrollYSubject,
+    rows: upperRows,
+  }: IParams) => {
+    rows: any[];
+  };
+  export default useUpsertManager;
 }
 
 declare module "react-declarative/components/List/common/ClassicChipListSlot" {
