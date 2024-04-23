@@ -57,9 +57,11 @@ export const NavigatorDense = ({
                     options,
                 }, idx) => (
                     <Tooltip
+                        arrow
                         key={`${id}-${idx}`}
                         title={label}
                         PopperProps={{style:{zIndex:1000}}}
+                        enterTouchDelay={0}
                     >
                         <Fab
                             disabled={disabled}

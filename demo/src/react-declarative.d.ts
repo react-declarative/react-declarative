@@ -104,6 +104,7 @@ declare module "react-declarative" {
   export { createRouteItemManager } from "react-declarative/helpers/routeManager";
   export { createRouteParamsManager } from "react-declarative/helpers/routeManager";
   export { usePreventAutofill } from "react-declarative/hooks/usePreventAutofill";
+  export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
   export { useRouteItem } from "react-declarative/hooks/useRouteItem";
   export { useRouteParams } from "react-declarative/hooks/useRouteParams";
@@ -4410,6 +4411,27 @@ declare module "react-declarative/hooks/usePreventAutofill" {
     onContextMenu,
   }?: Partial<IParams<T>>) => IResult<T>;
   export default usePreventAutofill;
+}
+
+declare module "react-declarative/hooks/useOneInput" {
+  import IAnything from "react-declarative/model/IAnything";
+  interface IParams<T extends IAnything = IAnything> {
+    onValueChange: (value: T) => void;
+    readonly: boolean;
+    value: T;
+  }
+  export const useOneInput: <T extends unknown = any>({
+    readonly,
+    value: upperValue,
+    onValueChange,
+  }: IParams<T>) => {
+    key: string;
+    readOnly: boolean;
+    value: T | undefined;
+    defaultValue: T;
+    onBlur: (e: any) => void;
+  };
+  export default useOneInput;
 }
 
 declare module "react-declarative/hooks/useContextMenu" {

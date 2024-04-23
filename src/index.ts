@@ -93,6 +93,7 @@ export { createRouteItemManager } from './helpers/routeManager';
 export { createRouteParamsManager } from './helpers/routeManager';
 
 export { usePreventAutofill } from './hooks/usePreventAutofill';
+export { useOneInput } from './hooks/useOneInput';
 export { useContextMenu } from './hooks/useContextMenu';
 
 export { useRouteItem } from './hooks/useRouteItem';
