@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { makeStyles } from '../../../styles';
 
 import Tooltip from "@mui/material/Tooltip";
@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 
 import useMediaContext from "../../../hooks/useMediaContext";
+
+import debounce from "../../../utils/hof/debounce";
 
 import { IScaffold3GroupInternal } from "../model/IScaffold3Group";
 
@@ -36,6 +38,20 @@ export const NavigatorDense = ({
     const { classes, cx } = useStyles();
     const [tooltip, setTooltip] = useState(false);
     const { isMobile } = useMediaContext();
+
+    const handleClose = useMemo(() => debounce(() => {
+        setTooltip(false);
+    }, 500), []);
+
+    const handleCancel = useCallback(() => {
+        handleClose.clear();
+    }, []);
+
+    const handleOpen = useCallback(() => {
+        handleClose.clear();
+        setTooltip(true);
+    }, []);
+
     return (
         <Box
             sx={{
@@ -80,8 +96,9 @@ export const NavigatorDense = ({
                                 [classes.hidden]: swiping,
                             })
                         }}
-                        onOpen={() => setTooltip(true)}
-                        onClose={() => setTooltip(false)}
+                        onMouseMove={handleCancel}
+                        onOpen={handleOpen}
+                        onClose={handleClose}
                         placement="right"
                         key={`${id}-${idx}`}
                         title={label}
