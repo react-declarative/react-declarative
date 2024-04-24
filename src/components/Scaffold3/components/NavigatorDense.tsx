@@ -1,16 +1,18 @@
 import * as React from "react";
+import { useState } from "react";
 import { makeStyles } from '../../../styles';
 
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 
+import useMediaContext from "../../../hooks/useMediaContext";
+
 import { IScaffold3GroupInternal } from "../model/IScaffold3Group";
 
 import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 
 import { CLOSED_WIDTH } from "../config";
-import { useState } from "react";
 
 interface INavigatorDenseProps {
     swiping: boolean;
@@ -33,6 +35,7 @@ export const NavigatorDense = ({
 }: INavigatorDenseProps) => {
     const { classes, cx } = useStyles();
     const [tooltip, setTooltip] = useState(false);
+    const { isMobile } = useMediaContext();
     return (
         <Box
             sx={{
@@ -83,7 +86,7 @@ export const NavigatorDense = ({
                         key={`${id}-${idx}`}
                         title={label}
                         PopperProps={{style:{zIndex:1000}}}
-                        enterTouchDelay={0}
+                        enterTouchDelay={isMobile ? 0 : undefined}
                     >
                         <Fab
                             disabled={disabled}
