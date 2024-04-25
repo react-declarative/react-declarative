@@ -90,10 +90,15 @@
 
 ## Documentation
 
+**Code guide**
+
+1. [Implement your own field](../src/README.md)
+
+**Software design**
+
 1. [API reference](./auto/index.md)
 2. [Release notes](../CHANGELOG.md)
-3. [Implement your own field](../src/README.md)
-4. [Philosophy notes](../NOTES.md)
+3. [Philosophy notes](../NOTES.md)
 
 ## Overview
 
