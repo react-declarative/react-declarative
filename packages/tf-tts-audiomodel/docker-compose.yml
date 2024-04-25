@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  speech:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: >
+      sh -c "python main.py"
+    volumes:
+      - "./:/app"
