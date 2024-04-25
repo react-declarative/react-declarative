@@ -29,9 +29,9 @@ const releaseText = releaseList.flatMap(({
     body,
     published_at
 }) => [
-    `# ${name} (v${tag_name}, ${formatDate(published_at)})\n`,
-    `> Github [release link](${html_url})\n`,
-    `${body}\n`,
+    `# ${name} (v${tag_name}, ${formatDate(published_at)})\n\n`,
+    `> Github [release link](${html_url})\n\n`,
+    `${body}\n\n`,
     "\n\n",
 ]).join("");
 
