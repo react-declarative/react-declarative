@@ -15,7 +15,7 @@ processor = AutoProcessor.from_pretrained("tensorspeech/tts-tacotron2-ljspeech-e
 tacotron2 = TFAutoModel.from_pretrained("tensorspeech/tts-tacotron2-ljspeech-en")
 mb_melgan = TFAutoModel.from_pretrained("tensorspeech/tts-mb_melgan-ljspeech-en")
 
-text = "This is a demo to show how to use our model to generate mel spectrogram from raw text."
+text = "The react-declarative template engine allows you build highly customizable forms without side effects in truly functional style"
 
 input_ids = processor.text_to_sequence(text)
 
