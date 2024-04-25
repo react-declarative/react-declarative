@@ -101,7 +101,7 @@ export const NavigatorDense = ({
                         onClose={handleClose}
                         placement="right"
                         key={`${id}-${idx}`}
-                        title={label}
+                        title={label || id}
                         PopperProps={{style:{zIndex:1000}}}
                         enterTouchDelay={isMobile ? 0 : undefined}
                     >
