@@ -1,4 +1,4 @@
-# iOS Swipeable Driver (2.5.873)
+# iOS Swipeable Drawer (2.5.873)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.873)
 The MUI `<SwipeableDrawer />` is [not working on iOS devices](https://github.com/mui/material-ui/issues/15689).
 
