@@ -12,13 +12,24 @@ const { data: releaseList } = await octokit.request('GET /repos/react-declarativ
     }
 })
 
+const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const yyyy = date.getFullYear();
+    let mm = date.getMonth() + 1;
+    let dd = date.getDate();
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+    return dd + '/' + mm + '/' + yyyy;
+}
+
 const releaseText = releaseList.flatMap(({
     html_url,
     name,
     tag_name,
-    body
+    body,
+    published_at
 }) => [
-    `# ${name} (${tag_name})\n`,
+    `# ${name} (v${tag_name}, ${formatDate(published_at)})\n`,
     `> Github [release link](${html_url})\n`,
     `${body}\n`,
     "\n\n",
