@@ -8,7 +8,6 @@ The `<Scaffold3 />` component is operational on iOS devices, enabling users to e
 
 ![mobile](https://github.com/react-declarative/react-declarative/assets/19227776/437b3846-b235-4d2a-b607-91f5b935a596)
 
-
 # Value Encryption (2.5.800)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.800)
 Value read and write transformation support for `<One />` component
@@ -31,16 +30,13 @@ Value read and write transformation support for `<One />` component
   ...
 ```
 
-
 # JSDoc (2.5.716)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.716)
 Now [JSDoc](https://jsdoc.app/tags-param) for `<One />` fields and layouts available. Check it in [docs folder](https://github.com/react-declarative/react-declarative/tree/master/docs#field-properties-with-jsdoc)
 
-
 # Documentation (2.5.657)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.657)
 Documentation store in [docs folder](./docs)
-
 
 # Context Menu Support (2.5.572)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.572)
@@ -75,7 +71,6 @@ const fields: TypedField<any, null>[] = [
 <One fields={fields} ...
 ```
 
-
 # One DictField Support (2.5.521)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.521)
 `FieldType.Dict` is usefull when you need to choose `user_id` by using fulltext search
@@ -109,27 +104,21 @@ const fields: TypedField<any, null>[] = [
   },
 ```
 
-
 # SearchView Component (2.5.490)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.490)
 `<SearchView />` component allow you to choose item from api dictionary or create another record if no exist
 
 ![ezgif-3-408ea554e8](https://github.com/react-declarative/react-declarative/assets/19227776/dc6de0ca-5c54-4b03-8bcf-458c8f9a3acf)
 
-
-
 # One Spellcheck Support (2.5.466)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.466)
 Spellcheck support for `<One />` component. In compassion with `isInvalid` callback the `isIncorrect` callback will not block submit button
-
 
 # KanbanView Component (2.5.449)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.449)
 The `<KanbanView />` allow you to build [kanban](https://en.wikipedia.org/wiki/Kanban_(development)) boards with realtime support
 
 ![image](https://github.com/react-declarative/react-declarative/assets/19227776/9f681726-7820-45e8-8b1c-d58e6122ee8f)
-
-
 
 # Dynamic Import Dependency Injection (2.5.346)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.346)
@@ -152,7 +141,6 @@ window.ioc = {
 }
 
 ```
-
 
 # GridView component (2.5.334)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.334)
@@ -210,16 +198,13 @@ const { gridProps, commitAction, deselectAll } = useGridAction({
 />
 ```
 
-
 # One Performance (2.5.250)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.250)
 `One` Render Count Minimized
 
-
 # List Performance (2.5.170)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.170)
 List rerender count minimized
-
 
 # Items field mouse listener (2.5.110)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.110)
@@ -227,12 +212,9 @@ List rerender count minimized
 
 ![ezgif-4-2a3f89184d](https://github.com/react-declarative/react-declarative/assets/19227776/36665809-10ee-4d7d-8cfa-b0cbf94b5e7a)
 
-
-
 # ComboBox item list cache (2.5.102)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.102)
 Request count minimized
-
 
 # One Feature Flags (2.5.45)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.45)
@@ -261,46 +243,35 @@ Phone number will be visible only if `hasPhoneNumberPermission` feature flag is 
   ],
 ```
 
-
 # Value Apply Schedule (2.5.34)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.34)
-
-
 
 # Field Validation (2.4.107)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.107)
 Better field validation support with `isInvalid` callback. Now support cross field value binding
 
-
 # Auto Baseline (2.4.63)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.63)
 Automatic upper baseline for outlined fields and lower baseline for standard fields
 
-
 # List Column isVisible (2.4.58)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.58)
-
-
 
 # OutletView (2.4.42)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.42)
 Inspired by [react-router-dom](https://medium.com/age-of-awareness/amazing-new-stuff-in-react-router-v6-895ba3fab6af)
 
-
 # Lower Memory Consumption (2.4.19)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.19)
 Minimize useState execution
-
 
 # Memoization (2.4.2)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.4.2)
 Render count decreased 3 times
 
-
 # Service pack (2.2.359)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.359)
 Better `useArrayPaginator`, `<List />` search input patch, `isInvalid` callback patch, `useQueryPagination` patch
-
 
 # SearchModal (2.2.261)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.261)
@@ -308,29 +279,21 @@ The `useSearchModal` hook will help you pick User id from paginated CRUD endpoin
 
 ![image](https://github.com/react-declarative/react-declarative/assets/19227776/15f00a6b-2eef-4441-9748-8010f3d47019)
 
-
-
-
 # FilesView (2.2.223)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.223)
 `<FilesView />` will help you manage multiple files upload and storage
 
 ![image](https://github.com/react-declarative/react-declarative/assets/19227776/1b692d79-4067-444f-a084-8a96820741f0)
 
-
-
 # Service Pack (2.2.218)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.218)
 `usePreventLeave` loadstart/loadend callbacks
-
 
 # Document Preview Components (2.2.214)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.214)
 Now you can use `<ImageView />` for image preview and `<DocumentView />` for PDF preview
 
 ![image](https://github.com/react-declarative/react-declarative/assets/19227776/a92d4ac6-99a5-4d34-b559-38227f548333)
-
-
 
 # File Field (2.2.212)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.212)
@@ -345,16 +308,13 @@ File picker suitable for [FireStore](https://firebase.google.com/docs/storage/we
 },
 ```
 
-
 # I18n (2.2.203)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.203)
 `Translate` JSX runtime will be quite useful for internationalization
 
-
 # Breadcrumbs2 Component (2.2.198)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.198)
 ```tsx
-
 
 const actions: IBreadcrumbs2Action[] = [
   {
@@ -391,7 +351,6 @@ const items: IBreadcrumbs2Option<IOneData>[] = [
   onAction={onAction}
 />
 ```
-
 
 # Machine Learning Tools (2.2.184)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.184)
@@ -444,14 +403,9 @@ We can take the first value of this pipe and use It as a dataset for training [B
 
 If you read up to this line, It might be useful to check the [brainjs-cryptocurrency-trend](https://github.com/react-declarative/brainjs-cryptocurrency-trend) too)
 
-
-
-
 # Reactive snippets (2.2.161)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.161)
 Added several snippets for reactive code. For example, [check this project](https://github.com/react-declarative/react-face-kyc/blob/d3cd0689630a839cd3b0d07e68f64db24c95b91e/src/hooks/useFaceWasm/emitters.ts#L73)
-
-
 
 # Better State Tools (2.2.138)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.138)
@@ -466,7 +420,6 @@ useSubscription(textChanged.debounce(), () => {
     // Easy money
 });
 ```
-
 
 # Scaffold2 Component (2.2.76)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.76)
@@ -499,8 +452,6 @@ const options: IScaffold2Group[] = [
       ...
 ```
 
-
-
 # Starter kits (2.2.6)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.2.6)
 Now several starter kits available
@@ -529,13 +480,9 @@ yarn create react-app --template cra-template-appwrite .
 yarn create react-app --template cra-template-react-declarative .
 ```
 
-
-
-
 # One Payload (2.1.86)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.1.86)
 The `payload` prop for `One` component
-
 
 # Patterns inside (2.1.37)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.1.37)
@@ -550,16 +497,13 @@ Now contains snippets for several software design patterns which will simplify y
 5. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) - `FetchView`, `WaitView`, `PingView`, `Async`, `If`
 6. [Monad](https://en.wikipedia.org/wiki/Monad_(functional_programming)) - `singleshot`, `cancelable`, `queued`, `cached`, `debounce`, `compose`
 
-
 # React 18.2 MUI 5 Support (2.1.7)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.1.7)
 MUI upgrade + react bump
 
-
 # AutoSizer patch (2.0.66)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.0.66)
 AutoSizer now requires less render cycles
-
 
 # Better Scaffold Groups (2.0.42)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.0.42)
@@ -567,12 +511,9 @@ AutoSizer now requires less render cycles
 
 ![image](https://user-images.githubusercontent.com/19227776/190634908-75eadded-cd99-43e3-8f38-976727ed36d7.png)
 
-
-
 # ActionState Components (2.0.41)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.0.41)
 `ActionButton`, `ActionFilter`, `ActionIcon`, `ActionMenu`, `ActionTrigger` will provide easiest api for user action triggering
-
 
 # MVVM State Manager (2.0.19)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.0.19)
@@ -645,7 +586,6 @@ export default App;
 
 ```
 
-
 # FetchView Upgrade (1.9.154)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.154)
 Better type definition for `FetchView` component
@@ -675,7 +615,6 @@ return (
 );
 ```
 
-
 # CRA Template (1.9.140)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.140)
 Now there is a `create-react-app` template available. You can use It by executing
@@ -686,12 +625,9 @@ npx create-react-app . --template=react-declarative
 
 Source code is published [in this repo](https://github.com/react-declarative/cra-template-react-declarative)
 
-
-
 # One Validation Upgrade (1.9.119)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.119)
 Better `One` component field data validation
-
 
 # ScaleView Component (1.9.112)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.112)
@@ -756,9 +692,6 @@ export const App = () => {
 export default App;
 ```
 
-
-
-
 # Scaffold Upgrade (1.9.103)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.103)
 Async callbacks for [Scaffold](https://api.flutter.dev/flutter/material/Scaffold-class.html)
@@ -777,7 +710,6 @@ const options: IMenuGroup[] = [
         },
       },
 ```
-
 
 # TabsView useTabsHashstate (1.9.100)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.100)
@@ -811,7 +743,6 @@ const { tabsProps } = useTabsHashstate({
   }}
 </TabsView>
 ```
-
 
 # Tabs View (1.9.88)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.88)
@@ -855,8 +786,6 @@ return (
 
 ```
 
-
-
 # List Query Passthrough (1.9.85)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.85)
 The easiest way to restore List query from url by parsing
@@ -882,14 +811,11 @@ return (
   />
   ```
 
-
 # List Fab Labels (1.9.77)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.77)
 Labels for buttons in top right corner of `List` component
 
 ![image](https://user-images.githubusercontent.com/19227776/178147330-6ce55ff1-7f98-452f-aefb-6ad5e4f5d792.png)
-
-
 
 # List Column Actions (1.9.71)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.71)
@@ -897,15 +823,11 @@ Action menu for column in `List` component
 
 ![image](https://user-images.githubusercontent.com/19227776/177830549-4a69ab1a-9c1d-4b96-8a13-670dbc25fdb3.png)
 
-
-
 # List Pagination Upgrade (1.9.64)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.64)
 Better list pagination with `debounce` execution
 
 ![image](https://user-images.githubusercontent.com/19227776/177042419-273933c1-95c3-40a2-8871-20038db75d6e.png)
-
-
 
 # List Search Bar (1.9.56)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.56)
@@ -913,14 +835,11 @@ List Component keyword searching support
 
 ![Screenshot from 2022-07-01 18-22-49](https://user-images.githubusercontent.com/19227776/176923556-dce35b87-da14-4ee0-b67a-9b4b03c8921d.png)
 
-
-
 # List Paginators Preset (1.9.54)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.54)
 Few more hooks for List Component
 
 `useApiPaginator`, `useArrayPaginator`, `useCachedPaginator`, `useLastPagination`
-
 
 # List Selection Refactor (1.9.43)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.43)
@@ -940,14 +859,11 @@ const actions: IListAction[] = [
       },
 ```
 
-
 # List Operations Row (1.9.39)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.39)
 List operations is an actions which can be triggered for set of rows
 
 ![image](https://user-images.githubusercontent.com/19227776/175354847-dd2cbd04-73f4-45c1-b4fd-a9a6bbf112c6.png)
-
-
 
 # ActionMenu Component (1.9.31)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.31)
@@ -962,22 +878,17 @@ const actions: IListAction[] = [
   },
 ```
 
-
 # Developer Experience (1.9.25)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.25)
 [Async](https://github.com/react-declarative/react-declarative/tree/7750b3387573e5414f99af926e0966545e6fec16/src/components/Async) component upgrade, better [pagination hooks](https://github.com/react-declarative/react-declarative/blob/7750b3387573e5414f99af926e0966545e6fec16/src/index.ts#L118), circular dependency prevention [DI container](https://github.com/react-declarative/react-declarative/blob/7750b3387573e5414f99af926e0966545e6fec16/src/helpers/serviceManager.ts#L16) upgrade, [List selection](https://github.com/react-declarative/react-declarative/blob/7750b3387573e5414f99af926e0966545e6fec16/src/components/List/components/SlotFactory/components/HeadRow/components/DesktopHeadRow.tsx#L59) upgrade
-
 
 # Switch Transition Animation (1.9.6)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.9.6)
 `Switch` transition animation, `prefetch` api
 
-
-
 # Production Tested (1.8.99)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.99)
 This one has been used on production of commercial solution. Waiting for your move
-
 
 # Page Unload Blocker (1.8.91)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.91)
@@ -985,20 +896,15 @@ The `usePreventLeave` hook will block any attempt to leave One-templated page wi
 
 ![image](https://user-images.githubusercontent.com/19227776/168446581-ebb2e636-d4af-456a-82c6-8af3168c97f9.png)
 
-
-
 # List Adaptive Layout Engine (1.8.79)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.79)
 Automatic transition to the mobile list view when the screen width is limited
 
 ![2022-05-07 23 39 10](https://user-images.githubusercontent.com/19227776/167271057-437dd099-f459-4835-9a38-3ce67412bdbf.jpg)
 
-
-
 # List Slot Factory (1.8.72)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.72)
 An easiest way to override mobile datagrid layout
-
 
 # List Breakpoint Constraints (1.8.67)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.67)
@@ -1016,19 +922,15 @@ const columns: IColumn[] = [
     ...
 ```
 
-
 # List Chips Support (1.8.48)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.48)
 Material-chip based boolean filter for list component
 
 ![image](https://user-images.githubusercontent.com/19227776/165587214-f0b41595-5c70-443e-bcd4-f4e90a964b54.png)
 
-
-
 # AbortController Support (1.8.42)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.42)
 The `useApiPaginator` and`useApiHandler` hooks are now providing `AbortController` support. By them you can easely write higer order functions to integrate custom REST Api without any pain
-
 
 # List Default Paginators (1.8.41)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.41)
@@ -1057,7 +959,6 @@ const Page = () => {
 
 ```
 
-
 # Input Formatter (1.8.35)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.35)
 Input formatter for text fields
@@ -1071,16 +972,13 @@ Input formatter for text fields
 }
 ```
 
-
 # Dependency Cleanup (1.8.34)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.34)
 `react-modal-hook` rewritten internally due to incompatible `react@^16.8.3` dependency
 
-
 # Service Pack (1.8.29)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.29)
 A few minor upgrades which provide better developer usability
-
 
 # Multiple FadeView Direction (1.8.19)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.19)
@@ -1088,28 +986,21 @@ Vertical fade container now available
 
 ![image](https://user-images.githubusercontent.com/19227776/160285370-bc308736-f8ec-49a3-b7ba-f16fdae905b4.png)
 
-
-
 # List Picker (1.8.18)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.18)
 Lightweight modal list item picker
 
 ![image](https://user-images.githubusercontent.com/19227776/160191168-07a1b0c1-e88b-4b0b-b061-e26caed8d15d.png)
 
-
-
 # List Selection Refactor (1.8.17)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.17)
 List Selection Api rows state synchronization
-
 
 # List Overflow Protection (1.8.13)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.13)
 Broken pagination detector will prevent DOM render stuck
 
 ![telegram-cloud-photo-size-2-5323670667461246678-x](https://user-images.githubusercontent.com/19227776/159967146-185f523f-d22e-4e01-a0dc-27f3b2cd1b55.jpg)
-
-
 
 # Group custom number of columns (1.8.11)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.11)
@@ -1135,12 +1026,9 @@ Now you can build a dashboard that requires more granular layout positioning.
 
 ![image](https://user-images.githubusercontent.com/19227776/159119662-2767b6de-8969-4f79-aca0-f78d65ed94b8.png)
 
-
-
 # Switch better user experience (1.8.6)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.6)
 Switch guard loader appear delay
-
 
 # Mobile List Selection Api (1.8.5)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.5)
@@ -1148,12 +1036,9 @@ Mobile List Component single and multiple row selections
 
 ![image](https://user-images.githubusercontent.com/19227776/158066634-cf26d84b-9bf5-4b93-b791-178d37f27f3a.png)
 
-
-
 # New List Engine (1.8.0)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.8.0)
 `@mui/x-data-grid` deprecated for performance reasons
-
 
 # One Callback Alias (1.7.15)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.7.15)
@@ -1170,21 +1055,16 @@ export interface IOnePublicProps<Data = IAnything, Field = IField<Data>>
 };
 ```
 
-
 # BottomFade Component (1.7.10)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.7.10)
 BottomFade will fade out the bottom of scrollable content
 
 ![image](https://user-images.githubusercontent.com/19227776/155226303-ce2a8009-a003-443e-b8be-8a895fe8badd.png)
 
-
-
 # Center Layout keep-flow mode (1.7.6)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.7.6)
 Center layout will keep document flow by default
 ![image](https://user-images.githubusercontent.com/19227776/155173732-9ccb63a0-7d02-4b25-af0a-831fb0ea024f.png)
-
-
 
 # Tabs Layout (1.7.2)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.7.2)
@@ -1192,15 +1072,11 @@ Tabs layout for One component
 
 ![image](https://user-images.githubusercontent.com/19227776/154868073-7c1d891a-be8d-4648-88d8-98e0663f1054.png)
 
-
-
 # ESBuild Migration (1.7.0)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.7.0)
 Bundle size reduced to `282kb`
 
 ![image](https://user-images.githubusercontent.com/19227776/154845292-348a40cc-8d23-4634-99a0-ab421317cb3d.png)
-
-
 
 # One Roles API (1.6.14)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.6.14)
@@ -1235,14 +1111,11 @@ export const SomePage = () => (
     <OneTyped roles={["user"]} ...
 ```
 
-
 # Advanced List Sizing (1.6.9)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.6.9)
 List Component filter collapse now shrinks it height
 
 ![image](https://user-images.githubusercontent.com/19227776/150657335-5bdfa5a6-6efd-4f3c-ad5e-5af84980d6dd.png)
-
-
 
 # MUI Upgrade (1.6.0)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.6.0)
@@ -1250,15 +1123,11 @@ Migration from `v4` to `v5` version of [material-ui](https://mui.com/)
 
 ![image](https://user-images.githubusercontent.com/19227776/148305891-37551920-e1a4-4c4f-aa70-91e29469e7b7.png)
 
-
-
 # Mobile List Renderer (1.5.90)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.90)
 An alternative List Component engine allows you to adapt your CRM system for mobile users
 
 ![image](https://user-images.githubusercontent.com/19227776/147579338-b42e9e9b-6102-4d17-857a-cccf0531b05a.png)
-
-
 
 # Outline Layout (1.5.87)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.87)
@@ -1276,8 +1145,6 @@ const fields: TypedField[] = [
             },
 ```
 ![image](https://user-images.githubusercontent.com/19227776/145673783-0b810fcb-257f-4875-9f27-80550fbba515.png)
-
-
 
 # Translate JSX Factory (1.5.84)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.84)
@@ -1304,7 +1171,6 @@ registerTr({
 ...
 ```
 
-
 # List Additional Columns (1.5.82)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.82)
 The Compute and Component columns for List
@@ -1329,7 +1195,6 @@ The Compute and Component columns for List
 ```
 
 ![image](https://user-images.githubusercontent.com/19227776/144725489-c7a74fb4-d04a-4e35-bbfd-ec1290ebf899.png)
-
 
 # List Component Autoreload (1.5.73)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.73)
@@ -1361,16 +1226,13 @@ const actions: IListAction[] = [
 ];
 ```
 
-
 # Minor changes (1.5.71)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.71)
 Additional props, several new fields
 
-
 # CenterLayout Field (1.5.44)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.44)
 A layout which centers the responsive grid by reducing empty cells width and enables scroll when there is a lack on free space
-
 
 # Async List Pickers (1.5.26)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.26)
@@ -1435,31 +1297,25 @@ The most advanced item pickers)
 
 ![ezgif-2-90fe6416bafe](https://user-images.githubusercontent.com/19227776/136573875-8e6adebb-bc34-48e7-b3b5-4a12fcb1c661.gif)
 
-
 # List Row Color (1.5.25)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.25)
 Colored indication on List Component rows will help you briefly classify inner information based on importance
-
 
 # Switch Component Features (1.5.19)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.19)
 Switch Component redirect, bug fixes
 
-
 # Switch Component (1.5.17)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.17)
 Minimal router based on [history](https://www.npmjs.com/package/history)
-
 
 # Breadcrumbs Component (1.5.15)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.15)
 The most advanced component for the list item form
 
-
 # List Server-Pagination (1.5.7)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.7)
 Index-based server side pagination is now available for List component
-
 
 # Small patches (1.6)
 > Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.6)
@@ -1467,23 +1323,19 @@ Group columns priority, input debounce value flush after lost focus, new samples
 
 [https://theonekit.com](https://theonekit.com)
 
-
 # Validity callback (1.5)
 > Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.5)
 You can now easily control whether the form save button is disabled using `validity` and `change` callbacks
 
 [https://theonekit.com](https://theonekit.com)
 
-
 # Strict typed JSON (1.4)
 > Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.4)
 Try OneTyped component. Site with [demos](https://theonekit.com) by the link
 
-
 # Upgrades (1.3)
 > Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.3)
 Few new modal dialog pickers, insignificant changes. See the [demo](https://theonekit.com) by the link
-
 
 # Ready to use (1.2)
 > Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.2)
