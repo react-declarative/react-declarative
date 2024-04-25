@@ -1,3 +1,14 @@
+# iOS Swipeable Driver (2.5.873)
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.873)
+The MUI `<SwipeableDrawer />` is [not working on iOS devices](https://github.com/mui/material-ui/issues/15689).
+
+![image](https://github.com/react-declarative/react-declarative/assets/19227776/c7abcfc0-9db0-4230-85aa-afecd2b5402a)
+
+The `<Scaffold3 />` component is operational on iOS devices, enabling users to employ intuitive swipe gestures with ease.
+
+![mobile](https://github.com/react-declarative/react-declarative/assets/19227776/437b3846-b235-4d2a-b607-91f5b935a596)
+
+
 # Value Encryption (2.5.800)
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.800)
 Value read and write transformation support for `<One />` component
