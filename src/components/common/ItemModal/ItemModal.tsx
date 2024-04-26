@@ -17,6 +17,7 @@ import IField from '../../../model/IField';
 import IManaged from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
 
+import useElementSize from '../../../hooks/useElementSize';
 import useViewState from './hooks/useViewState';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -84,6 +85,8 @@ export const ItemModal = ({
 }: IItemModalProps) => {
     const { classes } = useStyles();
 
+    const { elementRef, size } = useElementSize()
+
     const {
         items,
         hasMore,
@@ -141,9 +144,13 @@ export const ItemModal = ({
                         )
                     }}
                 />
-                <Box className={classes.container}>
+                <Box className={classes.container} ref={elementRef}>
                     <Tile
                         className={classes.content}
+                        sx={{
+                            maxHeight: size.height,
+                            maxWidth: size.width,
+                        }}
                         selectionMode={selectionMode}
                         selectedRows={selectedRows}
                         data={items}
