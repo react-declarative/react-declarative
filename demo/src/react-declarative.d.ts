@@ -104,6 +104,7 @@ declare module "react-declarative" {
   export { createRouteItemManager } from "react-declarative/helpers/routeManager";
   export { createRouteParamsManager } from "react-declarative/helpers/routeManager";
   export { usePreventAutofill } from "react-declarative/hooks/usePreventAutofill";
+  export { useItemModal } from "react-declarative/hooks/useItemModal";
   export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
   export { useRouteItem } from "react-declarative/hooks/useRouteItem";
@@ -4415,6 +4416,15 @@ declare module "react-declarative/hooks/usePreventAutofill" {
     onContextMenu,
   }?: Partial<IParams<T>>) => IResult<T>;
   export default usePreventAutofill;
+}
+
+declare module "react-declarative/hooks/useItemModal" {
+  import { IItemModalProps } from "react-declarative/components/common/ItemModal";
+  interface IParams extends IItemModalProps {
+    payload: Record<string, unknown>;
+  }
+  export const useItemModal: (params: IParams) => () => void;
+  export default useItemModal;
 }
 
 declare module "react-declarative/hooks/useOneInput" {
@@ -18001,6 +18011,11 @@ declare module "react-declarative/components/Tile/model/ITile" {
   export default ITile;
 }
 
+declare module "react-declarative/components/common/ItemModal" {
+  export * from "react-declarative/components/common/ItemModal/ItemModal";
+  export { default } from "react-declarative/components/common/ItemModal/ItemModal";
+}
+
 declare module "react-declarative/components/One/components/SlotFactory" {
   export * from "react-declarative/components/One/components/SlotFactory/SlotFactory";
   export * from "react-declarative/components/One/components/SlotFactory/SlotContext";
@@ -27047,6 +27062,39 @@ declare module "react-declarative/components/MasterDetail/model/MasterDetailMode
     Tabs = "tabs",
   }
   export default MasterDetailMode;
+}
+
+declare module "react-declarative/components/common/ItemModal/ItemModal" {
+  import IField from "react-declarative/model/IField";
+  import IManaged from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  export interface IItemModalProps {
+    type: Exclude<IField["type"], undefined>;
+    onValueChange: Exclude<IManaged["onChange"], undefined>;
+    value: IAnything;
+    data: IAnything;
+    payload: IAnything;
+    title: IField["title"];
+    placeholder: IField["placeholder"];
+    tip: IField["tip"];
+    tr: IField["tr"];
+    keepRaw: IField["keepRaw"];
+    itemList: IField["itemList"];
+  }
+  export const ItemModal: ({
+    type,
+    data,
+    payload,
+    itemList,
+    tip,
+    tr,
+    keepRaw,
+    value,
+    title,
+    placeholder,
+    onValueChange,
+  }: IItemModalProps) => JSX.Element;
+  export default ItemModal;
 }
 
 declare module "react-declarative/components/One/components/SlotFactory/SlotFactory" {

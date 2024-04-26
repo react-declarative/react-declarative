@@ -28,10 +28,15 @@ import { useActualValue } from '../../../../../hooks/useActualValue';
 import { useRenderWaiter } from '../../../../../hooks/useRenderWaiter';
 import { useReloadTrigger } from '../../../../../hooks/useReloadTrigger';
 
+import useItemModal from '../../../../../hooks/useItemModal';
+import useMediaContext from '../../../../../hooks/useMediaContext';
+
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 
 import { IItemsSlot } from '../../../slots/ItemsSlot';
+
+import FieldType from '../../../../../model/FieldType';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -94,10 +99,12 @@ export const Items = ({
     withContextMenu,
 }: IItemsSlot) => {
 
-    const { requestSubject } = useOneMenu();
+    const { isMobile } = useMediaContext();
 
     const { object } = useOneState();
     const payload = useOnePayload();
+
+    const { requestSubject } = useOneMenu();
 
     const { reloadTrigger, doReload } = useReloadTrigger();
 
@@ -131,6 +138,20 @@ export const Items = ({
         }
         return [];
     }, [upperValue]);
+
+    const pickModal = useItemModal({
+        data: object,
+        payload,
+        itemList,
+        keepRaw: false,
+        onValueChange: onChange,
+        placeholder,
+        tip: undefined,
+        title,
+        tr,
+        type: FieldType.Items,
+        value: arrayValue,
+    });
 
     const prevValue = useRef(arrayValue);
 
@@ -373,7 +394,14 @@ export const Items = ({
             readOnly={readonly}
             open={opened}
             onChange={({ }, value) => handleChange(value)}
-            onOpen={() => setOpened(true)}
+            onOpen={() => {
+                console.log('click')
+                if (!isMobile) {
+                    setOpened(true)
+                    return;
+                }
+                pickModal();
+            }}
             onClose={() => setOpened(false)}
             getOptionLabel={getOptionLabel}
             ListboxComponent={virtualListBox ? VirtualListBox : undefined}

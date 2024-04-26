@@ -15,6 +15,9 @@ import Radio from "@mui/material/Radio";
 
 import debounce from "../../../../../utils/hof/debounce";
 
+import useItemModal from "../../../../../hooks/useItemModal";
+import useMediaContext from "../../../../../hooks/useMediaContext";
+
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
 import { useOneMenu } from "../../../context/MenuProvider";
@@ -30,6 +33,8 @@ import RadioIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 import { IComboSlot } from "../../../slots/ComboSlot";
+
+import FieldType from "../../../../../model/FieldType";
 
 const icon = <RadioButtonUncheckedIcon fontSize="small" />;
 const checkedIcon = <RadioIcon fontSize="small" />;
@@ -102,6 +107,7 @@ export const Combo = ({
   tr = (s) => s.toString(),
   onChange,
 }: IComboSlot) => {
+  const { isMobile } = useMediaContext();
   const { object } = useOneState();
   const payload = useOnePayload();
   const { requestSubject } = useOneMenu();
@@ -134,6 +140,24 @@ export const Combo = ({
     }
     return upperValue;
   }, [upperValue]);
+
+  const arrayValue = useMemo(() => {
+    return value ? [value] : value;
+  }, [value]);
+
+  const pickModal = useItemModal({
+    data: object,
+    payload,
+    itemList,
+    keepRaw: false,
+    onValueChange: onChange,
+    placeholder,
+    tip: undefined,
+    title,
+    tr,
+    type: FieldType.Combo,
+    value: arrayValue,
+  });
 
   const { fallback } = useOneProps();
 
@@ -342,7 +366,13 @@ export const Combo = ({
   return (
     <Autocomplete
       key={reloadTrigger}
-      onOpen={() => setOpened(true)}
+      onOpen={() => {
+        if (!isMobile) {
+          setOpened(true);
+          return;
+        }
+        pickModal();
+      }}
       onClose={() => setOpened(false)}
       disableCloseOnSelect
       disableClearable={noDeselect}
