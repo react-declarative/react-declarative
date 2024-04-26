@@ -190,7 +190,7 @@ export const Complete = ({
     onValueChange: onChange,
     placeholder,
     title,
-    type: FieldType.Combo,
+    type: FieldType.Complete,
     value,
   });
 

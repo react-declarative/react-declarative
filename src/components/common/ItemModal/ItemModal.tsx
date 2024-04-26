@@ -41,8 +41,9 @@ const useStyles = makeStyles()((theme) => ({
         marginLeft: '10px',
         marginRight: '10px',
         gap: theme.spacing(1),
-        height: 'calc(50vh - 20px)',
+        height: 'calc(min(50vh, 60dvh) - 20px)',
         width: 'calc(100vw - 20px)',
+        maxWidth: '450px',
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
@@ -62,6 +63,10 @@ const useStyles = makeStyles()((theme) => ({
         width: 'calc(100% - 16px)',
         margin: '8px',
     },
+    modal: {
+        display: 'flex',
+        justifyContent: 'center',
+    }
 }));
 
 export const ItemModal = ({
@@ -106,7 +111,7 @@ export const ItemModal = ({
     });
 
     return (
-        <Modal open onClose={cancelSubmit}>
+        <Modal className={classes.modal} open onClose={cancelSubmit}>
             <Paper className={classes.root}>
                 <TextField
                     value={searchText}

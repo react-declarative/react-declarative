@@ -395,7 +395,6 @@ export const Items = ({
             open={opened}
             onChange={({ }, value) => handleChange(value)}
             onOpen={() => {
-                console.log('click')
                 if (!isMobile) {
                     setOpened(true)
                     return;

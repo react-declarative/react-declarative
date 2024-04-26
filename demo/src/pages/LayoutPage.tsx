@@ -92,7 +92,6 @@ const fields: TypedField<any, null>[] = [
                 type: FieldType.Combo,
                 name: 'gender',
                 title: 'Gender',
-                freeSolo: true,
                 description: 'Your gender',
                 async itemList() {
                     await sleep(1e3);

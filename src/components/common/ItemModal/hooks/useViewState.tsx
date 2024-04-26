@@ -1,6 +1,7 @@
+import * as React from "react";
 import { useCallback, useMemo } from "react";
 
-import { ITileProps } from "../../../Tile";
+import { ITile, ITileProps } from "../../../Tile";
 import { useOffsetPaginator } from "../../../Grid";
 
 import useActualCallback from "../../../../hooks/useActualCallback";
@@ -8,6 +9,10 @@ import useActualState from "../../../../hooks/useActualState";
 import useSubject from "../../../../hooks/useSubject";
 
 import { useModalManager } from "../../../ModalManager";
+
+import CheckboxItem from "../components/CheckboxItem";
+import RadioItem from "../components/RadioItem";
+import TextItem from "../components/TextItem";
 
 import SelectionMode from "../../../../model/SelectionMode";
 import IAnything from "../../../../model/IAnything";
@@ -52,7 +57,7 @@ interface IParams {
 }
 
 interface IItem {
-    value: string;
+    id: string;
     label: string;
 }
 
@@ -69,7 +74,7 @@ const resolveItemList = async ({
 }) => {
     const result = typeof itemList === 'function' ? await itemList(data, payload) : itemList!;
     return await Promise.all(result.map(async (value) => ({
-        value,
+        id: value,
         label: await tr(value, data, payload),
     })))
 };
@@ -87,7 +92,7 @@ const resolveTr = async ({
 }) => {
     const result = typeof tip === 'function' ? await tip(searchText, data, payload) : tip!;
     return result.map((value) => ({
-        value,
+        id: value,
         label: value,
     }));
 };
@@ -110,20 +115,33 @@ export const useViewState = ({
     const [selectedRows$, setSelectedRows] = useActualState(() => Array.isArray(value) ? value : []);
 
     const getItems$ = useActualCallback(async () => {
+        const seen = new Set<string>();
         if (tip) {
-            return resolveTr({
+            const result = await resolveTr({
                 tip,
                 data,
                 payload,
                 searchText: searchText$.current,
-            })
+            });
+            return result.filter(({ id }) => {
+                if (seen.has(id)) {
+                    return false;
+                }
+                return true;
+            });
         }
         if (itemList) {
-            return resolveItemList({
+            const result = await resolveItemList({
                 data,
                 payload,
                 itemList,
                 tr,
+            });
+            return result.filter(({ id }) => {
+                if (seen.has(id)) {
+                    return false;
+                }
+                return true;
             });
         }
         return [];
@@ -151,9 +169,6 @@ export const useViewState = ({
     const emitChangeSearch = useMemo(
         () =>
             debounce(() => {
-                if (!tip) {
-                    return;
-                }
                 reloadSubject.next();
             }, SEARCH_DEBOUNCE),
         []
@@ -184,7 +199,7 @@ export const useViewState = ({
         selectionMode,
         reloadSubject,
         onItemClick: useCallback(({ data, toggleSelection }) => {
-            if (tip) {
+            if (type === FieldType.Complete) {
                 setSearchText(data.value);
                 beginSubmit();
                 return;
@@ -197,7 +212,15 @@ export const useViewState = ({
             }
             setSelectedRows(rowIds);
         }, []),
-        renderItem: () => null,
+        renderItem: useCallback((props: ITile<IItem>) => {
+            if (type === FieldType.Items) {
+                return <CheckboxItem {...props} />
+            }
+            if (type === FieldType.Combo) {
+                return <RadioItem {...props} />
+            }
+            return <TextItem {...props} />
+        }, []),
         searchText: searchText$.current,
         selectedRows: selectedRows$.current,
         setSearchText: useCallback((searchText) => {
