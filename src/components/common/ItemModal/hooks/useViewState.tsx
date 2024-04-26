@@ -29,6 +29,7 @@ const PAGINATOR_LIMIT = 10_000;
 
 interface IResult {
     items: IItem[];
+    noDataLabel: string | undefined;
     hasMore: boolean;
     loading: boolean;
     onSkip: () => void;
@@ -184,6 +185,13 @@ export const useViewState = ({
         return SelectionMode.None;
     }, []);
 
+    const noDataLabel = useMemo(() => {
+        if (type === FieldType.Complete) {
+            return "";
+        }
+        return "No data";
+    }, []);
+
     const beginSubmit = useCallback(() => {
         onValueChange(getValue(), {
             skipReadonly: true,
@@ -221,6 +229,7 @@ export const useViewState = ({
             }
             return <TextItem {...props} />
         }, []),
+        noDataLabel,
         searchText: searchText$.current,
         selectedRows: selectedRows$.current,
         setSearchText: useCallback((searchText) => {

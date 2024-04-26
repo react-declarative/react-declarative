@@ -15,6 +15,7 @@ import TileMode from "./TileMode";
  */
 export interface ITileProps<Data = IAnything, Payload = IAnything> {
   mode?: TileMode;
+  noDataLabel?: string;
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;

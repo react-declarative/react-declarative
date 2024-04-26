@@ -26357,6 +26357,7 @@ declare module "react-declarative/components/Grid/model/IGridProps" {
   export interface IGridProps<T = RowData, P = IAnything> {
     outlinePaper?: boolean;
     transparentPaper?: boolean;
+    noDataLabel?: string;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
@@ -26499,6 +26500,7 @@ declare module "react-declarative/components/Tile/Tile" {
     payload: upperPayload,
     rowColor,
     rowKey,
+    noDataLabel,
     errorMessage,
     children,
     onSkip,
@@ -26544,6 +26546,7 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
    */
   export interface ITileProps<Data = IAnything, Payload = IAnything> {
     mode?: TileMode;
+    noDataLabel?: string;
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps<any>;

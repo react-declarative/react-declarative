@@ -98,6 +98,7 @@ export const ItemModal = ({
         selectionMode,
         beginSubmit,
         cancelSubmit,
+        noDataLabel,
     } = useViewState({
         type,
         data,
@@ -116,6 +117,15 @@ export const ItemModal = ({
                 <TextField
                     value={searchText}
                     onChange={({ target }) => setSearchText(target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault();
+                            beginSubmit();
+                        } else if (e.key === "Escape") {
+                            e.preventDefault();
+                            cancelSubmit();
+                        }
+                    }}
                     size="small"
                     variant="filled"
                     autoFocus
@@ -139,9 +149,11 @@ export const ItemModal = ({
                         data={items}
                         hasMore={hasMore}
                         loading={loading}
+                        noDataLabel={noDataLabel}
                         onSkip={onSkip}
                         onItemClick={onItemClick}
                         onSelectedRows={onSelectedRows}
+
                     >
                         {renderItem}
                     </Tile>

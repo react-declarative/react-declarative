@@ -16,6 +16,12 @@ outlinePaper: boolean
 transparentPaper: boolean
 ```
 
+### noDataLabel
+
+```ts
+noDataLabel: string
+```
+
 ### className
 
 ```ts
