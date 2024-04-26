@@ -52,6 +52,7 @@ const useStyles = makeStyles()((theme) => ({
     },
     container: {
         position: 'relative',
+        overflow: "hidden",
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
