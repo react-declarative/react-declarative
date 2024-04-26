@@ -79,6 +79,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   payload: upperPayload = {} as Payload,
   rowColor = () => 'inherit',
   rowKey = "id",
+  noDataLabel = "No data",
   errorMessage,
   children,
   onSkip,
@@ -100,7 +101,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
     <>
       {!loading && !errorMessage && data.length === 0 && (
         <Box className={classes.noData}>
-          <Typography variant="body1">No data</Typography>
+          <Typography variant="body1">{noDataLabel}</Typography>
         </Box>
       )}
       {errorMessage && (

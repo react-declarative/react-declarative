@@ -46,6 +46,7 @@ interface IContentProps {
   errorMessage: IGridProps["errorMessage"];
   rowActions: IGridProps["rowActions"];
   payload: IGridProps["payload"];
+  noDataLabel: IGridProps["noDataLabel"];
   onScrollX: (scrollX: number) => void;
   onTableRowClick: IGridProps["onTableRowClick"];
   onRowAction: IGridProps["onRowAction"];
@@ -124,6 +125,7 @@ export const Content = ({
   onButtonSkip,
   onSkip,
   onScrollX,
+  noDataLabel = "No data",
   rowMark: upperRowMark = () => "",
 }: IContentProps) => {
   const { classes } = useStyles();
@@ -177,7 +179,7 @@ export const Content = ({
             className={classes.noData}
             sx={{ position: "sticky", left: 0, width }}
           >
-            <Typography variant="body1">No data</Typography>
+            <Typography variant="body1">{noDataLabel}</Typography>
           </Box>
         </Line>
       )}

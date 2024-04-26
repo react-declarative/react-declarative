@@ -64,6 +64,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     rowMark,
     onTableRowClick,
     onRowClick,
+    noDataLabel,
     recomputeSubject,
     scrollXSubject: upperScrollXSubject,
     scrollYSubject,
@@ -171,6 +172,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
             {!!loading && <Loader />}
             <Content
               recomputeSubject={recomputeSubject}
+              noDataLabel={noDataLabel}
               rowMark={rowMark}
               columns={columns}
               data={data}

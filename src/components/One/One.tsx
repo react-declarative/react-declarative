@@ -6,6 +6,7 @@ import OneGenesis from './components/OneGenesis';
 import PropsProvider from './context/PropsProvider';
 
 import NoSsr from "../NoSsr";
+import ModalManagerProvider from '../ModalManager';
 
 import IField, { Value } from '../../model/IField';
 import IOneProps from '../../model/IOneProps';
@@ -213,9 +214,11 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
                 <PropsProvider<Data, IField<Data>>
                     {...genesisProps}
                 >
-                    <OneGenesis<Data, IField<Data>>
-                        {...genesisProps}
-                    />
+                    <ModalManagerProvider>
+                        <OneGenesis<Data, IField<Data>>
+                            {...genesisProps}
+                        />
+                    </ModalManagerProvider>
                 </PropsProvider>
             </ApiProvider>
         </NoSsr>

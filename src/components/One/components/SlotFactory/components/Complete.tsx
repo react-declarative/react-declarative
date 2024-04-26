@@ -15,6 +15,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 import VirtualView from "../../../../VirtualView";
 
+import useMediaContext from "../../../../../hooks/useMediaContext";
+import useItemModal from "../../../../../hooks/useItemModal";
+
 import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
 import { useOneProps } from "../../../context/PropsProvider";
@@ -29,6 +32,8 @@ import { ICompleteSlot } from "../../../slots/CompleteSlot";
 
 import queued from "../../../../../utils/hof/queued";
 import formatText from "../../../../../utils/formatText";
+
+import FieldType from "../../../../../model/FieldType";
 
 const FETCH_DEBOUNCE = 500;
 const ITEMS_LIMIT = 100;
@@ -112,6 +117,7 @@ export const Complete = ({
     }),
   withContextMenu,
 }: ICompleteSlot) => {
+  const { isMobile } = useMediaContext();
   const payload = useOnePayload();
   const { object, changeObject: handleChangeObj } = useOneState<object>();
   const { requestSubject } = useOneMenu();
@@ -138,6 +144,10 @@ export const Complete = ({
     clientY,
     target,
   }: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile) {
+      pickModal();
+      return;
+    }
     const pointTarget = document.elementFromPoint(clientX, clientY);
     if (pointTarget) {
       setAnchorEl(pointTarget as HTMLDivElement);
@@ -169,6 +179,20 @@ export const Complete = ({
   const object$ = useActualValue(object);
 
   const onChange$ = useActualCallback(onChange);
+
+  const pickModal = useItemModal({
+    data: object,
+    payload,
+    itemList: undefined,
+    tr: undefined,
+    tip,
+    keepRaw: false,
+    onValueChange: onChange,
+    placeholder,
+    title,
+    type: FieldType.Complete,
+    value,
+  });
 
   /**
    * Manages the caret (cursor) position in an input element.

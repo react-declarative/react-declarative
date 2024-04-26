@@ -10,6 +10,12 @@ Represents the properties required for the `ITile` component.
 mode: TileMode
 ```
 
+### noDataLabel
+
+```ts
+noDataLabel: string
+```
+
 ### className
 
 ```ts
