@@ -496,6 +496,7 @@ declare module "react-declarative" {
   export { ModalFilterListSlot } from "react-declarative/components";
   export { ModernChipListSlot } from "react-declarative/components";
   export { DenseFilterListSlot } from "react-declarative/components";
+  export { DenseSearchSlot } from "react-declarative/components";
   export { ListRules } from "react-declarative/components";
   import { Translate } from "react-declarative/components";
   export { Translate };
@@ -2877,6 +2878,7 @@ declare module "react-declarative/components/List" {
   export { ModalFilterListSlot } from "react-declarative/components/List/common/ModalFilterListSlot";
   export { ModernChipListSlot } from "react-declarative/components/List/common/ModernChipListSlot";
   export { DenseFilterListSlot } from "react-declarative/components/List/common/DenseFilterListSlot";
+  export { DenseSearchSlot } from "react-declarative/components/List/common/DenseSearchSlot";
   export * from "react-declarative/components/List/hooks/useColumnConfig";
   export * as ListRules from "react-declarative/components/List/rules";
   export { default } from "react-declarative/components/List/List";
@@ -17529,6 +17531,11 @@ declare module "react-declarative/components/List/common/DenseFilterListSlot" {
   export { default } from "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot";
 }
 
+declare module "react-declarative/components/List/common/DenseSearchSlot" {
+  export * from "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot";
+  export { default } from "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot";
+}
+
 declare module "react-declarative/components/List/hooks/useColumnConfig" {
   import IColumn from "react-declarative/model/IColumn";
   /**
@@ -19833,6 +19840,32 @@ declare module "react-declarative/components/List/common/DenseFilterListSlot/Den
     onFilterChange,
   }: IFilterListSlot) => JSX.Element;
   export default DenseFilterListSlot;
+}
+
+declare module "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot" {
+  import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
+  /**
+   * Represents a search input component with label, loading state, and search functionality.
+   * @param props - The properties of the SearchSlot component.
+   * @param props.className - The additional CSS class name for the root element of the component.
+   * @param props.style - The inline CSS style object for the root element of the component.
+   * @param props.label - The label text for the search input component.
+   * @param props.loading - The loading state of the search input component.
+   * @param props.search - The current search value of the search input component.
+   * @param props.onSearchChange - The callback function triggered when the search value changes.
+   * @returns - The rendered SearchSlot component.
+   */
+  export const DenseSearchSlot: ({
+    className,
+    style,
+    label,
+    loading,
+    search,
+    height,
+    width,
+    onSearchChange,
+  }: ISearchSlot) => JSX.Element;
+  export default DenseSearchSlot;
 }
 
 declare module "react-declarative/components/List/rules/denceFilterRule" {

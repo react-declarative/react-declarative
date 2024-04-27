@@ -34,6 +34,7 @@ export { DialogFilterListSlot } from './common/DialogFilterListSlot';
 export { ModalFilterListSlot } from './common/ModalFilterListSlot';
 export { ModernChipListSlot } from './common/ModernChipListSlot';
 export { DenseFilterListSlot } from './common/DenseFilterListSlot';
+export { DenseSearchSlot } from './common/DenseSearchSlot';
 
 export * from './hooks/useColumnConfig';
 
