@@ -208,7 +208,7 @@ export const useViewState = ({
         reloadSubject,
         onItemClick: useCallback(({ data, toggleSelection }) => {
             if (type === FieldType.Complete) {
-                setSearchText(data.value);
+                setSearchText(data.id);
                 beginSubmit();
                 return;
             }
