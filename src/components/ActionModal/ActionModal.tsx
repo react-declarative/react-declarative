@@ -154,7 +154,7 @@ const useStyles = makeStyles()((theme) => ({
  * @property sx.maxWidth - The maximum width of the modal component. This value is set to "450px".
  * @property sx.margin - The margin around the modal component. This value is set to "10px".
  */
-const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
+export const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
   height: 0,
   width: 0,
   sx: {
@@ -176,7 +176,7 @@ const SMALL_SIZE_REQUEST: IActionModalProps['sizeRequest'] = () => ({
  * @returns - The modified size request object with reduced height.
  * @returns - The modified size request object with reduced width.
  */
-const LARGE_SIZE_REQUEST: IActionModalProps['sizeRequest'] = ({
+export const LARGE_SIZE_REQUEST: IActionModalProps['sizeRequest'] = ({
   height,
   width,
 }) => ({

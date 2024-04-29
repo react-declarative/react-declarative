@@ -1,6 +1,6 @@
 # ISize
 
-Represents a size with height and width dimensions.
+Represents the size of an object or element.
 
 ## Properties
 

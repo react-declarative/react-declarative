@@ -17,6 +17,11 @@
 
 declare module "react-declarative" {
   import "./polyfills";
+  export {
+    SMALL_SIZE_REQUEST,
+    LARGE_SIZE_REQUEST,
+  } from "react-declarative/components";
+  export { ISize } from "react-declarative/model/ISize";
   import { TypedField as TypedFieldInternal } from "react-declarative/model/TypedField";
   import { IField as IFieldInternal } from "react-declarative/model/IField";
   import { IEntity as IEntityInternal } from "react-declarative/model/IEntity";
@@ -906,6 +911,143 @@ declare module "react-declarative" {
   export { pickDocuments } from "react-declarative/api/pickDocuments";
   export { useOpenDocument } from "react-declarative/view/useOpenDocument";
   export { heavy } from "react-declarative/utils/heavy";
+}
+
+declare module "react-declarative/components" {
+  /**
+   * The TypeScript code is a bunch of export statements.
+   *
+   * This file behaves as a central hub for exporting values (like components, functions, or variables) from individual modules. Each `export * from './ModuleName';` statement takes all exports from a corresponding module file and re-exports them.
+   *
+   * Let's break down each line:
+   *
+   * `export * from './One';` - This line of code is exporting everything that the file `One.ts` (or `One.tsx`, `One.js`, `One.jsx` depending on your setup) exports, from its current location. The same goes for all the other lines as well.
+   *
+   * So if `./One` was exporting a function called `function1` like this:
+   *
+   * ```typescript
+   * export function function1() {
+   *     return "I'm function 1";
+   * }
+   * ```
+   * Then, with this export in the main file, you will be able to import it elsewhere like:
+   *
+   * ```typescript
+   * import { function1 } from './theMainFile';
+   * ```
+   *
+   * This kind of structure is used to streamline imports in larger projects, where you want to import many things from one place rather than from individual files.
+   */
+  export * from "react-declarative/components/One";
+  export * from "react-declarative/components/OneIcon";
+  export * from "react-declarative/components/OneButton";
+  export * from "react-declarative/components/Dot";
+  export * from "react-declarative/components/List";
+  export * from "react-declarative/components/NoSsr";
+  export * from "react-declarative/components/Switch";
+  export * from "react-declarative/components/Center";
+  export * from "react-declarative/components/Square";
+  export * from "react-declarative/components/Scaffold";
+  export * from "react-declarative/components/Scaffold2";
+  export * from "react-declarative/components/Scaffold3";
+  export * from "react-declarative/components/Translate";
+  export * from "react-declarative/components/Breadcrumbs";
+  export * from "react-declarative/components/Breadcrumbs2";
+  export * from "react-declarative/components/ErrorBoundary";
+  export * from "react-declarative/components/ColorButton";
+  export * from "react-declarative/components/ActionChip";
+  export * from "react-declarative/components/ActionMenu";
+  export * from "react-declarative/components/ActionButton";
+  export * from "react-declarative/components/ActionStopIcon";
+  export * from "react-declarative/components/ActionFab";
+  export * from "react-declarative/components/ActionFilter";
+  export * from "react-declarative/components/ActionTrigger";
+  export * from "react-declarative/components/ActionIcon";
+  export * from "react-declarative/components/ActionToggle";
+  export * from "react-declarative/components/ActionModal";
+  export * from "react-declarative/components/SearchModal";
+  export * from "react-declarative/components/SearchView";
+  export * from "react-declarative/components/SizeProvider";
+  export * from "react-declarative/components/ModalProvider";
+  export * from "react-declarative/components/SnackProvider";
+  export * from "react-declarative/components/ConstraintView";
+  export * from "react-declarative/components/ScrollTopView";
+  export * from "react-declarative/components/OutletView";
+  export * from "react-declarative/components/AlertView";
+  export * from "react-declarative/components/PaperView";
+  export * from "react-declarative/components/DragDropView";
+  export * from "react-declarative/components/FilesView";
+  export * from "react-declarative/components/ScrollView";
+  export * from "react-declarative/components/ScaleView";
+  export * from "react-declarative/components/AutoSizer";
+  export * from "react-declarative/components/FadeView";
+  export * from "react-declarative/components/TabsView";
+  export * from "react-declarative/components/FetchView";
+  export * from "react-declarative/components/WaitView";
+  export * from "react-declarative/components/PingView";
+  export * from "react-declarative/components/HtmlView";
+  export * from "react-declarative/components/OfflineView";
+  export * from "react-declarative/components/RevealView";
+  export * from "react-declarative/components/SecretView";
+  export * from "react-declarative/components/VisibilityView";
+  export * from "react-declarative/components/WizardView";
+  export * from "react-declarative/components/PortalView";
+  export * from "react-declarative/components/RecordView";
+  export * from "react-declarative/components/ErrorView";
+  export * from "react-declarative/components/AuthView";
+  export * from "react-declarative/components/CardView";
+  export * from "react-declarative/components/KanbanView";
+  export * from "react-declarative/components/ReloadView";
+  export * from "react-declarative/components/InfiniteView";
+  export * from "react-declarative/components/VirtualView";
+  export * from "react-declarative/components/LoaderView";
+  export * from "react-declarative/components/FeatureView";
+  export * from "react-declarative/components/CalendarView";
+  export * from "react-declarative/components/DocumentView";
+  export * from "react-declarative/components/ImageView";
+  export * from "react-declarative/components/TreeView";
+  export * from "react-declarative/components/GridView";
+  export * from "react-declarative/components/ChatView";
+  export * from "react-declarative/components/Grid";
+  export * from "react-declarative/components/Tile";
+  export * from "react-declarative/components/Spinner";
+  export * from "react-declarative/components/Async";
+  export * from "react-declarative/components/Copy";
+  export * from "react-declarative/components/If";
+  export * from "react-declarative/components/CopyButton";
+  export * from "react-declarative/components/SubjectBinding";
+  export * from "react-declarative/components/Countdown";
+  export * from "react-declarative/components/Chip";
+  export * from "react-declarative/components/ScrollAdjust";
+  export * from "react-declarative/components/MasterDetail";
+}
+
+declare module "react-declarative/model/ISize" {
+  import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a size with height and width dimensions.
+   *
+   * @interface
+   */
+  export interface ISize {
+    height: number;
+    width: number;
+  }
+  /**
+   * Type definition for a callback function that handles size and data changes.
+   *
+   * @template Data - The type of data being passed to the callback function.
+   * @param data - The data being passed to the callback function.
+   * @param size - The size information.
+   * @param ref - The reference to the HTML div element.
+   * @returns A string representing the result of the callback function.
+   */
+  export type ISizeCallback<Data = IAnything> = (
+    data: Data,
+    size: ISize,
+    ref: HTMLDivElement,
+  ) => string;
+  export default ISize;
 }
 
 declare module "react-declarative/model/TypedField" {
@@ -2941,115 +3083,6 @@ declare module "react-declarative/components/One/api/useApiHandler" {
     }?: IApiHandlerParams<Data>,
   ) => OneHandler<Data, any>;
   export default useApiHandler;
-}
-
-declare module "react-declarative/components" {
-  /**
-   * The TypeScript code is a bunch of export statements.
-   *
-   * This file behaves as a central hub for exporting values (like components, functions, or variables) from individual modules. Each `export * from './ModuleName';` statement takes all exports from a corresponding module file and re-exports them.
-   *
-   * Let's break down each line:
-   *
-   * `export * from './One';` - This line of code is exporting everything that the file `One.ts` (or `One.tsx`, `One.js`, `One.jsx` depending on your setup) exports, from its current location. The same goes for all the other lines as well.
-   *
-   * So if `./One` was exporting a function called `function1` like this:
-   *
-   * ```typescript
-   * export function function1() {
-   *     return "I'm function 1";
-   * }
-   * ```
-   * Then, with this export in the main file, you will be able to import it elsewhere like:
-   *
-   * ```typescript
-   * import { function1 } from './theMainFile';
-   * ```
-   *
-   * This kind of structure is used to streamline imports in larger projects, where you want to import many things from one place rather than from individual files.
-   */
-  export * from "react-declarative/components/One";
-  export * from "react-declarative/components/OneIcon";
-  export * from "react-declarative/components/OneButton";
-  export * from "react-declarative/components/Dot";
-  export * from "react-declarative/components/List";
-  export * from "react-declarative/components/NoSsr";
-  export * from "react-declarative/components/Switch";
-  export * from "react-declarative/components/Center";
-  export * from "react-declarative/components/Square";
-  export * from "react-declarative/components/Scaffold";
-  export * from "react-declarative/components/Scaffold2";
-  export * from "react-declarative/components/Scaffold3";
-  export * from "react-declarative/components/Translate";
-  export * from "react-declarative/components/Breadcrumbs";
-  export * from "react-declarative/components/Breadcrumbs2";
-  export * from "react-declarative/components/ErrorBoundary";
-  export * from "react-declarative/components/ColorButton";
-  export * from "react-declarative/components/ActionChip";
-  export * from "react-declarative/components/ActionMenu";
-  export * from "react-declarative/components/ActionButton";
-  export * from "react-declarative/components/ActionStopIcon";
-  export * from "react-declarative/components/ActionFab";
-  export * from "react-declarative/components/ActionFilter";
-  export * from "react-declarative/components/ActionTrigger";
-  export * from "react-declarative/components/ActionIcon";
-  export * from "react-declarative/components/ActionToggle";
-  export * from "react-declarative/components/ActionModal";
-  export * from "react-declarative/components/SearchModal";
-  export * from "react-declarative/components/SearchView";
-  export * from "react-declarative/components/SizeProvider";
-  export * from "react-declarative/components/ModalProvider";
-  export * from "react-declarative/components/SnackProvider";
-  export * from "react-declarative/components/ConstraintView";
-  export * from "react-declarative/components/ScrollTopView";
-  export * from "react-declarative/components/OutletView";
-  export * from "react-declarative/components/AlertView";
-  export * from "react-declarative/components/PaperView";
-  export * from "react-declarative/components/DragDropView";
-  export * from "react-declarative/components/FilesView";
-  export * from "react-declarative/components/ScrollView";
-  export * from "react-declarative/components/ScaleView";
-  export * from "react-declarative/components/AutoSizer";
-  export * from "react-declarative/components/FadeView";
-  export * from "react-declarative/components/TabsView";
-  export * from "react-declarative/components/FetchView";
-  export * from "react-declarative/components/WaitView";
-  export * from "react-declarative/components/PingView";
-  export * from "react-declarative/components/HtmlView";
-  export * from "react-declarative/components/OfflineView";
-  export * from "react-declarative/components/RevealView";
-  export * from "react-declarative/components/SecretView";
-  export * from "react-declarative/components/VisibilityView";
-  export * from "react-declarative/components/WizardView";
-  export * from "react-declarative/components/PortalView";
-  export * from "react-declarative/components/RecordView";
-  export * from "react-declarative/components/ErrorView";
-  export * from "react-declarative/components/AuthView";
-  export * from "react-declarative/components/CardView";
-  export * from "react-declarative/components/KanbanView";
-  export * from "react-declarative/components/ReloadView";
-  export * from "react-declarative/components/InfiniteView";
-  export * from "react-declarative/components/VirtualView";
-  export * from "react-declarative/components/LoaderView";
-  export * from "react-declarative/components/FeatureView";
-  export * from "react-declarative/components/CalendarView";
-  export * from "react-declarative/components/DocumentView";
-  export * from "react-declarative/components/ImageView";
-  export * from "react-declarative/components/TreeView";
-  export * from "react-declarative/components/GridView";
-  export * from "react-declarative/components/ChatView";
-  export * from "react-declarative/components/Grid";
-  export * from "react-declarative/components/Tile";
-  export * from "react-declarative/components/Spinner";
-  export * from "react-declarative/components/Async";
-  export * from "react-declarative/components/Copy";
-  export * from "react-declarative/components/If";
-  export * from "react-declarative/components/CopyButton";
-  export * from "react-declarative/components/SubjectBinding";
-  export * from "react-declarative/components/Countdown";
-  export * from "react-declarative/components/Chip";
-  export * from "react-declarative/components/ScrollAdjust";
-  export * from "react-declarative/components/MasterDetail";
 }
 
 declare module "react-declarative/model/FieldType" {
@@ -10458,6 +10491,441 @@ declare module "react-declarative/utils/heavy" {
   export default heavy;
 }
 
+declare module "react-declarative/components/One" {
+  export * from "react-declarative/components/One/One";
+  export * from "react-declarative/components/One/slots";
+  export { OneConfig } from "react-declarative/components/One/components/OneConfig";
+  export { createField } from "react-declarative/components/One/config/createField";
+  export { makeField } from "react-declarative/components/One/components/makeField";
+  export { createLayout } from "react-declarative/components/One/config/createLayout";
+  export { makeLayout } from "react-declarative/components/One/components/makeLayout";
+  export { useOneMenu } from "react-declarative/components/One/context/MenuProvider";
+  export { useOneProps } from "react-declarative/components/One/context/PropsProvider";
+  export { useOneState } from "react-declarative/components/One/context/StateProvider";
+  export { useOnePayload } from "react-declarative/components/One/context/PayloadProvider";
+  export { useOneFeatures } from "react-declarative/components/One/context/FeatureProvider";
+  export { useOneRadio } from "react-declarative/components/One/context/RadioProvider";
+  export { useOneContext } from "react-declarative/components/One/context/OneContextProvider";
+  export { OtherComboSlot } from "react-declarative/components/One/other/OtherComboSlot";
+  export { OtherItemsSlot } from "react-declarative/components/One/other/OtherItemsSlot";
+  export { useApiHandler } from "react-declarative/components/One/api/useApiHandler";
+  export { useLocalHandler } from "react-declarative/components/One/api/useLocalHandler";
+  export { useStaticHandler } from "react-declarative/components/One/api/useStaticHandler";
+  export { usePreventLeave } from "react-declarative/components/One/api/usePreventLeave";
+  export { default as OneSlotFactory } from "react-declarative/components/One/components/SlotFactory";
+  export { defaultSlots as OneDefaultSlots } from "react-declarative/components/One/components/SlotFactory";
+  export { default } from "react-declarative/components/One/One";
+}
+
+declare module "react-declarative/components/OneIcon" {
+  export * from "react-declarative/components/OneIcon/OneIcon";
+  export { default } from "react-declarative/components/OneIcon/OneIcon";
+}
+
+declare module "react-declarative/components/OneButton" {
+  export * from "react-declarative/components/OneButton/OneButton";
+  export { default } from "react-declarative/components/OneButton/OneButton";
+}
+
+declare module "react-declarative/components/Dot" {
+  export * from "react-declarative/components/Dot/Dot";
+  export { default } from "react-declarative/components/Dot/Dot";
+}
+
+declare module "react-declarative/components/NoSsr" {
+  export * from "react-declarative/components/NoSsr/NoSsr";
+  export { default } from "react-declarative/components/NoSsr/NoSsr";
+}
+
+declare module "react-declarative/components/Switch" {
+  export * from "react-declarative/components/Switch/Switch";
+  export { default } from "react-declarative/components/Switch/Switch";
+}
+
+declare module "react-declarative/components/Center" {
+  export * from "react-declarative/components/Center/Center";
+  export { default } from "react-declarative/components/Center/Center";
+}
+
+declare module "react-declarative/components/Square" {
+  export * from "react-declarative/components/Square/Square";
+  export { default } from "react-declarative/components/Square/Square";
+}
+
+declare module "react-declarative/components/Scaffold" {
+  export * from "react-declarative/components/Scaffold/Scaffold";
+  export * from "react-declarative/components/Scaffold/model/IScaffoldProps";
+  export * from "react-declarative/components/Scaffold/model/IScaffoldOption";
+  export { default } from "react-declarative/components/Scaffold/Scaffold";
+}
+
+declare module "react-declarative/components/Translate" {
+  export * from "react-declarative/components/Translate/Translate";
+  export { default } from "react-declarative/components/Translate/Translate";
+}
+
+declare module "react-declarative/components/Breadcrumbs" {
+  export * from "react-declarative/components/Breadcrumbs/Breadcrumbs";
+  export { default } from "react-declarative/components/Breadcrumbs/Breadcrumbs";
+}
+
+declare module "react-declarative/components/ErrorBoundary" {
+  export * from "react-declarative/components/ErrorBoundary/ErrorBoundary";
+  export { default } from "react-declarative/components/ErrorBoundary/ErrorBoundary";
+}
+
+declare module "react-declarative/components/ColorButton" {
+  export * from "react-declarative/components/ColorButton/ColorButton";
+  export { default } from "react-declarative/components/ColorButton/ColorButton";
+}
+
+declare module "react-declarative/components/ActionChip" {
+  export * from "react-declarative/components/ActionChip/ActionChip";
+  export { ActionChip } from "react-declarative/components/ActionChip/ActionChip";
+}
+
+declare module "react-declarative/components/ActionMenu" {
+  export * from "react-declarative/components/ActionMenu/ActionMenu";
+  export { default } from "react-declarative/components/ActionMenu/ActionMenu";
+}
+
+declare module "react-declarative/components/ActionButton" {
+  export * from "react-declarative/components/ActionButton/ActionButton";
+  export * from "react-declarative/components/ActionButton/api/usePreventAction";
+  export { default } from "react-declarative/components/ActionButton/ActionButton";
+}
+
+declare module "react-declarative/components/ActionStopIcon" {
+  export * from "react-declarative/components/ActionStopIcon/ActionStopIcon";
+  export { default } from "react-declarative/components/ActionStopIcon/ActionStopIcon";
+}
+
+declare module "react-declarative/components/ActionFab" {
+  export * from "react-declarative/components/ActionFab/ActionFab";
+  export { default } from "react-declarative/components/ActionFab/ActionFab";
+}
+
+declare module "react-declarative/components/ActionFilter" {
+  export * from "react-declarative/components/ActionFilter/ActionFilter";
+  export * from "react-declarative/components/ActionFilter/model/IActionFilter";
+  export { default } from "react-declarative/components/ActionFilter/ActionFilter";
+}
+
+declare module "react-declarative/components/ActionTrigger" {
+  export * from "react-declarative/components/ActionTrigger/ActionTrigger";
+  export * from "react-declarative/components/ActionTrigger/model/IActionTrigger";
+  export { default } from "react-declarative/components/ActionTrigger/ActionTrigger";
+}
+
+declare module "react-declarative/components/ActionIcon" {
+  export * from "react-declarative/components/ActionIcon/ActionIcon";
+  export { default } from "react-declarative/components/ActionIcon/ActionIcon";
+}
+
+declare module "react-declarative/components/ActionToggle" {
+  export * from "react-declarative/components/ActionToggle/ActionToggle";
+  export { default } from "react-declarative/components/ActionToggle/ActionToggle";
+}
+
+declare module "react-declarative/components/ActionModal" {
+  export * from "react-declarative/components/ActionModal/ActionModal";
+  export * from "react-declarative/components/ActionModal/useActionModal";
+  export { default } from "react-declarative/components/ActionModal/useActionModal";
+}
+
+declare module "react-declarative/components/SearchModal" {
+  export * from "react-declarative/components/SearchModal/SearchModal";
+  export * from "react-declarative/components/SearchModal/useSearchModal";
+  export { default } from "react-declarative/components/SearchModal/useSearchModal";
+}
+
+declare module "react-declarative/components/SearchView" {
+  export * from "react-declarative/components/SearchView/SearchView";
+  export * from "react-declarative/components/SearchView/model/ISearchItem";
+  export { default } from "react-declarative/components/SearchView/SearchView";
+}
+
+declare module "react-declarative/components/ConstraintView" {
+  export * from "react-declarative/components/ConstraintView/ConstraintView";
+  export * from "react-declarative/components/ConstraintView/useConstraint";
+  export { default } from "react-declarative/components/ConstraintView/ConstraintView";
+}
+
+declare module "react-declarative/components/ScrollTopView" {
+  export * from "react-declarative/components/ScrollTopView/ScrollTopView";
+  export { default } from "react-declarative/components/ScrollTopView/ScrollTopView";
+}
+
+declare module "react-declarative/components/OutletView" {
+  export * from "react-declarative/components/OutletView/OutletView";
+  export * from "react-declarative/components/OutletView/model/IOutlet";
+  export * from "react-declarative/components/OutletView/model/IOutletModal";
+  export * from "react-declarative/components/OutletView/model/IOutletProps";
+  export * from "react-declarative/components/OutletView/model/IOutletModalProps";
+  export * from "react-declarative/components/OutletView/hooks/useOutletModal";
+  export { default } from "react-declarative/components/OutletView/OutletView";
+}
+
+declare module "react-declarative/components/AlertView" {
+  export * from "react-declarative/components/AlertView/AlertView";
+  export { default } from "react-declarative/components/AlertView/AlertView";
+}
+
+declare module "react-declarative/components/PaperView" {
+  export * from "react-declarative/components/PaperView/PaperView";
+  export { default } from "react-declarative/components/PaperView/PaperView";
+}
+
+declare module "react-declarative/components/DragDropView" {
+  export * from "react-declarative/components/DragDropView/DragDropView";
+  export { default } from "react-declarative/components/DragDropView/DragDropView";
+}
+
+declare module "react-declarative/components/FilesView" {
+  export * from "react-declarative/components/FilesView/FilesView";
+  export * from "react-declarative/components/FilesView/api/usePreventNavigate";
+  export * from "react-declarative/components/FilesView/useFilesView";
+  export { default } from "react-declarative/components/FilesView/FilesView";
+}
+
+declare module "react-declarative/components/ScrollView" {
+  export * from "react-declarative/components/ScrollView/ScrollView";
+  export { default } from "react-declarative/components/ScrollView/ScrollView";
+}
+
+declare module "react-declarative/components/ScaleView" {
+  export * from "react-declarative/components/ScaleView/ScaleView";
+  export { default } from "react-declarative/components/ScaleView/ScaleView";
+}
+
+declare module "react-declarative/components/AutoSizer" {
+  export * from "react-declarative/components/AutoSizer/AutoSizer";
+  export { default } from "react-declarative/components/AutoSizer/AutoSizer";
+}
+
+declare module "react-declarative/components/FadeView" {
+  export * from "react-declarative/components/FadeView/FadeView";
+  export { default } from "react-declarative/components/FadeView/FadeView";
+}
+
+declare module "react-declarative/components/TabsView" {
+  export * from "react-declarative/components/TabsView/TabsView";
+  export { ITabsOutlet } from "react-declarative/components/TabsView/model/ITabsOutlet";
+  export { ITabsOutletProps } from "react-declarative/components/TabsView/model/ITabsOutletProps";
+  export { ITabsStep } from "react-declarative/components/TabsView/model/ITabsStep";
+  export { ITabsModal } from "react-declarative/components/TabsView/model/ITabsModal";
+  export { ITabsModalProps } from "react-declarative/components/TabsView/model/ITabsModalProps";
+  export { default } from "react-declarative/components/TabsView/TabsView";
+}
+
+declare module "react-declarative/components/FetchView" {
+  export * from "react-declarative/components/FetchView/FetchView";
+  export {
+    Reveal,
+    IRevealProps,
+  } from "react-declarative/components/FetchView/components/Reveal";
+  export { default } from "react-declarative/components/FetchView/FetchView";
+}
+
+declare module "react-declarative/components/WaitView" {
+  export * from "react-declarative/components/WaitView/WaitView";
+  export { default } from "react-declarative/components/WaitView/WaitView";
+}
+
+declare module "react-declarative/components/PingView" {
+  export * from "react-declarative/components/PingView/PingView";
+  export { default } from "react-declarative/components/PingView/PingView";
+}
+
+declare module "react-declarative/components/HtmlView" {
+  export * from "react-declarative/components/HtmlView/HtmlView";
+  export { default } from "react-declarative/components/HtmlView/HtmlView";
+}
+
+declare module "react-declarative/components/OfflineView" {
+  export * from "react-declarative/components/OfflineView/OfflineView";
+  export { default } from "react-declarative/components/OfflineView/OfflineView";
+}
+
+declare module "react-declarative/components/RevealView" {
+  export * from "react-declarative/components/RevealView/RevealView";
+  export { default } from "react-declarative/components/RevealView/RevealView";
+}
+
+declare module "react-declarative/components/SecretView" {
+  export * from "react-declarative/components/SecretView/SecretView";
+  export { default } from "react-declarative/components/SecretView/SecretView";
+}
+
+declare module "react-declarative/components/WizardView" {
+  export * from "react-declarative/components/WizardView/WizardView";
+  export * from "react-declarative/components/WizardView/components/WizardNavigation";
+  export * from "react-declarative/components/WizardView/components/WizardContainer";
+  export { IWizardOutlet } from "react-declarative/components/WizardView/model/IWizardOutlet";
+  export { IWizardOutletProps } from "react-declarative/components/WizardView/model/IWizardOutletProps";
+  export { IWizardStep } from "react-declarative/components/WizardView/model/IWizardStep";
+  export { IWizardModal } from "react-declarative/components/WizardView/model/IWizardModal";
+  export { IWizardModalProps } from "react-declarative/components/WizardView/model/IWizardModalProps";
+  export { useWizardModal } from "react-declarative/components/WizardView/hooks/useWizardModal";
+  export { default } from "react-declarative/components/WizardView/WizardView";
+}
+
+declare module "react-declarative/components/PortalView" {
+  export * from "react-declarative/components/PortalView/PortalView";
+  export { default } from "react-declarative/components/PortalView/PortalView";
+}
+
+declare module "react-declarative/components/ErrorView" {
+  export * from "react-declarative/components/ErrorView/ErrorView";
+  export { default } from "react-declarative/components/ErrorView/ErrorView";
+}
+
+declare module "react-declarative/components/AuthView" {
+  export * from "react-declarative/components/AuthView/AuthView";
+  export { default } from "react-declarative/components/AuthView/AuthView";
+}
+
+declare module "react-declarative/components/KanbanView" {
+  export * from "react-declarative/components/KanbanView/KanbanView";
+  export * from "react-declarative/components/KanbanView/model/IBoard";
+  export * from "react-declarative/components/KanbanView/model/IBoardColumn";
+  export * from "react-declarative/components/KanbanView/model/IBoardItem";
+  export * from "react-declarative/components/KanbanView/model/IBoardRow";
+  export { default } from "react-declarative/components/KanbanView/KanbanView";
+}
+
+declare module "react-declarative/components/ReloadView" {
+  export * from "react-declarative/components/ReloadView/ReloadView";
+  export { default } from "react-declarative/components/ReloadView/ReloadView";
+}
+
+declare module "react-declarative/components/InfiniteView" {
+  export * from "react-declarative/components/InfiniteView/InfiniteView";
+  export { default } from "react-declarative/components/InfiniteView/InfiniteView";
+}
+
+declare module "react-declarative/components/VirtualView" {
+  export * from "react-declarative/components/VirtualView/VirtualView";
+  export { CHILD_ELEMENT as VIRTUAL_VIEW_CHILD } from "react-declarative/components/VirtualView/VirtualView";
+  export { ROOT_ELEMENT as VIRTUAL_VIEW_ROOT } from "react-declarative/components/VirtualView/VirtualView";
+  export { default } from "react-declarative/components/VirtualView/VirtualView";
+}
+
+declare module "react-declarative/components/LoaderView" {
+  export * from "react-declarative/components/LoaderView/LoaderView";
+  export { default } from "react-declarative/components/LoaderView/LoaderView";
+}
+
+declare module "react-declarative/components/DocumentView" {
+  export * from "react-declarative/components/DocumentView/DocumentView";
+  export { default } from "react-declarative/components/DocumentView/DocumentView";
+}
+
+declare module "react-declarative/components/ImageView" {
+  export * from "react-declarative/components/ImageView/ImageView";
+  export { default } from "react-declarative/components/ImageView/ImageView";
+}
+
+declare module "react-declarative/components/TreeView" {
+  export * from "react-declarative/components/TreeView/TreeView";
+  export { INode as ITreeViewNode } from "react-declarative/components/TreeView/model/INode";
+  export { default } from "react-declarative/components/TreeView/TreeView";
+}
+
+declare module "react-declarative/components/GridView" {
+  export * from "react-declarative/components/GridView/GridView";
+  export { default } from "react-declarative/components/GridView/GridView";
+}
+
+declare module "react-declarative/components/ChatView" {
+  export { ChatController } from "react-declarative/components/ChatView/helpers/ChatController";
+  export { AudioMediaRecorder } from "react-declarative/components/ChatView/helpers/AudioMediaRecorder";
+  export { ActionRequest } from "react-declarative/components/ChatView/model/ActionRequest";
+  export { AudioActionRequest } from "react-declarative/components/ChatView/model/AudioActionRequest";
+  export { CustomActionRequest } from "react-declarative/components/ChatView/model/CustomActionRequest";
+  export { FileActionRequest } from "react-declarative/components/ChatView/model/FileActionRequest";
+  export { MultiSelectActionRequest } from "react-declarative/components/ChatView/model/MultiSelectActionRequest";
+  export { SelectActionRequest } from "react-declarative/components/ChatView/model/SelectActionRequest";
+  export { TextActionRequest } from "react-declarative/components/ChatView/model/TextActionRequest";
+  export * from "react-declarative/components/ChatView/ChatView";
+  export { default } from "react-declarative/components/ChatView/ChatView";
+}
+
+declare module "react-declarative/components/Grid" {
+  export * from "react-declarative/components/Grid/Grid";
+  export * from "react-declarative/components/Grid/api/useOffsetPaginator";
+  export * from "react-declarative/components/Grid/api/useCursorPaginator";
+  export * from "react-declarative/components/Grid/api/useGridAction";
+  export * from "react-declarative/components/Grid/api/useGridSelection";
+  export { IGridProps } from "react-declarative/components/Grid/model/IGridProps";
+  export { RowData } from "react-declarative/components/Grid/model/RowData";
+  export { IColumn as IGridColumn } from "react-declarative/components/Grid/model/IColumn";
+  export { IGridAction } from "react-declarative/components/Grid/model/IGridAction";
+  export { TSort as TGridSort } from "react-declarative/components/Grid/model/TSort";
+  export { default } from "react-declarative/components/Grid/Grid";
+}
+
+declare module "react-declarative/components/Tile" {
+  export * from "react-declarative/components/Tile/Tile";
+  export * from "react-declarative/components/Tile/model/TileMode";
+  export * from "react-declarative/components/Tile/model/ITile";
+  export * from "react-declarative/components/Tile/model/ITileProps";
+  export { default } from "react-declarative/components/Tile/Tile";
+}
+
+declare module "react-declarative/components/Spinner" {
+  export * from "react-declarative/components/Spinner/Spinner";
+  export { default } from "react-declarative/components/Spinner/Spinner";
+}
+
+declare module "react-declarative/components/Async" {
+  export * from "react-declarative/components/Async/Async";
+  export { default } from "react-declarative/components/Async/Async";
+}
+
+declare module "react-declarative/components/Copy" {
+  export * from "react-declarative/components/Copy/Copy";
+  export { default } from "react-declarative/components/Copy/Copy";
+}
+
+declare module "react-declarative/components/If" {
+  export * from "react-declarative/components/If/If";
+  export { default } from "react-declarative/components/If/If";
+}
+
+declare module "react-declarative/components/CopyButton" {
+  export * from "react-declarative/components/CopyButton/CopyButton";
+  export { default } from "react-declarative/components/CopyButton/CopyButton";
+}
+
+declare module "react-declarative/components/SubjectBinding" {
+  export * from "react-declarative/components/SubjectBinding/SubjectBinding";
+  export { default } from "react-declarative/components/SubjectBinding/SubjectBinding";
+}
+
+declare module "react-declarative/components/Countdown" {
+  export * from "react-declarative/components/Countdown/Countdown";
+  export { default } from "react-declarative/components/Countdown/Countdown";
+}
+
+declare module "react-declarative/components/Chip" {
+  export * from "react-declarative/components/Chip/Chip";
+  export { default } from "react-declarative/components/Chip/Chip";
+}
+
+declare module "react-declarative/components/ScrollAdjust" {
+  export * from "react-declarative/components/ScrollAdjust/ScrollAdjust";
+  export { default } from "react-declarative/components/ScrollAdjust/ScrollAdjust";
+}
+
+declare module "react-declarative/components/MasterDetail" {
+  export * from "react-declarative/components/MasterDetail/MasterDetail";
+  export * from "react-declarative/components/MasterDetail/config";
+  export { IMasterDetailOption } from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
+  export { MasterDetailMode } from "react-declarative/components/MasterDetail/model/MasterDetailMode";
+  export { default } from "react-declarative/components/MasterDetail/MasterDetail";
+}
+
 declare module "react-declarative/components/One/layouts/FragmentLayout" {
   import * as React from "react";
   import IField from "react-declarative/model/IField";
@@ -15994,34 +16462,6 @@ declare module "react-declarative/model/ComponentFieldInstance" {
   export default ComponentFieldInstance;
 }
 
-declare module "react-declarative/model/ISize" {
-  import IAnything from "react-declarative/model/IAnything";
-  /**
-   * Represents a size with height and width dimensions.
-   *
-   * @interface
-   */
-  export interface ISize {
-    height: number;
-    width: number;
-  }
-  /**
-   * Type definition for a callback function that handles size and data changes.
-   *
-   * @template Data - The type of data being passed to the callback function.
-   * @param data - The data being passed to the callback function.
-   * @param size - The size information.
-   * @param ref - The reference to the HTML div element.
-   * @returns A string representing the result of the callback function.
-   */
-  export type ISizeCallback<Data = IAnything> = (
-    data: Data,
-    size: ISize,
-    ref: HTMLDivElement,
-  ) => string;
-  export default ISize;
-}
-
 declare module "react-declarative/components/SearchView/model/ISearchItem" {
   import IAnything from "react-declarative/model/IAnything";
   /**
@@ -17565,441 +18005,6 @@ declare module "react-declarative/components/List/rules" {
   export * from "react-declarative/components/List/rules/denceFilterRule";
 }
 
-declare module "react-declarative/components/One" {
-  export * from "react-declarative/components/One/One";
-  export * from "react-declarative/components/One/slots";
-  export { OneConfig } from "react-declarative/components/One/components/OneConfig";
-  export { createField } from "react-declarative/components/One/config/createField";
-  export { makeField } from "react-declarative/components/One/components/makeField";
-  export { createLayout } from "react-declarative/components/One/config/createLayout";
-  export { makeLayout } from "react-declarative/components/One/components/makeLayout";
-  export { useOneMenu } from "react-declarative/components/One/context/MenuProvider";
-  export { useOneProps } from "react-declarative/components/One/context/PropsProvider";
-  export { useOneState } from "react-declarative/components/One/context/StateProvider";
-  export { useOnePayload } from "react-declarative/components/One/context/PayloadProvider";
-  export { useOneFeatures } from "react-declarative/components/One/context/FeatureProvider";
-  export { useOneRadio } from "react-declarative/components/One/context/RadioProvider";
-  export { useOneContext } from "react-declarative/components/One/context/OneContextProvider";
-  export { OtherComboSlot } from "react-declarative/components/One/other/OtherComboSlot";
-  export { OtherItemsSlot } from "react-declarative/components/One/other/OtherItemsSlot";
-  export { useApiHandler } from "react-declarative/components/One/api/useApiHandler";
-  export { useLocalHandler } from "react-declarative/components/One/api/useLocalHandler";
-  export { useStaticHandler } from "react-declarative/components/One/api/useStaticHandler";
-  export { usePreventLeave } from "react-declarative/components/One/api/usePreventLeave";
-  export { default as OneSlotFactory } from "react-declarative/components/One/components/SlotFactory";
-  export { defaultSlots as OneDefaultSlots } from "react-declarative/components/One/components/SlotFactory";
-  export { default } from "react-declarative/components/One/One";
-}
-
-declare module "react-declarative/components/OneIcon" {
-  export * from "react-declarative/components/OneIcon/OneIcon";
-  export { default } from "react-declarative/components/OneIcon/OneIcon";
-}
-
-declare module "react-declarative/components/OneButton" {
-  export * from "react-declarative/components/OneButton/OneButton";
-  export { default } from "react-declarative/components/OneButton/OneButton";
-}
-
-declare module "react-declarative/components/Dot" {
-  export * from "react-declarative/components/Dot/Dot";
-  export { default } from "react-declarative/components/Dot/Dot";
-}
-
-declare module "react-declarative/components/NoSsr" {
-  export * from "react-declarative/components/NoSsr/NoSsr";
-  export { default } from "react-declarative/components/NoSsr/NoSsr";
-}
-
-declare module "react-declarative/components/Switch" {
-  export * from "react-declarative/components/Switch/Switch";
-  export { default } from "react-declarative/components/Switch/Switch";
-}
-
-declare module "react-declarative/components/Center" {
-  export * from "react-declarative/components/Center/Center";
-  export { default } from "react-declarative/components/Center/Center";
-}
-
-declare module "react-declarative/components/Square" {
-  export * from "react-declarative/components/Square/Square";
-  export { default } from "react-declarative/components/Square/Square";
-}
-
-declare module "react-declarative/components/Scaffold" {
-  export * from "react-declarative/components/Scaffold/Scaffold";
-  export * from "react-declarative/components/Scaffold/model/IScaffoldProps";
-  export * from "react-declarative/components/Scaffold/model/IScaffoldOption";
-  export { default } from "react-declarative/components/Scaffold/Scaffold";
-}
-
-declare module "react-declarative/components/Translate" {
-  export * from "react-declarative/components/Translate/Translate";
-  export { default } from "react-declarative/components/Translate/Translate";
-}
-
-declare module "react-declarative/components/Breadcrumbs" {
-  export * from "react-declarative/components/Breadcrumbs/Breadcrumbs";
-  export { default } from "react-declarative/components/Breadcrumbs/Breadcrumbs";
-}
-
-declare module "react-declarative/components/ErrorBoundary" {
-  export * from "react-declarative/components/ErrorBoundary/ErrorBoundary";
-  export { default } from "react-declarative/components/ErrorBoundary/ErrorBoundary";
-}
-
-declare module "react-declarative/components/ColorButton" {
-  export * from "react-declarative/components/ColorButton/ColorButton";
-  export { default } from "react-declarative/components/ColorButton/ColorButton";
-}
-
-declare module "react-declarative/components/ActionChip" {
-  export * from "react-declarative/components/ActionChip/ActionChip";
-  export { ActionChip } from "react-declarative/components/ActionChip/ActionChip";
-}
-
-declare module "react-declarative/components/ActionMenu" {
-  export * from "react-declarative/components/ActionMenu/ActionMenu";
-  export { default } from "react-declarative/components/ActionMenu/ActionMenu";
-}
-
-declare module "react-declarative/components/ActionButton" {
-  export * from "react-declarative/components/ActionButton/ActionButton";
-  export * from "react-declarative/components/ActionButton/api/usePreventAction";
-  export { default } from "react-declarative/components/ActionButton/ActionButton";
-}
-
-declare module "react-declarative/components/ActionStopIcon" {
-  export * from "react-declarative/components/ActionStopIcon/ActionStopIcon";
-  export { default } from "react-declarative/components/ActionStopIcon/ActionStopIcon";
-}
-
-declare module "react-declarative/components/ActionFab" {
-  export * from "react-declarative/components/ActionFab/ActionFab";
-  export { default } from "react-declarative/components/ActionFab/ActionFab";
-}
-
-declare module "react-declarative/components/ActionFilter" {
-  export * from "react-declarative/components/ActionFilter/ActionFilter";
-  export * from "react-declarative/components/ActionFilter/model/IActionFilter";
-  export { default } from "react-declarative/components/ActionFilter/ActionFilter";
-}
-
-declare module "react-declarative/components/ActionTrigger" {
-  export * from "react-declarative/components/ActionTrigger/ActionTrigger";
-  export * from "react-declarative/components/ActionTrigger/model/IActionTrigger";
-  export { default } from "react-declarative/components/ActionTrigger/ActionTrigger";
-}
-
-declare module "react-declarative/components/ActionIcon" {
-  export * from "react-declarative/components/ActionIcon/ActionIcon";
-  export { default } from "react-declarative/components/ActionIcon/ActionIcon";
-}
-
-declare module "react-declarative/components/ActionToggle" {
-  export * from "react-declarative/components/ActionToggle/ActionToggle";
-  export { default } from "react-declarative/components/ActionToggle/ActionToggle";
-}
-
-declare module "react-declarative/components/ActionModal" {
-  export * from "react-declarative/components/ActionModal/ActionModal";
-  export * from "react-declarative/components/ActionModal/useActionModal";
-  export { default } from "react-declarative/components/ActionModal/useActionModal";
-}
-
-declare module "react-declarative/components/SearchModal" {
-  export * from "react-declarative/components/SearchModal/SearchModal";
-  export * from "react-declarative/components/SearchModal/useSearchModal";
-  export { default } from "react-declarative/components/SearchModal/useSearchModal";
-}
-
-declare module "react-declarative/components/SearchView" {
-  export * from "react-declarative/components/SearchView/SearchView";
-  export * from "react-declarative/components/SearchView/model/ISearchItem";
-  export { default } from "react-declarative/components/SearchView/SearchView";
-}
-
-declare module "react-declarative/components/ConstraintView" {
-  export * from "react-declarative/components/ConstraintView/ConstraintView";
-  export * from "react-declarative/components/ConstraintView/useConstraint";
-  export { default } from "react-declarative/components/ConstraintView/ConstraintView";
-}
-
-declare module "react-declarative/components/ScrollTopView" {
-  export * from "react-declarative/components/ScrollTopView/ScrollTopView";
-  export { default } from "react-declarative/components/ScrollTopView/ScrollTopView";
-}
-
-declare module "react-declarative/components/OutletView" {
-  export * from "react-declarative/components/OutletView/OutletView";
-  export * from "react-declarative/components/OutletView/model/IOutlet";
-  export * from "react-declarative/components/OutletView/model/IOutletModal";
-  export * from "react-declarative/components/OutletView/model/IOutletProps";
-  export * from "react-declarative/components/OutletView/model/IOutletModalProps";
-  export * from "react-declarative/components/OutletView/hooks/useOutletModal";
-  export { default } from "react-declarative/components/OutletView/OutletView";
-}
-
-declare module "react-declarative/components/AlertView" {
-  export * from "react-declarative/components/AlertView/AlertView";
-  export { default } from "react-declarative/components/AlertView/AlertView";
-}
-
-declare module "react-declarative/components/PaperView" {
-  export * from "react-declarative/components/PaperView/PaperView";
-  export { default } from "react-declarative/components/PaperView/PaperView";
-}
-
-declare module "react-declarative/components/DragDropView" {
-  export * from "react-declarative/components/DragDropView/DragDropView";
-  export { default } from "react-declarative/components/DragDropView/DragDropView";
-}
-
-declare module "react-declarative/components/FilesView" {
-  export * from "react-declarative/components/FilesView/FilesView";
-  export * from "react-declarative/components/FilesView/api/usePreventNavigate";
-  export * from "react-declarative/components/FilesView/useFilesView";
-  export { default } from "react-declarative/components/FilesView/FilesView";
-}
-
-declare module "react-declarative/components/ScrollView" {
-  export * from "react-declarative/components/ScrollView/ScrollView";
-  export { default } from "react-declarative/components/ScrollView/ScrollView";
-}
-
-declare module "react-declarative/components/ScaleView" {
-  export * from "react-declarative/components/ScaleView/ScaleView";
-  export { default } from "react-declarative/components/ScaleView/ScaleView";
-}
-
-declare module "react-declarative/components/AutoSizer" {
-  export * from "react-declarative/components/AutoSizer/AutoSizer";
-  export { default } from "react-declarative/components/AutoSizer/AutoSizer";
-}
-
-declare module "react-declarative/components/FadeView" {
-  export * from "react-declarative/components/FadeView/FadeView";
-  export { default } from "react-declarative/components/FadeView/FadeView";
-}
-
-declare module "react-declarative/components/TabsView" {
-  export * from "react-declarative/components/TabsView/TabsView";
-  export { ITabsOutlet } from "react-declarative/components/TabsView/model/ITabsOutlet";
-  export { ITabsOutletProps } from "react-declarative/components/TabsView/model/ITabsOutletProps";
-  export { ITabsStep } from "react-declarative/components/TabsView/model/ITabsStep";
-  export { ITabsModal } from "react-declarative/components/TabsView/model/ITabsModal";
-  export { ITabsModalProps } from "react-declarative/components/TabsView/model/ITabsModalProps";
-  export { default } from "react-declarative/components/TabsView/TabsView";
-}
-
-declare module "react-declarative/components/FetchView" {
-  export * from "react-declarative/components/FetchView/FetchView";
-  export {
-    Reveal,
-    IRevealProps,
-  } from "react-declarative/components/FetchView/components/Reveal";
-  export { default } from "react-declarative/components/FetchView/FetchView";
-}
-
-declare module "react-declarative/components/WaitView" {
-  export * from "react-declarative/components/WaitView/WaitView";
-  export { default } from "react-declarative/components/WaitView/WaitView";
-}
-
-declare module "react-declarative/components/PingView" {
-  export * from "react-declarative/components/PingView/PingView";
-  export { default } from "react-declarative/components/PingView/PingView";
-}
-
-declare module "react-declarative/components/HtmlView" {
-  export * from "react-declarative/components/HtmlView/HtmlView";
-  export { default } from "react-declarative/components/HtmlView/HtmlView";
-}
-
-declare module "react-declarative/components/OfflineView" {
-  export * from "react-declarative/components/OfflineView/OfflineView";
-  export { default } from "react-declarative/components/OfflineView/OfflineView";
-}
-
-declare module "react-declarative/components/RevealView" {
-  export * from "react-declarative/components/RevealView/RevealView";
-  export { default } from "react-declarative/components/RevealView/RevealView";
-}
-
-declare module "react-declarative/components/SecretView" {
-  export * from "react-declarative/components/SecretView/SecretView";
-  export { default } from "react-declarative/components/SecretView/SecretView";
-}
-
-declare module "react-declarative/components/WizardView" {
-  export * from "react-declarative/components/WizardView/WizardView";
-  export * from "react-declarative/components/WizardView/components/WizardNavigation";
-  export * from "react-declarative/components/WizardView/components/WizardContainer";
-  export { IWizardOutlet } from "react-declarative/components/WizardView/model/IWizardOutlet";
-  export { IWizardOutletProps } from "react-declarative/components/WizardView/model/IWizardOutletProps";
-  export { IWizardStep } from "react-declarative/components/WizardView/model/IWizardStep";
-  export { IWizardModal } from "react-declarative/components/WizardView/model/IWizardModal";
-  export { IWizardModalProps } from "react-declarative/components/WizardView/model/IWizardModalProps";
-  export { useWizardModal } from "react-declarative/components/WizardView/hooks/useWizardModal";
-  export { default } from "react-declarative/components/WizardView/WizardView";
-}
-
-declare module "react-declarative/components/PortalView" {
-  export * from "react-declarative/components/PortalView/PortalView";
-  export { default } from "react-declarative/components/PortalView/PortalView";
-}
-
-declare module "react-declarative/components/ErrorView" {
-  export * from "react-declarative/components/ErrorView/ErrorView";
-  export { default } from "react-declarative/components/ErrorView/ErrorView";
-}
-
-declare module "react-declarative/components/AuthView" {
-  export * from "react-declarative/components/AuthView/AuthView";
-  export { default } from "react-declarative/components/AuthView/AuthView";
-}
-
-declare module "react-declarative/components/KanbanView" {
-  export * from "react-declarative/components/KanbanView/KanbanView";
-  export * from "react-declarative/components/KanbanView/model/IBoard";
-  export * from "react-declarative/components/KanbanView/model/IBoardColumn";
-  export * from "react-declarative/components/KanbanView/model/IBoardItem";
-  export * from "react-declarative/components/KanbanView/model/IBoardRow";
-  export { default } from "react-declarative/components/KanbanView/KanbanView";
-}
-
-declare module "react-declarative/components/ReloadView" {
-  export * from "react-declarative/components/ReloadView/ReloadView";
-  export { default } from "react-declarative/components/ReloadView/ReloadView";
-}
-
-declare module "react-declarative/components/InfiniteView" {
-  export * from "react-declarative/components/InfiniteView/InfiniteView";
-  export { default } from "react-declarative/components/InfiniteView/InfiniteView";
-}
-
-declare module "react-declarative/components/VirtualView" {
-  export * from "react-declarative/components/VirtualView/VirtualView";
-  export { CHILD_ELEMENT as VIRTUAL_VIEW_CHILD } from "react-declarative/components/VirtualView/VirtualView";
-  export { ROOT_ELEMENT as VIRTUAL_VIEW_ROOT } from "react-declarative/components/VirtualView/VirtualView";
-  export { default } from "react-declarative/components/VirtualView/VirtualView";
-}
-
-declare module "react-declarative/components/LoaderView" {
-  export * from "react-declarative/components/LoaderView/LoaderView";
-  export { default } from "react-declarative/components/LoaderView/LoaderView";
-}
-
-declare module "react-declarative/components/DocumentView" {
-  export * from "react-declarative/components/DocumentView/DocumentView";
-  export { default } from "react-declarative/components/DocumentView/DocumentView";
-}
-
-declare module "react-declarative/components/ImageView" {
-  export * from "react-declarative/components/ImageView/ImageView";
-  export { default } from "react-declarative/components/ImageView/ImageView";
-}
-
-declare module "react-declarative/components/TreeView" {
-  export * from "react-declarative/components/TreeView/TreeView";
-  export { INode as ITreeViewNode } from "react-declarative/components/TreeView/model/INode";
-  export { default } from "react-declarative/components/TreeView/TreeView";
-}
-
-declare module "react-declarative/components/GridView" {
-  export * from "react-declarative/components/GridView/GridView";
-  export { default } from "react-declarative/components/GridView/GridView";
-}
-
-declare module "react-declarative/components/ChatView" {
-  export { ChatController } from "react-declarative/components/ChatView/helpers/ChatController";
-  export { AudioMediaRecorder } from "react-declarative/components/ChatView/helpers/AudioMediaRecorder";
-  export { ActionRequest } from "react-declarative/components/ChatView/model/ActionRequest";
-  export { AudioActionRequest } from "react-declarative/components/ChatView/model/AudioActionRequest";
-  export { CustomActionRequest } from "react-declarative/components/ChatView/model/CustomActionRequest";
-  export { FileActionRequest } from "react-declarative/components/ChatView/model/FileActionRequest";
-  export { MultiSelectActionRequest } from "react-declarative/components/ChatView/model/MultiSelectActionRequest";
-  export { SelectActionRequest } from "react-declarative/components/ChatView/model/SelectActionRequest";
-  export { TextActionRequest } from "react-declarative/components/ChatView/model/TextActionRequest";
-  export * from "react-declarative/components/ChatView/ChatView";
-  export { default } from "react-declarative/components/ChatView/ChatView";
-}
-
-declare module "react-declarative/components/Grid" {
-  export * from "react-declarative/components/Grid/Grid";
-  export * from "react-declarative/components/Grid/api/useOffsetPaginator";
-  export * from "react-declarative/components/Grid/api/useCursorPaginator";
-  export * from "react-declarative/components/Grid/api/useGridAction";
-  export * from "react-declarative/components/Grid/api/useGridSelection";
-  export { IGridProps } from "react-declarative/components/Grid/model/IGridProps";
-  export { RowData } from "react-declarative/components/Grid/model/RowData";
-  export { IColumn as IGridColumn } from "react-declarative/components/Grid/model/IColumn";
-  export { IGridAction } from "react-declarative/components/Grid/model/IGridAction";
-  export { TSort as TGridSort } from "react-declarative/components/Grid/model/TSort";
-  export { default } from "react-declarative/components/Grid/Grid";
-}
-
-declare module "react-declarative/components/Tile" {
-  export * from "react-declarative/components/Tile/Tile";
-  export * from "react-declarative/components/Tile/model/TileMode";
-  export * from "react-declarative/components/Tile/model/ITile";
-  export * from "react-declarative/components/Tile/model/ITileProps";
-  export { default } from "react-declarative/components/Tile/Tile";
-}
-
-declare module "react-declarative/components/Spinner" {
-  export * from "react-declarative/components/Spinner/Spinner";
-  export { default } from "react-declarative/components/Spinner/Spinner";
-}
-
-declare module "react-declarative/components/Async" {
-  export * from "react-declarative/components/Async/Async";
-  export { default } from "react-declarative/components/Async/Async";
-}
-
-declare module "react-declarative/components/Copy" {
-  export * from "react-declarative/components/Copy/Copy";
-  export { default } from "react-declarative/components/Copy/Copy";
-}
-
-declare module "react-declarative/components/If" {
-  export * from "react-declarative/components/If/If";
-  export { default } from "react-declarative/components/If/If";
-}
-
-declare module "react-declarative/components/CopyButton" {
-  export * from "react-declarative/components/CopyButton/CopyButton";
-  export { default } from "react-declarative/components/CopyButton/CopyButton";
-}
-
-declare module "react-declarative/components/SubjectBinding" {
-  export * from "react-declarative/components/SubjectBinding/SubjectBinding";
-  export { default } from "react-declarative/components/SubjectBinding/SubjectBinding";
-}
-
-declare module "react-declarative/components/Countdown" {
-  export * from "react-declarative/components/Countdown/Countdown";
-  export { default } from "react-declarative/components/Countdown/Countdown";
-}
-
-declare module "react-declarative/components/Chip" {
-  export * from "react-declarative/components/Chip/Chip";
-  export { default } from "react-declarative/components/Chip/Chip";
-}
-
-declare module "react-declarative/components/ScrollAdjust" {
-  export * from "react-declarative/components/ScrollAdjust/ScrollAdjust";
-  export { default } from "react-declarative/components/ScrollAdjust/ScrollAdjust";
-}
-
-declare module "react-declarative/components/MasterDetail" {
-  export * from "react-declarative/components/MasterDetail/MasterDetail";
-  export * from "react-declarative/components/MasterDetail/config";
-  export { IMasterDetailOption } from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
-  export { MasterDetailMode } from "react-declarative/components/MasterDetail/model/MasterDetailMode";
-  export { default } from "react-declarative/components/MasterDetail/MasterDetail";
-}
-
 declare module "react-declarative/components/Tile/model/ITile" {
   import IAnything from "react-declarative/model/IAnything";
   /**
@@ -19490,388 +19495,6 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
     pickData: (request: IRequest) => void;
   };
   export default useOpenDocument;
-}
-
-declare module "react-declarative/components/common/Group" {
-  export * from "react-declarative/components/common/Group/Group";
-  export { default } from "react-declarative/components/common/Group/Group";
-}
-
-declare module "react-declarative/components/common/Outline" {
-  export * from "react-declarative/components/common/Outline/Outline";
-  export { default } from "react-declarative/components/common/Outline/Outline";
-}
-
-declare module "react-declarative/components/common/Paper" {
-  export * from "react-declarative/components/common/Paper/Paper";
-  export { default } from "react-declarative/components/common/Paper/Paper";
-}
-
-declare module "react-declarative/components/common/Expansion" {
-  export * from "react-declarative/components/common/Expansion/Expansion";
-  export { default } from "react-declarative/components/common/Expansion/Expansion";
-}
-
-declare module "react-declarative/components/SearchView/model/ISearchItemProps" {
-  import IAnything from "react-declarative/model/IAnything";
-  import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
-  /**
-   * Represents the properties for a search item.
-   *
-   * @template T - The data type for the search item.
-   */
-  export interface ISearchItemProps<T extends IAnything = IAnything>
-    extends Omit<
-      ISearchItem,
-      keyof {
-        data: never;
-      }
-    > {
-    disabled: boolean;
-    payload: IAnything;
-    data: T;
-  }
-  export default ISearchItemProps;
-}
-
-declare module "react-declarative/components/SearchView/model/ISearchInputProps" {
-  import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
-  import TSubject from "react-declarative/model/TSubject";
-  /**
-   * Represents the properties for the SearchInput component.
-   */
-  export interface ISearchInputProps {
-    placeholder?: string;
-    type: Exclude<ISearchViewProps["type"], undefined>;
-    mode: Exclude<ISearchViewProps["mode"], undefined>;
-    autoComplete: ISearchViewProps["autoComplete"];
-    pattern: ISearchViewProps["pattern"];
-    reloadSubject: TSubject<void>;
-    onTextChange: (value: string) => void;
-    loading: boolean;
-    getValue: () => string;
-  }
-  export default ISearchInputProps;
-}
-
-declare module "react-declarative/components/SearchView/model/ICreateButtonProps" {
-  import IAnything from "react-declarative/model/IAnything";
-  /**
-   * Represents the properties for creating a button.
-   */
-  export interface ICreateButtonProps {
-    search: string;
-    payload: IAnything;
-  }
-  export default ICreateButtonProps;
-}
-
-declare module "react-declarative/components/TreeView/model/INode" {
-  /**
-   * Represents a Node in a tree structure.
-   */
-  export interface INode {
-    label: string;
-    value: string;
-    /**
-     * Represents an array of child nodes excluding the "child" property (recursion).
-     *
-     * @typedef ChildArray
-     */
-    child?: Omit<INode, "child">[];
-  }
-  export default INode;
-}
-
-declare module "react-declarative/components/List/slots/ActionAddSlot" {
-  export * from "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot";
-  export * from "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot";
-  export { default } from "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot";
-}
-
-declare module "react-declarative/components/List/slots/ActionFabSlot" {
-  export * from "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot";
-  export * from "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot";
-  export { default } from "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot";
-}
-
-declare module "react-declarative/components/List/slots/ActionMenuSlot" {
-  export * from "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot";
-  export * from "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot";
-  export { default } from "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot";
-}
-
-declare module "react-declarative/components/List/slots/BodyRowSlot" {
-  export * from "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot";
-  export * from "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot";
-  export { default } from "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot";
-}
-
-declare module "react-declarative/components/List/slots/CheckboxCellSlot" {
-  export * from "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot";
-  export * from "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot";
-  export { default } from "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot";
-}
-
-declare module "react-declarative/components/List/slots/CommonCellSlot" {
-  export * from "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot";
-  export * from "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot";
-  export { default } from "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot";
-}
-
-declare module "react-declarative/components/List/slots/HeadRowSlot" {
-  export * from "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot";
-  export * from "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot";
-  export { default } from "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot";
-}
-
-declare module "react-declarative/components/List/slots/ActionListSlot" {
-  export * from "react-declarative/components/List/slots/ActionListSlot/IActionListSlot";
-  export * from "react-declarative/components/List/slots/ActionListSlot/ActionListSlot";
-  export { default } from "react-declarative/components/List/slots/ActionListSlot/ActionListSlot";
-}
-
-declare module "react-declarative/components/List/slots/ChipListSlot" {
-  export * from "react-declarative/components/List/slots/ChipListSlot/IChipListSlot";
-  export * from "react-declarative/components/List/slots/ChipListSlot/ChipListSlot";
-  export { default } from "react-declarative/components/List/slots/ChipListSlot/ChipListSlot";
-}
-
-declare module "react-declarative/components/List/slots/FilterListSlot" {
-  export * from "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot";
-  export * from "react-declarative/components/List/slots/FilterListSlot/FilterListSlot";
-  export { default } from "react-declarative/components/List/slots/FilterListSlot/FilterListSlot";
-}
-
-declare module "react-declarative/components/List/slots/OperationListSlot" {
-  export * from "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot";
-  export * from "react-declarative/components/List/slots/OperationListSlot/OperationListSlot";
-  export { default } from "react-declarative/components/List/slots/OperationListSlot/OperationListSlot";
-}
-
-declare module "react-declarative/components/List/slots/SearchSlot" {
-  export * from "react-declarative/components/List/slots/SearchSlot/ISearchSlot";
-  export * from "react-declarative/components/List/slots/SearchSlot/SearchSlot";
-  export { default } from "react-declarative/components/List/slots/SearchSlot/SearchSlot";
-}
-
-declare module "react-declarative/components/List/components/SlotFactory/SlotFactory" {
-  import * as React from "react";
-  import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
-  /**
-   * Interface for the props of the SlotFactory component.
-   */
-  interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
-    children: React.ReactNode;
-  }
-  /**
-   * SlotFactory - A factory function to create slots for a given SlotContext.
-   *
-   * @param props - The props for the SlotFactory.
-   * @param props.children - The children to render within the SlotFactory.
-   * @param props.currentSlots - The slots to be added/overridden within the SlotFactory.
-   *
-   * @returns The rendered children within the SlotFactory.
-   */
-  export const SlotFactory: ({
-    children,
-    ...currentSlots
-  }: Partial<ISlotFactoryProps>) => JSX.Element;
-  export default SlotFactory;
-}
-
-declare module "react-declarative/components/List/components/SlotFactory/SlotContext" {
-  import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
-  /**
-   * @description Variable holding an array of default slot components.
-   */
-  export const defaultSlots: {
-    BodyRow: <RowData extends import("../../../..").IRowData = any>(
-      props: import("../..").IBodyRowSlot<RowData>,
-    ) => JSX.Element;
-    CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({
-      row,
-      disabled,
-    }: import("./components/CheckboxCell").ICheckboxCellProps<RowData_1>) => JSX.Element;
-    CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({
-      column,
-      row,
-      disabled,
-      onMenuToggle,
-      onAction,
-    }: import("../..").ICommonCellSlot<RowData_2>) => any;
-    HeadRow: (props: import("../..").IHeadRowSlot<any>) => JSX.Element;
-    ActionAdd: ({
-      action,
-      width,
-      label,
-      isVisible,
-      isDisabled,
-    }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
-    ActionMenu: ({
-      options,
-      deps,
-    }: import("../..").IActionMenuSlot) => JSX.Element;
-    ActionFab: ({
-      action,
-      label,
-      width,
-      icon: Icon,
-      isVisible,
-      isDisabled,
-    }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
-    ChipListSlot: ({
-      listChips,
-      loading,
-    }: import("../..").IChipListSlot<any>) => JSX.Element;
-    ActionListSlot: <FilterData extends {}>({
-      className,
-      actions,
-      style,
-      title,
-      height,
-      width,
-      deps,
-    }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
-    FilterListSlot: <FilterData_1 extends {}>({
-      className,
-      style,
-      height,
-      filterData,
-      filters,
-      change,
-      ready,
-      label,
-      loading,
-      withSearch,
-      withToggledFilters,
-      search,
-      onSearchChange,
-      onFilterChange,
-      onCollapsedChange,
-    }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
-    OperationListSlot: ({
-      className,
-      style,
-      operations,
-      width,
-    }: import("../..").IOperationListSlot) => JSX.Element;
-    SearchSlot: ({
-      className,
-      style,
-      label,
-      loading,
-      search,
-      onSearchChange,
-    }: import("../..").ISearchSlot) => JSX.Element;
-    DesktopBodyRow: <RowData_3 extends import("../../../..").IRowData = any>({
-      row,
-      mode,
-      columns,
-      disabled,
-      fullWidth,
-    }: import("../..").IBodyRowSlot<RowData_3>) => JSX.Element;
-    MobileBodyRow: <RowData_4 extends import("../../../..").IRowData = any>({
-      row,
-      mode,
-      disabled,
-      columns,
-      fullWidth,
-    }: import("../..").IBodyRowSlot<RowData_4>) => JSX.Element;
-  };
-  export const SlotContext: import("react").Context<ISlotFactoryContext>;
-  export default SlotContext;
-}
-
-declare module "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext" {
-  import { ComponentType } from "react";
-  import { IBodyRowSlot } from "react-declarative/components/List/slots/BodyRowSlot";
-  import { ICheckboxCellSlot } from "react-declarative/components/List/slots/CheckboxCellSlot";
-  import { ICommonCellSlot } from "react-declarative/components/List/slots/CommonCellSlot";
-  import { IHeadRowSlot } from "react-declarative/components/List/slots/HeadRowSlot";
-  import { IActionAddSlot } from "react-declarative/components/List/slots/ActionAddSlot";
-  import { IActionMenuSlot } from "react-declarative/components/List/slots/ActionMenuSlot";
-  import { IActionFabSlot } from "react-declarative/components/List/slots/ActionFabSlot";
-  import { IActionListSlot } from "react-declarative/components/List/slots/ActionListSlot";
-  import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
-  import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
-  import { IOperationListSlot } from "react-declarative/components/List/slots/OperationListSlot";
-  import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
-  /**
-   * Interface representing the context for the Slot Factory.
-   *
-   * @interface ISlotFactoryContext
-   */
-  export interface ISlotFactoryContext {
-    DesktopBodyRow: ComponentType<IBodyRowSlot>;
-    MobileBodyRow: ComponentType<IBodyRowSlot>;
-    BodyRow: ComponentType<IBodyRowSlot>;
-    CheckboxCell: ComponentType<ICheckboxCellSlot>;
-    CommonCell: ComponentType<ICommonCellSlot>;
-    HeadRow: ComponentType<IHeadRowSlot>;
-    ActionAdd: ComponentType<IActionAddSlot>;
-    ActionFab: ComponentType<IActionFabSlot>;
-    ActionMenu: ComponentType<IActionMenuSlot>;
-    ActionListSlot: ComponentType<IActionListSlot>;
-    FilterListSlot: ComponentType<IFilterListSlot>;
-    ChipListSlot: ComponentType<IChipListSlot>;
-    OperationListSlot: ComponentType<IOperationListSlot>;
-    SearchSlot: ComponentType<ISearchSlot>;
-  }
-  export default ISlotFactoryContext;
-}
-
-declare module "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot" {
-  import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
-  export const DenseFilterListSlot: ({
-    className,
-    style,
-    filterData,
-    filters,
-    change,
-    label,
-    loading,
-    withSearch,
-    withToggledFilters,
-    search,
-    height,
-    width,
-    onSearchChange,
-    onFilterChange,
-  }: IFilterListSlot) => JSX.Element;
-  export default DenseFilterListSlot;
-}
-
-declare module "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot" {
-  import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
-  /**
-   * Represents a search input component with label, loading state, and search functionality.
-   * @param props - The properties of the SearchSlot component.
-   * @param props.className - The additional CSS class name for the root element of the component.
-   * @param props.style - The inline CSS style object for the root element of the component.
-   * @param props.label - The label text for the search input component.
-   * @param props.loading - The loading state of the search input component.
-   * @param props.search - The current search value of the search input component.
-   * @param props.onSearchChange - The callback function triggered when the search value changes.
-   * @returns - The rendered SearchSlot component.
-   */
-  export const DenseSearchSlot: ({
-    className,
-    style,
-    label,
-    loading,
-    search,
-    height,
-    width,
-    onSearchChange,
-  }: ISearchSlot) => JSX.Element;
-  export default DenseSearchSlot;
-}
-
-declare module "react-declarative/components/List/rules/denceFilterRule" {
-  import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
-  export const denceFilterRule: Partial<ISlotFactoryContext>;
-  export default denceFilterRule;
 }
 
 declare module "react-declarative/components/One/One" {
@@ -21863,6 +21486,32 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     submitLabel?: string;
   }
   /**
+   * The `SMALL_SIZE_REQUEST` variable is a function that returns an object containing the properties for
+   * configuring the size of a modal component. It is of type `IActionModalProps['sizeRequest']`.
+   *
+   * @returns The size configuration object.
+   * @property height - The height of the modal component. This value is set to 0.
+   * @property width - The width of the modal component. This value is set to 0.
+   * @property sx - An object with additional style properties for the modal component.
+   * @property sx.maxHeight - The maximum height of the modal component. This value is set to "80%".
+   * @property sx.minWidth - The minimum width of the modal component. This value is set to "330px".
+   * @property sx.maxWidth - The maximum width of the modal component. This value is set to "450px".
+   * @property sx.margin - The margin around the modal component. This value is set to "10px".
+   */
+  export const SMALL_SIZE_REQUEST: IActionModalProps["sizeRequest"];
+  /**
+   * Description: A function that modifies the size request for a modal action.
+   *
+   * @param sizeRequest - The original size request object containing height and width.
+   * @param sizeRequest.height - The current height of the modal.
+   * @param sizeRequest.width - The current width of the modal.
+   *
+   * @returns - The modified size request object with reduced height and width.
+   * @returns - The modified size request object with reduced height.
+   * @returns - The modified size request object with reduced width.
+   */
+  export const LARGE_SIZE_REQUEST: IActionModalProps["sizeRequest"];
+  /**
    * ActionModal is a component that renders a modal dialog with customizable fields and actions.
    *
    * @template Data - The type of data for the fields in the modal.
@@ -22960,10 +22609,8 @@ declare module "react-declarative/components/PaperView/PaperView" {
   export const PaperView: React.ForwardRefExoticComponent<
     Pick<
       IPaperViewProps,
-      | "onChange"
       | "defaultValue"
       | "hidden"
-      | "sx"
       | "inputMode"
       | "tabIndex"
       | "outlinePaper"
@@ -22972,12 +22619,15 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "style"
       | "title"
       | "placeholder"
+      | "sx"
+      | "color"
+      | "translate"
       | "prefix"
+      | "onChange"
       | "key"
       | "onClick"
       | "classes"
       | "children"
-      | "color"
       | "variant"
       | "slot"
       | "defaultChecked"
@@ -22991,7 +22641,6 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "id"
       | "lang"
       | "spellCheck"
-      | "translate"
       | "radioGroup"
       | "role"
       | "about"
@@ -25731,6 +25380,23 @@ declare module "react-declarative/components/TreeView/TreeView" {
   export default TreeView;
 }
 
+declare module "react-declarative/components/TreeView/model/INode" {
+  /**
+   * Represents a Node in a tree structure.
+   */
+  export interface INode {
+    label: string;
+    value: string;
+    /**
+     * Represents an array of child nodes excluding the "child" property (recursion).
+     *
+     * @typedef ChildArray
+     */
+    child?: Omit<INode, "child">[];
+  }
+  export default INode;
+}
+
 declare module "react-declarative/components/GridView/GridView" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
@@ -27100,6 +26766,371 @@ declare module "react-declarative/components/MasterDetail/model/MasterDetailMode
   export default MasterDetailMode;
 }
 
+declare module "react-declarative/components/common/Group" {
+  export * from "react-declarative/components/common/Group/Group";
+  export { default } from "react-declarative/components/common/Group/Group";
+}
+
+declare module "react-declarative/components/common/Outline" {
+  export * from "react-declarative/components/common/Outline/Outline";
+  export { default } from "react-declarative/components/common/Outline/Outline";
+}
+
+declare module "react-declarative/components/common/Paper" {
+  export * from "react-declarative/components/common/Paper/Paper";
+  export { default } from "react-declarative/components/common/Paper/Paper";
+}
+
+declare module "react-declarative/components/common/Expansion" {
+  export * from "react-declarative/components/common/Expansion/Expansion";
+  export { default } from "react-declarative/components/common/Expansion/Expansion";
+}
+
+declare module "react-declarative/components/SearchView/model/ISearchItemProps" {
+  import IAnything from "react-declarative/model/IAnything";
+  import ISearchItem from "react-declarative/components/SearchView/model/ISearchItem";
+  /**
+   * Represents the properties for a search item.
+   *
+   * @template T - The data type for the search item.
+   */
+  export interface ISearchItemProps<T extends IAnything = IAnything>
+    extends Omit<
+      ISearchItem,
+      keyof {
+        data: never;
+      }
+    > {
+    disabled: boolean;
+    payload: IAnything;
+    data: T;
+  }
+  export default ISearchItemProps;
+}
+
+declare module "react-declarative/components/SearchView/model/ISearchInputProps" {
+  import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
+  import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties for the SearchInput component.
+   */
+  export interface ISearchInputProps {
+    placeholder?: string;
+    type: Exclude<ISearchViewProps["type"], undefined>;
+    mode: Exclude<ISearchViewProps["mode"], undefined>;
+    autoComplete: ISearchViewProps["autoComplete"];
+    pattern: ISearchViewProps["pattern"];
+    reloadSubject: TSubject<void>;
+    onTextChange: (value: string) => void;
+    loading: boolean;
+    getValue: () => string;
+  }
+  export default ISearchInputProps;
+}
+
+declare module "react-declarative/components/SearchView/model/ICreateButtonProps" {
+  import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents the properties for creating a button.
+   */
+  export interface ICreateButtonProps {
+    search: string;
+    payload: IAnything;
+  }
+  export default ICreateButtonProps;
+}
+
+declare module "react-declarative/components/List/slots/ActionAddSlot" {
+  export * from "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot";
+  export * from "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot";
+  export { default } from "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot";
+}
+
+declare module "react-declarative/components/List/slots/ActionFabSlot" {
+  export * from "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot";
+  export * from "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot";
+  export { default } from "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot";
+}
+
+declare module "react-declarative/components/List/slots/ActionMenuSlot" {
+  export * from "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot";
+  export * from "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot";
+  export { default } from "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot";
+}
+
+declare module "react-declarative/components/List/slots/BodyRowSlot" {
+  export * from "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot";
+  export * from "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot";
+  export { default } from "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot";
+}
+
+declare module "react-declarative/components/List/slots/CheckboxCellSlot" {
+  export * from "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot";
+  export * from "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot";
+  export { default } from "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot";
+}
+
+declare module "react-declarative/components/List/slots/CommonCellSlot" {
+  export * from "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot";
+  export * from "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot";
+  export { default } from "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot";
+}
+
+declare module "react-declarative/components/List/slots/HeadRowSlot" {
+  export * from "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot";
+  export * from "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot";
+  export { default } from "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot";
+}
+
+declare module "react-declarative/components/List/slots/ActionListSlot" {
+  export * from "react-declarative/components/List/slots/ActionListSlot/IActionListSlot";
+  export * from "react-declarative/components/List/slots/ActionListSlot/ActionListSlot";
+  export { default } from "react-declarative/components/List/slots/ActionListSlot/ActionListSlot";
+}
+
+declare module "react-declarative/components/List/slots/ChipListSlot" {
+  export * from "react-declarative/components/List/slots/ChipListSlot/IChipListSlot";
+  export * from "react-declarative/components/List/slots/ChipListSlot/ChipListSlot";
+  export { default } from "react-declarative/components/List/slots/ChipListSlot/ChipListSlot";
+}
+
+declare module "react-declarative/components/List/slots/FilterListSlot" {
+  export * from "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot";
+  export * from "react-declarative/components/List/slots/FilterListSlot/FilterListSlot";
+  export { default } from "react-declarative/components/List/slots/FilterListSlot/FilterListSlot";
+}
+
+declare module "react-declarative/components/List/slots/OperationListSlot" {
+  export * from "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot";
+  export * from "react-declarative/components/List/slots/OperationListSlot/OperationListSlot";
+  export { default } from "react-declarative/components/List/slots/OperationListSlot/OperationListSlot";
+}
+
+declare module "react-declarative/components/List/slots/SearchSlot" {
+  export * from "react-declarative/components/List/slots/SearchSlot/ISearchSlot";
+  export * from "react-declarative/components/List/slots/SearchSlot/SearchSlot";
+  export { default } from "react-declarative/components/List/slots/SearchSlot/SearchSlot";
+}
+
+declare module "react-declarative/components/List/components/SlotFactory/SlotFactory" {
+  import * as React from "react";
+  import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * Interface for the props of the SlotFactory component.
+   */
+  interface ISlotFactoryProps extends Partial<ISlotFactoryContext> {
+    children: React.ReactNode;
+  }
+  /**
+   * SlotFactory - A factory function to create slots for a given SlotContext.
+   *
+   * @param props - The props for the SlotFactory.
+   * @param props.children - The children to render within the SlotFactory.
+   * @param props.currentSlots - The slots to be added/overridden within the SlotFactory.
+   *
+   * @returns The rendered children within the SlotFactory.
+   */
+  export const SlotFactory: ({
+    children,
+    ...currentSlots
+  }: Partial<ISlotFactoryProps>) => JSX.Element;
+  export default SlotFactory;
+}
+
+declare module "react-declarative/components/List/components/SlotFactory/SlotContext" {
+  import ISlotFactoryContext from "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext";
+  /**
+   * @description Variable holding an array of default slot components.
+   */
+  export const defaultSlots: {
+    BodyRow: <RowData extends import("../../../..").IRowData = any>(
+      props: import("../..").IBodyRowSlot<RowData>,
+    ) => JSX.Element;
+    CheckboxCell: <RowData_1 extends import("../../../..").IRowData = any>({
+      row,
+      disabled,
+    }: import("./components/CheckboxCell").ICheckboxCellProps<RowData_1>) => JSX.Element;
+    CommonCell: <RowData_2 extends import("../../../..").IRowData = any>({
+      column,
+      row,
+      disabled,
+      onMenuToggle,
+      onAction,
+    }: import("../..").ICommonCellSlot<RowData_2>) => any;
+    HeadRow: (props: import("../..").IHeadRowSlot<any>) => JSX.Element;
+    ActionAdd: ({
+      action,
+      width,
+      label,
+      isVisible,
+      isDisabled,
+    }: import("../..").IActionAddSlot<any, any>) => JSX.Element;
+    ActionMenu: ({
+      options,
+      deps,
+    }: import("../..").IActionMenuSlot) => JSX.Element;
+    ActionFab: ({
+      action,
+      label,
+      width,
+      icon: Icon,
+      isVisible,
+      isDisabled,
+    }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
+    ChipListSlot: ({
+      listChips,
+      loading,
+    }: import("../..").IChipListSlot<any>) => JSX.Element;
+    ActionListSlot: <FilterData extends {}>({
+      className,
+      actions,
+      style,
+      title,
+      height,
+      width,
+      deps,
+    }: import("../..").IActionListSlot<FilterData>) => JSX.Element;
+    FilterListSlot: <FilterData_1 extends {}>({
+      className,
+      style,
+      height,
+      filterData,
+      filters,
+      change,
+      ready,
+      label,
+      loading,
+      withSearch,
+      withToggledFilters,
+      search,
+      onSearchChange,
+      onFilterChange,
+      onCollapsedChange,
+    }: import("../..").IFilterListSlot<FilterData_1>) => JSX.Element;
+    OperationListSlot: ({
+      className,
+      style,
+      operations,
+      width,
+    }: import("../..").IOperationListSlot) => JSX.Element;
+    SearchSlot: ({
+      className,
+      style,
+      label,
+      loading,
+      search,
+      onSearchChange,
+    }: import("../..").ISearchSlot) => JSX.Element;
+    DesktopBodyRow: <RowData_3 extends import("../../../..").IRowData = any>({
+      row,
+      mode,
+      columns,
+      disabled,
+      fullWidth,
+    }: import("../..").IBodyRowSlot<RowData_3>) => JSX.Element;
+    MobileBodyRow: <RowData_4 extends import("../../../..").IRowData = any>({
+      row,
+      mode,
+      disabled,
+      columns,
+      fullWidth,
+    }: import("../..").IBodyRowSlot<RowData_4>) => JSX.Element;
+  };
+  export const SlotContext: import("react").Context<ISlotFactoryContext>;
+  export default SlotContext;
+}
+
+declare module "react-declarative/components/List/components/SlotFactory/ISlotFactoryContext" {
+  import { ComponentType } from "react";
+  import { IBodyRowSlot } from "react-declarative/components/List/slots/BodyRowSlot";
+  import { ICheckboxCellSlot } from "react-declarative/components/List/slots/CheckboxCellSlot";
+  import { ICommonCellSlot } from "react-declarative/components/List/slots/CommonCellSlot";
+  import { IHeadRowSlot } from "react-declarative/components/List/slots/HeadRowSlot";
+  import { IActionAddSlot } from "react-declarative/components/List/slots/ActionAddSlot";
+  import { IActionMenuSlot } from "react-declarative/components/List/slots/ActionMenuSlot";
+  import { IActionFabSlot } from "react-declarative/components/List/slots/ActionFabSlot";
+  import { IActionListSlot } from "react-declarative/components/List/slots/ActionListSlot";
+  import { IChipListSlot } from "react-declarative/components/List/slots/ChipListSlot";
+  import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  import { IOperationListSlot } from "react-declarative/components/List/slots/OperationListSlot";
+  import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
+  /**
+   * Interface representing the context for the Slot Factory.
+   *
+   * @interface ISlotFactoryContext
+   */
+  export interface ISlotFactoryContext {
+    DesktopBodyRow: ComponentType<IBodyRowSlot>;
+    MobileBodyRow: ComponentType<IBodyRowSlot>;
+    BodyRow: ComponentType<IBodyRowSlot>;
+    CheckboxCell: ComponentType<ICheckboxCellSlot>;
+    CommonCell: ComponentType<ICommonCellSlot>;
+    HeadRow: ComponentType<IHeadRowSlot>;
+    ActionAdd: ComponentType<IActionAddSlot>;
+    ActionFab: ComponentType<IActionFabSlot>;
+    ActionMenu: ComponentType<IActionMenuSlot>;
+    ActionListSlot: ComponentType<IActionListSlot>;
+    FilterListSlot: ComponentType<IFilterListSlot>;
+    ChipListSlot: ComponentType<IChipListSlot>;
+    OperationListSlot: ComponentType<IOperationListSlot>;
+    SearchSlot: ComponentType<ISearchSlot>;
+  }
+  export default ISlotFactoryContext;
+}
+
+declare module "react-declarative/components/List/common/DenseFilterListSlot/DenseFilterListSlot" {
+  import { IFilterListSlot } from "react-declarative/components/List/slots/FilterListSlot";
+  export const DenseFilterListSlot: ({
+    className,
+    style,
+    filterData,
+    filters,
+    change,
+    label,
+    loading,
+    withSearch,
+    withToggledFilters,
+    search,
+    height,
+    width,
+    onSearchChange,
+    onFilterChange,
+  }: IFilterListSlot) => JSX.Element;
+  export default DenseFilterListSlot;
+}
+
+declare module "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot" {
+  import { ISearchSlot } from "react-declarative/components/List/slots/SearchSlot";
+  /**
+   * Represents a search input component with label, loading state, and search functionality.
+   * @param props - The properties of the SearchSlot component.
+   * @param props.className - The additional CSS class name for the root element of the component.
+   * @param props.style - The inline CSS style object for the root element of the component.
+   * @param props.label - The label text for the search input component.
+   * @param props.loading - The loading state of the search input component.
+   * @param props.search - The current search value of the search input component.
+   * @param props.onSearchChange - The callback function triggered when the search value changes.
+   * @returns - The rendered SearchSlot component.
+   */
+  export const DenseSearchSlot: ({
+    className,
+    style,
+    label,
+    loading,
+    search,
+    height,
+    width,
+    onSearchChange,
+  }: ISearchSlot) => JSX.Element;
+  export default DenseSearchSlot;
+}
+
+declare module "react-declarative/components/List/rules/denceFilterRule" {
+  import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
+  export const denceFilterRule: Partial<ISlotFactoryContext>;
+  export default denceFilterRule;
+}
+
 declare module "react-declarative/components/common/ItemModal/ItemModal" {
   import IField from "react-declarative/model/IField";
   import IManaged from "react-declarative/model/IManaged";
@@ -28302,823 +28333,6 @@ declare module "react-declarative/components/Scaffold3/model/IScaffold3Props" {
 declare module "react-declarative/components/Scaffold3/model/Payload" {
   export type Payload = any;
   export default Payload;
-}
-
-declare module "react-declarative/components/common/Group/Group" {
-  import * as React from "react";
-  import { IManagedLayout, PickProp } from "react-declarative/model/IManaged";
-  import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
-  /**
-   * Represents the props for a group component.
-   *
-   * @template Data - The type of data accepted by the group component.
-   * @template Payload - The type of payload used by the group component.
-   * @extends IManagedLayout - Inherit props from IManagedLayout.
-   */
-  export interface IGroupProps<Data = IAnything, Payload = IAnything>
-    extends IManagedLayout<Data, Payload> {
-    style?: PickProp<IField<Data, Payload>, "style">;
-    className?: PickProp<IField<Data, Payload>, "className">;
-  }
-  /**
-   * Represents a private interface for a group component.
-   *
-   * @interface IGroupPrivate
-   */
-  interface IGroupPrivate {
-    children: React.ReactNode;
-    isItem?: boolean;
-    isBaselineAlign?: boolean;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
-    onFocus?: () => void;
-    onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
-  }
-  /**
-   * Group component
-   *
-   * @typedef Group
-   * @property className - The class name of the group
-   * @property columns - The columns property of the group
-   * @property phoneColumns - The phone columns property of the group
-   * @property tabletColumns - The tablet columns property of the group
-   * @property desktopColumns - The desktop columns property of the group
-   * @property children - The children of the group
-   * @property isItem - Whether the group is an item
-   * @property isBaselineAlign - Whether to align the group baseline
-   * @property style - The style object of the group
-   * @property columnsOverride - The columns override property of the group
-   * @property sx - The sx property of the group
-   * @property fieldRightMargin - The right margin of the field
-   * @property fieldBottomMargin - The bottom margin of the field
-   * @property onClick - The onClick event handler of the group
-   * @property onFocus - The onFocus event handler of the group
-   * @property onContextMenu - The onContextMenu event handler of the group
-   * @property ...otherProps - Other props passed to the group
-   * @property ref - The ref of the group
-   *
-   * @param Group - The Group component function
-   * @returns The rendered component
-   */
-  export const Group: {
-    (
-      {
-        className,
-        columns,
-        phoneColumns,
-        tabletColumns,
-        desktopColumns,
-        children,
-        isItem,
-        isBaselineAlign,
-        style,
-        columnsOverride,
-        sx,
-        fieldRightMargin,
-        fieldBottomMargin,
-        onClick,
-        onFocus,
-        onContextMenu,
-        ...otherProps
-      }: IGroupProps & IGroupPrivate,
-      ref: React.Ref<HTMLDivElement>,
-    ): JSX.Element;
-    displayName: string;
-  };
-  const _default: React.ForwardRefExoticComponent<
-    IGroupProps<any, any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>
-  >;
-  export default _default;
-}
-
-declare module "react-declarative/components/common/Outline/Outline" {
-  import * as React from "react";
-  import { PickProp } from "react-declarative/model/IManaged";
-  import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
-  /**
-   * Interface for the `Outline` component props.
-   *
-   * @template Data - The data type of the component.
-   * @template Payload - The payload type of the component.
-   */
-  export interface IOutlineProps<Data = IAnything, Payload = IAnything> {
-    className?: PickProp<IField<Data, Payload>, "className">;
-    style?: PickProp<IField<Data, Payload>, "style">;
-  }
-  /**
-   * Interface representing a private outline.
-   *
-   * @template Data - The data type used in the outline.
-   * @template Payload - The payload type used in the outline.
-   */
-  interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
-    children: React.ReactNode;
-    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
-    sx?: PickProp<IField<Data, Payload>, "sx">;
-    isBaselineAlign: boolean;
-  }
-  /**
-   * Render an outline component.
-   *
-   * @param [className=""] - The class name for the outline component.
-   * @param [columnsOverride] - An object representing the column overrides.
-   * @param [style] - Inline styles for the outline component.
-   * @param children - The content to be rendered within the outline component.
-   * @param [isBaselineAlign] - Flag indicating whether to align items to the baseline.
-   * @param sx - The custom styling for the outline component using the sx prop.
-   * @returns The rendered outline component.
-   */
-  export const Outline: {
-    ({
-      className,
-      columnsOverride,
-      style,
-      children,
-      isBaselineAlign,
-      sx,
-    }: IOutlineProps & IOutlinePrivate): JSX.Element;
-    displayName: string;
-  };
-  export default Outline;
-}
-
-declare module "react-declarative/components/common/Paper/Paper" {
-  import * as React from "react";
-  import { PickProp } from "react-declarative/model/IManaged";
-  import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
-  /**
-   * Represents the props for the Paper component.
-   *
-   * @template Data - The type of data used by the component.
-   * @template Payload - The type of payload used by the component.
-   */
-  export interface IPaperProps<Data = IAnything, Payload = IAnything> {
-    className?: PickProp<IField<Data, Payload>, "className">;
-    style?: PickProp<IField<Data, Payload>, "style">;
-  }
-  /**
-   * The `IPaperPrivate` interface is used to describe a private paper component.
-   *
-   * @template Data - The type of data for the paper component.
-   * @template Payload - The type of payload for the paper component.
-   */
-  interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
-    children: React.ReactNode;
-    isBaselineAlign: boolean;
-    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
-    sx?: PickProp<IField<Data, Payload>, "sx">;
-  }
-  /**
-   * Represents a Paper component that displays a block of content with a paper-like background.
-   *
-   * @typedef Paper
-   * @param [className=""] - The additional CSS class name(s) to apply to the Paper component.
-   * @param [style] - The inline style object to apply to the Paper component.
-   * @param children - The content to be rendered inside the Paper component.
-   * @param columnsOverride - The number of columns to override the default layout.
-   * @param isBaselineAlign - Specifies whether to align the child elements on the baseline.
-   * @param sx - The custom style object to apply to the Paper component using sx prop from the Material-UI theme.
-   *
-   * @returns - The rendered Paper component.
-   */
-  export const Paper: {
-    ({
-      className,
-      style,
-      children,
-      columnsOverride,
-      isBaselineAlign,
-      sx,
-    }: IPaperProps & IPaperPrivate): JSX.Element;
-    displayName: string;
-  };
-  export default Paper;
-}
-
-declare module "react-declarative/components/common/Expansion/Expansion" {
-  import * as React from "react";
-  import { PickProp } from "react-declarative/model/IManaged";
-  import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
-  /**
-   * Represents the properties for the Expansion component.
-   *
-   * @template Data - The type of data associated with the component.
-   * @template Payload - The type of payload associated with the component.
-   */
-  export interface IExpansionProps<Data = IAnything, Payload = IAnything> {
-    title?: PickProp<IField<Data, Payload>, "title">;
-    style?: PickProp<IField<Data, Payload>, "style">;
-    description?: PickProp<IField<Data, Payload>, "description">;
-    className?: PickProp<IField<Data, Payload>, "className">;
-    expansionOpened?: PickProp<IField<Data, Payload>, "expansionOpened">;
-  }
-  /**
-   * Interface for private expansion components.
-   *
-   * @template Data - The type of data.
-   * @template Payload - The type of payload.
-   */
-  interface IExpansionPrivate<Data = IAnything, Payload = IAnything> {
-    children: React.ReactNode;
-    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
-    sx?: PickProp<IField<Data, Payload>, "sx">;
-    isBaselineAlign: boolean;
-  }
-  /**
-   * Expansion component used for creating expandable sections in UI.
-   *
-   * @param props - The props for the Expansion component.
-   * @param props.title - The title of the expansion section.
-   * @param props.description - The description of the expansion section.
-   * @param props.className - The CSS class name for the expansion section.
-   * @param props.columnsOverride - Override columns for Group component.
-   * @param props.isBaselineAlign - Specifies if the content of the expansion section should be baseline-aligned.
-   * @param props.sx - The style object for the expansion section.
-   * @param props.style - The inline style object for the expansion section.
-   * @param props.children - The content of the expansion section.
-   * @param props.expansionOpened - Specifies if the expansion section should be initially expanded.
-   * @returns The rendered Expansion component.
-   */
-  export const Expansion: {
-    ({
-      title,
-      description,
-      className,
-      columnsOverride,
-      isBaselineAlign,
-      sx,
-      style,
-      children,
-      expansionOpened,
-    }: IExpansionProps & IExpansionPrivate): JSX.Element;
-    displayName: string;
-  };
-  export default Expansion;
-}
-
-declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  /**
-   * Interface for adding a slot in an action.
-   *
-   * @template RowData - The type of data for selected rows.
-   * @template Payload - The type of payload data.
-   */
-  export interface IActionAddSlot<
-    RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything,
-  > {
-    action?: string;
-    label?: string;
-    height: number;
-    width: number;
-    /**
-     * Determines the visibility of an element based on selected rows and payload.
-     *
-     * @param selectedRows - Array of selected rows.
-     * @param payload - Input payload.
-     * @returns - A Promise that resolves to a boolean indicating the visibility of the element, or a boolean indicating the visibility directly.
-     */
-    isVisible?: (
-      selectedRows: RowData[],
-      payload: Payload,
-    ) => Promise<boolean> | boolean;
-    /**
-     * Checks if the provided rows are disabled based on the given payload.
-     *
-     * @param selectedRows - The selected rows to be checked.
-     * @param payload - The payload used to determine if the rows are disabled.
-     * @returns - A Promise resolving to a boolean indicating if the rows are disabled.
-     */
-    isDisabled?: (
-      selectedRows: RowData[],
-      payload: Payload,
-    ) => Promise<boolean> | boolean;
-  }
-  export default IActionAddSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot" {
-  import IActionAddSlot from "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot";
-  /**
-   * ActionAddSlot function.
-   *
-   * @param props - Props object for the ActionAddSlot component.
-   * @returns - ActionAdd component with the given props.
-   */
-  export const ActionAddSlot: (props: IActionAddSlot) => JSX.Element;
-  export default ActionAddSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot" {
-  import React from "react";
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  /**
-   * Represents an action slot for a FAB (Floating Action Button).
-   *
-   * @template RowData - The type of data for the selected rows.
-   * @template Payload - The type of data for the action payload.
-   */
-  export interface IActionFabSlot<
-    RowData extends IRowData = IAnything,
-    Payload extends IAnything = IAnything,
-  > {
-    action?: string;
-    label?: string;
-    icon?: React.ComponentType<any>;
-    height: number;
-    width: number;
-    /**
-     * Determines if the element is visible based on the selected rows and payload.
-     *
-     * @param selectedRows - The selected rows to check against.
-     * @param payload - The payload to evaluate.
-     * @returns - True if the element is visible, false otherwise.
-     */
-    isVisible?: (
-      selectedRows: RowData[],
-      payload: Payload,
-    ) => Promise<boolean> | boolean;
-    /**
-     * Determines whether a specific feature is disabled based on the selected rows and payload.
-     *
-     * @param selectedRows - The selected rows.
-     * @param payload - The payload.
-     * @returns - A promise that resolves to a boolean or a boolean value.
-     */
-    isDisabled?: (
-      selectedRows: RowData[],
-      payload: Payload,
-    ) => Promise<boolean> | boolean;
-  }
-  export default IActionFabSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot" {
-  import IActionFabSlot from "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot";
-  /**
-   * Represents a component that renders an action floating action button slot.
-   * @param props - The props for the action floating action button slot.
-   * @returns - The rendered action floating action button slot.
-   */
-  export const ActionFabSlot: (props: IActionFabSlot) => JSX.Element;
-  export default ActionFabSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import { IListActionOption } from "react-declarative/model/IListProps";
-  /**
-   * Represents an action menu slot.
-   *
-   * @interface IActionMenuSlot
-   */
-  export interface IActionMenuSlot {
-    /**
-     * Represents a set of options for a list action.
-     * These options are stored in an array of partial objects of type IListActionOption.
-     *
-     * @typedef ListActionOptions
-     */
-    options?: Partial<IListActionOption>[];
-    deps?: IAnything[];
-  }
-  export default IActionMenuSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot" {
-  import IActionMenuSlot from "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot";
-  /**
-   * Renders an action menu slot component.
-   * @param props - The props for the action menu slot component
-   * @returns - The rendered action menu slot component
-   */
-  export const ActionMenuSlot: (props: IActionMenuSlot) => JSX.Element;
-  export default ActionMenuSlot;
-}
-
-declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  import IColumn from "react-declarative/model/IColumn";
-  import DisplayMode from "react-declarative/model/DisplayMode";
-  /**
-   * Represents a column in the body of a table.
-   * @template RowData - The type of data in the table rows.
-   */
-  export type BodyColumn<RowData extends IRowData = IAnything> = Omit<
-    IColumn<RowData>,
-    keyof {
-      width: never;
-    }
-  > & {
-    width: string;
-  };
-  /**
-   * Represents a slot for a body row in a table.
-   *
-   * @template RowData - The type of data associated with the row.
-   */
-  export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
-    fullWidth: number;
-    row: RowData;
-    disabled: boolean;
-    /**
-     * Represents an array of body columns.
-     * @typedef columns
-     *
-     * @template RowData The type of data stored in the rows of the column.
-     * @property length - The number of columns in the array.
-     * @method {function(): Iterator<BodyColumn<RowData>, undefined, undefined>} @@iterator - Returns a new Iterator object that can be used to iterate over each column in the array.
-     */
-    columns: BodyColumn<RowData>[];
-    mode: DisplayMode;
-  }
-  export default IBodyRowSlot;
-}
-
-declare module "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot" {
-  import IBodyRowSlot from "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot";
-  /**
-   * Function that renders a body row slot component.
-   *
-   * @param props - The props object containing the properties for the body row slot component.
-   * @returns - The rendered body row component.
-   */
-  export const BodyRowSlot: (props: IBodyRowSlot) => JSX.Element;
-  export default BodyRowSlot;
-}
-
-declare module "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  import { ICheckboxCellProps } from "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell";
-  /**
-   * Represents a slot for a checkbox cell in a table.
-   *
-   * @template RowData - The type of data for the row in the table.
-   *
-   * @interface
-   * @extends ICheckboxCellProps<RowData>
-   */
-  export interface ICheckboxCellSlot<RowData extends IRowData = IAnything>
-    extends ICheckboxCellProps<RowData> {}
-  export default ICheckboxCellSlot;
-}
-
-declare module "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot" {
-  import ICheckboxCellSlot from "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot";
-  /**
-   * Renders a checkbox inside a cell slot.
-   *
-   * @param props - The props object for the checkbox cell slot.
-   * @returns The rendered checkbox cell slot.
-   */
-  export const CheckboxCellSlot: (props: ICheckboxCellSlot) => JSX.Element;
-  export default CheckboxCellSlot;
-}
-
-declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot" {
-  import { IActionMenuProps } from "react-declarative/components/ActionMenu";
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  import IColumn from "react-declarative/model/IColumn";
-  import DisplayMode from "react-declarative/model/DisplayMode";
-  /**
-   * Represents a common cell column.
-   *
-   * @template RowData - The type of the row data for the column.
-   */
-  export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<
-    IColumn<RowData>,
-    keyof {
-      width: never;
-    }
-  > & {
-    width: string;
-  };
-  /**
-   * Represents a common cell slot.
-   *
-   * @template RowData - The type of row data used in the cell slot.
-   *
-   * @property column - The column associated with the cell slot.
-   * @property row - The row data associated with the cell slot.
-   * @property idx - The index of the cell slot.
-   * @property fullWidth - The full width of the cell slot.
-   * @property disabled - Indicates if the cell slot is disabled.
-   * @property mode - The display mode of the cell slot.
-   * @property onMenuToggle - The function to call when the menu toggle is triggered.
-   * @property onAction - The function to call when an action is triggered in the menu.
-   */
-  export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
-    column: CommonCellColumn<RowData>;
-    row: RowData;
-    idx: number;
-    fullWidth: number;
-    disabled: boolean;
-    mode: DisplayMode;
-    /**
-     * Callback function for the toggle action of a menu.
-     *
-     * @callback onMenuToggle
-     * @param isOpen - Specifies whether the menu is open or closed.
-     * @returns
-     */
-    onMenuToggle: IActionMenuProps["onToggle"];
-    /**
-     * The callback function for an action triggered in the action menu.
-     *
-     * @param action - The action triggered in the action menu.
-     * @returns
-     */
-    onAction: IActionMenuProps["onAction"];
-  }
-  export default ICommonCellSlot;
-}
-
-declare module "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot" {
-  import ICommonCellSlot from "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot";
-  /**
-   * Represents a common cell slot component.
-   *
-   * @param props - The props object containing the required data for the component.
-   * @returns - The rendered CommonCell component.
-   */
-  export const CommonCellSlot: (props: ICommonCellSlot) => JSX.Element;
-  export default CommonCellSlot;
-}
-
-declare module "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IRowData from "react-declarative/model/IRowData";
-  import IColumn from "react-declarative/model/IColumn";
-  import DisplayMode from "react-declarative/model/DisplayMode";
-  /**
-   * Represents a column in a table's header.
-   *
-   * @template RowData - The type of data in the rows of the table.
-   */
-  export type HeadColumn<RowData extends IRowData = IAnything> = Omit<
-    IColumn<RowData>,
-    keyof {
-      width: never;
-    }
-  > & {
-    width: string;
-  };
-  /**
-   * Interface for the head row slot of a table component.
-   * @template RowData - The type of data for each row.
-   */
-  export interface IHeadRowSlot<RowData extends IRowData = IAnything> {
-    /**
-     * Represents an array of column headers with associated row data.
-     * @typedef Columns
-     * @template RowData The type of data contained in each column's rows.
-     */
-    columns: HeadColumn<RowData>[];
-    fullWidth: number;
-    mode: DisplayMode;
-  }
-  export default IHeadRowSlot;
-}
-
-declare module "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot" {
-  import IHeadRowSlot from "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot";
-  /**
-   * Represents a slot component for displaying a head row in a table.
-   * @param props - The props for the component.
-   * @returns The rendered head row slot component.
-   */
-  export const HeadRowSlot: (props: IHeadRowSlot) => JSX.Element;
-  export default HeadRowSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionListSlot/IActionListSlot" {
-  import { IListAction } from "react-declarative/model/IListProps";
-  import IAnything from "react-declarative/model/IAnything";
-  /**
-   * Represents a slot in an action list.
-   *
-   * @template FilterData - The type of filter data for this slot.
-   */
-  export interface IActionListSlot<FilterData extends {} = IAnything> {
-    className?: string;
-    style?: React.CSSProperties;
-    filterData: FilterData;
-    /**
-     * Represents a list of actions.
-     *
-     * @typedef actions
-     * @property 0 - The first action in the list.
-     * @property 1 - The second action in the list.
-     * ...
-     */
-    actions: IListAction[];
-    deps?: any[];
-    height: number;
-    width: number;
-    title?: string;
-  }
-  export default IActionListSlot;
-}
-
-declare module "react-declarative/components/List/slots/ActionListSlot/ActionListSlot" {
-  import IActionListSlot from "react-declarative/components/List/slots/ActionListSlot/IActionListSlot";
-  /**
-   * Function component representing an action list slot.
-   * @param props - The properties for the action list slot.
-   * @returns - The rendered action list slot.
-   */
-  export const ActionListSlot: (props: IActionListSlot) => JSX.Element;
-  export default ActionListSlot;
-}
-
-declare module "react-declarative/components/List/slots/ChipListSlot/IChipListSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IListProps from "react-declarative/model/IListProps";
-  import IRowData from "react-declarative/model/IRowData";
-  /**
-   * Represents a slot in a chip list.
-   * @template RowData - The type of data in the chip list row.
-   */
-  export interface IChipListSlot<RowData extends IRowData = IAnything> {
-    /**
-     * Represents a list of chips in a row data object.
-     *
-     * @typedef ListChips
-     */
-    listChips: IListProps<RowData>["chips"];
-    loading: boolean;
-  }
-  export default IChipListSlot;
-}
-
-declare module "react-declarative/components/List/slots/ChipListSlot/ChipListSlot" {
-  import IChipListSlot from "react-declarative/components/List/slots/ChipListSlot/IChipListSlot";
-  /**
-   * Renders a chip list slot component.
-   *
-   * @param props - The props for the chip list slot.
-   * @returns - The rendered chip list slot component.
-   */
-  export const ChipListSlot: (props: IChipListSlot) => JSX.Element;
-  export default ChipListSlot;
-}
-
-declare module "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot" {
-  import IAnything from "react-declarative/model/IAnything";
-  import IField from "react-declarative/model/IField";
-  /**
-   * Represents a filter list slot.
-   *
-   * @template FilterData - The type of filter data.
-   */
-  export interface IFilterListSlot<FilterData extends {} = IAnything> {
-    className?: string;
-    filterData: FilterData;
-    style?: React.CSSProperties;
-    /**
-     * Represents an array of field filters.
-     *
-     * @typedef FilterArray
-     */
-    filters: IField<FilterData>[];
-    change: (data: FilterData) => void;
-    /**
-     * Represents a callback function for the onSearchChange event.
-     *
-     * @callback onSearchChangeCallback
-     * @param search - The search keyword entered by the user.
-     * @returns
-     */
-    onSearchChange?: (search: string) => void;
-    /**
-     * Function signature for the onFilterChange event callback.
-     *
-     * @param data - The data object representing the filter changes.
-     * @returns
-     */
-    onFilterChange?: (data: FilterData) => void;
-    /**
-     * Callback function called when the collapsed state changes.
-     *
-     * @param collapsed - The new collapsed state.
-     * @returns
-     */
-    onCollapsedChange?: (collapsed: boolean) => void;
-    /**
-     * @description A flag indicating whether filters are toggled or not.
-     * @type {boolean|undefined}
-     */
-    withToggledFilters?: boolean;
-    ready: () => void;
-    clean: () => void;
-    loading: boolean;
-    label: string;
-    search: string;
-    withSearch: boolean;
-    height: number;
-    width: number;
-  }
-  export default IFilterListSlot;
-}
-
-declare module "react-declarative/components/List/slots/FilterListSlot/FilterListSlot" {
-  import IFilterListSlot from "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot";
-  /**
-   * A component that renders a slot for a filter list.
-   *
-   * @param props - The props for the component.
-   * @param props - The context object for the filter list slot.
-   *
-   * @returns The rendered filter list slot component.
-   */
-  export const FilterListSlot: (props: IFilterListSlot) => JSX.Element;
-  export default FilterListSlot;
-}
-
-declare module "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot" {
-  import IListOperation from "react-declarative/model/IListOperation";
-  /**
-   * A interface representing a list of operations in a slot.
-   *
-   * @interface
-   */
-  export interface IOperationListSlot {
-    className?: string;
-    style?: React.CSSProperties;
-    /**
-     * Represents a list of operations to perform on an IList.
-     *
-     * @typedef IListOperation
-     * @property name - The name of the operation.
-     * @property parameters - The parameters required for the operation.
-     */
-    operations: IListOperation[];
-    width: number;
-  }
-  export default IOperationListSlot;
-}
-
-declare module "react-declarative/components/List/slots/OperationListSlot/OperationListSlot" {
-  import IOperationListSlot from "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot";
-  /**
-   * Represents a slot component for rendering an operation list.
-   *
-   * @component
-   *
-   * @param props - The props for the component.
-   * @returns The rendered React node.
-   */
-  export const OperationListSlot: (props: IOperationListSlot) => JSX.Element;
-  export default OperationListSlot;
-}
-
-declare module "react-declarative/components/List/slots/SearchSlot/ISearchSlot" {
-  /**
-   * Represents a search slot with various properties and functions.
-   *
-   * @interface ISearchSlot
-   */
-  export interface ISearchSlot {
-    className?: string;
-    style?: React.CSSProperties;
-    /**
-     * Represents a callback function for handling search input changes.
-     *
-     * @callback onSearchChangeCallback
-     * @param search - The search query entered by the user.
-     * @returns
-     */
-    onSearchChange?: (search: string) => void;
-    clean: () => void;
-    loading: boolean;
-    label: string;
-    search: string;
-    height: number;
-    width: number;
-  }
-  export default ISearchSlot;
-}
-
-declare module "react-declarative/components/List/slots/SearchSlot/SearchSlot" {
-  import ISearchSlot from "react-declarative/components/List/slots/SearchSlot/ISearchSlot";
-  /**
-   * Renders a SearchSlot component.
-   *
-   * @param props - The properties passed to the SearchSlot component.
-   * @param props.SearchSlot - The SearchSlot component passed as a context.
-   * @returns - The rendered SearchSlot component.
-   */
-  export const SearchSlot: (props: ISearchSlot) => JSX.Element;
-  export default SearchSlot;
 }
 
 declare module "react-declarative/components/One/slots/CheckBoxSlot" {
@@ -30568,6 +29782,823 @@ declare module "react-declarative/components/MasterDetail/model/IMasterDetailPro
   export default IMasterDetailProps;
 }
 
+declare module "react-declarative/components/common/Group/Group" {
+  import * as React from "react";
+  import { IManagedLayout, PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Represents the props for a group component.
+   *
+   * @template Data - The type of data accepted by the group component.
+   * @template Payload - The type of payload used by the group component.
+   * @extends IManagedLayout - Inherit props from IManagedLayout.
+   */
+  export interface IGroupProps<Data = IAnything, Payload = IAnything>
+    extends IManagedLayout<Data, Payload> {
+    style?: PickProp<IField<Data, Payload>, "style">;
+    className?: PickProp<IField<Data, Payload>, "className">;
+  }
+  /**
+   * Represents a private interface for a group component.
+   *
+   * @interface IGroupPrivate
+   */
+  interface IGroupPrivate {
+    children: React.ReactNode;
+    isItem?: boolean;
+    isBaselineAlign?: boolean;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+    onFocus?: () => void;
+    onContextMenu?: React.MouseEventHandler<HTMLDivElement>;
+  }
+  /**
+   * Group component
+   *
+   * @typedef Group
+   * @property className - The class name of the group
+   * @property columns - The columns property of the group
+   * @property phoneColumns - The phone columns property of the group
+   * @property tabletColumns - The tablet columns property of the group
+   * @property desktopColumns - The desktop columns property of the group
+   * @property children - The children of the group
+   * @property isItem - Whether the group is an item
+   * @property isBaselineAlign - Whether to align the group baseline
+   * @property style - The style object of the group
+   * @property columnsOverride - The columns override property of the group
+   * @property sx - The sx property of the group
+   * @property fieldRightMargin - The right margin of the field
+   * @property fieldBottomMargin - The bottom margin of the field
+   * @property onClick - The onClick event handler of the group
+   * @property onFocus - The onFocus event handler of the group
+   * @property onContextMenu - The onContextMenu event handler of the group
+   * @property ...otherProps - Other props passed to the group
+   * @property ref - The ref of the group
+   *
+   * @param Group - The Group component function
+   * @returns The rendered component
+   */
+  export const Group: {
+    (
+      {
+        className,
+        columns,
+        phoneColumns,
+        tabletColumns,
+        desktopColumns,
+        children,
+        isItem,
+        isBaselineAlign,
+        style,
+        columnsOverride,
+        sx,
+        fieldRightMargin,
+        fieldBottomMargin,
+        onClick,
+        onFocus,
+        onContextMenu,
+        ...otherProps
+      }: IGroupProps & IGroupPrivate,
+      ref: React.Ref<HTMLDivElement>,
+    ): JSX.Element;
+    displayName: string;
+  };
+  const _default: React.ForwardRefExoticComponent<
+    IGroupProps<any, any> & IGroupPrivate & React.RefAttributes<HTMLDivElement>
+  >;
+  export default _default;
+}
+
+declare module "react-declarative/components/common/Outline/Outline" {
+  import * as React from "react";
+  import { PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Interface for the `Outline` component props.
+   *
+   * @template Data - The data type of the component.
+   * @template Payload - The payload type of the component.
+   */
+  export interface IOutlineProps<Data = IAnything, Payload = IAnything> {
+    className?: PickProp<IField<Data, Payload>, "className">;
+    style?: PickProp<IField<Data, Payload>, "style">;
+  }
+  /**
+   * Interface representing a private outline.
+   *
+   * @template Data - The data type used in the outline.
+   * @template Payload - The payload type used in the outline.
+   */
+  interface IOutlinePrivate<Data = IAnything, Payload = IAnything> {
+    children: React.ReactNode;
+    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
+    sx?: PickProp<IField<Data, Payload>, "sx">;
+    isBaselineAlign: boolean;
+  }
+  /**
+   * Render an outline component.
+   *
+   * @param [className=""] - The class name for the outline component.
+   * @param [columnsOverride] - An object representing the column overrides.
+   * @param [style] - Inline styles for the outline component.
+   * @param children - The content to be rendered within the outline component.
+   * @param [isBaselineAlign] - Flag indicating whether to align items to the baseline.
+   * @param sx - The custom styling for the outline component using the sx prop.
+   * @returns The rendered outline component.
+   */
+  export const Outline: {
+    ({
+      className,
+      columnsOverride,
+      style,
+      children,
+      isBaselineAlign,
+      sx,
+    }: IOutlineProps & IOutlinePrivate): JSX.Element;
+    displayName: string;
+  };
+  export default Outline;
+}
+
+declare module "react-declarative/components/common/Paper/Paper" {
+  import * as React from "react";
+  import { PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Represents the props for the Paper component.
+   *
+   * @template Data - The type of data used by the component.
+   * @template Payload - The type of payload used by the component.
+   */
+  export interface IPaperProps<Data = IAnything, Payload = IAnything> {
+    className?: PickProp<IField<Data, Payload>, "className">;
+    style?: PickProp<IField<Data, Payload>, "style">;
+  }
+  /**
+   * The `IPaperPrivate` interface is used to describe a private paper component.
+   *
+   * @template Data - The type of data for the paper component.
+   * @template Payload - The type of payload for the paper component.
+   */
+  interface IPaperPrivate<Data = IAnything, Payload = IAnything> {
+    children: React.ReactNode;
+    isBaselineAlign: boolean;
+    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
+    sx?: PickProp<IField<Data, Payload>, "sx">;
+  }
+  /**
+   * Represents a Paper component that displays a block of content with a paper-like background.
+   *
+   * @typedef Paper
+   * @param [className=""] - The additional CSS class name(s) to apply to the Paper component.
+   * @param [style] - The inline style object to apply to the Paper component.
+   * @param children - The content to be rendered inside the Paper component.
+   * @param columnsOverride - The number of columns to override the default layout.
+   * @param isBaselineAlign - Specifies whether to align the child elements on the baseline.
+   * @param sx - The custom style object to apply to the Paper component using sx prop from the Material-UI theme.
+   *
+   * @returns - The rendered Paper component.
+   */
+  export const Paper: {
+    ({
+      className,
+      style,
+      children,
+      columnsOverride,
+      isBaselineAlign,
+      sx,
+    }: IPaperProps & IPaperPrivate): JSX.Element;
+    displayName: string;
+  };
+  export default Paper;
+}
+
+declare module "react-declarative/components/common/Expansion/Expansion" {
+  import * as React from "react";
+  import { PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Represents the properties for the Expansion component.
+   *
+   * @template Data - The type of data associated with the component.
+   * @template Payload - The type of payload associated with the component.
+   */
+  export interface IExpansionProps<Data = IAnything, Payload = IAnything> {
+    title?: PickProp<IField<Data, Payload>, "title">;
+    style?: PickProp<IField<Data, Payload>, "style">;
+    description?: PickProp<IField<Data, Payload>, "description">;
+    className?: PickProp<IField<Data, Payload>, "className">;
+    expansionOpened?: PickProp<IField<Data, Payload>, "expansionOpened">;
+  }
+  /**
+   * Interface for private expansion components.
+   *
+   * @template Data - The type of data.
+   * @template Payload - The type of payload.
+   */
+  interface IExpansionPrivate<Data = IAnything, Payload = IAnything> {
+    children: React.ReactNode;
+    columnsOverride?: PickProp<IField<Data, Payload>, "columnsOverride">;
+    sx?: PickProp<IField<Data, Payload>, "sx">;
+    isBaselineAlign: boolean;
+  }
+  /**
+   * Expansion component used for creating expandable sections in UI.
+   *
+   * @param props - The props for the Expansion component.
+   * @param props.title - The title of the expansion section.
+   * @param props.description - The description of the expansion section.
+   * @param props.className - The CSS class name for the expansion section.
+   * @param props.columnsOverride - Override columns for Group component.
+   * @param props.isBaselineAlign - Specifies if the content of the expansion section should be baseline-aligned.
+   * @param props.sx - The style object for the expansion section.
+   * @param props.style - The inline style object for the expansion section.
+   * @param props.children - The content of the expansion section.
+   * @param props.expansionOpened - Specifies if the expansion section should be initially expanded.
+   * @returns The rendered Expansion component.
+   */
+  export const Expansion: {
+    ({
+      title,
+      description,
+      className,
+      columnsOverride,
+      isBaselineAlign,
+      sx,
+      style,
+      children,
+      expansionOpened,
+    }: IExpansionProps & IExpansionPrivate): JSX.Element;
+    displayName: string;
+  };
+  export default Expansion;
+}
+
+declare module "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Interface for adding a slot in an action.
+   *
+   * @template RowData - The type of data for selected rows.
+   * @template Payload - The type of payload data.
+   */
+  export interface IActionAddSlot<
+    RowData extends IRowData = IAnything,
+    Payload extends IAnything = IAnything,
+  > {
+    action?: string;
+    label?: string;
+    height: number;
+    width: number;
+    /**
+     * Determines the visibility of an element based on selected rows and payload.
+     *
+     * @param selectedRows - Array of selected rows.
+     * @param payload - Input payload.
+     * @returns - A Promise that resolves to a boolean indicating the visibility of the element, or a boolean indicating the visibility directly.
+     */
+    isVisible?: (
+      selectedRows: RowData[],
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+    /**
+     * Checks if the provided rows are disabled based on the given payload.
+     *
+     * @param selectedRows - The selected rows to be checked.
+     * @param payload - The payload used to determine if the rows are disabled.
+     * @returns - A Promise resolving to a boolean indicating if the rows are disabled.
+     */
+    isDisabled?: (
+      selectedRows: RowData[],
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+  }
+  export default IActionAddSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionAddSlot/ActionAddSlot" {
+  import IActionAddSlot from "react-declarative/components/List/slots/ActionAddSlot/IActionAddSlot";
+  /**
+   * ActionAddSlot function.
+   *
+   * @param props - Props object for the ActionAddSlot component.
+   * @returns - ActionAdd component with the given props.
+   */
+  export const ActionAddSlot: (props: IActionAddSlot) => JSX.Element;
+  export default ActionAddSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot" {
+  import React from "react";
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents an action slot for a FAB (Floating Action Button).
+   *
+   * @template RowData - The type of data for the selected rows.
+   * @template Payload - The type of data for the action payload.
+   */
+  export interface IActionFabSlot<
+    RowData extends IRowData = IAnything,
+    Payload extends IAnything = IAnything,
+  > {
+    action?: string;
+    label?: string;
+    icon?: React.ComponentType<any>;
+    height: number;
+    width: number;
+    /**
+     * Determines if the element is visible based on the selected rows and payload.
+     *
+     * @param selectedRows - The selected rows to check against.
+     * @param payload - The payload to evaluate.
+     * @returns - True if the element is visible, false otherwise.
+     */
+    isVisible?: (
+      selectedRows: RowData[],
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+    /**
+     * Determines whether a specific feature is disabled based on the selected rows and payload.
+     *
+     * @param selectedRows - The selected rows.
+     * @param payload - The payload.
+     * @returns - A promise that resolves to a boolean or a boolean value.
+     */
+    isDisabled?: (
+      selectedRows: RowData[],
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+  }
+  export default IActionFabSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionFabSlot/ActionFabSlot" {
+  import IActionFabSlot from "react-declarative/components/List/slots/ActionFabSlot/IActionFabSlot";
+  /**
+   * Represents a component that renders an action floating action button slot.
+   * @param props - The props for the action floating action button slot.
+   * @returns - The rendered action floating action button slot.
+   */
+  export const ActionFabSlot: (props: IActionFabSlot) => JSX.Element;
+  export default ActionFabSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import { IListActionOption } from "react-declarative/model/IListProps";
+  /**
+   * Represents an action menu slot.
+   *
+   * @interface IActionMenuSlot
+   */
+  export interface IActionMenuSlot {
+    /**
+     * Represents a set of options for a list action.
+     * These options are stored in an array of partial objects of type IListActionOption.
+     *
+     * @typedef ListActionOptions
+     */
+    options?: Partial<IListActionOption>[];
+    deps?: IAnything[];
+  }
+  export default IActionMenuSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionMenuSlot/ActionMenuSlot" {
+  import IActionMenuSlot from "react-declarative/components/List/slots/ActionMenuSlot/IActionMenuSlot";
+  /**
+   * Renders an action menu slot component.
+   * @param props - The props for the action menu slot component
+   * @returns - The rendered action menu slot component
+   */
+  export const ActionMenuSlot: (props: IActionMenuSlot) => JSX.Element;
+  export default ActionMenuSlot;
+}
+
+declare module "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  import IColumn from "react-declarative/model/IColumn";
+  import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a column in the body of a table.
+   * @template RowData - The type of data in the table rows.
+   */
+  export type BodyColumn<RowData extends IRowData = IAnything> = Omit<
+    IColumn<RowData>,
+    keyof {
+      width: never;
+    }
+  > & {
+    width: string;
+  };
+  /**
+   * Represents a slot for a body row in a table.
+   *
+   * @template RowData - The type of data associated with the row.
+   */
+  export interface IBodyRowSlot<RowData extends IRowData = IAnything> {
+    fullWidth: number;
+    row: RowData;
+    disabled: boolean;
+    /**
+     * Represents an array of body columns.
+     * @typedef columns
+     *
+     * @template RowData The type of data stored in the rows of the column.
+     * @property length - The number of columns in the array.
+     * @method {function(): Iterator<BodyColumn<RowData>, undefined, undefined>} @@iterator - Returns a new Iterator object that can be used to iterate over each column in the array.
+     */
+    columns: BodyColumn<RowData>[];
+    mode: DisplayMode;
+  }
+  export default IBodyRowSlot;
+}
+
+declare module "react-declarative/components/List/slots/BodyRowSlot/BodyRowSlot" {
+  import IBodyRowSlot from "react-declarative/components/List/slots/BodyRowSlot/IBodyRowSlot";
+  /**
+   * Function that renders a body row slot component.
+   *
+   * @param props - The props object containing the properties for the body row slot component.
+   * @returns - The rendered body row component.
+   */
+  export const BodyRowSlot: (props: IBodyRowSlot) => JSX.Element;
+  export default BodyRowSlot;
+}
+
+declare module "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  import { ICheckboxCellProps } from "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell";
+  /**
+   * Represents a slot for a checkbox cell in a table.
+   *
+   * @template RowData - The type of data for the row in the table.
+   *
+   * @interface
+   * @extends ICheckboxCellProps<RowData>
+   */
+  export interface ICheckboxCellSlot<RowData extends IRowData = IAnything>
+    extends ICheckboxCellProps<RowData> {}
+  export default ICheckboxCellSlot;
+}
+
+declare module "react-declarative/components/List/slots/CheckboxCellSlot/CheckboxCellSlot" {
+  import ICheckboxCellSlot from "react-declarative/components/List/slots/CheckboxCellSlot/ICheckboxCellSlot";
+  /**
+   * Renders a checkbox inside a cell slot.
+   *
+   * @param props - The props object for the checkbox cell slot.
+   * @returns The rendered checkbox cell slot.
+   */
+  export const CheckboxCellSlot: (props: ICheckboxCellSlot) => JSX.Element;
+  export default CheckboxCellSlot;
+}
+
+declare module "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot" {
+  import { IActionMenuProps } from "react-declarative/components/ActionMenu";
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  import IColumn from "react-declarative/model/IColumn";
+  import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a common cell column.
+   *
+   * @template RowData - The type of the row data for the column.
+   */
+  export type CommonCellColumn<RowData extends IRowData = IAnything> = Omit<
+    IColumn<RowData>,
+    keyof {
+      width: never;
+    }
+  > & {
+    width: string;
+  };
+  /**
+   * Represents a common cell slot.
+   *
+   * @template RowData - The type of row data used in the cell slot.
+   *
+   * @property column - The column associated with the cell slot.
+   * @property row - The row data associated with the cell slot.
+   * @property idx - The index of the cell slot.
+   * @property fullWidth - The full width of the cell slot.
+   * @property disabled - Indicates if the cell slot is disabled.
+   * @property mode - The display mode of the cell slot.
+   * @property onMenuToggle - The function to call when the menu toggle is triggered.
+   * @property onAction - The function to call when an action is triggered in the menu.
+   */
+  export interface ICommonCellSlot<RowData extends IRowData = IAnything> {
+    column: CommonCellColumn<RowData>;
+    row: RowData;
+    idx: number;
+    fullWidth: number;
+    disabled: boolean;
+    mode: DisplayMode;
+    /**
+     * Callback function for the toggle action of a menu.
+     *
+     * @callback onMenuToggle
+     * @param isOpen - Specifies whether the menu is open or closed.
+     * @returns
+     */
+    onMenuToggle: IActionMenuProps["onToggle"];
+    /**
+     * The callback function for an action triggered in the action menu.
+     *
+     * @param action - The action triggered in the action menu.
+     * @returns
+     */
+    onAction: IActionMenuProps["onAction"];
+  }
+  export default ICommonCellSlot;
+}
+
+declare module "react-declarative/components/List/slots/CommonCellSlot/CommonCellSlot" {
+  import ICommonCellSlot from "react-declarative/components/List/slots/CommonCellSlot/ICommonCellSlot";
+  /**
+   * Represents a common cell slot component.
+   *
+   * @param props - The props object containing the required data for the component.
+   * @returns - The rendered CommonCell component.
+   */
+  export const CommonCellSlot: (props: ICommonCellSlot) => JSX.Element;
+  export default CommonCellSlot;
+}
+
+declare module "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IRowData from "react-declarative/model/IRowData";
+  import IColumn from "react-declarative/model/IColumn";
+  import DisplayMode from "react-declarative/model/DisplayMode";
+  /**
+   * Represents a column in a table's header.
+   *
+   * @template RowData - The type of data in the rows of the table.
+   */
+  export type HeadColumn<RowData extends IRowData = IAnything> = Omit<
+    IColumn<RowData>,
+    keyof {
+      width: never;
+    }
+  > & {
+    width: string;
+  };
+  /**
+   * Interface for the head row slot of a table component.
+   * @template RowData - The type of data for each row.
+   */
+  export interface IHeadRowSlot<RowData extends IRowData = IAnything> {
+    /**
+     * Represents an array of column headers with associated row data.
+     * @typedef Columns
+     * @template RowData The type of data contained in each column's rows.
+     */
+    columns: HeadColumn<RowData>[];
+    fullWidth: number;
+    mode: DisplayMode;
+  }
+  export default IHeadRowSlot;
+}
+
+declare module "react-declarative/components/List/slots/HeadRowSlot/HeadRowSlot" {
+  import IHeadRowSlot from "react-declarative/components/List/slots/HeadRowSlot/IHeadRowSlot";
+  /**
+   * Represents a slot component for displaying a head row in a table.
+   * @param props - The props for the component.
+   * @returns The rendered head row slot component.
+   */
+  export const HeadRowSlot: (props: IHeadRowSlot) => JSX.Element;
+  export default HeadRowSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionListSlot/IActionListSlot" {
+  import { IListAction } from "react-declarative/model/IListProps";
+  import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Represents a slot in an action list.
+   *
+   * @template FilterData - The type of filter data for this slot.
+   */
+  export interface IActionListSlot<FilterData extends {} = IAnything> {
+    className?: string;
+    style?: React.CSSProperties;
+    filterData: FilterData;
+    /**
+     * Represents a list of actions.
+     *
+     * @typedef actions
+     * @property 0 - The first action in the list.
+     * @property 1 - The second action in the list.
+     * ...
+     */
+    actions: IListAction[];
+    deps?: any[];
+    height: number;
+    width: number;
+    title?: string;
+  }
+  export default IActionListSlot;
+}
+
+declare module "react-declarative/components/List/slots/ActionListSlot/ActionListSlot" {
+  import IActionListSlot from "react-declarative/components/List/slots/ActionListSlot/IActionListSlot";
+  /**
+   * Function component representing an action list slot.
+   * @param props - The properties for the action list slot.
+   * @returns - The rendered action list slot.
+   */
+  export const ActionListSlot: (props: IActionListSlot) => JSX.Element;
+  export default ActionListSlot;
+}
+
+declare module "react-declarative/components/List/slots/ChipListSlot/IChipListSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IListProps from "react-declarative/model/IListProps";
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Represents a slot in a chip list.
+   * @template RowData - The type of data in the chip list row.
+   */
+  export interface IChipListSlot<RowData extends IRowData = IAnything> {
+    /**
+     * Represents a list of chips in a row data object.
+     *
+     * @typedef ListChips
+     */
+    listChips: IListProps<RowData>["chips"];
+    loading: boolean;
+  }
+  export default IChipListSlot;
+}
+
+declare module "react-declarative/components/List/slots/ChipListSlot/ChipListSlot" {
+  import IChipListSlot from "react-declarative/components/List/slots/ChipListSlot/IChipListSlot";
+  /**
+   * Renders a chip list slot component.
+   *
+   * @param props - The props for the chip list slot.
+   * @returns - The rendered chip list slot component.
+   */
+  export const ChipListSlot: (props: IChipListSlot) => JSX.Element;
+  export default ChipListSlot;
+}
+
+declare module "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Represents a filter list slot.
+   *
+   * @template FilterData - The type of filter data.
+   */
+  export interface IFilterListSlot<FilterData extends {} = IAnything> {
+    className?: string;
+    filterData: FilterData;
+    style?: React.CSSProperties;
+    /**
+     * Represents an array of field filters.
+     *
+     * @typedef FilterArray
+     */
+    filters: IField<FilterData>[];
+    change: (data: FilterData) => void;
+    /**
+     * Represents a callback function for the onSearchChange event.
+     *
+     * @callback onSearchChangeCallback
+     * @param search - The search keyword entered by the user.
+     * @returns
+     */
+    onSearchChange?: (search: string) => void;
+    /**
+     * Function signature for the onFilterChange event callback.
+     *
+     * @param data - The data object representing the filter changes.
+     * @returns
+     */
+    onFilterChange?: (data: FilterData) => void;
+    /**
+     * Callback function called when the collapsed state changes.
+     *
+     * @param collapsed - The new collapsed state.
+     * @returns
+     */
+    onCollapsedChange?: (collapsed: boolean) => void;
+    /**
+     * @description A flag indicating whether filters are toggled or not.
+     * @type {boolean|undefined}
+     */
+    withToggledFilters?: boolean;
+    ready: () => void;
+    clean: () => void;
+    loading: boolean;
+    label: string;
+    search: string;
+    withSearch: boolean;
+    height: number;
+    width: number;
+  }
+  export default IFilterListSlot;
+}
+
+declare module "react-declarative/components/List/slots/FilterListSlot/FilterListSlot" {
+  import IFilterListSlot from "react-declarative/components/List/slots/FilterListSlot/IFilterListSlot";
+  /**
+   * A component that renders a slot for a filter list.
+   *
+   * @param props - The props for the component.
+   * @param props - The context object for the filter list slot.
+   *
+   * @returns The rendered filter list slot component.
+   */
+  export const FilterListSlot: (props: IFilterListSlot) => JSX.Element;
+  export default FilterListSlot;
+}
+
+declare module "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot" {
+  import IListOperation from "react-declarative/model/IListOperation";
+  /**
+   * A interface representing a list of operations in a slot.
+   *
+   * @interface
+   */
+  export interface IOperationListSlot {
+    className?: string;
+    style?: React.CSSProperties;
+    /**
+     * Represents a list of operations to perform on an IList.
+     *
+     * @typedef IListOperation
+     * @property name - The name of the operation.
+     * @property parameters - The parameters required for the operation.
+     */
+    operations: IListOperation[];
+    width: number;
+  }
+  export default IOperationListSlot;
+}
+
+declare module "react-declarative/components/List/slots/OperationListSlot/OperationListSlot" {
+  import IOperationListSlot from "react-declarative/components/List/slots/OperationListSlot/IOperationListSlot";
+  /**
+   * Represents a slot component for rendering an operation list.
+   *
+   * @component
+   *
+   * @param props - The props for the component.
+   * @returns The rendered React node.
+   */
+  export const OperationListSlot: (props: IOperationListSlot) => JSX.Element;
+  export default OperationListSlot;
+}
+
+declare module "react-declarative/components/List/slots/SearchSlot/ISearchSlot" {
+  /**
+   * Represents a search slot with various properties and functions.
+   *
+   * @interface ISearchSlot
+   */
+  export interface ISearchSlot {
+    className?: string;
+    style?: React.CSSProperties;
+    /**
+     * Represents a callback function for handling search input changes.
+     *
+     * @callback onSearchChangeCallback
+     * @param search - The search query entered by the user.
+     * @returns
+     */
+    onSearchChange?: (search: string) => void;
+    clean: () => void;
+    loading: boolean;
+    label: string;
+    search: string;
+    height: number;
+    width: number;
+  }
+  export default ISearchSlot;
+}
+
+declare module "react-declarative/components/List/slots/SearchSlot/SearchSlot" {
+  import ISearchSlot from "react-declarative/components/List/slots/SearchSlot/ISearchSlot";
+  /**
+   * Renders a SearchSlot component.
+   *
+   * @param props - The properties passed to the SearchSlot component.
+   * @param props.SearchSlot - The SearchSlot component passed as a context.
+   * @returns - The rendered SearchSlot component.
+   */
+  export const SearchSlot: (props: ISearchSlot) => JSX.Element;
+  export default SearchSlot;
+}
+
 declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
   import {
     IFileFieldProps,
@@ -30582,43 +30613,6 @@ declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
    */
   export interface IFileSlot extends IFileBase {}
   export default IFileSlot;
-}
-
-declare module "react-declarative/model/DisplayMode" {
-  /**
-   * Enum representing the display modes for different devices.
-   */
-  export enum DisplayMode {
-    Phone = "phone",
-    Tablet = "tablet",
-    Desktop = "desktop",
-  }
-  export default DisplayMode;
-}
-
-declare module "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell" {
-  import IRowData from "react-declarative/model/IRowData";
-  import IAnything from "react-declarative/model/IAnything";
-  /**
-   * Interface for defining props for a CheckboxCell component.
-   * @template RowData - The type of data in the row.
-   */
-  export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
-    row: RowData;
-    disabled: boolean;
-  }
-  /**
-   * CheckboxCell component for rendering checkboxes in a table cell.
-   *
-   * @template RowData - The type of the data for each row in the table
-   * @param props - The props for the CheckboxCell component
-   * @returns - The rendered CheckboxCell component
-   */
-  export const CheckboxCell: <RowData extends IRowData = any>({
-    row,
-    disabled,
-  }: ICheckboxCellProps<RowData>) => JSX.Element;
-  export default CheckboxCell;
 }
 
 declare module "react-declarative/components/One/slots/CheckBoxSlot/ICheckBoxSlot" {
@@ -31195,4 +31189,41 @@ declare module "react-declarative/components/FadeView/components/DefaultFade" {
     zIndex,
   }: IDefaultFadeProps) => JSX.Element;
   export default DefaultFade;
+}
+
+declare module "react-declarative/model/DisplayMode" {
+  /**
+   * Enum representing the display modes for different devices.
+   */
+  export enum DisplayMode {
+    Phone = "phone",
+    Tablet = "tablet",
+    Desktop = "desktop",
+  }
+  export default DisplayMode;
+}
+
+declare module "react-declarative/components/List/components/SlotFactory/components/CheckboxCell/CheckboxCell" {
+  import IRowData from "react-declarative/model/IRowData";
+  import IAnything from "react-declarative/model/IAnything";
+  /**
+   * Interface for defining props for a CheckboxCell component.
+   * @template RowData - The type of data in the row.
+   */
+  export interface ICheckboxCellProps<RowData extends IRowData = IAnything> {
+    row: RowData;
+    disabled: boolean;
+  }
+  /**
+   * CheckboxCell component for rendering checkboxes in a table cell.
+   *
+   * @template RowData - The type of the data for each row in the table
+   * @param props - The props for the CheckboxCell component
+   * @returns - The rendered CheckboxCell component
+   */
+  export const CheckboxCell: <RowData extends IRowData = any>({
+    row,
+    disabled,
+  }: ICheckboxCellProps<RowData>) => JSX.Element;
+  export default CheckboxCell;
 }

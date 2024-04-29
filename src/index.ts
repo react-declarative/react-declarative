@@ -1,5 +1,9 @@
 import "./polyfills";
 
+export { SMALL_SIZE_REQUEST, LARGE_SIZE_REQUEST } from './components';
+
+export { ISize } from './model/ISize';
+
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';
