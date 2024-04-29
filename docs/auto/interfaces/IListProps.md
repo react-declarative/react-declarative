@@ -307,6 +307,14 @@ rowMark: ((row: RowData) => string) | ((row: RowData) => Promise<string>)
 rowColor: (row: RowData) => string
 ```
 
+### modalSizeRequest
+
+```ts
+modalSizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<{}>; }
+```
+
+Custom sizeRequest for modal filters
+
 ### isRowDisabled
 
 ```ts

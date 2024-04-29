@@ -112,7 +112,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 }: IFilterListSlot) => {
   const payload = usePayload();
 
-  const { filterLabel, readTransform, writeTransform } = useProps();
+  const { filterLabel, readTransform, writeTransform, modalSizeRequest } = useProps();
 
   const { render, pickData: pickFilters } = useActionModal({
     AfterTitle: ({
@@ -125,6 +125,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
         <Close />
       </IconButton>
     ),
+    sizeRequest: modalSizeRequest,
     fullScreen: true,
     outlinePaper: true,
     handler: filterData,

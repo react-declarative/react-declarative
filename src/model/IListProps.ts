@@ -2,6 +2,8 @@ import {
   Ref,
 } from 'react';
 
+import { SxProps } from '@mui/material';
+
 import ActionType from './ActionType';
 import SelectionMode from './SelectionMode';
 
@@ -15,6 +17,7 @@ import IListApi from './IListApi';
 import IOption from './IOption';
 import IOnePublicProps from './IOnePublicProps';
 import ITile from '../components/Tile/model/ITile';
+import ISize from './ISize';
 
 import { TSubject } from '../utils/rx/Subject';
 
@@ -522,6 +525,14 @@ export interface IListProps<
   payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
   rowColor?: ((row: RowData) => string);
+  /**
+   * Custom sizeRequest for modal filters
+   */
+  modalSizeRequest?: (size: ISize) => {
+    height: number;
+    width: number;
+    sx?: SxProps;
+  };
   /**
    * Determines if a row is disabled based on various parameters.
    *

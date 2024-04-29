@@ -3355,6 +3355,7 @@ declare module "react-declarative/model/IListRowAction" {
 
 declare module "react-declarative/model/IListProps" {
   import { Ref } from "react";
+  import { SxProps } from "@mui/material";
   import ActionType from "react-declarative/model/ActionType";
   import SelectionMode from "react-declarative/model/SelectionMode";
   import IAnything from "react-declarative/model/IAnything";
@@ -3367,6 +3368,7 @@ declare module "react-declarative/model/IListProps" {
   import IOption from "react-declarative/model/IOption";
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   import ITile from "react-declarative/components/Tile/model/ITile";
+  import ISize from "react-declarative/model/ISize";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
   import { TileMode } from "react-declarative/components";
@@ -3943,6 +3945,14 @@ declare module "react-declarative/model/IListProps" {
     payload?: Payload | (() => Payload);
     rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
     rowColor?: (row: RowData) => string;
+    /**
+     * Custom sizeRequest for modal filters
+     */
+    modalSizeRequest?: (size: ISize) => {
+      height: number;
+      width: number;
+      sx?: SxProps;
+    };
     /**
      * Determines if a row is disabled based on various parameters.
      *
