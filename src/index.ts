@@ -774,6 +774,8 @@ export { templateStr } from './utils/templateStr';
 export { formatStr } from './utils/formatStr';
 
 export { createWindowHistory } from './utils/createWindowHistory';
+export { createManagedHistory } from './utils/createManagedHistory';
+
 export { createLsManager } from './utils/createLsManager';
 export { createSsManager } from './utils/createSsManager';
 export { createCustomTag } from './utils/createCustomTag';

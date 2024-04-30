@@ -852,6 +852,7 @@ declare module "react-declarative" {
   export { templateStr } from "react-declarative/utils/templateStr";
   export { formatStr } from "react-declarative/utils/formatStr";
   export { createWindowHistory } from "react-declarative/utils/createWindowHistory";
+  export { createManagedHistory } from "react-declarative/utils/createManagedHistory";
   export { createLsManager } from "react-declarative/utils/createLsManager";
   export { createSsManager } from "react-declarative/utils/createSsManager";
   export { createCustomTag } from "react-declarative/utils/createCustomTag";
@@ -10033,6 +10034,17 @@ declare module "react-declarative/utils/createWindowHistory" {
    */
   export const createWindowHistory: () => MemoryHistory | BrowserHistory;
   export default createWindowHistory;
+}
+
+declare module "react-declarative/utils/createManagedHistory" {
+  interface IParams {
+    allowed: (pathname: string) => boolean;
+  }
+  export const createManagedHistory: (
+    storageKey: string,
+    { allowed }?: Partial<IParams>,
+  ) => import("history").MemoryHistory;
+  export default createManagedHistory;
 }
 
 declare module "react-declarative/utils/createLsManager" {

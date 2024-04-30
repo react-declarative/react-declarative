@@ -119,6 +119,7 @@
 - [IEntityAdapter](interfaces/IEntityAdapter.md)
 - [ICollectionAdapter](interfaces/ICollectionAdapter.md)
 - [IModelAdapter](interfaces/IModelAdapter.md)
+- [IParams](interfaces/IParams.md)
 - [IConfig](interfaces/IConfig.md)
 - [IConfig](interfaces/IConfig.md)
 - [IParams](interfaces/IParams.md)
