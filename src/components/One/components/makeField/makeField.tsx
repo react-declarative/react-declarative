@@ -44,7 +44,7 @@ import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
 
-const APPLY_ATTEMPTS = 15;
+const APPLY_ATTEMPTS = 35;
 const APPLY_DELAY = 10;
 
 /**
