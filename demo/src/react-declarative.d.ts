@@ -1100,6 +1100,10 @@ declare module "react-declarative/model/TypedField" {
   import { IDictFieldProps } from "react-declarative/components/One/fields/DictField";
   import { ITreeFieldProps } from "react-declarative/components/One/fields/TreeField";
   /**
+   * Исключения из правила
+   */
+  import { IPhonyField } from "react-declarative/model/IPhonyField";
+  /**
    * Represents a class that excludes certain properties from a given type.
    *
    * @template Data - The type of data for the managed object.
@@ -1328,7 +1332,7 @@ declare module "react-declarative/model/TypedField" {
   >;
   type Phony<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
     FieldType.Phony,
-    {},
+    IPhonyField,
     Data,
     Payload
   >;
@@ -16376,6 +16380,22 @@ declare module "react-declarative/components/One/fields/TreeField" {
     displayName: string;
   };
   export default _default;
+}
+
+declare module "react-declarative/model/IPhonyField" {
+  import IField from "react-declarative/model/IField";
+  /**
+   * Represents a phony field interface with additional properties.
+   *  - Phony fields are not serializable, so they will not affect form data
+   *  - Phony fields are reflectable, `getAvailableFields()` and `<VisibilityView />` will detect them.
+   * @interface
+   */
+  export interface IPhonyField {
+    title?: IField["title"];
+    description?: IField["description"];
+    placeholder?: IField["placeholder"];
+  }
+  export default IPhonyField;
 }
 
 declare module "react-declarative/model/ComponentFieldInstance" {

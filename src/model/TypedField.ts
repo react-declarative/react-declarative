@@ -48,6 +48,11 @@ import { IDictFieldProps } from '../components/One/fields/DictField';
 import { ITreeFieldProps } from '../components/One/fields/TreeField';
 
 /**
+ * Исключения из правила
+ */
+import { IPhonyField } from './IPhonyField';
+
+/**
  * Represents a class that excludes certain properties from a given type.
  *
  * @template Data - The type of data for the managed object.
@@ -121,7 +126,7 @@ type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fiel
 type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
 type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
 type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
-type Phony<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Phony, {}, Data, Payload>;
+type Phony<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Phony, IPhonyField, Data, Payload>;
 type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Dict, IDictFieldProps, Data, Payload>;
 type Tree<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Tree, ITreeFieldProps, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
