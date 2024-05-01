@@ -10,7 +10,11 @@ export const createManagedHistory = (storageKey: string, {
 }: Partial<IParams> = {}) => {
     const storageManager = createSsManager<string>(storageKey);
 
-    const pathname = storageManager.getValue();
+    let pathname = storageManager.getValue();
+
+    if (pathname) {
+        pathname = allowed(pathname) ? pathname : null;
+    }
 
     const history = createMemoryHistory(pathname ? {
         initialEntries: [
