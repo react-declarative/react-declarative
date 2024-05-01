@@ -121,6 +121,7 @@ type File<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<Fiel
 type Choose<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Choose, IChooseFieldProps<Data, Payload>, Data, Payload>;
 type YesNo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.YesNo, IYesNoFieldProps<Data, Payload>, Data, Payload>;
 type Init<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Init, IInitFieldProps, Data, Payload>;
+type Phony<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Phony, {}, Data, Payload>;
 type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Dict, IDictFieldProps, Data, Payload>;
 type Tree<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Tree, ITreeFieldProps, Data, Payload>;
 type Date<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Date, IDateFieldProps<Data, Payload>, Data, Payload>;
@@ -165,6 +166,7 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Hero<Data, Payload> ? Hero<Data, Payload>
   : Target extends Condition<Data, Payload> ? Condition<Data, Payload>
   : Target extends Init<Data, Payload> ? Init<Data, Payload>
+  : Target extends Phony<Data, Payload> ? Phony<Data, Payload>
   : Target extends Dict<Data, Payload> ? Dict<Data, Payload>
   : Target extends Tree<Data, Payload> ? Tree<Data, Payload>
   : never;

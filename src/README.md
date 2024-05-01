@@ -39,3 +39,5 @@ In order of composition during execution
 2. **IManaged** - A wrapper over the `change` callback and the current `object`, designed to prevent recursive repaints and provide a convenient api for a field developer
 
 **IMPORTANT:** TypedField only checks at the time of static type checking. The internal implementation of the One component performs exactly the composition of objects without any typecheck
+
+**Also** The Field Type.Init allows `defaultValue` the value for Field Type.Component fields if it emits several properties in onChange object. The FieldType.Phony keeps the field without any `defaultValue` so `Object.keys(data)` will not see It

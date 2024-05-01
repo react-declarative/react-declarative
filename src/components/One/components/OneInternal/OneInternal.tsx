@@ -188,6 +188,7 @@ export const OneInternal = <
                   !field.features ||
                   field.features.some((feature) => features.includes(feature))
               )
+              .filter(({ type }) => type !== FieldType.Phony)
               .filter(({ hidden }) => {
                 if (typeof hidden === 'function') {
                   hidden = hidden(payload);

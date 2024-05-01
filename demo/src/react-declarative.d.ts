@@ -1326,6 +1326,12 @@ declare module "react-declarative/model/TypedField" {
     Data,
     Payload
   >;
+  type Phony<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
+    FieldType.Phony,
+    {},
+    Data,
+    Payload
+  >;
   type Dict<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
     FieldType.Dict,
     IDictFieldProps,
@@ -1492,23 +1498,31 @@ declare module "react-declarative/model/TypedField" {
                                                                         Data,
                                                                         Payload
                                                                       >
-                                                                    : Target extends Dict<
+                                                                    : Target extends Phony<
                                                                           Data,
                                                                           Payload
                                                                         >
-                                                                      ? Dict<
+                                                                      ? Phony<
                                                                           Data,
                                                                           Payload
                                                                         >
-                                                                      : Target extends Tree<
+                                                                      : Target extends Dict<
                                                                             Data,
                                                                             Payload
                                                                           >
-                                                                        ? Tree<
+                                                                        ? Dict<
                                                                             Data,
                                                                             Payload
                                                                           >
-                                                                        : never;
+                                                                        : Target extends Tree<
+                                                                              Data,
+                                                                              Payload
+                                                                            >
+                                                                          ? Tree<
+                                                                              Data,
+                                                                              Payload
+                                                                            >
+                                                                          : never;
   /**
    * IOneProps - генерик, для прикладного программиста мы можем подменить IField
    * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -3119,6 +3133,7 @@ declare module "react-declarative/model/FieldType" {
     Tree = "tree-field",
     Dict = "dict-field",
     Init = "init-field",
+    Phony = "phony-field",
     Complete = "complete-field",
     Items = "items-field",
     Rating = "rating-field",

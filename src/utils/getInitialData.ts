@@ -5,6 +5,7 @@ import create from "./create";
 import get from "./get";
 import set from "./set";
 
+import FieldType from "../model/FieldType";
 import IAnything from "../model/IAnything";
 import IField from "../model/IField";
 
@@ -25,6 +26,7 @@ export const getInitialData = <Data extends {} = IAnything, Payload extends IAny
     const newData: Partial<Data> = {};
     deepFlat(fields)
         .filter(({ name }) => !!name)
+        .filter(({ type }) => type !== FieldType.Phony)
         .forEach(({ type, name, defaultValue, hidden }) => {
             create(newData, name);
             if (typeof hidden === 'function' ? hidden(payload) : hidden) {

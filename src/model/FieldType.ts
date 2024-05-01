@@ -24,6 +24,7 @@ export enum FieldType {
     Tree = 'tree-field',
     Dict = 'dict-field',
     Init = 'init-field',
+    Phony = 'phony-field',
     Complete = 'complete-field',
     Items = 'items-field',
     Rating = 'rating-field',

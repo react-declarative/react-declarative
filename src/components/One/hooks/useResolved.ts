@@ -22,6 +22,7 @@ import useActualValue from '../../../hooks/useActualValue';
 import useSubject from '../../../hooks/useSubject';
 
 import { PickProp } from '../../../model/IManaged';
+import FieldType from '../../../model/FieldType';
 
 import { useApiRef } from '../context/ApiProvider';
 
@@ -57,6 +58,7 @@ const buildObj = <Data = IAnything, Payload = IAnything>(fields: IField<Data>[],
     if (fields) {
         deepFlat(fields)
             .filter((field) => !features || !field.features || field.features.some((feature) => features.includes(feature)))
+            .filter((field) => field.type !== FieldType.Phony)
             .forEach((f) => {
                 if (isStatefull(f as IField)) {
                     create(obj, f.name);
