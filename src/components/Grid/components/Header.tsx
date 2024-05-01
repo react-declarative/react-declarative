@@ -19,11 +19,13 @@ import SelectionMode from "../../../model/SelectionMode";
 import Cell from "./Cell";
 import Center from "./Center";
 
+import useActualValue from "../../../hooks/useActualValue";
 import useGridProps from "../hooks/useGridProps";
+import useSelection from "../hooks/useSelection";
 
-import Subject from "../../../utils/rx/Subject";
 import randomString from "../../../utils/randomString";
 import classNames from "../../../utils/classNames";
+import Subject from "../../../utils/rx/Subject";
 
 import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 
@@ -101,6 +103,8 @@ const useStyles = makeStyles()((theme) => ({
     textOverflow: "ellipsis",
     overflow: "hidden",
     fontWeight: "bold",
+  },
+  headerCellOpacity: {
     opacity: 0.7,
   },
   headerCellClick: {
@@ -150,7 +154,12 @@ export const Header = <T extends RowData>({
 }: IHeaderProps<T>) => {
   const { classes } = useStyles();
 
-  const { selectionMode = SelectionMode.None } = useGridProps();
+  const { data, selectionMode = SelectionMode.None } = useGridProps();
+
+  const { selection, setSelection } = useSelection();
+
+  const data$ = useActualValue(data);
+  const selection$ = useActualValue(selection);
 
   /**
    * Callback function used to handle a reference to an HTMLDivElement.
@@ -178,19 +187,37 @@ export const Header = <T extends RowData>({
    * @returns The rendered checkbox component or null if the selection mode is not valid.
    */
   const renderCheckbox = useCallback(() => {
+    const { current: data } = data$;
+    const { current: selection } = selection$;
+
+    const handleCheckboxClick = () => {
+      if (selectionMode === SelectionMode.None) {
+        return;
+      }
+      if (selectionMode === SelectionMode.Single) {
+        setSelection(new Set());
+        return;
+      }
+      if (selection.size) {
+        setSelection(new Set());
+        return;
+      }
+      data.forEach(({ id }) => selection.add(id));
+      setSelection(selection);
+    };
+
     if (selectionMode === SelectionMode.Single) {
       return (
         <Radio
-          readOnly
-          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          onClick={handleCheckboxClick}
           color="primary"
         />
       );
     } else if (selectionMode === SelectionMode.Multiple) {
       return (
         <Checkbox
-          readOnly
-          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          checked={!!selection.size}
+          onClick={handleCheckboxClick}
           color="primary"
         />
       );
@@ -198,7 +225,7 @@ export const Header = <T extends RowData>({
       return (
         <Checkbox
           color="primary"
-          sx={{ cursor: "not-allowed", pointerEvents: "none" }}
+          onClick={handleCheckboxClick}
           disabled
         />
       );
@@ -242,7 +269,7 @@ export const Header = <T extends RowData>({
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
               }}
-              className={classNames(classes.headerCell, {
+              className={classNames(classes.headerCell, classes.headerCellOpacity, {
                 [classes.headerCellClick]: Boolean(onClickHeaderColumn),
                 [classes.coloredHeaderCell]:
                   sort && sort.value === column.field,
@@ -274,7 +301,7 @@ export const Header = <T extends RowData>({
         })}
         {!!rowActions?.length && (
           <Center
-            className={classes.headerCell}
+            className={classNames(classes.headerCell, classes.headerCellOpacity)}
             key={ROW_ACTIONS_UNIQUE_KEY}
             sx={{
               minWidth: ACTIONS_WIDTH,
