@@ -21,6 +21,8 @@ const VARIANT_FIELD_TYPE = new Set([
   FieldType.YesNo,
   FieldType.Switch,
   FieldType.Component,
+  FieldType.Tree,
+  FieldType.Phony,
 ]);
 
 /**
