@@ -590,6 +590,7 @@ export interface IListProps<
   withSearch?: boolean;
   withLoader?: boolean;
   withMobile?: boolean;
+  withHideIfEmpty?: boolean;
   withArrowPagination?: boolean;
   withRangePagination?: boolean;
   withInitialLoader?: boolean;

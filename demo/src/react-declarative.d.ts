@@ -4020,6 +4020,7 @@ declare module "react-declarative/model/IListProps" {
     withSearch?: boolean;
     withLoader?: boolean;
     withMobile?: boolean;
+    withHideIfEmpty?: boolean;
     withArrowPagination?: boolean;
     withRangePagination?: boolean;
     withInitialLoader?: boolean;

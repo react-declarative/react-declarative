@@ -451,6 +451,12 @@ withLoader: boolean
 withMobile: boolean
 ```
 
+### withHideIfEmpty
+
+```ts
+withHideIfEmpty: boolean
+```
+
 ### withArrowPagination
 
 ```ts

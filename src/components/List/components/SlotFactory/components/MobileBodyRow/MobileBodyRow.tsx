@@ -169,7 +169,11 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
       (column: BodyColumn, idx: number) =>
         (
           <CommonBodyCell
-            className={classNames(column.type !== ColumnType.Component && classes.hideIfEmpty)}
+            className={classNames({
+              [classes.hideIfEmpty]: 
+                column.type !== ColumnType.Component
+                  && props.withHideIfEmpty,
+            })}
             column={column}
             disabled={disabled}
             row={row}
