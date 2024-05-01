@@ -1,22 +1,22 @@
 import * as React from "react";
-import { makeStyles } from "../../../../../styles";
 
-import { IActionFabSlot } from "../../../slots/ActionFabSlot";
+import { IActionAddSlot } from "../../slots/ActionAddSlot";
 
-import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
+import Button from "@mui/material/Button";
 
-import Async from "../../../../Async";
+import Async from "../../../Async";
 
-import useProps from "../../../hooks/useProps";
-import usePayload from "../../../hooks/usePayload";
-import useReload from "../../../hooks/useReload";
-import useCachedRows from "../../../hooks/useCachedRows";
-import useActualCallback from "../../../../../hooks/useActualCallback";
+import { makeStyles } from "../../../../styles";
 
-import createValueProvider from "../../../../../utils/createValueProvider";
+import useActualCallback from "../../../../hooks/useActualCallback";
+import useProps from "../../hooks/useProps";
+import useCachedRows from "../../hooks/useCachedRows";
+import useReload from "../../hooks/useReload";
+import usePayload from "../../hooks/usePayload";
+import createValueProvider from "../../../../utils/createValueProvider";
 
-import SettingsIcon from "@mui/icons-material/Settings";
+import Add from "@mui/icons-material/Add";
 
 const LOAD_SOURCE = "action-menu";
 const LABEL_SHRINK = 500;
@@ -27,28 +27,28 @@ const useStyles = makeStyles()({
     maxHeight: "35px !important",
     paddingLeft: "15px !important",
     paddingRight: "15px !important",
+    order: -1,
+    zIndex: 99,
   },
   fab: {
+    order: -1,
     zIndex: 99,
-    minHeight: "40px !important",
-    maxHeight: "40px !important",
   },
 });
 
 const [ShrinkProvider, useShrink] = createValueProvider<boolean>();
 
-export const ActionFab = ({
-  action = "fab-action",
-  label,
+export const ListActionAdd = ({
+  action = "add-action",
   width,
-  icon: Icon = SettingsIcon,
+  label,
   isVisible = () => true,
   isDisabled = () => false,
-}: IActionFabSlot) => {
+}: IActionAddSlot) => {
   const { classes } = useStyles();
+  const payload = usePayload();
 
   const listProps = useProps();
-  const payload = usePayload();
 
   const reload = useReload();
 
@@ -74,7 +74,7 @@ export const ActionFab = ({
           className={classes.button}
           variant="contained"
           size="small"
-          startIcon={<Icon color="inherit" />}
+          startIcon={<Add color="inherit" />}
         >
           {label}
         </Button>
@@ -82,7 +82,7 @@ export const ActionFab = ({
     } else {
       return (
         <Fab className={classes.fab} disabled size="small" color="primary">
-          <Icon color="inherit" />
+          <Add color="inherit" />
         </Fab>
       );
     }
@@ -104,7 +104,7 @@ export const ActionFab = ({
           variant="contained"
           disabled={loading || disabled}
           size="small"
-          startIcon={<Icon color="inherit" />}
+          startIcon={<Add color="inherit" />}
           onClick={onClick}
         >
           {label}
@@ -119,7 +119,7 @@ export const ActionFab = ({
           color="primary"
           onClick={onClick}
         >
-          <Icon color="inherit" />
+          <Add color="inherit" />
         </Fab>
       );
     }
@@ -152,4 +152,4 @@ export const ActionFab = ({
   );
 };
 
-export default ActionFab;
+export default ListActionAdd;

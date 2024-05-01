@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import { IActionMenuSlot } from "../../../slots/ActionMenuSlot";
+import { IActionMenuSlot } from "../../slots/ActionMenuSlot";
 
-import BaseActionMenu from '../../../../ActionMenu';
+import BaseActionMenu from '../../../ActionMenu';
 
-import useActualCallback from "../../../../../hooks/useActualCallback";
-import useCachedRows from "../../../hooks/useCachedRows";
-import useModalSort from "../../../hooks/useModalSort";
-import useDropFilters from "../../../hooks/useDropFilters";
-import useReload from "../../../hooks/useReload";
-import usePayload from "../../../hooks/usePayload";
-import useProps from "../../../hooks/useProps";
+import useActualCallback from "../../../../hooks/useActualCallback";
+import useCachedRows from "../../hooks/useCachedRows";
+import useModalSort from "../../hooks/useModalSort";
+import useDropFilters from "../../hooks/useDropFilters";
+import useReload from "../../hooks/useReload";
+import usePayload from "../../hooks/usePayload";
+import useProps from "../../hooks/useProps";
 
 import CleaningServices from "@mui/icons-material/CleaningServicesOutlined";
 import Refresh from "@mui/icons-material/Refresh";
@@ -19,7 +19,7 @@ import Add from "@mui/icons-material/Add";
 
 const LOAD_SOURCE = "action-menu";
 
-export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
+export const ListActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
   const { selectedRows } = useCachedRows();
 
   const showSortModal = useModalSort();
@@ -112,4 +112,4 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
   );
 };
 
-export default ActionMenu;
+export default ListActionMenu;

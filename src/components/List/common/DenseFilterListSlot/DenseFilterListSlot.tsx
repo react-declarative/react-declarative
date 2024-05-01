@@ -17,9 +17,9 @@ import Fab from "@mui/material/Fab";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 
-import ActionAdd from "./components/ActionAdd";
-import ActionFab from "./components/ActionFab";
-import ActionMenu from "./components/ActionMenu";
+import ActionAdd from "../../components/common/ListActionAdd";
+import ActionFab from "../../components/common/ListActionFab";
+import ActionMenu from "../../components/common/ListActionMenu";
 
 import usePayload from "../../hooks/usePayload";
 import useProps from "../../hooks/useProps";

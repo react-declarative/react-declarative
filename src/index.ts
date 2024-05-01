@@ -422,6 +422,10 @@ export { ModernChipListSlot } from './components';
 export { DenseFilterListSlot } from './components';
 export { DenseSearchSlot } from './components';
 
+export { ListActionAdd } from './components';
+export { ListActionFab } from './components';
+export { ListActionMenu } from './components';
+
 export { ListRules } from './components';
 
 import { Translate } from './components';

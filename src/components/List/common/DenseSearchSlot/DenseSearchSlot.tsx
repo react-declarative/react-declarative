@@ -17,10 +17,11 @@ import { ISearchSlot } from '../../slots/SearchSlot';
 
 import { IListAction } from '../../../../model/IListProps';
 
-import ActionAdd from './components/ActionAdd';
 import ActionType from '../../../../model/ActionType';
-import ActionFab from './components/ActionFab';
-import ActionMenu from './components/ActionMenu';
+
+import ActionAdd from "../../components/common/ListActionAdd";
+import ActionFab from "../../components/common/ListActionFab";
+import ActionMenu from "../../components/common/ListActionMenu";
 
 import useProps from '../../hooks/useProps';
 import usePayload from '../../hooks/usePayload';

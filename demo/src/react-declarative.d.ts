@@ -502,6 +502,9 @@ declare module "react-declarative" {
   export { ModernChipListSlot } from "react-declarative/components";
   export { DenseFilterListSlot } from "react-declarative/components";
   export { DenseSearchSlot } from "react-declarative/components";
+  export { ListActionAdd } from "react-declarative/components";
+  export { ListActionFab } from "react-declarative/components";
+  export { ListActionMenu } from "react-declarative/components";
   export { ListRules } from "react-declarative/components";
   import { Translate } from "react-declarative/components";
   export { Translate };
@@ -3022,6 +3025,9 @@ declare module "react-declarative/components/List" {
   export { ModernChipListSlot } from "react-declarative/components/List/common/ModernChipListSlot";
   export { DenseFilterListSlot } from "react-declarative/components/List/common/DenseFilterListSlot";
   export { DenseSearchSlot } from "react-declarative/components/List/common/DenseSearchSlot";
+  export { ListActionAdd } from "react-declarative/components/List/components/common/ListActionAdd";
+  export { ListActionFab } from "react-declarative/components/List/components/common/ListActionFab";
+  export { ListActionMenu } from "react-declarative/components/List/components/common/ListActionMenu";
   export * from "react-declarative/components/List/hooks/useColumnConfig";
   export * as ListRules from "react-declarative/components/List/rules";
   export { default } from "react-declarative/components/List/List";
@@ -17996,6 +18002,40 @@ declare module "react-declarative/components/List/common/DenseFilterListSlot" {
 declare module "react-declarative/components/List/common/DenseSearchSlot" {
   export * from "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot";
   export { default } from "react-declarative/components/List/common/DenseSearchSlot/DenseSearchSlot";
+}
+
+declare module "react-declarative/components/List/components/common/ListActionAdd" {
+  import { IActionAddSlot } from "react-declarative/components/List/slots/ActionAddSlot";
+  export const ListActionAdd: ({
+    action,
+    width,
+    label,
+    isVisible,
+    isDisabled,
+  }: IActionAddSlot) => JSX.Element;
+  export default ListActionAdd;
+}
+
+declare module "react-declarative/components/List/components/common/ListActionFab" {
+  import { IActionFabSlot } from "react-declarative/components/List/slots/ActionFabSlot";
+  export const ListActionFab: ({
+    action,
+    label,
+    width,
+    icon: Icon,
+    isVisible,
+    isDisabled,
+  }: IActionFabSlot) => JSX.Element;
+  export default ListActionFab;
+}
+
+declare module "react-declarative/components/List/components/common/ListActionMenu" {
+  import { IActionMenuSlot } from "react-declarative/components/List/slots/ActionMenuSlot";
+  export const ListActionMenu: ({
+    options,
+    deps,
+  }: IActionMenuSlot) => JSX.Element;
+  export default ListActionMenu;
 }
 
 declare module "react-declarative/components/List/hooks/useColumnConfig" {

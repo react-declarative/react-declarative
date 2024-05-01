@@ -36,6 +36,10 @@ export { ModernChipListSlot } from './common/ModernChipListSlot';
 export { DenseFilterListSlot } from './common/DenseFilterListSlot';
 export { DenseSearchSlot } from './common/DenseSearchSlot';
 
+export { ListActionAdd } from './components/common/ListActionAdd';
+export { ListActionFab } from './components/common/ListActionFab';
+export { ListActionMenu } from './components/common/ListActionMenu';
+
 export * from './hooks/useColumnConfig';
 
 export * as ListRules from './rules';
