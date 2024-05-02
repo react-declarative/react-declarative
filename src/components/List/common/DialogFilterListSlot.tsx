@@ -270,7 +270,7 @@ export const DialogFilterListSlot = <FilterData extends {}>({
           [classes.controlsWidth]: !withToggledFilters,
         })}
       >
-        <Badge sx={{ mr: 1 }} badgeContent={filtersCount} color="info">
+        <Badge sx={{ mr: 1, zIndex: 99 }} badgeContent={filtersCount} color="info">
           <Button
             startIcon={<FilterListIcon />}
             variant="contained"

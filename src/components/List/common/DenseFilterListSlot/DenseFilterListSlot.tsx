@@ -274,7 +274,7 @@ export const DenseFilterListSlot = ({
           [classes.controlsWidth]: !withToggledFilters,
         })}
       >
-        <Badge badgeContent={filtersCount} color="info">
+        <Badge sx={{ zIndex: 99 }} badgeContent={filtersCount} color="info">
           {isShrink ? (
             <Fab
               sx={{ minHeight: "40px", maxHeight: "40px", zIndex: 99 }}
