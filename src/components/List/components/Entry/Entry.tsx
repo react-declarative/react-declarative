@@ -157,7 +157,14 @@ export class Entry<
     slots: {},
   };
 
-  get _keepPageOnReload() {
+  /**
+   * Computes whether to keep the current page on reload.
+   * On infinite and virtual views, the function returns true,
+   * indicating that the first page should be shown on refresh.
+   *
+   * @returns True if the page should be kept on reload, false otherwise.
+   */
+  computeKeepPageOnReload = () => {
     let isKeepPage = true;
     isKeepPage = isKeepPage && !this.props.isChooser;
     isKeepPage = isKeepPage && !this.props.isInfinite;
@@ -425,7 +432,13 @@ export class Entry<
     if (this.props.reloadSubject) {
       this.unReloadSubject && this.unReloadSubject();
       this.unReloadSubject = this.props.reloadSubject.subscribe(
-        this.handleReload as () => void
+        async () => {
+          if (!this.computeKeepPageOnReload()) {
+            await this.handleReload(false);
+            return;
+          }
+          await this.handleReload();
+        },
       );
     }
     if (this.props.rerenderSubject) {
@@ -639,7 +652,7 @@ export class Entry<
    * @param [keepPagination=true] - Flag to specify whether to update the page number.
    * @returns - Promise that resolves when the reload process is complete.
    */
-  private handleReload = async (keepPagination = this._keepPageOnReload) => {
+  private handleReload = async (keepPagination = true) => {
     this.constraintManager.constraintManager.clear();
     this.scrollManager.clear();
     await this.handleFilter(this.state.filterData, keepPagination);
@@ -687,10 +700,6 @@ export class Entry<
    */
   private handleRowsChange = async(rows: RowData[]) => {
     this.isPatchingFlag = true;
-    await this.stateActionEmitter.next({
-      type: "rows-submit",
-      rows,
-    });
     this.isMountedFlag &&
       this.setState((prevState) => ({
         ...prevState,
@@ -811,6 +820,7 @@ export class Entry<
     handleRowsChange: this.handleRowsChange,
     handleFiltersCollapsed: this.handleFiltersCollapsed,
     handleRerender: this.handleRerender,
+    computeKeepPageOnReload: this.computeKeepPageOnReload,
     ready: () => {
       if (!this.props.withCustomFilters) {
         this.handleDefault(true);

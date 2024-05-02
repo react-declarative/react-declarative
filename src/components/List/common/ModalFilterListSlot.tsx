@@ -256,7 +256,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
           [classes.controlsWidth]: !withToggledFilters,
         })}
       >
-        <Badge sx={{ mr: 1 }} badgeContent={filtersCount} color="success">
+        <Badge sx={{ mr: 1 }} badgeContent={filtersCount} color="info">
           <Button
             startIcon={<FilterListIcon />}
             variant="contained"

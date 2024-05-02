@@ -53,11 +53,6 @@ export const useUpsertManager = ({
     }, []);
 
     useEffect(() => stateActionEmitter.subscribe((action) => {
-        if (action.type === "rows-submit") {
-            keepPaginationRef.current = false;
-            handleUpsertRows(action.rows);
-            handleScrollTop();
-        }
         if (action.type === "filterdata-changed" && !action.keepPagination) {
             keepPaginationRef.current = false;
         }

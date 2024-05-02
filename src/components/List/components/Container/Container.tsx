@@ -34,6 +34,7 @@ export const ROOT_MARK = "react-declarative__listRootMark";
 export const CONTAINER_MARK = "react-declarative__listContainerMark";
 export const CONTENT_MARK = "react-declarative__listContentMark";
 export const INNER_MARK = "react-declarative__listInnerMark";
+export const PAPER_MARK = "react-declarative__listPaperMark";
 
 const EMPTY_ARRAY: any[] = [];
 const RESIZE_DELAY = 100;
@@ -196,6 +197,7 @@ export const Container = <
     title = "",
     filterLabel = "",
     filterData,
+    computeKeepPageOnReload,
     handleFilter,
     handleDefault,
     handleChips,
@@ -301,6 +303,7 @@ export const Container = <
                     payload={payload}
                     search={search}
                     sortModel={sortModel}
+                    computeKeepPageOnReload={computeKeepPageOnReload}
                     handleFilter={handleFilter}
                     handleDefault={handleDefault}
                     handleChips={handleChips}
@@ -345,6 +348,7 @@ export const Container = <
                     payload={payload}
                     search={search}
                     sortModel={sortModel}
+                    computeKeepPageOnReload={computeKeepPageOnReload}
                     handleFilter={handleFilter}
                     handleDefault={handleDefault}
                     handleChips={handleChips}
@@ -377,6 +381,7 @@ export const Container = <
                     payload={payload}
                     search={search}
                     sortModel={sortModel}
+                    computeKeepPageOnReload={computeKeepPageOnReload}
                     handleFilter={handleFilter}
                     handleDefault={handleDefault}
                     handleChips={handleChips}
@@ -422,6 +427,7 @@ export const Container = <
                     payload={payload}
                     search={search}
                     sortModel={sortModel}
+                    computeKeepPageOnReload={computeKeepPageOnReload}
                     handleFilter={handleFilter}
                     handleDefault={handleDefault}
                     handleChips={handleChips}
@@ -439,7 +445,7 @@ export const Container = <
             </div>
           )}
           <PaperView
-            className={classNames(classes.content, classes.stretch, {
+            className={classNames(classes.content, classes.stretch, PAPER_MARK, {
               [classes.noElevation]: isChooser,
             })}
             outlinePaper={withOutlinePaper}

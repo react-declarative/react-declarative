@@ -362,6 +362,7 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
    * @returns
    */
   handleRerender: () => void;
+  computeKeepPageOnReload: () => boolean;
   ready: () => void;
 };
 

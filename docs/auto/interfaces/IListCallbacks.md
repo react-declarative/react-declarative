@@ -92,6 +92,12 @@ handleRerender: () => void
 
 Function to handle re-rendering.
 
+### computeKeepPageOnReload
+
+```ts
+computeKeepPageOnReload: () => boolean
+```
+
 ### ready
 
 ```ts

@@ -8,8 +8,13 @@ import useProps from './useProps';
  *
  */
 export const useReload = () => {
-    const { handleReload } = useProps();
-    return (keepPagination?: boolean) => handleReload(keepPagination);
+    const { handleReload, computeKeepPageOnReload } = useProps();
+    return async (keepPagination?: boolean) => {
+        if (!computeKeepPageOnReload()) {
+            return await handleReload(false);
+        }
+        return await handleReload(keepPagination)
+    };
 };
 
 export default useReload;
