@@ -36,7 +36,11 @@ export const useUpsertManager = ({
                     return rows;
                 }
                 const rowIds = new Set(prevRows.map(({ id }) => id));
-                return [...prevRows, ...rows.filter(({ id }) => !rowIds.has(id))]
+                const rowsMap = new Map(rows.map((row) => [row.id, row]));
+                return [
+                    ...prevRows.map((prevRow) => rowsMap.get(prevRow.id) || prevRow),
+                    ...rows.filter(({ id }) => !rowIds.has(id))
+                ];
             }),
         []
     );

@@ -30,7 +30,10 @@ import FilterListSlot from "../../slots/FilterListSlot";
 import ChipListSlot from "../../slots/ChipListSlot";
 import SearchSlot from "../../slots/SearchSlot";
 
-export const CONTAINER_MARK = "react-declarative__contentMark";
+export const ROOT_MARK = "react-declarative__listRootMark";
+export const CONTAINER_MARK = "react-declarative__listContainerMark";
+export const CONTENT_MARK = "react-declarative__listContentMark";
+export const INNER_MARK = "react-declarative__listInnerMark";
 
 const EMPTY_ARRAY: any[] = [];
 const RESIZE_DELAY = 100;
@@ -274,14 +277,14 @@ export const Container = <
   return (
     <Box
       ref={rootElementRef}
-      className={classNames(classes.root, className, CONTAINER_MARK)}
+      className={classNames(classes.root, className, ROOT_MARK)}
       style={style}
     >
-      <div className={classes.container}>
+      <div className={classNames(classes.container, CONTAINER_MARK)}>
         <div
           ref={ref}
           style={rootElementSize}
-          className={classNames(classes.content, classes.stretch)}
+          className={classNames(classes.content, classes.stretch, CONTENT_MARK)}
         >
           {initComplete && (
             <div
@@ -491,7 +494,7 @@ export const Container = <
               ref={contentElementRef}
               className={classNames(classes.content, classes.stretch)}
             >
-              <div className={classes.inner} style={contentElementSize}>
+              <div className={classNames(classes.inner, INNER_MARK)} style={contentElementSize}>
                 {!rerender && <>{children}</>}
               </div>
             </Box>

@@ -110,12 +110,15 @@ export const TileItem = forwardRef(
 
     return (
       <ListItemButton
-        disableRipple
         ref={ref}
+        disableRipple
         className={className}
         style={style}
         sx={{
           background: rowColor,
+          '&:hover': {
+            background: rowColor || 'transparent'
+          }
         }}
         selected={isSelected}
         onClick={() => onItemClick && onItemClick({

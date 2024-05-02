@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import { MOBILE_LIST_ROOT } from '../../List/components/view/ChooserView';
-import { CONTAINER_MARK } from '../../List/components/Container';
+import { ROOT_MARK } from '../../List/components/Container';
 
 import IRowData, { RowId } from '../../../model/IRowData';
 import IListProps from '../../../model/IListProps';
@@ -57,7 +57,7 @@ const useStyles = makeStyles()({
     "& .MuiPaper-root": {
       background: "transparent",
     },
-    [`& .${CONTAINER_MARK}`]: {
+    [`& .${ROOT_MARK}`]: {
       flex: 1,
       height: 'unset !important',
       width: 'unset !important',

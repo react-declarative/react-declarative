@@ -157,6 +157,14 @@ export class Entry<
     slots: {},
   };
 
+  get _keepPageOnReload() {
+    let isKeepPage = true;
+    isKeepPage = isKeepPage && !this.props.isChooser;
+    isKeepPage = isKeepPage && !this.props.isInfinite;
+    isKeepPage = isKeepPage && !this.props.isCustom;
+    return isKeepPage;
+  };
+
   /**
    * Initializes a new instance of the constructor.
    *
@@ -631,7 +639,7 @@ export class Entry<
    * @param [keepPagination=true] - Flag to specify whether to update the page number.
    * @returns - Promise that resolves when the reload process is complete.
    */
-  private handleReload = async (keepPagination = true) => {
+  private handleReload = async (keepPagination = this._keepPageOnReload) => {
     this.constraintManager.constraintManager.clear();
     this.scrollManager.clear();
     await this.handleFilter(this.state.filterData, keepPagination);
