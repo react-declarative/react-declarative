@@ -10,6 +10,14 @@ Interface for the List datagrid component props.
 apiRef: Ref<IListApi<FilterData, RowData>>
 ```
 
+### AfterChips
+
+```ts
+AfterChips: ComponentType<IChipListSlot<any>>
+```
+
+Represents a React component that will be rendered after the chip list.
+
 ### BeforeActionList
 
 ```ts

@@ -22,7 +22,7 @@ import ISize from './ISize';
 import { TSubject } from '../utils/rx/Subject';
 
 import { ISlotFactoryContext } from '../components/List/components/SlotFactory';
-import { TileMode } from '../components';
+import { IChipListSlot, TileMode } from '../components';
 
 /**
  * An interface representing the update options for a list action.
@@ -408,6 +408,10 @@ export interface IListProps<
   Field extends IField = IField<FilterData, Payload>,
 > {
   apiRef?: Ref<IListApi<FilterData, RowData>>;
+  /**
+   * Represents a React component that will be rendered after the chip list.
+   */
+  AfterChips?: React.ComponentType<IChipListSlot>;
   /**
    * Represents a React component type for BeforeActionList.
    *

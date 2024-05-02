@@ -34,6 +34,9 @@ const useStyles = makeStyles()((theme) => ({
       0.05
     ),
   },
+  stretch: {
+    flex: 1,
+  },
 }));
 
 /**
@@ -43,13 +46,16 @@ const useStyles = makeStyles()((theme) => ({
  * @param loading - Indicates whether the chip list is currently loading.
  * @returns - The rendered chip list slot component.
  */
-export const ClassicChipListSlot = ({
-  listChips = [],
-  loading,
-}: IChipListSlot) => {
+export const ClassicChipListSlot = (props: IChipListSlot) => {
+
+  const {
+    listChips = [],
+    loading,
+  } = props;
+
   const { classes } = useStyles();
 
-  const { withSingleChip } = useProps();
+  const { withSingleChip, AfterChips } = useProps();
 
   const { chips, setChips } = useChips();
 
@@ -122,6 +128,8 @@ export const ClassicChipListSlot = ({
       >
         {enabledChips}
         {disabledChips}
+        <div className={classes.stretch} />
+        {AfterChips && <AfterChips {...props} />}
       </Stack>
     </ScrollView>
   );

@@ -3398,7 +3398,7 @@ declare module "react-declarative/model/IListProps" {
   import ISize from "react-declarative/model/ISize";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   import { ISlotFactoryContext } from "react-declarative/components/List/components/SlotFactory";
-  import { TileMode } from "react-declarative/components";
+  import { IChipListSlot, TileMode } from "react-declarative/components";
   /**
    * An interface representing the update options for a list action.
    *
@@ -3826,6 +3826,10 @@ declare module "react-declarative/model/IListProps" {
     Field extends IField = IField<FilterData, Payload>,
   > {
     apiRef?: Ref<IListApi<FilterData, RowData>>;
+    /**
+     * Represents a React component that will be rendered after the chip list.
+     */
+    AfterChips?: React.ComponentType<IChipListSlot>;
     /**
      * Represents a React component type for BeforeActionList.
      *
@@ -17849,6 +17853,16 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
     sort: ListHandlerSortModel;
   }
   /**
+   * Represents an action for submitting new list of rows to data grid.
+   * @interface
+   */
+  interface IRowsSubmitStateAction {
+    /** The type of action, indicating that rows have been changed. */
+    type: "rows-submit";
+    /** An array of row data representing the changes made to the rows. */
+    rows: IRowData[];
+  }
+  /**
    * Represents a state action that can be dispatched to update the application state.
    */
   export type IStateAction =
@@ -17856,7 +17870,8 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
     | IRowsChangedStateAction
     | IChipsChangedStateAction
     | ISearchChangedStateAction
-    | ISortChangedStateAction;
+    | ISortChangedStateAction
+    | IRowsSubmitStateAction;
   export const StateActionProvider: ({
       children,
       payload,
@@ -17893,10 +17908,7 @@ declare module "react-declarative/components/List/common/ClassicChipListSlot" {
    * @param loading - Indicates whether the chip list is currently loading.
    * @returns - The rendered chip list slot component.
    */
-  export const ClassicChipListSlot: ({
-    listChips,
-    loading,
-  }: IChipListSlot) => JSX.Element;
+  export const ClassicChipListSlot: (props: IChipListSlot) => JSX.Element;
   export default ClassicChipListSlot;
 }
 
@@ -18031,10 +18043,7 @@ declare module "react-declarative/components/List/common/ModernChipListSlot" {
    * @param loading - Indicates whether the component is in a loading state.
    * @returns - The chip list slot component.
    */
-  export const ModernChipListSlot: ({
-    listChips,
-    loading,
-  }: IChipListSlot) => JSX.Element;
+  export const ModernChipListSlot: (props: IChipListSlot) => JSX.Element;
   export default ModernChipListSlot;
 }
 
@@ -27083,10 +27092,7 @@ declare module "react-declarative/components/List/components/SlotFactory/SlotCon
       isVisible,
       isDisabled,
     }: import("../..").IActionFabSlot<any, any>) => JSX.Element;
-    ChipListSlot: ({
-      listChips,
-      loading,
-    }: import("../..").IChipListSlot<any>) => JSX.Element;
+    ChipListSlot: (props: import("../..").IChipListSlot<any>) => JSX.Element;
     ActionListSlot: <FilterData extends {}>({
       className,
       actions,

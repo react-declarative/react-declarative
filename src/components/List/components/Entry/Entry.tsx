@@ -677,8 +677,12 @@ export class Entry<
    * @param rows - Array of row data to be updated.
    * @return
    */
-  private handleRowsChange = (rows: RowData[]) => {
+  private handleRowsChange = async(rows: RowData[]) => {
     this.isPatchingFlag = true;
+    await this.stateActionEmitter.next({
+      type: "rows-submit",
+      rows,
+    });
     this.isMountedFlag &&
       this.setState((prevState) => ({
         ...prevState,

@@ -30,6 +30,9 @@ const useStyles = makeStyles()((theme) => ({
       0.05
     ),
   },
+  stretch: {
+    flex: 1,
+  },
 }));
 
 /**
@@ -39,15 +42,18 @@ const useStyles = makeStyles()((theme) => ({
  * @param loading - Indicates whether the component is in a loading state.
  * @returns - The chip list slot component.
  */
-export const ModernChipListSlot = ({
-  listChips = [],
-  loading,
-}: IChipListSlot) => {
+export const ModernChipListSlot = (props: IChipListSlot) => {
+
+  const {
+    listChips = [],
+    loading,
+  } = props;
+
   const { classes } = useStyles();
 
   const { chips, setChips } = useChips();
 
-  const { withSingleChip } = useProps();
+  const { withSingleChip, AfterChips } = useProps();
 
   /**
    * Creates a toggle handler function that sets the state of a named chip.
@@ -110,6 +116,8 @@ export const ModernChipListSlot = ({
         pl={1}
       >
         {listChips.map(renderChip)}
+        <div className={classes.stretch} />
+        {AfterChips && <AfterChips {...props} />}
       </Stack>
     </ScrollView>
   );

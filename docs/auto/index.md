@@ -234,6 +234,7 @@
 - [IChipsChangedStateAction](interfaces/IChipsChangedStateAction.md)
 - [ISearchChangedStateAction](interfaces/ISearchChangedStateAction.md)
 - [ISortChangedStateAction](interfaces/ISortChangedStateAction.md)
+- [IRowsSubmitStateAction](interfaces/IRowsSubmitStateAction.md)
 - [IParams](interfaces/IParams.md)
 - [ISortModalProps](interfaces/ISortModalProps.md)
 - [ITile](interfaces/ITile.md)
