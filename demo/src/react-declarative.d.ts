@@ -17854,6 +17854,16 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
     sort: ListHandlerSortModel;
   }
   /**
+   * Represents an action for submitting new list of rows to data grid.
+   * @interface
+   */
+  interface IRowsReloadStateAction {
+    /** The type of action, indicating that rows have been changed. */
+    type: "rows-reload";
+    /** An array of row data representing the changes made to the rows. */
+    rows: IRowData[];
+  }
+  /**
    * Represents a state action that can be dispatched to update the application state.
    */
   export type IStateAction =
@@ -17861,7 +17871,8 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
     | IRowsChangedStateAction
     | IChipsChangedStateAction
     | ISearchChangedStateAction
-    | ISortChangedStateAction;
+    | ISortChangedStateAction
+    | IRowsReloadStateAction;
   export const StateActionProvider: ({
       children,
       payload,

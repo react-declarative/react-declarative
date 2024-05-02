@@ -5,8 +5,11 @@ import useScrollManager from './useScrollManager';
 import useActualState from '../../../hooks/useActualState';
 
 import { IListState } from "../../../model/IListProps";
-
 import TSubject from '../../../model/TSubject';
+
+import sleep from '../../../utils/sleep';
+
+const SCROLL_TOP_DELAY = 500;
 
 interface IParams {
     scrollYSubject?: TSubject<number>;
@@ -45,7 +48,8 @@ export const useUpsertManager = ({
         []
     );
 
-    const handleScrollTop = useCallback(() => {
+    const handleScrollTop = useCallback(async () => {
+        await sleep(SCROLL_TOP_DELAY);
         if (!keepPaginationRef.current) {
             scrollYSubject?.next(0);
             scrollManager.scrollTop();
@@ -53,6 +57,11 @@ export const useUpsertManager = ({
     }, []);
 
     useEffect(() => stateActionEmitter.subscribe((action) => {
+        if (action.type === "rows-reload") {
+            keepPaginationRef.current = false;
+            handleUpsertRows(action.rows);
+            handleScrollTop();
+        }
         if (action.type === "filterdata-changed" && !action.keepPagination) {
             keepPaginationRef.current = false;
         }

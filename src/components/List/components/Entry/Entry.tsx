@@ -699,11 +699,16 @@ export class Entry<
    * @return
    */
   private handleRowsChange = async(rows: RowData[]) => {
+    rows = rows.slice(0, this.state.limit).map((row) => ({ ...row })),
+    this.stateActionEmitter.next({
+      type: "rows-reload",
+      rows,
+    });
     this.isPatchingFlag = true;
     this.isMountedFlag &&
       this.setState((prevState) => ({
         ...prevState,
-        rows: rows.slice(0, prevState.limit).map((row) => ({ ...row })),
+        rows,
       }));
   };
 

@@ -65,9 +65,20 @@ interface ISortChangedStateAction {
 }
 
 /**
+ * Represents an action for submitting new list of rows to data grid.
+ * @interface
+ */
+interface IRowsReloadStateAction {
+    /** The type of action, indicating that rows have been changed. */
+    type: "rows-reload";
+    /** An array of row data representing the changes made to the rows. */
+    rows: IRowData[];
+}
+
+/**
  * Represents a state action that can be dispatched to update the application state.
  */
-export type IStateAction = IFilterDataChangedStateAction | IRowsChangedStateAction | IChipsChangedStateAction | ISearchChangedStateAction | ISortChangedStateAction;
+export type IStateAction = IFilterDataChangedStateAction | IRowsChangedStateAction | IChipsChangedStateAction | ISearchChangedStateAction | ISortChangedStateAction | IRowsReloadStateAction;
 
 export const [StateActionProvider, useStateAction] = createValueProvider<TSubject<IStateAction>>();
 
