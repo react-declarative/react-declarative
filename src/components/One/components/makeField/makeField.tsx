@@ -671,6 +671,16 @@ export function makeField(
             return isReadonly;
         }, []);
 
+        const computeFieldReadonly = useCallback(() => {
+            const { fieldReadonly$: fieldReadonly } = memory;
+            const { upperReadonly$: upperReadonly } = memory;
+            let isReadonly = false;
+            isReadonly = isReadonly || upperReadonly;
+            isReadonly = isReadonly || fieldReadonly;
+            isReadonly = isReadonly || !!compute;
+            return isReadonly;
+        }, []);
+
         const managedProps: IManaged<Data> = {
             onChange: fieldConfig.withApplyQueue ? handleChange : handleChangeSync,
             fallback,
@@ -689,6 +699,7 @@ export function makeField(
             transparentPaper,
             withContextMenu: menuItems?.length ? true : undefined,
             ...otherProps,
+            fieldReadonly: computeFieldReadonly(),
         };
 
         /**

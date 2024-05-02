@@ -16,6 +16,12 @@ value: any
 readonly: boolean
 ```
 
+### fieldReadonly
+
+```ts
+fieldReadonly: boolean
+```
+
 ### onChange
 
 ```ts

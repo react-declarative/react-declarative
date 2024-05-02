@@ -105,6 +105,7 @@ export const Complete = ({
   tipSelect,
   autoFocus,
   onChange,
+  fieldReadonly,
   inputFormatterSymbol: symbol = "0",
   inputFormatterAllowed: allowed,
   inputFormatterReplace: replace,
@@ -144,6 +145,9 @@ export const Complete = ({
     clientY,
     target,
   }: React.MouseEvent<HTMLDivElement>) => {
+    if (fieldReadonly) {
+      return;
+    }
     if (isMobile) {
       pickModal();
       return;

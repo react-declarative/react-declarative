@@ -2691,6 +2691,7 @@ declare module "react-declarative/model/IManaged" {
     disabled: boolean;
     loading: boolean;
     readonly: boolean;
+    fieldReadonly: boolean;
     incorrect: string | null;
     invalid: string | null;
     object: Data;
@@ -12661,6 +12662,7 @@ declare module "react-declarative/components/One/fields/ComboField" {
   export interface IComboFieldPrivate<Data = IAnything> {
     value: PickProp<IManaged<Data>, "value">;
     readonly: PickProp<IManaged<Data>, "readonly">;
+    fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
     onChange: PickProp<IManaged<Data>, "onChange">;
     dirty: PickProp<IManaged<Data>, "dirty">;
     invalid: PickProp<IManaged<Data>, "invalid">;
@@ -12711,6 +12713,7 @@ declare module "react-declarative/components/One/fields/ComboField" {
       dirty,
       invalid,
       incorrect,
+      fieldReadonly,
       withContextMenu,
       tr,
       onChange,
@@ -13083,6 +13086,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
     dirty: PickProp<IManaged<Data>, "dirty">;
     invalid: PickProp<IManaged<Data>, "invalid">;
     incorrect: PickProp<IManaged<Data>, "incorrect">;
+    fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
     withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
   }
   /**
@@ -13129,6 +13133,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
       invalid,
       incorrect,
       title,
+      fieldReadonly,
       withContextMenu,
       tr,
       onChange,
@@ -15012,6 +15017,8 @@ declare module "react-declarative/components/One/fields/CompleteField" {
     value: PickProp<IManaged<Data>, "value">;
     loading: PickProp<IManaged<Data>, "loading">;
     disabled: PickProp<IManaged<Data>, "disabled">;
+    readonly: PickProp<IManaged<Data>, "readonly">;
+    fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
     dirty: PickProp<IManaged<Data>, "dirty">;
     name: PickProp<IManaged<Data>, "name">;
     withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
@@ -15077,6 +15084,7 @@ declare module "react-declarative/components/One/fields/CompleteField" {
       inputFormatterReplace,
       inputFormatterSymbol,
       inputFormatterTemplate,
+      fieldReadonly,
       withContextMenu,
     }: ICompleteFieldProps & ICompleteFieldPrivate): JSX.Element;
     displayName: string;
@@ -27334,6 +27342,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       dirty,
       invalid,
       incorrect,
+      fieldReadonly,
       withContextMenu,
       tr,
       onChange,
@@ -27355,6 +27364,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       invalid,
       incorrect,
       title,
+      fieldReadonly,
       tr,
       onChange,
       withContextMenu,
@@ -27539,6 +27549,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       tipSelect,
       autoFocus,
       onChange,
+      fieldReadonly,
       inputFormatterSymbol: symbol,
       inputFormatterAllowed: allowed,
       inputFormatterReplace: replace,

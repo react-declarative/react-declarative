@@ -94,6 +94,7 @@ export const Items = ({
     invalid,
     incorrect,
     title,
+    fieldReadonly,
     tr = (s) => s.toString(),
     onChange,
     withContextMenu,
@@ -395,6 +396,9 @@ export const Items = ({
             open={opened}
             onChange={({ }, value) => handleChange(value)}
             onOpen={() => {
+                if (fieldReadonly) {
+                    return;
+                }
                 if (!isMobile) {
                     setOpened(true)
                     return;

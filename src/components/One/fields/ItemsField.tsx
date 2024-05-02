@@ -152,6 +152,7 @@ export interface IItemsFieldPrivate<Data = IAnything> {
   dirty: PickProp<IManaged<Data>, "dirty">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   incorrect: PickProp<IManaged<Data>, "incorrect">;
+  fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
 }
 
@@ -198,6 +199,7 @@ export const ItemsField = ({
   invalid,
   incorrect,
   title,
+  fieldReadonly,
   withContextMenu,
   tr = (s) => s.toString(),
   onChange,
@@ -206,6 +208,7 @@ export const ItemsField = ({
     value={value}
     disabled={disabled}
     readonly={readonly}
+    fieldReadonly={fieldReadonly}
     description={description}
     placeholder={placeholder}
     outlined={outlined}

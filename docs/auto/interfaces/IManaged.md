@@ -50,6 +50,12 @@ readonly: boolean
 Флаг только на чтение и "круглой окаймовки"
 Флаг только на чтение и "круглой окаймовки"
 
+### fieldReadonly
+
+```ts
+fieldReadonly: boolean
+```
+
 ### incorrect
 
 ```ts

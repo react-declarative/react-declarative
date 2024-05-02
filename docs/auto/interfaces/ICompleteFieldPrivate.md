@@ -40,6 +40,18 @@ loading: boolean
 disabled: boolean
 ```
 
+### readonly
+
+```ts
+readonly: boolean
+```
+
+### fieldReadonly
+
+```ts
+fieldReadonly: boolean
+```
+
 ### dirty
 
 ```ts

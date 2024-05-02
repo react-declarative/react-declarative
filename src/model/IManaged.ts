@@ -392,6 +392,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     disabled: boolean;
     loading: boolean;
     readonly: boolean;
+    fieldReadonly: boolean;
     incorrect: string | null;
     invalid: string | null;
     object: Data;

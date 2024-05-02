@@ -103,6 +103,7 @@ export const Combo = ({
   dirty,
   invalid,
   incorrect,
+  fieldReadonly,
   withContextMenu,
   tr = (s) => s.toString(),
   onChange,
@@ -367,6 +368,9 @@ export const Combo = ({
     <Autocomplete
       key={reloadTrigger}
       onOpen={() => {
+        if (fieldReadonly) {
+          return;
+        }
         if (!isMobile) {
           setOpened(true);
           return;

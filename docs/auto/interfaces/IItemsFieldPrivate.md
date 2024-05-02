@@ -34,6 +34,12 @@ invalid: string
 incorrect: string
 ```
 
+### fieldReadonly
+
+```ts
+fieldReadonly: boolean
+```
+
 ### withContextMenu
 
 ```ts
