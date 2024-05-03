@@ -2,12 +2,15 @@ import * as React from 'react'
 
 import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
 
+import TSubject from '../../model/TSubject';
+
 /**
  * Represents the props of an ErrorBoundary component.
  */
 interface IErrorBoundaryProps {
   onError?: (error: Error, errorInfo: any) => void;
-  history: MemoryHistory | BrowserHistory | HashHistory;
+  history?: MemoryHistory | BrowserHistory | HashHistory;
+  reloadSubject?: TSubject<void>;
   children?: React.ReactNode;
 }
 
@@ -23,6 +26,9 @@ interface IErrorBoundaryState {
  * Represents an error boundary component in React.
  */
 export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
+
+  private unHistory?: () => void;
+  private unReload?: () => void;
 
   /**
    * Returns an object that represents the new state for a component when an error is thrown during rendering.
@@ -41,6 +47,33 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
   };
 
   /**
+   * Listen for error cancelation
+   *
+   * @function componentDidMount
+   * @memberof Component
+   * @returns
+   */
+  componentDidMount = () => {
+    this.unReload = this.props.reloadSubject?.subscribe(() => {
+      this.setState({
+        hasError: false,
+      });
+    });
+  }
+
+  /**
+   * Clears the garbage
+   *
+   * @function componentWillUnmount
+   * @memberof Component
+   * @returns
+   */
+  componentWillUnmount = () => {
+    this.unHistory && this.unHistory();
+    this.unReload && this.unReload();
+  };
+
+  /**
    * Listens for updates to the component and handles error state.
    *
    * @function componentDidUpdate
@@ -49,11 +82,11 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
    */
   componentDidUpdate = () => {
     if (this.state.hasError) {
-      const unsubscribe = this.props.history.listen(() => {
+      this.unHistory = this.props.history?.listen(() => {
         this.setState({
           hasError: false,
         });
-        unsubscribe();
+        this.unHistory && this.unHistory();
       })
     }
   };

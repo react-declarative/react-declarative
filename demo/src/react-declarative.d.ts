@@ -20810,12 +20810,14 @@ declare module "react-declarative/components/Breadcrumbs/Breadcrumbs" {
 declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
   import * as React from "react";
   import { BrowserHistory, HashHistory, MemoryHistory } from "history";
+  import TSubject from "react-declarative/model/TSubject";
   /**
    * Represents the props of an ErrorBoundary component.
    */
   interface IErrorBoundaryProps {
     onError?: (error: Error, errorInfo: any) => void;
-    history: MemoryHistory | BrowserHistory | HashHistory;
+    history?: MemoryHistory | BrowserHistory | HashHistory;
+    reloadSubject?: TSubject<void>;
     children?: React.ReactNode;
   }
   /**
@@ -20843,6 +20845,22 @@ declare module "react-declarative/components/ErrorBoundary/ErrorBoundary" {
       hasError: boolean;
     };
     constructor(props: IErrorBoundaryProps);
+    /**
+     * Listen for error cancelation
+     *
+     * @function componentDidMount
+     * @memberof Component
+     * @returns
+     */
+    componentDidMount: () => void;
+    /**
+     * Clears the garbage
+     *
+     * @function componentWillUnmount
+     * @memberof Component
+     * @returns
+     */
+    componentWillUnmount: () => void;
     /**
      * Listens for updates to the component and handles error state.
      *

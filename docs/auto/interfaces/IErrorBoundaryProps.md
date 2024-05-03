@@ -16,6 +16,12 @@ onError: (error: Error, errorInfo: any) => void
 history: MemoryHistory | BrowserHistory | HashHistory
 ```
 
+### reloadSubject
+
+```ts
+reloadSubject: TSubject<void>
+```
+
 ### children
 
 ```ts
