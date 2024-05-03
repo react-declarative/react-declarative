@@ -1,3 +1,13 @@
+# Playground (v2.5.906, 03/05/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.906)
+
+Try without installing directly [in your web browser](https://react-declarative-playground.github.io/)
+
+![playground](https://github.com/react-declarative/react-declarative/assets/19227776/0365021d-7dad-4487-8d46-cd6a2348d741)
+
+
+
 # iOS Swipeable Drawer (v2.5.873, 25/04/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.873)
