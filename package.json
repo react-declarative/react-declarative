@@ -14,7 +14,7 @@
     "url": "http://paypal.me/tripolskypetr"
   },
   "license": "LGPL-2.1",
-  "homepage": "https://react-declarative.com",
+  "homepage": "https://react-declarative-playground.github.io",
   "keywords": [
     "react",
     "typescript",
@@ -108,7 +108,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/tripolskypetr/react-declarative#license"
+      "url": "https://github.com/react-declarative/react-declarative#license"
     }
   ]
 }
