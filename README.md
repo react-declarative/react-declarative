@@ -1245,7 +1245,7 @@ import { VirtualView } from 'react-declarative';
 
 > P.S. Got a question? Feel free to [write It in issues](https://github.com/react-declarative/react-declarative/issues), I need traffic
 
-LGPL 2.1 [@tripolskypetr](https://github.com/tripolskypetr)
+MIT [@tripolskypetr](https://github.com/tripolskypetr)
 
 ## Thanks
 
