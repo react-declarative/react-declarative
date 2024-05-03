@@ -76,6 +76,7 @@ export const OneButton = <
 >({
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   fieldDebounce,
+  withCloseAfterChange = false,
   noBadge = false,
   fields,
   handler,
@@ -187,6 +188,9 @@ export const OneButton = <
   useEffect(() => {
       if (!anchorEl) {
           return;
+      }
+      if (!withCloseAfterChange) {
+        return;
       }
       let unsubscribeRef = changeSubject.once(() => {
           const handler = debounce(({ clientX, clientY }: MouseEvent) => {

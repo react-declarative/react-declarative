@@ -40,6 +40,15 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 -->
 
+## Playground
+
+> [!TIP]
+> Try without installing directly [in your web browser](https://react-declarative-playground.github.io/)
+
+![playground](./assets/playground.gif)
+
+Link to [the playground](https://react-declarative-playground.github.io/)
+
 <img src="./assets/icons/decart.svg" height="35px" align="right">
 
 ## Short review

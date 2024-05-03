@@ -2,6 +2,12 @@
 
 ## Properties
 
+### withCloseAfterChange
+
+```ts
+withCloseAfterChange: boolean
+```
+
 ### noBadge
 
 ```ts

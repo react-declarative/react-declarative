@@ -20321,6 +20321,7 @@ declare module "react-declarative/components/OneButton/OneButton" {
   >({
     waitForChangesDelay,
     fieldDebounce,
+    withCloseAfterChange,
     noBadge,
     fields,
     handler,
@@ -28848,6 +28849,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
         color: never;
       }
     > {
+    withCloseAfterChange?: boolean;
     noBadge?: boolean;
     fieldDebounce?: number;
     waitForChangesDelay?: number;

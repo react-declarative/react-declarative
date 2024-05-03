@@ -2,6 +2,12 @@
 
 > `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a css-grid layout. This allows for convenient storage, creation, and modification of data, such as a user's profile.
 
+## Playground
+
+Try without installing directly [in your web browser](https://react-declarative-playground.github.io/)
+
+![playground](../assets/playground.gif)
+
 ## Articles:
 
 1. [The code as the side effect](./other/code-sideeffect.md)

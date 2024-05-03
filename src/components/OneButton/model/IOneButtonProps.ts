@@ -36,6 +36,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onBlur: never;
   color: never;
 }> {
+  withCloseAfterChange?: boolean;
   noBadge?: boolean;
   fieldDebounce?: number;
   waitForChangesDelay?: number;
