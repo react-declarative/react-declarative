@@ -18,6 +18,7 @@ interface IPromptPickerProps {
   placeholder: string;
   open?: boolean;
   canCancel?: boolean;
+  inputType?: string;
 }
 
 /**
@@ -36,6 +37,7 @@ export const PromptPicker = ({
   canCancel = true,
   title,
   value: defaultValue,
+  inputType,
   placeholder,
   open = true,
   large,
@@ -92,6 +94,7 @@ export const PromptPicker = ({
       <Box p={3}>
         <InputBase
           inputRef={inputRef}
+          type={inputType}
           autoFocus
           minRows={3}
           maxRows={large ? 20 : 3}

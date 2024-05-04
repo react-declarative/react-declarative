@@ -23,6 +23,7 @@ interface IParams {
   large?: boolean;
   placeholder?: string;
   canCancel?: boolean;
+  inputType?: string;
 }
 
 /**
@@ -55,6 +56,7 @@ export const usePrompt = ({
   placeholder: defaultPlaceholder = "Prompt",
   canCancel: defaultCanCancel = true,
   large = false,
+  inputType,
 }: IParams = {}) => {
   const changeRef = useRef<Fn>();
 
@@ -120,6 +122,7 @@ export const usePrompt = ({
       <PromptPicker
         open
         large={large}
+        inputType={inputType}
         canCancel={state$.current.currentCanCancel}
         title={state$.current.currentTitle}
         value={state$.current.currentValue}

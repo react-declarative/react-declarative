@@ -6519,6 +6519,7 @@ declare module "react-declarative/hooks/usePrompt" {
     large?: boolean;
     placeholder?: string;
     canCancel?: boolean;
+    inputType?: string;
   }
   /**
    * A function that creates and displays a prompt modal.
@@ -6537,6 +6538,7 @@ declare module "react-declarative/hooks/usePrompt" {
     placeholder: defaultPlaceholder,
     canCancel: defaultCanCancel,
     large,
+    inputType,
   }?: IParams) => ({
     canCancel,
     title,
