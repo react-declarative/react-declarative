@@ -58,6 +58,12 @@ readonly: boolean
 data: Record<string, string[]>
 ```
 
+### ignore
+
+```ts
+ignore: (key: string) => boolean
+```
+
 ### onChange
 
 ```ts

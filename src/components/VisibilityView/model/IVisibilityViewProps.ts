@@ -17,6 +17,7 @@ export interface IVisibilityViewProps {
   expandAll?: boolean;
   readonly?: boolean;
   data?: Record<string, string[]> | null;
+  ignore?: (key: string) => boolean;
   onChange?: (data: Record<string, string[]>) => void;
   groups: IVisibilityGroup[];
   keyToTitle?: (name: string) => string;

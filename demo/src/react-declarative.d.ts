@@ -18760,6 +18760,7 @@ declare module "react-declarative/components/VisibilityView/VisibilityView" {
     onChange,
     groups,
     data,
+    ignore,
     keyToTitle,
   }: IVisibilityViewProps) => JSX.Element;
   export default VisibilityView;
@@ -18827,6 +18828,7 @@ declare module "react-declarative/components/VisibilityView/hooks/useVisibilityV
     groups,
     data,
     keyToTitle,
+    ignore,
     expandAll,
     readonly,
     fullScreen,
@@ -27964,6 +27966,7 @@ declare module "react-declarative/components/VisibilityView/model/IVisibilityVie
     expandAll?: boolean;
     readonly?: boolean;
     data?: Record<string, string[]> | null;
+    ignore?: (key: string) => boolean;
     onChange?: (data: Record<string, string[]>) => void;
     groups: IVisibilityGroup[];
     keyToTitle?: (name: string) => string;

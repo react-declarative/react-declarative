@@ -43,6 +43,7 @@ export const VisibilityView = ({
   onChange,
   groups,
   data,
+  ignore = () => false,
   keyToTitle = keyToTitleDefault,
 }: IVisibilityViewProps) => {
 
@@ -64,7 +65,10 @@ export const VisibilityView = ({
     title,
     description,
   }, idx) => {
-    const variantList = getVariantList(fields, keyToTitle);
+    const variantList = getVariantList(fields, {
+      keyToTitle,
+      ignore,
+    });
     return {
       type: FieldType.Expansion,
       fieldBottomMargin: idx === groups.length - 1 ? "0" : "1",
@@ -110,7 +114,10 @@ export const VisibilityView = ({
       return {};
     }
     return groups.reduce<State>((acm, { name, fields }) => {
-      const variantList = getVariantList(fields);
+      const variantList = getVariantList(fields, {
+        keyToTitle,
+        ignore,
+      });
       const variantSet = new Set(data[name]);
       return {
         ...acm,

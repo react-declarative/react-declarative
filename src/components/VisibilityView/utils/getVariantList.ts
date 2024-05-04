@@ -32,12 +32,21 @@ const VARIANT_FIELD_TYPE = new Set([
  * @param keyToTitle - (Optional) A function to derive the title from the field name. Default is identity function.
  * @returns - The list of variants, each containing a label and value.
  */
-export const getVariantList = (fields: IField[], keyToTitle = (v: string) => v) => {
+export const getVariantList = (fields: IField[], {
+  keyToTitle = (v) => v,
+  ignore = () => false,
+}: {
+  keyToTitle?: (v: string) => string;
+  ignore?: (key: string) => boolean;
+} = {}) => {
   const variantList: { label: string; value: string }[] = [];
   for (const { name, type, title, placeholder } of deepFlat<IField>(
     fields
   )) {
     if (!name) {
+      continue;
+    }
+    if (ignore(name)) {
       continue;
     }
     if (variantList.some((variant) => variant.value === name)) {

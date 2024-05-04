@@ -55,6 +55,7 @@ export const useVisibilityView = ({
   groups,
   data,
   keyToTitle = keyToTitleDefault,
+  ignore,
   expandAll,
   readonly,
   fullScreen,
@@ -68,7 +69,10 @@ export const useVisibilityView = ({
   const fields = useMemo(
     (): IField[] =>
       groups.map(({ fields, name, title, description }, idx) => {
-        const variantList = getVariantList(fields, keyToTitle);
+        const variantList = getVariantList(fields, {
+          keyToTitle,
+          ignore,
+        });
         return {
           type: FieldType.Expansion,
           fieldBottomMargin: idx === groups.length - 1 ? "0" : "1",
@@ -96,7 +100,10 @@ export const useVisibilityView = ({
       return {};
     }
     return groups.reduce<State>((acm, { name, fields }) => {
-      const variantList = getVariantList(fields);
+      const variantList = getVariantList(fields, {
+        keyToTitle,
+        ignore,
+      });
       const variantSet = new Set(data[name]);
       return {
         ...acm,
