@@ -277,7 +277,7 @@ export const DenseFilterListSlot = ({
         <Badge sx={{ zIndex: 99 }} badgeContent={filtersCount} color="info">
           {isShrink ? (
             <Fab
-              sx={{ minHeight: "40px", maxHeight: "40px", zIndex: 99 }}
+              sx={{ minHeight: "40px", maxHeight: "40px" }}
               disabled={loading}
               size="small"
               color="primary"
@@ -290,7 +290,7 @@ export const DenseFilterListSlot = ({
               startIcon={<FilterListIcon />}
               variant="contained"
               size="small"
-              sx={{ minHeight: "35px", maxHeight: "35px", zIndex: 99 }}
+              sx={{ minHeight: "35px", maxHeight: "35px" }}
               disabled={loading}
               onClick={pickFilters}
             >
