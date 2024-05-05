@@ -351,6 +351,7 @@ export class Entry<
       isOk = isOk && this.state.initComplete;
       if (isOk) {
         if (!this.isFetchingFlag) {
+          this.isPatchingFlag = false;
           return;
         } else if (this.isRerenderFlag) {
           this.isRerenderFlag = false;
