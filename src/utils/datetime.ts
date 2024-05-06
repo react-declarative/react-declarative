@@ -36,7 +36,10 @@ export class Time {
      * @param stamp - The stamp value representing minutes since 1970-01-01 00:00.
      * @returns - The Time object representing the hour and minute derived from the stamp value.
      */
-    static fromStamp = (stamp: number) => {
+    static fromStamp = (stamp: number | null) => {
+        if (stamp === null) {
+            return null;
+        }
         const source = dayjs(new window.Date(0)).set("hour", 0).set("minute", 0).add(stamp, "minute");
         const hour = source.get('hour');
         const minute = source.get('minute');
@@ -84,7 +87,10 @@ export class Date {
      * @param stamp - The number of days since '1970-01-01' to convert.
      * @returns - The converted date object.
      */
-    static fromStamp = (stamp: number) => {
+    static fromStamp = (stamp: number | null) => {
+        if (stamp === null) {
+            return null;
+        }
         const now = dayjs(new window.Date(0)).add(stamp, 'days').toDate();
         return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
     };

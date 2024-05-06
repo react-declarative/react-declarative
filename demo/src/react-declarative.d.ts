@@ -10261,7 +10261,7 @@ declare module "react-declarative/utils/datetime" {
      * @param stamp - The stamp value representing minutes since 1970-01-01 00:00.
      * @returns - The Time object representing the hour and minute derived from the stamp value.
      */
-    static fromStamp: (stamp: number) => Time;
+    static fromStamp: (stamp: number | null) => Time | null;
   }
   /**
    * Represents a date.
@@ -10289,7 +10289,7 @@ declare module "react-declarative/utils/datetime" {
      * @param stamp - The number of days since '1970-01-01' to convert.
      * @returns - The converted date object.
      */
-    static fromStamp: (stamp: number) => Date;
+    static fromStamp: (stamp: number | null) => Date | null;
   }
   /**
    * Parses a string representation of a date in "dd/mm/yyyy" format and returns a Date object.
