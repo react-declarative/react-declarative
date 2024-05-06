@@ -120,7 +120,7 @@ export const parseDate = (date: string | null): Date | null => {
  * @param date - The date to serialize.
  * @returns The serialized date or null if the input is not a valid Date object.
  */
-export const serializeDate = (date: Date) => {
+export const serializeDate = (date: Date | null) => {
     let day = '';
     let month = '';
     let year = '';
@@ -164,7 +164,7 @@ export const parseTime = (time: string | null): Time | null => {
  * @param time - The time object to be serialized.
  * @returns - The serialized time string, or null if the input is invalid.
  */
-export const serializeTime = (time: Time) => {
+export const serializeTime = (time: Time | null) => {
     let hour = '';
     let minute = '';
     if (time instanceof Time) {

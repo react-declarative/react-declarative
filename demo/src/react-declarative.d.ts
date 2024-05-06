@@ -888,9 +888,9 @@ declare module "react-declarative" {
     Time: typeof datetimeInternal.Time;
     Date: typeof datetimeInternal.Date;
     parseDate: (date: string | null) => datetimeInternal.Date | null;
-    serializeDate: (date: datetimeInternal.Date) => string | null;
+    serializeDate: (date: datetimeInternal.Date | null) => string | null;
     parseTime: (time: string | null) => datetimeInternal.Time | null;
-    serializeTime: (time: datetimeInternal.Time) => string | null;
+    serializeTime: (time: datetimeInternal.Time | null) => string | null;
     currentDate: () => string;
     currentTime: () => string;
     timeStamp: (str?: string) => number;
@@ -10305,7 +10305,7 @@ declare module "react-declarative/utils/datetime" {
    * @param date - The date to serialize.
    * @returns The serialized date or null if the input is not a valid Date object.
    */
-  export const serializeDate: (date: Date) => string | null;
+  export const serializeDate: (date: Date | null) => string | null;
   /**
    * Parses a string representation of time into a Time object.
    *
@@ -10319,7 +10319,7 @@ declare module "react-declarative/utils/datetime" {
    * @param time - The time object to be serialized.
    * @returns - The serialized time string, or null if the input is invalid.
    */
-  export const serializeTime: (time: Time) => string | null;
+  export const serializeTime: (time: Time | null) => string | null;
   /**
    * Retrieves the current date.
    *
