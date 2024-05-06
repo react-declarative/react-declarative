@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import getGenesisStamp from './getGenesisStamp';
 
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
 export const TIME_PLACEHOLDER = 'HH:MM';
@@ -70,7 +71,7 @@ export class Date {
      * @returns The number of days from 1970-01-01 to the specified date.
      */
     toStamp = () => {
-        const start = dayjs(new window.Date(0));
+        const start = getGenesisStamp();
         let now = dayjs().set('hour', 0);
         now = now.set('date', this.day);
         now = now.set('month', this.month - 1);
@@ -91,7 +92,7 @@ export class Date {
         if (stamp === null) {
             return null;
         }
-        const now = dayjs(new window.Date(0)).add(stamp, 'days').toDate();
+        const now = getGenesisStamp().add(stamp, 'days').toDate();
         return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
     };
 };
