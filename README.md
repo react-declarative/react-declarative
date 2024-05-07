@@ -1239,6 +1239,10 @@ import { VirtualView } from 'react-declarative';
 
     Useful snippets to split procedure code with the inversion of control pattern
 
+7. [Frontend as a service bus for Service-Oriented Architecture (SOA)](./NOTES.md#frontend-as-a-service-bus-for-service-oriented-architecture-soa)
+
+    Serverless compution pros and no cons with react-declarative
+
 <img src="./assets/icons/tree.svg" height="65px" align="right">
 
 ## License

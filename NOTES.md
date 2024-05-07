@@ -229,3 +229,11 @@ useSubscription(textChanged.debounce(), () => {
 ```
 
 P.S. Have you ever implemented state change debounce yet? :-)
+
+## Frontend as a service bus for Service-Oriented Architecture (SOA)
+
+If you're launching a tech startup, there's a high possibility that your company won't have a budget for DevOp, that means you need to find a way to scale the backend by yourself. The easiest solution is to use [serverless containers](https://github.com/open-runtimes/open-runtimes) like OpenRuntimes and a load balancer (NGINX).
+
+A serverless container (function) is a chunk of code that starts, executes an action, and then destroys itself. This is the only way to guarantee the absence of memory leaks in the long term. Also, they can be scaled because they are stateless; you can just start another instance on a different port with NGINX upstream, and it will consume more resources. Additionally, that instance could be started on a different machine, so the data center can be scaled vertically.
+
+The problem starts when you need to emit an event from one serverless container to another. This could be easily solved with [Inversion of Control (IoC)](./docs/code/DI.md) and [Subjects](./docs/code/RX.md). So, the `react-declarative` will help you build complex high-load systems with minimal resources and a coder's team.
