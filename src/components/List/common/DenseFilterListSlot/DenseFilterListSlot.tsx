@@ -21,10 +21,11 @@ import ActionAdd from "../../components/common/ListActionAdd";
 import ActionFab from "../../components/common/ListActionFab";
 import ActionMenu from "../../components/common/ListActionMenu";
 
-import usePayload from "../../hooks/usePayload";
 import useProps from "../../hooks/useProps";
+import usePayload from "../../hooks/usePayload";
 import useActionModal from "../../../ActionModal";
 import useCachedRows from "../../hooks/useCachedRows";
+import useManagedCursor from "../../../../hooks/useManagedCursor";
 
 import ActionType from "../../../../model/ActionType";
 
@@ -103,6 +104,15 @@ export const DenseFilterListSlot = ({
   const payload = usePayload();
 
   const { selectedRows } = useCachedRows();
+
+  const {
+    inputRef,
+    inputValue,
+    onInputChange,
+  } = useManagedCursor({
+    value: search,
+    onChange: onSearchChange,
+  });
 
   const {
     filterLabel,
@@ -215,9 +225,10 @@ export const DenseFilterListSlot = ({
     if (withSearch) {
       return (
         <TextField
+          inputRef={inputRef}
+          value={inputValue}
+          onChange={onInputChange}
           variant="standard"
-          value={search}
-          onChange={({ target }) => onSearchChange(target.value)}
           onKeyDown={({ key, currentTarget }) => {
             if (key === "Enter" || key === "Escape") {
               currentTarget.blur();
@@ -238,7 +249,7 @@ export const DenseFilterListSlot = ({
             ),
             endAdornment: !!search && (
               <InputAdornment
-                sx={{ cursor: "pointer", marginBottom: "15px" }}
+                sx={{ cursor: "pointer" }}
                 onClick={handleSearchCleanup}
                 position="end"
               >

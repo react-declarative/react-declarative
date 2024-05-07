@@ -109,6 +109,7 @@ declare module "react-declarative" {
   export { createRouteItemManager } from "react-declarative/helpers/routeManager";
   export { createRouteParamsManager } from "react-declarative/helpers/routeManager";
   export { usePreventAutofill } from "react-declarative/hooks/usePreventAutofill";
+  export { useManagedCursor } from "react-declarative/hooks/useManagedCursor";
   export { useItemModal } from "react-declarative/hooks/useItemModal";
   export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
@@ -4494,6 +4495,34 @@ declare module "react-declarative/hooks/usePreventAutofill" {
     onContextMenu,
   }?: Partial<IParams<T>>) => IResult<T>;
   export default usePreventAutofill;
+}
+
+declare module "react-declarative/hooks/useManagedCursor" {
+  import { ChangeEvent } from "react";
+  import IField from "react-declarative/model/IField";
+  interface IParams {
+    inputFormatterSymbol?: IField["inputFormatterSymbol"];
+    inputFormatterAllowed?: IField["inputFormatterAllowed"];
+    inputFormatterReplace?: IField["inputFormatterReplace"];
+    inputFormatterTemplate?: IField["inputFormatterTemplate"];
+    inputFormatter?: IField["inputFormatter"];
+    value?: string;
+    onChange?: (value: string) => void;
+  }
+  export const useManagedCursor: ({
+    inputFormatterSymbol: symbol,
+    inputFormatterAllowed: allowed,
+    inputFormatterReplace: replace,
+    inputFormatterTemplate: template,
+    inputFormatter,
+    value: upperValue,
+    onChange,
+  }: IParams) => {
+    inputRef: import("react").MutableRefObject<HTMLInputElement>;
+    inputValue: string;
+    onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  };
+  export default useManagedCursor;
 }
 
 declare module "react-declarative/hooks/useItemModal" {

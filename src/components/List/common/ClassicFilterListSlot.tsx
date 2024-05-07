@@ -18,6 +18,7 @@ import Less from "@mui/icons-material/ExpandLess";
 import Search from "@mui/icons-material/Search";
 import Close from "@mui/icons-material/Close";
 
+import useManagedCursor from "../../../hooks/useManagedCursor";
 import usePayload from "../hooks/usePayload";
 import useProps from "../hooks/useProps";
 
@@ -133,6 +134,15 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
 
   const isInitialized = useRef(false);
 
+  const {
+    inputRef,
+    inputValue,
+    onInputChange,
+  } = useManagedCursor({
+    value: search,
+    onChange: onSearchChange,
+  });
+
   /**
    * Function to handle collapse behavior
    *
@@ -206,8 +216,9 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
         <TextField
           label="Search"
           variant="standard"
-          value={search}
-          onChange={({ target }) => onSearchChange(target.value)}
+          inputRef={inputRef}
+          value={inputValue}
+          onChange={onInputChange}
           onKeyDown={({ key, currentTarget }) => {
             if (key === "Enter" || key === "Escape") {
               currentTarget.blur();

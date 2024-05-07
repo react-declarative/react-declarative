@@ -26,6 +26,7 @@ import ActionMenu from "../../components/common/ListActionMenu";
 import useProps from '../../hooks/useProps';
 import usePayload from '../../hooks/usePayload';
 import useCachedRows from '../../hooks/useCachedRows';
+import useManagedCursor from '../../../../hooks/useManagedCursor';
 
 /**
  * Returns the styles for a component.
@@ -99,6 +100,15 @@ export const DenseSearchSlot = ({
   const { selectedRows } = useCachedRows();
 
   const {
+    inputRef,
+    inputValue,
+    onInputChange,
+  } = useManagedCursor({
+    value: search,
+    onChange: onSearchChange,
+  });
+
+  const {
     actions = [],
   } = useProps();
 
@@ -165,11 +175,12 @@ export const DenseSearchSlot = ({
           <TextField
             label="Search"
             variant="standard"
-            value={search}
+            inputRef={inputRef}
+            value={inputValue}
+            onChange={onInputChange}
             sx={{
               maxWidth: 'max(calc(50% - 75px), 256px)',
             }}
-            onChange={({ target }) => onSearchChange(target.value)}
             onKeyDown={({ key, currentTarget }) => {
               if (key === 'Enter' || key === 'Escape') {
                 currentTarget.blur();
@@ -186,7 +197,7 @@ export const DenseSearchSlot = ({
                 </InputAdornment>
               ),
               endAdornment: !!search && (
-                <InputAdornment sx={{ cursor: 'pointer', marginBottom: '15px' }} onClick={handleSearchCleanup} position="end">
+                <InputAdornment sx={{ cursor: 'pointer' }} onClick={handleSearchCleanup} position="end">
                   <Close />
                 </InputAdornment>
               ),

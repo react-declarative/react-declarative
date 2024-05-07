@@ -15,6 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Search from "@mui/icons-material/Search";
 import Close from "@mui/icons-material/Close";
 
+import useManagedCursor from "../../../hooks/useManagedCursor";
 import useActionModal from "../../ActionModal";
 import usePayload from "../hooks/usePayload";
 import useProps from "../hooks/useProps";
@@ -114,6 +115,15 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 
   const { filterLabel, readTransform, writeTransform, modalSizeRequest } = useProps();
 
+  const {
+    inputRef,
+    inputValue,
+    onInputChange,
+  } = useManagedCursor({
+    value: search,
+    onChange: onSearchChange,
+  });
+
   const { render, pickData: pickFilters } = useActionModal({
     AfterTitle: ({
       onClose,
@@ -200,8 +210,9 @@ export const ModalFilterListSlot = <FilterData extends {}>({
         <TextField
           label="Search"
           variant="standard"
-          value={search}
-          onChange={({ target }) => onSearchChange(target.value)}
+          inputRef={inputRef}
+          value={inputValue}
+          onChange={onInputChange}
           onKeyDown={({ key, currentTarget }) => {
             if (key === "Enter" || key === "Escape") {
               currentTarget.blur();
