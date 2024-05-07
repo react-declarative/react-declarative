@@ -1,6 +1,9 @@
 import { fileTypeFromBlob } from "file-type/core";
+import Subject from "./rx/Subject";
 
 let overrideRef: ((url: string, name: string) => void) | null = null;
+
+const emitSubject = new Subject<{ url: string; name: string; }>();
 
 /**
  * Downloads a file from the given URL with the specified name.
@@ -11,7 +14,8 @@ let overrideRef: ((url: string, name: string) => void) | null = null;
  * @param name - The name to be used for the downloaded file.
  * @returns
  */
-export const downloadBlank = (url: string, name: string) => {
+export const downloadBlank = async (url: string, name: string) => {
+  await emitSubject.next({ url, name });
   if (overrideRef) {
     overrideRef(url, name);
     return;
@@ -50,5 +54,7 @@ export const downloadBlank = (url: string, name: string) => {
 downloadBlank.override = (ref: (url: string, name: string) => void) => {
   overrideRef = ref;
 };
+
+downloadBlank.listen = (fn: (dto: { url: string; name: string }) => void) => emitSubject.subscribe(fn);
 
 export default downloadBlank;

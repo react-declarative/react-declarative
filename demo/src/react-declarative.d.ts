@@ -7107,8 +7107,9 @@ declare module "react-declarative/utils/openBlank" {
    * @returns
    */
   export const openBlank: {
-    (url: string): void;
+    (url: string): Promise<void>;
     override(ref: (url: string) => void): void;
+    listen(fn: (url: string) => void): () => void;
   };
   export default openBlank;
 }
@@ -7153,6 +7154,7 @@ declare module "react-declarative/utils/copyToClipboard" {
   export const copyToClipboard: {
     (text: string): Promise<boolean>;
     override(ref: (text: string) => void | Promise<void>): void;
+    listen(fn: (text: string) => void): () => void;
   };
   export default copyToClipboard;
 }
@@ -7168,8 +7170,9 @@ declare module "react-declarative/utils/downloadBlank" {
    * @returns
    */
   export const downloadBlank: {
-    (url: string, name: string): void;
+    (url: string, name: string): Promise<void>;
     override(ref: (url: string, name: string) => void): void;
+    listen(fn: (dto: { url: string; name: string }) => void): () => void;
   };
   export default downloadBlank;
 }
@@ -7229,6 +7232,7 @@ declare module "react-declarative/utils/reloadPage" {
   export const reloadPage: {
     (): Promise<void>;
     override(ref: () => void): void;
+    listen(fn: () => void): () => void;
   };
   export default reloadPage;
 }

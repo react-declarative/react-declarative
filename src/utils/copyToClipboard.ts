@@ -1,4 +1,8 @@
+import Subject from "./rx/Subject";
+
 let overrideRef: ((text: string) => (Promise<void> | void)) | null = null
+
+const emitSubject = new Subject<string>();
 
 /**
  * Creates a textarea element, assigns the given text to its value property, appends it to the document body,
@@ -54,6 +58,7 @@ const doCopy = async (text: string) => {
  * @returns - A promise that resolves to a boolean indicating whether the copy operation was successful.
  */
 export const copyToClipboard = async (text: string) => {
+    await emitSubject.next(text);
     let isOk = true;
     try {
         if (overrideRef) {
@@ -72,5 +77,7 @@ export const copyToClipboard = async (text: string) => {
 copyToClipboard.override = (ref: (text: string) => (void | Promise<void>)) => {
     overrideRef = ref;
 };
+
+copyToClipboard.listen = (fn: (text: string) => void) => emitSubject.subscribe(fn);
 
 export default copyToClipboard

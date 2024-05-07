@@ -1,4 +1,8 @@
+import Subject from "./rx/Subject";
+
 let overrideRef: ((url: string) => void) | null = null
+
+const emitSubject = new Subject<string>();
 
 /**
  * Opens the given URL in a new browser tab.
@@ -7,7 +11,8 @@ let overrideRef: ((url: string) => void) | null = null
  *
  * @returns
  */
-export const openBlank = (url: string) => {
+export const openBlank = async (url: string) => {
+    await emitSubject.next(url);
     if (overrideRef) {
         overrideRef(url);
         return;
@@ -24,5 +29,7 @@ export const openBlank = (url: string) => {
 openBlank.override = (ref: (url: string) => void) => {
     overrideRef = ref;
 };
+
+openBlank.listen = (fn: (url: string) => void) => emitSubject.subscribe(fn);
 
 export default openBlank;

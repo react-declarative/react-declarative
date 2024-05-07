@@ -1,3 +1,5 @@
+import Subject from "./rx/Subject";
+
 let isReloading = false;
 
 let overrideRef: (() => void) | null = null
@@ -12,12 +14,15 @@ declare global {
     }
 }
 
+const reloadSubject = new Subject<void>();
+
 /**
  * Reloads the current page.
  *
  * @returns A promise that resolves when the page has reloaded.
  */
 export const reloadPage = async () => {
+    await reloadSubject.next();
     isReloading = true;
     if (overrideRef) {
         overrideRef();
@@ -51,5 +56,7 @@ if (window && window.addEventListener) {
 reloadPage.override = (ref: () => void) => {
     overrideRef = ref;
 };
+
+reloadPage.listen = (fn: () => void) => reloadSubject.subscribe(fn);
 
 export default reloadPage;
