@@ -283,7 +283,7 @@ export const Container = <
     <Box
       ref={rootElementRef}
       className={classNames(classes.root, className, ROOT_MARK, {
-        [classes.rendering]: !rootElementSize.height,
+        [classes.rendering]: !rootElementSize.height || !contentElementSize.height,
       })}
       style={style}
     >
