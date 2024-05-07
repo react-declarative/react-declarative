@@ -153,6 +153,9 @@ const useStyles = makeStyles()({
   hidden: {
     display: "none",
   },
+  rendering: {
+    visibility: 'hidden',
+  },
 });
 
 /**
@@ -279,7 +282,9 @@ export const Container = <
   return (
     <Box
       ref={rootElementRef}
-      className={classNames(classes.root, className, ROOT_MARK)}
+      className={classNames(classes.root, className, ROOT_MARK, {
+        [classes.rendering]: !rootElementSize.height,
+      })}
       style={style}
     >
       <div className={classNames(classes.container, CONTAINER_MARK)}>
