@@ -5333,7 +5333,14 @@ declare module "react-declarative/hooks/useAsyncValue" {
   export const useAsyncValue: <Data extends unknown = any>(
     run: () => Data | Promise<Data>,
     params?: IParams,
-  ) => [Data | null, IResult<void, void>, (data: Data) => void];
+  ) => [
+    Data | null,
+    IResult<void, void>,
+    (data: Data) => void,
+    {
+      waitForResult: () => Promise<Data>;
+    },
+  ];
   export default useAsyncValue;
 }
 
