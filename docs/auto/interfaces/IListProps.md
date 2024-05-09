@@ -57,6 +57,12 @@ It is used to render the list of available actions, typically used for filtering
 customTemplate: ComponentType<ITile<RowData, Payload>>
 ```
 
+### pageItemTemplate
+
+```ts
+pageItemTemplate: ComponentType<ITile<RowData, Payload>>
+```
+
 ### tileMode
 
 ```ts
@@ -72,6 +78,14 @@ customTemplateMinHeight: number
 ```
 
 Represents the minimum height for a custom template.
+
+### pageItemTemplateMinHeight
+
+```ts
+pageItemTemplateMinHeight: number
+```
+
+Represents the minimum height for a page template.
 
 ### fetchDebounce
 
@@ -547,6 +561,12 @@ isInfinite: boolean
 
 ```ts
 isCustom: boolean
+```
+
+### isPageItem
+
+```ts
+isPageItem: boolean
 ```
 
 ### isDense

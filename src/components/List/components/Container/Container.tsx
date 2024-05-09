@@ -71,6 +71,7 @@ interface IContainerProps<
         isChooser: never;
         isInfinite: never;
         isCustom: never;
+        isPageItem: never;
         payload: never;
       }
     >,

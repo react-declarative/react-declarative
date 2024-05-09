@@ -60,6 +60,7 @@ import Subject from "../../../../utils/rx/Subject";
 
 import SlotFactory from "../SlotFactory";
 import CustomView from "../view/CustomView";
+import PageView from "../view/PageView";
 
 export class Entry<
   FilterData extends {} = IAnything,
@@ -207,6 +208,7 @@ export class Entry<
       isChooser: this.props.isChooser!,
       isInfinite: this.props.isInfinite!,
       isCustom: !!this.props.customTemplate || this.props.isCustom!,
+      isPageItem: !!this.props.pageItemTemplate || this.props.isPageItem!,
       filterData: this.props.filterData as never,
       rows: [] as never,
       limit: this.props.limit!,
@@ -841,7 +843,23 @@ export class Entry<
    */
   public renderInner = () => {
     const callbacks = this.getCallbacks();
-    if (this.props.isCustom) {
+    if (this.state.isPageItem) {
+      return (
+        <PageView<FilterData, RowData>
+          {...this.props}
+          {...this.state}
+          handler={this.props.handler}
+          filters={this.props.filters}
+          columns={this.props.columns}
+          actions={this.props.actions}
+          limit={this.state.limit}
+          offset={this.state.offset}
+          listChips={this.props.chips}
+          {...callbacks}
+        />
+      );
+    }
+    if (this.state.isCustom) {
       return (
         <CustomView<FilterData, RowData>
           {...this.props}
@@ -856,7 +874,7 @@ export class Entry<
           {...callbacks}
         />
       );
-    } else if (this.props.isInfinite) {
+    } else if (this.state.isInfinite) {
       return (
         <InfiniteView<FilterData, RowData>
           {...this.props}
@@ -871,7 +889,7 @@ export class Entry<
           {...callbacks}
         />
       );
-    } else if (this.props.isChooser) {
+    } else if (this.state.isChooser) {
       return (
         <ChooserView<FilterData, RowData>
           {...this.props}

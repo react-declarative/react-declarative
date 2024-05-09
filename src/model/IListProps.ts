@@ -260,6 +260,7 @@ export interface IListState<FilterData extends {} = IAnything, RowData extends I
   isChooser: boolean;
   isInfinite: boolean;
   isCustom: boolean;
+  isPageItem: boolean;
   rows: RowData[];
   limit: number;
   offset: number;
@@ -462,6 +463,15 @@ export interface IListProps<
    */
   customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
   /**
+   * Represents a custom template component for rendering a tile.
+   *
+   * @typedef pageItemTemplate
+   * @property pageItemTemplate - The custom template component used for rendering a tile.
+   * @template {RowData} - The type of data for the tile row.
+   * @template {Payload} - The type of payload associated with the tile.
+   */
+  pageItemTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+  /**
    * Tiling mode for custom template
    */
   tileMode?: TileMode;
@@ -471,6 +481,12 @@ export interface IListProps<
    * @type {number|undefined}
    */
   customTemplateMinHeight?: number;
+  /**
+   * Represents the minimum height for a page template.
+   *
+   * @type {number|undefined}
+   */
+  pageItemTemplateMinHeight?: number;
   /**
    * Represents the debounce time in milliseconds for performing fetch requests.
    */
@@ -610,6 +626,7 @@ export interface IListProps<
   isChooser?: boolean;
   isInfinite?: boolean;
   isCustom?: boolean;
+  isPageItem?: boolean;
   isDense?: boolean;
   slots?: Partial<ISlotFactoryContext>;
 }

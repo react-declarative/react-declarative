@@ -40,6 +40,12 @@ isInfinite: boolean
 isCustom: boolean
 ```
 
+### isPageItem
+
+```ts
+isPageItem: boolean
+```
+
 ### rows
 
 ```ts

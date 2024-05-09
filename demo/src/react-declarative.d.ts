@@ -3683,6 +3683,7 @@ declare module "react-declarative/model/IListProps" {
     isChooser: boolean;
     isInfinite: boolean;
     isCustom: boolean;
+    isPageItem: boolean;
     rows: RowData[];
     limit: number;
     offset: number;
@@ -3892,6 +3893,15 @@ declare module "react-declarative/model/IListProps" {
      */
     customTemplate?: React.ComponentType<ITile<RowData, Payload>>;
     /**
+     * Represents a custom template component for rendering a tile.
+     *
+     * @typedef pageItemTemplate
+     * @property pageItemTemplate - The custom template component used for rendering a tile.
+     * @template {RowData} - The type of data for the tile row.
+     * @template {Payload} - The type of payload associated with the tile.
+     */
+    pageItemTemplate?: React.ComponentType<ITile<RowData, Payload>>;
+    /**
      * Tiling mode for custom template
      */
     tileMode?: TileMode;
@@ -3901,6 +3911,12 @@ declare module "react-declarative/model/IListProps" {
      * @type {number|undefined}
      */
     customTemplateMinHeight?: number;
+    /**
+     * Represents the minimum height for a page template.
+     *
+     * @type {number|undefined}
+     */
+    pageItemTemplateMinHeight?: number;
     /**
      * Represents the debounce time in milliseconds for performing fetch requests.
      */
@@ -4070,6 +4086,7 @@ declare module "react-declarative/model/IListProps" {
     isChooser?: boolean;
     isInfinite?: boolean;
     isCustom?: boolean;
+    isPageItem?: boolean;
     isDense?: boolean;
     slots?: Partial<ISlotFactoryContext>;
   }
@@ -16942,6 +16959,7 @@ declare module "react-declarative/components/List/hooks/useProps" {
           search: never;
           filterData: never;
           isChooser: never;
+          isPageItem: never;
           isInfinite: never;
           isCustom: never;
           payload: never;

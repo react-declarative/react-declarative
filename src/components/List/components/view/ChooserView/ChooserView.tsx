@@ -78,6 +78,7 @@ interface IChooserProps<
         search: never;
         filterData: never;
         isChooser: never;
+        isPageItem: never;
         isInfinite: never;
         isCustom: never;
         payload: never;

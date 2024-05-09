@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { makeStyles } from "../../../../../styles";
 
@@ -16,22 +16,21 @@ import IRowData from "../../../../../model/IRowData";
 
 import useReload from "../../../hooks/useReload";
 
+import useScrollManager from "../../../hooks/useScrollManager";
 import useSubject from "../../../../../hooks/useSubject";
 import useSelection from "../../../hooks/useSelection";
 
 import useElementSize from "../../../../../hooks/useElementSize";
-import useRenderWaiter from "../../../../../hooks/useRenderWaiter";
-import useSinglerunAction from "../../../../../hooks/useSinglerunAction";
-import useUpsertManager from "../../../hooks/useUpsertManager";
 
-import ModalLoader from "./components/ModalLoader";
+import DefaultTemplate from "./components/DefaultTemplate";
 
+import TablePagination from "../../TablePagination";
 import Container from "../../Container";
-import Grid from "../../../../Grid";
-
-import list2grid from "../../../../../utils/list2grid";
+import Tile from "../../../../Tile";
 
 const DEFAULT_ITEM_SIZE = 45;
+const PAGINATION_HEIGHT = 52;
+const ROWS_PER_PAGE = [10, 25, 50];
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -55,11 +54,13 @@ const useStyles = makeStyles()((theme) => ({
 }));
 
 /**
- * Interface for the IInfiniteProps class.
- * @template FilterData - The type of filter data.
- * @template RowData - The type of row data.
+ * @interface IPageProps
+ *
+ * Represents the page props for a list component.
+ * @template FilterData - The type of data for filters.
+ * @template RowData - The type of data for each row in the list.
  */
-interface IInfiniteProps<
+interface IPageProps<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 > extends Omit<
@@ -72,8 +73,8 @@ interface IInfiniteProps<
         filterData: never;
         isChooser: never;
         isInfinite: never;
-        isPageItem: never;
         isCustom: never;
+        isPageItem: never;
         payload: never;
       }
     >,
@@ -85,75 +86,60 @@ interface IInfiniteProps<
 }
 
 /**
- * InfiniteView component represents list table with infinite scroll behaviour.
+ * PageView component represents list with infinite scroll behaviour and page template.
  *
  * @template FilterData - The type of filter data.
  * @template RowData - The type of row data.
  *
  * @param props - The props object containing the necessary parameters.
- * @returns - The InfiniteView component.
+ * @returns - The PageView component.
  */
-export const InfiniteView = <
+export const PageView = <
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything
 >(
-  props: IInfiniteProps<FilterData, RowData>
+  props: IPageProps<FilterData, RowData>
 ) => {
   const { classes } = useStyles();
 
+  const scrollManager = useScrollManager();
   const scrollYSubject = useSubject<number>();
 
-  const state = useUpsertManager({
-    rows: props.rows,
-    scrollYSubject,
-  });
+  useEffect(() => scrollManager.scrollYSubject.subscribe(() => {
+    scrollYSubject.next(0);
+  }), []);
 
   const { selection, setSelection } = useSelection();
 
   const {
+    rows,
     offset,
     limit,
     total,
-    loading,
     payload,
     rowMark,
     rowColor,
-    columns: listColumns,
     selectionMode = SelectionMode.None,
-    withLoader = false,
+    pageItemTemplate: PageTemplate = DefaultTemplate,
+    pageItemTemplateMinHeight = DEFAULT_ITEM_SIZE,
+    labelDisplayedRows,
     onRowClick,
-    onRowAction
+    tileMode,
   } = props;
 
   const reload = useReload();
 
-  /**
-   * @function gridColumns
-   * @description Returns a memoized value for the grid columns array
-   * @returns The grid columns array
-   */
-  const gridColumns = useMemo(() => {
-    return list2grid(listColumns, payload);
-  }, []);
-
-  /**
-   * @description selectedRows represents an array of selected rows.
-   *
-   * @type {Array<string>}
-   *
-   * @param selection - The array of selected items.
-   *
-   * @returns - The selected rows as an array of strings.
-   */
   const selectedRows = useMemo(() => {
     return [...selection] as string[]
   }, [selection]);
 
   /**
-   * Handles the click event on a row.
+   * Handles the click event of a row.
+   * If `withSelectOnRowClick` prop is true and `selectionMode` is not `SelectionMode.None`,
+   * it handles the selection logic based on the `selectionMode`.
+   * Otherwise, it invokes `onRowClick` callback with the clicked `row` and `reload` function.
    *
-   * @param row - The clicked row object.
-   * @returns
+   * @param row - The clicked row.
    */
   const handleRowClick = (row: any) => {
     if (
@@ -180,44 +166,24 @@ export const InfiniteView = <
 
   const { elementRef, size: { height: rootHeight, width: rootWidth } } = useElementSize();
 
-  const { handlePageChange } = props;
+  const { handlePageChange, handleLimitChange } = props;
 
-  const pendingPage = Math.floor(offset / limit) + 1;
-  const hasMore = !total || pendingPage * limit < total;
+  const handleDirtyLimitChange = (e: any) => handleLimitChange(e.target.value);
 
-  const waitForRequest = useRenderWaiter([loading]);
-
-  /**
-   * Handles the request for data.
-   *
-   * @param request - The request object containing the necessary data parameters.
-   * @returns - A promise that resolves with the requested data.
-   *
-   * @throws - If the request is invalid or fails.
-   */
-  const { execute: handleDataRequest } = useSinglerunAction(async (initial: boolean) => {
-    if (initial) {
-      return;
-    }
-    let isOk = true;
-    isOk = isOk && hasMore;
-    isOk = isOk && !loading;
-    if (isOk) {
-      handlePageChange(pendingPage);
-      await waitForRequest();
-    }
-  });
+  const handleDirtyPageChange = (_: any, newPage: number) =>
+    handlePageChange(newPage);
 
   return (
-    <Container<FilterData, RowData> {...props} {...state}>
+    <Container<FilterData, RowData> {...props}>
       <Box ref={elementRef} className={classes.root}>
         <Box className={classes.container}>
-          <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
-            <Grid
+          <Box position="relative" style={{ height: rootHeight- PAGINATION_HEIGHT, width: rootWidth }}>
+            <Tile
+              mode={tileMode}
               scrollYSubject={scrollYSubject}
-              minRowHeight={DEFAULT_ITEM_SIZE}
-              hasMore={hasMore}
-              loading={loading}
+              minRowHeight={pageItemTemplateMinHeight}
+              hasMore={false}
+              loading={false}
               bufferSize={limit * 2}
               selectedRows={selectedRows}
               onSelectedRows={(ids, initial) => {
@@ -226,26 +192,34 @@ export const InfiniteView = <
                 }
               }}
               selectionMode={selectionMode}
-              transparentPaper
               payload={payload}
               rowMark={rowMark}
-              onRowClick={handleRowClick}
-              onRowAction={(action, row) => {
-                onRowAction && onRowAction(action, row, reload);
-              }}
               rowKey="id"
               rowColor={rowColor}
-              columns={gridColumns}
-              data={state.rows}
-              onSkip={async (initial) => void await handleDataRequest(initial)}
-              sx={{ height: rootHeight, width: rootWidth }}
-            />
-            <ModalLoader open={withLoader && loading} />
+              data={rows}
+              onItemClick={({ data }) => {
+                handleRowClick(data);
+              }}
+              sx={{ height: rootHeight- PAGINATION_HEIGHT, width: rootWidth }}
+            >
+              {PageTemplate}
+            </Tile>
           </Box>
+          <TablePagination
+            width={rootWidth}
+            height={rootHeight}
+            count={total || -1}
+            rowsPerPage={limit}
+            page={offset / limit}
+            labelDisplayedRows={labelDisplayedRows}
+            rowsPerPageOptions={ROWS_PER_PAGE}
+            onPageChange={handleDirtyPageChange}
+            onRowsPerPageChange={handleDirtyLimitChange}
+          />
         </Box>
       </Box>
     </Container>
   );
 };
 
-export default InfiniteView;
+export default PageView;
