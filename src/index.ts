@@ -102,6 +102,7 @@ export { useItemModal } from './hooks/useItemModal';
 export { useOneInput } from './hooks/useOneInput';
 export { useContextMenu } from './hooks/useContextMenu';
 export { useChangeDelay } from './hooks/useChangeDelay';
+export { useOnce } from './hooks/useOnce';
 
 export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';

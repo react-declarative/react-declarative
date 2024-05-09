@@ -114,6 +114,7 @@ declare module "react-declarative" {
   export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
   export { useChangeDelay } from "react-declarative/hooks/useChangeDelay";
+  export { useOnce } from "react-declarative/hooks/useOnce";
   export { useRouteItem } from "react-declarative/hooks/useRouteItem";
   export { useRouteParams } from "react-declarative/hooks/useRouteParams";
   export { useWatchChanges } from "react-declarative/hooks/useWatchChanges";
@@ -4657,6 +4658,11 @@ declare module "react-declarative/hooks/useChangeDelay" {
     doDelay: () => Promise<void>;
   };
   export default useChangeDelay;
+}
+
+declare module "react-declarative/hooks/useOnce" {
+  export const useOnce: (fn: () => void) => void;
+  export default useOnce;
 }
 
 declare module "react-declarative/hooks/useRouteItem" {
