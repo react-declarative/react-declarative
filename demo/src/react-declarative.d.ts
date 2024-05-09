@@ -20244,6 +20244,7 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
     history?: BrowserHistory | MemoryHistory | HashHistory;
     waitForChangesDelay?: number;
     readonly?: boolean;
+    data?: Data | null;
     updateSubject?: TSubject<[ID, Data]>;
     changeSubject?: TSubject<Data>;
     shouldAutoSave?: () => boolean;
@@ -20276,7 +20277,7 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
     beginSave: () => Promise<boolean>;
     afterSave: () => void;
     dropChanges: () => void;
-    waitForChanges: () => Promise<void>;
+    waitForChanges: () => Promise<Data | null>;
   }
   /**
    * PreventLeave hook documentation
@@ -20318,6 +20319,7 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
     history,
     waitForChangesDelay,
     readonly: upperReadonly,
+    data: upperData,
     onChange,
     onLoadStart,
     onLoadEnd,

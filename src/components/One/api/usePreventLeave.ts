@@ -25,6 +25,7 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
   history?: BrowserHistory | MemoryHistory | HashHistory;
   waitForChangesDelay?: number;
   readonly?: boolean;
+  data?: Data | null;
   updateSubject?: TSubject<[ID, Data]>;
   changeSubject?: TSubject<Data>;
   shouldAutoSave?: () => boolean;
@@ -58,7 +59,7 @@ export interface IPreventLeaveReturn<Data = IAnything> {
   beginSave: () => Promise<boolean>;
   afterSave: () => void;
   dropChanges: () => void;
-  waitForChanges: () => Promise<void>;
+  waitForChanges: () => Promise<Data | null>;
 }
 
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
@@ -106,6 +107,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
   history = DEFAULT_HISTORY,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   readonly: upperReadonly = false,
+  data: upperData = null,
   onChange,
   onLoadStart,
   onLoadEnd,
@@ -123,7 +125,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
 
   const changeSubject = useSubject<Data>(upperChangeSubject);
 
-  const [data, setData] = useState<Data | null>(null);
+  const [data, setData] = useState<Data | null>(upperData);
   const [invalid, setInvalid] = useState(false);
   const [loading, setLoading] = useState(0);
   const [readonly, setReadonly] = useState(false);
@@ -454,6 +456,7 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
       setReadonly(false);
       unblock();
     }
+    return data$.current;
   };
 
   return {

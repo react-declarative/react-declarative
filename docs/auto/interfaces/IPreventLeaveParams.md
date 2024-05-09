@@ -22,6 +22,12 @@ waitForChangesDelay: number
 readonly: boolean
 ```
 
+### data
+
+```ts
+data: Data
+```
+
 ### updateSubject
 
 ```ts

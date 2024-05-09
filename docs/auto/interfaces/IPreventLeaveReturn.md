@@ -49,5 +49,5 @@ dropChanges: () => void
 ### waitForChanges
 
 ```ts
-waitForChanges: () => Promise<void>
+waitForChanges: () => Promise<Data>
 ```
