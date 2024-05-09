@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 
 import useSinglerunAction from "./useSinglerunAction";
 import useActualCallback from "./useActualCallback";
@@ -104,6 +104,8 @@ export const useAsyncProgress = <
     progress: 0,
   }));
 
+  const [label, setLabel] = useState("");
+
   const onError$ = useActualCallback(onError);
   const onFinish$ = useActualCallback(onFinish);
   const onProgress$ = useActualCallback(onProgress);
@@ -182,6 +184,7 @@ export const useAsyncProgress = <
           return;
         }
         try {
+          setLabel(label);
           result.push(
             await execute({
               label,
@@ -229,6 +232,7 @@ export const useAsyncProgress = <
       execute(items);
     }, []),
     loading,
+    label,
     ...state$.current,
   } as const;
 };

@@ -5285,6 +5285,7 @@ declare module "react-declarative/hooks/useAsyncProgress" {
     readonly progress: number;
     readonly execute: (items: IProcess<Data>[]) => void;
     readonly loading: boolean;
+    readonly label: string;
   };
   export default useAsyncProgress;
 }
