@@ -2,6 +2,7 @@ import React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import useProps from "./useProps";
+import useChangeDelay from '../../../hooks/useChangeDelay';
 
 import { RowId } from '../../../model/IRowData';
 
@@ -84,6 +85,8 @@ export const SelectionProvider = ({
 
     const { onSelectedRows } = useProps();
 
+    const { delay$, doDelay } = useChangeDelay();
+
     /**
      * Handles the change in selection of the rows.
      *
@@ -93,6 +96,7 @@ export const SelectionProvider = ({
      * @return
      */
     const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
+        doDelay();
         onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
@@ -111,6 +115,9 @@ export const SelectionProvider = ({
 
     useEffect(() => {
         if (!selectedRows) {
+            return;
+        }
+        if (delay$.current) {
             return;
         }
         const pendingSelection = new Set(selectedRows);

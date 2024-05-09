@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import ITileProps from '../model/ITileProps';
 
+import useChangeDelay from '../../../hooks/useChangeDelay';
+
 const SelectionContext = createContext<IState>(null as never);
 
 export const useSelection = () => useContext(SelectionContext);
@@ -66,6 +68,8 @@ export const SelectionProvider = ({
 
     const [selection, setSelection] = useState(new Set<string>(selectedRows));
 
+    const { delay$, doDelay } = useChangeDelay();
+
     /**
      * Handles the change in selection.
      *
@@ -73,6 +77,7 @@ export const SelectionProvider = ({
      * @param [initialChange=false] - Indicates whether it is an initial change.
      */
     const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
+        doDelay();
         onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
@@ -91,6 +96,9 @@ export const SelectionProvider = ({
 
     useEffect(() => {
         if (!selectedRows) {
+            return;
+        }
+        if (delay$.current) {
             return;
         }
         const pendingSelection = new Set(selectedRows);

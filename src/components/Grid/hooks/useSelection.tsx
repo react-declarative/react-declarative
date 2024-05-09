@@ -2,6 +2,7 @@ import React from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import useGridProps from './useGridProps';
+import useChangeDelay from '../../../hooks/useChangeDelay';
 
 const SelectionContext = createContext<IState>(null as never);
 
@@ -63,6 +64,8 @@ export const SelectionProvider = ({
 
     const [selection, setSelection] = useState(new Set<string>(selectedRows));
 
+    const { delay$, doDelay } = useChangeDelay();
+
     /**
      * Handles the change in selection.
      *
@@ -70,6 +73,7 @@ export const SelectionProvider = ({
      * @param initialChange - Whether the change is initial.
      */
     const handleSelectionChange = (selection: IState['selection'], initialChange = false) => {
+        doDelay();
         onSelectedRows && onSelectedRows([...selection], initialChange);
         setSelection(new Set(selection));
     };
@@ -88,6 +92,9 @@ export const SelectionProvider = ({
 
     useEffect(() => {
         if (!selectedRows) {
+            return;
+        }
+        if (delay$.current) {
             return;
         }
         const pendingSelection = new Set(selectedRows);

@@ -101,6 +101,7 @@ export { useManagedCursor } from './hooks/useManagedCursor';
 export { useItemModal } from './hooks/useItemModal';
 export { useOneInput } from './hooks/useOneInput';
 export { useContextMenu } from './hooks/useContextMenu';
+export { useChangeDelay } from './hooks/useChangeDelay';
 
 export { useRouteItem } from './hooks/useRouteItem';
 export { useRouteParams } from './hooks/useRouteParams';
@@ -473,7 +474,7 @@ export { Scaffold3 } from './components';
 export { Countdown } from './components';
 export { Spinner } from './components'; 
 export { Grid } from './components';
-export { Tile } from './components';
+export { Tile, TileCheckbox } from './components';
 export { CopyButton } from './components';
 export { Copy } from './components';
 export { Chip } from './components';
@@ -502,6 +503,7 @@ export { useListModalSort } from './components';
 export { useListDropFilters } from './components';
 export { useListStateAction } from './components';
 export { useListUpsertManager } from './components';
+export { useListToggleHandler } from './components';
 export { useApiPaginator } from './components';
 
 export { useCursorPaginator } from './components';

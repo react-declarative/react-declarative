@@ -113,6 +113,7 @@ declare module "react-declarative" {
   export { useItemModal } from "react-declarative/hooks/useItemModal";
   export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
+  export { useChangeDelay } from "react-declarative/hooks/useChangeDelay";
   export { useRouteItem } from "react-declarative/hooks/useRouteItem";
   export { useRouteParams } from "react-declarative/hooks/useRouteParams";
   export { useWatchChanges } from "react-declarative/hooks/useWatchChanges";
@@ -551,7 +552,7 @@ declare module "react-declarative" {
   export { Countdown } from "react-declarative/components";
   export { Spinner } from "react-declarative/components";
   export { Grid } from "react-declarative/components";
-  export { Tile } from "react-declarative/components";
+  export { Tile, TileCheckbox } from "react-declarative/components";
   export { CopyButton } from "react-declarative/components";
   export { Copy } from "react-declarative/components";
   export { Chip } from "react-declarative/components";
@@ -583,6 +584,7 @@ declare module "react-declarative" {
   export { useListDropFilters } from "react-declarative/components";
   export { useListStateAction } from "react-declarative/components";
   export { useListUpsertManager } from "react-declarative/components";
+  export { useListToggleHandler } from "react-declarative/components";
   export { useApiPaginator } from "react-declarative/components";
   export { useCursorPaginator } from "react-declarative/components";
   export { useOffsetPaginator } from "react-declarative/components";
@@ -3038,6 +3040,7 @@ declare module "react-declarative/components/List" {
   export { useDropFilters as useListDropFilters } from "react-declarative/components/List/hooks/useDropFilters";
   export { useStateAction as useListStateAction } from "react-declarative/components/List/hooks/useStateAction";
   export { useUpsertManager as useListUpsertManager } from "react-declarative/components/List/hooks/useUpsertManager";
+  export { useToggleHandler as useListToggleHandler } from "react-declarative/components/List/hooks/useToggleHandler";
   export { ClassicChipListSlot } from "react-declarative/components/List/common/ClassicChipListSlot";
   export { ClassicFilterListSlot } from "react-declarative/components/List/common/ClassicFilterListSlot";
   export { DialogFilterListSlot } from "react-declarative/components/List/common/DialogFilterListSlot";
@@ -4629,6 +4632,14 @@ declare module "react-declarative/hooks/useContextMenu" {
     throwError,
   }: IParams<T>) => IResult;
   export default useContextMenu;
+}
+
+declare module "react-declarative/hooks/useChangeDelay" {
+  export const useChangeDelay: (delay?: number) => {
+    delay$: import("react").MutableRefObject<boolean>;
+    doDelay: () => Promise<void>;
+  };
+  export default useChangeDelay;
 }
 
 declare module "react-declarative/hooks/useRouteItem" {
@@ -10963,6 +10974,7 @@ declare module "react-declarative/components/Grid" {
 
 declare module "react-declarative/components/Tile" {
   export * from "react-declarative/components/Tile/Tile";
+  export * from "react-declarative/components/Tile/components/TileCheckbox";
   export * from "react-declarative/components/Tile/model/TileMode";
   export * from "react-declarative/components/Tile/model/ITile";
   export * from "react-declarative/components/Tile/model/ITileProps";
@@ -17940,6 +17952,21 @@ declare module "react-declarative/components/List/hooks/useUpsertManager" {
     rows: any[];
   };
   export default useUpsertManager;
+}
+
+declare module "react-declarative/components/List/hooks/useToggleHandler" {
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Toggles the selection of a given row and updates the selection state.
+   *
+   * @template RowData The type of data in the row.
+   * @param row The row data to toggle the selection for.
+   * @returns A function that takes an event and toggles the selection for the row.
+   */
+  export const useToggleHandler: <RowData extends IRowData = any>(
+    row: RowData,
+  ) => (radio?: boolean) => (e: any) => void;
+  export default useToggleHandler;
 }
 
 declare module "react-declarative/components/List/common/ClassicChipListSlot" {
@@ -26393,6 +26420,23 @@ declare module "react-declarative/components/Tile/Tile" {
     rowMark,
   }: ITileProps<Data, Payload>) => JSX.Element;
   export default Tile;
+}
+
+declare module "react-declarative/components/Tile/components/TileCheckbox" {
+  import SelectionMode from "react-declarative/model/SelectionMode";
+  interface ITileCheckboxProps {
+    isSelected: boolean;
+    selectionMode: SelectionMode;
+    toggleSelection: () => void;
+    disabled?: boolean;
+  }
+  export const TileCheckbox: ({
+    isSelected,
+    selectionMode,
+    toggleSelection,
+    disabled,
+  }: ITileCheckboxProps) => JSX.Element;
+  export default TileCheckbox;
 }
 
 declare module "react-declarative/components/Tile/model/TileMode" {

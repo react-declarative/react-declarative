@@ -27,6 +27,7 @@ export { useModalSort as useListModalSort } from './hooks/useModalSort';
 export { useDropFilters as useListDropFilters } from './hooks/useDropFilters';
 export { useStateAction as useListStateAction } from './hooks/useStateAction'; 
 export { useUpsertManager as useListUpsertManager } from './hooks/useUpsertManager'; 
+export { useToggleHandler as useListToggleHandler } from './hooks/useToggleHandler';
 
 export { ClassicChipListSlot } from './common/ClassicChipListSlot';
 export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';

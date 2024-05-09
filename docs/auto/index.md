@@ -385,6 +385,7 @@
 - [IGridProps](interfaces/IGridProps.md)
 - [IColumn](interfaces/IColumn.md)
 - [IGridAction](interfaces/IGridAction.md)
+- [ITileCheckboxProps](interfaces/ITileCheckboxProps.md)
 - [ITileProps](interfaces/ITileProps.md)
 - [ISpinnerProps](interfaces/ISpinnerProps.md)
 - [IAsyncProps](interfaces/IAsyncProps.md)
