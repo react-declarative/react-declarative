@@ -3,10 +3,12 @@ import createSsManager from "./createSsManager";
 
 interface IParams {
     allowed: (pathname: string) => boolean;
+    map: (pathname: string) => string;
 }
 
 export const createManagedHistory = (storageKey: string, {
     allowed = () => true,
+    map = (v) => v,
 }: Partial<IParams> = {}) => {
     const storageManager = createSsManager<string>(storageKey);
 
@@ -28,7 +30,8 @@ export const createManagedHistory = (storageKey: string, {
         location,
     }) => {
         if (allowed(location.pathname)) {
-            storageManager.setValue(location.pathname);
+            const pathname = map(location.pathname);
+            storageManager.setValue(pathname);
         }
     });
 

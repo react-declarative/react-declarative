@@ -10148,10 +10148,11 @@ declare module "react-declarative/utils/createWindowHistory" {
 declare module "react-declarative/utils/createManagedHistory" {
   interface IParams {
     allowed: (pathname: string) => boolean;
+    map: (pathname: string) => string;
   }
   export const createManagedHistory: (
     storageKey: string,
-    { allowed }?: Partial<IParams>,
+    { allowed, map }?: Partial<IParams>,
   ) => import("history").MemoryHistory;
   export default createManagedHistory;
 }
