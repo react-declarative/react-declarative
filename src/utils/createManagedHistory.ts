@@ -29,10 +29,8 @@ export const createManagedHistory = (storageKey: string, {
     history.listen(({
         location,
     }) => {
-        if (allowed(location.pathname)) {
-            const pathname = map(location.pathname);
-            storageManager.setValue(pathname);
-        }
+        const pathname = map(location.pathname);
+        storageManager.setValue(pathname);
     });
 
     return history;
