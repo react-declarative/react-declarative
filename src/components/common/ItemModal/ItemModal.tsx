@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useRef, useLayoutEffect } from 'react';
+
 import { makeStyles } from '../../../styles';
 
 import TextField from '@mui/material/TextField';
@@ -86,7 +88,9 @@ export const ItemModal = ({
 }: IItemModalProps) => {
     const { classes } = useStyles();
 
-    const { elementRef, size } = useElementSize()
+    const { elementRef, size } = useElementSize();
+    
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const {
         items,
@@ -115,11 +119,16 @@ export const ItemModal = ({
         onValueChange,
     });
 
+    useLayoutEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
     return (
         <Modal className={classes.modal} open onClose={cancelSubmit}>
             <Paper className={classes.root}>
                 <TextField
                     value={searchText}
+                    inputRef={inputRef}
                     onChange={({ target }) => setSearchText(target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
