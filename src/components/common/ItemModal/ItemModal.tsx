@@ -15,6 +15,7 @@ import ModalLoader from './components/ModalLoader';
 import ActionButton from '../../ActionButton';
 import Tile from '../../Tile';
 
+import ISize from '../../../model/ISize';
 import IField from '../../../model/IField';
 import IManaged from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
@@ -38,7 +39,7 @@ export interface IItemModalProps {
     itemList: IField['itemList'];
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles<ISize>()((theme, { height }) => ({
     root: {
         marginTop: '10px',
         marginLeft: '10px',
@@ -46,6 +47,7 @@ const useStyles = makeStyles()((theme) => ({
         gap: theme.spacing(1),
         height: 'calc(min(50vh, 60dvh) - 20px)',
         width: 'calc(100vw - 20px)',
+        minHeight: `${Math.floor(height / 2) - 20}px`,
         maxWidth: '450px',
         display: 'flex',
         alignItems: 'stretch',
@@ -86,7 +88,7 @@ export const ItemModal = ({
     placeholder,
     onValueChange,
 }: IItemModalProps) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles(window.screen);
 
     const { elementRef, size } = useElementSize();
     
