@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 
 import { makeStyles, useTheme } from '../../styles';
 import { alpha, createTheme, ThemeProvider } from '@mui/material/styles';
@@ -11,6 +11,7 @@ import ModalManagerContext from './context/ModalManagerContext';
 import Bootstrap from './components/Bootstrap';
 
 import randomString from '../../utils/randomString';
+import Subject from '../../utils/rx/Subject';
 
 import useActualValue from '../../hooks/useActualValue';
 import useQueuedAction from '../../hooks/useQueuedAction';
@@ -75,6 +76,8 @@ const useStyles = makeStyles()({
     },
 });
 
+const clearSubject = new Subject<void>();
+
 /**
  * ModalManagerProvider component provides a context for managing modals in an application.
  *
@@ -138,8 +141,12 @@ export const ModalManagerProvider = ({
             await execute(modal.onInit);
             setModalStack([{ ...modal, key: randomString() }, ...modalStack$.current])
         },
-        clear: () => setState(INITIAL_STATE),
+        clear: () => void clearSubject.next(),
     }), [modalStack]);
+
+    useEffect(() => clearSubject.subscribe(() => {
+        setState(INITIAL_STATE);
+    }), []);
 
     /**
      * Creates a memoized modal entity based on the given modal stack.
