@@ -77,7 +77,6 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   bufferSize = DEFAULT_BUFFER_SIZE,
   minRowHeight = DEFAULT_MIN_HEIGHT,
   payload: upperPayload = {} as Payload,
-  rowColor = () => 'inherit',
   rowKey = "id",
   noDataLabel = "No data",
   errorMessage,
@@ -91,7 +90,8 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   recomputeSubject,
   scrollXSubject,
   scrollYSubject,
-  rowMark,
+  rowMark = () => "",
+  rowColor = () => "",
 }: ITileProps<Data, Payload>) => {
   const { classes } = useStyles();
 
@@ -114,7 +114,6 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
       {data.map((item, idx) => (
         <TileItem
           key={item[rowKey] || idx}
-          rowColor={rowColor(item)}
           index={idx}
           payload={payload}
           data={item}
@@ -149,6 +148,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
         recomputeSubject={recomputeSubject}
         rowKey={rowKey}
         rowMark={rowMark}
+        rowColor={rowColor}
       >
         {createElement(mode === TileMode.Virtual ? VirtualView : InfiniteView, {
           withScrollbar: true,

@@ -326,7 +326,7 @@ rowMark: ((row: RowData) => string) | ((row: RowData) => Promise<string>)
 ### rowColor
 
 ```ts
-rowColor: (row: RowData) => string
+rowColor: ((row: RowData) => string) | ((row: RowData) => Promise<string>)
 ```
 
 ### modalSizeRequest

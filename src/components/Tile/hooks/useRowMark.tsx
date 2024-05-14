@@ -7,11 +7,11 @@ import memoize from "../../../utils/hof/memoize";
 
 import ITileProps from "../model/ITileProps";
 
-type RowMark = Exclude<ITileProps["rowMark"], undefined> & {
-  clear: (id?: string) => void;
-};
 
-const RowMarkContext = createContext<RowMark>(null as never);
+const RowMarkContext = createContext<{
+  rowMark: Exclude<ITileProps["rowMark"], undefined>;
+  rowColor: Exclude<ITileProps["rowColor"], undefined>;
+}>(null as never);
 
 export const useRowMark = () => useContext(RowMarkContext);
 
@@ -19,7 +19,8 @@ export const useRowMark = () => useContext(RowMarkContext);
  * Interface representing the props for the IRowMarkProvider component.
  */
 interface IRowMarkProviderProps {
-  rowMark: ITileProps["rowMark"];
+  rowMark: Exclude<ITileProps["rowMark"], undefined>;
+  rowColor: Exclude<ITileProps["rowColor"], undefined>;
   rowKey: ITileProps["rowKey"];
   recomputeSubject: ITileProps["recomputeSubject"];
   children: React.ReactNode;
@@ -40,6 +41,7 @@ export const RowMarkProvider = ({
   rowKey = "id",
   recomputeSubject: upperRecomputeSubject,
   rowMark: upperRowMark = () => "",
+  rowColor: upperRowColor = () => "",
 }: IRowMarkProviderProps) => {
   const recomputeSubject = useSubject(upperRecomputeSubject);
 
@@ -55,10 +57,23 @@ export const RowMarkProvider = ({
     []
   );
 
+  /**
+   * Memoizes a function to calculate the row mark.
+   *
+   * @param rowKey - The function to extract the key from the row.
+   * @param upperRowColor - The function to calculate the upper row mark.
+   * @returns The memoized row mark value.
+   */
+  const rowColor = useMemo(
+    () => memoize(([row]) => row[rowKey] || row, upperRowColor),
+    []
+  );
+
   useEffect(
     () =>
       recomputeSubject.subscribe(() => {
         rowMark.clear();
+        rowColor.clear();
       }),
     []
   );
@@ -66,12 +81,18 @@ export const RowMarkProvider = ({
   useEffect(
     () => () => {
       rowMark.clear();
+      rowColor.clear();
     },
     []
   );
 
+  const value = useMemo(() => ({
+    rowMark,
+    rowColor,
+  }), []);
+
   return (
-    <RowMarkContext.Provider value={rowMark}>
+    <RowMarkContext.Provider value={value}>
       {children}
     </RowMarkContext.Provider>
   );

@@ -147,11 +147,13 @@ export const Content = ({
 
   useEffect(() => recomputeSubject.subscribe(() => {
     rowMark.clear();
+    rowColor.clear();
   }), []);
 
   useEffect(
     () => () => {
       rowMark.clear();
+      rowColor.clear();
     },
     []
   );

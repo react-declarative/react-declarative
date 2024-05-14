@@ -3997,7 +3997,7 @@ declare module "react-declarative/model/IListProps" {
     handler: ListHandler<FilterData, RowData>;
     payload?: Payload | (() => Payload);
     rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
-    rowColor?: (row: RowData) => string;
+    rowColor?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
     /**
      * Custom sizeRequest for modal filters
      */
@@ -17976,6 +17976,7 @@ declare module "react-declarative/components/List/hooks/useUpsertManager" {
     rows: upperRows,
   }: IParams) => {
     rows: any[];
+    recomputeSubject: import("../../..").Subject<void>;
   };
   export default useUpsertManager;
 }
@@ -26308,7 +26309,7 @@ declare module "react-declarative/components/Grid/model/IGridProps" {
     loading?: boolean;
     hasMore?: boolean;
     rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
-    rowColor?: (row: RowData) => string;
+    rowColor?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
     onSkip?: (initial: boolean) => void;
     onButtonSkip?: () => void;
     rowKey?: keyof T;
@@ -26431,7 +26432,6 @@ declare module "react-declarative/components/Tile/Tile" {
     bufferSize,
     minRowHeight,
     payload: upperPayload,
-    rowColor,
     rowKey,
     noDataLabel,
     errorMessage,
@@ -26446,6 +26446,7 @@ declare module "react-declarative/components/Tile/Tile" {
     scrollXSubject,
     scrollYSubject,
     rowMark,
+    rowColor,
   }: ITileProps<Data, Payload>) => JSX.Element;
   export default Tile;
 }
@@ -26522,7 +26523,7 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
     selectionMode?: SelectionMode;
     recomputeSubject?: TSubject<void>;
     rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
-    rowColor?: (row: Data) => string;
+    rowColor?: ((row: Data) => string) | ((row: Data) => Promise<string>);
     onSelectedRows?: (rowIds: string[], initialChange: boolean) => void;
     selectedRows?: string[];
   }
@@ -28032,7 +28033,7 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
     renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
     onItemClick: (item: { data: Data; payload: Payload }) => void;
     rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
-    rowColor?: (row: Data) => string;
+    rowColor?: ((row: Data) => string) | ((row: Data) => Promise<string>);
   }
   export default ICalendarViewProps;
 }

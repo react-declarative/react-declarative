@@ -2,7 +2,9 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import useStateAction from "./useStateAction";
 import useScrollManager from './useScrollManager';
+
 import useActualState from '../../../hooks/useActualState';
+import useSubject from '../../../hooks/useSubject';
 
 import { IListState } from "../../../model/IListProps";
 import TSubject from '../../../model/TSubject';
@@ -20,6 +22,8 @@ export const useUpsertManager = ({
     scrollYSubject,
     rows: upperRows
 }: IParams) => {
+
+    const recomputeSubject = useSubject<void>();
 
     const scrollManager = useScrollManager();
     const stateActionEmitter = useStateAction();
@@ -79,10 +83,12 @@ export const useUpsertManager = ({
         if (action.type === "sort-changed") {
             keepPaginationRef.current = false;
         }
+        recomputeSubject.next();
     }), []);
 
     return {
         rows: rows$.current,
+        recomputeSubject,
     };
 };
 

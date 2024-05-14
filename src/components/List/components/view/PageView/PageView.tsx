@@ -21,6 +21,7 @@ import useSubject from "../../../../../hooks/useSubject";
 import useSelection from "../../../hooks/useSelection";
 
 import useElementSize from "../../../../../hooks/useElementSize";
+import useUpsertManager from "../../../hooks/useUpsertManager";
 
 import DefaultTemplate from "./components/DefaultTemplate";
 
@@ -127,6 +128,11 @@ export const PageView = <
     tileMode,
   } = props;
 
+  const state = useUpsertManager({
+    rows: props.rows,
+    scrollYSubject,
+  });
+
   const reload = useReload();
 
   const selectedRows = useMemo(() => {
@@ -180,6 +186,7 @@ export const PageView = <
           <Box position="relative" style={{ height: rootHeight- PAGINATION_HEIGHT, width: rootWidth }}>
             <Tile
               mode={tileMode}
+              recomputeSubject={state.recomputeSubject}
               scrollYSubject={scrollYSubject}
               minRowHeight={pageItemTemplateMinHeight}
               hasMore={false}

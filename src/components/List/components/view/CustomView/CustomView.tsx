@@ -202,6 +202,7 @@ export const CustomView = <
           <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
             <Tile
               mode={tileMode}
+              recomputeSubject={state.recomputeSubject}
               scrollYSubject={scrollYSubject}
               minRowHeight={customTemplateMinHeight}
               hasMore={hasMore}

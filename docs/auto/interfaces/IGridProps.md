@@ -127,7 +127,7 @@ rowMark: ((row: any) => string) | ((row: any) => Promise<string>)
 ### rowColor
 
 ```ts
-rowColor: (row: any) => string
+rowColor: ((row: any) => string) | ((row: any) => Promise<string>)
 ```
 
 ### onSkip
