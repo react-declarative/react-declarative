@@ -18,7 +18,7 @@ import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 import throttle from "../../utils/hof/throttle";
 
-import { DEFAULT_ROW_WIDTH, CELL_MARGIN, DEFAULT_BUFFER_SIZE } from "./config";
+import { DEFAULT_COLUMN_WIDTH, CELL_MARGIN, DEFAULT_BUFFER_SIZE } from "./config";
 import { SelectionProvider } from "./hooks/useSelection";
 
 /**
@@ -29,7 +29,7 @@ import { SelectionProvider } from "./hooks/useSelection";
  */
 const createDefaultWidthFn = (columnsLength: number) => (fullWidth: number) => {
   const pendingWidth = Math.floor(fullWidth / columnsLength);
-  return Math.max(pendingWidth, DEFAULT_ROW_WIDTH);
+  return Math.max(pendingWidth, DEFAULT_COLUMN_WIDTH);
 };
 
 /**
@@ -107,7 +107,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
             const value =
               typeof dimension === "string" ? parseFloat(dimension) : dimension;
             const adjust = typeof upperWidth === "function" ? CELL_MARGIN : 0;
-            return Math.max(value - adjust, minWidth, DEFAULT_ROW_WIDTH);
+            return Math.max(value - adjust, minWidth);
           };
           return {
             minWidth,

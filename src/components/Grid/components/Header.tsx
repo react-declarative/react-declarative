@@ -124,6 +124,11 @@ const useStyles = makeStyles()((theme) => ({
       marginLeft: theme.spacing(1),
     },
   },
+  noWrap: {
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
 }));
 
 /**
@@ -265,10 +270,6 @@ export const Header = <T extends RowData>({
           return (
             <Cell
               key={rowId}
-              sx={{
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
               className={classNames(classes.headerCell, classes.headerCellOpacity, {
                 [classes.headerCellClick]: Boolean(onClickHeaderColumn),
                 [classes.coloredHeaderCell]:
@@ -283,7 +284,7 @@ export const Header = <T extends RowData>({
               }}
             >
               <div
-                className={classNames({
+                className={classNames(classes.noWrap, {
                   [classes.headerCellSortable]: Boolean(sort),
                 })}
               >

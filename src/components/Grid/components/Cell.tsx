@@ -10,7 +10,7 @@ import { useGridProps } from '../hooks/useGridProps';
 import { useContainerSize } from '../hooks/useContainerSize';
 import { useConstraintManager } from '../hooks/useConstraintManager';
 
-import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH, CHECKBOX_WIDTH } from '../config';
+import { DEFAULT_COLUMN_WIDTH, ACTIONS_WIDTH, CHECKBOX_WIDTH } from '../config';
 import SelectionMode from '../../../model/SelectionMode';
 
 /**
@@ -71,7 +71,7 @@ export const Cell = ({
    */
   const computedWidth = useMemo(() => {
     const compute = () => {
-      const field = column.width || DEFAULT_ROW_WIDTH;
+      const field = column.width || DEFAULT_COLUMN_WIDTH;
       const result =
         typeof field === 'function' ? field(containerWidth) : field;
       return typeof result === 'number' ? `${result}px` : result;

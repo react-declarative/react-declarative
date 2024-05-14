@@ -13,7 +13,7 @@ import { VIRTUAL_VIEW_CHILD } from '../../VirtualView';
 
 import classNames from '../../../utils/classNames';
 
-import { DEFAULT_ROW_WIDTH, ACTIONS_WIDTH } from '../config';
+import { DEFAULT_COLUMN_WIDTH, ACTIONS_WIDTH } from '../config';
 
 /**
  * Represents the properties for a Line component.
@@ -69,7 +69,7 @@ export const Line = forwardRef(
      */
     const computedWidth = useMemo(() => {
       const compute = (column: IColumn) => () => {
-        const field = column.width || DEFAULT_ROW_WIDTH;
+        const field = column.width || DEFAULT_COLUMN_WIDTH;
         const result =
           typeof field === 'function' ? field(containerWidth) : field;
         return typeof result === 'string' ? parseFloat(result) : result;
