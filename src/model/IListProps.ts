@@ -545,7 +545,7 @@ export interface IListProps<
   handler: ListHandler<FilterData, RowData>;
   payload?: Payload | (() => Payload);
   rowMark?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
-  rowColor?: ((row: RowData) => string);
+  rowColor?: ((row: RowData) => string) | ((row: RowData) => Promise<string>);
   /**
    * Custom sizeRequest for modal filters
    */

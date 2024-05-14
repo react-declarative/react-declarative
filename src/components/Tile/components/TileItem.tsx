@@ -24,7 +24,6 @@ interface ITileItemProps {
   rowKey: Exclude<ITileProps["rowKey"], undefined>;
   children: ITileProps["children"];
   onItemClick: ITileProps["onItemClick"];
-  rowColor: string;
   selectionMode: ITileProps["selectionMode"];
 }
 
@@ -42,7 +41,6 @@ export const TileItem = forwardRef(
       data,
       payload,
       rowKey,
-      rowColor,
       selectionMode,
       children,
       onItemClick,
@@ -50,20 +48,18 @@ export const TileItem = forwardRef(
     ref: React.Ref<HTMLDivElement>
   ) => {
     const [rowMarkColor, setRowMarkColor] = useState("");
+    const [rowBgColor, setRowBgColor] = useState("");
 
     const { selection, setSelection } = useSelection();
-    const rowMark = useRowMark();
+    const { rowMark, rowColor } = useRowMark();
 
     const { execute } = useAsyncAction(async () => {
-      const color = await rowMark(data);
-      setRowMarkColor(color);
+      setRowMarkColor(await rowMark(data));
+      setRowBgColor(await rowColor(data));
     });
 
     useEffect(() => {
       execute();
-      return () => {
-        rowMark.clear(data[rowKey] || data);
-      };
     }, []);
 
     /**
@@ -115,9 +111,9 @@ export const TileItem = forwardRef(
         className={className}
         style={style}
         sx={{
-          background: rowColor,
+          background: rowBgColor,
           '&:hover': {
-            background: rowColor || 'transparent'
+            background: rowBgColor || 'transparent'
           }
         }}
         selected={isSelected}

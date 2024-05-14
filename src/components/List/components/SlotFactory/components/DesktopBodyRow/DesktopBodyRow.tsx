@@ -18,6 +18,7 @@ import { IBodyRowSlot, BodyColumn } from "../../../../slots/BodyRowSlot";
 import useProps from "../../../../hooks/useProps";
 import useReload from "../../../../hooks/useReload";
 import useSelection from "../../../../hooks/useSelection";
+import useAsyncValue from "../../../../../../hooks/useAsyncValue";
 
 import classNames from "../../../../../../utils/classNames";
 
@@ -79,6 +80,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   const { selection, setSelection } = useSelection();
 
   const { onRowClick, onRowAction, rowColor = () => 'inherit' } = props;
+
+  const [rowBgColor] = useAsyncValue(async () => await rowColor(row));
 
   /**
    * The handleClick function handles the click event for a specific row.
@@ -180,7 +183,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
         [classes.disabled]: disabled,
       })}
       sx={{
-        background: rowColor(row)
+        background: rowBgColor || "",
       }}
       selected={selection.has(row.id)}
       onClick={handleClick}

@@ -65,7 +65,7 @@ export interface ICalendarViewProps<
   renderItem: React.ComponentType<ICalendarTile<Data, Payload>>;
   onItemClick: (item: { data: Data, payload: Payload }) => void;
   rowMark?: ((row: Data) => string) | ((row: Data) => Promise<string>);
-  rowColor?: (row: Data) => string;
+  rowColor?: ((row: Data) => string) | ((row: Data) => Promise<string>);
 }
 
 export default ICalendarViewProps;

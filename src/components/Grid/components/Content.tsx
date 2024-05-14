@@ -53,6 +53,7 @@ interface IContentProps {
   onButtonSkip: IGridProps["onButtonSkip"];
   onSkip: IGridProps["onSkip"];
   rowMark: IGridProps["rowMark"];
+  rowColor: IGridProps["rowColor"];
 }
 
 /**
@@ -127,6 +128,7 @@ export const Content = ({
   onScrollX,
   noDataLabel = "No data",
   rowMark: upperRowMark = () => "",
+  rowColor: upperRowColor = () => "",
 }: IContentProps) => {
   const { classes } = useStyles();
 
@@ -138,13 +140,20 @@ export const Content = ({
     []
   );
 
+  const rowColor = useMemo(
+    () => memoize(([row]) => row[rowKey] || row, upperRowColor),
+    []
+  );
+
   useEffect(() => recomputeSubject.subscribe(() => {
     rowMark.clear();
+    rowColor.clear();
   }), []);
 
   useEffect(
     () => () => {
       rowMark.clear();
+      rowColor.clear();
     },
     []
   );
@@ -201,6 +210,7 @@ export const Content = ({
           <ContentRow
             key={rowId}
             rowMark={rowMark}
+            rowColor={rowColor}
             columns={columns}
             row={row}
             recomputeSubject={recomputeSubject}

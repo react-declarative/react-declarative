@@ -25,6 +25,7 @@ import classNames from "../../../../../../utils/classNames";
 import useProps from "../../../../hooks/useProps";
 import useSelection from "../../../../hooks/useSelection";
 import useReload from "../../../../hooks/useReload";
+import useAsyncValue from "../../../../../../hooks/useAsyncValue";
 
 /**
  * Returns the styles object for a component.
@@ -88,6 +89,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   const { selection, setSelection } = useSelection();
 
   const { onRowClick, onRowAction, rowColor = () => 'inherit' } = props;
+
+  const [rowBgColor] = useAsyncValue(async () => await rowColor(row));
 
   /**
    * Function to handle click event.
@@ -231,7 +234,7 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
       className={classes.root}
       selected={selection.has(row.id)}
       sx={{
-        background: rowColor(row),
+        background: rowBgColor || "",
         maxWidth,
       }}
       onClick={handleClick}

@@ -157,5 +157,5 @@ rowMark: ((row: Data) => string) | ((row: Data) => Promise<string>)
 ### rowColor
 
 ```ts
-rowColor: (row: Data) => string
+rowColor: ((row: Data) => string) | ((row: Data) => Promise<string>)
 ```
