@@ -7126,6 +7126,9 @@ declare module "react-declarative/components/One/components/common/VirtualListBo
 declare module "react-declarative/utils/list2grid" {
   import { IGridColumn } from "react-declarative/components/Grid";
   import IColumn from "react-declarative/model/IColumn";
+  interface IConfig {
+    minWidth: number;
+  }
   /**
    * Converts a list of columns and a payload into a grid configuration.
    *
@@ -7136,6 +7139,7 @@ declare module "react-declarative/utils/list2grid" {
   export const list2grid: (
     columns: IColumn[],
     payload: Record<string, any>,
+    { minWidth }?: Partial<IConfig>,
   ) => IGridColumn[];
   export default list2grid;
 }

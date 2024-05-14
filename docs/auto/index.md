@@ -89,6 +89,7 @@
 - [IRowData](interfaces/IRowData.md)
 - [IOnePublicProps](interfaces/IOnePublicProps.md)
 - [IVirtualListBoxProps](interfaces/IVirtualListBoxProps.md)
+- [IConfig](interfaces/IConfig.md)
 - [Location](interfaces/Location.md)
 - [IBreakpoints](interfaces/IBreakpoints.md)
 - [ISwitchItem](interfaces/ISwitchItem.md)

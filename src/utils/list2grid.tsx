@@ -10,6 +10,12 @@ import ColumnType from "../model/ColumnType";
 
 import get from './get';
 
+const DEFAULT_MIN_WIDTH = 165;
+
+interface IConfig {
+  minWidth: number;
+}
+
 /**
  * Converts a list of columns and a payload into a grid configuration.
  *
@@ -19,7 +25,10 @@ import get from './get';
  */
 export const list2grid = (
   columns: IColumn[],
-  payload: Record<string, any>
+  payload: Record<string, any>,
+  {
+    minWidth = DEFAULT_MIN_WIDTH,
+  }: Partial<IConfig> = {},
 ): IGridColumn[] => {
   return columns
     .map((column, idx): IGridColumn | null => {
@@ -32,6 +41,7 @@ export const list2grid = (
           label: column.headerName || mockName,
           width: column.width,
           field: column.field,
+          minWidth,
           format(row) {
             return (
               <Checkbox color="primary" disabled checked={row[column.field!]} />
@@ -43,6 +53,7 @@ export const list2grid = (
         label: column.headerName || mockName,
         width: column.width,
         field: column.field,
+        minWidth,
         format(row) {
           if (column.compute || column.element) {
             return (
