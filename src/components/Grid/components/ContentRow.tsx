@@ -71,6 +71,9 @@ interface IContentRowProps {
   rowMark: Exclude<IGridProps["rowMark"], undefined> & {
     clear(row: any): void;
   };
+  rowColor: Exclude<IGridProps["rowColor"], undefined> & {
+    clear(row: any): void;
+  };
 }
 
 /**
@@ -183,21 +186,21 @@ export const ContentRow = forwardRef(
       onTableRowClick,
       onRowAction,
       rowMark,
+      rowColor,
     }: IContentRowProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
     const { classes } = useStyles();
     const [rowMarkColor, setRowMarkColor] = useState<string>("");
+    const [rowBgColor, setRowBgColor] = useState<string>("");
     const recomputeSubject = useSubject(upperRecomputeSubject);
 
-    const { selectionMode = SelectionMode.None, rowColor = () => 'inherit' } = useGridProps();
+    const { selectionMode = SelectionMode.None } = useGridProps();
     const { selection, setSelection } = useSelection();
 
     const { execute } = useAsyncAction(async () => {
-      if (typeof rowMark === "function") {
-        const color = await rowMark(row);
-        setRowMarkColor(color);
-      }
+      setRowMarkColor(await rowMark(row));
+      setRowBgColor(await rowColor(row));
     });
 
     useEffect(() => {
@@ -280,7 +283,7 @@ export const ContentRow = forwardRef(
         selected={selection.has(row[rowKey])}
         ref={ref}
         sx={{
-          background: rowColor(row)
+          background: rowBgColor,
         }}
         className={classNames(CHILD_ELEMENT, className, classes.noPadding)}
         style={style}

@@ -62,6 +62,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
     onRowAction,
     onSkip,
     rowMark,
+    rowColor,
     onTableRowClick,
     onRowClick,
     noDataLabel,
@@ -174,6 +175,7 @@ export const Grid = <T extends RowData>(props: IGridProps<T>) => {
               recomputeSubject={recomputeSubject}
               noDataLabel={noDataLabel}
               rowMark={rowMark}
+              rowColor={rowColor}
               columns={columns}
               data={data}
               errorMessage={errorMessage}
