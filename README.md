@@ -1245,6 +1245,10 @@ import { VirtualView } from 'react-declarative';
 
     Serverless compution pros and no cons with react-declarative
 
+8. [Make SPA Java again](./NOTES.md#make-spa-java-again)
+
+    The problem of clean architecture in modern React apps
+
 <img src="./assets/icons/tree.svg" height="65px" align="right">
 
 ## License

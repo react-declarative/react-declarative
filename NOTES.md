@@ -237,3 +237,19 @@ If you're launching a tech startup, there's a high possibility that your company
 A serverless container (function) is a chunk of code that starts, executes an action, and then destroys itself. This is the only way to guarantee the absence of memory leaks in the long term. Also, they can be scaled because they are stateless; you can just start another instance on a different port with NGINX upstream, and it will consume more resources. Additionally, that instance could be started on a different machine, so the data center can be scaled vertically.
 
 The problem starts when you need to emit an event from one serverless container to another. This could be easily solved with [Inversion of Control (IoC)](./docs/code/DI.md) and [Subjects](./docs/code/RX.md). So, the `react-declarative` will help you build complex high-load systems with minimal resources for a coder's team.
+
+## Make SPA Java again
+
+The modern V8 engine made the true «~~compile~~ transpile once run anywhere». So, If we coding standalone app It pointless to use Java cause we don't 100% know how exactly It will work on modern ARM processors. The problem is in [the standart libraries](https://stackoverflow.com/a/693119/7388307) which connected to host operation system through native API. By the standart library I mean not the Java Core but the libs which we need to solve business problems like charts, grids etc. In javascript, the whole standart library is implemented by the browser
+
+When Javascript introduce itself to the world as the performant language, the Facebook released. So after that nobody cared about software design, the user data collection race started. A data collection race made the chatgpt, a Microsoft product running on Azure cloud. There is an issue in computer science history which no one see, the data collection for neural networks is impossible without software infrastructure. For example, you can't build AI rieltor untill you got a CRM with apartments and rent/sell bids.
+
+Right now CRM systems are not the main business product, so coding them must be cheap. So, the Firebase is actually not bad idea but It expensive. There are several production ready application services which can be easely used for data collection
+
+1. [Appwrite](https://appwrite.io/)
+2. [Pocketbase](https://pocketbase.io/)
+3. [Supabase](https://supabase.com/)
+
+All of them supports Realtime event bus that means staring coding new app without them pointless: they scalable on backend, they performant on frontend. There is a problem of migrating from one to another. Each of framework connect itself to the frontend by using generated SDK. It's a JS class with static method each of them wrap `fetch` call.
+
+The only way to allow fast migration from one application server to another is to write code in clean architecture with layer organising principles. You should split business logic from presentation and database. The `react-declarative` contains special code for implementation of these priciples called [DI](./docs/code/DI.md)
