@@ -772,6 +772,14 @@ declare module "react-declarative" {
   export { formatText } from "react-declarative/utils/formatText";
   export { roundTicks } from "react-declarative/utils/roundTicks";
   export { wordForm } from "react-declarative/utils/wordForm";
+  export {
+    scaleRect,
+    createScaleRect,
+  } from "react-declarative/utils/scaleRect";
+  export {
+    scaleToSize,
+    createScaleToSize,
+  } from "react-declarative/utils/scaleToSize";
   export { singleshot } from "react-declarative/utils/hof/singleshot";
   export { singletick } from "react-declarative/utils/hof/singletick";
   export { afterinit } from "react-declarative/utils/hof/afterinit";
@@ -7727,6 +7735,28 @@ declare module "react-declarative/utils/wordForm" {
     { one, many, two }: IWordForm,
   ) => string;
   export default wordForm;
+}
+
+declare module "react-declarative/utils/scaleRect" {
+  import ISize from "react-declarative/model/ISize";
+  interface IParams {
+    maxHeight?: number;
+    maxWidth?: number;
+  }
+  export const createScaleRect: ({
+    maxHeight,
+    maxWidth,
+  }?: IParams) => ({ height, width }: ISize) => ISize;
+  export const scaleRect: ({ height, width }: ISize) => ISize;
+  export default createScaleRect;
+}
+
+declare module "react-declarative/utils/scaleToSize" {
+  export const createScaleToSize: (
+    maxSize?: number,
+  ) => (blob: File | Blob) => Promise<Blob>;
+  export const scaleToSize: (blob: File | Blob) => Promise<Blob>;
+  export default scaleToSize;
 }
 
 declare module "react-declarative/utils/hof/singleshot" {

@@ -704,6 +704,9 @@ export { formatText } from './utils/formatText';
 export { roundTicks } from './utils/roundTicks';
 export { wordForm } from './utils/wordForm';
 
+export { scaleRect, createScaleRect } from './utils/scaleRect';
+export { scaleToSize, createScaleToSize } from './utils/scaleToSize';
+
 export { singleshot } from './utils/hof/singleshot';
 export { singletick } from './utils/hof/singletick';
 export { afterinit } from './utils/hof/afterinit';

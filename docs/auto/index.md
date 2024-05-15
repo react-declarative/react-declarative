@@ -96,6 +96,7 @@
 - [IConfig](interfaces/IConfig.md)
 - [IParams](interfaces/IParams.md)
 - [IWordForm](interfaces/IWordForm.md)
+- [IParams](interfaces/IParams.md)
 - [IClearable](interfaces/IClearable.md)
 - [IClearable](interfaces/IClearable.md)
 - [IWrappedFn](interfaces/IWrappedFn.md)
