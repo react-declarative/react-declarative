@@ -815,9 +815,12 @@ export { getTimeStamp, fromTimeStamp } from './utils/getTimeStamp';
 export { getGenesisStamp } from './utils/getGenesisStamp';
 
 export { resolveDocuments } from './api/resolveDocuments';
-export { iterateDocuments } from './api/iterateDocuments';
-export { iterateUnion } from './api/iterateUnion';
 export { pickDocuments } from './api/pickDocuments';
+
+export { iterateDocuments } from './api/iterateDocuments';
+export { iteratePromise } from './api/iteratePromise';
+export { iterateUnion } from './api/iterateUnion';
+export { iterateList } from './api/iterateList';
 
 export { useOpenDocument } from './view/useOpenDocument';
 

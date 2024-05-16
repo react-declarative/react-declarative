@@ -923,9 +923,11 @@ declare module "react-declarative" {
   } from "react-declarative/utils/getTimeStamp";
   export { getGenesisStamp } from "react-declarative/utils/getGenesisStamp";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
-  export { iterateDocuments } from "react-declarative/api/iterateDocuments";
-  export { iterateUnion } from "react-declarative/api/iterateUnion";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
+  export { iterateDocuments } from "react-declarative/api/iterateDocuments";
+  export { iteratePromise } from "react-declarative/api/iteratePromise";
+  export { iterateUnion } from "react-declarative/api/iterateUnion";
+  export { iterateList } from "react-declarative/api/iterateList";
   export { useOpenDocument } from "react-declarative/view/useOpenDocument";
   export { heavy } from "react-declarative/utils/heavy";
 }
@@ -10557,6 +10559,26 @@ declare module "react-declarative/api/resolveDocuments" {
   export default resolveDocuments;
 }
 
+declare module "react-declarative/api/pickDocuments" {
+  /**
+   * A function that picks a subset of documents from an array of documents, given a limit and offset.
+   *
+   * @template T - The type of the documents in the array.
+   * @param limit - The maximum number of documents to pick.
+   * @param offset - The number of documents to skip before picking.
+   * @returns - A function that takes an array of documents and returns an object with `rows` and `done` properties.
+   *                       The `rows` property contains the picked documents, and `done` property indicates if the picking is finished.
+   */
+  export const pickDocuments: <T extends unknown>(
+    limit: number,
+    offset: number,
+  ) => (rows?: T[]) => {
+    rows: T[];
+    done: boolean;
+  };
+  export default pickDocuments;
+}
+
 declare module "react-declarative/api/iterateDocuments" {
   import IRowData, { RowId } from "react-declarative/model/IRowData";
   /**
@@ -10600,6 +10622,14 @@ declare module "react-declarative/api/iterateDocuments" {
   export default iterateDocuments;
 }
 
+declare module "react-declarative/api/iteratePromise" {
+  import IRowData from "react-declarative/model/IRowData";
+  export function iteratePromise<T extends IRowData = IRowData>(
+    fn: () => Promise<T[]>,
+  ): AsyncGenerator<T, void, unknown>;
+  export default iteratePromise;
+}
+
 declare module "react-declarative/api/iterateUnion" {
   export const iterateUnion: <T extends unknown>(
     iterators: AsyncGenerator<T | T[], void, unknown>[],
@@ -10610,24 +10640,13 @@ declare module "react-declarative/api/iterateUnion" {
   export default iterateUnion;
 }
 
-declare module "react-declarative/api/pickDocuments" {
-  /**
-   * A function that picks a subset of documents from an array of documents, given a limit and offset.
-   *
-   * @template T - The type of the documents in the array.
-   * @param limit - The maximum number of documents to pick.
-   * @param offset - The number of documents to skip before picking.
-   * @returns - A function that takes an array of documents and returns an object with `rows` and `done` properties.
-   *                       The `rows` property contains the picked documents, and `done` property indicates if the picking is finished.
-   */
-  export const pickDocuments: <T extends unknown>(
-    limit: number,
-    offset: number,
-  ) => (rows?: T[]) => {
-    rows: T[];
-    done: boolean;
-  };
-  export default pickDocuments;
+declare module "react-declarative/api/iterateList" {
+  import IRowData from "react-declarative/model/IRowData";
+  export function iterateList<T extends IRowData = IRowData>(
+    rows: T[],
+    map?: (row: T) => Promise<T>,
+  ): AsyncGenerator<T, void, unknown>;
+  export default iterateList;
 }
 
 declare module "react-declarative/view/useOpenDocument" {
