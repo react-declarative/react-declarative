@@ -256,7 +256,7 @@ Right now CRM systems are not the main business product, so coding them must be 
 
 3. **Supabase** - [https://supabase.com/](https://supabase.com/)
 
-    Blazing fast application server which uses Haskel (Postgrest) under the hood. Which cost `1Gb` of RAM in java cost `60Mb` in haskell
+    Blazing fast application server which uses Haskel (Postgrest) under the hood. Which cost `1Gb` of RAM in java cost `60Mb` in haskel
 
 All of them supports Realtime event bus that means staring coding new app without them pointless: they scalable on backend, they performant on frontend. There is a problem of migrating from one to another. Each of framework connect itself to the frontend by using generated SDK. It's a JS class with static method each of them wrap `fetch` call.
 
