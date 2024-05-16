@@ -20609,24 +20609,28 @@ declare module "react-declarative/components/Switch/Switch" {
    * @param SwitchProps.throwError - Indicates whether to throw an error if an exception occurs. Defaults to false.
    * @returns The Switch component.
    */
-  export const Switch: ({
-    className,
-    style,
-    Loader,
-    Forbidden,
-    NotFound,
-    Error,
-    animation,
-    history,
-    children,
-    fallback,
-    items: upperItems,
-    onLoadStart,
-    onLoadEnd,
-    onInit,
-    onDispose,
-    throwError,
-  }: ISwitchProps) => JSX.Element;
+  export const Switch: {
+    ({
+      className,
+      style,
+      Loader,
+      Forbidden,
+      NotFound,
+      Error,
+      animation,
+      history,
+      children,
+      fallback,
+      items: upperItems,
+      onLoadStart,
+      onLoadEnd,
+      onInit,
+      onDispose,
+      throwError,
+    }: ISwitchProps): JSX.Element;
+    listen(fn: (data: ISwitchResult) => void): () => void;
+    waitForNavigate(): Promise<ISwitchResult>;
+  };
   export default Switch;
 }
 

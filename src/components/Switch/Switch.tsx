@@ -23,6 +23,8 @@ import createWindowHistory from "../../utils/createWindowHistory";
 import randomString from "../../utils/randomString";
 import sleep from "../../utils/sleep";
 
+import Subject from "../../utils/rx/Subject";
+
 /**
  * Represents an item in a switch component.
  * @interface ISwitchItem
@@ -106,6 +108,8 @@ const DEFAULT_CHILD_FN = ({
 }: ISwitchResult) => <Element key={key} {...params} />;
 
 const Fragment = () => <></>;
+
+const renderSubject = new Subject<ISwitchResult>();
 
 /**
  * Represents a switch component that renders different elements based on the current location.
@@ -350,10 +354,15 @@ export const Switch = ({
       {async (data) => {
         /* delay to prevent sync execution for appear animation */
         await sleep(0);
+        renderSubject.next(data);
         return children(data);
       }}
     </FetchView>
   );
 };
+
+Switch.listen = (fn: (data: ISwitchResult) => void) => renderSubject.subscribe(fn);
+
+Switch.waitForNavigate = async () => await renderSubject.toPromise();
 
 export default Switch;
