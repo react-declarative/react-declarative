@@ -248,7 +248,7 @@ Right now CRM systems are not the main business product, so coding them must be 
 
 1. **Appwrite** - [https://appwrite.io/](https://appwrite.io/)
 
-    The first Firebase alternative which means the biggest community. You may google the solution of any problem with high possibility 
+    The first Firebase alternative which means the biggest community. You may google (~~chatgpt~~) the solution of any problem with high possibility 
 
 2. **Pocketbase** - [https://pocketbase.io/](https://pocketbase.io/)
 
