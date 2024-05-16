@@ -924,6 +924,7 @@ declare module "react-declarative" {
   export { getGenesisStamp } from "react-declarative/utils/getGenesisStamp";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
+  export { iterateUnion } from "react-declarative/api/iterateUnion";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
   export { useOpenDocument } from "react-declarative/view/useOpenDocument";
   export { heavy } from "react-declarative/utils/heavy";
@@ -10597,6 +10598,16 @@ declare module "react-declarative/api/iterateDocuments" {
     createRequest,
   }: IConfig<Data>) => AsyncGenerator<Data[], void, unknown>;
   export default iterateDocuments;
+}
+
+declare module "react-declarative/api/iterateUnion" {
+  export const iterateUnion: <T extends unknown>(
+    iterators: AsyncGenerator<T | T[], void, unknown>[],
+  ) => (
+    limit: number,
+    offset: number,
+  ) => AsyncGenerator<Awaited<T>, void, unknown>;
+  export default iterateUnion;
 }
 
 declare module "react-declarative/api/pickDocuments" {

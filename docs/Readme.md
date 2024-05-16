@@ -43,6 +43,7 @@ Try without installing directly [in your web browser](https://react-declarative-
 4. [Mathematical Logic](./code/MATH.md)
 5. [Reactive Programming](./code/RX.md)
 6. [Utility Functions](./code/UTILS.md)
+7. [Data Handling Guidelines](./code/API.md)
 
 **Other**
 

@@ -816,6 +816,7 @@ export { getGenesisStamp } from './utils/getGenesisStamp';
 
 export { resolveDocuments } from './api/resolveDocuments';
 export { iterateDocuments } from './api/iterateDocuments';
+export { iterateUnion } from './api/iterateUnion';
 export { pickDocuments } from './api/pickDocuments';
 
 export { useOpenDocument } from './view/useOpenDocument';
