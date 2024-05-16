@@ -246,15 +246,15 @@ When Javascript introduce itself to the world as the performant language, the Fa
 
 Right now CRM systems are not the main business product, so coding them must be cheap. So, the Firebase is actually not bad idea but It expensive. There are several production ready application services which can be easely used for data collection
 
-1. [Appwrite](https://appwrite.io/)
+1. **Appwrite** - [https://appwrite.io/](https://appwrite.io/)
 
     The first Firebase alternative which means the biggest community. You may google the solution of any problem with high possibility 
 
-2. [Pocketbase](https://pocketbase.io/)
+2. **Pocketbase** - [https://pocketbase.io/](https://pocketbase.io/)
 
     Maintainability of SQLite (copy `data.db` to backup, edit it with [sqlitestudio](https://github.com/pawelsalawa/sqlitestudio) to troubleshoot) plus scalability of [Azure Cosmos DB](https://www.cdata.com/data/integration/cosmosdb-to-sqlite/) or [SQLiteCloud](https://sqlitecloud.io/) are the best for waterflow development
 
-3. [Supabase](https://supabase.com/)
+3. **Supabase** - [https://supabase.com/](https://supabase.com/)
 
     Blazing fast application server which uses Haskel (Postgrest) under the hood. Which cost `1Gb` of RAM in java cost `60Mb` in haskell
 
