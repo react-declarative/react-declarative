@@ -252,7 +252,7 @@ Right now CRM systems are not the main business product, so coding them must be 
 
 2. **Pocketbase** - [https://pocketbase.io/](https://pocketbase.io/)
 
-    Maintainability of SQLite (copy `data.db` to backup, edit it with [sqlitestudio](https://github.com/pawelsalawa/sqlitestudio) to troubleshoot) plus scalability of [Azure Cosmos DB](https://www.cdata.com/data/integration/cosmosdb-to-sqlite/) or [SQLiteCloud](https://sqlitecloud.io/) are the best for waterflow development
+    Maintainability of SQLite (copy `data.db` to backup, edit it with [sqlitestudio](https://github.com/pawelsalawa/sqlitestudio) to troubleshoot) plus scalability of [Azure Cosmos DB](https://www.cdata.com/data/integration/cosmosdb-to-sqlite/) or [SQLiteCloud](https://sqlitecloud.io/) are the best for waterflow development. Testing it locally, running it in the cloud
 
 3. **Supabase** - [https://supabase.com/](https://supabase.com/)
 
