@@ -332,7 +332,7 @@ rowColor: ((row: RowData) => string) | ((row: RowData) => Promise<string>)
 ### modalSizeRequest
 
 ```ts
-modalSizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<{}>; }
+modalSizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<any>; }
 ```
 
 Custom sizeRequest for modal filters

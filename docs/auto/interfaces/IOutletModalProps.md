@@ -7,7 +7,7 @@ Interface for the OutletModalProps class.
 ### sizeRequest
 
 ```ts
-sizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<{}>; }
+sizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<any>; }
 ```
 
 ### fullScreen

@@ -117,7 +117,7 @@ interface IParams<Payload extends IAnything = IAnything> {
   sizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   data?: string[] | null;
   fullScreen?: boolean;

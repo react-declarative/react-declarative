@@ -552,7 +552,7 @@ export interface IListProps<
   modalSizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   /**
    * Determines if a row is disabled based on various parameters.

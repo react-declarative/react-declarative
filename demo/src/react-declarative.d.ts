@@ -492,6 +492,7 @@ declare module "react-declarative" {
     MASTER_DETAIL_HEADER,
     MASTER_DETAIL_ROOT,
   } from "react-declarative/components";
+  export { Sheet } from "react-declarative/components";
   export { Async } from "react-declarative/components";
   export { If } from "react-declarative/components";
   export { OneIcon } from "react-declarative/components";
@@ -960,6 +961,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/One";
   export * from "react-declarative/components/OneIcon";
   export * from "react-declarative/components/OneButton";
+  export * from "react-declarative/components/Sheet";
   export * from "react-declarative/components/Dot";
   export * from "react-declarative/components/List";
   export * from "react-declarative/components/NoSsr";
@@ -4015,7 +4017,7 @@ declare module "react-declarative/model/IListProps" {
     modalSizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     /**
      * Determines if a row is disabled based on various parameters.
@@ -10721,6 +10723,11 @@ declare module "react-declarative/components/OneIcon" {
 declare module "react-declarative/components/OneButton" {
   export * from "react-declarative/components/OneButton/OneButton";
   export { default } from "react-declarative/components/OneButton/OneButton";
+}
+
+declare module "react-declarative/components/Sheet" {
+  export * from "react-declarative/components/Sheet/Sheet";
+  export { default } from "react-declarative/components/Sheet/Sheet";
 }
 
 declare module "react-declarative/components/Dot" {
@@ -20506,6 +20513,38 @@ declare module "react-declarative/components/OneButton/OneButton" {
   export default OneButton;
 }
 
+declare module "react-declarative/components/Sheet/Sheet" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import { BoxProps } from "@mui/material/Box";
+  interface ISheetProps extends BoxProps {
+    withFullScreen?: boolean;
+    withHeader?: boolean;
+    maxCols?: number;
+    maxRows?: number;
+    data: string[][];
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps<any>;
+    ref?: React.Ref<HTMLDivElement | undefined>;
+  }
+  export const Sheet: (
+    {
+      data: upperData,
+      maxCols,
+      maxRows,
+      withHeader,
+      withFullScreen,
+      className,
+      style,
+      sx,
+      ...otherProps
+    }: ISheetProps,
+    ref: React.Ref<HTMLDivElement>,
+  ) => JSX.Element;
+  export default Sheet;
+}
+
 declare module "react-declarative/components/Dot/Dot" {
   import { BoxProps } from "@mui/material/Box";
   /**
@@ -21742,7 +21781,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     sizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     waitForChangesDelay?: number;
     withActionButton?: boolean;
@@ -22056,7 +22095,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     sizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     title?: string;
     AfterTitle?: React.ComponentType<{
@@ -23343,7 +23382,7 @@ declare module "react-declarative/components/FilesView/useFilesView" {
     sizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     data?: string[] | null;
     fullScreen?: boolean;
@@ -26059,7 +26098,7 @@ declare module "react-declarative/components/ChatView/ChatView" {
     chatController: ChatController;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   }
   /**
    * Represents a chat view component.
@@ -29225,7 +29264,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     sizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     fullScreen?: boolean;
     /**
@@ -29590,7 +29629,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
     sizeRequest?: (size: ISize) => {
       height: number;
       width: number;
-      sx?: SxProps;
+      sx?: SxProps<any>;
     };
     openSubject: TBehaviorSubject<boolean>;
     fullScreen?: boolean;

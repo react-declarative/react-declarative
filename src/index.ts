@@ -409,6 +409,8 @@ export type ITabsModal<Data = any, Payload = any> = ITabsModalInternal<Data, Pay
 
 export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './components';
 
+export { Sheet } from './components';
+
 export { Async } from './components';
 export { If } from './components';
 

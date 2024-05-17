@@ -23,5 +23,5 @@ style: CSSProperties
 ### sx
 
 ```ts
-sx: SxProps<{}>
+sx: SxProps<any>
 ```

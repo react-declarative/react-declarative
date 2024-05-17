@@ -127,6 +127,10 @@ export const MainView = ({ onChange, history, data }: IOutletModalProps) => {
         history.replace("/video");
       } else if (mime.endsWith("/pdf")) {
         history.replace("/pdf");
+      } else if (mime === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        history.replace("/sheet");
+      } else if (mime === "application/x-cfb") {
+        history.replace("/sheet");
       } else {
         history.replace("/file");
       }

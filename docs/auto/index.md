@@ -291,6 +291,7 @@
 - [IStaticHandlerParams](interfaces/IStaticHandlerParams.md)
 - [IPreventLeaveParams](interfaces/IPreventLeaveParams.md)
 - [IPreventLeaveReturn](interfaces/IPreventLeaveReturn.md)
+- [ISheetProps](interfaces/ISheetProps.md)
 - [IDotProps](interfaces/IDotProps.md)
 - [INoSsrProps](interfaces/INoSsrProps.md)
 - [State](interfaces/State.md)

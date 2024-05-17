@@ -55,7 +55,7 @@ export interface ISearchModalProps<
   sizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   title?: string;
   AfterTitle?: React.ComponentType<{

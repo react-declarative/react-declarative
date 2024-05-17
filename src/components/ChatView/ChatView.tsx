@@ -51,7 +51,7 @@ interface IChatViewProps {
     chatController: ChatController;
     className?: string;
     style?: React.CSSProperties;
-    sx?: SxProps;
+    sx?: SxProps<any>;
 }
 
 /**

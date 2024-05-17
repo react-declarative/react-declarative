@@ -46,7 +46,7 @@ export interface IActionModalProps<
   sizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   waitForChangesDelay?: number;
   withActionButton?: boolean;

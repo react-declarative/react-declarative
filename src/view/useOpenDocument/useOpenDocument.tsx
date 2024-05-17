@@ -10,6 +10,7 @@ import ImageView from "./view/ImageView";
 import VideoView from "./view/VideoView";
 import AudioView from "./view/AudioView";
 import ErrorView from "./view/ErrorView";
+import SheetView from "./view/SheetView";
 import PdfView from "./view/PdfView";
 
 import useActualRef from "../../hooks/useActualRef";
@@ -99,6 +100,11 @@ const routes: IOutletModal[] = [
     id: "audio",
     element: AudioView,
     isActive: (url) => !!parseRouteUrl("/audio", url),
+  },
+  {
+    id: "sheet",
+    element: SheetView,
+    isActive: (url) => !!parseRouteUrl("/sheet", url),
   },
   {
     id: "error",

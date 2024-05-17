@@ -64,7 +64,7 @@ export interface IOutletModalProps<
   sizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   fullScreen?: boolean;
   /**

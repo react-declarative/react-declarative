@@ -89,7 +89,7 @@ export interface ITabsModalProps<
   sizeRequest?: (size: ISize) => {
     height: number;
     width: number;
-    sx?: SxProps;
+    sx?: SxProps<any>;
   };
   openSubject: TBehaviorSubject<boolean>;
   fullScreen?: boolean;
