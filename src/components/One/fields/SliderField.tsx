@@ -191,6 +191,7 @@ export const SliderField = ({
 SliderField.displayName = 'SliderField';
 
 export default makeField(SliderField, {
+  skipDebounce: true,
   withApplyQueue: true,
   skipDirtyClickListener: true,
 });
