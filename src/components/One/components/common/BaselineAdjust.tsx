@@ -8,7 +8,6 @@ const BASELINE_ADJUST_MARK = "react-declarative__oneBaselineAdjust"
 
 const useStyles = makeStyles()({
     baselineAdjust: {
-        height: '100%',
         width: '100%',
     },
 });
