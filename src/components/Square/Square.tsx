@@ -4,6 +4,7 @@ import { makeStyles } from "../../styles";
 
 import Box, { BoxProps } from '@mui/material/Box';
 import classNames from '../../utils/classNames';
+import { forwardRef } from 'react';
 
 /**
  * Represents the props for a Square component.
@@ -58,14 +59,15 @@ const useStyles = makeStyles()({
  * @param otherProps - Additional props to be spread onto the Square component.
  * @returns - The rendered Square component.
  */
-export const Square = ({
+const SquareInternal = ({
     className,
     children,
     ...otherProps
-}: ISquareProps) => {
+}: ISquareProps, ref: React.Ref<HTMLDivElement>) => {
     const { classes } = useStyles();
     return (
         <Box
+            ref={ref}
             className={classNames(className, classes.root)}
             {...otherProps}
         >
@@ -77,5 +79,7 @@ export const Square = ({
         </Box>
     );
 }
+
+export const Square = forwardRef(SquareInternal) as typeof SquareInternal;
 
 export default Square;

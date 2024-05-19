@@ -20736,20 +20736,10 @@ declare module "react-declarative/components/Square/Square" {
   interface ISquareProps extends BoxProps {
     children: React.ReactNode;
   }
-  /**
-   * Square component.
-   *
-   * @typedef Square
-   * @param className - The class name to apply to the Square component.
-   * @param children - The content to render inside the Square component.
-   * @param otherProps - Additional props to be spread onto the Square component.
-   * @returns - The rendered Square component.
-   */
-  export const Square: ({
-    className,
-    children,
-    ...otherProps
-  }: ISquareProps) => JSX.Element;
+  export const Square: (
+    { className, children, ...otherProps }: ISquareProps,
+    ref: React.Ref<HTMLDivElement>,
+  ) => JSX.Element;
   export default Square;
 }
 
