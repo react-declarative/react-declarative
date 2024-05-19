@@ -6,6 +6,7 @@ import { makeStyles } from "../../../styles";
 import Group, { IGroupProps } from "../../../components/common/Group";
 import Paper, { IPaperProps } from "../../../components/common/Paper";
 
+import BaselineAdjust from "../components/common/BaselineAdjust";
 import Outline from "../../../components/common/Outline";
 import Blank from "../../common/Blank";
 
@@ -99,6 +100,14 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
   transparentPaper = false,
 }: IPaperLayoutProps<Data> & IPaperLayoutPrivate) => {
   const { classes } = useStyles();
+
+  const renderChild = () => (
+    <>
+      {children}
+      <BaselineAdjust />
+    </>
+  );
+
   return (
     <Group
       className={classNames(className, classes.root)}
@@ -119,8 +128,8 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
           isBaselineAlign,
           sx,
           style: { padding },
-          children,
-        },
+          children: renderChild(),
+        }
       )}
     </Group>
   );

@@ -4,6 +4,7 @@ import { makeStyles } from "../../../styles";
 
 import Group, { IGroupProps } from "../../../components/common/Group";
 import Outline, { IOutlineProps } from '../../../components/common/Outline';
+import BaselineAdjust from "../components/common/BaselineAdjust";
 
 import classNames from "../../../utils/classNames";
 
@@ -110,6 +111,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
         sx={sx}
       >
         {children}
+        <BaselineAdjust />
       </Outline>
     </Group>
   );

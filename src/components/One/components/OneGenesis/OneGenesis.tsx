@@ -27,6 +27,8 @@ import OneContextProvider from "../../context/OneContextProvider";
 
 import SlotFactory from "../SlotFactory";
 
+import Container from "../common/Container";
+
 import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
@@ -212,17 +214,21 @@ export const OneGenesis = <
                   <StateProvider<Data, Payload, Field> {...stateParams}>
                     <MenuProvider>
                       <SlotFactory {...slots}>
-                        <Group
-                          isBaselineAlign={isBaselineAlign}
-                          className={classNames(className, BASE_CLASS, {
-                            [classes.readonly]: props.readonly,
-                            [classes.rendering]: !rendered,
-                          })}
+                        <Container
+                          className={className}
                           style={style}
                           sx={sx}
                         >
-                          <OneInternal<Data, Payload, Field> {...viewParams} />
-                        </Group>
+                          <Group
+                            isBaselineAlign={isBaselineAlign}
+                            className={classNames(BASE_CLASS, {
+                              [classes.readonly]: props.readonly,
+                              [classes.rendering]: !rendered,
+                            })}
+                          >
+                            <OneInternal<Data, Payload, Field> {...viewParams} />
+                          </Group>
+                        </Container>
                       </SlotFactory>
                     </MenuProvider>
                   </StateProvider>

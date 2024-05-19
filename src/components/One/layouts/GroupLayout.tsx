@@ -3,6 +3,7 @@ import * as React from "react";
 import { makeStyles } from "../../../styles";
 
 import Group, { IGroupProps } from "../../../components/common/Group";
+import BaselineAdjust from "../components/common/BaselineAdjust";
 
 import classNames from "../../../utils/classNames";
 
@@ -104,6 +105,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
             sx={sx}
           >
             {children}
+            <BaselineAdjust />
           </Group>
         </Group>
     );
