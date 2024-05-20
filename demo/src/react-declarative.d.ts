@@ -7760,8 +7760,12 @@ declare module "react-declarative/utils/scaleRect" {
 declare module "react-declarative/utils/scaleToSize" {
   export const createScaleToSize: (
     maxSize?: number,
-  ) => (blob: File | Blob) => Promise<Blob>;
-  export const scaleToSize: (blob: File | Blob) => Promise<Blob>;
+    maxExec?: number,
+  ) => import("./hof/execpool").IWrappedFn<Blob, [blob: Blob | File]>;
+  export const scaleToSize: import("./hof/execpool").IWrappedFn<
+    Blob,
+    [blob: Blob | File]
+  >;
   export default scaleToSize;
 }
 
@@ -7839,7 +7843,7 @@ declare module "react-declarative/utils/hof/execpool" {
    * @template T - The type of the result of the wrapped function.
    * @template P - The types of the parameters of the wrapped function.
    */
-  interface IWrappedFn<T extends any = any, P extends any[] = any> {
+  export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T>;
     clear(): void;
   }

@@ -1,8 +1,11 @@
+import execpool from "./hof/execpool";
+
 import { scaleRect } from "./scaleRect";
 
 const MIME_TYPE = "image/jpeg";
 const QUALITY = 0.8;
 const MAX_SIZE = 20 * 1024 * 1024;
+const MAX_EXEC = 3;
 
 const compressImage = (blob: Blob) =>
     new Promise<Blob>((res, rej) => {
@@ -46,7 +49,7 @@ const compressImage = (blob: Blob) =>
       };
     });
 
-export const createScaleToSize = (maxSize = MAX_SIZE) => async (blob: File | Blob) => {
+export const createScaleToSize = (maxSize = MAX_SIZE, maxExec = MAX_EXEC) => execpool(async (blob: File | Blob) => {
   try {
     if (blob.size > maxSize) {
       return await compressImage(blob);
@@ -55,7 +58,9 @@ export const createScaleToSize = (maxSize = MAX_SIZE) => async (blob: File | Blo
     console.error(`react-declarative compressImage error`, error);
   }
   return blob;
-};
+}, {
+  maxExec,
+});
 
 export const scaleToSize = createScaleToSize();
 

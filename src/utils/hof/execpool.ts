@@ -3,7 +3,7 @@
  * @template T - The type of the result of the wrapped function.
  * @template P - The types of the parameters of the wrapped function.
  */
-interface IWrappedFn<T extends any = any, P extends any[] = any> {
+export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T>;
     clear(): void;
 };
