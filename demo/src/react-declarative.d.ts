@@ -740,6 +740,7 @@ declare module "react-declarative" {
   export { list2grid } from "react-declarative/utils/list2grid";
   export { openBlank } from "react-declarative/utils/openBlank";
   export { createDict } from "react-declarative/utils/createDict";
+  export { createAwaiter } from "react-declarative/utils/createAwaiter";
   export { createPointer } from "react-declarative/utils/oop/Pointer";
   export { copyToClipboard } from "react-declarative/utils/copyToClipboard";
   export { downloadBlank } from "react-declarative/utils/downloadBlank";
@@ -7187,6 +7188,18 @@ declare module "react-declarative/utils/createDict" {
   export default createDict;
 }
 
+declare module "react-declarative/utils/createAwaiter" {
+  export interface IAwaiter<T extends unknown> {
+    resolve(value: T | PromiseLike<T>): void;
+    reject(reason?: any): void;
+  }
+  export const createAwaiter: <T extends unknown>() => [
+    Promise<T>,
+    IAwaiter<T>,
+  ];
+  export default createAwaiter;
+}
+
 declare module "react-declarative/utils/oop/Pointer" {
   /**
    * Represents a pointer that can be assigned to another object asynchronously without updating reference.
@@ -7849,10 +7862,11 @@ declare module "react-declarative/utils/hof/execpool" {
   }
   interface IConfig {
     maxExec: number;
+    delay: number;
   }
   export const execpool: <T extends unknown = any, P extends any[] = any[]>(
     run: (...args: P) => Promise<T>,
-    { maxExec }?: Partial<IConfig>,
+    { maxExec, delay }?: Partial<IConfig>,
   ) => IWrappedFn<T, P>;
   export default execpool;
 }

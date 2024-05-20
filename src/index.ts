@@ -667,6 +667,7 @@ export { VirtualListBox } from './components/One/components/common/VirtualListBo
 export { list2grid } from './utils/list2grid';
 export { openBlank } from './utils/openBlank';
 export { createDict } from './utils/createDict';
+export { createAwaiter } from './utils/createAwaiter';
 export { createPointer } from './utils/oop/Pointer';
 export { copyToClipboard } from './utils/copyToClipboard';
 export { downloadBlank } from './utils/downloadBlank';

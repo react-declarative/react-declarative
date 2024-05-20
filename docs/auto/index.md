@@ -90,6 +90,7 @@
 - [IOnePublicProps](interfaces/IOnePublicProps.md)
 - [IVirtualListBoxProps](interfaces/IVirtualListBoxProps.md)
 - [IConfig](interfaces/IConfig.md)
+- [IAwaiter](interfaces/IAwaiter.md)
 - [Location](interfaces/Location.md)
 - [IBreakpoints](interfaces/IBreakpoints.md)
 - [ISwitchItem](interfaces/ISwitchItem.md)

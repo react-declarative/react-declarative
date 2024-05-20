@@ -5,7 +5,7 @@ import { scaleRect } from "./scaleRect";
 const MIME_TYPE = "image/jpeg";
 const QUALITY = 0.8;
 const MAX_SIZE = 20 * 1024 * 1024;
-const MAX_EXEC = 3;
+const MAX_EXEC = 10;
 
 const compressImage = (blob: Blob) =>
     new Promise<Blob>((res, rej) => {
