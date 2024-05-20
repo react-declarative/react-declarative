@@ -784,6 +784,7 @@ declare module "react-declarative" {
   export { singleshot } from "react-declarative/utils/hof/singleshot";
   export { singletick } from "react-declarative/utils/hof/singletick";
   export { afterinit } from "react-declarative/utils/hof/afterinit";
+  export { execpool } from "react-declarative/utils/hof/execpool";
   export { retry } from "react-declarative/utils/hof/retry";
   export { singlerun, Task } from "react-declarative/utils/hof/singlerun";
   export {
@@ -7830,6 +7831,26 @@ declare module "react-declarative/utils/hof/afterinit" {
     run: (...args: P) => Promise<T>,
   ) => IWrappedFn<T, P>;
   export default afterinit;
+}
+
+declare module "react-declarative/utils/hof/execpool" {
+  /**
+   * Represents a wrapped function that returns a promise.
+   * @template T - The type of the result of the wrapped function.
+   * @template P - The types of the parameters of the wrapped function.
+   */
+  interface IWrappedFn<T extends any = any, P extends any[] = any> {
+    (...args: P): Promise<T>;
+    clear(): void;
+  }
+  interface IConfig {
+    maxExec: number;
+  }
+  export const execpool: <T extends unknown = any, P extends any[] = any[]>(
+    run: (...args: P) => Promise<T>,
+    { maxExec }?: Partial<IConfig>,
+  ) => IWrappedFn<T, P>;
+  export default execpool;
 }
 
 declare module "react-declarative/utils/hof/retry" {

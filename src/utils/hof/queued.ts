@@ -59,6 +59,7 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
      */
     wrappedFn.clear = () => {
         lastPromise = Promise.resolve();
+        cancelFn = undefined;
     };
 
     /**
@@ -70,7 +71,7 @@ export const queued = <T extends any = any, P extends any[] = any[]>(promise: (.
      *
      */
     wrappedFn.cancel = () => {
-        wrappedFn.clear();
+        lastPromise = Promise.resolve();
         cancelFn && cancelFn();
         cancelFn = undefined;
     };
