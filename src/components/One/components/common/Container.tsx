@@ -18,6 +18,7 @@ const useStyles = makeStyles()({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
+        width: '100%',
     },
     adjust: {
         flex: 1,
