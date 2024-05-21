@@ -293,6 +293,9 @@ export const TablePagination = ({
                         display: 'none',
                     }
                 }),
+                width,
+                overflow: 'hidden',
+                overflowX: 'auto',
             }}
             component={TablePaginationContainer}
             rowsPerPageOptions={rowsPerPageOptions}

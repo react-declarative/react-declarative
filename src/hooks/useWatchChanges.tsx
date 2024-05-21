@@ -3,13 +3,29 @@ import { useEffect, useState } from "react";
 import useSubject from "./useSubject";
 import useChange from "./useChange";
 
+import TSubject from "../model/TSubject";
+
+/**
+ * Watches for changes in dependencies and provides a subject to track changes.
+ * An object containing methods and properties for watching changes.
+*/
+interface IResult {
+  useChanges: () => void;
+  changeSubject: TSubject<void>;
+  watch: {
+    resetWatcher: () => void;
+    beginWatch: () => void;
+    stopWatch: () => void;
+  };
+}
+
 /**
  * Watches for changes in dependencies and provides a subject to track changes.
  *
  * @param deps - The dependencies to watch for changes.
  * @returns An object containing methods and properties for watching changes.
  */
-export const useWatchChanges = (deps: any[] = []) => {
+export const useWatchChanges = (deps: any[] = []): IResult => {
   const changeSubject = useSubject<void>();
 
   /**

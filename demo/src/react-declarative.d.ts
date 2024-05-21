@@ -4755,31 +4755,27 @@ declare module "react-declarative/hooks/useRouteParams" {
 }
 
 declare module "react-declarative/hooks/useWatchChanges" {
+  import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Watches for changes in dependencies and provides a subject to track changes.
+   * An object containing methods and properties for watching changes.
+   */
+  interface IResult {
+    useChanges: () => void;
+    changeSubject: TSubject<void>;
+    watch: {
+      resetWatcher: () => void;
+      beginWatch: () => void;
+      stopWatch: () => void;
+    };
+  }
   /**
    * Watches for changes in dependencies and provides a subject to track changes.
    *
    * @param deps - The dependencies to watch for changes.
    * @returns An object containing methods and properties for watching changes.
    */
-  export const useWatchChanges: (deps?: any[]) => {
-    /**
-     * Subscribe to the 'changeSubject' and update the state using useState.
-     * The state is updated to the opposite value of the current state.
-     *
-     * This function should be used inside a functional component to automatically update the state when the 'changeSubject' emits a new value.
-     *
-     * @param changeSubject - The subject to subscribe to for changes.
-     * @returns
-     *
-     */
-    readonly useChanges: () => void;
-    readonly changeSubject: import("..").Subject<void>;
-    readonly watch: {
-      resetWatcher: () => void;
-      beginWatch: () => void;
-      stopWatch: () => void;
-    };
-  };
+  export const useWatchChanges: (deps?: any[]) => IResult;
   export default useWatchChanges;
 }
 
