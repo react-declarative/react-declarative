@@ -15,6 +15,7 @@ import useActualValue from "../../../hooks/useActualValue";
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
 import TSubject from "../../../model/TSubject";
+import IOneApi from "../../../model/IOneApi";
 
 /**
  * Interface for the parameters of the IPreventLeaveParams class.
@@ -47,12 +48,16 @@ export interface IPreventLeaveParams<Data = IAnything, ID = string> {
  */
 export interface IPreventLeaveReturn<Data = IAnything> {
   oneProps: {
+    apiRef: Exclude<IOneProps<Data>["apiRef"], undefined>;
+    handler: () => Data | null;
     change: (data: Data, initial?: boolean) => void;
-    invalidity: IOneProps<Data>["invalidity"];
-    readonly: IOneProps<Data>["readonly"];
-    changeSubject: IOneProps<Data>["changeSubject"];
+    invalidity: Exclude<IOneProps<Data>["invalidity"], undefined>;
+    readonly: Exclude<IOneProps<Data>["readonly"], undefined>;
+    changeSubject: Exclude<IOneProps<Data>["changeSubject"], undefined>;
     fallback?: (e: Error) => void;
   };
+  apiRef: React.MutableRefObject<IOneApi<Data>>;
+  invalid: boolean;
   data: Data | null;
   hasChanged: boolean;
   hasLoading: boolean;
@@ -121,11 +126,14 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
   updateSubject: upperUpdateSubject,
   changeSubject: upperChangeSubject,
 }: IPreventLeaveParams<Data, ID> = {}): IPreventLeaveReturn<Data> => {
+
+  const apiRef = useRef<IOneApi>(null as never);
+
   const updateSubject = useSubject(upperUpdateSubject);
 
   const changeSubject = useSubject<Data>(upperChangeSubject);
 
-  const [data, setData] = useState<Data | null>(upperData);
+  const [data, setData] = useState<Data | null>(null);
   const [invalid, setInvalid] = useState(false);
   const [loading, setLoading] = useState(0);
   const [readonly, setReadonly] = useState(false);
@@ -465,12 +473,16 @@ export const usePreventLeave = <Data = IAnything, ID = string>({
     dropChanges,
     waitForChanges,
     oneProps: {
+      apiRef,
+      handler: () => upperData,
       change: handleChange,
       invalidity: handleInvalid,
       readonly: !!loading || readonly || upperReadonly,
       ...(fallback && { fallback }),
       changeSubject,
     },
+    apiRef,
+    invalid,
     data: invalid ? null : data,
     hasChanged,
     hasLoading,

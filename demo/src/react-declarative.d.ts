@@ -20462,6 +20462,7 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
   import IOneProps from "react-declarative/model/IOneProps";
   import IAnything from "react-declarative/model/IAnything";
   import TSubject from "react-declarative/model/TSubject";
+  import IOneApi from "react-declarative/model/IOneApi";
   /**
    * Interface for the parameters of the IPreventLeaveParams class.
    * @template Data - The type of data.
@@ -20492,12 +20493,16 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
    */
   export interface IPreventLeaveReturn<Data = IAnything> {
     oneProps: {
+      apiRef: Exclude<IOneProps<Data>["apiRef"], undefined>;
+      handler: () => Data | null;
       change: (data: Data, initial?: boolean) => void;
-      invalidity: IOneProps<Data>["invalidity"];
-      readonly: IOneProps<Data>["readonly"];
-      changeSubject: IOneProps<Data>["changeSubject"];
+      invalidity: Exclude<IOneProps<Data>["invalidity"], undefined>;
+      readonly: Exclude<IOneProps<Data>["readonly"], undefined>;
+      changeSubject: Exclude<IOneProps<Data>["changeSubject"], undefined>;
       fallback?: (e: Error) => void;
     };
+    apiRef: React.MutableRefObject<IOneApi<Data>>;
+    invalid: boolean;
     data: Data | null;
     hasChanged: boolean;
     hasLoading: boolean;

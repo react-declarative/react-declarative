@@ -7,7 +7,19 @@ Interface for a class that prevents leaving and returning to a page or component
 ### oneProps
 
 ```ts
-oneProps: { change: (data: Data, initial?: boolean) => void; invalidity: (name: string, msg: string, payload: any) => void; readonly: boolean; changeSubject: TSubject<Data>; fallback?: (e: Error) => void; }
+oneProps: { apiRef: any; handler: () => Data; change: (data: Data, initial?: boolean) => void; invalidity: (name: string, msg: string, payload: any) => void; readonly: boolean; changeSubject: TSubject<...>; fallback?: (e: Error) => void; }
+```
+
+### apiRef
+
+```ts
+apiRef: MutableRefObject<IOneApi<Data>>
+```
+
+### invalid
+
+```ts
+invalid: boolean
 ```
 
 ### data
