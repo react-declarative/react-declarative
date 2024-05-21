@@ -7,6 +7,26 @@ const QUALITY = 0.8;
 const MAX_SIZE = 20 * 1024 * 1024;
 const MAX_EXEC = 10;
 
+const BLANK_HEIGHT = 10;
+const BLANK_WIDTH = 10;
+
+const createBlankImage = () => new Promise<Blob>((res) => {
+
+  const canvas = document.createElement('canvas')
+  canvas.width = BLANK_WIDTH
+  canvas.height = BLANK_HEIGHT
+  
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
+    ctx.fillRect(0, 0, BLANK_WIDTH, BLANK_HEIGHT);
+  }
+
+  return canvas.toBlob((blob) => {
+    res(blob || new Blob([], { type: 'image/png' }));
+  }, 'image/png');
+});
+
 const compressImage = (blob: Blob) =>
     new Promise<Blob>((res, rej) => {
       const img = new Image();
@@ -56,6 +76,7 @@ export const createScaleToSize = (maxSize = MAX_SIZE, maxExec = MAX_EXEC) => exe
     }
   } catch (error) {
     console.error(`react-declarative compressImage error`, error);
+    return await createBlankImage();
   }
   return blob;
 }, {
