@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
+import useActualValue from "./useActualValue";
 import useSubject from "./useSubject";
 import useChange from "./useChange";
 
@@ -9,10 +10,10 @@ import TSubject from "../model/TSubject";
  * Watches for changes in dependencies and provides a subject to track changes.
  * An object containing methods and properties for watching changes.
 */
-interface IResult {
+interface IResult<T extends any[] = any[]> {
   useChanges: () => void;
   changeSubject: TSubject<void>;
-  waitForChanges: () => Promise<void>;
+  waitForChanges: () => Promise<T>;
   watch: {
     resetWatcher: () => void;
     beginWatch: () => void;
@@ -26,8 +27,10 @@ interface IResult {
  * @param deps - The dependencies to watch for changes.
  * @returns An object containing methods and properties for watching changes.
  */
-export const useWatchChanges = (deps: any[] = []): IResult => {
+export const useWatchChanges = <T extends any[] = any[]>(deps: T = [] as unknown as T): IResult => {
   const changeSubject = useSubject<void>();
+
+  const deps$ = useActualValue(deps);
 
   /**
    * Creates a watcher that triggers a function callback when the dependencies change.
@@ -42,6 +45,7 @@ export const useWatchChanges = (deps: any[] = []): IResult => {
 
   const waitForChanges = useCallback(async () => {
     await changeSubject.toPromise();
+    return deps$.current;
   }, []);
 
   return {
