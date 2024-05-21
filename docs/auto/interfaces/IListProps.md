@@ -18,6 +18,14 @@ AfterChips: ComponentType<IChipListSlot<any>>
 
 Represents a React component that will be rendered after the chip list.
 
+### BeforeSelectionLabel
+
+```ts
+BeforeSelectionLabel: ComponentType<any>
+```
+
+Represents a React component type for BeforeSelectionLabel.
+
 ### BeforeActionList
 
 ```ts

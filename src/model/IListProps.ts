@@ -413,7 +413,15 @@ export interface IListProps<
   /**
    * Represents a React component that will be rendered after the chip list.
    */
-  AfterChips?: React.ComponentType<IChipListSlot>;
+  AfterChips?: React.ComponentType<IChipListSlot>;  
+  /**
+  * Represents a React component type for BeforeSelectionLabel.
+  *
+  * @template FilterData - The type of data used for filtering.
+  * @template RowData - The type of data used for individual rows.
+  * @template Payload - The type of payload for action.
+  */
+  BeforeSelectionLabel?: React.ComponentType<any>;
   /**
    * Represents a React component type for BeforeActionList.
    *

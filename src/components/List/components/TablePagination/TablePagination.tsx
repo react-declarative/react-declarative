@@ -68,7 +68,6 @@ const useStyles = makeStyles()({
         overflowX: 'auto',
     },
     label: {
-        flex: 1,
         margin: 0,
         padding: 0,
         paddingLeft: 15,
@@ -77,6 +76,9 @@ const useStyles = makeStyles()({
     disabled: {
         pointerEvents: 'none',
         opacity: 0.5,
+    },
+    stretch: {
+        flex: 1,
     },
 });
 
@@ -116,7 +118,8 @@ const SelectionLabelLoader = () => (
 const TablePaginationContainer = (props: BoxProps) => {
     const { classes } = useStyles();
     const { selection } = useSelection();
-    const { loading, selectionLabel = selectionLabelDefault, fallback, rows } = useProps();
+    const listProps = useProps();
+    const { loading, selectionLabel = selectionLabelDefault, fallback, rows, BeforeSelectionLabel } = listProps;
     /**
      * Retrieves the label for the current selection.
      *
@@ -130,6 +133,11 @@ const TablePaginationContainer = (props: BoxProps) => {
                 [classes.disabled]: loading,
             })}
         >   
+            {BeforeSelectionLabel && (
+                <BeforeSelectionLabel
+                    {...listProps}
+                />
+            )}
             <Typography
                 variant="body1"
                 className={classes.label}
@@ -143,6 +151,7 @@ const TablePaginationContainer = (props: BoxProps) => {
                     {getSelectionLabel}
                 </Async>
             </Typography>
+            <div className={classes.stretch} />
             {props.children}
         </Box>
     );
