@@ -736,6 +736,8 @@ declare module "react-declarative" {
   export type ISearchSlot = ISearchSlotInternal;
   export type IOperationListSlot = IOperationListSlotInternal;
   export type IPositionActionListSlot = IPositionActionListSlotInternal;
+  import type { IAwaiter as IAwaiterInternal } from "react-declarative/utils/createAwaiter";
+  export type IAwaiter<T extends IAnything> = IAwaiterInternal<T>;
   export { VirtualListBox } from "react-declarative/components/One/components/common/VirtualListBox";
   export { list2grid } from "react-declarative/utils/list2grid";
   export { openBlank } from "react-declarative/utils/openBlank";
@@ -4565,6 +4567,7 @@ declare module "react-declarative/hooks/useItemModal" {
   import { IItemModalProps } from "react-declarative/components/common/ItemModal";
   interface IParams extends IItemModalProps {
     payload: Record<string, unknown>;
+    _autofocusDelay?: number;
   }
   export const useItemModal: (params: IParams) => () => void;
   export default useItemModal;
@@ -7111,6 +7114,36 @@ declare module "react-declarative/model/History" {
   export default History;
 }
 
+declare module "react-declarative/utils/createAwaiter" {
+  /**
+   * Represents an object used for awaiting a value or a promise.
+   *
+   * @template T - The type of the value to be resolved.
+   *
+   * @interface
+   * @function
+   * @param value - The value or promise to resolve.
+   * @param reason - The reason for rejecting the promise.
+   */
+  export interface IAwaiter<T extends unknown> {
+    resolve(value: T | PromiseLike<T>): void;
+    reject(reason?: any): void;
+  }
+  /**
+   * Creates an awaiter object along with a promise.
+   *
+   * @template T - The type of the value to be resolved.
+   *
+   * @function
+   * @returns An array containing the promise and the awaiter object.
+   */
+  export const createAwaiter: <T extends unknown>() => [
+    Promise<T>,
+    IAwaiter<T>,
+  ];
+  export default createAwaiter;
+}
+
 declare module "react-declarative/components/One/components/common/VirtualListBox" {
   import * as React from "react";
   /**
@@ -7186,18 +7219,6 @@ declare module "react-declarative/utils/createDict" {
    */
   export const createDict: <T extends Dict = Dict>(record: T) => any;
   export default createDict;
-}
-
-declare module "react-declarative/utils/createAwaiter" {
-  export interface IAwaiter<T extends unknown> {
-    resolve(value: T | PromiseLike<T>): void;
-    reject(reason?: any): void;
-  }
-  export const createAwaiter: <T extends unknown>() => [
-    Promise<T>,
-    IAwaiter<T>,
-  ];
-  export default createAwaiter;
 }
 
 declare module "react-declarative/utils/oop/Pointer" {
@@ -7852,18 +7873,43 @@ declare module "react-declarative/utils/hof/afterinit" {
 
 declare module "react-declarative/utils/hof/execpool" {
   /**
+   * Represents the configuration options for the execution pool.
+   *
+   * @interface
+   * @property maxExec - The maximum number of executions allowed concurrently.
+   * @property delay - The delay in milliseconds between executions.
+   */
+  interface IConfig {
+    maxExec: number;
+    delay: number;
+  }
+  /**
    * Represents a wrapped function that returns a promise.
+   *
    * @template T - The type of the result of the wrapped function.
    * @template P - The types of the parameters of the wrapped function.
+   *
+   * @interface
+   * @function
+   * @param args - The arguments to pass to the wrapped function.
+   * @returns A promise that resolves with the result of the wrapped function.
+   * @function clear - Clears all pending executions in the execution pool.
    */
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T>;
     clear(): void;
   }
-  interface IConfig {
-    maxExec: number;
-    delay: number;
-  }
+  /**
+   * Creates an execution pool for asynchronous functions with a limited concurrency.
+   *
+   * @template T - The type of the result of the wrapped function.
+   * @template P - The types of the parameters of the wrapped function.
+   *
+   * @function
+   * @param run - The function to be executed in the pool.
+   * @param options - Optional configuration options for the execution pool.
+   * @returns A wrapped function that executes asynchronously within the execution pool.
+   */
   export const execpool: <T extends unknown = any, P extends any[] = any[]>(
     run: (...args: P) => Promise<T>,
     { maxExec, delay }?: Partial<IConfig>,
@@ -27521,6 +27567,7 @@ declare module "react-declarative/components/common/ItemModal/ItemModal" {
   import IManaged from "react-declarative/model/IManaged";
   import IAnything from "react-declarative/model/IAnything";
   export interface IItemModalProps {
+    _autofocusDelay?: number;
     type: Exclude<IField["type"], undefined>;
     onValueChange: Exclude<IManaged["onChange"], undefined>;
     value: IAnything;
@@ -27534,6 +27581,7 @@ declare module "react-declarative/components/common/ItemModal/ItemModal" {
     itemList: IField["itemList"];
   }
   export const ItemModal: ({
+    _autofocusDelay,
     type,
     data,
     payload,

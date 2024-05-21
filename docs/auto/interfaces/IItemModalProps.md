@@ -2,6 +2,12 @@
 
 ## Properties
 
+### _autofocusDelay
+
+```ts
+_autofocusDelay: number
+```
+
 ### type
 
 ```ts

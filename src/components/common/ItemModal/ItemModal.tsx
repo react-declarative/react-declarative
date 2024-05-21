@@ -25,7 +25,10 @@ import useViewState from './hooks/useViewState';
 
 import CloseIcon from '@mui/icons-material/Close';
 
+const DEFAULT_AUTOFOCUS_DELAY = 650;
+
 export interface IItemModalProps {
+    _autofocusDelay?: number;
     type: Exclude<IField['type'], undefined>;
     onValueChange: Exclude<IManaged['onChange'], undefined>;
     value: IAnything;
@@ -76,6 +79,7 @@ const useStyles = makeStyles<ISize>()((theme, { height }) => ({
 }));
 
 export const ItemModal = ({
+    _autofocusDelay = DEFAULT_AUTOFOCUS_DELAY,
     type,
     data,
     payload,
@@ -123,6 +127,9 @@ export const ItemModal = ({
 
     useLayoutEffect(() => {
         inputRef.current?.focus();
+        setTimeout(() => {
+            inputRef.current?.focus();
+        }, _autofocusDelay);
     }, []);
 
     return (
@@ -144,9 +151,11 @@ export const ItemModal = ({
                     size="small"
                     variant="filled"
                     autoFocus
+                    tabIndex={0}
                     label={title}
                     placeholder={placeholder}
                     InputProps={{
+                        autoFocus: true,
                         endAdornment: (
                             <InputAdornment position='end'>
                                 <IconButton edge='end' onClick={cancelSubmit}>

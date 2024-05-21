@@ -13,6 +13,7 @@ const Bootstrap = (props: IItemModalProps) => (
 
 interface IParams extends IItemModalProps {
     payload: Record<string, unknown>;
+    _autofocusDelay?: number;
 }
 
 export const useItemModal = (params: IParams) => {

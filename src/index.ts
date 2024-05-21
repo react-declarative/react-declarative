@@ -662,6 +662,10 @@ export type ISearchSlot = ISearchSlotInternal;
 export type IOperationListSlot = IOperationListSlotInternal;
 export type IPositionActionListSlot = IPositionActionListSlotInternal;
 
+import type { IAwaiter as IAwaiterInternal } from './utils/createAwaiter';
+
+export type IAwaiter<T extends IAnything> = IAwaiterInternal<T>;
+
 export { VirtualListBox } from './components/One/components/common/VirtualListBox';
 
 export { list2grid } from './utils/list2grid';
