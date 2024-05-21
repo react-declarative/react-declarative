@@ -449,6 +449,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   columns,
   columnsOverride,
   isBaselineAlign,
+  testId,
   sx,
   phoneColumns,
   tabletColumns,
@@ -461,6 +462,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   return (
     <Group
       className={classNames(className, classes.root)}
+      data-testid={testId}
       ref={(el) => groupRef.current = el}
       style={style}
       isItem={true}

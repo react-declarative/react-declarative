@@ -6,6 +6,14 @@
 
 ## Properties
 
+### testId
+
+```ts
+testId: string
+```
+
+Идентификатор для тестирования шаблона
+
 ### isDisabled
 
 ```ts

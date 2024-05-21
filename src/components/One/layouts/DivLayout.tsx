@@ -47,8 +47,9 @@ export const DivLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
+    testId,
 }: IDivLayoutProps<Data> & IDivLayoutPrivate<Data>) => (
-    <div {...{className, style}}>
+    <div {...{className, style}} data-testid={testId}>
         {children}
     </div>
 );

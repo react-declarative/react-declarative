@@ -89,6 +89,7 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
   className,
   style,
   sx,
+  testId,
   customLayout: CustomLayout = Fragment,
   ...otherProps
 }: ICustomLayoutProps<Data> & ICustomLayoutPrivate<Data>) => {
@@ -112,7 +113,7 @@ export const CustomLayout = <Data extends IAnything = IAnything>({
   }, [object]);
 
   return (
-    <Box className={classNames(className, classes.root)} style={style} sx={sx}>
+    <Box className={classNames(className, classes.root)} data-testid={testId} style={style} sx={sx}>
         <CustomLayout {...props}>
             {children}
         </CustomLayout>

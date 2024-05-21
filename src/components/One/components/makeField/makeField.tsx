@@ -181,6 +181,7 @@ export function makeField(
         fieldBottomMargin = fieldConfig.defaultProps?.fieldBottomMargin,
         outlinePaper = false,
         transparentPaper = false,
+        testId = name,
         ...otherProps
     }: IEntity<Data>) => {
         const { object: stateObject, changeObject } = useOneState<Data>();
@@ -729,7 +730,7 @@ export function makeField(
         return (
             <Group
                 ref={handleGroupRef}
-                data-testid={name}
+                data-testid={testId}
                 data-path={memory.fieldName}
                 isItem
                 style={style}

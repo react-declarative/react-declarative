@@ -160,6 +160,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
     columnsOverride,
     isBaselineAlign,
     sx,
+    testId,
     phoneColumns,
     tabletColumns,
     desktopColumns,
@@ -184,6 +185,7 @@ export const TabsLayout = <Data extends IAnything = IAnything>({
             style={style}
             isItem={true}
             columns={columns}
+            data-testid={testId}
             columnsOverride={columnsOverride}
             isBaselineAlign={isBaselineAlign}
             phoneColumns={phoneColumns}

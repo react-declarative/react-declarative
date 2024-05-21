@@ -26,6 +26,12 @@ export type Value = string | string[] | number | boolean | null;
 export interface IField<Data = IAnything, Payload = IAnything> {
 
     /**
+     * Атрибут, который будет передат в data-testid
+     * корневому элементу компоновки
+     */
+    testId?: string;
+
+    /**
      * Общие поля. Поле name позволяет задать забор
      * поля из целевого объекта, не нужен для group,
      * expansion и line.

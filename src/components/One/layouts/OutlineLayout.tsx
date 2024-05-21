@@ -85,6 +85,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
   style,
   className,
   children,
+  testId,
   isBaselineAlign,
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
@@ -94,6 +95,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
   return (
     <Group
       className={classNames(className, classes.root)}
+      data-testid={testId}
       style={style}
       isItem={true}
       columns={columns}

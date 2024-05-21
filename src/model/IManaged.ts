@@ -16,6 +16,10 @@ export type DeepPartial<T> = {
  */
 export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     /**
+     * Идентификатор для отладки json шаблона
+     */
+    testId?: PickProp<IField<Data, Payload>, 'testId'>;
+    /**
      * Represents the `isVisible` property of a field in a form.
      *
      * @typedef isVisible
@@ -169,6 +173,10 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
  * поля
  */
 export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data> {
+    /**
+     * Идентификатор для тестирования шаблона
+     */
+    testId?: PickProp<IField<Data, Payload>, 'testId'>;
     /**
      * Represents the `isDisabled` property of a field object.
      *

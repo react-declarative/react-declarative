@@ -1587,6 +1587,11 @@ declare module "react-declarative/model/IField" {
    */
   export interface IField<Data = IAnything, Payload = IAnything> {
     /**
+     * Атрибут, который будет передат в data-testid
+     * корневому элементу компоновки
+     */
+    testId?: string;
+    /**
      * Общие поля. Поле name позволяет задать забор
      * поля из целевого объекта, не нужен для group,
      * expansion и line.
@@ -2148,6 +2153,7 @@ declare module "react-declarative/model/IField" {
      * Шрифт для поля Typography
      */
     typoVariant?: keyof {
+      h1: "h1";
       h2: "h2";
       h3: "h3";
       h4: "h4";
@@ -2157,6 +2163,7 @@ declare module "react-declarative/model/IField" {
       subtitle2: "subtitle2";
       body1: "body1";
       body2: "body2";
+      caption: "caption";
     };
     /**
      * Поле для ExpansionLayout
@@ -2334,6 +2341,10 @@ declare module "react-declarative/model/IManaged" {
    */
   export interface IWrappedLayout<Data = IAnything, Payload = IAnything> {
     /**
+     * Идентификатор для отладки json шаблона
+     */
+    testId?: PickProp<IField<Data, Payload>, "testId">;
+    /**
      * Represents the `isVisible` property of a field in a form.
      *
      * @typedef isVisible
@@ -2487,6 +2498,10 @@ declare module "react-declarative/model/IManaged" {
    */
   export interface IManagedShallow<Data = IAnything, Payload = IAnything>
     extends IManagedLayout<Data> {
+    /**
+     * Идентификатор для тестирования шаблона
+     */
+    testId?: PickProp<IField<Data, Payload>, "testId">;
     /**
      * Represents the `isDisabled` property of a field object.
      *
@@ -11319,6 +11334,7 @@ declare module "react-declarative/components/One/layouts/DivLayout" {
       children,
       className,
       style,
+      testId,
     }: IDivLayoutProps<Data, any> & IDivLayoutPrivate<Data>): JSX.Element;
     displayName: string;
   };
@@ -11327,6 +11343,7 @@ declare module "react-declarative/components/One/layouts/DivLayout" {
       children,
       className,
       style,
+      testId,
     }: IDivLayoutProps<Data, any> & IDivLayoutPrivate<Data>): JSX.Element;
     displayName: string;
   };
@@ -11380,6 +11397,7 @@ declare module "react-declarative/components/One/layouts/BoxLayout" {
       className,
       style,
       sx,
+      testId,
     }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
     displayName: string;
   };
@@ -11389,6 +11407,7 @@ declare module "react-declarative/components/One/layouts/BoxLayout" {
       className,
       style,
       sx,
+      testId,
     }: IBoxLayoutProps<Data, any> & IBoxLayoutPrivate<Data>): JSX.Element;
     displayName: string;
   };
@@ -11473,6 +11492,7 @@ declare module "react-declarative/components/One/layouts/TabsLayout" {
       columnsOverride,
       isBaselineAlign,
       sx,
+      testId,
       phoneColumns,
       tabletColumns,
       desktopColumns,
@@ -11498,6 +11518,7 @@ declare module "react-declarative/components/One/layouts/TabsLayout" {
       columnsOverride,
       isBaselineAlign,
       sx,
+      testId,
       phoneColumns,
       tabletColumns,
       desktopColumns,
@@ -11571,6 +11592,7 @@ declare module "react-declarative/components/One/layouts/CenterLayout" {
       desktopColumns,
       columnsOverride,
       isBaselineAlign,
+      testId,
       sx,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11589,6 +11611,7 @@ declare module "react-declarative/components/One/layouts/CenterLayout" {
       desktopColumns,
       columnsOverride,
       isBaselineAlign,
+      testId,
       sx,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11644,6 +11667,7 @@ declare module "react-declarative/components/One/layouts/StretchLayout" {
       children,
       className,
       style,
+      testId,
       innerPadding: padding,
     }: IStretchLayoutProps<Data, any> &
       IStretchLayoutPrivate<Data>): JSX.Element;
@@ -11654,6 +11678,7 @@ declare module "react-declarative/components/One/layouts/StretchLayout" {
       children,
       className,
       style,
+      testId,
       innerPadding: padding,
     }: IStretchLayoutProps<Data, any> &
       IStretchLayoutPrivate<Data>): JSX.Element;
@@ -11714,6 +11739,7 @@ declare module "react-declarative/components/One/layouts/GroupLayout" {
       fieldRightMargin,
       fieldBottomMargin,
       style,
+      testId,
       className,
       children,
     }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
@@ -11731,6 +11757,7 @@ declare module "react-declarative/components/One/layouts/GroupLayout" {
       fieldRightMargin,
       fieldBottomMargin,
       style,
+      testId,
       className,
       children,
     }: IGroupLayoutProps<Data, any> & IGroupLayoutPrivate): JSX.Element;
@@ -11798,6 +11825,7 @@ declare module "react-declarative/components/One/layouts/OutlineLayout" {
       style,
       className,
       children,
+      testId,
       isBaselineAlign,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11816,6 +11844,7 @@ declare module "react-declarative/components/One/layouts/OutlineLayout" {
       style,
       className,
       children,
+      testId,
       isBaselineAlign,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11888,6 +11917,7 @@ declare module "react-declarative/components/One/layouts/PaperLayout" {
       style,
       className,
       children,
+      testId,
       isBaselineAlign,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11908,6 +11938,7 @@ declare module "react-declarative/components/One/layouts/PaperLayout" {
       style,
       className,
       children,
+      testId,
       isBaselineAlign,
       fieldRightMargin,
       fieldBottomMargin,
@@ -11985,6 +12016,7 @@ declare module "react-declarative/components/One/layouts/ExpansionLayout" {
       className,
       children,
       title,
+      testId,
       description,
       expansionOpened,
       outlinePaper,
@@ -12007,6 +12039,7 @@ declare module "react-declarative/components/One/layouts/ExpansionLayout" {
       className,
       children,
       title,
+      testId,
       description,
       expansionOpened,
       outlinePaper,
@@ -12257,6 +12290,7 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
       columns,
       columnsOverride,
       isBaselineAlign,
+      testId,
       sx,
       phoneColumns,
       tabletColumns,
@@ -12274,6 +12308,7 @@ declare module "react-declarative/components/One/layouts/HeroLayout" {
       columns,
       columnsOverride,
       isBaselineAlign,
+      testId,
       sx,
       phoneColumns,
       tabletColumns,
@@ -12404,6 +12439,7 @@ declare module "react-declarative/components/One/layouts/CustomLayout" {
       className,
       style,
       sx,
+      testId,
       customLayout: CustomLayout,
       ...otherProps
     }: ICustomLayoutProps<Data, any> & ICustomLayoutPrivate<Data>): JSX.Element;
@@ -12415,6 +12451,7 @@ declare module "react-declarative/components/One/layouts/CustomLayout" {
       className,
       style,
       sx,
+      testId,
       customLayout: CustomLayout,
       ...otherProps
     }: ICustomLayoutProps<Data, any> & ICustomLayoutPrivate<Data>): JSX.Element;
@@ -12544,6 +12581,7 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -12772,6 +12810,7 @@ declare module "react-declarative/components/One/fields/FileField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13002,6 +13041,7 @@ declare module "react-declarative/components/One/fields/ComboField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13172,6 +13212,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13422,6 +13463,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13524,6 +13566,7 @@ declare module "react-declarative/components/One/fields/LineField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13638,6 +13681,7 @@ declare module "react-declarative/components/One/fields/ProgressField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13778,6 +13822,7 @@ declare module "react-declarative/components/One/fields/RadioField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -13893,6 +13938,7 @@ declare module "react-declarative/components/One/fields/RatingField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -14111,6 +14157,7 @@ declare module "react-declarative/components/One/fields/SliderField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -14259,6 +14306,7 @@ declare module "react-declarative/components/One/fields/SwitchField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -14635,6 +14683,7 @@ declare module "react-declarative/components/One/fields/TextField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -14826,6 +14875,7 @@ declare module "react-declarative/components/One/fields/DateField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -15017,6 +15067,7 @@ declare module "react-declarative/components/One/fields/TimeField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -15371,6 +15422,7 @@ declare module "react-declarative/components/One/fields/CompleteField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -15505,6 +15557,7 @@ declare module "react-declarative/components/One/fields/TypographyField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -15700,6 +15753,7 @@ declare module "react-declarative/components/One/fields/ChooseField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -15929,6 +15983,7 @@ declare module "react-declarative/components/One/fields/YesNoField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -16437,6 +16492,7 @@ declare module "react-declarative/components/One/fields/DictField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -16623,6 +16679,7 @@ declare module "react-declarative/components/One/fields/TreeField" {
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
     displayName: string;
@@ -28977,6 +29034,7 @@ declare module "react-declarative/components/One/components/makeField/makeField"
       fieldBottomMargin,
       outlinePaper,
       transparentPaper,
+      testId,
       ...otherProps
     }: IEntity<Data, any>): JSX.Element | null;
     displayName: string;

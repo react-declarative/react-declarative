@@ -82,6 +82,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
   fieldRightMargin = '0',
   fieldBottomMargin = '0',
   style,
+  testId,
   className,
   children,
 }: IGroupLayoutProps<Data> & IGroupLayoutPrivate) => {
@@ -89,6 +90,7 @@ export const GroupLayout = <Data extends IAnything = IAnything>({
     return (
         <Group
             className={classNames(className, classes.root)}
+            data-testid={testId}
             style={style}
             isItem={true}
             columns={columns}

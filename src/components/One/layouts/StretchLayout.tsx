@@ -79,11 +79,12 @@ export const StretchLayout = <Data extends IAnything = IAnything>({
     children,
     className,
     style,
+    testId,
     innerPadding: padding = '0px',
 }: IStretchLayoutProps<Data> & IStretchLayoutPrivate<Data>) => {
     const { classes } = useStyles();
     return (
-        <div className={classNames(classes.root, className)} style={style}>
+        <div className={classNames(classes.root, className)} data-testid={testId} style={style}>
             <div className={classes.container} style={{ padding }}>
                 {children}
             </div>

@@ -4,6 +4,14 @@ Represents a layout with various properties that control its visibility, disable
 
 ## Properties
 
+### testId
+
+```ts
+testId: string
+```
+
+Идентификатор для отладки json шаблона
+
 ### isVisible
 
 ```ts

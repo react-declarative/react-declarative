@@ -105,6 +105,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     desktopColumns,
     columnsOverride,
     isBaselineAlign,
+    testId,
     sx,
     fieldRightMargin = '0',
     fieldBottomMargin = '0',
@@ -163,6 +164,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             className={className}
             style={style}
             isItem={true}
+            data-testid={testId}
             columns={columns}
             phoneColumns={phoneColumns}
             tabletColumns={tabletColumns}

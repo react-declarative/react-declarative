@@ -101,6 +101,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
   className,
   children,
   title,
+  testId,
   description,
   expansionOpened,
   outlinePaper,
@@ -110,6 +111,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
     return (
         <Group
             className={classNames(className, classes.root)}
+            data-testid={testId}
             style={style}
             isItem={true}
             columns={columns}

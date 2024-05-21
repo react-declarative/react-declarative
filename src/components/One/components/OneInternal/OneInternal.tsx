@@ -257,6 +257,7 @@ export const OneInternal = <
             writeTransform,
             invalidity: field.invalidity || invalidity,
             readonly: readonly || field.readonly,
+            testId: field.testId,
             prefix: currentPath,
             change: handleChange,
             ready: handleReady,

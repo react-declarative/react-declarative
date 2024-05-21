@@ -50,11 +50,13 @@ export const BoxLayout = <Data extends IAnything = IAnything>({
     className,
     style,
     sx,
+    testId,
 }: IBoxLayoutProps<Data> & IBoxLayoutPrivate<Data>) => (
     <Box
         className={className}
         style={style}
         sx={sx}
+        data-testid={testId}
     >
         {children}
     </Box>
