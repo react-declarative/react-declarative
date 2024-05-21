@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import useSubject from "./useSubject";
 import useChange from "./useChange";
@@ -12,6 +12,7 @@ import TSubject from "../model/TSubject";
 interface IResult {
   useChanges: () => void;
   changeSubject: TSubject<void>;
+  waitForChanges: () => Promise<void>;
   watch: {
     resetWatcher: () => void;
     beginWatch: () => void;
@@ -39,6 +40,10 @@ export const useWatchChanges = (deps: any[] = []): IResult => {
     changeSubject.next();
   }, deps);
 
+  const waitForChanges = useCallback(async () => {
+    await changeSubject.toPromise();
+  }, []);
+
   return {
     /**
      * Subscribe to the 'changeSubject' and update the state using useState.
@@ -60,6 +65,7 @@ export const useWatchChanges = (deps: any[] = []): IResult => {
         []
       );
     },
+    waitForChanges,
     changeSubject,
     watch,
   } as const;
