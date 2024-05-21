@@ -589,6 +589,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Шрифт для поля Typography
      */
     typoVariant?: keyof {
+      h1: 'h1',
       h2: 'h2',
       h3: 'h3',
       h4: 'h4',
@@ -598,6 +599,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
       subtitle2: 'subtitle2',
       body1: 'body1',
       body2: 'body2',
+      caption: 'caption',
     };
 
     /**
