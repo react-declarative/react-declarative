@@ -97,7 +97,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
     lastQuery = request({
       lastId,
       offset: counter,
-      page: counter / limit,
+      page: Math.ceil(counter / limit),
       limit,
     });
     yield response;
