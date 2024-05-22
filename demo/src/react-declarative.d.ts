@@ -10738,12 +10738,10 @@ declare module "react-declarative/api/iteratePromise" {
 }
 
 declare module "react-declarative/api/iterateUnion" {
-  export const iterateUnion: <T extends unknown>(
+  import IRowData from "react-declarative/model/IRowData";
+  export const iterateUnion: <T extends IRowData = IRowData>(
     iterators: AsyncGenerator<T | T[], void, unknown>[],
-  ) => (
-    limit: number,
-    offset: number,
-  ) => AsyncGenerator<Awaited<T>, void, unknown>;
+  ) => (limit: number, offset: number) => AsyncGenerator<T, void, unknown>;
   export default iterateUnion;
 }
 
