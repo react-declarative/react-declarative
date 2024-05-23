@@ -183,3 +183,58 @@ In summary, react-declarative handles state management by allowing you to expres
     *   React-declarative also provides error handling mechanisms. For example, you can define an `onError` callback to handle errors during data fetching.
 
 In summary, react-declarative simplifies asynchronous state management by allowing you to express your intent declaratively. It’s a powerful approach that aligns well with React’s core principles! 😊🚀
+
+## Read the `docs/readme.md` and make me a sign up form with `<One />` component from a file
+
+Sure, I can help you with that. Based on the content of the `Readme.md` file, the `<One />` component is a part of the `react-declarative` library and it represents a form with various fields. Here’s an example of how you can create a sign-up form using the `<One />` component:
+
+```typescript
+import React from 'react';
+import { One, FieldType } from 'react-declarative';
+
+const SignUpForm = () => {
+    const fields = [
+    {
+        type: FieldType.Text,
+        title: 'Username',
+        name: 'username',
+        placeholder: 'Enter your username',
+    },
+    {
+        type: FieldType.Text,
+        title: 'Email',
+        name: 'email',
+        placeholder: 'Enter your email',
+    },
+    {
+        type: FieldType.Password,
+        title: 'Password',
+        name: 'password',
+        placeholder: 'Enter your password',
+    },
+    {
+        type: FieldType.Password,
+        title: 'Confirm Password',
+        name: 'confirmPassword',
+        placeholder: 'Confirm your password',
+    },
+    {
+        type: FieldType.Checkbox,
+        title: 'I agree to the terms and conditions',
+        name: 'terms',
+    },
+    {
+        type: FieldType.Button,
+        title: 'Sign Up',
+        name: 'signup',
+    },
+    ];
+
+    return <One fields={fields} />;
+};
+
+export default SignUpForm;
+```
+
+This is a simple sign-up form with fields for username, email, password, confirm password, and a checkbox for terms and conditions. Please modify it according to your needs. Remember to implement the necessary validation and submission logic.
+
