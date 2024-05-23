@@ -71,61 +71,6 @@
 
 In summary, react-declarative empowers you to build React applications with a focus on expressing your desired UI outcomes in a declarative manner. [Happy coding! 😊🚀](https://www.npmjs.com/package/react-declarative)[1](https://www.npmjs.com/package/react-declarative)
 
-Certainly! **React-declarative** provides its own way of handling state management in a declarative manner. Let’s explore how it achieves this:
-
-1.  **State Management in React**:
-    
-    *   In React, state management is crucial for handling data that changes over time. Components can have local state (managed within the component) or global state (shared across components).
-
-    *   Common approaches for state management include:
-        *   **Local State**: Using `useState` or `this.state` within a component.
-        *   **Context API**: For sharing state across components without prop drilling.
-        *   **Redux**: A popular library for managing global state.
-        *   **MobX**: Another library for state management.
-        *   **Apollo Client**: For managing state in GraphQL applications.
-
-    *   Each approach has its pros and cons, and the choice depends on the complexity of your application and your preferences.
-
-2.  **Declarative State Management in react-declarative**:
-    
-    *   React-declarative introduces its own way of managing state, emphasizing a declarative approach.
-    *   The core concept is to define your state requirements declaratively, and the framework handles the rest.
-
-    *   Here’s how it works:
-        *   You define your state requirements using configuration objects.
-        *   The framework generates the necessary components and manages their state.
-        *   You interact with the generated components as needed.
-
-    *   Example of declarative state management in react-declarative:
-    
-        ```tsx
-        const options = [
-            {
-                id: 'build',
-                label: 'Build',
-                children: [
-                    {
-                        id: 'authentication',
-                        label: 'Authentication',
-                        isVisible: async () => await ioc.authService.hasRole('unauthorized'),
-                        // Other properties...
-                    },
-                    // Other sections...
-                ],
-            },
-            // Other groups...
-        ];
-        ```
-
-    *   In this example, the `isVisible` property determines whether the “Authentication” section should be visible based on the user’s role. The framework handles the state and rendering.
-
-3.  **Benefits of Declarative State Management**:
-    
-    *   **Predictability**: Declarative state management simplifies your code and makes it more predictable. You express what you want, and the framework handles the implementation details.
-    *   **Abstraction**: By abstracting away state management complexities, react-declarative allows you to focus on building UIs.
-    *   **Efficiency**: The framework efficiently updates components when state changes, thanks to its declarative nature.
-
-In summary, react-declarative handles state management by allowing you to express your state requirements declaratively, and it takes care of the underlying implementation. It’s an interesting alternative for those who prefer a declarative approach to state management in React applications! 😊🚀
 
 ## How does react-declarative handle state management?
 
