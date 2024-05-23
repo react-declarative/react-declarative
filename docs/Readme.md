@@ -107,6 +107,7 @@ Try without installing directly [in your web browser](https://react-declarative-
 1. [API reference](./auto/index.md)
 2. [Release notes](../CHANGELOG.md)
 3. [Philosophy notes](../NOTES.md)
+4. [FAQ](../FAQ.md)
 
 ## Overview
 
