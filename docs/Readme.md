@@ -335,7 +335,7 @@ To insert a separate component into `fields`, use `type: FieldType.Component`, w
 
 ### 2. handler
 
-It should be a function (can return a promise) or a reference to the component's state. It is used to connect the component to the server or mock data. Through variable context composition, you can reach the `id` from the route.
+It should be a function (can return a promise) or a reference for fetching the component's state. It is used to connect the component to the server or mock data. Through variable context composition, you can reach the `id` from the route.
 
 ### 3. fallback
 
