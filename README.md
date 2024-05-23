@@ -51,6 +51,12 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 Link to [the playground](https://react-declarative-playground.github.io/)
 
+## Using with AI
+
+![prompt](./assets/images/gpt.png)
+
+There is a guide to make GPT-4 generate form schemas automatically. Check [the docs folder for guide](./docs/Readme.md#using-with-ai)
+
 <img src="./assets/icons/decart.svg" height="35px" align="right">
 
 ## Short review

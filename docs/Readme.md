@@ -8,6 +8,29 @@ Try without installing directly [in your web browser](https://react-declarative-
 
 ![playground](../assets/playground.gif)
 
+## Using with AI
+
+Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these files. Use the next prompt
+
+![prompt](./images/prompt.png)
+
+1. [Order info](./sample/code1.txt)
+2. [Typography](./sample/code2.txt)
+3. [Settings page](./sample/code3.txt)
+4. [Product Shape](./sample/code4.txt)
+5. [Profile card](./sample/code5.txt)
+6. [Gallery of controls](./sample/code6.txt)
+7. [Variant form](./sample/code7.txt)
+8. [Custom JSX](./sample/code8.txt)
+9. [Machine learning](./sample/code9.txt)
+10. [Dashboard](./sample/code10.txt)
+
+The prompt to copy
+
+```html
+Read the code from the markdown file and make me a sign in form by using same schema
+```
+
 ## Articles:
 
 1. [The code as the side effect](./other/code-sideeffect.md)
