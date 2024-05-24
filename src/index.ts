@@ -714,6 +714,7 @@ export { wordForm } from './utils/wordForm';
 export { scaleRect, createScaleRect } from './utils/scaleRect';
 export { scaleToSize, createScaleToSize } from './utils/scaleToSize';
 
+export { obsolete } from './utils/hof/obsolete';
 export { singleshot } from './utils/hof/singleshot';
 export { singletick } from './utils/hof/singletick';
 export { afterinit } from './utils/hof/afterinit';

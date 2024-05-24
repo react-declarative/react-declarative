@@ -784,6 +784,7 @@ declare module "react-declarative" {
     scaleToSize,
     createScaleToSize,
   } from "react-declarative/utils/scaleToSize";
+  export { obsolete } from "react-declarative/utils/hof/obsolete";
   export { singleshot } from "react-declarative/utils/hof/singleshot";
   export { singletick } from "react-declarative/utils/hof/singletick";
   export { afterinit } from "react-declarative/utils/hof/afterinit";
@@ -7821,6 +7822,13 @@ declare module "react-declarative/utils/scaleToSize" {
     [blob: Blob | File]
   >;
   export default scaleToSize;
+}
+
+declare module "react-declarative/utils/hof/obsolete" {
+  export const obsolete: <T extends unknown = any, P extends any[] = any[]>(
+    run: (...args: P) => Promise<T>,
+  ) => (...args: P) => Promise<T>;
+  export default obsolete;
 }
 
 declare module "react-declarative/utils/hof/singleshot" {
