@@ -1,9 +1,12 @@
+interface IError extends Error {}
+
 /**
  * Represents a configuration interface.
  *
  * @interface
  */
 interface IConfig {
+    allowedErrors?: {new(): IError}[];
     fallback?: (error: Error) => void
     defaultValue: null | false;
 }
@@ -43,6 +46,7 @@ const awaiter = async <V extends any>(value: Promise<V>, { fallback, defaultValu
  * @returns - The wrapped function that handles errors and returns the result or the default value
  */
 export const trycatch = <T extends (...args: A) => any, A extends any[], V extends any>(run: T, {
+    allowedErrors,
     fallback,
     defaultValue = null,
 }: Partial<IConfig> = {}): (...args: A) => ReturnType<T> | null => {
@@ -55,6 +59,14 @@ export const trycatch = <T extends (...args: A) => any, A extends any[], V exten
             return result;
         } catch (error) {
             fallback && fallback(error as Error);
+            if (allowedErrors) {
+                for (const BaseError of allowedErrors) {
+                    if (error instanceof BaseError) {
+                        return defaultValue;
+                    }
+                }
+                throw error;
+            }
             return defaultValue;
         }
     };

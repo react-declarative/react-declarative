@@ -8215,12 +8215,16 @@ declare module "react-declarative/utils/hof/memoize" {
 }
 
 declare module "react-declarative/utils/hof/trycatch" {
+  interface IError extends Error {}
   /**
    * Represents a configuration interface.
    *
    * @interface
    */
   interface IConfig {
+    allowedErrors?: {
+      new (): IError;
+    }[];
     fallback?: (error: Error) => void;
     defaultValue: null | false;
   }
@@ -8245,7 +8249,7 @@ declare module "react-declarative/utils/hof/trycatch" {
     V extends unknown,
   >(
     run: T,
-    { fallback, defaultValue }?: Partial<IConfig>,
+    { allowedErrors, fallback, defaultValue }?: Partial<IConfig>,
   ) => (...args: A) => ReturnType<T> | null;
   export default trycatch;
 }
