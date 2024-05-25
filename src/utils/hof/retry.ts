@@ -1,4 +1,4 @@
-import cancelable, { CANCELED_SYMBOL } from "./cancelable";
+import queued, { CANCELED_SYMBOL } from "./queued";
 
 /**
  * Represents a wrapped function that returns a promise.
@@ -8,6 +8,7 @@ import cancelable, { CANCELED_SYMBOL } from "./cancelable";
 export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;
+    clear(): void;
 };
 
 /**
@@ -18,7 +19,7 @@ export interface IWrappedFn<T extends any = any, P extends any[] = any> {
  * @returns - The wrapped function that can be canceled.
  */
 export const retry = <T extends any = any, P extends any[] = any[]>(run: (...args: P) => Promise<T>, count = 5): IWrappedFn<T, P> => {
-    const wrappedFn = cancelable(async (...args: any) => {
+    const wrappedFn = queued(async (...args: any) => {
         let total = count;        
         /**
          * Calls the function `run` repeatedly until it successfully completes or `total` reattempts have been made.

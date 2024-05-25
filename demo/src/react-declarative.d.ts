@@ -7945,7 +7945,7 @@ declare module "react-declarative/utils/hof/execpool" {
 }
 
 declare module "react-declarative/utils/hof/retry" {
-  import { CANCELED_SYMBOL } from "react-declarative/utils/hof/cancelable";
+  import { CANCELED_SYMBOL } from "react-declarative/utils/hof/queued";
   /**
    * Represents a wrapped function that returns a promise.
    * @template T - The type of the promise's resolved value.
@@ -7954,6 +7954,7 @@ declare module "react-declarative/utils/hof/retry" {
   export interface IWrappedFn<T extends any = any, P extends any[] = any> {
     (...args: P): Promise<T | typeof CANCELED_SYMBOL>;
     cancel(): void;
+    clear(): void;
   }
   /**
    * Retries a function multiple times until it succeeds or reaches the maximum number of retries.
