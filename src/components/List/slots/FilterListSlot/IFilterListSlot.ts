@@ -44,7 +44,6 @@ export interface IFilterListSlot<FilterData extends {} = IAnything> {
      * @type {boolean|undefined}
      */
     withToggledFilters?: boolean;
-    ready: () => void;
     clean: () => void;
     loading: boolean;
     label: string;

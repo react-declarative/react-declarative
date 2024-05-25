@@ -10,7 +10,7 @@ import ColumnType from "../model/ColumnType";
 
 import get from './get';
 
-const DEFAULT_MIN_WIDTH = 165;
+const DEFAULT_MIN_WIDTH = 185;
 
 interface IConfig {
   minWidth: number;

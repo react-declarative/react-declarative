@@ -38,7 +38,6 @@ import ColumnType from "../../model/ColumnType";
  * @param selectionLabel - Function to display the label for selected items.
  * @param filterData - The additional data for filters. Default value is an empty object.
  * @param withToggledFilters - Flag to indicate if filters are toggled. Default value is false.
- * @param withCustomFilters - Flag to indicate if custom filters are used. Default value is false.
  * @param fetchDebounce - The debounce time for fetching the list data. Default value is LIST_FETCH_DEBOUNCE.
  * @param sortModel - The array of sort model for the list. Default value is an empty array.
  * @param chips - The array of chips for the list. Default value is an empty array.

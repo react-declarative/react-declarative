@@ -97,9 +97,3 @@ Function to handle re-rendering.
 ```ts
 computeKeepPageOnReload: () => boolean
 ```
-
-### ready
-
-```ts
-ready: () => void
-```

@@ -95,7 +95,6 @@ const useStyles = makeStyles()((theme) => ({
  * @param props.filterData - The filter data for the component.
  * @param props.filters - The filters for the component.
  * @param props.change - The function to call when the filter changes.
- * @param props.ready - Indicates if the component is ready.
  * @param props.label - The label for the component.
  * @param props.loading - Indicates if the component is loading.
  * @param props.withSearch - Indicates if the component has search functionality.
@@ -114,7 +113,6 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
   filterData,
   filters,
   change,
-  ready,
   label,
   loading,
   withSearch,
@@ -283,7 +281,6 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
               payload={payload}
               fields={filters}
               change={handleChange}
-              ready={ready}
               readonly={loading}
             />
           </Box>

@@ -52,7 +52,6 @@ const RESIZE_DELAY = 100;
  * @property className - The class name for the container.
  * @property style - The inline style for the container.
  * @property children - The children elements of the container.
- * @property ready - The callback function to be called when the container is ready.
  * @property listChips - The list of chips for the container.
  * @property ref - The callback function to be called when the container is mounted.
  * @property onResize - The callback function to be called when the container is resized.
@@ -80,7 +79,6 @@ interface IContainerProps<
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
-  ready: () => void;
   listChips: IListProps["chips"];
   ref?: (instance: HTMLDivElement) => void;
   onResize?: IAutoSizerProps["onResize"];
@@ -214,7 +212,6 @@ export const Container = <
     initComplete,
     children,
     isChooser,
-    ready,
     loading,
     withToggledFilters,
     onFilterChange,
@@ -469,7 +466,6 @@ export const Container = <
                   clean={handleDefault}
                   label={filterLabel}
                   filters={filters}
-                  ready={ready}
                   loading={loading}
                   search={search}
                   height={rootElementSize.height}

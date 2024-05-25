@@ -3823,7 +3823,6 @@ declare module "react-declarative/model/IListProps" {
      */
     handleRerender: () => void;
     computeKeepPageOnReload: () => boolean;
-    ready: () => void;
   }
   /**
    * Represents a slot of position action in a list.
@@ -3836,7 +3835,7 @@ declare module "react-declarative/model/IListProps" {
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
     Payload extends IAnything = IAnything,
-  > extends Omit<IListCallbacks<FilterData, RowData>, "ready"> {
+  > extends IListCallbacks<FilterData, RowData> {
     filterData: Record<string, any>;
     pagination: ListHandlerPagination;
     sortModel: ListHandlerSortModel<RowData>;
@@ -17109,7 +17108,6 @@ declare module "react-declarative/components/List/List" {
         * @param selectionLabel - Function to display the label for selected items.
         * @param filterData - The additional data for filters. Default value is an empty object.
         * @param withToggledFilters - Flag to indicate if filters are toggled. Default value is false.
-        * @param withCustomFilters - Flag to indicate if custom filters are used. Default value is false.
         * @param fetchDebounce - The debounce time for fetching the list data. Default value is LIST_FETCH_DEBOUNCE.
         * @param sortModel - The array of sort model for the list. Default value is an empty array.
         * @param chips - The array of chips for the list. Default value is an empty array.
@@ -18251,7 +18249,6 @@ declare module "react-declarative/components/List/common/ClassicFilterListSlot" 
    * @param props.filterData - The filter data for the component.
    * @param props.filters - The filters for the component.
    * @param props.change - The function to call when the filter changes.
-   * @param props.ready - Indicates if the component is ready.
    * @param props.label - The label for the component.
    * @param props.loading - Indicates if the component is loading.
    * @param props.withSearch - Indicates if the component has search functionality.
@@ -18270,7 +18267,6 @@ declare module "react-declarative/components/List/common/ClassicFilterListSlot" 
     filterData,
     filters,
     change,
-    ready,
     label,
     loading,
     withSearch,
@@ -27505,7 +27501,6 @@ declare module "react-declarative/components/List/components/SlotFactory/SlotCon
       filterData,
       filters,
       change,
-      ready,
       label,
       loading,
       withSearch,
@@ -31012,7 +31007,6 @@ declare module "react-declarative/components/List/slots/FilterListSlot/IFilterLi
      * @type {boolean|undefined}
      */
     withToggledFilters?: boolean;
-    ready: () => void;
     clean: () => void;
     loading: boolean;
     label: string;

@@ -117,7 +117,6 @@ export class Entry<
    * @property selectionLabel - The default selectionLabel function.
    * @property filterData - The default filterData object.
    * @property withToggledFilters - The default withToggledFilters value.
-   * @property withCustomFilters - The default withCustomFilters value.
    * @property fetchDebounce - The default fetchDebounce value.
    * @property sortModel - The default sortModel array.
    * @property chips - The default chips array.
@@ -148,7 +147,6 @@ export class Entry<
     selectionLabel: (size) => `${size || ''}`,
     filterData: {},
     withToggledFilters: false,
-    withCustomFilters: false,
     fetchDebounce: LIST_FETCH_DEBOUNCE,
     tileMode: TileMode.Intersection,
     sortModel: [],
@@ -281,7 +279,7 @@ export class Entry<
    */
   public componentDidMount = () => {
     this.isMountedFlag = true;
-    this.handleEmptyFilters();
+    this.handleReady();
     this.handleUpdateRef();
   };
 
@@ -481,13 +479,14 @@ export class Entry<
    *
    * @function handleEmptyFilters
    */
-  private handleEmptyFilters = () => {
+  private handleReady = () => {
     let hasFilters = true;
     hasFilters = hasFilters && Array.isArray(this.props.filters);
     hasFilters = hasFilters && !!this.props.filters?.length;
-    hasFilters = hasFilters && !this.props.withCustomFilters;
-    if (!hasFilters) {
+    if (hasFilters) {
       this.handleDefault(true);
+    } else {
+      this.handleDefault(false);
     }
     this.prevState.filtersCollapsed = this.state.filtersCollapsed;
   };
@@ -829,11 +828,6 @@ export class Entry<
     handleFiltersCollapsed: this.handleFiltersCollapsed,
     handleRerender: this.handleRerender,
     computeKeepPageOnReload: this.computeKeepPageOnReload,
-    ready: () => {
-      if (!this.props.withCustomFilters) {
-        this.handleDefault(true);
-      }
-    },
   });
 
   /**

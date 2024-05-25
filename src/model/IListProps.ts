@@ -364,7 +364,6 @@ export interface IListCallbacks<FilterData extends {} = IAnything, RowData exten
    */
   handleRerender: () => void;
   computeKeepPageOnReload: () => boolean;
-  ready: () => void;
 };
 
 /**
@@ -378,7 +377,7 @@ export interface IPositionActionListSlot<
   FilterData extends {} = IAnything,
   RowData extends IRowData = IAnything,
   Payload extends IAnything = IAnything
-> extends Omit<IListCallbacks<FilterData, RowData>, 'ready'> {
+> extends IListCallbacks<FilterData, RowData> {
   filterData: Record<string, any>;
   pagination: ListHandlerPagination;
   sortModel: ListHandlerSortModel<RowData>;

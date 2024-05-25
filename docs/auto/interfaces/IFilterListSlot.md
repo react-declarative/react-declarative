@@ -62,12 +62,6 @@ Callback function called when the collapsed state changes.
 withToggledFilters: boolean
 ```
 
-### ready
-
-```ts
-ready: () => void
-```
-
 ### clean
 
 ```ts
