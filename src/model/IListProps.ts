@@ -607,7 +607,6 @@ export interface IListProps<
   setFilterDataSubject?: TSubject<FilterData>;
   rowActions?: IListRowAction[];
   noDisplayedRows?: boolean;
-  withCustomFilters?: boolean;
   withOutlinePaper?: boolean;
   withTransparentPaper?: boolean;
   withSingleChip?: boolean;

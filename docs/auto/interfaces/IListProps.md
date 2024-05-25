@@ -415,12 +415,6 @@ rowActions: IListRowAction<any, any>[]
 noDisplayedRows: boolean
 ```
 
-### withCustomFilters
-
-```ts
-withCustomFilters: boolean
-```
-
 ### withOutlinePaper
 
 ```ts
