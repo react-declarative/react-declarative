@@ -14,7 +14,7 @@ The `react-declarative` framework contains several sample projects and examples 
 
 What means It cannot debug the hooks when changing JSX. The declarative view engine does that automatically under the hood so It the best for AI
 
-### The prompt
+**The prompt**
 
 Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these samples. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/)
 
@@ -26,7 +26,7 @@ The prompt to copy
 Read the code from the markdown file and make me a sign in form by using same schema
 ```
 
-## The samples for AI
+**The samples for AI**
 
 1. [Order info](./sample/order_info.md)
 2. [Typography](./sample/typography.md)
