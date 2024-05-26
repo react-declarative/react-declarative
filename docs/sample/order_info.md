@@ -2,6 +2,20 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/order_info.png)
+
+## Description
+
+The form is divided into three sections: “General Information,” “Passport Information,” and “Other.”
+
+In the “General Information” section, there are fields for “First Name,” “Last Name,” “Middle Name,” “Phone,” an additional phone number option, and “Email.”
+
+The “Passport Information” section has fields for entering details such as the country of issue (with a dropdown menu), the date issued, and expiration date (both with calendar icons).
+
+Lastly, the section titled “Other” contains dropdown menus for “Profile Status” and “Profile Group.”
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

@@ -2,6 +2,18 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/machine_learning.png)
+
+## Description
+
+A graphical user interface for a neural network configuration tool. Here’s a detailed description:
+
+The top section is labeled “Neural Network” and shows a diagram of a neural network with multiple layers. Each layer contains a different number of neurons, represented by orange and green circles connected by lines. Below the diagram are settings related to the neural network’s layers, activation function (Leaky ReLU), learning rate (0.001), negative slope coefficient (0.02), and transfer function configuration.
+
+The bottom section is labeled “Training” with options to enable logging and set various parameters for the training process such as the number of training iterations (30000), error threshold (0.0001), learning rate (0.01), momentum (0.9), treatment learning rate ratio (1), treatment momentum period (10). There are also settings for callback period, historical error count, and callback timeout.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

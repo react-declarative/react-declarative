@@ -2,6 +2,24 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/profile_card.png)
+
+## Description
+
+A user interface of a profile page
+
+ - The profile page includes sections for personal information such as “Gender,” “First Name,” “Last Name,” and “Age.”
+
+ - There are checkboxes for options like “Subscribe to notifications.”
+
+ - There are fields for professional details under the headings “Job Title” and “Work Area.”
+
+ - Additionally, there are placeholders for address information with fields labeled “Home Address” and “City.”
+
+ - The design is clean, with a simple black-on-white color scheme, and uses dropdown menus and text boxes for input.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

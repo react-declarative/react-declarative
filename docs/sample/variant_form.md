@@ -2,6 +2,18 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/variant_form.png)
+
+## Description
+
+The form is divided into several sections:
+
+ - General Information: This section includes dropdown menus for “Transaction type” with options for ‘Buy’ or ‘Rent,’ and ‘Property type’ with options for ‘Residential’ or ‘Commercial.’ There’s also a checkbox option labeled “Office,” and an open text field titled “Description,” where the text entered reads, “An apartment on the first floor for living or business purpose.”
+ - Price Information (Purchase): This section contains an unchecked checkbox labeled “Exchange” and another field labeled “Commission,” which is blank.
+ - General Information (Rent): This section is partially visible and does not display any filled-in data.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

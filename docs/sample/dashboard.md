@@ -2,6 +2,19 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/dashboard.png)
+
+## Description
+
+A dashboard for project management or performance metrics. Here’s a detailed description:
+
+ - There are five rectangular boxes at the top labeled as “Archive,” “Waiting,” “In progress,” “Done,” and “Total.” Each of these boxes contains the text “50 Unit.”
+ - Below these boxes, there’s a semi-circular gauge chart labeled “Monthly Progress” with a scale from 0 to 300. The gauge is divided into three zones: “Bad” (0 to 100, colored red), “Normal” (100 to 200, colored yellow), and “Good” (200 to 300, colored green). The needle of the gauge is pointing just past the middle of the yellow zone, around the value of 150.
+ - Next to this chart, there’s a legend correlating colors to statuses: red for “Done,” orange for “Waiting,” green for “In Progress,” and purple for “Archive.”
+ - An email address, “tripolskypetr@gmail.com,” is also displayed on the dashboard.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

@@ -2,6 +2,24 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/gallery_of_controls.png)
+
+## Description
+
+A digital interface with various interactive elements. Here’s a detailed description:
+
+ - At the top, there’s a counter indicating “12 total” with buttons below it labeled “6 phone 4 tablet 6 desktop,” “4 phone 6 tablet 4 desktop,” and “6 phone 4 tablet 2 desktop.”
+
+ - Below this, there are two toggle switches; one is enabled and marked as visible, the other is disabled.
+
+ - Next, there’s a numeric input field with instructions that only numbers lower than 42 are allowed; however, no number is shown in the field.
+
+ - Following this, there are two sliders labeled ‘A’ and ‘B’, each set to different positions; ‘A’ at approximately two-thirds and ‘B’ at around one-third of their respective tracks.
+
+ - Lastly, at the bottom of the image, there are three radio buttons accompanied by text labels: “First radio button,” “Second radio button,” and “Third radio button.” The second radio button appears to be selected.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

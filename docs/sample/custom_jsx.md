@@ -2,6 +2,14 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/custom_jsx.png)
+
+## Description
+
+Demo of a custom JSX injection into the `<One />` component layout
+
+# Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

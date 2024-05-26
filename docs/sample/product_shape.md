@@ -2,6 +2,25 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/product_shape.png)
+
+## Description
+
+A user interface for customizing glass properties. Here’s a detailed description:
+
+ - Glass Type: There are checkboxes for selecting the type of glass. The options include Bronze, Transparent, Grey, and Lightened.
+ - Glass Thickness: This section allows you to choose the thickness of the glass. The options are 4 mm, 5 mm, 6 mm, and 8 mm.
+ - Product Shape: This section has two tabs labeled Circle and Rectangle. The Circle tab is currently selected.
+Within the Circle tab, there’s an input field for the Diameter, which is set at 5 units.
+ - Processing (circle): This section has dropdown menus for Polishing and Cutting. The Cutting option is visible and shows a value of 20 units.
+
+At the bottom of the interface, there’s a bar indicating ‘Available 500 units volume’.
+This interface seems to be used for customizing product specifications in manufacturing or retail settings. It’s a good example of how software can streamline and personalize the production process
+
+## Code
+
+> Link to [the playground](https://react-declarative-playground.github.io/)
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 

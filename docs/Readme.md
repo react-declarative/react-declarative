@@ -10,7 +10,7 @@ Try without installing directly [in your web browser](https://react-declarative-
 
 ## Using with AI
 
-Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these files. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/)
+Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these samples. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/)
 
 ![prompt](./images/prompt.png)
 

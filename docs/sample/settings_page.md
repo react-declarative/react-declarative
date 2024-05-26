@@ -2,6 +2,23 @@
 
 > Link to [the playground](https://react-declarative-playground.github.io/)
 
+![screenshot](../images/settings.png)
+
+## Description
+
+An interface with various settings related to a screen or display. Here’s a detailed breakdown:
+
+ - SCREEN SIZE: This section has an icon representing screen dimensions. The toggle switch for this feature is in the off position.
+ - CHROMATIC ABERRATION: This section has an icon depicting color dispersion. The toggle switch for this feature is also in the off position.
+ - FIELD OF VIEW: This section has an icon indicating the extent of the observable area. The toggle switch for this feature is in the off position.
+ - SERVER LOCATION: This section has an icon symbolizing network connectivity. The toggle switch for this feature is in the on position, indicating that this feature is active or enabled.
+
+Below these sections, there are two buttons: one labeled “Official site” suggesting a link to a website, and another labeled “View FPS” which means Frames Per Second
+
+At the bottom of the page, there is text stating that game network status indicators will play when the game is started, implying that this interface could be related to video game settings.
+
+## Code
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 
