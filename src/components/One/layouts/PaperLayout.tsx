@@ -114,6 +114,7 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
       className={classNames(className, classes.root)}
       data-testid={testId}
       style={style}
+      sx={sx}
       isItem={true}
       columns={columns}
       phoneColumns={phoneColumns}
@@ -128,7 +129,6 @@ export const PaperLayout = <Data extends IAnything = IAnything>({
           className: classes.content,
           columnsOverride: columnsOverride,
           isBaselineAlign,
-          sx,
           style: { padding },
           children: renderChild(),
         }

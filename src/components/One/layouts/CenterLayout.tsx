@@ -163,6 +163,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
         <Group
             className={className}
             style={style}
+            sx={sx}
             isItem={true}
             data-testid={testId}
             columns={columns}
@@ -180,7 +181,6 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                                 <Group
                                     columnsOverride={columnsOverride}
                                     isBaselineAlign={isBaselineAlign}
-                                    sx={sx}
                                     ref={handleGroupRef}
                                 >
                                     {children}

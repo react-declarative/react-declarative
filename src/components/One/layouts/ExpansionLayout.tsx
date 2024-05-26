@@ -113,6 +113,7 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
             className={classNames(className, classes.root)}
             data-testid={testId}
             style={style}
+            sx={sx}
             isItem={true}
             columns={columns}
             phoneColumns={phoneColumns}
@@ -128,7 +129,6 @@ export const ExpansionLayout = <Data extends IAnything = IAnything>({
                 })}
                 columnsOverride={columnsOverride}
                 expansionOpened={expansionOpened}
-                sx={sx}
                 title={title}
                 isBaselineAlign={isBaselineAlign}
                 description={description}

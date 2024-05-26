@@ -465,6 +465,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       data-testid={testId}
       ref={(el) => groupRef.current = el}
       style={style}
+      sx={sx}
       isItem={true}
       columns={columns}
       phoneColumns={phoneColumns}
@@ -477,7 +478,6 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
         className={classes.container}
         isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
-        sx={sx}
       >
         <AutoSizer
           className={classes.content}

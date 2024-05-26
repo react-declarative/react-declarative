@@ -97,6 +97,7 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
       className={classNames(className, classes.root)}
       data-testid={testId}
       style={style}
+      sx={sx}
       isItem={true}
       columns={columns}
       phoneColumns={phoneColumns}
@@ -110,7 +111,6 @@ export const OutlineLayout = <Data extends IAnything = IAnything>({
         isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
         style={{ padding }}
-        sx={sx}
       >
         {children}
         <BaselineAdjust />
