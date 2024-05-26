@@ -10,6 +10,10 @@ Try without installing directly [in your web browser](https://react-declarative-
 
 ## Using with AI
 
+The `react-declarative` framework contains several sample projects and examples created specifically for AI code generation. The problem of AI is that the context window cannot load all [project abstraction layers](https://medium.com/expedia-group-tech/onion-architecture-deed8a554423) at once, so when generating code we have to manually change the prompt based on the current abstraction level.
+
+What means It cannot debug the hooks when changing JSX. The declarative view engine does that automatically under the hood so It the best for AI
+
 Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these samples. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/)
 
 ![prompt](./images/prompt.png)
