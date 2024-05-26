@@ -14,16 +14,16 @@ Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of th
 
 ![prompt](./images/prompt.png)
 
-1. [Order info](./sample/code1.txt)
-2. [Typography](./sample/code2.txt)
-3. [Settings page](./sample/code3.txt)
-4. [Product Shape](./sample/code4.txt)
-5. [Profile card](./sample/code5.txt)
-6. [Gallery of controls](./sample/code6.txt)
-7. [Variant form](./sample/code7.txt)
-8. [Custom JSX](./sample/code8.txt)
-9. [Machine learning](./sample/code9.txt)
-10. [Dashboard](./sample/code10.txt)
+1. [Order info](./sample/order_info.md)
+2. [Typography](./sample/typography.md)
+3. [Settings page](./sample/settings_page.md)
+4. [Product Shape](./sample/product_shape.md)
+5. [Profile card](./sample/profile_card.md)
+6. [Gallery of controls](./sample/gallery_of_controls.md)
+7. [Variant form](./sample/variant_form.md)
+8. [Custom JSX](./sample/custom_jsx.md)
+9. [Machine learning](./sample/machine_learning.md)
+10. [Dashboard](./sample/dashboard.md)
 
 The prompt to copy
 

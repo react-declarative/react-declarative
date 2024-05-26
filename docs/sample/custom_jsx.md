@@ -1,5 +1,7 @@
 # Custom JSX
 
+> Link to [the playground](https://react-declarative-playground.github.io/)
+
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 
