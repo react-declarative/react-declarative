@@ -8,6 +8,7 @@ import { Reveal } from "../FetchView";
 import useChangeSubject from "../../hooks/useChangeSubject";
 import useRenderWaiter from "../../hooks/useRenderWaiter";
 import useActualValue from "../../hooks/useActualValue";
+import useElementSize from "../../hooks/useElementSize";
 import useSingleton from "../../hooks/useSingleton";
 import useConfirm from "../../hooks/useConfirm";
 import useSubject from "../../hooks/useSubject";
@@ -93,6 +94,10 @@ export const OutletView = <
   ...revealProps
 }: IOutletViewProps<Data, Payload, Params, OtherProps>) => {
   const { classes } = useStyles();
+
+  const { elementRef, size } = useElementSize<HTMLDivElement>({
+    map: (child) => child.parentElement,
+  });
 
   /**
    * Applies a transformation to the given subject using the provided change subject function.
@@ -569,8 +574,10 @@ export const OutletView = <
 
   return (
     <Reveal
-      className={classNames(className, classes.root)}
       {...revealProps}
+      ref={elementRef}
+      className={classNames(className, classes.root)}
+      style={{ height: size.height }}
       animation={animation}
       appear={appear}
     >

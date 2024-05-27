@@ -5721,6 +5721,7 @@ declare module "react-declarative/hooks/useElementSize" {
   interface IParams<Size extends ISize> {
     defaultSize?: ISize;
     target?: HTMLElement | null;
+    map?: (child: HTMLElement) => HTMLElement | null;
     closest?: string;
     selector?: string;
     debounce?: number;
@@ -5753,6 +5754,7 @@ declare module "react-declarative/hooks/useElementSize" {
   >({
     defaultSize: { height, width },
     target,
+    map,
     closest,
     selector,
     debounce: delay,
@@ -24452,6 +24454,7 @@ declare module "react-declarative/components/FetchView/FetchView" {
 }
 
 declare module "react-declarative/components/FetchView/components/Reveal" {
+  import * as React from "react";
   import { BoxProps } from "@mui/material/Box";
   /**
    * Interface for the props of the Reveal component.
@@ -24463,24 +24466,10 @@ declare module "react-declarative/components/FetchView/components/Reveal" {
     animation?: "slideDown" | "fadeIn" | "scale" | "none";
     appear?: boolean;
   }
-  /**
-   * Reveal component.
-   *
-   * @param children - The content to reveal.
-   * @param className - Custom CSS class name(s) to apply.
-   * @param animation - The animation effect to apply when revealing the content. (default: 'slideDown')
-   * @param appear - Flag indicating whether the content should appear on mount. (default: true)
-   * @param otherProps - Additional props to be spread on the root element.
-   *
-   * @returns - The rendered component.
-   */
-  export const Reveal: ({
-    children,
-    className,
-    animation,
-    appear,
-    ...otherProps
-  }: IRevealProps) => JSX.Element;
+  export const Reveal: (
+    { children, className, animation, appear, ...otherProps }: IRevealProps,
+    ref: React.Ref<HTMLDivElement>,
+  ) => JSX.Element;
   export default Reveal;
 }
 

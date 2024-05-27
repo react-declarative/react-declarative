@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { forwardRef } from 'react';
 
 import { makeStyles, keyframes } from '../../../styles';
 
@@ -69,13 +70,13 @@ const useStyles = makeStyles()({
  *
  * @returns - The rendered component.
  */
-export const Reveal = ({
+const RevealInternal = ({
     children,
     className,
     animation = 'slideDown',
     appear = true,
     ...otherProps
-}: IRevealProps) => {
+}: IRevealProps, ref: React.Ref<HTMLDivElement>) => {
     const { classes } = useStyles();
 
     /**
@@ -93,6 +94,7 @@ export const Reveal = ({
     
     return (
         <Box
+            ref={ref}
             className={classNames(className, {
                 [animationMap[animation]]: appear,
             })}
@@ -102,5 +104,7 @@ export const Reveal = ({
         </Box>
     );
 }
+
+export const Reveal = forwardRef(RevealInternal) as typeof RevealInternal;
 
 export default Reveal;

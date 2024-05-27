@@ -30,6 +30,7 @@ interface ISize {
 interface IParams<Size extends ISize> {
     defaultSize?: ISize;
     target?: HTMLElement | null;
+    map?: (child: HTMLElement) => HTMLElement | null;
     closest?: string;
     selector?: string;
     debounce?: number;
@@ -66,6 +67,7 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
         width: 0,
     },
     target = null,
+    map,
     closest,
     selector,
     debounce: delay = 0,
@@ -98,10 +100,14 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
 
         if (closest) {
             element = element?.closest(closest) || null;
-          }
+        }
       
         if (selector) {
             element = element?.querySelector(selector) || null;
+        }
+
+        if (map) {
+            element = element ? map(element) : element;
         }
 
         if (!element) {
