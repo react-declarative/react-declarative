@@ -184,9 +184,58 @@ In summary, react-declarative handles state management by allowing you to expres
 
 In summary, react-declarative simplifies asynchronous state management by allowing you to express your intent declaratively. It’s a powerful approach that aligns well with React’s core principles! 😊🚀
 
-## Read the `docs/readme.md` and make me a sign up form with `<One />` component from a file
+## How does it handle form validation?
 
-Sure, I can help you with that. Based on the content of the `Readme.md` file, the `<One />` component is a part of the `react-declarative` library and it represents a form with various fields. Here’s an example of how you can create a sign-up form using the `<One />` component:
+The react-declarative library handles form validation by building it into the UI schema1. This means that all validations are defined within the UI schema, so the backend endpoint can be changed partially if some properties are unused
+
+Each form schema can be reflected by using `getAvailableFields` for additiona inline validations, data cleanup if some fields are not required anymore, data export. This allows for a high degree of flexibility and control over form validation.
+
+Here’s an example of how you might use the isInvalid callback in a react-declarative form schema. This example assumes you have a form with a single input field for an email address, and you want to validate that the input is a properly formatted email address.
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+export const fields: TypedField[] = [
+   {
+        type: FieldType.Text,
+        title: 'Only number allowed',
+        description: 'Which will not be greater or lower than 42',
+        name: 'text',
+        isInvalid(obj) {
+            if (isNaN(obj.text)) {
+                return 'It is not a number';
+            }
+            if (obj.text != 42) {
+                return 'The number is greater or lower than 42';
+            }
+            return null;
+        },
+    },
+    {
+        name: 'email',
+        type: FieldType.Text,
+        isInvalid:  ({ email }) => {
+            const expr = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+            if (!expr.test(email)) {
+                return 'Invalid email address provided';
+            }
+            else {
+            return null;
+            }
+        },
+        title: 'Email',
+        description: 'tripolskypetr@gmail.com'
+    },
+];
+```
+
+Moreover, react-declarative provides every callback you need: field or group of fields focus/blur event, form invalidity state, data-testid and more. This makes it easy to handle form validation and provide clear feedback to users.
+
+## An example sign up form
+
+> Read the `docs/readme.md` and make me a sign up form with `<One />` component from a file
+
+Here’s an example of how you can create a sign-up form using the `<One />` component:
 
 ```typescript
 import React from 'react';
@@ -236,5 +285,5 @@ const SignUpForm = () => {
 export default SignUpForm;
 ```
 
-This is a simple sign-up form with fields for username, email, password, confirm password, and a checkbox for terms and conditions. Please modify it according to your needs. Remember to implement the necessary validation and submission logic.
+This is a simple sign-up form with fields for username, email, password, confirm password, and a checkbox for terms and conditions. Modify it according to your needs. Remember to implement the necessary validation and submission logic.
 
