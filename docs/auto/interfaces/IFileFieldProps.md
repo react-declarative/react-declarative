@@ -4,6 +4,14 @@ Interface representing props for the IFileField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### description
 
 ```ts

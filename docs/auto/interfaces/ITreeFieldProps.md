@@ -4,6 +4,14 @@ Interface for the props of the ITreeField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### description
 
 ```ts

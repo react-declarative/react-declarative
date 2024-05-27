@@ -4,6 +4,14 @@ Interface representing the props for the YesNoField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### description
 
 ```ts

@@ -16,6 +16,16 @@ import IField from "../../../model/IField";
  */
 export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
   /**
+   * Validation factory config
+   *
+   * @template IField - Type representing the field object.
+   * @template Data - Type representing the data object.
+   * @template Payload - Type representing the payload object.
+   * 
+   * @returns The value of the "validation" property.
+   */
+  validation?: PickProp<IField<Data, Payload>, 'validation'>;
+  /**
    * Returns the "description" property of the given object if it exists, otherwise returns undefined.
    *
    * @template T - The type of the object to pick the property from.

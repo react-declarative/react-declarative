@@ -4,6 +4,14 @@ Represents the properties for the ComboField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### description
 
 ```ts

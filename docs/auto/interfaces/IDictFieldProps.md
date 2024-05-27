@@ -4,6 +4,14 @@ Props for the IDictField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### dictLimit
 
 ```ts

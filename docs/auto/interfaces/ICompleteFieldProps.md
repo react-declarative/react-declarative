@@ -4,6 +4,14 @@ Interface for specifying the props of a complete field.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### inputType
 
 ```ts

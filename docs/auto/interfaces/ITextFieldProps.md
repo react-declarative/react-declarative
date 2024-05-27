@@ -4,6 +4,14 @@ Represents the properties for a text field component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### inputType
 
 ```ts

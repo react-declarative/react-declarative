@@ -4,6 +4,14 @@ Props for the IItemsField component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### description
 
 ```ts

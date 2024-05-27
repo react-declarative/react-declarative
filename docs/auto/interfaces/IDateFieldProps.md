@@ -4,6 +4,14 @@ Represents the properties of a date field component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### title
 
 ```ts

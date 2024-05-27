@@ -50,6 +50,16 @@ import IField from "../../../model/IField";
  */
 export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
   /**
+   * Validation factory config
+   *
+   * @template IField - Type representing the field object.
+   * @template Data - Type representing the data object.
+   * @template Payload - Type representing the payload object.
+   * 
+   * @returns The value of the "validation" property.
+   */
+  validation?: PickProp<IField<Data, Payload>, 'validation'>;
+  /**
    * Represents the 'dictLimit' property of an object.
    *
    * @typedef dictLimit

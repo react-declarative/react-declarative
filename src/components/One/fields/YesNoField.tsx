@@ -16,6 +16,16 @@ import IField from "../../../model/IField";
  */
 export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
   /**
+   * Validation factory config
+   *
+   * @template IField - Type representing the field object.
+   * @template Data - Type representing the data object.
+   * @template Payload - Type representing the payload object.
+   * 
+   * @returns The value of the "validation" property.
+   */
+  validation?: PickProp<IField<Data, Payload>, 'validation'>;
+  /**
    * Picks the "description" property from a given object of type IField<Data, Payload>.
    *
    * @template Data - The type of the data associated with the field.

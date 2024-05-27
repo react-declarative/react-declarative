@@ -12640,6 +12640,16 @@ declare module "react-declarative/components/One/fields/FileField" {
    */
   export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
     /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
+    /**
      * Type definition for the `PickProp` function.
      * Extracts a specific property `description` from a given object type `IField<Data, Payload>`.
      *
@@ -12869,6 +12879,16 @@ declare module "react-declarative/components/One/fields/ComboField" {
    * @template Payload - The type of payload associated with the field.
    */
   export interface IComboFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Retrieves the "description" property
      */
@@ -13271,6 +13291,16 @@ declare module "react-declarative/components/One/fields/ItemsField" {
    * @template Payload - The type of payload for the field.
    */
   export interface IItemsFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Returns the "description" property of the given object if it exists, otherwise returns undefined.
      *
@@ -14366,6 +14396,16 @@ declare module "react-declarative/components/One/fields/TextField" {
    */
   export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
     /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
+    /**
      * Represents the input type of a field.
      *
      * @template Data - The type of data being handled by the field.
@@ -14743,6 +14783,16 @@ declare module "react-declarative/components/One/fields/DateField" {
    */
   export interface IDateFieldProps<Data = IAnything, Payload = IAnything> {
     /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
+    /**
      * Retrieves the value of the "title" property from the given object.
      *
      * @template T - The type of the object.
@@ -14935,6 +14985,16 @@ declare module "react-declarative/components/One/fields/TimeField" {
    */
   export interface ITimeFieldProps<Data = IAnything, Payload = IAnything> {
     /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
+    /**
      * Retrieves the value of the "title" property from the given object.
      *
      * @template T - The type of the object.
@@ -15124,6 +15184,16 @@ declare module "react-declarative/components/One/fields/CompleteField" {
    * @template Data, Payload - The types of data and payload.
    */
   export interface ICompleteFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Represents the input type of a field.
      *
@@ -15617,6 +15687,16 @@ declare module "react-declarative/components/One/fields/ChooseField" {
    */
   export interface IChooseFieldProps<Data = IAnything, Payload = IAnything> {
     /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
+    /**
      * Retrieves the "description" property from the given object.
      *
      * @template IField - Type representing the field object.
@@ -15812,6 +15892,16 @@ declare module "react-declarative/components/One/fields/YesNoField" {
    * @template Payload - The type of the payload.
    */
   export interface IYesNoFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Picks the "description" property from a given object of type IField<Data, Payload>.
      *
@@ -16093,6 +16183,16 @@ declare module "react-declarative/components/One/fields/DictField" {
    * @property [trailingIconClick] - The function to call when the trailing icon is clicked.
    */
   export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Represents the 'dictLimit' property of an object.
      *
@@ -16551,6 +16651,16 @@ declare module "react-declarative/components/One/fields/TreeField" {
    * @template Payload The type of payload in the field.
    */
   export interface ITreeFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Validation factory config
+     *
+     * @template IField - Type representing the field object.
+     * @template Data - Type representing the data object.
+     * @template Payload - Type representing the payload object.
+     *
+     * @returns The value of the "validation" property.
+     */
+    validation?: PickProp<IField<Data, Payload>, "validation">;
     /**
      * Returns the "description" property of a given object.
      *

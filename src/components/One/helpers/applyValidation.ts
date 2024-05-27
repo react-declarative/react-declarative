@@ -20,7 +20,14 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
         const { required, pattern, minLength, maxLength, numeric } = validation;
         if (required) {
             validations.push((data) => {
-                if (!data[name]) {
+                const value = data[name];
+                if (value === false) {
+                    return null;
+                }
+                if (value === 0) {
+                    return null;
+                }
+                if (!value) {
                     return "Required";
                 }
                 return null;

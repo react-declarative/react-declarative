@@ -4,6 +4,14 @@ A set of properties for the `TimeField` component.
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Validation factory config
+
 ### title
 
 ```ts
