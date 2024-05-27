@@ -23,6 +23,7 @@ declare module "react-declarative" {
   } from "react-declarative/components";
   export { ISize } from "react-declarative/model/ISize";
   import { TypedField as TypedFieldInternal } from "react-declarative/model/TypedField";
+  import { IValidation as IValidationInternal } from "react-declarative/model/IValidation";
   import { IField as IFieldInternal } from "react-declarative/model/IField";
   import { IEntity as IEntityInternal } from "react-declarative/model/IEntity";
   import { IManaged as IManagedInternal } from "react-declarative/model/IManaged";
@@ -226,6 +227,7 @@ declare module "react-declarative" {
     Data = IAnything,
     Value = IAnything,
   > = IManagedInternal<Data, Value>;
+  export type IValidation = IValidationInternal;
   export type ListHandler<
     FilterData extends {} = IAnything,
     RowData extends IRowData = IAnything,
@@ -1565,6 +1567,24 @@ declare module "react-declarative/model/TypedField" {
   export default TypedField;
 }
 
+declare module "react-declarative/model/IValidation" {
+  /**
+   * Interface representing validation options for a form field.
+   * @interface
+   * @property [required] - Indicates if the field is required or not.
+   * @property [minLength] - Minimum length required for the field value.
+   * @property [maxLength] - Maximum length allowed for the field value.
+   * @property [pattern] - Regular expression pattern for validating the field value.
+   */
+  export interface IValidation {
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
+    pattern?: RegExp;
+  }
+  export default IValidation;
+}
+
 declare module "react-declarative/model/IField" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
@@ -1577,6 +1597,7 @@ declare module "react-declarative/model/IField" {
   import ISearchViewProps from "react-declarative/components/SearchView/model/ISearchViewProps";
   import IFieldMenu from "react-declarative/model/IFieldMenu";
   import ITreeNode from "react-declarative/model/ITreeNode";
+  import IValidation from "react-declarative/model/IValidation";
   /**
    * Represents any possible variable value of <One /> component field.
    *
@@ -1587,6 +1608,10 @@ declare module "react-declarative/model/IField" {
    * Объект поля для прикладного программиста
    */
   export interface IField<Data = IAnything, Payload = IAnything> {
+    /**
+     * Параметры фабрики для создания коллбека isInvalid
+     */
+    validation?: IValidation;
     /**
      * Атрибут, который будет передат в data-testid
      * корневому элементу компоновки

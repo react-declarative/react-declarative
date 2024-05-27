@@ -4,6 +4,14 @@
 
 ## Properties
 
+### validation
+
+```ts
+validation: IValidation
+```
+
+Параметры фабрики для создания коллбека isInvalid
+
 ### testId
 
 ```ts

@@ -15,6 +15,7 @@
 ## Interfaces
 
 - [ISize](interfaces/ISize.md)
+- [IValidation](interfaces/IValidation.md)
 - [IField](interfaces/IField.md)
 - [IEntity](interfaces/IEntity.md)
 - [IWrappedLayout](interfaces/IWrappedLayout.md)
@@ -511,6 +512,7 @@
 - [IField](types/IField.md)
 - [IFieldEntity](types/IFieldEntity.md)
 - [IFieldManaged](types/IFieldManaged.md)
+- [IValidation](types/IValidation.md)
 - [ListHandler](types/ListHandler.md)
 - [ListHandlerResult](types/ListHandlerResult.md)
 - [OneHandler](types/OneHandler.md)

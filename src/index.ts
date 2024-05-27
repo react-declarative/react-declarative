@@ -5,6 +5,7 @@ export { SMALL_SIZE_REQUEST, LARGE_SIZE_REQUEST } from './components';
 export { ISize } from './model/ISize';
 
 import { TypedField as TypedFieldInternal } from './model/TypedField';
+import { IValidation as IValidationInternal } from './model/IValidation';
 import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';
 import { IManaged as IManagedInternal } from './model/IManaged';
@@ -221,6 +222,7 @@ export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldIntern
 export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
 export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
+export type IValidation = IValidationInternal;
 
 export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
 export type ListHandlerResult<RowData extends IRowData = IAnything> = ListHandlerResultInternal<RowData>;

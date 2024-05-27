@@ -12,6 +12,7 @@ import ISearchItem from '../components/SearchView/model/ISearchItem';
 import ISearchViewProps from '../components/SearchView/model/ISearchViewProps';
 import IFieldMenu from './IFieldMenu';
 import ITreeNode from './ITreeNode';
+import IValidation from './IValidation';
 
 /**
  * Represents any possible variable value of <One /> component field.
@@ -24,6 +25,11 @@ export type Value = string | string[] | number | boolean | null;
  * Объект поля для прикладного программиста
  */
 export interface IField<Data = IAnything, Payload = IAnything> {
+
+    /**
+     * Параметры фабрики для создания коллбека isInvalid
+     */
+    validation?: IValidation;
 
     /**
      * Атрибут, который будет передат в data-testid
