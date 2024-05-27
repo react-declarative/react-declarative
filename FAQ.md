@@ -315,3 +315,19 @@ Check the Source Code: The source code of the library is available and can be a 
  - Stay Updated: The library is actively maintained and new features appear frequently2. Staying updated with the latest changes can help you take advantage of new features and improvements.
 
  - Use Starter Kits: There are several starter kits available that can help you get started with your projects2. These kits provide a solid foundation and can save you a lot of time.
+
+## How does it compare to other form libraries like Formik?
+
+`react-declarative` and `Formik` are both popular libraries for handling forms in React applications, but they have different approaches and features that might make one more suitable for your project than the other.
+
+Here’s a comparison of `react-declarative` and Formik:
+
+ - Size and Dependencies: `react-declarative` is based on Material-UI and has dependencies like tss-react and @mui/material. Formik, on the other hand, is known for having a smaller bundle size and fewer dependencies
+
+ - Declarative Approach: `react-declarative` emphasizes a declarative approach to form building and state management, which can lead to more predictable and easier-to-debug code. Formik also supports a declarative style but is more imperative in how you handle form state and validation.
+
+ - Ease of Use: Formik is often praised for its simplicity and ease of use, with a straightforward API that’s easy to understand and integrate into React projects. It provides a set of handy utilities and components for building forms, with built-in support for validation and error handling. It works for `react-declarative` too
+
+ - Performance: In terms of performance, Formik has been optimized to minimize unnecessary re-renders, which is crucial for larger applications. However, `react-declarative` also aims to provide efficient performance, especially when used with its JSON endpoint for automatic state management. The benefit of `react-declarative` is implementation of reconciler algorithm for smooth rerenders for better user experience.
+
+ - Ultimately, the choice between `react-declarative` and Formik will depend on your specific needs, the complexity of your forms, and your preference for a more declarative or imperative approach to form handling. It’s always a good idea to try out both libraries in a small project to see which one fits better with your workflow and coding style.
