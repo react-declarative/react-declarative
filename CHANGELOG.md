@@ -1,3 +1,48 @@
+# Validation Factory (v2.5.995, 27/05/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.995)
+
+Preset for common validations when pure function way is unnecessary
+
+**Pure function way**
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+export const fields: TypedField[] = [
+   {
+        type: FieldType.Text,
+        title: 'Only number allowed',
+        name: 'text',
+        isInvalid(obj) {
+            if (isNaN(obj.text)) {
+                return 'It is not a number';
+            }
+            return null;
+        },
+    },
+];
+```
+
+**Validation config way**
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+export const fields: TypedField[] = [
+   {
+        type: FieldType.Text,
+        validation: {
+            numeric: true,
+        },
+        title: 'Only number allowed',
+        name: 'text',
+    },
+];
+```
+
+
+
 # Playground (v2.5.906, 03/05/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.906)
