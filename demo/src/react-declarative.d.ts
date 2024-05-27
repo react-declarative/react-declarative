@@ -17845,6 +17845,8 @@ declare module "react-declarative/components/List/api/useListAction" {
       row: Data,
       deselectAll: () => void,
     ) => Promise<void> | void;
+    onSelectionChange?: (selectedRows: RowId[]) => void;
+    selectedRows?: RowId[];
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
@@ -17874,6 +17876,8 @@ declare module "react-declarative/components/List/api/useListAction" {
     fetchRow,
     onAction,
     onRowAction,
+    onSelectionChange,
+    selectedRows: upperSelectedRows,
   }: IParams<Data>) => {
     readonly deselectAll: () => void;
     readonly selectedRows: RowId[];
@@ -26566,6 +26570,8 @@ declare module "react-declarative/components/Grid/api/useGridAction" {
       deselectAll: () => void,
     ) => Promise<void> | void;
     onLoadStart?: () => void;
+    onSelectionChange?: (selectedRows: string[]) => void;
+    selectedRows?: string[];
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
     fallback?: (e: Error) => void;
@@ -26599,6 +26605,8 @@ declare module "react-declarative/components/Grid/api/useGridAction" {
     fetchRow,
     onAction,
     onRowAction,
+    onSelectionChange,
+    selectedRows: upperSelectedRows,
   }: IParams<Data>) => {
     readonly deselectAll: () => void;
     readonly selectedRows: string[];

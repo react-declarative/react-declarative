@@ -12,6 +12,8 @@ interface IParams<Data extends IRowData = IRowData> {
     fetchRow: (id: RowId) => (Data | Promise<Data>);
     onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
     onRowAction?: (action: string, row: Data, deselectAll: () => void) => (Promise<void> | void);
+    onSelectionChange?: (selectedRows: RowId[]) => void;
+    selectedRows?: RowId[];
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
@@ -42,8 +44,13 @@ export const useListAction = <Data extends IRowData = IRowData>({
     fetchRow,
     onAction,
     onRowAction,
+    onSelectionChange,
+    selectedRows: upperSelectedRows,
 }: IParams<Data>) => {
-    const { deselectAll, listProps, selectedRows } = useListSelection();
+    const { deselectAll, listProps, selectedRows } = useListSelection({
+        selectedRows: upperSelectedRows,
+        onChange: onSelectionChange,
+    });
 
     /**
      * Represents the action to be performed on a commit operation.

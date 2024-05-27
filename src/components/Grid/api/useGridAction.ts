@@ -12,6 +12,8 @@ interface IParams<Data extends IAnything = IAnything> {
     onAction?: (action: string, rows: Data[], deselectAll: () => void) => (Promise<void> | void);
     onRowAction?: (action: string, row: Data, deselectAll: () => void) => (Promise<void> | void);
     onLoadStart?: () => void;
+    onSelectionChange?: (selectedRows: string[]) => void;
+    selectedRows?: string[];
     onLoadEnd?: (isOk: boolean) => void;
     throwError?: boolean;
     fallback?: (e: Error) => void;
@@ -46,8 +48,13 @@ export const useGridAction = <Data extends IAnything = IAnything>({
     fetchRow,
     onAction,
     onRowAction,
+    onSelectionChange,
+    selectedRows: upperSelectedRows,
 }: IParams<Data>) => {
-    const { deselectAll, gridProps, selectedRows } = useGridSelection();
+    const { deselectAll, gridProps, selectedRows } = useGridSelection({
+        onChange: onSelectionChange,
+        selectedRows: upperSelectedRows,
+    });
 
     /**
      * Represents a commit action that can be performed on a version control system.
