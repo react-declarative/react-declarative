@@ -398,3 +398,33 @@ Certainly! Here are some real-world use cases where you might find react-declara
 8. Community and Active Development:
  - The library has an active community and contributors. You’ll find support, documentation, and examples on GitHub.
  - Explore the demo projects and sample repositories to see react-declarative in action.
+
+## Is there any community support or documentation available?
+
+Certainly! The react-declarative npm library has both community support and documentation. Let me provide you with some details:
+
+1. Community Support:
+ - The library is actively maintained and has a growing community of users.
+ - You can find discussions, ask questions, and seek help in the library’s GitHub repository1.
+ - Additionally, there are other projects in the npm registry that use react-declarative, which indicates its adoption and community interest2.
+
+2. Documentation:
+ - The library’s documentation includes essential information on how to use it effectively.
+ - You can explore the following resources:
+ - Storybook: The project’s storybook provides interactive examples and showcases various features of react-declarative2.
+ - Playground: You can try out the library without installing it directly in your web browser. The playground allows you to experiment with different components and configurations1.
+ - Docs Folder: Check the docs folder in the GitHub repository for additional guides and explanations1.
+ - Guide for AI Integration: If you’re interested in using GPT-4 to generate form schemas automatically, there’s a guide available in the documentation1.
+
+3. Features Beyond Forms:
+ - While react-declarative is known for its form-building capabilities, it’s more versatile than just creating forms.
+ - You can use it to build various UI components, including dashboards, CRM and ERP interfaces, and mobile apps.
+ - The library simplifies app state management, making it suitable for rapid application development1.
+
+4. Adjectives Describing react-declarative:
+ - Accessible: Provides callbacks for field events, form invalidity state, and more.
+ - Configurable: Allows static and dynamic field visibility and other settings.
+ - Extendable: Supports field type overrides and custom JSX injection.
+ - Performant: Even on older devices (e.g., 2016 devices) due to optimizations.
+ - Maintainable: Reduces technical debt by integrating validations into the UI schema.
+ - Reflectable: Enables additional inline validations and data cleanup based on form schema.
