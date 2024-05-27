@@ -13,8 +13,6 @@ import IAnything from "../../../../model/IAnything";
 import IField from "../../../../model/IField";
 import FieldType from "../../../../model/FieldType";
 
-import applyValidation from "../../helpers/applyValidation";
-
 import classNames from "../../../../utils/classNames";
 import deepFlat from "../../../../utils/deepFlat";
 
@@ -99,7 +97,7 @@ export const OneGenesis = <
 
   const { className, style, sx } = props;
 
-  const fieldsSnapshot = useMemo(() => applyValidation<Data, Field>(fields), []);
+  const fieldsSnapshot = useMemo(() => fields, []);
 
   const ready$ = useActualValue(ready);
   const change$ = useActualValue(change);

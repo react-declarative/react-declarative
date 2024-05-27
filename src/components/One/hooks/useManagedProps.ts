@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import useChangeSubject from "../../../hooks/useChangeSubject";
 import useActualValue from "../../../hooks/useActualValue";
 import useSingleton from "../../../hooks/useSingleton";
 import useSubject from "../../../hooks/useSubject";
+
+import applyValidation from "../helpers/applyValidation";
 
 import IOnePublicProps from "../../../model/IOnePublicProps";
 import IAnything from "../../../model/IAnything";
@@ -59,6 +61,7 @@ type IManagedProps<Data extends IAnything> = IControlledData<Data> | IUncontroll
  */
 export const useManagedProps = <Data extends IAnything = IAnything, Payload = IAnything, Field = IField<Data>>({
     changeSubject: upperChangeSubject,
+    fields: upperFields,
     handler,
     data = NEVER_VALUE as unknown as Data,
     ...otherProps
@@ -66,11 +69,14 @@ export const useManagedProps = <Data extends IAnything = IAnything, Payload = IA
 
     const data$ = useActualValue(data);
 
+    const fields = useMemo(() => applyValidation<Data, IAnything>(upperFields), []);
+
     const UNCONTROLLED_STATE = useSingleton(data === NEVER_VALUE);
 
     if (UNCONTROLLED_STATE) {
         return {
             handler,
+            fields,
             ...otherProps
         };
     }
@@ -84,6 +90,7 @@ export const useManagedProps = <Data extends IAnything = IAnything, Payload = IA
 
     return {
         changeSubject: propsChangeSubject,
+        fields,
         handler: async () => {
             if (!data$.current) {
                 return await dataChangeSubject.toPromise();
