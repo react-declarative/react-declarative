@@ -8,6 +8,7 @@
  */
 export interface IValidation {
     required?: boolean;
+    numeric?: boolean;
     minLength?: number;
     maxLength?: number;
     pattern?: RegExp;

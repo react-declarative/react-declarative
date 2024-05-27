@@ -1578,6 +1578,7 @@ declare module "react-declarative/model/IValidation" {
    */
   export interface IValidation {
     required?: boolean;
+    numeric?: boolean;
     minLength?: number;
     maxLength?: number;
     pattern?: RegExp;

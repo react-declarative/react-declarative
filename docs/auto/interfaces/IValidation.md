@@ -10,6 +10,12 @@ Interface representing validation options for a form field.
 required: boolean
 ```
 
+### numeric
+
+```ts
+numeric: boolean
+```
+
 ### minLength
 
 ```ts

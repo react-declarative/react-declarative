@@ -17,11 +17,19 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
         if (!validation) {
             continue;
         }
-        const { required, pattern, minLength, maxLength } = validation;
+        const { required, pattern, minLength, maxLength, numeric } = validation;
         if (required) {
             validations.push((data) => {
                 if (!data[name]) {
                     return "Required";
+                }
+                return null;
+            });
+        }
+        if (numeric) {
+            validations.push((data) => {
+                if (isNaN(data[name])) {
+                    return "Must be a number";
                 }
                 return null;
             });
