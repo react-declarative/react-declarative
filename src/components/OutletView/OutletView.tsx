@@ -5,6 +5,8 @@ import { makeStyles } from "../../styles";
 
 import { Reveal } from "../FetchView";
 
+import Box from "@mui/material/Box/Box";
+
 import useChangeSubject from "../../hooks/useChangeSubject";
 import useRenderWaiter from "../../hooks/useRenderWaiter";
 import useActualValue from "../../hooks/useActualValue";
@@ -16,11 +18,11 @@ import useSubject from "../../hooks/useSubject";
 import IOutletViewProps from "./model/IOutletViewProps";
 import IOutletProps from "./model/IOutletProps";
 import IAnything from "../../model/IAnything";
+import IOtherProps from "./model/IOtherProps";
 
-import sleep from "../../utils/sleep";
 import classNames from "../../utils/classNames";
 import queued from "../../utils/hof/queued";
-import IOtherProps from "./model/IOtherProps";
+import sleep from "../../utils/sleep";
 
 const LEAVE_MESSAGE = "The form contains unsaved changes. Continue?";
 
@@ -30,7 +32,13 @@ const Fragment = () => <></>;
 
 const useStyles = makeStyles()({
   root: {
+    position: "relative",
     width: "100%",
+  },
+  inner: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 });
 
@@ -573,20 +581,34 @@ export const OutletView = <
     },
   };
 
+  const renderInner = () => {
+    if (fullScreen) {
+      return (
+        <Box className={classes.inner} sx={size}>
+          {React.createElement(component, {
+            key: activeOption,
+            ...outletProps,
+            ...otherProps
+          })}
+        </Box>
+      )
+    }
+    return React.createElement(component, {
+      key: activeOption,
+      ...outletProps,
+      ...otherProps
+    });
+  };
+
   return (
     <Reveal
       {...revealProps}
       ref={elementRef}
       className={classNames(className, classes.root)}
-      style={fullScreen ? { height: size.height } : undefined}
       animation={animation}
       appear={appear}
     >
-      {React.createElement(component, {
-        key: activeOption,
-        ...outletProps,
-        ...otherProps
-      })}
+      {renderInner()}
     </Reveal>
   );
 };
