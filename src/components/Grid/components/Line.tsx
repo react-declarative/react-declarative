@@ -13,7 +13,7 @@ import { VIRTUAL_VIEW_CHILD } from '../../VirtualView';
 
 import classNames from '../../../utils/classNames';
 
-import { DEFAULT_COLUMN_WIDTH, ACTIONS_WIDTH } from '../config';
+import { DEFAULT_COLUMN_WIDTH, ACTIONS_WIDTH, CHECKBOX_WIDTH } from '../config';
 
 /**
  * Represents the properties for a Line component.
@@ -87,6 +87,7 @@ export const Line = forwardRef(
       if (withRowActions) {
         totalWidth += ACTIONS_WIDTH;
       }
+      totalWidth += CHECKBOX_WIDTH;
       return `${totalWidth}px !important`;
     }, [columns, containerWidth, withRowActions, constraintManager]);
 
