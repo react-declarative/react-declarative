@@ -931,7 +931,10 @@ declare module "react-declarative" {
   } from "react-declarative/utils/getTimeStamp";
   export { getGenesisStamp } from "react-declarative/utils/getGenesisStamp";
   export { toUtcDate } from "react-declarative/utils/toUtcDate";
-  export { addUtcOffset } from "react-declarative/utils/addUtcOffset";
+  export {
+    addUtcOffset,
+    removeUtcOffset,
+  } from "react-declarative/utils/addUtcOffset";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
@@ -10700,7 +10703,7 @@ declare module "react-declarative/utils/toUtcDate" {
 declare module "react-declarative/utils/addUtcOffset" {
   import dayjs from "dayjs";
   export const addUtcOffset: (date: dayjs.Dayjs) => dayjs.Dayjs;
-  export default addUtcOffset;
+  export const removeUtcOffset: (date: dayjs.Dayjs) => dayjs.Dayjs;
 }
 
 declare module "react-declarative/api/resolveDocuments" {

@@ -825,7 +825,7 @@ export { getMomentStamp, fromMomentStamp } from './utils/getMomentStamp';
 export { getTimeStamp, fromTimeStamp } from './utils/getTimeStamp';
 export { getGenesisStamp } from './utils/getGenesisStamp';
 export { toUtcDate } from './utils/toUtcDate';
-export { addUtcOffset } from './utils/addUtcOffset';
+export { addUtcOffset, removeUtcOffset } from './utils/addUtcOffset';
 
 export { resolveDocuments } from './api/resolveDocuments';
 export { pickDocuments } from './api/pickDocuments';

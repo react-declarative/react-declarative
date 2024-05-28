@@ -1,8 +1,7 @@
 import dayjs from "dayjs";
 
 import getGenesisStamp from "./getGenesisStamp";
-import addUtcOffset from "./addUtcOffset";
-import toUtcDate from "./toUtcDate";
+import { addUtcOffset, removeUtcOffset } from "./addUtcOffset";
 
 const DIMENSION = "day";
 
@@ -17,7 +16,7 @@ export type stamp = number;
  * @returns - The moment stamp representing the difference between the end date and the start date.
  */
 export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
-  return Math.floor(dayjs(toUtcDate(end.toDate())).diff(getGenesisStamp(), dimension, true));
+  return Math.floor(removeUtcOffset(end).diff(getGenesisStamp(), dimension, true));
 };
 
 /**

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-import toUtcDate from "./toUtcDate";
+import { removeUtcOffset } from "./addUtcOffset";
 
 /**
  * Gets the initial moment stamp for London (UTC).
@@ -8,7 +8,7 @@ import toUtcDate from "./toUtcDate";
  * @returns The dayjs moment stamp for London (UTC).
  */
 export const getGenesisStamp = (stamp = dayjs(0)) => {
-    return dayjs(toUtcDate(stamp.toDate()));
+    return dayjs(removeUtcOffset(stamp));
 };
 
 export default getGenesisStamp;
