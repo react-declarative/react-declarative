@@ -930,6 +930,8 @@ declare module "react-declarative" {
     fromTimeStamp,
   } from "react-declarative/utils/getTimeStamp";
   export { getGenesisStamp } from "react-declarative/utils/getGenesisStamp";
+  export { toUtcDate } from "react-declarative/utils/toUtcDate";
+  export { addUtcOffset } from "react-declarative/utils/addUtcOffset";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
@@ -10634,8 +10636,6 @@ declare module "react-declarative/utils/compose" {
 
 declare module "react-declarative/utils/getMomentStamp" {
   import dayjs from "dayjs";
-  export const DIMENSION = "day";
-  export const GENESIS: dayjs.Dayjs;
   export type stamp = number;
   /**
    * Calculates the moment stamp based on the given end date and dimension.
@@ -10690,6 +10690,17 @@ declare module "react-declarative/utils/getGenesisStamp" {
    */
   export const getGenesisStamp: (stamp?: dayjs.Dayjs) => dayjs.Dayjs;
   export default getGenesisStamp;
+}
+
+declare module "react-declarative/utils/toUtcDate" {
+  export const toUtcDate: (date: Date) => Date;
+  export default toUtcDate;
+}
+
+declare module "react-declarative/utils/addUtcOffset" {
+  import dayjs from "dayjs";
+  export const addUtcOffset: (date: dayjs.Dayjs) => dayjs.Dayjs;
+  export default addUtcOffset;
 }
 
 declare module "react-declarative/api/resolveDocuments" {
@@ -22820,6 +22831,7 @@ declare module "react-declarative/components/OutletView/OutletView" {
   >({
     className,
     readonly,
+    fullScreen,
     waitForChangesDelay,
     initialData: upperInitialData,
     changed: upperChanged,
@@ -24059,6 +24071,7 @@ declare module "react-declarative/components/TabsView/TabsView" {
     onSubmit,
     BeforeTabs,
     AfterTabs,
+    fullScreen,
     otherProps: upperOtherProps,
     ...outletProps
   }: ITabsViewProps<Data, Payload>) => JSX.Element;
@@ -24848,6 +24861,7 @@ declare module "react-declarative/components/WizardView/WizardView" {
     style,
     sx,
     payload: upperPayload,
+    fullScreen,
     outlinePaper,
     transparentPaper,
     history: upperHistory,
@@ -29471,6 +29485,7 @@ declare module "react-declarative/components/OutletView/model/IOutletViewProps" 
         onSubmit: never;
       }
     > {
+    fullScreen?: boolean;
     waitForChangesDelay?: number;
     history: History;
     readonly?: boolean;
@@ -29820,6 +29835,7 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
         routes: never;
       }
     > {
+    fullScreen?: boolean;
     transparentHeader?: boolean;
     BeforeTabs?: React.ComponentType<any>;
     AfterTabs?: React.ComponentType<any>;
@@ -29864,6 +29880,7 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
     > {
     className?: string;
     outlinePaper?: boolean;
+    fullScreen?: boolean;
     transparentPaper?: boolean;
     style?: React.CSSProperties;
     sx?: SxProps<any>;

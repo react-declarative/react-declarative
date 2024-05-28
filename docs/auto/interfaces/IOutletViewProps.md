@@ -4,6 +4,12 @@ Props for OutletView component
 
 ## Properties
 
+### fullScreen
+
+```ts
+fullScreen: boolean
+```
+
 ### waitForChangesDelay
 
 ```ts

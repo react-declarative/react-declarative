@@ -16,6 +16,12 @@ className: string
 outlinePaper: boolean
 ```
 
+### fullScreen
+
+```ts
+fullScreen: boolean
+```
+
 ### transparentPaper
 
 ```ts

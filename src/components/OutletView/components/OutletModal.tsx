@@ -566,6 +566,7 @@ export const OutletModal = <
               {async (...args) => (
                 <OutletView
                   {...outletProps}
+                  fullScreen={fullScreen}
                   fallback={fallback}
                   onLoadStart={onLoadStart}
                   onLoadEnd={onLoadEnd}

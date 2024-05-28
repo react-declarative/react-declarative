@@ -17,6 +17,7 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
     history: never;
     routes: never;
 }> {
+    fullScreen?: boolean;
     transparentHeader?: boolean;
     BeforeTabs?: React.ComponentType<any>;
     AfterTabs?: React.ComponentType<any>;

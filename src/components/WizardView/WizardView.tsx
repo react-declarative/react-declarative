@@ -104,6 +104,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   style,
   sx,
   payload: upperPayload = {} as Payload,
+  fullScreen,
   outlinePaper = false,
   transparentPaper = false,
   history: upperHistory,
@@ -298,6 +299,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
       <Box ref={elementRef} className={classes.content}>
         <OutletView<Data, Payload>
           history={history}
+          fullScreen={fullScreen}
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}
           payload={payload}

@@ -139,6 +139,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   onSubmit = () => true,
   BeforeTabs,
   AfterTabs,
+  fullScreen,
   otherProps: upperOtherProps = {},
   ...outletProps
 }: ITabsViewProps<Data, Payload>) => {
@@ -320,6 +321,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
       <div className={classes.adjust} />
       <Box ref={elementRef} className={classes.content}>
         <OutletView<Data, Payload>
+          fullScreen={fullScreen}
           history={history}
           routes={routes as IOutlet<Data, Payload>[]}
           otherProps={otherProps}

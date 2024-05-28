@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
 
 import getGenesisStamp from "./getGenesisStamp";
+import addUtcOffset from "./addUtcOffset";
+import toUtcDate from "./toUtcDate";
 
-export const DIMENSION = "day";
-export const GENESIS = getGenesisStamp();
+const DIMENSION = "day";
 
 export type stamp = number;
 
@@ -16,8 +17,7 @@ export type stamp = number;
  * @returns - The moment stamp representing the difference between the end date and the start date.
  */
 export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
-  const start = dayjs(GENESIS);
-  return Math.floor(end.set('hour', 0).diff(start, dimension, true));
+  return Math.floor(dayjs(toUtcDate(end.toDate())).diff(getGenesisStamp(), dimension, true));
 };
 
 /**
@@ -28,7 +28,7 @@ export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = 
  * @returns - The moment in time corresponding to the timestamp.
  */
 export const fromMomentStamp = (stamp: number, dimension: dayjs.ManipulateType = DIMENSION) => {
-  return dayjs(GENESIS).add(stamp, dimension);
+  return addUtcOffset(getGenesisStamp().add(stamp, dimension));
 };
 
 export default getMomentStamp;

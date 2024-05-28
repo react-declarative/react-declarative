@@ -20,6 +20,7 @@ export interface IOutletViewProps<Data extends {} = Record<string, any>, Payload
     onChange: never;
     onSubmit: never;
 }> {
+    fullScreen?: boolean;
     waitForChangesDelay?: number;
     history: History;
     readonly?: boolean;

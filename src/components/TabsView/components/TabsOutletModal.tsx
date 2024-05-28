@@ -447,6 +447,7 @@ export const OutletModal = <
               {async (...args) => (
                 <TabsView
                   {...outletProps}
+                  fullScreen={fullScreen}
                   className={classes.inner}
                   routes={routes as any}
                   transparentPaper

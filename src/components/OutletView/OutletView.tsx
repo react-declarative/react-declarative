@@ -75,6 +75,7 @@ export const OutletView = <
 >({
   className,
   readonly,
+  fullScreen,
   waitForChangesDelay = WAIT_FOR_CHANGES_DELAY,
   initialData: upperInitialData = {} as Data,
   changed: upperChanged = false,
@@ -577,7 +578,7 @@ export const OutletView = <
       {...revealProps}
       ref={elementRef}
       className={classNames(className, classes.root)}
-      style={{ height: size.height }}
+      style={fullScreen ? { height: size.height } : undefined}
       animation={animation}
       appear={appear}
     >

@@ -462,6 +462,7 @@ export const OutletModal = <
               {async (...args) => (
                 <WizardView
                   {...outletProps}
+                  fullScreen={fullScreen}
                   className={classes.inner}
                   routes={routes as any}
                   transparentPaper

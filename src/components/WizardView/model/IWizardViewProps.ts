@@ -18,6 +18,7 @@ export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnythi
 }> {
     className?: string;
     outlinePaper?: boolean;
+    fullScreen?: boolean;
     transparentPaper?: boolean;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
