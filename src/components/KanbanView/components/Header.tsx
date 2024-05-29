@@ -19,10 +19,10 @@ import useReloadTrigger from "../../../hooks/useReloadTrigger";
 import useAsyncValue from "../../../hooks/useAsyncValue";
 import useFetchLabel from "../hooks/useFetchLabel";
 
+import { IBoardColumnInternal } from "../model/IBoardColumn";
 import IAnything from "../../../model/IAnything";
-import IBoardColumn from "../model/IBoardColumn";
-import IBoardItem from "../model/IBoardItem";
 import TSubject from "../../../model/TSubject";
+import IBoardItem from "../model/IBoardItem";
 
 /**
  * Represents the properties for the Header component.
@@ -37,7 +37,7 @@ export interface IHeaderProps<ColumnType = any> {
   data: IAnything;
   disabled: boolean;
   column: ColumnType;
-  columns: IBoardColumn[];
+  columns: IBoardColumnInternal[];
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;

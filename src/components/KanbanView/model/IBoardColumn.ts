@@ -1,4 +1,5 @@
 import IAnything from "../../../model/IAnything";
+import IBoardDivider from "./IBoardDivider";
 import IBoardRow from "./IBoardRow";
 
 /**
@@ -8,11 +9,15 @@ import IBoardRow from "./IBoardRow";
  * @template Payload - Type of payload for each row in the column.
  * @template ColumnType - Type of column.
  */
-export interface IBoardColumn<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
+export interface IBoardColumnInternal<Data = IAnything, Payload = IAnything, ColumnType = IAnything> {
     column: ColumnType;
     color?: string;
     label?: string;
+    divider?: boolean;
     rows: IBoardRow<Data, Payload>[];
 }
+
+export type IBoardColumn<Data = IAnything, Payload = IAnything, ColumnType = IAnything> =
+    IBoardColumnInternal<Data, Payload, ColumnType> | IBoardDivider;
 
 export default IBoardColumn;

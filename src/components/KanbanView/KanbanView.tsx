@@ -19,6 +19,7 @@ import IBoardItem from "./model/IBoardItem";
 import { FetchRowsProvider } from "./hooks/useFetchRows";
 import { FetchLabelProvider } from "./hooks/useFetchLabel";
 
+import useElementSize from "../../hooks/useElementSize";
 import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
 
@@ -28,6 +29,7 @@ import Source from "../../utils/rx/Source";
 import ttl from "../../utils/hof/ttl";
 import compose from "../../utils/compose";
 
+import { IBoardColumnInternal } from "./model/IBoardColumn";
 import IBoardRowInternal from "./model/IBoardRowInternal";
 import IAnything from "../../model/IAnything";
 import IBoardRow from "./model/IBoardRow";
@@ -36,6 +38,7 @@ const DEFAULT_BUFFERSIZE = 15;
 const DEFAULT_MINROWHEIGHT = 125;
 const DEFAULT_ROWTTL = 500;
 const DEFAULT_GCINTERVAL = 45_000;
+const KANBAN_DIVIDER = 'react-declarative__kanbanDivider';
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -103,7 +106,14 @@ const useStyles = makeStyles()((theme) => ({
     pointerEvents: "none",
     cursor: "not-allowed",
   },
+  divider: {
+    padding: '2.5px',
+    marginRight: '15px',
+    marginLeft: '5px',
+    background: theme.palette.action.hover,
+  },
 }));
+
 /**
  * KanbanViewInternal is a React component that renders a kanban board view. It displays items in columns and allows dragging and dropping of items between columns.
  *
@@ -180,6 +190,8 @@ const KanbanViewInternal = <
 ) => {
   const reloadSubject = useSubject(upperReloadSubject);
 
+  const { elementRef, size } = useElementSize();
+
   const [dragColumn, setDragColumn] = useState<ColumnType | null>(null);
   const dragId = useRef<string | null>(null);
 
@@ -189,6 +201,10 @@ const KanbanViewInternal = <
 
   const payload = useSingleton(upperPayload);
   const columns = useSingleton(upperColumns);
+
+  const internalColumns = useMemo(() => {
+    return columns.filter(({ divider }) => !divider) as IBoardColumnInternal[];
+  }, [columns]);
 
   /**
    * Fetches transformed rows from a given set of rows.
@@ -323,7 +339,7 @@ const KanbanViewInternal = <
           dayjs(a).isBefore(b) ? 1 : -1
       );
     }
-    for (const { column } of columns) {
+    for (const { column } of internalColumns) {
       const itemList = itemListAll.filter((item) => item.column === column);
       itemMap.set(column, itemList);
     }
@@ -343,7 +359,7 @@ const KanbanViewInternal = <
    *
    * @returns - The resulting list of columns.
    */
-  const columnList = useMemo(() => columns.map(({ column }) => column), []);
+  const columnList = useMemo(() => internalColumns.map(({ column }) => column), []);
   const defaultColor = useMemo(
     () =>
       theme.palette.mode === "dark"
@@ -363,9 +379,21 @@ const KanbanViewInternal = <
           style={style}
           sx={sx}
         >
-          <Box className={classes.container}>
+          <Box ref={elementRef} className={classes.container}>
             <ScrollView withScrollbar hideOverflowY className={classes.content}>
-              {columns.map(({ column, rows, label, color = defaultColor }, idx) => {
+              {columns.map(({ divider, ...other }, idx) => {
+                if (divider) {
+                  return (
+                    <Box
+                      key={`divider-${idx}`}
+                      className={classNames(KANBAN_DIVIDER, classes.divider)}
+                      sx={{
+                        height: size.height,
+                      }}
+                    />
+                  );
+                }
+                const { column, rows, label, color = defaultColor } = other as IBoardColumnInternal;
                 const itemList = itemMap.get(column) || [];
                 return (
                   <Box
@@ -464,7 +492,7 @@ const KanbanViewInternal = <
                               dragId.current = document.id;
                             }}
                             disabled={disabled}
-                            columns={columns}
+                            columns={internalColumns}
                             rows={rows}
                             label={document.label || cardLabel}
                             AfterCardContent={AfterCardContent}

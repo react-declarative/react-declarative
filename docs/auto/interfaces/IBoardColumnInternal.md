@@ -1,4 +1,4 @@
-# IBoardColumn
+# IBoardColumnInternal
 
 Interface representing a board column.
 
@@ -20,6 +20,12 @@ color: string
 
 ```ts
 label: string
+```
+
+### divider
+
+```ts
+divider: boolean
 ```
 
 ### rows

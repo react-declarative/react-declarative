@@ -1,5 +1,5 @@
 import IAnything from "../../../model/IAnything";
-import IBoardColumn from "./IBoardColumn";
+import { IBoardColumn } from "./IBoardColumn";
 
 /**
  * Interface representing a board.

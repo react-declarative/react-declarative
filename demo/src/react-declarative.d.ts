@@ -335,6 +335,7 @@ declare module "react-declarative" {
   import { IBoardColumn as IBoardColumnInternal } from "react-declarative/components";
   import { IBoardItem as IBoardItemInternal } from "react-declarative/components";
   import { IBoardRow as IBoardRowInternal } from "react-declarative/components";
+  export { IBoardDivider } from "react-declarative/components";
   export type IBoardColumn<Data = any, Payload = any> = IBoardColumnInternal<
     Data,
     Payload
@@ -11147,6 +11148,7 @@ declare module "react-declarative/components/AuthView" {
 declare module "react-declarative/components/KanbanView" {
   export * from "react-declarative/components/KanbanView/KanbanView";
   export * from "react-declarative/components/KanbanView/model/IBoard";
+  export * from "react-declarative/components/KanbanView/model/IBoardDivider";
   export * from "react-declarative/components/KanbanView/model/IBoardColumn";
   export * from "react-declarative/components/KanbanView/model/IBoardItem";
   export * from "react-declarative/components/KanbanView/model/IBoardRow";
@@ -25437,7 +25439,7 @@ declare module "react-declarative/components/KanbanView/KanbanView" {
 
 declare module "react-declarative/components/KanbanView/model/IBoard" {
   import IAnything from "react-declarative/model/IAnything";
-  import IBoardColumn from "react-declarative/components/KanbanView/model/IBoardColumn";
+  import { IBoardColumn } from "react-declarative/components/KanbanView/model/IBoardColumn";
   /**
    * Interface representing a board.
    *
@@ -25457,8 +25459,16 @@ declare module "react-declarative/components/KanbanView/model/IBoard" {
   export default IBoard;
 }
 
+declare module "react-declarative/components/KanbanView/model/IBoardDivider" {
+  export type IBoardDivider = {
+    divider: boolean;
+  };
+  export default IBoardDivider;
+}
+
 declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
   import IAnything from "react-declarative/model/IAnything";
+  import IBoardDivider from "react-declarative/components/KanbanView/model/IBoardDivider";
   import IBoardRow from "react-declarative/components/KanbanView/model/IBoardRow";
   /**
    * Interface representing a board column.
@@ -25467,7 +25477,7 @@ declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
    * @template Payload - Type of payload for each row in the column.
    * @template ColumnType - Type of column.
    */
-  export interface IBoardColumn<
+  export interface IBoardColumnInternal<
     Data = IAnything,
     Payload = IAnything,
     ColumnType = IAnything,
@@ -25475,8 +25485,14 @@ declare module "react-declarative/components/KanbanView/model/IBoardColumn" {
     column: ColumnType;
     color?: string;
     label?: string;
+    divider?: boolean;
     rows: IBoardRow<Data, Payload>[];
   }
+  export type IBoardColumn<
+    Data = IAnything,
+    Payload = IAnything,
+    ColumnType = IAnything,
+  > = IBoardColumnInternal<Data, Payload, ColumnType> | IBoardDivider;
   export default IBoardColumn;
 }
 
