@@ -10,7 +10,7 @@
 
 A React view builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (**IntelliSense** available). This tool is based on `MUI` components, so your application will look normal on any device...
 
-**More than Forms:** can be used for build any UI like dashboards, CRM and ERP, mobile apps. Solving your problems.  **⭐Star** and **💻Fork** It will be appreciated
+**More than Forms:** can be used for build any UI like dashboards, CRM and ERP, mobile apps. Solving your problems.  *⭐Star* and *💻Fork* It will be appreciated
 
 <!--
 
