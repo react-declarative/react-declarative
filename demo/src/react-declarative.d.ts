@@ -595,6 +595,7 @@ declare module "react-declarative" {
   export { useOffsetPaginator } from "react-declarative/components";
   export { useGridAction } from "react-declarative/components";
   export { useGridSelection } from "react-declarative/components";
+  export { useGridProps } from "react-declarative/components";
   export { useLastPagination } from "react-declarative/components";
   export { useQueryPagination } from "react-declarative/components";
   export { usePreventNavigate } from "react-declarative/components";
@@ -11223,6 +11224,7 @@ declare module "react-declarative/components/Grid" {
   export { IColumn as IGridColumn } from "react-declarative/components/Grid/model/IColumn";
   export { IGridAction } from "react-declarative/components/Grid/model/IGridAction";
   export { TSort as TGridSort } from "react-declarative/components/Grid/model/TSort";
+  export { useGridProps } from "react-declarative/components/Grid/hooks/useGridProps";
   export { default } from "react-declarative/components/Grid/Grid";
 }
 
@@ -26809,6 +26811,31 @@ declare module "react-declarative/components/Grid/model/TSort" {
     value: IColumn<T>["field"];
   };
   export default TSort;
+}
+
+declare module "react-declarative/components/Grid/hooks/useGridProps" {
+  import * as React from "react";
+  import IGridProps from "react-declarative/components/Grid/model/IGridProps";
+  export const useGridProps: () => IGridProps<any, any>;
+  /**
+   * Interface representing the props for the IGridPropsProvider component.
+   */
+  interface IGridPropsProviderProps {
+    children: React.ReactNode;
+    value: IGridProps;
+  }
+  /**
+   * Provides Grid properties to its children.
+   * @param props - The component props.
+   * @param props.children - The child components to render.
+   * @param props.value - The Grid properties value.
+   * @returns - The rendered JSX.
+   */
+  export const GridPropsProvider: ({
+    children,
+    value,
+  }: IGridPropsProviderProps) => JSX.Element;
+  export default useGridProps;
 }
 
 declare module "react-declarative/components/Tile/Tile" {

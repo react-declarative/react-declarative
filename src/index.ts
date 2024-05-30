@@ -517,6 +517,7 @@ export { useCursorPaginator } from './components';
 export { useOffsetPaginator } from './components';
 export { useGridAction } from './components';
 export { useGridSelection } from './components';
+export { useGridProps } from './components';
 
 export { useLastPagination } from './components';
 export { useQueryPagination } from './components';

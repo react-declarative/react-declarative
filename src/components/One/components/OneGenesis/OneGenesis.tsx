@@ -35,6 +35,7 @@ import useActualValue from "../../../../hooks/useActualValue";
 import isBaseline from "../../config/isBaseline";
 
 const BASE_CLASS = "react-declarative__oneGenesis";
+const READY_CLASS = "react-declarative__oneReady";
 
 /**
  * The variable `useStyles` is a function that returns a makeStyles hook. This hook is used to create classes for styling components using the Material-UI library.
@@ -222,6 +223,7 @@ export const OneGenesis = <
                           <Group
                             isBaselineAlign={isBaselineAlign}
                             className={classNames(BASE_CLASS, {
+                              [READY_CLASS]: isReady.current,
                               [classes.readonly]: props.readonly,
                               [classes.rendering]: !rendered,
                             })}
