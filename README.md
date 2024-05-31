@@ -2,7 +2,7 @@
 
 # ⚛️ react-declarative
 
-> [MUI](https://mui.com/) json endpoint form builder. Check [this storybook](https://github.com/react-declarative/react-declarative-storybook), the [playground](https://react-declarative-playground.github.io/) and [the docs folder](./docs/Readme.md) for more samples...
+> [MUI](https://mui.com/) json endpoint form builder. Check this [Storybook](https://github.com/react-declarative/react-declarative-storybook), the [Playground](https://react-declarative-playground.github.io/) and the [Docs Folder](./docs/Readme.md) for more samples. Also [Playwrite End-to-End Testbed](https://github.com/react-declarative/react-declarative-e2e) available
 
 [![npm](https://img.shields.io/npm/v/react-declarative.svg?style=flat-square)](https://npmjs.org/package/react-declarative)
 
@@ -133,6 +133,8 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 
 This tool also provide it's own way of rapid application development by simplifying app state managament. New features appear frequently, so you should be able to [read the project's storybook](https://github.com/react-declarative/react-declarative-storybook), browse [an organization with sample projects](https://github.com/react-declarative), and [read the source code](https://github.com/react-declarative/react-declarative)
 
+The Playwright End-to-End testbed available
+
 Several starter kits available
 
 **1. Pure React Starter**
@@ -164,7 +166,16 @@ yarn create react-app --template cra-template-appwrite .
 
 and few more quite interesting demo projects
 
-**1. ERC-20 Payment gateway**
+**1. Playwright End-to-End Testbed**
+
+> [!NOTE]
+> GitHub repo: [https://github.com/react-declarative/react-declarative-e2e](https://github.com/react-declarative/react-declarative-e2e)
+
+```bash
+git clone https://github.com/react-declarative/react-declarative-e2e.git
+```
+
+**2. ERC-20 Payment gateway**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/erc20-payment-gateway](https://github.com/react-declarative/erc20-payment-gateway)
@@ -173,7 +184,7 @@ and few more quite interesting demo projects
 git clone https://github.com/react-declarative/erc20-payment-gateway.git
 ```
 
-**2. React Face KYC**
+**3. React Face KYC**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/react-face-kyc](https://github.com/react-declarative/react-face-kyc)
@@ -182,7 +193,7 @@ git clone https://github.com/react-declarative/erc20-payment-gateway.git
 git clone https://github.com/react-declarative/react-face-kyc.git
 ```
 
-**3. BrainJS Cryptocurrency Trend**
+**4. BrainJS Cryptocurrency Trend**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/brainjs-cryptocurrency-trend](https://github.com/react-declarative/brainjs-cryptocurrency-trend)
@@ -191,7 +202,7 @@ git clone https://github.com/react-declarative/react-face-kyc.git
 git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
 ```
 
-**4. NFT Mint Tool**
+**5. NFT Mint Tool**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/nft-mint-tool](https://github.com/react-declarative/nft-mint-tool)
@@ -200,7 +211,7 @@ git clone https://github.com/react-declarative/brainjs-cryptocurrency-trend.git
 git clone https://github.com/react-declarative/nft-mint-tool.git
 ```
 
-**5. React PocketBase CRM**
+**6. React PocketBase CRM**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/react-pocketbase-crm](https://github.com/react-declarative/react-pocketbase-crm)
@@ -209,7 +220,7 @@ git clone https://github.com/react-declarative/nft-mint-tool.git
 git clone https://github.com/react-declarative/react-pocketbase-crm.git
 ```
 
-**6. ChatGPT Ecommerce Grid**
+**7. ChatGPT Ecommerce Grid**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/chatgpt-ecommerce-prompt](https://github.com/react-declarative/chatgpt-ecommerce-prompt)
