@@ -428,3 +428,99 @@ Certainly! The react-declarative npm library has both community support and docu
  - Performant: Even on older devices (e.g., 2016 devices) due to optimizations.
  - Maintainable: Reduces technical debt by integrating validations into the UI schema.
  - Reflectable: Enables additional inline validations and data cleanup based on form schema.
+
+## How to build a Google-like settings form based on top of code in that markdown file
+
+A Google Account settings form based on the code in the markdown file you provided. Here’s how you can modify [the existing code](./docs/sample/account_info.md) to create a Google Account settings form:
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+declare var RemoveAccount: any;
+declare var AvatarPicker: any;
+
+const personalFields: TypedField[] = [
+  {
+      type: FieldType.Line,
+      title: 'Personal info',
+  },
+  {
+      type: FieldType.Component,
+      fieldBottomMargin: '0',
+      element: () => <AvatarPicker />
+  },
+  {
+      type: FieldType.Text,
+      fieldRightMargin: '0',
+      outlined: true,
+      name: 'global.login',
+      title: 'Nickname',
+      description: 'A nickname linked to this Google account',
+  },
+  {
+      type: FieldType.Text,
+      fieldRightMargin: '0',
+      outlined: true,
+      name: 'global.email',
+      readonly: true,
+      title: 'Email (Readonly)',
+      description: 'An email address linked to this Google account',
+  },
+];
+
+const notifyFields: TypedField[] = [
+  {
+      type: FieldType.Line,
+      title: 'Notifications',
+  },
+  {
+      type: FieldType.Expansion,
+      fieldRightMargin: '0',
+      fieldBottomMargin: '1',
+      title: 'Google Services',
+      fields: [
+          {
+              type: FieldType.Switch,
+              name: 'notify.googleServices',
+              fieldRightMargin: '0',
+              title: 'Google Services',
+              fieldBottomMargin: '0',
+          },
+          {
+              type: FieldType.Typography,
+              typoVariant: 'subtitle2',
+              placeholder: 'Toggle Google Services notifications',
+              style: {
+                  opacity: 0.5,
+              },
+              fieldBottomMargin: '0',
+          },
+      ],
+  },
+];
+
+const dangerFields: TypedField[] = [
+  {
+      type: FieldType.Line,
+      title: 'Danger',
+  },
+  {
+      type: FieldType.Component,
+      element: () => <RemoveAccount />,
+  },
+];
+
+export const fields: TypedField[] = [
+  ...personalFields,
+  ...notifyFields,
+  ...dangerFields,
+];
+```
+
+In this code, I’ve replaced the ‘Moderations’, ‘Payments’, and ‘Withdraws’ sections with a ‘Google Services’ section under ‘Notifications’. This section contains a switch to toggle notifications for Google Services. The ‘Personal info’ section remains the same, and the ‘Danger’ section still contains the option to remove the account. Please replace the RemoveAccount and AvatarPicker components with your own implementations.
+
+Remember to install the `react-declarative` library if you haven’t already done so. You can install it using npm:
+
+```
+npm install react-declarative
+```

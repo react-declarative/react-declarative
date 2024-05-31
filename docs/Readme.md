@@ -26,6 +26,8 @@ What means It cannot debug the hooks when changing JSX. The declarative view eng
 8. [Custom JSX](./sample/custom_jsx.md)
 9. [Machine learning](./sample/machine_learning.md)
 10. [Dashboard](./sample/dashboard.md)
+11. [Adaptive form](./sample/adaptive_form.md)
+12. [Account info](./sample/)
 
 **The prompt**
 
