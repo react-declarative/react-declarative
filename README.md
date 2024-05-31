@@ -133,9 +133,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 
 This tool also provide it's own way of rapid application development by simplifying app state managament. New features appear frequently, so you should be able to [read the project's storybook](https://github.com/react-declarative/react-declarative-storybook), browse [an organization with sample projects](https://github.com/react-declarative), and [read the source code](https://github.com/react-declarative/react-declarative)
 
-The Playwright End-to-End testbed available
-
-Several starter kits available
+Several starter kits available (Check [Playwright End-to-End testbed](https://github.com/react-declarative/react-declarative-e2e))
 
 **1. Pure React Starter**
 
