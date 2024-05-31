@@ -23,62 +23,98 @@ A user interface of a profile page
 ```tsx
 import { TypedField, FieldType } from "react-declarative";
 
+import { Box } from '@mui/material';
+import { People } from '@mui/icons-material';
+
 export const fields: TypedField[] = [
   {
     type: FieldType.Group,
     fields: [
       {
-        type: FieldType.Group,
+        type: FieldType.Box,
+        sx: {
+          display: 'grid',
+          gridTemplateColumns: 'auto 1fr',
+        },
         fields: [
           {
-            type: FieldType.Line,
-            title: 'Profile'
-          },
-          {
-            type: FieldType.Combo,
-            title: 'Gender',
-            placeholder: 'Select one',
-            name: 'gender',
-            itemList: ['Male', 'Female', 'Other']
-          },
-          {
-            type: FieldType.Items,
-            title: 'Lists',
-            placeholder: 'Select multiple',
-            name: 'list',
-            itemList: ['Blocklist', 'VIP', 'Other people']
+            type: FieldType.Group,
+            fields: [
+              {
+                type: FieldType.Component,
+                element: () => (
+                  <Box
+                    sx={{
+                      height: '256px',
+                      width: '256px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: '#333',
+                      margin: '10px',
+                       '& svg': { fontSize: '50px' }
+                    }}
+                  >
+                    <People />
+                  </Box>
+                ),
+              }
+            ],
           },
           {
             type: FieldType.Group,
             fields: [
               {
-                type: FieldType.Group,
-                columns: "9",
-                fields: [
-                  {
-                    type: FieldType.Text,
-                    outlined: false,
-                    title: 'Keyword',
-                    name: 'keyword',
-                    placeholder: 'September',
-                    isDisabled: function (obj) { return !obj.keywordEnabled; }
-                  },
-                ]
+                type: FieldType.Line,
+                title: 'Profile'
+              },
+              {
+                type: FieldType.Combo,
+                title: 'Gender',
+                placeholder: 'Select one',
+                name: 'gender',
+                itemList: ['Male', 'Female', 'Other']
+              },
+              {
+                type: FieldType.Items,
+                title: 'Lists',
+                placeholder: 'Select multiple',
+                name: 'list',
+                itemList: ['Blocklist', 'VIP', 'Other people']
               },
               {
                 type: FieldType.Group,
-                columns: "3",
                 fields: [
                   {
-                    type: FieldType.Checkbox,
-                    title: 'Keyword',
-                    name: 'keywordEnabled'
+                    type: FieldType.Group,
+                    columns: "9",
+                    fields: [
+                      {
+                        type: FieldType.Text,
+                        outlined: false,
+                        title: 'Keyword',
+                        name: 'keyword',
+                        placeholder: 'September',
+                        isDisabled: function (obj) { return !obj.keywordEnabled; }
+                      },
+                    ]
+                  },
+                  {
+                    type: FieldType.Group,
+                    columns: "3",
+                    fields: [
+                      {
+                        type: FieldType.Checkbox,
+                        title: 'Keyword',
+                        name: 'keywordEnabled'
+                      },
+                    ]
                   },
                 ]
-              },
+              }
             ]
           }
-        ]
+        ],
       },
       {
         type: FieldType.Line,
