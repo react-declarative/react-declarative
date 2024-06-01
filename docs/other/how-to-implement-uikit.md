@@ -18,7 +18,7 @@ There are two components which allow to customize `react-declarative`: [OneSlotF
 
 ## So That's the thing
 
-Split you frontend team into two parts. The first team start's the development by using default MUI. The second team uses [E2E integration tests](https://github.com/react-declarative/react-declarative-e2e/) to implement your own input fields, for example, in [Joy UI](https://mui.com/joy-ui/getting-started/). That set of unit tests will show you all bugs in you [UIKit](https://mui.com/store/). Even buy it if you want to
+Split you frontend team into two parts. The first team start's the development by using the default MUI. The second team uses [E2E integration tests](https://github.com/react-declarative/react-declarative-e2e/) to implement your own input fields, for example, in [Joy UI](https://mui.com/joy-ui/getting-started/). The set of e2e tests will show you all bugs in you [UIKit](https://mui.com/store/). Even buy it if you want to
 
 > Link to [the source code](https://github.com/react-declarative/react-declarative-e2e/)
 
