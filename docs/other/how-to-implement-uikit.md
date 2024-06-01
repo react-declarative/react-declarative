@@ -457,7 +457,6 @@ export const ComboSlot = ({
     prevObject.current = object;
     initial.current = false;
     execute(object);
-    //eslint-disable-next-line
   }, [valueHash, disabled, dirty, invalid, object, readonly]);
 
   const createRenderInput =
@@ -556,7 +555,6 @@ export const ComboSlot = ({
       }}
       loading={loading}
       value={value || null}
-      //eslint-disable-next-line
       onChange={({}, v) => handleChange(v)}
       getOptionLabel={getOptionLabel}
       freeSolo={freeSolo}
