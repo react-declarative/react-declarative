@@ -11,6 +11,8 @@ import IOnePublicProps from "../../../model/IOnePublicProps";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
+import deepClone from "../helpers/deepClone";
+
 const NEVER_VALUE = Symbol('never-value');
 
 /**
@@ -69,7 +71,10 @@ export const useManagedProps = <Data extends IAnything = IAnything, Payload = IA
 
     const data$ = useActualValue(data);
 
-    const fields = useMemo(() => applyValidation<Data, IAnything>(upperFields), []);
+    const fields = useMemo(() => {
+        const clonedFields = deepClone(upperFields);
+        return applyValidation<Data, IAnything>(clonedFields);
+    }, []);
 
     const UNCONTROLLED_STATE = useSingleton(data === NEVER_VALUE);
 
