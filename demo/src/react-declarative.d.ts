@@ -1617,6 +1617,10 @@ declare module "react-declarative/model/IField" {
    */
   export interface IField<Data = IAnything, Payload = IAnything> {
     /**
+     * Отменяет ожидание фокуса для валидации
+     */
+    dirty?: boolean;
+    /**
      * Параметры фабрики для создания коллбека isInvalid
      */
     validation?: IValidation;
@@ -2532,6 +2536,10 @@ declare module "react-declarative/model/IManaged" {
    */
   export interface IManagedShallow<Data = IAnything, Payload = IAnything>
     extends IManagedLayout<Data> {
+    /**
+     * Отменяет ожидание фокуса для валидации
+     */
+    dirty?: PickProp<IField<Data, Payload>, "dirty">;
     /**
      * Идентификатор для тестирования шаблона
      */

@@ -174,6 +174,10 @@ export interface IManagedLayout<Data = IAnything, Payload = IAnything> extends I
  */
 export interface IManagedShallow<Data = IAnything, Payload = IAnything> extends IManagedLayout<Data> {
     /**
+     * Отменяет ожидание фокуса для валидации
+     */
+    dirty?: PickProp<IField<Data, Payload>, 'dirty'>;
+    /**
      * Идентификатор для тестирования шаблона
      */
     testId?: PickProp<IField<Data, Payload>, 'testId'>;

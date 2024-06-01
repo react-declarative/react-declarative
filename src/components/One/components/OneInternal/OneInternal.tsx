@@ -375,7 +375,7 @@ export const OneInternal = <
               ? itemListMap.get(field)
               : itemListMap.set(field, makeItemList(field, payload)).get(field),
             object,
-            dirty,
+            dirty: field.dirty || dirty,
           };
           /**
            * Represents the internal props for component `one`.
@@ -421,7 +421,7 @@ export const OneInternal = <
             click,
             menu,
             blur,
-            dirty,
+            dirty: field.dirty || dirty,
           };
           if (isLayout(field.type)) {
             return createLayout(

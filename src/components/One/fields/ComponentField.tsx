@@ -21,7 +21,7 @@ import type { ComponentFieldInstanceProps } from "../../../model/ComponentFieldI
 
 import classNames from "../../../utils/classNames";
 
-type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";
+type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly" | "dirty";
 
 const FIELD_NEVER_MARGIN = "0";
 

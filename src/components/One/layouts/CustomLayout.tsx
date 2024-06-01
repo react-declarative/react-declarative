@@ -26,7 +26,7 @@ export interface ICustomLayoutProps<Data = IAnything, Payload = IAnything>
   hidden?: PickProp<IField<Data, Payload>, 'hidden'>;
 }
 
-type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly";
+type FieldIgnoreParam = keyof Omit<IManaged, keyof IField> | "readonly" | "dirty";
 
 const FIELD_INTERNAL_PARAMS: FieldIgnoreParam[] = [
   "dirty",

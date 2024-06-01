@@ -27,6 +27,11 @@ export type Value = string | string[] | number | boolean | null;
 export interface IField<Data = IAnything, Payload = IAnything> {
 
     /**
+     * Отменяет ожидание фокуса для валидации
+     */
+    dirty?: boolean;
+
+    /**
      * Параметры фабрики для создания коллбека isInvalid
      */
     validation?: IValidation;

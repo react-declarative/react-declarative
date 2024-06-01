@@ -6,6 +6,14 @@
 
 ## Properties
 
+### dirty
+
+```ts
+dirty: boolean
+```
+
+Отменяет ожидание фокуса для валидации
+
 ### testId
 
 ```ts
