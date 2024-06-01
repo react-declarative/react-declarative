@@ -9,6 +9,31 @@ import sleep from '../utils/sleep';
 
 const fields: TypedField[] = [
     {
+        type: FieldType.Tree,
+        testId: 'tree-field',
+        itemTree: [
+          {
+              label: 'Foo',
+              value: 'foo',
+          },
+          {
+              label: 'Bar',
+              value: 'bar',
+              child: [
+                  {
+                      label: 'Baz',
+                      value: 'baz'
+                  },
+                  {
+                      label: 'Bad',
+                      value: 'bad'
+                  }
+              ]
+          },
+        ],
+        name: 'tree'
+      },
+    {
         type: FieldType.Center,
         isDisabled: () => true,
         style: {
@@ -319,7 +344,7 @@ const fields: TypedField[] = [
 ];
 
 export const GalleryPage = () => (
-    <OneTyped features={["user"]} fields={fields}/>
+    <OneTyped features={["user"]} fields={fields} onChange={console.log}/>
 );
 
 export default GalleryPage;

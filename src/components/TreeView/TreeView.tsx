@@ -20,6 +20,7 @@ import deepFlat from "./utils/deepFlat";
 
 import useChangeSubject from "../../hooks/useChangeSubject";
 import useReloadTrigger from "../../hooks/useReloadTrigger";
+import useActualState from "../../hooks/useActualState";
 import useChange from "../../hooks/useChange";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -113,7 +114,7 @@ export const TreeView = ({
 
   const upperChange = useRef(false);
 
-  const [value, setValue] = useState(upperValue || []);
+  const [value$, setValue] = useActualState(upperValue || []);
   const [opened, setOpened] = useState(false);
 
   useChange(() => {
@@ -123,19 +124,19 @@ export const TreeView = ({
 
   const { reloadTrigger, doReload } = useReloadTrigger();
 
-  const changeSubject = useChangeSubject(value);
+  const changeSubject = useChangeSubject(value$.current);
 
   useChange(() => {
     if (upperChange.current) {
       upperChange.current = false;
       return;
     }
-    if (value.length) {
-      onChange(value);
+    if (value$.current.length) {
+      onChange(value$.current);
       return;
     }
     onChange(null);
-  }, [value]);
+  }, [value$.current]);
 
   useEffect(() => {
     if (!opened) {
@@ -200,19 +201,21 @@ export const TreeView = ({
    * @param values - The values to be toggled.
    * @returns
    */
-  const handleToggle = (...values: string[]) =>
-    setValue((prevValue) => {
-      const currentValue = new Set(prevValue);
-      const deselect = values.some((value) => currentValue.has(value));
-      values.forEach((value) => {
-        if (deselect) {
-          currentValue.delete(value);
-        } else {
-          currentValue.add(value);
-        }
-      });
-      return [...currentValue];
+  const handleToggle = (...values: string[]) => {
+    const prevValue = value$.current;
+    const currentValue = new Set(prevValue);
+    const deselect = values.some((value) => currentValue.has(value));
+    values.forEach((value) => {
+      if (deselect) {
+        currentValue.delete(value);
+      } else {
+        currentValue.add(value);
+      }
     });
+    const value = [...currentValue];
+    setValue(value);
+    onChange(value);
+  };
 
   /**
    * Represents the autocomplete value based on filtered items.
@@ -220,8 +223,8 @@ export const TreeView = ({
    * @type {Array}
    */
   const autocompleteValue = useMemo(() => {
-    return items.filter((item) => value.includes(item.value));
-  }, [value, items]);
+    return items.filter((item) => value$.current.includes(item.value));
+  }, [value$.current, items]);
 
   return (
     <Autocomplete
@@ -237,9 +240,6 @@ export const TreeView = ({
       onClose={() => setOpened(false)}
       multiple
       disableCloseOnSelect
-      onChange={(_, items) => {
-        setValue(items.map(({ value }) => value));
-      }}
       groupBy={(option) => option.groupId}
       getOptionLabel={(option) => option.label || ""}
       renderInput={(params) => <MatTextField {...params} {...textFieldProps} />}
@@ -248,7 +248,7 @@ export const TreeView = ({
         if (!group) {
           return <>{params.children}</>;
         }
-        const checked = group.child.every((child) => value.includes(child));
+        const checked = group.child.every((child) => value$.current.includes(child));
         return (
           <li key={params.key}>
             <ul className={classes.ul}>
