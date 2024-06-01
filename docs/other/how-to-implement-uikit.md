@@ -4,7 +4,7 @@
 
 ## Main concept
 
-By default, when you coding with `react-declarative`, you will use MUI. It looks and feels native on each operation system: Windows, Linux, macOS, ChromeOS, even Tesla Car Firmware. But, after your coding startup started sales you will want to build custom UI to make customers be addicted to your platform. The problem is you don't know if there are going to be any customers. The main rule is [Move Fast or Die](https://news.ycombinator.com/item?id=32597811), you need minimal investments before first sales more than custom design.
+By default, when you coding with `react-declarative`, you will use MUI. It looks and feels native on each operation system: `Windows`, `Linux`, `macOS`, `ChromeOS`, `iOS`, `Android` even `Tesla Car Firmware`. But, after your coding startup started sales you will want to build custom UI to make customers be addicted to your platform. The problem is you don't know if there are going to be any customers. The main rule is [Move Fast or Die](https://news.ycombinator.com/item?id=32597811), you need minimal investments before first sales more than custom design.
 
 ## The Idea
 
