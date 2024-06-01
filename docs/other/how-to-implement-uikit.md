@@ -1,4 +1,4 @@
-# Writing custom UIKit in parallel with development of the main product
+# Writing custom UIKit in parallel with the development of the main product
 
 > The point of `react-declarative` is to start the development process ASAP, polish the design later. Here's how to develop the main product and the UI kit in parallel
 
