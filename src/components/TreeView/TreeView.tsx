@@ -106,6 +106,7 @@ export const TreeView = ({
   sx,
   disabled,
   loading,
+  readOnly,
   items: upperItems = [],
   value: upperValue = [],
   onChange = () => undefined,
@@ -241,10 +242,21 @@ export const TreeView = ({
       onClose={() => setOpened(false)}
       multiple
       disabled={disabled}
+      readOnly={readOnly}
       disableCloseOnSelect
       groupBy={(option) => option.groupId}
       getOptionLabel={(option) => option.label || ""}
-      renderInput={(params) => <MatTextField {...params} {...textFieldProps} />}
+      renderInput={(params) => (
+        <MatTextField
+          {...params}
+          {...textFieldProps}
+          InputProps={{
+            ...params.InputProps,
+            ...textFieldProps.InputProps,
+            readOnly,
+          }}
+        />
+      )}
       renderGroup={(params) => {
         const group = groupIdMap.get(params.group);
         if (!group) {

@@ -26035,6 +26035,7 @@ declare module "react-declarative/components/TreeView/TreeView" {
     sx,
     disabled,
     loading,
+    readOnly,
     items: upperItems,
     value: upperValue,
     onChange,
