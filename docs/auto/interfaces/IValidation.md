@@ -28,6 +28,18 @@ minLength: number
 maxLength: number
 ```
 
+### minNum
+
+```ts
+minNum: number
+```
+
+### maxNum
+
+```ts
+maxNum: number
+```
+
 ### pattern
 
 ```ts

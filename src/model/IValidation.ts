@@ -11,6 +11,8 @@ export interface IValidation {
     numeric?: boolean;
     minLength?: number;
     maxLength?: number;
+    minNum?: number;
+    maxNum?: number;
     pattern?: RegExp;
 }
 

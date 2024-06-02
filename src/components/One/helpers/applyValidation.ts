@@ -17,7 +17,15 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
         if (!validation) {
             continue;
         }
-        const { required, pattern, minLength, maxLength, numeric } = validation;
+        const { 
+            required, 
+            pattern, 
+            minLength, 
+            maxLength, 
+            numeric,
+            minNum,
+            maxNum,
+        } = validation;
         if (required) {
             validations.push((data) => {
                 const value = data[name];
@@ -37,6 +45,28 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
             validations.push((data) => {
                 if (isNaN(data[name])) {
                     return "Must be a number";
+                }
+                return null;
+            });
+        }
+        if (maxNum) {
+            validations.push((data) => {
+                if (isNaN(data[name])) {
+                    return "Must be a number";
+                }
+                if (parseInt(data[name]) > maxNum) {
+                    return "Maximum value reached";
+                }
+                return null;
+            });
+        }
+        if (minNum) {
+            validations.push((data) => {
+                if (isNaN(data[name])) {
+                    return "Must be a number";
+                }
+                if (parseInt(data[name]) < minNum) {
+                    return "Minimum value reached";
                 }
                 return null;
             });

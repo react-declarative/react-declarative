@@ -1588,6 +1588,8 @@ declare module "react-declarative/model/IValidation" {
     numeric?: boolean;
     minLength?: number;
     maxLength?: number;
+    minNum?: number;
+    maxNum?: number;
     pattern?: RegExp;
   }
   export default IValidation;
