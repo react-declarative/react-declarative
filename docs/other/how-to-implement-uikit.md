@@ -8,7 +8,7 @@ By default, when you coding with `react-declarative`, you are using MUI. It look
 
 Your custom UIKit should implement a wrapper for the `<OneSlotFactory />` component. I recommend to share It between teams by using [monorepo](https://pnpm.io/workspaces), [Verdaccio](https://github.com/verdaccio/verdaccio), [Sonatype Nexus Repository](sonatype-nexus-repository) or [GitHub Packages](https://github.com/features/packages)
 
-Another way of sharing packages between the parts of your codebase is to use [npm local paths](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#local-paths) with [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+Another way of sharing packages between the parts of your codebase is to use [npm local paths](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#local-paths) with [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Useful if you need to restrict access to critical code to some employee
 
 ## The Idea
 
