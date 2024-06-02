@@ -104,6 +104,7 @@ export const TreeView = ({
   className,
   style,
   sx,
+  disabled,
   loading,
   items: upperItems = [],
   value: upperValue = [],
@@ -239,6 +240,7 @@ export const TreeView = ({
       onOpen={() => setOpened(true)}
       onClose={() => setOpened(false)}
       multiple
+      disabled={disabled}
       disableCloseOnSelect
       groupBy={(option) => option.groupId}
       getOptionLabel={(option) => option.label || ""}

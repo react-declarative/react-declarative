@@ -26033,6 +26033,7 @@ declare module "react-declarative/components/TreeView/TreeView" {
     className,
     style,
     sx,
+    disabled,
     loading,
     items: upperItems,
     value: upperValue,
