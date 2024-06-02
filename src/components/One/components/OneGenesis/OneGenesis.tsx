@@ -223,11 +223,11 @@ export const OneGenesis = <
                           <Group
                             isBaselineAlign={isBaselineAlign}
                             className={classNames(BASE_CLASS, {
-                              [READY_CLASS]: isReady.current,
+                              [READY_CLASS]: rendered,
                               [classes.readonly]: props.readonly,
                               [classes.rendering]: !rendered,
                             })}
-                            data-testid={isReady.current ? READY_CLASS : BASE_CLASS}
+                            data-testid={rendered ? READY_CLASS : BASE_CLASS}
                           >
                             <OneInternal<Data, Payload, Field> {...viewParams} />
                           </Group>
