@@ -82,7 +82,7 @@ test("Will show false state", async ({ page }) => {
 test("Will set true state", async ({ page }) => {
     const textField = await renderFields(page, fields);
     await textField.click();
-    await page.getByLabel("Yes").last().click();
+    await page.getByText("Yes", { exact: true }).first().click();
     const inputValue = await textField.getByRole('combobox').inputValue();
     await expect(inputValue).toEqual("Yes");
 });
@@ -90,7 +90,7 @@ test("Will set true state", async ({ page }) => {
 test("Will set false state", async ({ page }) => {
     const textField = await renderFields(page, fields);
     await textField.click();
-    await page.getByLabel("No").last().click();
+    await page.getByText("No", { exact: true }).first().click();
     const inputValue = await textField.getByRole('combobox').inputValue();
     await expect(inputValue).toEqual("No");
 });
