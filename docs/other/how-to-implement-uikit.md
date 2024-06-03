@@ -2,6 +2,8 @@
 
 > The point of `react-declarative` is to start the development process ASAP, polish the design later. Here's how to develop the main product and the UI kit in parallel
 
+![playwrite](../../assets/images/playwrite.png)
+
 ## Main concept
 
 By default, when you coding with `react-declarative`, you are using MUI. It looks and feels native on each operation system: `Windows`, `Linux`, `macOS`, `ChromeOS`, `iOS`, `Android` even `Tesla Car Firmware`. But, after your coding startup begin sales you will want to build custom UI to make customers be addicted to your platform. The problem is you don't know if there are going to be any customers. The main rule of the IT startup is [Move Fast or Die](https://news.ycombinator.com/item?id=32597811), you need to minimize costs more than custom design until the first sale.
