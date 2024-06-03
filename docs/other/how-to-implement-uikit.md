@@ -2,7 +2,7 @@
 
 > The point of `react-declarative` is to start the development process ASAP, polish the design later. Here's how to develop the main product and the UI kit in parallel
 
-![playwrite](../../assets/images/playwrite.png)
+![playwright](../../assets/images/playwright.png)
 
 ## Main concept
 
