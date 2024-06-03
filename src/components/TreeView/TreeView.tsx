@@ -315,7 +315,7 @@ export const TreeView = ({
               variant="outlined"
               {...getTagProps({ index })}
               label={option.label}
-              onDelete={() => handleToggle(option.value)}
+              onDelete={readOnly ? undefined : () => handleToggle(option.value)}
             />
           ))}
         </>
