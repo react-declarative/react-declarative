@@ -178,8 +178,8 @@ export function makeLayout<T extends ILayout<any>>(
             <Component
                 className={classNames(className, {
                     [classes.disabled]: disabled || upperDisabled,
+                    [classes.readonly]: readonly || upperReadonly,
                     [classes.hidden]: !visible,
-                    [classes.readonly]: readonly,
                 })}
                 ready={ready}
                 object={object}

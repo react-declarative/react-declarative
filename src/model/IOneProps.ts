@@ -114,7 +114,7 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   /**
    * Коллбек для перехвата клика по полю
    */
-  click?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+  click?: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void, e: React.MouseEvent) => void;
   /**
    * Вызывается, когда все поля успели отрисоваться
    * в первый раз, после появления формы

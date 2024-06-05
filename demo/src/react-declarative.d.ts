@@ -5136,6 +5136,7 @@ declare module "react-declarative/model/IOneProps" {
       payload: Payload,
       onValueChange: (value: Value) => void,
       onChange: (data: Data) => void,
+      e: React.MouseEvent,
     ) => void;
     /**
      * Вызывается, когда все поля успели отрисоваться

@@ -296,7 +296,7 @@ export const OneInternal = <
               : clickMap
                   .set(field, (name, e, data, payload, onValueChange, onChange) => {
                     field.click && field.click(name, e, data, payload, onValueChange, onChange);
-                    click && click(name, data, payload, onValueChange, onChange);
+                    click && click(name, data, payload, onValueChange, onChange, e);
                   })
                   .get(field),
             /**
