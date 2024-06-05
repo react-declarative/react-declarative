@@ -12,14 +12,6 @@ interface IState {
 }
 
 /**
- * Represents an interface for initial data.
- */
-interface IInitialData extends Omit<IState, keyof {
-    readonly: never;
-    visible: never;
-}> {}
-
-/**
  * The `useLayoutState` hook is used to manage the state of a component and provide actions to modify that state.
  *
  * @param initialData - The initial data for the state.
@@ -39,17 +31,12 @@ interface IInitialData extends Omit<IState, keyof {
  * @property setVisible - Sets the visible state of the component.
  *
  */
-export const useLayoutState = (initialData: IInitialData) => {
+export const useLayoutState = () => {
 
     const [state, setState] = useState<IState>(() => ({
         readonly: false,
-        /**
-         * Позволяет использовать Fiber при рендеринге:
-         * разбивает синхронный рекурсивный рендеринг на
-         * несколько итераций
-         */
         visible: false,
-        ...initialData
+        disabled: false,
     }));
 
     /**

@@ -87,6 +87,7 @@ export function makeLayout<T extends ILayout<any>>(
         isReadonly = DEFAULT_IS_READONLY,
         isDisabled = DEFAULT_IS_DISABLED,
         disabled: upperDisabled = false,
+        readonly: upperReadonly = false,
         phoneHidden: upperPhoneHidden,
         tabletHidden: upperTabletHidden,
         desktopHidden: upperDesktopHidden,
@@ -127,9 +128,7 @@ export function makeLayout<T extends ILayout<any>>(
                 setReadonly,
                 setVisible,
             },
-        } = useLayoutState({
-            disabled: upperDisabled,
-        })
+        } = useLayoutState();
 
         useEffect(() => {
             const disabled = isDisabled(object, payload);
@@ -146,12 +145,12 @@ export function makeLayout<T extends ILayout<any>>(
         }, [object]);
 
         const renderInner = () => {
-            if (disabled) {
+            if (disabled || upperDisabled) {
                 return React.Children.map(children, (child: React.ReactElement) => 
                     cloneElement(child, { disabled: true })
                 );
             }
-            if (readonly) {
+            if (readonly || upperReadonly) {
                 return React.Children.map(children, (child: React.ReactElement) => 
                     cloneElement(child, { readonly: true })
                 );

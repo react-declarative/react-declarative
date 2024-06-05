@@ -46,6 +46,7 @@ interface IInitialData
       incorrect: never;
       visible: never;
       loading: never;
+      disabled: never;
       value: never;
     }
   > {}

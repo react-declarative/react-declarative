@@ -242,7 +242,6 @@ export function makeField(
             },
         } = useFieldState({
             dirty: upperDirty,
-            disabled: fieldDisabled,
         }, {
             compute,
             readTransform,
