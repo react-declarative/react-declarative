@@ -7,5 +7,5 @@ Represents the layout of a component.
 ### children
 
 ```ts
-children: ReactNode
+children: ReactElement<any, string | JSXElementConstructor<any>>[]
 ```

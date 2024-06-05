@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, cloneElement, useEffect, useMemo } from 'react';
 
 import { makeStyles } from '../../../../styles';
 
@@ -41,7 +41,7 @@ const useStyles = makeStyles()({
  * @template Data - The type of data associated with the layout.
  */
 export interface ILayout<Data extends IAnything = IAnything> extends IEntity<Data> {
-    children: React.ReactNode;
+    children: React.ReactElement[];
 }
 
 const DEFAULT_IS_VISIBLE = () => true;
@@ -59,7 +59,7 @@ export function makeLayout<T extends ILayout<any>>(
     originalComponent: React.FC<T>,
 ) {
 
-    const Component = memo(originalComponent) as unknown as React.FC<IEntity>;
+    const Component = memo(originalComponent) as unknown as React.FC<ILayout>;
 
     /**
      * Renders a component based on input data and conditions.
@@ -81,6 +81,7 @@ export function makeLayout<T extends ILayout<any>>(
      */
     const component = <Data extends IAnything = IAnything>({
         className,
+        children,
         object: upperObject,
         isVisible = DEFAULT_IS_VISIBLE,
         isReadonly = DEFAULT_IS_READONLY,
@@ -144,6 +145,20 @@ export function makeLayout<T extends ILayout<any>>(
            !visible && ready();
         }, [object]);
 
+        const renderInner = () => {
+            if (disabled) {
+                return React.Children.map(children, (child: React.ReactElement) => 
+                    cloneElement(child, { disabled: true })
+                );
+            }
+            if (readonly) {
+                return React.Children.map(children, (child: React.ReactElement) => 
+                    cloneElement(child, { readonly: true })
+                );
+            }
+            return children;
+        };
+
         if (!visible) {
             return null;
         }
@@ -170,7 +185,9 @@ export function makeLayout<T extends ILayout<any>>(
                 ready={ready}
                 object={object}
                 {...otherProps}
-            />
+            >
+                {renderInner()}
+            </Component>
         );
     };
 

@@ -267,6 +267,7 @@ export function makeField(
         const { memory } = useFieldMemory({
             prefix,
             name,
+            clickDisabled: fieldDisabled || disabled,
             lastDebouncedValue: debouncedValue,
             debouncedValue$: debouncedValue,
             fieldReadonly$: fieldReadonly,
@@ -642,6 +643,9 @@ export function makeField(
          * Коллбек для перехвата клика по полю
          */
         const handleClick = useCallback((e: React.MouseEvent<any>) => {
+            if (memory.clickDisabled) {
+                return;
+            }
             click(name, e, memory.object$, payload, (value) => managedProps.onChange(value, {
                 skipReadonly: true,
             }), changeObject);

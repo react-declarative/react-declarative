@@ -145,9 +145,13 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   outlinePaper?: boolean;
   transparentPaper?: boolean;
   /**
-   * Отключает ввод данных
+   * Блокирует ввод данных
    */
   readonly?: boolean;
+  /**
+   * Отключает поля ввода
+   */
+  disabled?: boolean;
   /**
    * Слоты для полей ввода
    */
