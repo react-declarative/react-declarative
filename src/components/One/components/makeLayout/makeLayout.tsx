@@ -28,10 +28,10 @@ const useStyles = makeStyles()({
     disabled: {
         pointerEvents: 'none',
         touchAction: 'none',
-        opacity: 0.5,
     },
     readonly: {
         pointerEvents: 'none',
+        touchAction: 'none',
     },
 });
 
