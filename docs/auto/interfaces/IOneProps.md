@@ -258,7 +258,15 @@ transparentPaper: boolean
 readonly: boolean
 ```
 
-Отключает ввод данных
+Блокирует ввод данных
+
+### disabled
+
+```ts
+disabled: boolean
+```
+
+Отключает поля ввода
 
 ### slots
 

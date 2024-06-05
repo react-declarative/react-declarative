@@ -5167,9 +5167,13 @@ declare module "react-declarative/model/IOneProps" {
     outlinePaper?: boolean;
     transparentPaper?: boolean;
     /**
-     * Отключает ввод данных
+     * Блокирует ввод данных
      */
     readonly?: boolean;
+    /**
+     * Отключает поля ввода
+     */
+    disabled?: boolean;
     /**
      * Слоты для полей ввода
      */
@@ -29273,7 +29277,7 @@ declare module "react-declarative/components/One/components/makeLayout/makeLayou
    */
   export interface ILayout<Data extends IAnything = IAnything>
     extends IEntity<Data> {
-    children: React.ReactNode;
+    children: React.ReactElement[];
   }
   /**
    * Renders a component based on input data and conditions.
