@@ -1,3 +1,5 @@
+import isObject from "../../../utils/isObject";
+
 export const deepClone = (obj: any): any => {
     if (obj === null || typeof obj !== 'object') {
       return obj;
@@ -5,10 +7,13 @@ export const deepClone = (obj: any): any => {
     if (obj instanceof Date) {
       return new Date(obj);
     }
+    if (obj instanceof RegExp) {
+      return new RegExp(obj.source, obj.flags);
+    }
     if (Array.isArray(obj)) {
       return obj.map(item => deepClone(item));
     }
-    if (typeof obj === 'object') {
+    if (isObject(obj)) {
       const clonedObj = {};
       for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
