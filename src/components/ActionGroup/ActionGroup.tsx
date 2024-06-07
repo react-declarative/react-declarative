@@ -299,8 +299,8 @@ export const ActionGroup = <T extends any = object>({
           onLoadStart={handleLoadStart}
           onLoadEnd={handleLoadEnd}
           onClick={async () => {
-            if (primaryAction) {
-              await handleAction(primaryAction.action);
+            if (primaryAction && primaryAction.action) {
+              await onAction$(primaryAction.action);
             }
           }}
         >
