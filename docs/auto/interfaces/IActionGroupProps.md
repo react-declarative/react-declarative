@@ -28,6 +28,18 @@ transparent: boolean
 disabled: boolean
 ```
 
+### variant
+
+```ts
+variant: "text" | "outlined" | "contained"
+```
+
+### size
+
+```ts
+size: "small" | "medium" | "large"
+```
+
 ### onAction
 
 ```ts

@@ -38,6 +38,8 @@ export interface IActionGroupProps<T extends any = object> {
   options?: Partial<IOption>[];
   transparent?: boolean;
   disabled?: boolean;
+  variant?: "text" | "outlined" | "contained";
+  size?: "small" | "medium" | "large";
   onAction?: (action: string) => void;
   onToggle?: (opened: boolean) => void;
   fallback?: (e: Error) => void;
@@ -140,6 +142,8 @@ const useStyles = makeStyles()({
  * @returns - The rendered ActionGroup component.
  */
 export const ActionGroup = <T extends any = object>({
+  variant = "contained",
+  size,
   options = [],
   disabled = false,
   throwError = false,
@@ -279,7 +283,8 @@ export const ActionGroup = <T extends any = object>({
         className={classNames(className, classes.root)}
         style={style}
         sx={sx}
-        variant="contained"
+        variant={variant}
+        size={size}
         ref={targetRef}
         disabled={disabled || !!loading}
       >
@@ -294,8 +299,8 @@ export const ActionGroup = <T extends any = object>({
             }
           }}
         >
-            {primaryActionLabel}
-          </ActionButton>
+          {primaryActionLabel}
+        </ActionButton>
         <Button
           size="small"
           disabled={!!loading}

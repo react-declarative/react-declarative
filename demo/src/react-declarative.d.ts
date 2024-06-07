@@ -21624,6 +21624,8 @@ declare module "react-declarative/components/ActionGroup/ActionGroup" {
     options?: Partial<IOption>[];
     transparent?: boolean;
     disabled?: boolean;
+    variant?: "text" | "outlined" | "contained";
+    size?: "small" | "medium" | "large";
     onAction?: (action: string) => void;
     onToggle?: (opened: boolean) => void;
     fallback?: (e: Error) => void;
@@ -21666,6 +21668,8 @@ declare module "react-declarative/components/ActionGroup/ActionGroup" {
    * @returns - The rendered ActionGroup component.
    */
   export const ActionGroup: <T extends unknown = object>({
+    variant,
+    size,
     options,
     disabled,
     throwError,
