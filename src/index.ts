@@ -373,6 +373,7 @@ export { ActionTrigger } from './components';
 export { ActionFilter } from './components';
 export { ActionButton } from './components';
 export { ActionToggle } from './components';
+export { ActionGroup } from './components';
 export { ActionMenu } from './components';
 export { ActionIcon } from './components';
 export { ActionFab } from './components';

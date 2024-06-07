@@ -397,6 +397,7 @@ declare module "react-declarative" {
   export { ActionFilter } from "react-declarative/components";
   export { ActionButton } from "react-declarative/components";
   export { ActionToggle } from "react-declarative/components";
+  export { ActionGroup } from "react-declarative/components";
   export { ActionMenu } from "react-declarative/components";
   export { ActionIcon } from "react-declarative/components";
   export { ActionFab } from "react-declarative/components";
@@ -992,6 +993,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/ColorButton";
   export * from "react-declarative/components/ActionChip";
   export * from "react-declarative/components/ActionMenu";
+  export * from "react-declarative/components/ActionGroup";
   export * from "react-declarative/components/ActionButton";
   export * from "react-declarative/components/ActionStopIcon";
   export * from "react-declarative/components/ActionFab";
@@ -4187,6 +4189,7 @@ declare module "react-declarative/model/IOption" {
     label?: string;
     action?: string;
     divider?: boolean;
+    primary?: boolean | number;
     icon?: React.ComponentType<any>;
     /**
      * Checks the visibility of a given payload.
@@ -10963,6 +10966,11 @@ declare module "react-declarative/components/ActionChip" {
 declare module "react-declarative/components/ActionMenu" {
   export * from "react-declarative/components/ActionMenu/ActionMenu";
   export { default } from "react-declarative/components/ActionMenu/ActionMenu";
+}
+
+declare module "react-declarative/components/ActionGroup" {
+  export * from "react-declarative/components/ActionGroup/ActionGroup";
+  export { default } from "react-declarative/components/ActionGroup/ActionGroup";
 }
 
 declare module "react-declarative/components/ActionButton" {
@@ -21595,6 +21603,85 @@ declare module "react-declarative/components/ActionMenu/ActionMenu" {
     reloadSubject,
   }: IActionMenuProps<T>) => JSX.Element;
   export default ActionMenu;
+}
+
+declare module "react-declarative/components/ActionGroup/ActionGroup" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import { IAsyncProps } from "react-declarative/components/Async";
+  import IOption from "react-declarative/model/IOption";
+  import TSubject from "react-declarative/model/TSubject";
+  /**
+   * Represents the properties of the ActionGroup component.
+   *
+   * @template T - The type of payload.
+   */
+  export interface IActionGroupProps<T extends any = object> {
+    keepMounted?: boolean;
+    options?: Partial<IOption>[];
+    transparent?: boolean;
+    disabled?: boolean;
+    onAction?: (action: string) => void;
+    onToggle?: (opened: boolean) => void;
+    fallback?: (e: Error) => void;
+    deps?: any[];
+    throwError?: boolean;
+    className?: string;
+    reloadSubject?: TSubject<void>;
+    style?: React.CSSProperties;
+    sx?: SxProps<any>;
+    payload?: IAsyncProps<T>["payload"];
+    onLoadStart?: IAsyncProps<T>["onLoadStart"];
+    onLoadEnd?: IAsyncProps<T>["onLoadEnd"];
+    BeforeContent?: React.ComponentType<any>;
+    AfterContent?: React.ComponentType<any>;
+  }
+  /**
+   * ActionGroup is a component that displays a menu of options triggered by a button click.
+   *
+   * @template T - The type of payload passed to the action.
+   *
+   * @param options - An array of option objects that define the content and behavior of each menu option.
+   * @param transparent - Determines whether the menu button should have a transparent style.
+   * @param disabled - Determines whether the menu should be disabled and not respond to user interactions.
+   * @param throwError - Determines whether to throw an error when an asynchronous action fails.
+   * @param fallback - The fallback content to display when an asynchronous action fails.
+   * @param onToggle - A callback function to handle the menu open/close state change event.
+   * @param onAction - A callback function to handle the execution of an action when a menu option is clicked.
+   * @param payload - A payload object to pass to the action callback function.
+   * @param className - Additional CSS class name(s) to apply to the menu button.
+   * @param style - Additional inline styles to apply to the menu button.
+   * @param sx - Additional Stylsx object to apply to the menu button.
+   * @param deps - An array of dependencies to update the menu when changed.
+   * @param onLoadStart - A callback function to handle the start of an asynchronous action.
+   * @param onLoadEnd - A callback function to handle the end of an asynchronous action.
+   * @param keepMounted - Determines whether to keep the menu mounted in the DOM even when closed.
+   * @param BeforeContent - The content to display before the menu options.
+   * @param AfterContent - The content to display after the menu options.
+   * @param reloadSubject - A subject that triggers the reload of the menu options.
+   *
+   * @returns - The rendered ActionGroup component.
+   */
+  export const ActionGroup: <T extends unknown = object>({
+    options,
+    disabled,
+    throwError,
+    fallback,
+    onToggle,
+    onAction,
+    payload,
+    className,
+    style,
+    sx,
+    deps,
+    onLoadStart,
+    onLoadEnd,
+    keepMounted,
+    BeforeContent,
+    AfterContent,
+    reloadSubject,
+  }: IActionGroupProps<T>) => JSX.Element;
+  export default ActionGroup;
 }
 
 declare module "react-declarative/components/ActionButton/ActionButton" {

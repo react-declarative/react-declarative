@@ -317,6 +317,7 @@
 - [IColorButtonProps](interfaces/IColorButtonProps.md)
 - [IActionChipProps](interfaces/IActionChipProps.md)
 - [IActionMenuProps](interfaces/IActionMenuProps.md)
+- [IActionGroupProps](interfaces/IActionGroupProps.md)
 - [IActionButtonProps](interfaces/IActionButtonProps.md)
 - [IParams](interfaces/IParams.md)
 - [IActionStopIconProps](interfaces/IActionStopIconProps.md)

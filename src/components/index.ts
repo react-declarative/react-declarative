@@ -43,6 +43,7 @@ export * from './ColorButton';
 
 export * from './ActionChip';
 export * from './ActionMenu';
+export * from './ActionGroup';
 export * from './ActionButton';
 export * from './ActionStopIcon';
 export * from './ActionFab';

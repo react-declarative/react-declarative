@@ -9,6 +9,7 @@ export interface IOption<Payload = IAnything> {
     label?: string;
     action?: string;
     divider?: boolean;
+    primary?: boolean | number;
     icon?: React.ComponentType<any>;
     /**
      * Checks the visibility of a given payload.

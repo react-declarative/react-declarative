@@ -22,6 +22,12 @@ action: string
 divider: boolean
 ```
 
+### primary
+
+```ts
+primary: number | boolean
+```
+
 ### icon
 
 ```ts
