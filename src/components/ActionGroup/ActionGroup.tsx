@@ -292,8 +292,8 @@ export const ActionGroup = <T extends any = object>({
           size={size}
           variant={variant}
           sx={{
-            pl: 1,
-            pr: 1,
+            pl: 2.5,
+            pr: 2.5,
           }}
           disabled={!primaryAction || !!loading}
           onLoadStart={handleLoadStart}
