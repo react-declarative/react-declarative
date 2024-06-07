@@ -23,6 +23,7 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
         disabled: boolean;
     }>;
     sx?: SxProps<any>;
+    outlined?: boolean;
     actions?: IBreadcrumbs2Action<Data>[];
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);

@@ -28,6 +28,12 @@ element: ComponentType<{ payload: Data; disabled: boolean; }>
 sx: SxProps<any>
 ```
 
+### outlined
+
+```ts
+outlined: boolean
+```
+
 ### actions
 
 ```ts

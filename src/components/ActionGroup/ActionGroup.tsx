@@ -193,7 +193,7 @@ export const ActionGroup = <T extends any = object>({
     onLoadEnd && onLoadEnd(isOk);
   };
 
-  const [primaryAction, { loading: primaryActionLoading }] = useAsyncValue(async (): Promise<IOption | null> => {
+  const [primaryAction, { loading: primaryActionLoading }, , { waitForResult }] = useAsyncValue(async (): Promise<IOption | null> => {
     const availableOptions = await Promise.all(options.map(async ({
       isVisible = () => true,
       isDisabled = () => false,
@@ -289,7 +289,12 @@ export const ActionGroup = <T extends any = object>({
         disabled={disabled || !!loading}
       >
         <ActionButton
-          variant="text"
+          size={size}
+          variant={variant}
+          sx={{
+            pl: 1,
+            pr: 1,
+          }}
           disabled={!primaryAction || !!loading}
           onLoadStart={handleLoadStart}
           onLoadEnd={handleLoadEnd}
@@ -302,7 +307,8 @@ export const ActionGroup = <T extends any = object>({
           {primaryActionLabel}
         </ActionButton>
         <Button
-          size="small"
+          size={size}
+          variant={variant}
           disabled={!!loading}
           aria-haspopup="menu"
           onClick={handleFocus}
@@ -392,6 +398,10 @@ export const ActionGroup = <T extends any = object>({
                       await sleep(250);
                       const disabled = await isDisabled(payload);
                       const visible = await isVisible(payload);
+                      const primaryAction = await waitForResult();
+                      if (primaryAction?.action === action) {
+                        return null;
+                      }
                       if (visible) {
                         if (divider) {
                           return <Divider orientation="horizontal" />

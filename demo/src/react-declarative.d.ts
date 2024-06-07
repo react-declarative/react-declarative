@@ -20031,6 +20031,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
       disabled: boolean;
     }>;
     sx?: SxProps<any>;
+    outlined?: boolean;
     actions?: IBreadcrumbs2Action<Data>[];
     compute?: (payload: Data) => Promise<string> | string;
     isVisible?: (payload: Data) => Promise<boolean> | boolean;

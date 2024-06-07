@@ -18,6 +18,8 @@ import useRequestContext from "../context/RequestContext";
 import usePropsContext from "../context/PropsContext";
 import useSubject from "../../../hooks/useSubject";
 
+const CALENDAR_WRAPPER = 'react-declarative__calendarWrapper';
+
 const useStyles = makeStyles()((theme) => ({
   container: {
     width: "100%",
@@ -28,6 +30,7 @@ const useStyles = makeStyles()((theme) => ({
   calendar: {
     flex: 1,
     display: "grid",
+    overflow: "hidden",
     background: theme.palette.background.paper,
     gridTemplateColumns: "repeat(7, 2fr)",
     gridRowGap: "2px",
@@ -174,7 +177,7 @@ export const Calendar = ({
   const handleChangeMonth = (newMonth: dayjs.Dayjs) =>
     setCurrentMonth(newMonth);
 
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
     <div className={classes.container}>
@@ -184,7 +187,7 @@ export const Calendar = ({
         onHeaderMonthClick={onHeaderMonthClick}
         onHeaderYearClick={onHeaderYearClick}
       />
-      <div className={classes.calendar}>{renderWeeks()}</div>
+      <div className={cx(classes.calendar, CALENDAR_WRAPPER)}>{renderWeeks()}</div>
     </div>
   );
 };
