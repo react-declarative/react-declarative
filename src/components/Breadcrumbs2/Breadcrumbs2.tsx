@@ -20,6 +20,7 @@ import classNames from "../../utils/classNames";
 import IBreadcrumbs2Action from "./model/IBreadcrumbs2Action";
 import IBreadcrumbs2Option from "./model/IBreadcrumbs2Option";
 import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
+import ActionGroup from "../ActionGroup";
 
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
@@ -293,6 +294,70 @@ export const Breadcrumbs2 = <T extends any = any>({
                     >
                       {label}
                     </ActionButton>
+                  )
+                )}
+            </>
+          );
+        }}
+      </Async>
+      <Async payload={payload} Loader={Fragment}>
+        {async () => {
+          const itemList = await Promise.all(
+            items
+              .filter(({ type }) => type === Breadcrumbs2Type.ActionGroup)
+              .map(
+                async ({
+                  action,
+                  label,
+                  icon,
+                  actions = [],
+                  isDisabled = () => false,
+                  isVisible = () => true,
+                  sx,
+                }) => ({
+                  visible: await isVisible(payload!),
+                  disabled: await isDisabled(payload!),
+                  actions: actions.map(
+                    ({
+                      isVisible = () => true,
+                      isDisabled = () => false,
+                      ...other
+                    }) => ({
+                      ...other,
+                      isVisible: () => isVisible(payload!),
+                      isDisabled: () => isDisabled(payload!),
+                    })
+                  ),
+                  icon,
+                  action,
+                  label,
+                  sx,
+                })
+              )
+          );
+          return (
+            <>
+              {itemList
+                .filter(({ visible }) => visible)
+                .map(
+                  (
+                    { action = "unknown-action", disabled, actions, sx },
+                    idx
+                  ) => (
+                    <ActionGroup
+                      key={`${action}-${idx}`}
+                      payload={payload}
+                      options={actions}
+                      disabled={disabled}
+                      onAction={onAction$}
+                      BeforeContent={BeforeMenuContent}
+                      AfterContent={AfterMenuContent}
+                      onLoadStart={handleLoadStart}
+                      onLoadEnd={handleLoadEnd}
+                      fallback={fallback}
+                      throwError={throwError}
+                      sx={sx}
+                    />
                   )
                 )}
             </>

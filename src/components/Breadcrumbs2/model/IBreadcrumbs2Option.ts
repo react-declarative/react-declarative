@@ -4,6 +4,7 @@ import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
 import Breadcrumbs2Type from "./Breadcrumbs2Type";
+import IBreadcrumbs2Action from "./IBreadcrumbs2Action";
 
 /**
  * Represents an option configuration for IBreadcrumbs2 component.
@@ -22,6 +23,7 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
         disabled: boolean;
     }>;
     sx?: SxProps<any>;
+    actions?: IBreadcrumbs2Action<Data>[];
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);

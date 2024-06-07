@@ -19977,6 +19977,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type
   export enum Breadcrumbs2Type {
     Link = "breadcrumbs2-link",
     Button = "breadcrumbs2-button",
+    ActionGroup = "breadcrumbs2-actiongroup",
     Component = "breadcrumbs2-component",
   }
   export default Breadcrumbs2Type;
@@ -20008,6 +20009,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
   import IAnything from "react-declarative/model/IAnything";
   import IOption from "react-declarative/model/IOption";
   import Breadcrumbs2Type from "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type";
+  import IBreadcrumbs2Action from "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Action";
   /**
    * Represents an option configuration for IBreadcrumbs2 component.
    *
@@ -20029,6 +20031,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
       disabled: boolean;
     }>;
     sx?: SxProps<any>;
+    actions?: IBreadcrumbs2Action<Data>[];
     compute?: (payload: Data) => Promise<string> | string;
     isVisible?: (payload: Data) => Promise<boolean> | boolean;
     isDisabled?: (payload: Data) => Promise<boolean> | boolean;

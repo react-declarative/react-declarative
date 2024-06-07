@@ -263,6 +263,7 @@ export const TreeView = ({
           return <>{params.children}</>;
         }
         const checked = group.child.every((child) => value$.current.includes(child));
+        const indeterminate = group.child.some((child) => value$.current.includes(child));
         return (
           <li key={params.key}>
             <ul className={classes.ul}>
@@ -278,6 +279,7 @@ export const TreeView = ({
                     icon={icon}
                     checkedIcon={checkedIcon}
                     checked={checked}
+                    indeterminate={indeterminate}
                   />
                 </ListItemIcon>
                 <ListItemText primary={group.label} />

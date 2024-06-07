@@ -28,6 +28,12 @@ element: ComponentType<{ payload: Data; disabled: boolean; }>
 sx: SxProps<any>
 ```
 
+### actions
+
+```ts
+actions: IBreadcrumbs2Action<Data>[]
+```
+
 ### compute
 
 ```ts
