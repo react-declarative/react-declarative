@@ -26721,7 +26721,7 @@ declare module "react-declarative/components/Grid/api/useOffsetPaginator" {
     loading: boolean;
     error: boolean;
     onSkip: import("../../../hooks/useSinglerunAction").IExecute<void, boolean>;
-    reloadSubject: import("../../..").Subject<void>;
+    reloadSubject: TSubject<void>;
     clear: () => void;
   };
   export default useOffsetPaginator;

@@ -190,7 +190,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
     loading,
     error,
     onSkip,
-    reloadSubject,
+    reloadSubject: reloadSubject as TSubject<void>,
     clear,
   };
 };
