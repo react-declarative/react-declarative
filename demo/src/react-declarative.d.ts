@@ -4753,9 +4753,10 @@ declare module "react-declarative/hooks/useChangeDelay" {
 }
 
 declare module "react-declarative/hooks/useSingleshot" {
+  import { IClearable } from "react-declarative/utils/hof/singleshot";
   export const useSingleshot: <T extends (...args: any[]) => any>(
     run: T,
-  ) => T & import("../utils/hof/singleshot").IClearable;
+  ) => T & IClearable;
   export default useSingleshot;
 }
 
