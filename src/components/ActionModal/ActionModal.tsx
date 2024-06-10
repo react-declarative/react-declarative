@@ -231,8 +231,8 @@ export const ActionModal = <
   Payload = IAnything,
   Field = IField<Data>
 >({
-  withActionButton = true,
   withStaticAction = false,
+  withActionButton = withStaticAction,
   waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   onSubmit = () => true,
   onChange = () => undefined,

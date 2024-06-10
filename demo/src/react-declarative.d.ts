@@ -19170,8 +19170,8 @@ declare module "react-declarative/components/FeatureView/hooks/useFeatureView" {
     onSubmit,
     onChange,
     submitLabel,
-    withActionButton,
     withStaticAction,
+    withActionButton,
   }: IParams) => {
     open: boolean;
     render: () => JSX.Element;
@@ -22328,8 +22328,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     Payload = any,
     Field = IField<Data, any>,
   >({
-    withActionButton,
     withStaticAction,
+    withActionButton,
     waitForChangesDelay,
     onSubmit,
     onChange,
@@ -22449,8 +22449,8 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     apiRef,
     changeSubject,
     reloadSubject,
-    withActionButton,
     withStaticAction,
+    withActionButton,
     payload: upperPayload,
     BeforeTitle,
     onChange,
@@ -23853,8 +23853,8 @@ declare module "react-declarative/components/FilesView/useFilesView" {
    */
   export const useFilesView: <Payload extends unknown = any>({
     data,
-    withActionButton,
     withStaticAction,
+    withActionButton,
     readonly,
     submitLabel,
     payload: upperPayload,

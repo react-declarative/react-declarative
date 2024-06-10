@@ -160,8 +160,8 @@ interface IParams<Payload extends IAnything = IAnything> {
  */
 export const useFilesView = <Payload extends IAnything = IAnything>({
   data = null,
-  withActionButton = true,
   withStaticAction = false,
+  withActionButton = withStaticAction,
   readonly,
   submitLabel = "Save",
   payload: upperPayload = {} as Payload,
