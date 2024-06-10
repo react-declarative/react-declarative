@@ -53,8 +53,8 @@ export const useFeatureView = ({
   onSubmit,
   onChange,
   submitLabel,
+  withActionButton = true,
   withStaticAction = false,
-  withActionButton = withStaticAction,
 }: IParams) =>
   useActionModal({
     title,
