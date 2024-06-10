@@ -832,7 +832,9 @@ export { toUtcDate } from './utils/toUtcDate';
 export { addUtcOffset, removeUtcOffset } from './utils/addUtcOffset';
 
 export { resolveDocuments } from './api/resolveDocuments';
+export { filterDocuments } from './api/filterDocuments';
 export { pickDocuments } from './api/pickDocuments';
+export { mapDocuments } from './api/mapDocuments';
 
 export { iterateDocuments } from './api/iterateDocuments';
 export { iteratePromise } from './api/iteratePromise';

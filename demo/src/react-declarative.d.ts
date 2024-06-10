@@ -939,7 +939,9 @@ declare module "react-declarative" {
     removeUtcOffset,
   } from "react-declarative/utils/addUtcOffset";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
+  export { filterDocuments } from "react-declarative/api/filterDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
+  export { mapDocuments } from "react-declarative/api/mapDocuments";
   export { iterateDocuments } from "react-declarative/api/iterateDocuments";
   export { iteratePromise } from "react-declarative/api/iteratePromise";
   export { iterateUnion } from "react-declarative/api/iterateUnion";
@@ -10749,6 +10751,20 @@ declare module "react-declarative/api/resolveDocuments" {
   export default resolveDocuments;
 }
 
+declare module "react-declarative/api/filterDocuments" {
+  /**
+   * Filters the documents from an async generator and yield them by the condition
+   *
+   * @param iterator - The async generator to resolve documents from.
+   * @returns - A promise that resolves to the flattened array of documents.
+   */
+  export function filterDocuments<T extends unknown>(
+    iterator: AsyncGenerator<T | T[], void, unknown>,
+    predicate: (value: T) => boolean | Promise<boolean>,
+  ): AsyncGenerator<Awaited<T>, void, unknown>;
+  export default filterDocuments;
+}
+
 declare module "react-declarative/api/pickDocuments" {
   /**
    * A function that picks a subset of documents from an array of documents, given a limit and offset.
@@ -10767,6 +10783,20 @@ declare module "react-declarative/api/pickDocuments" {
     done: boolean;
   };
   export default pickDocuments;
+}
+
+declare module "react-declarative/api/mapDocuments" {
+  /**
+   * Maps the documents from an async generator and yield them
+   *
+   * @param iterator - The async generator to resolve documents from.
+   * @returns - A promise that resolves to the flattened array of documents.
+   */
+  export function mapDocuments<T extends unknown, U = T>(
+    iterator: AsyncGenerator<T | T[], void, unknown>,
+    callbackfn: (value: T) => U | Promise<U>,
+  ): AsyncGenerator<Awaited<U>, void, unknown>;
+  export default mapDocuments;
 }
 
 declare module "react-declarative/api/iterateDocuments" {
