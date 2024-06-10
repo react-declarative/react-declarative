@@ -33,10 +33,7 @@ const DOT_SIDE = 7.5;
 
 const useStyles = makeStyles()((theme) => ({
   buttonAccient: {
-    background: alpha(
-      theme.palette.getContrastText(theme.palette.background.paper),
-      0.018
-    ),
+    background: theme.palette.action.hover,
   },
   button: {
     minWidth: "unset !important",
