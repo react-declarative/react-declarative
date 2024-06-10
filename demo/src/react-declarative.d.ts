@@ -115,6 +115,7 @@ declare module "react-declarative" {
   export { useOneInput } from "react-declarative/hooks/useOneInput";
   export { useContextMenu } from "react-declarative/hooks/useContextMenu";
   export { useChangeDelay } from "react-declarative/hooks/useChangeDelay";
+  export { useSingleshot } from "react-declarative/hooks/useSingleshot";
   export { useOnce } from "react-declarative/hooks/useOnce";
   export { useRouteItem } from "react-declarative/hooks/useRouteItem";
   export { useRouteParams } from "react-declarative/hooks/useRouteParams";
@@ -4749,6 +4750,13 @@ declare module "react-declarative/hooks/useChangeDelay" {
     doDelay: () => Promise<void>;
   };
   export default useChangeDelay;
+}
+
+declare module "react-declarative/hooks/useSingleshot" {
+  export const useSingleshot: <T extends (...args: any[]) => any>(
+    run: T,
+  ) => T & import("../utils/hof/singleshot").IClearable;
+  export default useSingleshot;
 }
 
 declare module "react-declarative/hooks/useOnce" {
