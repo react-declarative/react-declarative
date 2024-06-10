@@ -29,7 +29,7 @@ const execute = async (promise: Promise<any>, {
     }
 };
 
-export const useOnce = (fn: () => (void | (() => void) | (() => Promise<any>)), params: IParams = {}) => {
+export const useOnce = (fn: () => (void | Promise<any> | (() => void)), params: IParams = {}) => {
     useEffect(() => {
         const result = fn();
         if (result instanceof Promise) {

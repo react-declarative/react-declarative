@@ -4755,7 +4755,7 @@ declare module "react-declarative/hooks/useOnce" {
     throwError?: boolean;
   }
   export const useOnce: (
-    fn: () => void | (() => void) | (() => Promise<any>),
+    fn: () => void | Promise<any> | (() => void),
     params?: IParams,
   ) => void;
   export default useOnce;
