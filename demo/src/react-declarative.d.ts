@@ -939,6 +939,7 @@ declare module "react-declarative" {
     removeUtcOffset,
   } from "react-declarative/utils/addUtcOffset";
   export { paginateDocuments } from "react-declarative/api/paginateDocuments";
+  export { distinctDocuments } from "react-declarative/api/distinctDocuments";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { filterDocuments } from "react-declarative/api/filterDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
@@ -10752,6 +10753,20 @@ declare module "react-declarative/api/paginateDocuments" {
     offset: number,
   ) => Promise<T[]>;
   export default paginateDocuments;
+}
+
+declare module "react-declarative/api/distinctDocuments" {
+  import IRowData from "react-declarative/model/IRowData";
+  /**
+   * Resolves the documents from an async generator and distincts them.
+   *
+   * @param iterator - The async generator to resolve documents from.
+   * @returns - A promise that resolves to the flattened array of documents.
+   */
+  export function distinctDocuments<T extends IRowData>(
+    iterator: AsyncGenerator<T | T[], void, unknown>,
+  ): AsyncGenerator<T, void, unknown>;
+  export default distinctDocuments;
 }
 
 declare module "react-declarative/api/resolveDocuments" {

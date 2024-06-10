@@ -320,11 +320,11 @@ export const ActionGroup = <T extends any = object>({
         keepMounted={keepMounted}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "left",
+          horizontal: "right",
         }}
         anchorEl={disabled ? null : anchorEl}
         open={!!anchorEl && !disabled}
