@@ -4748,7 +4748,16 @@ declare module "react-declarative/hooks/useChangeDelay" {
 }
 
 declare module "react-declarative/hooks/useOnce" {
-  export const useOnce: (fn: () => void) => void;
+  interface IParams {
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (e: Error) => void;
+    throwError?: boolean;
+  }
+  export const useOnce: (
+    fn: () => void | (() => void) | (() => Promise<any>),
+    params?: IParams,
+  ) => void;
   export default useOnce;
 }
 
