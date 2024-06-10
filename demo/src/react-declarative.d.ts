@@ -938,6 +938,7 @@ declare module "react-declarative" {
     addUtcOffset,
     removeUtcOffset,
   } from "react-declarative/utils/addUtcOffset";
+  export { paginateDocuments } from "react-declarative/api/paginateDocuments";
   export { resolveDocuments } from "react-declarative/api/resolveDocuments";
   export { filterDocuments } from "react-declarative/api/filterDocuments";
   export { pickDocuments } from "react-declarative/api/pickDocuments";
@@ -10736,6 +10737,21 @@ declare module "react-declarative/utils/addUtcOffset" {
   import dayjs from "dayjs";
   export const addUtcOffset: (date: dayjs.Dayjs) => dayjs.Dayjs;
   export const removeUtcOffset: (date: dayjs.Dayjs) => dayjs.Dayjs;
+}
+
+declare module "react-declarative/api/paginateDocuments" {
+  /**
+   * Resolves the documents from an async generator and paginates them.
+   *
+   * @param iterator - The async generator to resolve documents from.
+   * @returns - A promise that resolves to the flattened array of documents.
+   */
+  export const paginateDocuments: <T extends unknown>(
+    iterator: AsyncGenerator<T | T[], void, unknown>,
+    limit: number,
+    offset: number,
+  ) => Promise<T[]>;
+  export default paginateDocuments;
 }
 
 declare module "react-declarative/api/resolveDocuments" {

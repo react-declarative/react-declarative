@@ -831,6 +831,7 @@ export { getGenesisStamp } from './utils/getGenesisStamp';
 export { toUtcDate } from './utils/toUtcDate';
 export { addUtcOffset, removeUtcOffset } from './utils/addUtcOffset';
 
+export { paginateDocuments } from './api/paginateDocuments';
 export { resolveDocuments } from './api/resolveDocuments';
 export { filterDocuments } from './api/filterDocuments';
 export { pickDocuments } from './api/pickDocuments';
