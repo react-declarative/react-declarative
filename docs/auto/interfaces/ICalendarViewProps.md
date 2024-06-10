@@ -10,6 +10,12 @@ Interface representing the props for the CalendarView component.
 reloadSubject: TSubject<void>
 ```
 
+### itemSx
+
+```ts
+itemSx: SxProps<{}>
+```
+
 ### dotSide
 
 ```ts

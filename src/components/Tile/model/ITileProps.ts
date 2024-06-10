@@ -19,6 +19,7 @@ export interface ITileProps<Data = IAnything, Payload = IAnything> {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
+  itemSx?: SxProps<any>;
   loading?: boolean;
   hasMore?: boolean;
   scrollYSubject?: TSubject<number>;

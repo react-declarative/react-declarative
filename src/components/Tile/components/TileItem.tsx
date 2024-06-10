@@ -2,6 +2,7 @@ import * as React from "react";
 import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
 
 import ListItemButton from "@mui/material/ListItemButton";
+import { SxProps } from "@mui/material";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
@@ -19,6 +20,7 @@ interface ITileItemProps {
   className?: string;
   index: number;
   style?: React.CSSProperties;
+  sx?: SxProps<any>;
   data: IAnything;
   payload: IAnything;
   rowKey: Exclude<ITileProps["rowKey"], undefined>;
@@ -39,6 +41,7 @@ export const TileItem = forwardRef(
       style,
       index,
       data,
+      sx,
       payload,
       rowKey,
       selectionMode,
@@ -114,7 +117,8 @@ export const TileItem = forwardRef(
           background: rowBgColor,
           '&:hover': {
             background: rowBgColor || 'transparent'
-          }
+          },
+          ...sx
         }}
         selected={isSelected}
         onClick={() => onItemClick && onItemClick({

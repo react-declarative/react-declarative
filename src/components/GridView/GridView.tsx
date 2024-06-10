@@ -21,6 +21,7 @@ import IAnything from "../../model/IAnything";
 interface IGridViewProps<T = RowData, P = IAnything> extends IGridProps<T, P> {
   className?: string;
   style?: React.CSSProperties;
+  itemSx?: SxProps;
   tileMode?: TileMode;
   outlinePaper?: boolean;
   transparentPaper?: boolean;
@@ -63,6 +64,7 @@ export const GridView = <
   AfterLabel,
   payload: upperPayload,
   mobileItem: MobileItem,
+  itemSx,
   tileMode,
   outlinePaper,
   transparentPaper,
@@ -85,6 +87,7 @@ export const GridView = <
       return (
         <Tile
           {...otherProps}
+          itemSx={itemSx}
           className={classes.tile}
           payload={payload}
           loading={loading}

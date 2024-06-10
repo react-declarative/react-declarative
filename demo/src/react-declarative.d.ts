@@ -4020,6 +4020,7 @@ declare module "react-declarative/model/IListProps" {
     filterLabel?: string;
     actions?: IListAction<RowData, Payload>[];
     operations?: IListOperation<RowData, Payload>[];
+    itemSx?: SxProps;
     limit?: number;
     page?: number;
     sizeByElement?: boolean;
@@ -26180,6 +26181,7 @@ declare module "react-declarative/components/GridView/GridView" {
     extends IGridProps<T, P> {
     className?: string;
     style?: React.CSSProperties;
+    itemSx?: SxProps;
     tileMode?: TileMode;
     outlinePaper?: boolean;
     transparentPaper?: boolean;
@@ -26207,6 +26209,7 @@ declare module "react-declarative/components/GridView/GridView" {
     AfterLabel,
     payload: upperPayload,
     mobileItem: MobileItem,
+    itemSx,
     tileMode,
     outlinePaper,
     transparentPaper,
@@ -26985,6 +26988,7 @@ declare module "react-declarative/components/Tile/Tile" {
     className,
     style,
     sx,
+    itemSx,
     data,
     loading,
     hasMore,
@@ -27061,6 +27065,7 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
     className?: string;
     style?: React.CSSProperties;
     sx?: SxProps<any>;
+    itemSx?: SxProps<any>;
     loading?: boolean;
     hasMore?: boolean;
     scrollYSubject?: TSubject<number>;
@@ -28548,6 +28553,7 @@ declare module "react-declarative/components/CalendarView/model/ICalendarViewPro
     Payload extends IAnything = IAnything,
   > {
     reloadSubject?: TSubject<void>;
+    itemSx?: SxProps;
     dotSide?: number;
     outlinePaper?: boolean;
     transparentPaper?: boolean;

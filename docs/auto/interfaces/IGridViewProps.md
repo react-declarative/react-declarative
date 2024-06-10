@@ -16,6 +16,12 @@ className: string
 style: CSSProperties
 ```
 
+### itemSx
+
+```ts
+itemSx: SxProps<{}>
+```
+
 ### tileMode
 
 ```ts

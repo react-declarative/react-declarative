@@ -70,6 +70,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
+  itemSx,
   data,
   loading,
   hasMore,
@@ -114,6 +115,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
       {data.map((item, idx) => (
         <TileItem
           key={item[rowKey] || idx}
+          sx={itemSx}
           index={idx}
           payload={payload}
           data={item}

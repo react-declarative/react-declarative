@@ -153,6 +153,12 @@ actions: IListAction<RowData, Payload>[]
 operations: IListOperation<RowData, Payload>[]
 ```
 
+### itemSx
+
+```ts
+itemSx: SxProps<{}>
+```
+
 ### limit
 
 ```ts

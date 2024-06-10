@@ -34,6 +34,12 @@ style: CSSProperties
 sx: SxProps<any>
 ```
 
+### itemSx
+
+```ts
+itemSx: SxProps<any>
+```
+
 ### loading
 
 ```ts

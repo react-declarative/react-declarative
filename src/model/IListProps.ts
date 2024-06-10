@@ -511,6 +511,7 @@ export interface IListProps<
   filterLabel?: string;
   actions?: IListAction<RowData, Payload>[];
   operations?: IListOperation<RowData, Payload>[];
+  itemSx?: SxProps;
   limit?: number;
   page?: number;
   sizeByElement?: boolean;

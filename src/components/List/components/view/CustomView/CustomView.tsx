@@ -131,6 +131,7 @@ export const CustomView = <
     withLoader = false,
     onRowClick,
     tileMode,
+    itemSx,
   } = props;
 
   const reload = useReload();
@@ -202,6 +203,7 @@ export const CustomView = <
           <Box position="relative" style={{ height: rootHeight, width: rootWidth }}>
             <Tile
               mode={tileMode}
+              itemSx={itemSx}
               recomputeSubject={state.recomputeSubject}
               scrollYSubject={scrollYSubject}
               minRowHeight={customTemplateMinHeight}

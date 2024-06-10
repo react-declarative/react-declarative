@@ -126,6 +126,7 @@ export const PageView = <
     labelDisplayedRows,
     onRowClick,
     tileMode,
+    itemSx,
   } = props;
 
   const state = useUpsertManager({
@@ -186,6 +187,7 @@ export const PageView = <
           <Box position="relative" style={{ height: rootHeight- PAGINATION_HEIGHT, width: rootWidth }}>
             <Tile
               mode={tileMode}
+              itemSx={itemSx}
               recomputeSubject={state.recomputeSubject}
               scrollYSubject={scrollYSubject}
               minRowHeight={pageItemTemplateMinHeight}

@@ -23,6 +23,7 @@ export interface ICalendarViewProps<
   Payload extends IAnything = IAnything
 > {
   reloadSubject?: TSubject<void>;
+  itemSx?: SxProps;
   dotSide?: number;
   outlinePaper?: boolean;
   transparentPaper?: boolean;
