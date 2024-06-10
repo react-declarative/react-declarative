@@ -130,6 +130,12 @@ hidden: boolean
 submitLabel: string
 ```
 
+### submitIcon
+
+```ts
+submitIcon: ComponentType<any>
+```
+
 ### mapPayload
 
 ```ts

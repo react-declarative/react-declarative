@@ -77,6 +77,7 @@ export interface ISearchModalProps<
   open?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
 }
 
 const useStyles = makeStyles()((theme) => ({
@@ -206,6 +207,7 @@ export const SearchModal = <
   open = true,
   throwError = false,
   submitLabel = "Submit",
+  submitIcon: SubmitIcon,
   ...listProps
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
@@ -378,6 +380,7 @@ export const SearchModal = <
           <ActionButton
             className={classes.submit}
             disabled={!!loading.current || !data?.length}
+            startIcon={SubmitIcon && <SubmitIcon />}
             size="large"
             variant="contained"
             color="info"

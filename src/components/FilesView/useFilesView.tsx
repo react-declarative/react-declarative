@@ -123,6 +123,7 @@ interface IParams<Payload extends IAnything = IAnything> {
   fullScreen?: boolean;
   readonly?: boolean;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
   withActionButton?: boolean;
   withStaticAction?: boolean;
   payload?: Payload | (() => Payload);
@@ -164,6 +165,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
   withStaticAction = false,
   readonly,
   submitLabel = "Save",
+  submitIcon: SubmitIcon,
   payload: upperPayload = {} as Payload,
   fullScreen = false,
   sizeRequest = fullScreen ? LARGE_SIZE_REQUEST : SMALL_SIZE_REQUEST,
@@ -306,6 +308,7 @@ export const useFilesView = <Payload extends IAnything = IAnything>({
             fallback={fallback}
             onLoadStart={handleLoadStart}
             onLoadEnd={handleLoadEnd}
+            startIcon={SubmitIcon && <SubmitIcon />}
             size="large"
             variant="contained"
             color="info"

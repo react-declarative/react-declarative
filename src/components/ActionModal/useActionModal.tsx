@@ -110,6 +110,7 @@ export const useActionModal = <
   outlinePaper,
   transparentPaper,
   submitLabel,
+  submitIcon,
   throwError,
   dirty,
   readonly,
@@ -201,6 +202,7 @@ export const useActionModal = <
         outlinePaper={outlinePaper}
         transparentPaper={transparentPaper}
         sizeRequest={sizeRequest}
+        submitIcon={submitIcon}
         fields={fields}
         handler={handler}
         payload={payload}

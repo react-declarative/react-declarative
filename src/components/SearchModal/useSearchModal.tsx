@@ -97,6 +97,7 @@ export const useSearchModal = <
   onLoadEnd,
   onLoadStart,
   submitLabel,
+  submitIcon,
   throwError,
   title,
   hidden,
@@ -171,6 +172,7 @@ export const useSearchModal = <
         onLoadStart={onLoadStart}
         onAction={onAction}
         onRowAction={onRowAction}
+        submitIcon={submitIcon}
         submitLabel={submitLabel}
         throwError={throwError}
         onSubmit={handleSubmit}

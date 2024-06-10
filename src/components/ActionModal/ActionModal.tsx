@@ -91,6 +91,7 @@ export interface IActionModalProps<
   throwError?: boolean;
   open?: boolean;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
 }
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
@@ -259,6 +260,7 @@ export const ActionModal = <
   readonly = false,
   throwError = false,
   submitLabel = "Submit",
+  submitIcon: SubmitIcon,
   AfterTitle,
   BeforeTitle,
   readTransform,
@@ -489,6 +491,7 @@ export const ActionModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
+            startIcon={SubmitIcon && <SubmitIcon />}
             disabled={!withStaticAction && (!!loading.current || !data)}
             size="large"
             variant="contained"

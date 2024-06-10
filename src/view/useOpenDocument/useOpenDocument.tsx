@@ -36,6 +36,7 @@ interface IParams {
   onClose?: () => void;
   title?: string;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
   /**
    * Callback function triggered when a form is submitted.
    *
@@ -143,6 +144,7 @@ export const useOpenDocument = ({
   onClose,
   title = "Document preview",
   submitLabel = "Download",
+  submitIcon,
 }: IParams = {}) => {
   const [params, setParams] = useActualRef<IRequest | null>(null);
   const { render, pickData } = useOutletModal({
@@ -165,6 +167,7 @@ export const useOpenDocument = ({
     },
     onClose,
     submitLabel,
+    submitIcon,
     routes,
     history,
     fullScreen: false,

@@ -142,6 +142,7 @@ export interface IOutletModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
   /**
    * Maps the payload with the given ID and data.
    *
@@ -327,6 +328,7 @@ export const OutletModal = <
   withStaticAction = false,
   throwError = false,
   submitLabel = "Submit",
+  submitIcon: SubmitIcon,
   waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   readonly,
   onMount,
@@ -585,6 +587,7 @@ export const OutletModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
+            startIcon={SubmitIcon && <SubmitIcon />}
             disabled={!withStaticAction && (!!loading.current || !data)}
             size="large"
             variant="contained"

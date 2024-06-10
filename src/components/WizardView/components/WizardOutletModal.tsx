@@ -93,6 +93,7 @@ export interface IWizardModalProps<
   throwError?: boolean;
   hidden?: boolean;
   submitLabel?: string;
+  submitIcon?: React.ComponentType<any>;
   mapPayload?: (data: Record<string, any>[]) => Payload | Promise<Payload>;
   mapInitialData?: (data: Record<string, any>[]) => Data | Promise<Data>;
   onMount?: () => void;
@@ -250,6 +251,7 @@ export const OutletModal = <
   withStaticAction = false,
   waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   submitLabel = "Submit",
+  submitIcon: SubmitIcon,
   openSubject,
   readonly,
   routes,
@@ -483,6 +485,7 @@ export const OutletModal = <
         {!readonly && withActionButton && (
           <ActionButton
             className={classes.submit}
+            startIcon={SubmitIcon && <SubmitIcon />}
             disabled={!withStaticAction && (!!loading.current || !data)}
             size="large"
             variant="contained"

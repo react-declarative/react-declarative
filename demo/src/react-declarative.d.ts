@@ -20051,6 +20051,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
 }
 
 declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
+  import * as React from "react";
   /**
    * Represents the interface for the parameters of a useOpenDocument hook.
    *
@@ -20065,6 +20066,7 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
     onClose?: () => void;
     title?: string;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
     /**
      * Callback function triggered when a form is submitted.
      *
@@ -20125,6 +20127,7 @@ declare module "react-declarative/view/useOpenDocument/useOpenDocument" {
     onClose,
     title,
     submitLabel,
+    submitIcon,
   }?: IParams) => {
     render: () => JSX.Element;
     pickData: (request: IRequest) => void;
@@ -22254,6 +22257,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     throwError?: boolean;
     open?: boolean;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
   }
   /**
    * The `SMALL_SIZE_REQUEST` variable is a function that returns an object containing the properties for
@@ -22356,6 +22360,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     readonly,
     throwError,
     submitLabel,
+    submitIcon: SubmitIcon,
     AfterTitle,
     BeforeTitle,
     readTransform,
@@ -22465,6 +22470,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     outlinePaper,
     transparentPaper,
     submitLabel,
+    submitIcon,
     throwError,
     dirty,
     readonly,
@@ -22548,6 +22554,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     open?: boolean;
     hidden?: boolean;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
   }
   /**
    * Represents a Search Modal component.
@@ -22604,6 +22611,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     open,
     throwError,
     submitLabel,
+    submitIcon: SubmitIcon,
     ...listProps
   }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
   export default SearchModal;
@@ -22701,6 +22709,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     onLoadEnd,
     onLoadStart,
     submitLabel,
+    submitIcon,
     throwError,
     title,
     hidden,
@@ -23799,6 +23808,7 @@ declare module "react-declarative/components/FilesView/api/usePreventNavigate" {
 }
 
 declare module "react-declarative/components/FilesView/useFilesView" {
+  import * as React from "react";
   import { SxProps } from "@mui/material";
   import { IFilesViewProps } from "react-declarative/components/FilesView/FilesView";
   import IAnything from "react-declarative/model/IAnything";
@@ -23817,6 +23827,7 @@ declare module "react-declarative/components/FilesView/useFilesView" {
     fullScreen?: boolean;
     readonly?: boolean;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
     withActionButton?: boolean;
     withStaticAction?: boolean;
     payload?: Payload | (() => Payload);
@@ -23857,6 +23868,7 @@ declare module "react-declarative/components/FilesView/useFilesView" {
     withStaticAction,
     readonly,
     submitLabel,
+    submitIcon: SubmitIcon,
     payload: upperPayload,
     fullScreen,
     sizeRequest,
@@ -29813,6 +29825,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     throwError?: boolean;
     hidden?: boolean;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
     /**
      * Maps the payload with the given ID and data.
      *
@@ -29918,6 +29931,7 @@ declare module "react-declarative/components/OutletView/components/OutletModal" 
     withStaticAction,
     throwError,
     submitLabel,
+    submitIcon: SubmitIcon,
     waitForChangesDelay,
     readonly,
     onMount,
@@ -30131,6 +30145,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
     throwError?: boolean;
     hidden?: boolean;
     submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
     mapPayload?: (data: Record<string, any>[]) => Payload | Promise<Payload>;
     mapInitialData?: (data: Record<string, any>[]) => Data | Promise<Data>;
     onMount?: () => void;
@@ -30199,6 +30214,7 @@ declare module "react-declarative/components/WizardView/components/WizardOutletM
     withStaticAction,
     waitForChangesDelay,
     submitLabel,
+    submitIcon: SubmitIcon,
     openSubject,
     readonly,
     routes,
