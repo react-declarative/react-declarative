@@ -13,8 +13,12 @@ export const Icon = ({
     disabled,
     click,
     icon: Icon = ArrowForward,
+    iconSize,
+    iconColor,
 }: IIconSlot) => (
     <ActionIcon
+        size={iconSize}
+        color={iconColor}
         disabled={disabled}
         onClick={click}
     >

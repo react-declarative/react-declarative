@@ -13,5 +13,5 @@ items: IAlert[]
 ### variant
 
 ```ts
-variant: "standard" | "filled" | "outlined"
+variant: "outlined" | "standard" | "filled"
 ```

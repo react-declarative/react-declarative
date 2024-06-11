@@ -12,6 +12,46 @@ icon: ComponentType<any>
 
 Иконка для FieldType.Button и FieldType.Icon
 
+### iconSize
+
+```ts
+iconSize: number
+```
+
+Размер иконки для FieldType.Icon
+
+### iconColor
+
+```ts
+iconColor: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Цвет иконки для FieldType.Icon
+
+### buttonVariant
+
+```ts
+buttonVariant: "text" | "outlined" | "contained"
+```
+
+Тип заливки кнопки для FieldType.Button
+
+### buttonSize
+
+```ts
+buttonSize: "small" | "medium" | "large"
+```
+
+Тип размера кнопки для FieldType.Button
+
+### buttonColor
+
+```ts
+buttonColor: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Тип цвета кнопки для FieldType.Button
+
 ### dirty
 
 ```ts

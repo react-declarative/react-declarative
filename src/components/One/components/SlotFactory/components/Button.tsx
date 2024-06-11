@@ -14,8 +14,14 @@ export const Button = ({
     title,
     value,
     placeholder,
+    buttonVariant,
+    buttonSize,
+    buttonColor,
 }: IButtonSlot) => (
     <ActionButton
+        variant={buttonVariant}
+        size={buttonSize}
+        color={buttonColor}
         startIcon={Icon && <Icon />}
         disabled={disabled}
         onClick={click}

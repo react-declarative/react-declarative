@@ -1657,6 +1657,41 @@ declare module "react-declarative/model/IField" {
      */
     icon?: React.ComponentType<any>;
     /**
+     * Размер иконки для FieldType.Icon
+     */
+    iconSize?: number;
+    /**
+     * Цвет иконки для FieldType.Icon
+     */
+    iconColor?:
+      | "inherit"
+      | "default"
+      | "primary"
+      | "secondary"
+      | "error"
+      | "info"
+      | "success"
+      | "warning";
+    /**
+     * Тип заливки кнопки для FieldType.Button
+     */
+    buttonVariant?: "text" | "outlined" | "contained";
+    /**
+     * Тип размера кнопки для FieldType.Button
+     */
+    buttonSize?: "small" | "medium" | "large";
+    /**
+     * Тип цвета кнопки для FieldType.Button
+     */
+    buttonColor?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
+    /**
      * Отменяет ожидание фокуса для валидации
      */
     dirty?: boolean;
@@ -12798,7 +12833,29 @@ declare module "react-declarative/components/One/fields/IconField" {
    */
   export interface IIconFieldProps<Data = IAnything, Payload = IAnything> {
     /**
-     * Retrieves the 'title' property from the given variable.
+     * Retrieves the 'iconSize' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    iconSize?: PickProp<IField<Data, Payload>, "iconSize">;
+    /**
+     * Retrieves the 'iconColor' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    iconColor?: PickProp<IField<Data, Payload>, "iconColor">;
+    /**
+     * Retrieves the 'icon' property from the given variable.
      *
      * @template T - The type of the variable.
      * @template K - The key to pick from the variable.
@@ -12846,6 +12903,8 @@ declare module "react-declarative/components/One/fields/IconField" {
       disabled,
       click,
       icon,
+      iconSize,
+      iconColor,
     }: IIconFieldProps & IIconFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -12911,7 +12970,40 @@ declare module "react-declarative/components/One/fields/ButtonField" {
    */
   export interface IButtonFieldProps<Data = IAnything, Payload = IAnything> {
     /**
-     * Retrieves the 'title' property from the given variable.
+     * Retrieves the 'buttonVariant' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    buttonVariant?: PickProp<IField<Data, Payload>, "buttonVariant">;
+    /**
+     * Retrieves the 'buttonSize' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    buttonSize?: PickProp<IField<Data, Payload>, "buttonSize">;
+    /**
+     * Retrieves the 'buttonSize' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    buttonColor?: PickProp<IField<Data, Payload>, "buttonColor">;
+    /**
+     * Retrieves the 'icon' property from the given variable.
      *
      * @template T - The type of the variable.
      * @template K - The key to pick from the variable.
@@ -12984,6 +13076,9 @@ declare module "react-declarative/components/One/fields/ButtonField" {
       icon,
       title,
       value,
+      buttonSize,
+      buttonVariant,
+      buttonColor,
       placeholder,
     }: IButtonFieldProps & IButtonFieldPrivate): JSX.Element;
     displayName: string;
@@ -28491,6 +28586,9 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       title,
       value,
       placeholder,
+      buttonVariant,
+      buttonSize,
+      buttonColor,
     }: import("../../slots/ButtonSlot").IButtonSlot) => JSX.Element;
     Text: ({
       invalid,
@@ -28529,6 +28627,8 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       disabled,
       click,
       icon: Icon,
+      iconSize,
+      iconColor,
     }: import("../../slots/IconSlot").IIconSlot) => JSX.Element;
     Date: ({
       invalid,

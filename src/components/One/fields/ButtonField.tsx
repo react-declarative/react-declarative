@@ -16,7 +16,43 @@ import IField from '../../../model/IField';
  */
 export interface IButtonFieldProps<Data = IAnything, Payload = IAnything> {
   /**
-   * Retrieves the 'title' property from the given variable.
+   * Retrieves the 'buttonVariant' property from the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The key to pick from the variable.
+   *
+   * @param variable - The variable to pick the property from.
+   *
+   * @returns - The picked property.
+   */
+  buttonVariant?: PickProp<IField<Data, Payload>, 'buttonVariant'>;
+
+  /**
+   * Retrieves the 'buttonSize' property from the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The key to pick from the variable.
+   *
+   * @param variable - The variable to pick the property from.
+   *
+   * @returns - The picked property.
+   */
+  buttonSize?: PickProp<IField<Data, Payload>, 'buttonSize'>;
+
+  /**
+   * Retrieves the 'buttonSize' property from the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The key to pick from the variable.
+   *
+   * @param variable - The variable to pick the property from.
+   *
+   * @returns - The picked property.
+   */
+  buttonColor?: PickProp<IField<Data, Payload>, 'buttonColor'>;
+
+  /**
+   * Retrieves the 'icon' property from the given variable.
    *
    * @template T - The type of the variable.
    * @template K - The key to pick from the variable.
@@ -90,6 +126,9 @@ export const ButtonField = ({
   icon,
   title,
   value,
+  buttonSize,
+  buttonVariant,
+  buttonColor,
   placeholder,
 }: IButtonFieldProps & IButtonFieldPrivate) => (
   <Button
@@ -98,6 +137,9 @@ export const ButtonField = ({
     icon={icon}
     title={title}
     value={value}
+    buttonVariant={buttonVariant}
+    buttonColor={buttonColor}
+    buttonSize={buttonSize}
     placeholder={placeholder}
   />
 );

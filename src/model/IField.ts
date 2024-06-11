@@ -32,6 +32,31 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     icon?: React.ComponentType<any>;
 
     /**
+     * Размер иконки для FieldType.Icon
+     */
+    iconSize?: number;
+
+    /**
+     * Цвет иконки для FieldType.Icon
+     */
+    iconColor?: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+
+    /**
+     * Тип заливки кнопки для FieldType.Button
+     */
+    buttonVariant?: 'text' | 'outlined' | 'contained';
+
+    /**
+     * Тип размера кнопки для FieldType.Button
+     */
+    buttonSize?: 'small' | 'medium' | 'large';
+
+    /**
+     * Тип цвета кнопки для FieldType.Button
+     */
+    buttonColor?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+
+    /**
      * Отменяет ожидание фокуса для валидации
      */
     dirty?: boolean;

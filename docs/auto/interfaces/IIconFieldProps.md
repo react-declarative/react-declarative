@@ -4,13 +4,29 @@ Interface representing props for the IconField component.
 
 ## Properties
 
+### iconSize
+
+```ts
+iconSize: number
+```
+
+Retrieves the 'iconSize' property from the given variable.
+
+### iconColor
+
+```ts
+iconColor: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Retrieves the 'iconColor' property from the given variable.
+
 ### icon
 
 ```ts
 icon: ComponentType<any>
 ```
 
-Retrieves the 'title' property from the given variable.
+Retrieves the 'icon' property from the given variable.
 
 ### disabled
 
