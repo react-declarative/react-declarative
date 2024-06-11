@@ -27,6 +27,11 @@ export type Value = string | string[] | number | boolean | null;
 export interface IField<Data = IAnything, Payload = IAnything> {
 
     /**
+     * Иконка для FieldType.Button и FieldType.Icon
+     */
+    icon?: React.ComponentType<any>;
+
+    /**
      * Отменяет ожидание фокуса для валидации
      */
     dirty?: boolean;
@@ -114,7 +119,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Перехват клика по полю, следует использовать для копирования значения
      * у карточек просмотра без редактирования
      */
-    click?: (name: string, e: React.MouseEvent<HTMLElement>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+    click?: (name: string, e: React.MouseEvent<HTMLElement>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => (void | Promise<void>);
 
     /**
      * Флаг только на чтение и "круглой окаймовки"

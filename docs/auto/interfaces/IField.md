@@ -4,6 +4,14 @@
 
 ## Properties
 
+### icon
+
+```ts
+icon: ComponentType<any>
+```
+
+Иконка для FieldType.Button и FieldType.Icon
+
 ### dirty
 
 ```ts
@@ -141,7 +149,7 @@ menu: (name: string, action: string, data: Data, payload: Payload, onValueChange
 ### click
 
 ```ts
-click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
+click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void | Promise<...>
 ```
 
 Перехват клика по полю, следует использовать для копирования значения

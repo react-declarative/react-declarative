@@ -53,8 +53,9 @@ export const getVariantList = (fields: IField[], {
       continue;
     }
     if (VARIANT_FIELD_TYPE.has(type)) {
+      const label = title || placeholder || keyToTitle(name);
       variantList.push({
-        label: title || placeholder || keyToTitle(name),
+        label: `${label}, ${String(Symbol.keyFor(type as unknown as symbol) || type)}`,
         value: name,
       });
     }

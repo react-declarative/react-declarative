@@ -1117,6 +1117,8 @@ declare module "react-declarative/model/TypedField" {
    * Поля ввода
    */
   import { ICheckboxFieldProps } from "react-declarative/components/One/fields/CheckboxField";
+  import { IIconFieldProps } from "react-declarative/components/One/fields/IconField";
+  import { IButtonFieldProps } from "react-declarative/components/One/fields/ButtonField";
   import { IFileFieldProps } from "react-declarative/components/One/fields/FileField";
   import { IComboFieldProps } from "react-declarative/components/One/fields/ComboField";
   import { IComponentFieldProps } from "react-declarative/components/One/fields/ComponentField";
@@ -1284,6 +1286,18 @@ declare module "react-declarative/model/TypedField" {
     Data,
     Payload
   >;
+  type Icon<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
+    FieldType.Icon,
+    IIconFieldProps<Data, Payload>,
+    Data,
+    Payload
+  >;
+  type Button<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
+    FieldType.Button,
+    IButtonFieldProps<Data, Payload>,
+    Data,
+    Payload
+  >;
   type Combo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<
     FieldType.Combo,
     IComboFieldProps<Data, Payload>,
@@ -1435,136 +1449,149 @@ declare module "react-declarative/model/TypedField" {
             ? Outline<Data, Payload>
             : Target extends Checkbox<Data, Payload>
               ? Checkbox<Data, Payload>
-              : Target extends Combo<Data, Payload>
-                ? Combo<Data, Payload>
-                : Target extends Component<Data, Payload>
-                  ? Component<Data, Payload>
-                  : Target extends Items<Data, Payload>
-                    ? Items<Data, Payload>
-                    : Target extends Line<Data, Payload>
-                      ? Line<Data, Payload>
-                      : Target extends Progress<Data, Payload>
-                        ? Progress<Data, Payload>
-                        : Target extends Radio<Data, Payload>
-                          ? Radio<Data, Payload>
-                          : Target extends Rating<Data, Payload>
-                            ? Rating<Data, Payload>
-                            : Target extends Slider<Data, Payload>
-                              ? Slider<Data, Payload>
-                              : Target extends Switch<Data, Payload>
-                                ? Switch<Data, Payload>
-                                : Target extends Text<Data, Payload>
-                                  ? Text<Data, Payload>
-                                  : Target extends File<Data, Payload>
-                                    ? File<Data, Payload>
-                                    : Target extends Choose<Data, Payload>
-                                      ? Choose<Data, Payload>
-                                      : Target extends YesNo<Data, Payload>
-                                        ? YesNo<Data, Payload>
-                                        : Target extends Date<Data, Payload>
-                                          ? Date<Data, Payload>
-                                          : Target extends Time<Data, Payload>
-                                            ? Time<Data, Payload>
-                                            : Target extends Complete<
-                                                  Data,
-                                                  Payload
-                                                >
-                                              ? Complete<Data, Payload>
-                                              : Target extends Typography<
+              : Target extends Button<Data, Payload>
+                ? Button<Data, Payload>
+                : Target extends Icon<Data, Payload>
+                  ? Icon<Data, Payload>
+                  : Target extends Combo<Data, Payload>
+                    ? Combo<Data, Payload>
+                    : Target extends Component<Data, Payload>
+                      ? Component<Data, Payload>
+                      : Target extends Items<Data, Payload>
+                        ? Items<Data, Payload>
+                        : Target extends Line<Data, Payload>
+                          ? Line<Data, Payload>
+                          : Target extends Progress<Data, Payload>
+                            ? Progress<Data, Payload>
+                            : Target extends Radio<Data, Payload>
+                              ? Radio<Data, Payload>
+                              : Target extends Rating<Data, Payload>
+                                ? Rating<Data, Payload>
+                                : Target extends Slider<Data, Payload>
+                                  ? Slider<Data, Payload>
+                                  : Target extends Switch<Data, Payload>
+                                    ? Switch<Data, Payload>
+                                    : Target extends Text<Data, Payload>
+                                      ? Text<Data, Payload>
+                                      : Target extends File<Data, Payload>
+                                        ? File<Data, Payload>
+                                        : Target extends Choose<Data, Payload>
+                                          ? Choose<Data, Payload>
+                                          : Target extends YesNo<Data, Payload>
+                                            ? YesNo<Data, Payload>
+                                            : Target extends Date<Data, Payload>
+                                              ? Date<Data, Payload>
+                                              : Target extends Time<
                                                     Data,
                                                     Payload
                                                   >
-                                                ? Typography<Data, Payload>
-                                                : Target extends Fragment<
+                                                ? Time<Data, Payload>
+                                                : Target extends Complete<
                                                       Data,
                                                       Payload
                                                     >
-                                                  ? Fragment<Data, Payload>
-                                                  : Target extends Div<
+                                                  ? Complete<Data, Payload>
+                                                  : Target extends Typography<
                                                         Data,
                                                         Payload
                                                       >
-                                                    ? Div<Data, Payload>
-                                                    : Target extends Custom<
+                                                    ? Typography<Data, Payload>
+                                                    : Target extends Fragment<
                                                           Data,
                                                           Payload
                                                         >
-                                                      ? Custom<Data, Payload>
-                                                      : Target extends Box<
+                                                      ? Fragment<Data, Payload>
+                                                      : Target extends Div<
                                                             Data,
                                                             Payload
                                                           >
-                                                        ? Box<Data, Payload>
-                                                        : Target extends Tabs<
+                                                        ? Div<Data, Payload>
+                                                        : Target extends Custom<
                                                               Data,
                                                               Payload
                                                             >
-                                                          ? Tabs<Data, Payload>
-                                                          : Target extends Center<
+                                                          ? Custom<
+                                                              Data,
+                                                              Payload
+                                                            >
+                                                          : Target extends Box<
                                                                 Data,
                                                                 Payload
                                                               >
-                                                            ? Center<
-                                                                Data,
-                                                                Payload
-                                                              >
-                                                            : Target extends Stretch<
+                                                            ? Box<Data, Payload>
+                                                            : Target extends Tabs<
                                                                   Data,
                                                                   Payload
                                                                 >
-                                                              ? Stretch<
+                                                              ? Tabs<
                                                                   Data,
                                                                   Payload
                                                                 >
-                                                              : Target extends Hero<
+                                                              : Target extends Center<
                                                                     Data,
                                                                     Payload
                                                                   >
-                                                                ? Hero<
+                                                                ? Center<
                                                                     Data,
                                                                     Payload
                                                                   >
-                                                                : Target extends Condition<
+                                                                : Target extends Stretch<
                                                                       Data,
                                                                       Payload
                                                                     >
-                                                                  ? Condition<
+                                                                  ? Stretch<
                                                                       Data,
                                                                       Payload
                                                                     >
-                                                                  : Target extends Init<
+                                                                  : Target extends Hero<
                                                                         Data,
                                                                         Payload
                                                                       >
-                                                                    ? Init<
+                                                                    ? Hero<
                                                                         Data,
                                                                         Payload
                                                                       >
-                                                                    : Target extends Phony<
+                                                                    : Target extends Condition<
                                                                           Data,
                                                                           Payload
                                                                         >
-                                                                      ? Phony<
+                                                                      ? Condition<
                                                                           Data,
                                                                           Payload
                                                                         >
-                                                                      : Target extends Dict<
+                                                                      : Target extends Init<
                                                                             Data,
                                                                             Payload
                                                                           >
-                                                                        ? Dict<
+                                                                        ? Init<
                                                                             Data,
                                                                             Payload
                                                                           >
-                                                                        : Target extends Tree<
+                                                                        : Target extends Phony<
                                                                               Data,
                                                                               Payload
                                                                             >
-                                                                          ? Tree<
+                                                                          ? Phony<
                                                                               Data,
                                                                               Payload
                                                                             >
-                                                                          : never;
+                                                                          : Target extends Dict<
+                                                                                Data,
+                                                                                Payload
+                                                                              >
+                                                                            ? Dict<
+                                                                                Data,
+                                                                                Payload
+                                                                              >
+                                                                            : Target extends Tree<
+                                                                                  Data,
+                                                                                  Payload
+                                                                                >
+                                                                              ? Tree<
+                                                                                  Data,
+                                                                                  Payload
+                                                                                >
+                                                                              : never;
   /**
    * IOneProps - генерик, для прикладного программиста мы можем подменить IField
    * на TypedField.  Это  позволит  автоматически  выбрать  интерфейс  props для
@@ -1625,6 +1652,10 @@ declare module "react-declarative/model/IField" {
    * Объект поля для прикладного программиста
    */
   export interface IField<Data = IAnything, Payload = IAnything> {
+    /**
+     * Иконка для FieldType.Button и FieldType.Icon
+     */
+    icon?: React.ComponentType<any>;
     /**
      * Отменяет ожидание фокуса для валидации
      */
@@ -1724,7 +1755,7 @@ declare module "react-declarative/model/IField" {
       payload: Payload,
       onValueChange: (value: Value) => void,
       onChange: (data: Data) => void,
-    ) => void;
+    ) => void | Promise<void>;
     /**
      * Флаг только на чтение и "круглой окаймовки"
      */
@@ -2782,6 +2813,7 @@ declare module "react-declarative/model/IManaged" {
     incorrect: string | null;
     invalid: string | null;
     object: Data;
+    click: (e: React.MouseEvent<any>) => void | Promise<void>;
     onChange: (
       v: Value,
       config?: {
@@ -3227,6 +3259,8 @@ declare module "react-declarative/model/FieldType" {
     Dict = "dict-field",
     Init = "init-field",
     Phony = "phony-field",
+    Button = "button-field",
+    Icon = "icon-field",
     Complete = "complete-field",
     Items = "items-field",
     Rating = "rating-field",
@@ -5163,7 +5197,7 @@ declare module "react-declarative/model/IOneProps" {
       onValueChange: (value: Value) => void,
       onChange: (data: Data) => void,
       e: React.MouseEvent,
-    ) => void;
+    ) => void | Promise<void>;
     /**
      * Вызывается, когда все поля успели отрисоваться
      * в первый раз, после появления формы
@@ -12700,6 +12734,258 @@ declare module "react-declarative/components/One/fields/CheckboxField" {
       onChange,
       title,
     }: ICheckboxFieldProps & ICheckboxFieldPrivate): JSX.Element;
+    displayName: string;
+  };
+  const _default: {
+    <Data extends unknown = any>({
+      className,
+      sx,
+      columns,
+      phoneColumns,
+      tabletColumns,
+      desktopColumns,
+      isDisabled: isDisabledUpper,
+      isVisible: isVisibleUpper,
+      isInvalid: isInvalidUpper,
+      isIncorrect: isIncorrectUpper,
+      isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
+      change,
+      fallback,
+      ready,
+      compute: upperCompute,
+      shouldRecompute,
+      click,
+      map,
+      object: upperObject,
+      name,
+      title,
+      menu,
+      debug,
+      focus,
+      blur,
+      invalidity,
+      prefix,
+      dirty: upperDirty,
+      disabled: fieldDisabled,
+      readonly: upperReadonly,
+      autoFocus,
+      style,
+      menuItems,
+      groupRef: ref,
+      fieldRightMargin,
+      fieldBottomMargin,
+      outlinePaper,
+      transparentPaper,
+      testId,
+      ...otherProps
+    }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
+    displayName: string;
+  };
+  export default _default;
+}
+
+declare module "react-declarative/components/One/fields/IconField" {
+  import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing props for the IconField component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
+  export interface IIconFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Retrieves the 'title' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    icon?: PickProp<IField<Data, Payload>, "icon">;
+    /**
+     * Represents the "disabled" property of a field in the given data payload.
+     *
+     * @template Data - The type of the data payload.
+     * @template Payload - The type of the payload object.
+     *
+     * @param disabled - The value of the "disabled" property.
+     *
+     * @returns
+     */
+    disabled?: PickProp<IField<Data, Payload>, "disabled">;
+    /**
+     * Represents the optional property `groupRef` from the `IField` interface.
+     * The `groupRef` property is a subset of the `PickProp` type with the 'groupRef' key.
+     *
+     * @typedef groupRef
+     */
+    groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  }
+  /**
+   * Represents a private interface for a Icon field.
+   * @interface
+   * @template Data - The type of data associated with the Icon field.
+   */
+  export interface IIconFieldPrivate<Data = IAnything> {
+    click: PickProp<IManaged<Data>, "click">;
+  }
+  /**
+   * Represents a icon field component.
+   *
+   * @param param - The properties for the icon field.
+   * @returns - The icon field component.
+   */
+  export const IconField: {
+    ({
+      disabled,
+      click,
+      icon,
+    }: IIconFieldProps & IIconFieldPrivate): JSX.Element;
+    displayName: string;
+  };
+  const _default: {
+    <Data extends unknown = any>({
+      className,
+      sx,
+      columns,
+      phoneColumns,
+      tabletColumns,
+      desktopColumns,
+      isDisabled: isDisabledUpper,
+      isVisible: isVisibleUpper,
+      isInvalid: isInvalidUpper,
+      isIncorrect: isIncorrectUpper,
+      isReadonly: isReadonlyUpper,
+      readTransform,
+      writeTransform,
+      change,
+      fallback,
+      ready,
+      compute: upperCompute,
+      shouldRecompute,
+      click,
+      map,
+      object: upperObject,
+      name,
+      title,
+      menu,
+      debug,
+      focus,
+      blur,
+      invalidity,
+      prefix,
+      dirty: upperDirty,
+      disabled: fieldDisabled,
+      readonly: upperReadonly,
+      autoFocus,
+      style,
+      menuItems,
+      groupRef: ref,
+      fieldRightMargin,
+      fieldBottomMargin,
+      outlinePaper,
+      transparentPaper,
+      testId,
+      ...otherProps
+    }: import("../../../model/IEntity").IEntity<Data, any>): JSX.Element | null;
+    displayName: string;
+  };
+  export default _default;
+}
+
+declare module "react-declarative/components/One/fields/ButtonField" {
+  import IManaged, { PickProp } from "react-declarative/model/IManaged";
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Interface representing props for the ButtonField component.
+   *
+   * @template Data - The type of data for the field.
+   * @template Payload - The type of payload for the field.
+   */
+  export interface IButtonFieldProps<Data = IAnything, Payload = IAnything> {
+    /**
+     * Retrieves the 'title' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    icon?: PickProp<IField<Data, Payload>, "icon">;
+    /**
+     * Retrieves the 'title' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    title?: PickProp<IField<Data, Payload>, "title">;
+    /**
+     * Retrieves the 'placeholder' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    placeholder?: PickProp<IField<Data, Payload>, "placeholder">;
+    /**
+     * Represents the "disabled" property of a field in the given data payload.
+     *
+     * @template Data - The type of the data payload.
+     * @template Payload - The type of the payload object.
+     *
+     * @param disabled - The value of the "disabled" property.
+     *
+     * @returns
+     */
+    disabled?: PickProp<IField<Data, Payload>, "disabled">;
+    /**
+     * Represents the optional property `groupRef` from the `IField` interface.
+     * The `groupRef` property is a subset of the `PickProp` type with the 'groupRef' key.
+     *
+     * @typedef groupRef
+     */
+    groupRef?: PickProp<IField<Data, Payload>, "groupRef">;
+  }
+  /**
+   * Represents a private interface for a Button field.
+   * @interface
+   * @template Data - The type of data associated with the Button field.
+   */
+  export interface IButtonFieldPrivate<Data = IAnything> {
+    value: PickProp<IManaged<Data>, "value">;
+    click: PickProp<IManaged<Data>, "click">;
+  }
+  /**
+   * Represents a button field component.
+   *
+   * @param param - The properties for the button field.
+   * @returns - The button field component.
+   */
+  export const ButtonField: {
+    ({
+      disabled,
+      click,
+      icon,
+      title,
+      value,
+      placeholder,
+    }: IButtonFieldProps & IButtonFieldPrivate): JSX.Element;
     displayName: string;
   };
   const _default: {
@@ -28198,6 +28484,14 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       typoVariant,
       style,
     }: import("../..").ITypographySlot) => JSX.Element;
+    Button: ({
+      disabled,
+      click,
+      icon: Icon,
+      title,
+      value,
+      placeholder,
+    }: import("../../slots/ButtonSlot").IButtonSlot) => JSX.Element;
     Text: ({
       invalid,
       incorrect,
@@ -28231,6 +28525,11 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       inputRef,
       onChange,
     }: import("../..").ITextSlot) => JSX.Element;
+    Icon: ({
+      disabled,
+      click,
+      icon: Icon,
+    }: import("../../slots/IconSlot").IIconSlot) => JSX.Element;
     Date: ({
       invalid,
       incorrect,
@@ -28455,6 +28754,8 @@ declare module "react-declarative/components/One/components/SlotFactory/ISlotFac
   import { IYesNoSlot } from "react-declarative/components/One/slots/YesNoSlot";
   import { IDictSlot } from "react-declarative/components/One/slots/DictSlot";
   import { ITreeSlot } from "react-declarative/components/One/slots/TreeSlot";
+  import { IButtonSlot } from "react-declarative/components/One/slots/ButtonSlot";
+  import { IIconSlot } from "react-declarative/components/One/slots/IconSlot";
   /**
    * A context object that provides access to various component types used by the slot factory.
    * @typedef ISlotFactoryContext
@@ -28480,6 +28781,8 @@ declare module "react-declarative/components/One/components/SlotFactory/ISlotFac
    */
   export interface ISlotFactoryContext {
     CheckBox: ComponentType<ICheckBoxSlot>;
+    Button: ComponentType<IButtonSlot>;
+    Icon: ComponentType<IIconSlot>;
     Combo: ComponentType<IComboSlot>;
     YesNo: ComponentType<IYesNoSlot>;
     Items: ComponentType<IItemsSlot>;
@@ -29391,6 +29694,7 @@ declare module "react-declarative/components/One/components/makeField/makeField"
     skipDirtyClickListener?: boolean;
     skipFocusReadonly?: boolean;
     skipFocusBlurCall?: boolean;
+    skipClickListener?: boolean;
     defaultProps?: Partial<
       Omit<
         IField<Data>,
@@ -31534,6 +31838,18 @@ declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
   export default IFileSlot;
 }
 
+declare module "react-declarative/components/One/slots/ButtonSlot" {
+  export * from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
+  export * from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
+  export { default } from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
+}
+
+declare module "react-declarative/components/One/slots/IconSlot" {
+  export * from "react-declarative/components/One/slots/IconSlot/IIconSlot";
+  export * from "react-declarative/components/One/slots/IconSlot/IconSlot";
+  export { default } from "react-declarative/components/One/slots/IconSlot/IconSlot";
+}
+
 declare module "react-declarative/components/One/slots/CheckBoxSlot/ICheckBoxSlot" {
   import {
     ICheckboxFieldPrivate,
@@ -32145,4 +32461,60 @@ declare module "react-declarative/components/List/components/SlotFactory/compone
     disabled,
   }: ICheckboxCellProps<RowData>) => JSX.Element;
   export default CheckboxCell;
+}
+
+declare module "react-declarative/components/One/slots/ButtonSlot/IButtonSlot" {
+  import {
+    IButtonFieldPrivate,
+    IButtonFieldProps,
+  } from "react-declarative/components/One/fields/ButtonField";
+  /**
+   * Represents a checkbox slot for a checkbox field.
+   *
+   * @interface IButtonSlot
+   * @extends IButtonFieldProps
+   * @extends IButtonFieldPrivate
+   */
+  export interface IButtonSlot extends IButtonFieldProps, IButtonFieldPrivate {}
+  export default IButtonSlot;
+}
+
+declare module "react-declarative/components/One/slots/ButtonSlot/ButtonSlot" {
+  import IButtonSlot from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
+  /**
+   * Represents a checkbox slot component.
+   *
+   * @param props - The props for the checkbox slot component.
+   * @returns - The rendered checkbox element.
+   */
+  export const ButtonSlot: (props: IButtonSlot) => JSX.Element;
+  export default ButtonSlot;
+}
+
+declare module "react-declarative/components/One/slots/IconSlot/IIconSlot" {
+  import {
+    IIconFieldPrivate,
+    IIconFieldProps,
+  } from "react-declarative/components/One/fields/IconField";
+  /**
+   * Represents a checkbox slot for a checkbox field.
+   *
+   * @interface IIconSlot
+   * @extends IIconFieldProps
+   * @extends IIconFieldPrivate
+   */
+  export interface IIconSlot extends IIconFieldProps, IIconFieldPrivate {}
+  export default IIconSlot;
+}
+
+declare module "react-declarative/components/One/slots/IconSlot/IconSlot" {
+  import IIconSlot from "react-declarative/components/One/slots/IconSlot/IIconSlot";
+  /**
+   * Represents a checkbox slot component.
+   *
+   * @param props - The props for the checkbox slot component.
+   * @returns - The rendered checkbox element.
+   */
+  export const IconSlot: (props: IIconSlot) => JSX.Element;
+  export default IconSlot;
 }

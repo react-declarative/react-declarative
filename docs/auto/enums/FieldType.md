@@ -25,6 +25,8 @@ export enum FieldType {
     Dict = "dict-field",
     Init = "init-field",
     Phony = "phony-field",
+    Button = "button-field",
+    Icon = "icon-field",
     Complete = "complete-field",
     Items = "items-field",
     Rating = "rating-field",

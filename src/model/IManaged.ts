@@ -408,6 +408,7 @@ export interface IManaged<Data = IAnything, Value = any> extends Omit<IEntity<Da
     incorrect: string | null;
     invalid: string | null;
     object: Data;
+    click: (e: React.MouseEvent<any>) => void | Promise<void>;
     onChange: (v: Value, config?: {
         skipReadonly?: boolean;
     }) => void;

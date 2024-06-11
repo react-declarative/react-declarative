@@ -190,6 +190,8 @@ export const OneInternal = <
                   field.features.some((feature) => features.includes(feature))
               )
               .filter(({ type }) => type !== FieldType.Phony)
+              .filter(({ type }) => type !== FieldType.Button)
+              .filter(({ type }) => type !== FieldType.Icon)
               .filter(({ hidden }) => {
                 if (typeof hidden === 'function') {
                   hidden = hidden(payload);
@@ -294,9 +296,13 @@ export const OneInternal = <
             click: clickMap.has(field)
               ? clickMap.get(field)
               : clickMap
-                  .set(field, (name, e, data, payload, onValueChange, onChange) => {
-                    field.click && field.click(name, e, data, payload, onValueChange, onChange);
-                    click && click(name, data, payload, onValueChange, onChange, e);
+                  .set(field, async (name, e, data, payload, onValueChange, onChange) => {
+                    if (field.click) {
+                      await field.click(name, e, data, payload, onValueChange, onChange);
+                    }
+                    if (click) {
+                      await click(name, data, payload, onValueChange, onChange, e);
+                    }
                   })
                   .get(field),
             /**
