@@ -1,3 +1,33 @@
+# Button Field (v2.6.64, 11/06/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.64)
+
+The `FieldType.Button` will help you creating forms without unnecessary JSX injections
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+export const fields: TypedField[] = [
+  {
+    type: FieldType.Text,
+    name: 'test',
+  },
+  {
+    type: FieldType.Button,
+    buttonVariant: 'contained',
+    click: (name, e, data) => {
+      alert(JSON.stringify(data, null, 2))
+    },
+    title: 'test'
+  },
+];
+```
+
+![image](https://github.com/react-declarative/react-declarative/assets/19227776/980e382e-9e5f-4465-83a9-96ac474aec20)
+
+
+
+
 # Validation Factory (v2.5.995, 27/05/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.5.995)
