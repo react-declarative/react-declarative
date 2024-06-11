@@ -98,6 +98,7 @@ interface IConfig<Data = IAnything> {
     skipDirtyClickListener?: boolean;
     skipFocusReadonly?: boolean;
     skipFocusBlurCall?: boolean;
+    skipClickListener?: boolean;
     defaultProps?: Partial<Omit<IField<Data>, keyof {
         fields: never;
         child: never;
@@ -116,7 +117,7 @@ const DEFAULT_CHANGE = (v: IAnything) => console.log({ v });
 const DEFAULT_FALLBACK = () => null;
 const DEFAULT_READY = () => null;
 const DEFAULT_MAP = (data: IAnything) => data;
-const DEFAULT_CLICK = () => null;
+const DEFAULT_CLICK = () => {};
 const DEFAULT_REF = () => null;
 const DEFAULT_MENU = () => null;
 const DEFAULT_READTRANSFORM = (value: Value) => value;
@@ -132,6 +133,7 @@ export function makeField(
     fieldConfig: IConfig = {
         withApplyQueue: false,
         skipDirtyClickListener: false,
+        skipClickListener: false,
         skipFocusReadonly: false,
         skipFocusBlurCall: false,
         skipDebounce: false,
@@ -639,15 +641,27 @@ export function makeField(
         }) : undefined, []);
 
         /**
-         * Коллбек для перехвата клика по полю
+         * Коллбек для перехвата клика из поля. Используется только
+         * для FieldType.Button и FieldType.Icon
          */
-        const handleClick = useCallback((e: React.MouseEvent<any>) => {
+        const handleExternalClick = useCallback(async (e: React.MouseEvent<any>) => {
             if (memory.clickDisabled) {
                 return;
             }
-            click(name, e, memory.object$, payload, (value) => managedProps.onChange(value, {
+            await click(name, e, memory.object$, payload, (value) => managedProps.onChange(value, {
                 skipReadonly: true,
             }), changeObject);
+        }, []);
+
+        /**
+         * Коллбек для перехвата клика по группе поля. Используется для всех
+         * полей кроме FieldType.Button и FieldType.Icon
+         */
+        const handleInternalClick = useCallback(async (e: React.MouseEvent<any>) => {
+            if (fieldConfig.skipClickListener) {
+                return;
+            }
+            return await handleExternalClick(e);
         }, []);
 
         const groupProps: IGroupProps<Data> = {
@@ -687,6 +701,7 @@ export function makeField(
 
         const managedProps: IManaged<Data> = {
             onChange: fieldConfig.withApplyQueue ? handleChange : handleChangeSync,
+            click: handleExternalClick,
             fallback,
             disabled: fieldDisabled || disabled,
             readonly: computeReadonly(),
@@ -741,7 +756,7 @@ export function makeField(
                 {...groupProps}
                 onFocus={handleFocus}
                 onContextMenu={handleMenu}
-                onClick={handleClick}
+                onClick={handleInternalClick}
             >
                 <Component {...componentProps as IManaged} />
             </Group>

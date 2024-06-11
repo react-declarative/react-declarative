@@ -172,6 +172,10 @@
 - [ICustomLayoutPrivate](interfaces/ICustomLayoutPrivate.md)
 - [ICheckboxFieldProps](interfaces/ICheckboxFieldProps.md)
 - [ICheckboxFieldPrivate](interfaces/ICheckboxFieldPrivate.md)
+- [IIconFieldProps](interfaces/IIconFieldProps.md)
+- [IIconFieldPrivate](interfaces/IIconFieldPrivate.md)
+- [IButtonFieldProps](interfaces/IButtonFieldProps.md)
+- [IButtonFieldPrivate](interfaces/IButtonFieldPrivate.md)
 - [IFileFieldProps](interfaces/IFileFieldProps.md)
 - [IFileFieldPrivate](interfaces/IFileFieldPrivate.md)
 - [IComboFieldProps](interfaces/IComboFieldProps.md)
@@ -501,6 +505,8 @@
 - [IConfig](interfaces/IConfig.md)
 - [IDefaultFadeProps](interfaces/IDefaultFadeProps.md)
 - [ICheckboxCellProps](interfaces/ICheckboxCellProps.md)
+- [IButtonSlot](interfaces/IButtonSlot.md)
+- [IIconSlot](interfaces/IIconSlot.md)
 
 ## Types
 
@@ -647,6 +653,8 @@
 - [Condition](types/Condition.md)
 - [Line](types/Line.md)
 - [Checkbox](types/Checkbox.md)
+- [Icon](types/Icon.md)
+- [Button](types/Button.md)
 - [Combo](types/Combo.md)
 - [Component](types/Component.md)
 - [Items](types/Items.md)

@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
 import CheckBox from './components/CheckBox';
+import Button from './components/Button';
 import Combo from './components/Combo';
 import Items from './components/Items';
 import Line from './components/Line';
@@ -10,6 +11,7 @@ import Rating from './components/Rating';
 import Typography from './components/Typography';
 import Text from './components/Text';
 import Date from './components/Date';
+import Icon from './components/Icon';
 import Time from './components/Time';
 import Switch from './components/Switch';
 import Slider from './components/Slider';
@@ -54,7 +56,9 @@ export const defaultSlots = {
     Rating,
     Progress,
     Typography,
+    Button,
     Text,
+    Icon,
     Date,
     Time,
     Switch,

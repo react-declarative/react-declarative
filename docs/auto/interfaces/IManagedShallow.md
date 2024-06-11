@@ -101,7 +101,7 @@ Type definition for the `compute` property of an object.
 ### click
 
 ```ts
-click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
+click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void | Promise<...>
 ```
 
 Represents the "click" property of a specific field in a data object.

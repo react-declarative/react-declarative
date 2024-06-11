@@ -25,6 +25,8 @@ import CompleteField from "../fields/CompleteField";
 import InitField from "../fields/InitField";
 import YesNoField from "../fields/YesNoField";
 import DictField from "../fields/DictField";
+import ButtonField from "../fields/ButtonField";
+import IconField from "../fields/IconField";
 
 const fieldMap: { [key in FieldType]?: React.ComponentType<IEntity> } = Object.create(null);
 
@@ -77,6 +79,8 @@ Object.assign(fieldMap, {
   [FieldType.Init]: InitField,
   [FieldType.Dict]: DictField,
   [FieldType.Tree]: TreeField,
+  [FieldType.Button]: ButtonField,
+  [FieldType.Icon]: IconField,
 });
 
 /**

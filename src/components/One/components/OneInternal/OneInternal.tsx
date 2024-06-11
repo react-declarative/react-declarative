@@ -294,9 +294,13 @@ export const OneInternal = <
             click: clickMap.has(field)
               ? clickMap.get(field)
               : clickMap
-                  .set(field, (name, e, data, payload, onValueChange, onChange) => {
-                    field.click && field.click(name, e, data, payload, onValueChange, onChange);
-                    click && click(name, data, payload, onValueChange, onChange, e);
+                  .set(field, async (name, e, data, payload, onValueChange, onChange) => {
+                    if (field.click) {
+                      await field.click(name, e, data, payload, onValueChange, onChange);
+                    }
+                    if (click) {
+                      await click(name, data, payload, onValueChange, onChange, e);
+                    }
                   })
                   .get(field),
             /**

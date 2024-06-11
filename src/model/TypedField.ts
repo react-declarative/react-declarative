@@ -26,6 +26,8 @@ import { ICustomLayoutProps } from '../components/One/layouts/CustomLayout';
  * Поля ввода
  */
 import { ICheckboxFieldProps } from '../components/One/fields/CheckboxField';
+import { IIconFieldProps } from '../components/One/fields/IconField';
+import { IButtonFieldProps } from '../components/One/fields/ButtonField';
 import { IFileFieldProps } from '../components/One/fields/FileField';
 import { IComboFieldProps } from '../components/One/fields/ComboField';
 import { IComponentFieldProps } from '../components/One/fields/ComponentField';
@@ -113,6 +115,8 @@ type Condition<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldT
 type Line<Data = IAnything, Payload = IAnything> = TypedFieldFactory<FieldType.Line, ILineFieldProps<Data, Payload>, Data, Payload>;
 
 type Checkbox<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Checkbox, ICheckboxFieldProps<Data, Payload>, Data, Payload>;
+type Icon<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Icon, IIconFieldProps<Data, Payload>, Data, Payload>;
+type Button<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Button, IButtonFieldProps<Data, Payload>, Data, Payload>;
 type Combo<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Combo, IComboFieldProps<Data, Payload>, Data, Payload>;
 type Component<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Component, IComponentFieldProps<Data, Payload>, Data, Payload>;
 type Items<Data = IAnything, Payload = IAnything> = TypedFieldFactoryShallow<FieldType.Items, IItemsFieldProps<Data, Payload>, Data, Payload>;
@@ -144,6 +148,8 @@ export type TypedFieldRegistry<Data = IAnything, Payload = IAnything, Target = a
   : Target extends Paper<Data, Payload> ? Paper<Data, Payload>
   : Target extends Outline<Data, Payload> ? Outline<Data, Payload>
   : Target extends Checkbox<Data, Payload> ? Checkbox<Data, Payload>
+  : Target extends Button<Data, Payload> ? Button<Data, Payload>
+  : Target extends Icon<Data, Payload> ? Icon<Data, Payload>
   : Target extends Combo<Data, Payload> ? Combo<Data, Payload>
   : Target extends Component<Data, Payload> ? Component<Data, Payload>
   : Target extends Items<Data, Payload> ? Items<Data, Payload>

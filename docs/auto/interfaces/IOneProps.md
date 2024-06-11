@@ -184,7 +184,7 @@ menu: (name: string, action: string, data: Data, payload: Payload, onValueChange
 ### click
 
 ```ts
-click: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void, e: React.MouseEvent) => void
+click: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void, e: React.MouseEvent) => void | Promise<void>
 ```
 
 Коллбек для перехвата клика по полю

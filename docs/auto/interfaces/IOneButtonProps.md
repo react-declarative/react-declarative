@@ -83,7 +83,7 @@ writeTransform: (value: string | string[], name: string, data: Data, payload: Pa
 ### badgeColor
 
 ```ts
-badgeColor: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "default"
+badgeColor: "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
 ```
 
 ### badgeOverlap
@@ -107,5 +107,5 @@ oneSx: SxProps<any>
 ### color
 
 ```ts
-color: "primary" | "secondary" | "error" | "inherit" | "info" | "success" | "warning"
+color: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
 ```

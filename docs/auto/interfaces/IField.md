@@ -4,6 +4,54 @@
 
 ## Properties
 
+### icon
+
+```ts
+icon: ComponentType<any>
+```
+
+Иконка для FieldType.Button и FieldType.Icon
+
+### iconSize
+
+```ts
+iconSize: number
+```
+
+Размер иконки для FieldType.Icon
+
+### iconColor
+
+```ts
+iconColor: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Цвет иконки для FieldType.Icon
+
+### buttonVariant
+
+```ts
+buttonVariant: "text" | "outlined" | "contained"
+```
+
+Тип заливки кнопки для FieldType.Button
+
+### buttonSize
+
+```ts
+buttonSize: "small" | "medium" | "large"
+```
+
+Тип размера кнопки для FieldType.Button
+
+### buttonColor
+
+```ts
+buttonColor: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Тип цвета кнопки для FieldType.Button
+
 ### dirty
 
 ```ts
@@ -141,7 +189,7 @@ menu: (name: string, action: string, data: Data, payload: Payload, onValueChange
 ### click
 
 ```ts
-click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
+click: (name: string, e: MouseEvent<HTMLElement, MouseEvent>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void | Promise<...>
 ```
 
 Перехват клика по полю, следует использовать для копирования значения

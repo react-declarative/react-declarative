@@ -8,6 +8,18 @@
 CheckBox: ComponentType<ICheckBoxSlot>
 ```
 
+### Button
+
+```ts
+Button: ComponentType<IButtonSlot>
+```
+
+### Icon
+
+```ts
+Icon: ComponentType<IIconSlot>
+```
+
 ### Combo
 
 ```ts

@@ -27,6 +27,36 @@ export type Value = string | string[] | number | boolean | null;
 export interface IField<Data = IAnything, Payload = IAnything> {
 
     /**
+     * Иконка для FieldType.Button и FieldType.Icon
+     */
+    icon?: React.ComponentType<any>;
+
+    /**
+     * Размер иконки для FieldType.Icon
+     */
+    iconSize?: number;
+
+    /**
+     * Цвет иконки для FieldType.Icon
+     */
+    iconColor?: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+
+    /**
+     * Тип заливки кнопки для FieldType.Button
+     */
+    buttonVariant?: 'text' | 'outlined' | 'contained';
+
+    /**
+     * Тип размера кнопки для FieldType.Button
+     */
+    buttonSize?: 'small' | 'medium' | 'large';
+
+    /**
+     * Тип цвета кнопки для FieldType.Button
+     */
+    buttonColor?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+
+    /**
      * Отменяет ожидание фокуса для валидации
      */
     dirty?: boolean;
@@ -114,7 +144,7 @@ export interface IField<Data = IAnything, Payload = IAnything> {
      * Перехват клика по полю, следует использовать для копирования значения
      * у карточек просмотра без редактирования
      */
-    click?: (name: string, e: React.MouseEvent<HTMLElement>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;
+    click?: (name: string, e: React.MouseEvent<HTMLElement>, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => (void | Promise<void>);
 
     /**
      * Флаг только на чтение и "круглой окаймовки"

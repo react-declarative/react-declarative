@@ -67,7 +67,7 @@ size: "small" | "medium" | "large"
 ### color
 
 ```ts
-color: "primary" | "secondary" | "error" | "inherit" | "info" | "success" | "warning"
+color: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
 ```
 
 ### content

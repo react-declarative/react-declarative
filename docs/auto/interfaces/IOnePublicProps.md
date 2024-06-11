@@ -57,7 +57,7 @@ It represents the callback function that is invoked when a change event occurs.
 ### onClick
 
 ```ts
-onClick: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void, e: React.MouseEvent) => void
+onClick: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void, e: React.MouseEvent) => void | Promise<void>
 ```
 
 Represents a callback function that gets triggered when an onClick event occurs.

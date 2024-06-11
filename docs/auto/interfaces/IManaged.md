@@ -74,6 +74,12 @@ invalid: string
 object: Data
 ```
 
+### click
+
+```ts
+click: (e: MouseEvent<any, MouseEvent>) => void | Promise<void>
+```
+
 ### onChange
 
 ```ts
