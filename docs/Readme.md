@@ -104,6 +104,8 @@ Read the code from the markdown file and make me a sign in form by using same sc
 17. [Tree](/src/components/One/components/SlotFactory/components/Tree.tsx)
 18. [Typography](/src/components/One/components/SlotFactory/components/Typography.tsx)
 19. [YesNo](/src/components/One/components/SlotFactory/components/YesNo.tsx)
+20. [Button](/src/components/One/components/SlotFactory/components/Button.tsx)
+21. [Icon](/src/components/One/components/SlotFactory/components/Icon.tsx)
 
 **Without slots:**
 

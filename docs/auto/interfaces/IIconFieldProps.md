@@ -20,6 +20,14 @@ iconColor: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | 
 
 Retrieves the 'iconColor' property from the given variable.
 
+### iconBackground
+
+```ts
+iconBackground: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Retrieves the 'iconBackground' property from the given variable.
+
 ### icon
 
 ```ts

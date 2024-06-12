@@ -42,6 +42,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     iconColor?: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
 
     /**
+     * Цвет фона иконки для FieldType.Icon
+     */
+    iconBackground?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+
+    /**
      * Тип заливки кнопки для FieldType.Button
      */
     buttonVariant?: 'text' | 'outlined' | 'contained';

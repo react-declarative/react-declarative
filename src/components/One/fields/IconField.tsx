@@ -40,6 +40,18 @@ export interface IIconFieldProps<Data = IAnything, Payload = IAnything> {
   iconColor?: PickProp<IField<Data, Payload>, 'iconColor'>;
 
   /**
+   * Retrieves the 'iconBackground' property from the given variable.
+   *
+   * @template T - The type of the variable.
+   * @template K - The key to pick from the variable.
+   *
+   * @param variable - The variable to pick the property from.
+   *
+   * @returns - The picked property.
+   */
+  iconBackground?: PickProp<IField<Data, Payload>, 'iconBackground'>;
+
+  /**
    * Retrieves the 'icon' property from the given variable.
    *
    * @template T - The type of the variable.
@@ -91,10 +103,12 @@ export const IconField = ({
   icon,
   iconSize,
   iconColor,
+  iconBackground,
 }: IIconFieldProps & IIconFieldPrivate) => (
   <Icon
     iconSize={iconSize}
     iconColor={iconColor}
+    iconBackground={iconBackground}
     click={click}
     disabled={disabled}
     icon={icon}

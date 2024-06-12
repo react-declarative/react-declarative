@@ -1673,6 +1673,17 @@ declare module "react-declarative/model/IField" {
       | "success"
       | "warning";
     /**
+     * Цвет фона иконки для FieldType.Icon
+     */
+    iconBackground?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
+    /**
      * Тип заливки кнопки для FieldType.Button
      */
     buttonVariant?: "text" | "outlined" | "contained";
@@ -12855,6 +12866,17 @@ declare module "react-declarative/components/One/fields/IconField" {
      */
     iconColor?: PickProp<IField<Data, Payload>, "iconColor">;
     /**
+     * Retrieves the 'iconBackground' property from the given variable.
+     *
+     * @template T - The type of the variable.
+     * @template K - The key to pick from the variable.
+     *
+     * @param variable - The variable to pick the property from.
+     *
+     * @returns - The picked property.
+     */
+    iconBackground?: PickProp<IField<Data, Payload>, "iconBackground">;
+    /**
      * Retrieves the 'icon' property from the given variable.
      *
      * @template T - The type of the variable.
@@ -12905,6 +12927,7 @@ declare module "react-declarative/components/One/fields/IconField" {
       icon,
       iconSize,
       iconColor,
+      iconBackground,
     }: IIconFieldProps & IIconFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -28629,6 +28652,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       icon: Icon,
       iconSize,
       iconColor,
+      iconBackground,
     }: import("../../slots/IconSlot").IIconSlot) => JSX.Element;
     Date: ({
       invalid,

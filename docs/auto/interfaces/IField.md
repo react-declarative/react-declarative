@@ -28,6 +28,14 @@ iconColor: "inherit" | "default" | "primary" | "secondary" | "error" | "info" | 
 
 Цвет иконки для FieldType.Icon
 
+### iconBackground
+
+```ts
+iconBackground: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
+Цвет фона иконки для FieldType.Icon
+
 ### buttonVariant
 
 ```ts
