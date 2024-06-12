@@ -19,6 +19,9 @@ const useStyles = makeStyles()((theme) => ({
         flexDirection: 'column',
     },
     container: {
+        display: 'flex',
+        alignItems: 'stretch',
+        justifyContent: 'stretch',
         borderRadius: '50%',
     },
     backgroundPrimary: {
