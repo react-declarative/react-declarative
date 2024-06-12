@@ -14,6 +14,8 @@ import TileMode from "./TileMode";
  * @template Payload - The type of payload used in the tile.
  */
 export interface ITileProps<Data = IAnything, Payload = IAnything> {
+  withHeader?: boolean;
+  headerLabel?: string;
   mode?: TileMode;
   noDataLabel?: string;
   className?: string;

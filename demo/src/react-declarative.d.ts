@@ -27504,6 +27504,8 @@ declare module "react-declarative/components/Tile/Tile" {
     recomputeSubject,
     scrollXSubject,
     scrollYSubject,
+    withHeader,
+    headerLabel,
     rowMark,
     rowColor,
   }: ITileProps<Data, Payload>) => JSX.Element;
@@ -27555,6 +27557,8 @@ declare module "react-declarative/components/Tile/model/ITileProps" {
    * @template Payload - The type of payload used in the tile.
    */
   export interface ITileProps<Data = IAnything, Payload = IAnything> {
+    withHeader?: boolean;
+    headerLabel?: string;
     mode?: TileMode;
     noDataLabel?: string;
     className?: string;

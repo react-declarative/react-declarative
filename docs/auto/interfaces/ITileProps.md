@@ -4,6 +4,18 @@ Represents the properties required for the `ITile` component.
 
 ## Properties
 
+### withHeader
+
+```ts
+withHeader: boolean
+```
+
+### headerLabel
+
+```ts
+headerLabel: string
+```
+
 ### mode
 
 ```ts

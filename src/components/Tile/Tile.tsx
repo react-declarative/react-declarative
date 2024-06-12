@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import VirtualView from "../VirtualView";
 import InfiniteView from "../InfiniteView";
 
+import TileContainer from "./components/TileContainer";
 import TileItem from "./components/TileItem";
 
 import { SelectionProvider } from "./hooks/useSelection";
@@ -91,6 +92,8 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
   recomputeSubject,
   scrollXSubject,
   scrollYSubject,
+  withHeader,
+  headerLabel,
   rowMark = () => "",
   rowColor = () => "",
 }: ITileProps<Data, Payload>) => {
@@ -152,25 +155,32 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
         rowMark={rowMark}
         rowColor={rowColor}
       >
-        {createElement(mode === TileMode.Virtual ? VirtualView : InfiniteView, {
-          withScrollbar: true,
-          component: List,
-          className,
-          style,
-          sx,
-          scrollYSubject,
-          scrollXSubject,
-          minRowHeight: minRowHeight as never,
-          bufferSize,
-          loading,
-          hasMore,
-          onDataRequest: (initial) => {
-            if (onSkip && hasMore) {
-              onSkip(initial);
-            }
-          },
-          children: renderChildren(),
-        })}
+        <TileContainer
+          className={className}
+          style={style}
+          sx={sx}
+          data={data}
+          selectionMode={selectionMode}
+          withHeader={withHeader}
+          headerLabel={headerLabel}
+        >
+          {createElement(mode === TileMode.Virtual ? VirtualView : InfiniteView, {
+            withScrollbar: true,
+            component: List,
+            scrollYSubject,
+            scrollXSubject,
+            minRowHeight: minRowHeight as never,
+            bufferSize,
+            loading,
+            hasMore,
+            onDataRequest: (initial) => {
+              if (onSkip && hasMore) {
+                onSkip(initial);
+              }
+            },
+            children: renderChildren(),
+          })}
+        </TileContainer>
       </RowMarkProvider>
     </SelectionProvider>
   );
