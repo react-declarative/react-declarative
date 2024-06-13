@@ -97,6 +97,8 @@ export type IService = IServiceInternal;
 export { createRouteItemManager } from './helpers/routeManager';
 export { createRouteParamsManager } from './helpers/routeManager';
 
+export { ArraySet } from './helpers/ArraySet';
+
 export { usePreventAutofill } from './hooks/usePreventAutofill';
 export { useManagedCursor } from './hooks/useManagedCursor';
 export { useItemModal } from './hooks/useItemModal';
