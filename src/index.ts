@@ -750,6 +750,7 @@ export { Operator } from './utils/rx/Operator';
 export { Subject } from './utils/rx/Subject';
 export { Source } from './utils/rx/Source';
 
+export { has } from './utils/math/has';
 export { and } from './utils/math/and';
 export { or } from './utils/math/or';
 export { not } from './utils/math/not';

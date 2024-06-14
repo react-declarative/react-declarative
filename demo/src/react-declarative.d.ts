@@ -109,6 +109,7 @@ declare module "react-declarative" {
   export type IService = IServiceInternal;
   export { createRouteItemManager } from "react-declarative/helpers/routeManager";
   export { createRouteParamsManager } from "react-declarative/helpers/routeManager";
+  export { ArraySet } from "react-declarative/helpers/ArraySet";
   export { usePreventAutofill } from "react-declarative/hooks/usePreventAutofill";
   export { useManagedCursor } from "react-declarative/hooks/useManagedCursor";
   export { useItemModal } from "react-declarative/hooks/useItemModal";
@@ -816,6 +817,7 @@ declare module "react-declarative" {
   export { Operator } from "react-declarative/utils/rx/Operator";
   export { Subject } from "react-declarative/utils/rx/Subject";
   export { Source } from "react-declarative/utils/rx/Source";
+  export { has } from "react-declarative/utils/math/has";
   export { and } from "react-declarative/utils/math/and";
   export { or } from "react-declarative/utils/math/or";
   export { not } from "react-declarative/utils/math/not";
@@ -4642,6 +4644,27 @@ declare module "react-declarative/helpers/routeManager" {
   };
   export { ISwitchItem };
   export default RouteManager;
+}
+
+declare module "react-declarative/helpers/ArraySet" {
+  interface IArraySet<T = any> extends Array<T> {
+    toArray: () => Array<T>;
+  }
+  export class ArraySet<T = any> extends Array<T> implements IArraySet<T> {
+    constructor(_source: T[]);
+    includes: (searchElement: T) => boolean;
+    filter: IArraySet["filter"];
+    map: IArraySet["map"];
+    push: IArraySet["push"];
+    pop: IArraySet["pop"];
+    unshift: IArraySet["unshift"];
+    shift: IArraySet["shift"];
+    splice: IArraySet["splice"];
+    slice: IArraySet["slice"];
+    concat: IArraySet["concat"];
+    toArray: () => T[];
+  }
+  export default ArraySet;
 }
 
 declare module "react-declarative/hooks/usePreventAutofill" {
@@ -9272,6 +9295,14 @@ declare module "react-declarative/utils/rx/Source" {
     ) => Observer<Data>;
   }
   export default Source;
+}
+
+declare module "react-declarative/utils/math/has" {
+  export const has: <T = unknown>(
+    arr: T | Set<T> | Map<T, unknown> | T[] | null | undefined,
+    value: T,
+  ) => boolean;
+  export default has;
 }
 
 declare module "react-declarative/utils/math/and" {

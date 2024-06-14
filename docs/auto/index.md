@@ -46,6 +46,7 @@
 - [IBreadcrumbsOption](interfaces/IBreadcrumbsOption.md)
 - [IService](interfaces/IService.md)
 - [Window](interfaces/Window.md)
+- [IArraySet](interfaces/IArraySet.md)
 - [IParams](interfaces/IParams.md)
 - [IResult](interfaces/IResult.md)
 - [IParams](interfaces/IParams.md)
