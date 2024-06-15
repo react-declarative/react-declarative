@@ -37,7 +37,6 @@ const useStyles = makeStyles()({
         justifyContent: 'center',
         '& > *': {
             pointerEvents: 'none',
-            touchAction: 'none',
         },
     },
     disabled: {

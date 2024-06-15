@@ -28,7 +28,6 @@ interface IDefaultFadeProps {
 const useStyles = makeStyles()(() => ({
     root: {
         pointerEvents: 'none',
-        touchAction: 'none',
     },
     none: {
         display: "none",

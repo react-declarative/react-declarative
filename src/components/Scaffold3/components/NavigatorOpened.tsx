@@ -195,7 +195,6 @@ export const NavigatorOpened = <T extends Payload = Payload>({
                     disabled={upperDisabled}
                     sx={{
                       pointerEvents: "none",
-                      touchAction: "none",
                     }}
                     disableTouchRipple
                     disableRipple

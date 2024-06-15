@@ -73,7 +73,6 @@ const useStyles = makeStyles()((theme) => ({
     },
     disabled: {
         pointerEvents: 'none',
-        touchAction: 'none',
         opacity: 0.5,
     },
     bold: {
