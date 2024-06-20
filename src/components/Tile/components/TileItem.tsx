@@ -6,6 +6,8 @@ import { SxProps } from "@mui/material";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
+import useRenderWaiter from "../../../hooks/useRenderWaiter";
+import useActualValue from "../../../hooks/useActualValue";
 import useSelection from "../hooks/useSelection";
 import useRowMark from "../hooks/useRowMark";
 
@@ -14,6 +16,10 @@ import IAnything from "../../../model/IAnything";
 import ITileProps from "../model/ITileProps";
 
 import { redrawAction } from "../action";
+
+import sleep from "../../../utils/sleep";
+
+const DATA_FETCH_TIMEOUT = 7_500;
 
 /**
  * Represents the props for the TileItem component.
@@ -52,6 +58,20 @@ export const TileItem = forwardRef(
     }: ITileItemProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
+
+    const data$ = useActualValue(data);
+
+    const waitForRender = useRenderWaiter([
+      data
+    ]);
+
+    const waitForData = useCallback(async () => {
+      await Promise.race([
+        waitForRender(),
+        sleep(DATA_FETCH_TIMEOUT),
+      ])
+    }, []);
+
     const [rowMarkColor, setRowMarkColor] = useState("");
     const [rowBgColor, setRowBgColor] = useState("");
 
@@ -59,8 +79,8 @@ export const TileItem = forwardRef(
     const { rowMark, rowColor } = useRowMark();
 
     const { execute } = useAsyncAction(async () => {
-      setRowMarkColor(await rowMark(data));
-      setRowBgColor(await rowColor(data));
+      setRowMarkColor(await rowMark(data$.current));
+      setRowBgColor(await rowColor(data$.current));
     });
 
     useEffect(() => {
@@ -73,7 +93,7 @@ export const TileItem = forwardRef(
     useEffect(
       () =>
         redrawAction.subscribe(() => {
-          execute();
+          waitForData().then(execute);
         }),
       []
     );

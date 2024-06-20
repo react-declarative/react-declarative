@@ -28,6 +28,8 @@ import IOption from "../../../model/IOption";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
+import useRenderWaiter from "../../../hooks/useRenderWaiter";
+import useActualValue from "../../../hooks/useActualValue";
 import useGridProps from "../hooks/useGridProps";
 import useSelection from "../hooks/useSelection";
 
@@ -37,8 +39,12 @@ import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
 
 import { redrawAction } from "../action";
 
+import sleep from "../../../utils/sleep";
+
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
 const ROW_SELECTION_UNIQUE_KEY = randomString();
+
+const DATA_FETCH_TIMEOUT = 7_500;
 
 /**
  * Represents the properties for the ContentRow component.
@@ -197,9 +203,22 @@ export const ContentRow = forwardRef(
     const { selectionMode = SelectionMode.None } = useGridProps();
     const { selection, setSelection } = useSelection();
 
+    const row$ = useActualValue(row);
+
+    const waitForRender = useRenderWaiter([
+      row,
+    ]);
+
+    const waitForData = useCallback(async () => {
+      await Promise.race([
+        waitForRender(),
+        sleep(DATA_FETCH_TIMEOUT),
+      ]);
+    }, []);
+
     const { execute } = useAsyncAction(async () => {
-      setRowMarkColor(await rowMark(row));
-      setRowBgColor(await rowColor(row));
+      setRowMarkColor(await rowMark(row$.current));
+      setRowBgColor(await rowColor(row$.current));
     });
 
     useEffect(() => {
@@ -212,7 +231,7 @@ export const ContentRow = forwardRef(
     useEffect(
       () =>
         redrawAction.subscribe(() => {
-          execute();
+          waitForData().then(execute);
         }),
       []
     );
