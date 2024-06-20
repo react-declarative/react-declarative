@@ -13,6 +13,8 @@ import SelectionMode from "../../../model/SelectionMode";
 import IAnything from "../../../model/IAnything";
 import ITileProps from "../model/ITileProps";
 
+import { redrawAction } from "../action";
+
 /**
  * Represents the props for the TileItem component.
  */
@@ -63,7 +65,18 @@ export const TileItem = forwardRef(
 
     useEffect(() => {
       execute();
+      return () => {
+        rowMark.clear(data[rowKey] || data);
+      };
     }, []);
+
+    useEffect(
+      () =>
+        redrawAction.subscribe(() => {
+          execute();
+        }),
+      []
+    );
 
     /**
      * Toggle the selection of a specific row.

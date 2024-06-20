@@ -7,10 +7,15 @@ import memoize from "../../../utils/hof/memoize";
 
 import ITileProps from "../model/ITileProps";
 
+import { redrawAction } from "../action";
 
 const RowMarkContext = createContext<{
-  rowMark: Exclude<ITileProps["rowMark"], undefined>;
-  rowColor: Exclude<ITileProps["rowColor"], undefined>;
+  rowMark: Exclude<ITileProps["rowMark"], undefined> & {
+    clear(row: any): void;
+  };
+  rowColor: Exclude<ITileProps["rowColor"], undefined> & {
+    clear(row: any): void;
+  };
 }>(null as never);
 
 export const useRowMark = () => useContext(RowMarkContext);
@@ -74,6 +79,7 @@ export const RowMarkProvider = ({
       recomputeSubject.subscribe(() => {
         rowMark.clear();
         rowColor.clear();
+        redrawAction.next();
       }),
     []
   );

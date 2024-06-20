@@ -27,7 +27,6 @@ import IAnything from "../../../model/IAnything";
 import IOption from "../../../model/IOption";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
-import useSubject from "../../../hooks/useSubject";
 
 import useGridProps from "../hooks/useGridProps";
 import useSelection from "../hooks/useSelection";
@@ -35,6 +34,8 @@ import useSelection from "../hooks/useSelection";
 import SelectionMode from "../../../model/SelectionMode";
 
 import { ACTIONS_WIDTH, CHECKBOX_WIDTH } from "../config";
+
+import { redrawAction } from "../action";
 
 const ROW_ACTIONS_UNIQUE_KEY = randomString();
 const ROW_SELECTION_UNIQUE_KEY = randomString();
@@ -182,7 +183,6 @@ export const ContentRow = forwardRef(
       rowActions,
       payload,
       row,
-      recomputeSubject: upperRecomputeSubject,
       onTableRowClick,
       onRowAction,
       rowMark,
@@ -193,7 +193,6 @@ export const ContentRow = forwardRef(
     const { classes } = useStyles();
     const [rowMarkColor, setRowMarkColor] = useState<string>("");
     const [rowBgColor, setRowBgColor] = useState<string>("");
-    const recomputeSubject = useSubject(upperRecomputeSubject);
 
     const { selectionMode = SelectionMode.None } = useGridProps();
     const { selection, setSelection } = useSelection();
@@ -212,7 +211,7 @@ export const ContentRow = forwardRef(
 
     useEffect(
       () =>
-        recomputeSubject.subscribe(() => {
+        redrawAction.subscribe(() => {
           execute();
         }),
       []

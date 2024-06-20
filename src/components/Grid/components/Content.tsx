@@ -26,6 +26,8 @@ import useSubject from "../../../hooks/useSubject";
 
 import { DEFAULT_ROW_HEIGHT } from "../config";
 
+import { redrawAction } from "../action";
+
 /**
  * Represents the props for the Content component.
  */
@@ -148,6 +150,7 @@ export const Content = ({
   useEffect(() => recomputeSubject.subscribe(() => {
     rowMark.clear();
     rowColor.clear();
+    redrawAction.next();
   }), []);
 
   useEffect(
