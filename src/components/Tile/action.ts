@@ -1,3 +1,3 @@
-import useSubject from "../../hooks/useSubject";
+import Subject from "../../utils/rx/Subject";
 
-export const redrawAction = useSubject<void>();
+export const redrawAction = new Subject<void>();
