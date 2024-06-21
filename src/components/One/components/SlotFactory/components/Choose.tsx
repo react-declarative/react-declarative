@@ -175,10 +175,8 @@ export const Choose = ({
               <InputAdornment sx={{ position: "relative" }} position="end">
                 <ActionButton
                   sx={{
-                    position: "absolute",
-                    right: 0,
                     pointerEvents: readonly ? "none" : "all",
-                    mb: outlined ? undefined : 1,
+                    mb: outlined ? undefined : 0.5,
                   }}
                   disabled={loading || disabled}
                   variant="outlined"
