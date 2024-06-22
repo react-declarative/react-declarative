@@ -27,7 +27,9 @@ That means AI cannot debug the hooks when changing JSX. The declarative view eng
 9. [Machine learning](./sample/machine_learning.md)
 10. [Dashboard](./sample/dashboard.md)
 11. [Adaptive form](./sample/adaptive_form.md)
-12. [Account info](./sample/)
+12. [Account info](./sample/account_info.md)
+14. [Sign in form](./sample/login_form.md)
+14. [Crypto form](./sample/crypto_form.md)
 
 **The prompt**
 
