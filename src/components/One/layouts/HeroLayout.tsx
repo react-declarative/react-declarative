@@ -11,8 +11,9 @@ import IAnything from '../../../model/IAnything';
 
 import { IWrappedLayout, PickProp } from '../../../model/IManaged';
 
-import AutoSizer from '../../../components/AutoSizer';
 import Group, { IGroupProps } from '../../../components/common/Group';
+
+import useElementSize from '../../../hooks/useElementSize';
 
 import { ISizeCallback } from '../../../model/ISize';
 import IEntity from '../../../model/IEntity';
@@ -459,6 +460,9 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   const { breakpoints: { values: bpoints } } = useTheme();
   const groupRef: React.MutableRefObject<any> = useRef(null);
   const { classes } = useStyles();
+  const { elementRef, size } = useElementSize<HTMLDivElement>({
+    target: document.body,
+  });
   return (
     <Group
       className={classNames(className, classes.root)}
@@ -479,25 +483,19 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
         isBaselineAlign={isBaselineAlign}
         columnsOverride={columnsOverride}
       >
-        <AutoSizer
-          className={classes.content}
-          target={document.body}
-          payload={object}
-        >
-          {({ width, height }) => width ? (
-            <Container<Data>
-              element={groupRef.current}
-              className={classes.item}
-              bpoints={bpoints}
-              height={height}
-              width={width}
-              registry={otherProps}
-              object={object}
-            >
-              {children}
-            </Container>
-          ) : null}
-        </AutoSizer>
+        <div ref={elementRef} className={classes.content}>
+          <Container<Data>
+            element={groupRef.current}
+            className={classes.item}
+            bpoints={bpoints}
+            height={size.height}
+            width={size.width}
+            registry={otherProps}
+            object={object}
+          >
+            {children}
+          </Container>
+        </div>
       </Group>
     </Group>
   );

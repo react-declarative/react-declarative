@@ -13,7 +13,8 @@ import IAnything from '../../../model/IAnything';
 import { PickProp } from '../../../model/IManaged';
 
 import Group, { IGroupProps } from "../../../components/common/Group";
-import AutoSizer from '../../../components/AutoSizer';
+
+import useElementSize from '../../../hooks/useElementSize';
 
 import makeLayout from '../components/makeLayout/makeLayout';
 
@@ -115,6 +116,8 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const [groupRef, setGroupRef] = useState<HTMLDivElement>();
     const [marginRight, setMarginRight] = useState(0);
 
+    const { elementRef, size } = useElementSize<HTMLDivElement>();
+
     const isMounted = useRef(true);
 
     useLayoutEffect(() => () => {
@@ -173,23 +176,21 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             fieldRightMargin={fieldRightMargin}
             fieldBottomMargin={fieldBottomMargin}
         >
-            <AutoSizer className={classes.root} payload={marginRight}>
-                {({ width }) => (
-                    <div className={classNames(classes.container)}>
-                        <div className={classes.content} style={{ padding }}>
-                            <div style={{ marginRight, width }}>
-                                <Group
-                                    columnsOverride={columnsOverride}
-                                    isBaselineAlign={isBaselineAlign}
-                                    ref={handleGroupRef}
-                                >
-                                    {children}
-                                </Group>
-                            </div>
+            <div ref={elementRef} className={classes.root}>
+                <div className={classNames(classes.container)}>
+                    <div className={classes.content} style={{ padding }}>
+                        <div style={{ marginRight, width: size.width }}>
+                            <Group
+                                columnsOverride={columnsOverride}
+                                isBaselineAlign={isBaselineAlign}
+                                ref={handleGroupRef}
+                            >
+                                {children}
+                            </Group>
                         </div>
                     </div>
-                )}
-            </AutoSizer>
+                </div>
+            </div>
         </Group>
     );
 };
