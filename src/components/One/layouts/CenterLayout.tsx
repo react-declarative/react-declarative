@@ -179,7 +179,7 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             <div ref={elementRef} className={classes.root}>
                 <div className={classNames(classes.container)}>
                     <div className={classes.content} style={{ padding }}>
-                        <div style={{ marginRight, width: size.width }}>
+                        <div style={{ marginRight, width: marginRight ? size.width : "100%" }}>
                             <Group
                                 columnsOverride={columnsOverride}
                                 isBaselineAlign={isBaselineAlign}
