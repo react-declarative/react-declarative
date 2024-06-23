@@ -10568,6 +10568,7 @@ declare module "react-declarative/utils/createSsSet" {
     add: (value: T) => void;
     delete: (value: T) => void;
     toSet: () => Set<T>;
+    clear: () => void;
   };
   export default createSsSet;
 }
@@ -10580,6 +10581,7 @@ declare module "react-declarative/utils/createLsSet" {
     add: (value: T) => void;
     delete: (value: T) => void;
     toSet: () => Set<T>;
+    clear: () => void;
   };
   export default createLsSet;
 }

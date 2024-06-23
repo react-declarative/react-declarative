@@ -14,6 +14,10 @@ export const createLsSet = <T = string>(STORAGE_KEY: string) => {
             storageManager.setValue([...accessManager]);
         },
         toSet: () => accessManager,
+        clear: () => {
+            accessManager.clear();
+            storageManager.setValue([...accessManager]);
+        },
     };
 };
 
