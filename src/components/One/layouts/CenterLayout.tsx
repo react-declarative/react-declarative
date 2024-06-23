@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, useLayoutEffect, useEffect, useMemo } from 'react';
+import { useRef, useState, useLayoutEffect, useEffect } from 'react';
 
 import { makeStyles } from '../../../styles';
 import { debounce } from '@mui/material';
@@ -76,8 +76,6 @@ const useStyles = makeStyles()({
     },
 });
 
-const RENDER_DELAY = 650;
-
 /**
  * Component for centering its children with specified layout and alignment.
  *
@@ -123,10 +121,6 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
 
     const [hidden, setHidden] = useState(true);
 
-    const emitShow = useMemo(() => debounce(() => {
-        setHidden(false);
-    }, RENDER_DELAY), []);
-
     const { elementRef, size } = useElementSize<HTMLDivElement>();
 
     const isMounted = useRef(true);
@@ -137,22 +131,18 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
 
     useEffect(() => {
 
-        const handler = () => {
+        const handler = (debounced = false) => {
             if (groupRef && isMounted.current) {
                 const { width, left } = groupRef.getBoundingClientRect();
                 let right = 0;
                 groupRef.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
                 const marginRight = Math.min(right - left - width, 0);
                 setMarginRight(marginRight);
-                emitShow();
+                debounced && setHidden(false);
             }
         };
 
-        const handlerDInternal = debounce(handler, CENTER_DEBOUNCE);
-        const handlerD = () => {
-            handlerDInternal();
-            emitShow();
-        };
+        const handlerD = debounce(() => handler(true), CENTER_DEBOUNCE);
 
         const mObserver = new MutationObserver(handlerD);
         const rObserver = new ResizeObserver(handlerD);
@@ -165,11 +155,11 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             rObserver.observe(groupRef);
             window.addEventListener('resize', handlerD);
             handler();
+            handlerD();
         };
 
         return () => {
-            handlerDInternal.clear();
-            emitShow.clear();
+            handlerD.clear();
             mObserver.disconnect();
             groupRef && rObserver.unobserve(groupRef);
             window.removeEventListener('resize', handlerD);
