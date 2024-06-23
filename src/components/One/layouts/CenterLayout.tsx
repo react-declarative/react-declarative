@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useRef, useState, useLayoutEffect, useEffect } from 'react';
+import { useRef, useState, useLayoutEffect, useEffect, useMemo } from 'react';
 
 import { makeStyles } from '../../../styles';
 import { debounce } from '@mui/material';
@@ -71,7 +71,12 @@ const useStyles = makeStyles()({
         justifyContent: 'center',
         flexDirection: 'column',
     },
+    hidden: {
+        visibility: 'hidden',
+    },
 });
+
+const RENDER_DELAY = 650;
 
 /**
  * Component for centering its children with specified layout and alignment.
@@ -116,6 +121,12 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
     const [groupRef, setGroupRef] = useState<HTMLDivElement>();
     const [marginRight, setMarginRight] = useState(0);
 
+    const [hidden, setHidden] = useState(true);
+
+    const emitShow = useMemo(() => debounce(() => {
+        setHidden(false);
+    }, RENDER_DELAY), []);
+
     const { elementRef, size } = useElementSize<HTMLDivElement>();
 
     const isMounted = useRef(true);
@@ -133,10 +144,15 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
                 groupRef.querySelectorAll(':scope > *').forEach((el) => right = Math.max(right, el.getBoundingClientRect().right));
                 const marginRight = Math.min(right - left - width, 0);
                 setMarginRight(marginRight);
+                emitShow();
             }
         };
 
-        const handlerD = debounce(handler, CENTER_DEBOUNCE);
+        const handlerDInternal = debounce(handler, CENTER_DEBOUNCE);
+        const handlerD = () => {
+            handlerDInternal();
+            emitShow();
+        };
 
         const mObserver = new MutationObserver(handlerD);
         const rObserver = new ResizeObserver(handlerD);
@@ -152,7 +168,8 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
         };
 
         return () => {
-            handlerD.clear();
+            handlerDInternal.clear();
+            emitShow.clear();
             mObserver.disconnect();
             groupRef && rObserver.unobserve(groupRef);
             window.removeEventListener('resize', handlerD);
@@ -177,7 +194,11 @@ export const CenterLayout = <Data extends IAnything = IAnything>({
             fieldBottomMargin={fieldBottomMargin}
         >
             <div ref={elementRef} className={classes.root}>
-                <div className={classNames(classes.container)}>
+                <div 
+                    className={classNames(classes.container, {
+                        [classes.hidden]: hidden,
+                    })}
+                >
                     <div className={classes.content} style={{ padding }}>
                         <div style={{ marginRight, width: marginRight ? size.width : "100%" }}>
                             <Group

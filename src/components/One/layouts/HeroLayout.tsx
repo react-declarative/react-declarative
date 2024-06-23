@@ -282,7 +282,7 @@ interface IContainerProps<Data extends IAnything> {
   width: number;
   registry: IHeroRegistry<Data>;
   object: PickProp<IEntity<Data>, 'object'>;
-  element: HTMLDivElement;
+  element: HTMLDivElement | null;
 }
 
 const match = (from: number, to: number) => matchMedia(`(min-width: ${from}px) and (max-width: ${to}px)`).matches;
@@ -328,6 +328,10 @@ const Container = <Data extends IAnything>({
   useLayoutEffect(() => {
 
     const process = async () => {
+
+      if (!element) {
+        return;
+      }
 
       const outerStyles: React.CSSProperties = {
         ...(isDesktop && (registry.heroOuterDesktopStyle || registry.heroOuterStyle)),
@@ -458,7 +462,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
   ...otherProps
 }: IHeroLayoutProps<Data> & IHeroLayoutPrivate) => {
   const { breakpoints: { values: bpoints } } = useTheme();
-  const groupRef: React.MutableRefObject<any> = useRef(null);
+  const [groupRef, setGroupRef] = useState<HTMLDivElement | null>(null as never);
   const { classes } = useStyles();
   const { elementRef, size } = useElementSize<HTMLDivElement>({
     target: document.body,
@@ -467,7 +471,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
     <Group
       className={classNames(className, classes.root)}
       data-testid={testId}
-      ref={(el) => groupRef.current = el}
+      ref={(el) => setGroupRef(el)}
       style={style}
       sx={sx}
       isItem={true}
@@ -485,7 +489,7 @@ export const HeroLayout = <Data extends IAnything = IAnything>({
       >
         <div ref={elementRef} className={classes.content}>
           <Container<Data>
-            element={groupRef.current}
+            element={groupRef}
             className={classes.item}
             bpoints={bpoints}
             height={size.height}
