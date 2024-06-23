@@ -884,6 +884,8 @@ declare module "react-declarative" {
   export { createManagedHistory } from "react-declarative/utils/createManagedHistory";
   export { createLsManager } from "react-declarative/utils/createLsManager";
   export { createSsManager } from "react-declarative/utils/createSsManager";
+  export { createSsSet } from "react-declarative/utils/createSsSet";
+  export { createLsSet } from "react-declarative/utils/createLsSet";
   export { createCustomTag } from "react-declarative/utils/createCustomTag";
   export { mainColor } from "react-declarative/utils/mainColor";
   export { cacheSrc } from "react-declarative/utils/cacheSrc";
@@ -10556,6 +10558,30 @@ declare module "react-declarative/utils/createSsManager" {
     clear: () => void;
   };
   export default createSsManager;
+}
+
+declare module "react-declarative/utils/createSsSet" {
+  export const createSsSet: <T = string>(
+    STORAGE_KEY: string,
+  ) => {
+    has: (value: T) => boolean;
+    add: (value: T) => void;
+    delete: (value: T) => void;
+    toSet: () => Set<T>;
+  };
+  export default createSsSet;
+}
+
+declare module "react-declarative/utils/createLsSet" {
+  export const createLsSet: <T = string>(
+    STORAGE_KEY: string,
+  ) => {
+    has: (value: T) => boolean;
+    add: (value: T) => void;
+    delete: (value: T) => void;
+    toSet: () => Set<T>;
+  };
+  export default createLsSet;
 }
 
 declare module "react-declarative/utils/createCustomTag" {

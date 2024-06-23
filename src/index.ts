@@ -809,6 +809,9 @@ export { createManagedHistory } from './utils/createManagedHistory';
 
 export { createLsManager } from './utils/createLsManager';
 export { createSsManager } from './utils/createSsManager';
+export { createSsSet } from './utils/createSsSet';
+export { createLsSet } from './utils/createLsSet';
+
 export { createCustomTag } from './utils/createCustomTag';
 
 export { mainColor } from './utils/mainColor';
