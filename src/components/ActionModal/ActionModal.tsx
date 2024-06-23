@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { makeStyles } from "../../styles";
 import { SxProps } from "@mui/system";
@@ -7,6 +7,7 @@ import { SxProps } from "@mui/system";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
+import LinearProgress from "@mui/material/LinearProgress";
 
 import ActionButton from "../ActionButton";
 import One from "../One";
@@ -95,6 +96,7 @@ export interface IActionModalProps<
 }
 
 const WAIT_FOR_CHANGES_DELAY = 1_000;
+const LOADER_HEIGHT = 4;
 
 const useStyles = makeStyles()((theme) => ({
   root: {
@@ -116,6 +118,13 @@ const useStyles = makeStyles()((theme) => ({
 
     borderRadius: 5,
     gap: 5,
+  },
+  loader: {
+    minHeight: `${LOADER_HEIGHT}px`,
+    maxHeight: `${LOADER_HEIGHT}px`,
+    marginTop: `-${LOADER_HEIGHT}px`,
+    zIndex: 2,
+    width: "100%",
   },
   content: {
     flex: 1,
@@ -309,6 +318,20 @@ export const ActionModal = <
   };
 
   /**
+   * Renders a loader component based on the state of loading and progress.
+   *
+   * @returns - The loader component to be rendered.
+   */
+  const renderLoader = useCallback(() => {
+    if (loading.current) {
+      return (
+        <LinearProgress className={classes.loader} variant="indeterminate" />
+      );
+    }
+    return null;
+  }, [loading.current]);
+
+  /**
    * Handles invalid name and message.
    *
    * @param name - The name that is considered invalid.
@@ -466,6 +489,7 @@ export const ActionModal = <
             )}
           </div>
         )}
+        {renderLoader()}
         <Box className={classes.content}>
           <One
             apiRef={apiRef}
@@ -486,6 +510,16 @@ export const ActionModal = <
             features={features}
             readTransform={readTransform}
             writeTransform={writeTransform}
+            loadStart={(source) => {
+              if (source === "one-resolve") {
+                handleLoadStart();
+              }
+            }}
+            loadEnd={(isOk, source) => {
+              if (source === "one-resolve") {
+                handleLoadEnd(isOk);
+              }
+            }}
           />
         </Box>
         {!readonly && withActionButton && (
