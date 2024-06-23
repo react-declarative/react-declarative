@@ -1,3 +1,69 @@
+# Center Layout (v2.6.83, 24/06/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.83)
+
+The `FieldType.Center` defines the 12 columns grid layout which center the inner if the row is not filled
+
+![ezgif-2-352bf5300b](https://github.com/react-declarative/react-declarative/assets/19227776/fa9dbb9b-36f7-4bda-8c92-177a6cd8f3a8)
+
+```tsx
+import { TypedField, FieldType } from "react-declarative";
+
+declare var BtcCurrency;
+declare var EthCurrency;
+declare var UsdtCurrency;
+
+export const fields: TypedField[] = [
+  {
+    type: FieldType.Center,
+    sx: (theme) => ({
+      [theme.breakpoints.up("lg")]: {
+        height: '100vh',
+        marginTop: '-56px',
+      },
+    }),
+    child: {
+      type: FieldType.Group,
+      desktopColumns: '9',
+      tabletColumns: '12',
+      phoneColumns: '12',
+      fields: [
+        {
+          type: FieldType.Component, 
+          fieldRightMargin: '1',
+          fieldBottomMargin: '1',
+          phoneColumns: '12',
+          tabletColumns: '6',
+          desktopColumns: '4',
+          element: BtcCurrency,
+        },
+        {
+          type: FieldType.Component,
+          fieldRightMargin: '1',
+          fieldBottomMargin: '1',
+          phoneColumns: '12',
+          tabletColumns: '6',
+          desktopColumns: '4',
+          element: EthCurrency,
+        },
+        {
+          type: FieldType.Component,
+          fieldRightMargin: '1',
+          fieldBottomMargin: '1',
+          phoneColumns: '12',
+          tabletColumns: '6',
+          desktopColumns: '4',
+          element: UsdtCurrency,
+        },
+      ]
+    },
+  },
+];
+```
+
+
+
+
 # Button Field (v2.6.64, 11/06/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.64)
