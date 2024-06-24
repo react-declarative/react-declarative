@@ -404,6 +404,7 @@ declare module "react-declarative" {
   export { ActionIcon } from "react-declarative/components";
   export { ActionFab } from "react-declarative/components";
   export { ActionChip } from "react-declarative/components";
+  export { ActionBounce, ActionState } from "react-declarative/components";
   export {
     ActionModal,
     useActionModal,
@@ -1004,6 +1005,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/ActionMenu";
   export * from "react-declarative/components/ActionGroup";
   export * from "react-declarative/components/ActionButton";
+  export * from "react-declarative/components/ActionBounce";
   export * from "react-declarative/components/ActionStopIcon";
   export * from "react-declarative/components/ActionFab";
   export * from "react-declarative/components/ActionFilter";
@@ -11196,6 +11198,12 @@ declare module "react-declarative/components/ActionButton" {
   export * from "react-declarative/components/ActionButton/ActionButton";
   export * from "react-declarative/components/ActionButton/api/usePreventAction";
   export { default } from "react-declarative/components/ActionButton/ActionButton";
+}
+
+declare module "react-declarative/components/ActionBounce" {
+  export * from "react-declarative/components/ActionBounce/ActionBounce";
+  export * from "react-declarative/components/ActionBounce/model/ActionState";
+  export { default } from "react-declarative/components/ActionBounce/ActionBounce";
 }
 
 declare module "react-declarative/components/ActionStopIcon" {
@@ -22340,6 +22348,46 @@ declare module "react-declarative/components/ActionButton/api/usePreventAction" 
   export default usePreventAction;
 }
 
+declare module "react-declarative/components/ActionBounce/ActionBounce" {
+  import * as React from "react";
+  import { IPaperViewProps } from "react-declarative/components/PaperView";
+  import TSubject from "react-declarative/model/TSubject";
+  import ActionState from "react-declarative/components/ActionBounce/model/ActionState";
+  interface IActionBounceProps
+    extends Omit<
+      IPaperViewProps,
+      keyof {
+        onAnimationEnd: never;
+      }
+    > {
+    onAnimationEnd: (
+      state: ActionState,
+      e: React.AnimationEvent<HTMLDivElement>,
+    ) => void;
+    defaultState?: ActionState;
+    stateSubject: TSubject<ActionState>;
+  }
+  export const ActionBounce: ({
+    defaultState,
+    onAnimationEnd,
+    className,
+    children,
+    stateSubject,
+    ...otherProps
+  }: IActionBounceProps) => JSX.Element;
+  export default ActionBounce;
+}
+
+declare module "react-declarative/components/ActionBounce/model/ActionState" {
+  export enum ActionState {
+    Initial = "initial-state",
+    Active = "active-state",
+    Abort = "abort-state",
+    Succeed = "succeed-state",
+  }
+  export default ActionState;
+}
+
 declare module "react-declarative/components/ActionStopIcon/ActionStopIcon" {
   import * as React from "react";
   import { SxProps } from "@mui/material";
@@ -23897,7 +23945,7 @@ declare module "react-declarative/components/PaperView/PaperView" {
    *
    * @interface IPaperViewProps
    */
-  interface IPaperViewProps
+  export interface IPaperViewProps
     extends Omit<
       PaperProps,
       keyof {

@@ -34,7 +34,7 @@ const useStyles = makeStyles()((theme) => ({
  *
  * @interface IPaperViewProps
  */
-interface IPaperViewProps extends Omit<PaperProps, keyof {
+export interface IPaperViewProps extends Omit<PaperProps, keyof {
   component: never;
 }> {
   component?: React.ElementType;

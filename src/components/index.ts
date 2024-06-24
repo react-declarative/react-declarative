@@ -45,6 +45,7 @@ export * from './ActionChip';
 export * from './ActionMenu';
 export * from './ActionGroup';
 export * from './ActionButton';
+export * from './ActionBounce';
 export * from './ActionStopIcon';
 export * from './ActionFab';
 export * from './ActionFilter';
