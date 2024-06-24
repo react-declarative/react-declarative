@@ -11942,7 +11942,7 @@ declare module "react-declarative/components/One/layouts/StretchLayout" {
     style?: PickProp<IField<Data, Payload>, "style">;
   }
   /**
-   * Represents a private interface for the StrechLayout component.
+   * Represents a private interface for the StretchLayout component.
    *
    * @interface IStretchLayoutPrivate
    * @template Data - the type of the data.

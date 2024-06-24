@@ -18,7 +18,7 @@ import IField from '../../../model/IField';
  * @returns The CSS classes object.
  */
 const useStyles = makeStyles()({
-  strech: {
+  stretch: {
     position: "relative",
     display: "flex",
     alignItems: "stretch",
@@ -77,7 +77,7 @@ export const Paper = ({
 }: IPaperProps & IPaperPrivate) => {
   const { classes } = useStyles();
   return (
-    <MatPaper sx={sx} className={classNames(className, classes.strech)} style={style}>
+    <MatPaper sx={sx} className={classNames(className, classes.stretch)} style={style}>
       <Box className={classes.content}>
         <Group
           columnsOverride={columnsOverride}

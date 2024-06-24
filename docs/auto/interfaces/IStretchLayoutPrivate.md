@@ -1,6 +1,6 @@
 # IStretchLayoutPrivate
 
-Represents a private interface for the StrechLayout component.
+Represents a private interface for the StretchLayout component.
 
 ## Properties
 

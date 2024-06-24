@@ -15,14 +15,14 @@ import IField from '../../../model/IField';
 
 /**
  * The useStyles variable is used to define custom styles using the makeStyles hook.
- * It returns an object containing CSS styles for the strech and content classes.
+ * It returns an object containing CSS styles for the stretch and content classes.
  *
  * @type {Object}
- * @property strech - CSS styles for the .strech class.
+ * @property stretch - CSS styles for the .stretch class.
  * @property content - CSS styles for the .content class.
  */
 const useStyles = makeStyles()((theme) => ({
-  strech: {
+  stretch: {
     position: "relative",
     display: "flex",
     alignItems: "stretch",
@@ -81,7 +81,7 @@ export const Outline = ({
 }: IOutlineProps & IOutlinePrivate) => {
   const { classes } = useStyles();
   return (
-    <Box className={classNames(className, classes.strech)} sx={sx} style={style}>
+    <Box className={classNames(className, classes.stretch)} sx={sx} style={style}>
       <Box className={classes.content}>
         <Group
           isBaselineAlign={isBaselineAlign}

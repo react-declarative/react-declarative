@@ -13,7 +13,7 @@ import IAnything from '../../../model/IAnything';
 import IField from '../../../model/IField';
 
 const useStyles = makeStyles()({
-  strech: {
+  stretch: {
     position: "relative",
     display: "flex",
     alignItems: "stretch",
@@ -71,7 +71,7 @@ export const Outline = ({
 }: IOutlineProps & IOutlinePrivate) => {
   const { classes } = useStyles();
   return (
-    <Box className={classNames(className, classes.strech)} sx={sx} style={style}>
+    <Box className={classNames(className, classes.stretch)} sx={sx} style={style}>
       <Box className={classes.content}>
         <Group
           isBaselineAlign={isBaselineAlign}
