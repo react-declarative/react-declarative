@@ -30,6 +30,7 @@ That means AI cannot debug the hooks when changing JSX. The declarative view eng
 12. [Account info](./sample/account_info.md)
 14. [Sign in form](./sample/login_form.md)
 14. [Crypto form](./sample/crypto_form.md)
+15. [KPI Review](./sample/kpi_review.md)
 
 **The prompt**
 
