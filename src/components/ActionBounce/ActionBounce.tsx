@@ -95,6 +95,9 @@ const useStyles = makeStyles()((theme) => {
         abort: {
           animation: `${abortAnimation} 500ms ${theme.transitions.easing.easeInOut}`,
         },
+        closed: {
+            visibility: 'hidden',
+        },
     };
 });
 
@@ -115,6 +118,7 @@ export const ActionBounce = ({
         [ActionState.Active]: classes.active,
         [ActionState.Abort]: classes.abort,
         [ActionState.Succeed]: classes.succeed,
+        [ActionState.Closed]: classes.closed,
     }), []);
 
     const [animation$, setAnimation] = useActualState(defaultState);
