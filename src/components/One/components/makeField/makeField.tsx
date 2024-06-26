@@ -65,7 +65,7 @@ const stretch = {
  * Custom hook for generating CSS-in-JS styles using makeStyles function from Material-UI library.
  * @returns The generated styles object.
  */
-const useStyles = makeStyles()({
+const useStyles = makeStyles()((theme) => ({
     root: {
       ...stretch,
       '& > *': {
@@ -85,7 +85,22 @@ const useStyles = makeStyles()({
             pointerEvents: 'none !important' as 'none',
         },
     },
-});
+    phoneHidden: {
+        [theme.breakpoints.only('xs')]: {
+            display: 'none !important',
+        }
+    },
+    tabletHidden: {
+        [theme.breakpoints.between("sm", "lg")]: {
+            display: 'none !important',
+        }
+    },
+    desktopHidden: {
+        [theme.breakpoints.up('lg')]: {
+            display: 'none !important',
+        }
+    },
+}));
 
 /**
  * Represents the configuration options for makeField hoc.
@@ -149,6 +164,9 @@ export function makeField(
         phoneColumns = '',
         tabletColumns = '',
         desktopColumns = '',
+        phoneHidden: upperPhoneHidden = false,
+        tabletHidden: upperTabletHidden = false,
+        desktopHidden: upperDesktopHidden = false,
         isDisabled: isDisabledUpper,
         isVisible: isVisibleUpper,
         isInvalid: isInvalidUpper,
@@ -219,6 +237,9 @@ export function makeField(
 
         const {
             state: {
+                phoneHidden,
+                tabletHidden,
+                desktopHidden,
                 dirty,
                 disabled,
                 fieldReadonly,
@@ -256,6 +277,9 @@ export function makeField(
             isInvalid,
             isIncorrect,
             isReadonly,
+            phoneHidden: upperPhoneHidden,
+            tabletHidden: upperTabletHidden,
+            desktopHidden: upperDesktopHidden,
         });
 
         const debounceSpeed = useDebounceConfig(oneConfig);
@@ -733,6 +757,9 @@ export function makeField(
         const classMap = {
             [classes.hidden]: !visible,
             [classes.fieldReadonly]: fieldReadonly,
+            [classes.phoneHidden]: phoneHidden,
+            [classes.tabletHidden]: tabletHidden,
+            [classes.desktopHidden]: desktopHidden,
         };
 
         const componentProps = {

@@ -24,6 +24,9 @@ interface IState {
   loading: boolean;
   dirty: boolean;
   value: Value;
+  phoneHidden: boolean;
+  tabletHidden: boolean;
+  desktopHidden: boolean;
 }
 
 /**
@@ -48,6 +51,9 @@ interface IInitialData
       loading: never;
       disabled: never;
       value: never;
+      phoneHidden: never;
+      tabletHidden: never;
+      desktopHidden: never;
     }
   > {}
 
@@ -68,6 +74,9 @@ interface IParams {
   isInvalid: Exclude<IField["isInvalid"], undefined>;
   isIncorrect: Exclude<IField["isIncorrect"], undefined>;
   isReadonly: Exclude<IField["isReadonly"], undefined>;
+  phoneHidden: Exclude<IField["phoneHidden"], undefined>;
+  tabletHidden: Exclude<IField["tabletHidden"], undefined>;
+  desktopHidden: Exclude<IField["desktopHidden"], undefined>;
 }
 
 /**
@@ -103,6 +112,9 @@ const readValue = ({ compute, readTransform, name, object, payload, config }: IP
 };
 
 const readState = ({
+  phoneHidden,
+  tabletHidden,
+  desktopHidden,
   isReadonly,
   isInvalid,
   isDisabled,
@@ -111,6 +123,9 @@ const readState = ({
   object,
   payload,
 }: IParams) => ({
+  phoneHidden: typeof phoneHidden === "function" ? phoneHidden(payload) : phoneHidden,
+  tabletHidden: typeof tabletHidden === "function" ? tabletHidden(payload) : tabletHidden,
+  desktopHidden: typeof desktopHidden === "function" ? desktopHidden(payload) : desktopHidden,
   fieldReadonly: isReadonly(object, payload),
   invalid: isInvalid(object, payload),
   visible: isVisible(object, payload),
