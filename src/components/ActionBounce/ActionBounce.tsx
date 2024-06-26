@@ -15,8 +15,10 @@ import classNames from "../../utils/classNames";
 
 interface IActionBounceProps extends Omit<IPaperViewProps, keyof {
     onAnimationEnd: never;
+    onAnimationStart: never;
 }> {
-    onAnimationEnd: (state: ActionState, e: React.AnimationEvent<HTMLDivElement>) => void;
+    onAnimationStart?: (state: ActionState, e: React.AnimationEvent<HTMLDivElement>) => void;
+    onAnimationEnd?: (state: ActionState, e: React.AnimationEvent<HTMLDivElement>) => void;
     defaultState?: ActionState;
     stateSubject: TSubject<ActionState>;
 }
@@ -99,6 +101,7 @@ const useStyles = makeStyles()((theme) => {
 export const ActionBounce = ({
     defaultState = ActionState.Initial,
     onAnimationEnd,
+    onAnimationStart,
     className,
     children,
     stateSubject,
@@ -125,6 +128,9 @@ export const ActionBounce = ({
             className={classNames(className, animationClass)}
             onAnimationEnd={(e) => {
                 onAnimationEnd && onAnimationEnd(animation$.current, e);
+            }}
+            onAnimationStart={(e) => {
+                onAnimationStart && onAnimationStart(animation$.current, e);
             }}
             {...otherProps}
         >

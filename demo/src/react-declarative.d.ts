@@ -22358,9 +22358,14 @@ declare module "react-declarative/components/ActionBounce/ActionBounce" {
       IPaperViewProps,
       keyof {
         onAnimationEnd: never;
+        onAnimationStart: never;
       }
     > {
-    onAnimationEnd: (
+    onAnimationStart?: (
+      state: ActionState,
+      e: React.AnimationEvent<HTMLDivElement>,
+    ) => void;
+    onAnimationEnd?: (
       state: ActionState,
       e: React.AnimationEvent<HTMLDivElement>,
     ) => void;
@@ -22370,6 +22375,7 @@ declare module "react-declarative/components/ActionBounce/ActionBounce" {
   export const ActionBounce: ({
     defaultState,
     onAnimationEnd,
+    onAnimationStart,
     className,
     children,
     stateSubject,

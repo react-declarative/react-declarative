@@ -2,6 +2,12 @@
 
 ## Properties
 
+### onAnimationStart
+
+```ts
+onAnimationStart: (state: ActionState, e: AnimationEvent<HTMLDivElement>) => void
+```
+
 ### onAnimationEnd
 
 ```ts
