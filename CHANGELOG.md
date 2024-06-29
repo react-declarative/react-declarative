@@ -1,3 +1,93 @@
+# Action Animation (v2.6.90, 29/06/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.90)
+
+The `<ActionBounce />` component will allow you to animate paper with `ActionState.Active`, `ActionState.Succeed` and `ActionState.Abort` animations
+
+![ezgif-6-bdf0030c17](https://github.com/react-declarative/react-declarative/assets/19227776/6d66d00b-b0db-49b1-b16d-4ce1210a2674)
+
+```tsx
+import { TypedField, FieldType, ActionBounce, ActionState, Subject } from "react-declarative";
+
+const sleep = (delay = 1_000) => new Promise<void>((res) => setTimeout(() => res(), delay))
+
+const stateSubject = new Subject<ActionState>();
+
+export const fields: TypedField[] = [
+  {
+    type: FieldType.Box,
+    sx: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: '80vh',
+    },
+    child: {
+      type: FieldType.Layout,
+      customLayout: ({ children }) => (
+        <ActionBounce transparentPaper stateSubject={stateSubject}>
+          {children}
+        </ActionBounce>
+      ),
+      child: {
+        type: FieldType.Paper,
+        sx: {
+          width: "256px",
+        },
+        fields: [
+          {
+            type: FieldType.Typography,
+            typoVariant: 'h4',
+            placeholder: 'Sign in',
+          },
+          {
+            type: FieldType.Text,
+            fieldRightMargin: '0',
+            fieldBottomMargin: '2',
+            outlined: true,
+            name: 'login',
+          },
+          {
+            type: FieldType.Text,
+            fieldRightMargin: '0',
+            fieldBottomMargin: '1',
+            outlined: true,
+            inputType: 'password',
+            name: 'password',
+          },
+          {
+            type: FieldType.Box,
+            sx: {
+              minHeight: '28px',
+            },
+          },
+          {
+            type: FieldType.Icon,
+            fieldRightMargin: '0',
+            fieldBottomMargin: '0',
+            iconBackground: 'warning',
+            sx: {
+              marginBottom: '-32px',
+            },
+            iconSize: 48,
+            click: async (name, e, data) => {
+              stateSubject.next(ActionState.Active);
+              await sleep();
+              stateSubject.next(ActionState.Succeed);
+              await sleep();
+              stateSubject.next(ActionState.Abort);
+            },
+          },
+        ]
+      },
+    },
+  },
+];
+
+```
+
+
+
 # Center Layout (v2.6.83, 24/06/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.83)
