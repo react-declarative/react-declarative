@@ -94,6 +94,7 @@ export const useActionModal = <
   apiRef,
   changeSubject,
   reloadSubject,
+  withLoader,
   withActionButton = true,
   withStaticAction,
   payload: upperPayload = {} as Payload,
@@ -191,6 +192,7 @@ export const useActionModal = <
         AfterTitle={AfterTitle}
         open={open}
         hidden={hidden}
+        withLoader={withLoader}
         withActionButton={withActionButton}
         withStaticAction={withStaticAction}
         waitForChangesDelay={waitForChangesDelay}

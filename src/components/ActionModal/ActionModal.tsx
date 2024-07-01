@@ -49,6 +49,7 @@ export interface IActionModalProps<
     width: number;
     sx?: SxProps<any>;
   };
+  withLoader?: boolean;
   waitForChangesDelay?: number;
   withActionButton?: boolean;
   withStaticAction?: boolean;
@@ -243,6 +244,7 @@ export const ActionModal = <
 >({
   withActionButton = true,
   withStaticAction = false,
+  withLoader = false,
   waitForChangesDelay = withStaticAction ? 0 : WAIT_FOR_CHANGES_DELAY,
   onSubmit = () => true,
   onChange = () => undefined,
@@ -323,6 +325,9 @@ export const ActionModal = <
    * @returns - The loader component to be rendered.
    */
   const renderLoader = useCallback(() => {
+    if (!withLoader) {
+      return null;
+    }
     if (loading.current) {
       return (
         <LinearProgress className={classes.loader} variant="indeterminate" />

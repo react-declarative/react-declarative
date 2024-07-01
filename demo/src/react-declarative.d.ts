@@ -22868,6 +22868,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
       width: number;
       sx?: SxProps<any>;
     };
+    withLoader?: boolean;
     waitForChangesDelay?: number;
     withActionButton?: boolean;
     withStaticAction?: boolean;
@@ -22988,6 +22989,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
   >({
     withActionButton,
     withStaticAction,
+    withLoader,
     waitForChangesDelay,
     onSubmit,
     onChange,
@@ -23108,6 +23110,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     apiRef,
     changeSubject,
     reloadSubject,
+    withLoader,
     withActionButton,
     withStaticAction,
     payload: upperPayload,

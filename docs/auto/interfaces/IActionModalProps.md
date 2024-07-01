@@ -10,6 +10,12 @@ Interface representing the props for the ActionModal component.
 sizeRequest: (size: ISize) => { height: number; width: number; sx?: SxProps<any>; }
 ```
 
+### withLoader
+
+```ts
+withLoader: boolean
+```
+
 ### waitForChangesDelay
 
 ```ts
