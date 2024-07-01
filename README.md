@@ -1272,6 +1272,12 @@ import { VirtualView } from 'react-declarative';
 
 MIT [@tripolskypetr](https://github.com/tripolskypetr)
 
+## References
+
+1. [Playground](https://react-declarative-playground.github.io/)
+2. [Storybook](https://react-declarative-storybook.github.io/)
+3. [Typedoc](https://react-declarative-typedoc.github.io/)
+
 ## Thanks
 
 Dude, you reached that point, omg. Could you 
