@@ -144,7 +144,8 @@ Read the code from the markdown file and make me a sign in form by using same sc
 1. [API reference](./auto/index.md)
 2. [Release notes](../CHANGELOG.md)
 3. [Philosophy notes](../NOTES.md)
-4. [FAQ](../FAQ.md)
+4. [Typedoc website](./other/typedoc_website.md)
+5. [FAQ](../FAQ.md)
 
 ## Overview
 
