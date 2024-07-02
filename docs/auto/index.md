@@ -411,6 +411,8 @@
 - [IAsyncProps](interfaces/IAsyncProps.md)
 - [ICopyProps](interfaces/ICopyProps.md)
 - [IIfProps](interfaces/IIfProps.md)
+- [IPosition](interfaces/IPosition.md)
+- [IMapProps](interfaces/IMapProps.md)
 - [ICopyButtonProps](interfaces/ICopyButtonProps.md)
 - [ISubjectBindingProps](interfaces/ISubjectBindingProps.md)
 - [ICountdownProps](interfaces/ICountdownProps.md)

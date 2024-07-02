@@ -105,6 +105,7 @@ export * from './Spinner';
 export * from './Async';
 export * from './Copy';
 export * from './If';
+export * from './Map';
 export * from './CopyButton';
 export * from './SubjectBinding';
 export * from './Countdown';

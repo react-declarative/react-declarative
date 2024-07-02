@@ -495,6 +495,7 @@ export { Tile, TileCheckbox } from './components';
 export { CopyButton } from './components';
 export { Copy } from './components';
 export { Chip } from './components';
+export { Map } from './components';
 
 export { OneSlotFactory, OneDefaultSlots } from './components';
 export { ListSlotFactory, ListDefaultSlots } from './components';
