@@ -65,6 +65,10 @@ export const Map = ({
             zoom,
         });
 
+        const observer = new ResizeObserver(() => {
+            map.resize()
+        });
+
         let marker = new mapboxgl.Marker();
 
         if (pos) {
@@ -90,7 +94,10 @@ export const Map = ({
 
         marker.addTo(map);
 
+        observer.observe(container);
+
         disposeRef.current = () => {
+            observer.unobserve(container);
             marker.remove();
             map.remove();
         };
