@@ -5,6 +5,9 @@
  * @return The name converted to title case.
  */
 export const nameToTitle = (name: string) => {
+    if (!name) {
+        return undefined;
+    }
     if (name.includes(".")) {
         const tokens = name.split(".");
         [name] = tokens.reverse();
