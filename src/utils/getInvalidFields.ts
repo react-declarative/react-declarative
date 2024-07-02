@@ -2,6 +2,9 @@ import IInvalidField from "../model/IInvalidField";
 import IAnything from "../model/IAnything";
 import IField from "../model/IField";
 
+import deepClone from "../components/One/helpers/deepClone";
+import applyValidation from "../components/One/helpers/applyValidation";
+
 import deepFlat from "./deepFlat";
 
 export const getInvalidFields = <Data = IAnything, Payload = IAnything>(
@@ -10,7 +13,8 @@ export const getInvalidFields = <Data = IAnything, Payload = IAnything>(
     payload: Payload
 ) => {
     const invalid: IInvalidField<Data, Payload>[] = [];
-    deepFlat(fields).forEach((field: IField<Data, Payload>) => {
+    const wrappedFields = applyValidation<Data, IAnything>(deepClone(fields));
+    deepFlat(wrappedFields).forEach((field: IField<Data, Payload>) => {
         const { isInvalid = () => null, hidden } = field;
         const isHidden = typeof hidden === 'function' ? hidden(payload) : hidden;
         if (isHidden) {
