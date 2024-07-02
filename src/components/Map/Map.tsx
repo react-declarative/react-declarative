@@ -4,8 +4,13 @@ import { useCallback, useMemo, useRef } from 'react';
 import type mapboxglInternal from 'mapbox-gl';
 
 import Box, { BoxProps } from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import Center from '../Center';
 
 import useActualCallback from '../../hooks/useActualCallback';
+import useChangeSubject from '../../hooks/useChangeSubject';
+import useActualValue from '../../hooks/useActualValue';
 import useOnce from '../../hooks/useOnce';
 
 import debounce from '../../utils/hof/debounce';
@@ -14,7 +19,7 @@ declare global {
     var mapboxgl: typeof mapboxglInternal;
 }
 
-const DEFAULT_ZOOM = 10;
+const DEFAULT_ZOOM = 15;
 const CHANGE_DEBOUNCE = 500;
 
 interface IPosition {
@@ -33,7 +38,7 @@ interface IMapProps extends Omit<BoxProps, keyof {
 
 export const Map = ({
     value: pos,
-    readonly,
+    readonly = false,
     zoom = DEFAULT_ZOOM,
     onChange = () => undefined,
     ...otherProps
@@ -41,6 +46,10 @@ export const Map = ({
     const disposeRef = useRef<Function>(null as never);
 
     const onChange$ = useActualCallback(onChange);
+
+    const readonly$ = useActualValue(readonly);
+
+    const changeSubject = useChangeSubject(pos);
 
     const handleChange = useMemo(() => debounce((pos: IPosition) => {
         onChange$(pos);
@@ -78,7 +87,7 @@ export const Map = ({
         marker.addTo(map);
 
         map.on('move', () => {
-            if (readonly) {
+            if (readonly$.current) {
                 return;
             }
             const { lng, lat } = map.getCenter();
@@ -96,13 +105,38 @@ export const Map = ({
 
         observer.observe(container);
 
+        const un = changeSubject.subscribe((pos) => {
+            if (pos) {
+                const { lng, lat } = pos;
+                marker.setLngLat({
+                    lng,
+                    lat,
+                });
+                map.setCenter({
+                    lng,
+                    lat,
+                });
+            }
+        });
+
         disposeRef.current = () => {
             observer.unobserve(container);
             marker.remove();
             map.remove();
+            un();
         };
 
     }, []);
+
+    if (!pos) {
+        return (
+            <Center {...otherProps}>
+                <Typography>
+                    Point not choosen
+                </Typography>
+            </Center>
+        );
+    }
 
     return (
         <Box ref={handleRef} {...otherProps} />

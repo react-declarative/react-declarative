@@ -773,6 +773,8 @@ export { getFilterCount } from './utils/getFilterCount';
 export { getInvalidFields } from './utils/getInvalidFields';
 export { getFieldsError } from './utils/getFieldsError';
 
+export { isInvalidFieldData } from './utils/isInvalidFieldData';
+
 export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';
 export { replaceSubstring } from './utils/replaceSubstring';

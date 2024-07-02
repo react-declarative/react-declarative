@@ -839,6 +839,7 @@ declare module "react-declarative" {
   export { getFilterCount } from "react-declarative/utils/getFilterCount";
   export { getInvalidFields } from "react-declarative/utils/getInvalidFields";
   export { getFieldsError } from "react-declarative/utils/getFieldsError";
+  export { isInvalidFieldData } from "react-declarative/utils/isInvalidFieldData";
   export { flatArray } from "react-declarative/utils/flatArray";
   export { removeExtraSpaces } from "react-declarative/utils/removeExtraSpaces";
   export { replaceSubstring } from "react-declarative/utils/replaceSubstring";
@@ -9535,6 +9536,23 @@ declare module "react-declarative/utils/getFieldsError" {
     payload: Payload,
   ) => string | null;
   export default getFieldsError;
+}
+
+declare module "react-declarative/utils/isInvalidFieldData" {
+  import IField from "react-declarative/model/IField";
+  export const isInvalidFieldData: <Data = any, Payload = any>(
+    fields: IField<Data, Payload>[],
+    data: Data,
+    payload: Payload,
+    fallback?:
+      | ((
+          error: string,
+          title: string | undefined,
+          name: string | undefined,
+        ) => void)
+      | undefined,
+  ) => boolean;
+  export default isInvalidFieldData;
 }
 
 declare module "react-declarative/utils/flatArray" {
