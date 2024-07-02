@@ -24,6 +24,7 @@ declare module "react-declarative" {
   export { ISize } from "react-declarative/model/ISize";
   import { TypedField as TypedFieldInternal } from "react-declarative/model/TypedField";
   import { IValidation as IValidationInternal } from "react-declarative/model/IValidation";
+  import { IInvalidField as IInvalidFieldInternal } from "react-declarative/model/IInvalidField";
   import { IField as IFieldInternal } from "react-declarative/model/IField";
   import { IEntity as IEntityInternal } from "react-declarative/model/IEntity";
   import { IManaged as IManagedInternal } from "react-declarative/model/IManaged";
@@ -229,6 +230,10 @@ declare module "react-declarative" {
     Data = IAnything,
     Value = IAnything,
   > = IManagedInternal<Data, Value>;
+  export type IInvalidField<
+    Data = IAnything,
+    Payload = IAnything,
+  > = IInvalidFieldInternal<Data, Payload>;
   export type IValidation = IValidationInternal;
   export type ListHandler<
     FilterData extends {} = IAnything,
@@ -830,6 +835,8 @@ declare module "react-declarative" {
   export { getAvailableFields } from "react-declarative/utils/getAvailableFields";
   export { getInitialData } from "react-declarative/utils/getInitialData";
   export { getFilterCount } from "react-declarative/utils/getFilterCount";
+  export { getInvalidFields } from "react-declarative/utils/getInvalidFields";
+  export { getFieldsError } from "react-declarative/utils/getFieldsError";
   export { flatArray } from "react-declarative/utils/flatArray";
   export { removeExtraSpaces } from "react-declarative/utils/removeExtraSpaces";
   export { replaceSubstring } from "react-declarative/utils/replaceSubstring";
@@ -1633,6 +1640,18 @@ declare module "react-declarative/model/IValidation" {
     pattern?: RegExp;
   }
   export default IValidation;
+}
+
+declare module "react-declarative/model/IInvalidField" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  export interface IInvalidField<Data = IAnything, Payload = IAnything> {
+    field: IField<Data, Payload>;
+    title: IField<Data, Payload>["title"];
+    name: IField<Data, Payload>["name"];
+    error: string;
+  }
+  export default IInvalidField;
 }
 
 declare module "react-declarative/model/IField" {
@@ -9492,6 +9511,27 @@ declare module "react-declarative/utils/getFilterCount" {
     ignore?: (key: string, value: any) => boolean,
   ) => number;
   export default getFilterCount;
+}
+
+declare module "react-declarative/utils/getInvalidFields" {
+  import IInvalidField from "react-declarative/model/IInvalidField";
+  import IField from "react-declarative/model/IField";
+  export const getInvalidFields: <Data = any, Payload = any>(
+    fields: IField<Data, Payload>[],
+    data: Data,
+    payload: Payload,
+  ) => IInvalidField<Data, Payload>[] | null;
+  export default getInvalidFields;
+}
+
+declare module "react-declarative/utils/getFieldsError" {
+  import IField from "react-declarative/model/IField";
+  export const getFieldsError: <Data = any, Payload = any>(
+    fields: IField<Data, Payload>[],
+    data: Data,
+    payload: Payload,
+  ) => string | null;
+  export default getFieldsError;
 }
 
 declare module "react-declarative/utils/flatArray" {

@@ -6,6 +6,7 @@ export { ISize } from './model/ISize';
 
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IValidation as IValidationInternal } from './model/IValidation';
+import { IInvalidField as IInvalidFieldInternal } from './model/IInvalidField';
 import { IField as IFieldInternal } from './model/IField';
 import { IEntity as IEntityInternal } from './model/IEntity';
 import { IManaged as IManagedInternal } from './model/IManaged';
@@ -226,6 +227,7 @@ export type TypedField<Data = IAnything, Payload = IAnything> = TypedFieldIntern
 export type IField<Data = IAnything, Payload = IAnything> = IFieldInternal<Data, Payload>;
 export type IFieldEntity<Data = IAnything, Payload = IAnything> = IEntityInternal<Data, Payload>;
 export type IFieldManaged<Data = IAnything, Value = IAnything> = IManagedInternal<Data, Value>;
+export type IInvalidField<Data = IAnything, Payload = IAnything> = IInvalidFieldInternal<Data, Payload>;
 export type IValidation = IValidationInternal;
 
 export type ListHandler<FilterData extends {} = IAnything, RowData extends IRowData = IAnything> = ListHandlerInternal<FilterData, RowData>;
@@ -767,6 +769,8 @@ export { truely } from './utils/math/truely';
 export { getAvailableFields } from './utils/getAvailableFields';
 export { getInitialData } from './utils/getInitialData';
 export { getFilterCount } from './utils/getFilterCount';
+export { getInvalidFields } from './utils/getInvalidFields';
+export { getFieldsError } from './utils/getFieldsError';
 
 export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';
