@@ -2,6 +2,12 @@
 
 ## Properties
 
+### withZoomAdjust
+
+```ts
+withZoomAdjust: boolean
+```
+
 ### readonly
 
 ```ts

@@ -28054,6 +28054,7 @@ declare module "react-declarative/components/Map/Map" {
         onChange: never;
       }
     > {
+    withZoomAdjust?: boolean;
     readonly?: boolean;
     value?: IPosition;
     zoom?: number;
@@ -28061,6 +28062,7 @@ declare module "react-declarative/components/Map/Map" {
     onChange?: (position: IPosition) => void;
   }
   export const Map: ({
+    withZoomAdjust,
     value: pos,
     readonly,
     zoom,

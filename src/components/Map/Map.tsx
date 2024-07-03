@@ -21,13 +21,22 @@ declare global {
 
 const DEFAULT_ZOOM = 15;
 const CHANGE_DEBOUNCE = 500;
-const COMPARE_DECIMALS = 4;
+const COMPARE_DECIMALS = 6;
 const DEFAULT_TOKEN = "pk.eyJ1IjoidHJpcG9sc2t5cGV0ciIsImEiOiJjbHk0YWgzNmUwMGRiMmpzN3hzbjB4Z3J2In0.3oxAilQNCBFw7zO0AIbxfQ";
 
 interface IPosition {
     lng: number;
     lat: number;
 }
+
+const toFixedDecimals = (pos: IPosition) => {
+    const lat = pos.lat.toFixed(COMPARE_DECIMALS);
+    const lng = pos.lng.toFixed(COMPARE_DECIMALS);
+    return {
+        lat: parseFloat(lat),
+        lng: parseFloat(lng),
+    };
+};
 
 const comparePos = (pos1: IPosition | undefined, pos2: IPosition | undefined) => {
     if (!pos1 || !pos2) {
@@ -46,6 +55,7 @@ const comparePos = (pos1: IPosition | undefined, pos2: IPosition | undefined) =>
 interface IMapProps extends Omit<BoxProps, keyof {
     onChange: never;
 }> {
+    withZoomAdjust?: boolean;
     readonly?: boolean;
     value?: IPosition;
     zoom?: number;
@@ -54,6 +64,7 @@ interface IMapProps extends Omit<BoxProps, keyof {
 }
 
 export const Map = ({
+    withZoomAdjust = false,
     value: pos,
     readonly = false,
     zoom = DEFAULT_ZOOM,
@@ -71,8 +82,9 @@ export const Map = ({
     const changeSubject = useChangeSubject(pos);
 
     const handleChange = useMemo(() => debounce((pos: IPosition) => {
-        if (!comparePos(pos, pos$.current)) {
-            onChange$(pos);
+        const pendingPos = toFixedDecimals(pos);
+        if (!comparePos(pendingPos, pos$.current)) {
+            onChange$(pendingPos);
         }
     }, CHANGE_DEBOUNCE), []);
 
@@ -123,6 +135,19 @@ export const Map = ({
                 lng,
             });
         });
+
+        if (withZoomAdjust) {
+            let zoomCenter: mapboxglInternal.LngLat;
+
+            map.on('zoomstart', () => {
+                zoomCenter = map.getCenter();
+            });
+    
+            map.on('zoomend', () => {
+                map.setCenter(zoomCenter);
+                marker.setLngLat(zoomCenter);
+            });
+        }
 
         marker.addTo(map);
 
