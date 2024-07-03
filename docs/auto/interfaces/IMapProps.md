@@ -20,6 +20,12 @@ value: IPosition
 zoom: number
 ```
 
+### token
+
+```ts
+token: string
+```
+
 ### onChange
 
 ```ts

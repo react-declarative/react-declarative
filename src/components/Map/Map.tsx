@@ -21,11 +21,27 @@ declare global {
 
 const DEFAULT_ZOOM = 15;
 const CHANGE_DEBOUNCE = 500;
+const COMPARE_DECIMALS = 4;
+const DEFAULT_TOKEN = "pk.eyJ1IjoidHJpcG9sc2t5cGV0ciIsImEiOiJjbHk0YWgzNmUwMGRiMmpzN3hzbjB4Z3J2In0.3oxAilQNCBFw7zO0AIbxfQ";
 
 interface IPosition {
     lng: number;
     lat: number;
 }
+
+const comparePos = (pos1: IPosition | undefined, pos2: IPosition | undefined) => {
+    if (!pos1 || !pos2) {
+        return false;
+    }
+    const pos1Lat = pos1.lat.toFixed(COMPARE_DECIMALS);
+    const pos1lng = pos1.lng.toFixed(COMPARE_DECIMALS);
+    const pos2Lat = pos2.lat.toFixed(COMPARE_DECIMALS);
+    const pos2lng = pos2.lng.toFixed(COMPARE_DECIMALS);
+    let isEqual = true;
+    isEqual = isEqual && pos1Lat === pos2Lat;
+    isEqual = isEqual && pos1lng === pos2lng;
+    return isEqual;
+};
 
 interface IMapProps extends Omit<BoxProps, keyof {
     onChange: never;
@@ -33,6 +49,7 @@ interface IMapProps extends Omit<BoxProps, keyof {
     readonly?: boolean;
     value?: IPosition;
     zoom?: number;
+    token?: string;
     onChange?: (position: IPosition) => void;
 }
 
@@ -40,6 +57,7 @@ export const Map = ({
     value: pos,
     readonly = false,
     zoom = DEFAULT_ZOOM,
+    token = DEFAULT_TOKEN,
     onChange = () => undefined,
     ...otherProps
 }: IMapProps) => {
@@ -48,11 +66,14 @@ export const Map = ({
     const onChange$ = useActualCallback(onChange);
 
     const readonly$ = useActualValue(readonly);
+    const pos$ = useActualValue(pos);
 
     const changeSubject = useChangeSubject(pos);
 
     const handleChange = useMemo(() => debounce((pos: IPosition) => {
-        onChange$(pos);
+        if (!comparePos(pos, pos$.current)) {
+            onChange$(pos);
+        }
     }, CHANGE_DEBOUNCE), []);
 
     useOnce(() => () => {
@@ -66,6 +87,8 @@ export const Map = ({
         }
 
         disposeRef.current && disposeRef.current();
+
+        mapboxgl.accessToken = token;
 
         const map = new mapboxgl.Map({
             container: container,
@@ -106,17 +129,19 @@ export const Map = ({
         observer.observe(container);
 
         const un = changeSubject.subscribe((pos) => {
-            if (pos) {
-                const { lng, lat } = pos;
-                marker.setLngLat({
-                    lng,
-                    lat,
-                });
-                map.setCenter({
-                    lng,
-                    lat,
-                });
+            const mapPos = map.getCenter();
+            if (!comparePos(pos, mapPos)) {
+                return;
             }
+            const { lng, lat } = pos;
+            marker.setLngLat({
+                lng,
+                lat,
+            });
+            map.setCenter({
+                lng,
+                lat,
+            });
         });
 
         disposeRef.current = () => {
