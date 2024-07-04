@@ -15,6 +15,7 @@ import useOnce from '../../hooks/useOnce';
 
 import TSubject from '../../model/TSubject';
 
+import singleshot from '../../utils/hof/singleshot';
 import debounce from '../../utils/hof/debounce';
 
 declare global {
@@ -181,12 +182,12 @@ export const Map = ({
             });
         });
 
-        disposeRef.current = () => {
+        disposeRef.current = singleshot(() => {
             observer.unobserve(container);
             marker.remove();
             map.remove();
             un();
-        };
+        });
 
     }, []);
 
