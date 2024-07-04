@@ -96,11 +96,18 @@ export const Map = ({
     });
 
     const handleRef = useCallback((container: HTMLDivElement | null) => {
+        
+        const { current: pos } = pos$;
+
+        disposeRef.current && disposeRef.current();
+        
         if (!container) {
             return;
         }
 
-        disposeRef.current && disposeRef.current();
+        if (!pos) {
+            return;
+        }
 
         mapboxgl.accessToken = token;
 
