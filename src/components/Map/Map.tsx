@@ -154,6 +154,9 @@ export const Map = ({
         observer.observe(container);
 
         const un = changeSubject.subscribe((pos) => {
+            if (!pos) {
+                return;
+            }
             const mapPos = map.getCenter();
             if (!comparePos(pos, mapPos)) {
                 return;
