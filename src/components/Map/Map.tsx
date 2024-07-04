@@ -13,6 +13,8 @@ import useChangeSubject from '../../hooks/useChangeSubject';
 import useActualValue from '../../hooks/useActualValue';
 import useOnce from '../../hooks/useOnce';
 
+import TSubject from '../../model/TSubject';
+
 import debounce from '../../utils/hof/debounce';
 
 declare global {
@@ -79,7 +81,7 @@ export const Map = ({
     const readonly$ = useActualValue(readonly);
     const pos$ = useActualValue(pos);
 
-    const changeSubject = useChangeSubject(pos);
+    const changeSubject: TSubject<IPosition | undefined> = useChangeSubject(pos);
 
     const handleChange = useMemo(() => debounce((pos: IPosition) => {
         const pendingPos = toFixedDecimals(pos);
@@ -158,7 +160,7 @@ export const Map = ({
                 return;
             }
             const mapPos = map.getCenter();
-            if (!comparePos(pos, mapPos)) {
+            if (comparePos(pos, mapPos)) {
                 return;
             }
             const { lng, lat } = pos;
