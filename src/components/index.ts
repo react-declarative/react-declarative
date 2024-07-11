@@ -66,6 +66,7 @@ export * from './OutletView';
 export * from './AlertView';
 export * from './PaperView';
 export * from './DragDropView';
+export * from './DropAreaView';
 export * from './FilesView';
 export * from './ScrollView';
 export * from './ScaleView';

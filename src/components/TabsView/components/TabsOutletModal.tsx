@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect, useRef } from "react";
 
 import { makeStyles } from "../../../styles";
-import { SxProps } from "@mui/system";
+import { SxProps } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";

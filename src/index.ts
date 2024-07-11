@@ -292,6 +292,7 @@ export { AlertView } from './components';
 export { ImageView } from './components';
 export { ConstraintView } from './components';
 export { DragDropView } from './components';
+export { DropAreaView } from './components';
 export { FilesView } from './components';
 export { PaperView } from './components';
 export { ScrollView } from './components';

@@ -10,7 +10,6 @@
 //   ../../@mui/material/Button
 //   ../../@mui/material/IconButton
 //   ../../@mui/material/Fab
-//   ../../@mui/system
 //   ../../@mui/material/Stack
 //   ../../@mui/material/Paper
 //   ../../@mui/material/styles
@@ -304,6 +303,7 @@ declare module "react-declarative" {
   export { ImageView } from "react-declarative/components";
   export { ConstraintView } from "react-declarative/components";
   export { DragDropView } from "react-declarative/components";
+  export { DropAreaView } from "react-declarative/components";
   export { FilesView } from "react-declarative/components";
   export { PaperView } from "react-declarative/components";
   export { ScrollView } from "react-declarative/components";
@@ -1036,6 +1036,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/AlertView";
   export * from "react-declarative/components/PaperView";
   export * from "react-declarative/components/DragDropView";
+  export * from "react-declarative/components/DropAreaView";
   export * from "react-declarative/components/FilesView";
   export * from "react-declarative/components/ScrollView";
   export * from "react-declarative/components/ScaleView";
@@ -11360,6 +11361,11 @@ declare module "react-declarative/components/PaperView" {
 declare module "react-declarative/components/DragDropView" {
   export * from "react-declarative/components/DragDropView/DragDropView";
   export { default } from "react-declarative/components/DragDropView/DragDropView";
+}
+
+declare module "react-declarative/components/DropAreaView" {
+  export * from "react-declarative/components/DropAreaView/DropAreaView";
+  export { default } from "react-declarative/components/DropAreaView/DropAreaView";
 }
 
 declare module "react-declarative/components/FilesView" {
@@ -22918,7 +22924,7 @@ declare module "react-declarative/components/ActionToggle/ActionToggle" {
 
 declare module "react-declarative/components/ActionModal/ActionModal" {
   import * as React from "react";
-  import { SxProps } from "@mui/system";
+  import { SxProps } from "@mui/material";
   import ISize from "react-declarative/model/ISize";
   import IField from "react-declarative/model/IField";
   import IOneApi from "react-declarative/model/IOneApi";
@@ -24432,6 +24438,20 @@ declare module "react-declarative/components/DragDropView/DragDropView" {
     onReject,
   }: IDragDropViewProps) => JSX.Element;
   export default DragDropView;
+}
+
+declare module "react-declarative/components/DropAreaView/DropAreaView" {
+  import { IPaperViewProps } from "react-declarative/components/PaperView";
+  export interface IDropAreaProps extends IPaperViewProps {
+    onDropped?: (files: File[]) => void;
+  }
+  export const DropAreaView: ({
+    className,
+    children,
+    onDropped,
+    ...otherProps
+  }: IDropAreaProps) => JSX.Element;
+  export default DropAreaView;
 }
 
 declare module "react-declarative/components/FilesView/FilesView" {

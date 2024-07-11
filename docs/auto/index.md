@@ -347,6 +347,7 @@
 - [IAlertViewProps](interfaces/IAlertViewProps.md)
 - [IPaperViewProps](interfaces/IPaperViewProps.md)
 - [IDragDropViewProps](interfaces/IDragDropViewProps.md)
+- [IDropAreaProps](interfaces/IDropAreaProps.md)
 - [IFilesViewProps](interfaces/IFilesViewProps.md)
 - [IParams](interfaces/IParams.md)
 - [IParams](interfaces/IParams.md)
