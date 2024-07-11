@@ -164,6 +164,7 @@ declare module "react-declarative" {
   import { useMediaContext } from "react-declarative/hooks/useMediaContext";
   import { useAudioPlayer } from "react-declarative/hooks/useAudioPlayer";
   import { useChangeSubject } from "react-declarative/hooks/useChangeSubject";
+  import { useDeepChangeSubject } from "react-declarative/hooks/useDeepChangeSubject";
   import { useReloadTrigger } from "react-declarative/hooks/useReloadTrigger";
   import { useSingleton } from "react-declarative/hooks/useSingleton";
   import { useBehaviorSubject } from "react-declarative/hooks/useBehaviorSubject";
@@ -649,6 +650,7 @@ declare module "react-declarative" {
   export { isOneArray };
   export { toOneArray };
   export { useChangeSubject };
+  export { useDeepChangeSubject };
   export { useReloadTrigger };
   export { useSinglerunAction };
   export { useAsyncAction };
@@ -5803,6 +5805,13 @@ declare module "react-declarative/hooks/useChangeSubject" {
    */
   export const useChangeSubject: <T = undefined>(value: T) => Subject<T>;
   export default useChangeSubject;
+}
+
+declare module "react-declarative/hooks/useDeepChangeSubject" {
+  export const useDeepChangeSubject: <T extends object = any>(
+    object: T,
+  ) => import("..").Subject<T>;
+  export default useDeepChangeSubject;
 }
 
 declare module "react-declarative/hooks/useReloadTrigger" {

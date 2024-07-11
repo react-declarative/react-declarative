@@ -6,7 +6,7 @@ import { SxProps } from "@mui/material";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
-import useRenderWaiter from "../../../hooks/useRenderWaiter";
+import useDeepChangeSubject from "../../../hooks/useDeepChangeSubject";
 import useActualValue from "../../../hooks/useActualValue";
 import useSelection from "../hooks/useSelection";
 import useRowMark from "../hooks/useRowMark";
@@ -61,13 +61,11 @@ export const TileItem = forwardRef(
 
     const data$ = useActualValue(data);
 
-    const waitForRender = useRenderWaiter([
-      data
-    ]);
+    const dataChangeSubject = useDeepChangeSubject(data);
 
     const waitForData = useCallback(async () => {
       await Promise.race([
-        waitForRender(),
+        dataChangeSubject.toPromise(),
         sleep(DATA_FETCH_TIMEOUT),
       ])
     }, []);

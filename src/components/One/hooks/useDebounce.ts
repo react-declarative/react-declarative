@@ -35,7 +35,7 @@ function valueEquality<T>(left: T, right: T): boolean {
  * @param options.equalityFn - The custom equality function to compare previous and current values.
  * @returns An array containing the debounced value and control functions for the debounced callback.
  */
-export function useDebounce<T extends Value>(
+export function useDebounce<T extends any = Value>(
     value: T,
     delay: number,
     options?: { maxWait?: number; leading?: boolean; trailing?: boolean; equalityFn?: (left: T, right: T) => boolean }

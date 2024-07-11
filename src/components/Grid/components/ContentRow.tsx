@@ -28,7 +28,7 @@ import IOption from "../../../model/IOption";
 
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
-import useRenderWaiter from "../../../hooks/useRenderWaiter";
+import useDeepChangeSubject from "../../../hooks/useDeepChangeSubject";
 import useActualValue from "../../../hooks/useActualValue";
 import useGridProps from "../hooks/useGridProps";
 import useSelection from "../hooks/useSelection";
@@ -205,13 +205,11 @@ export const ContentRow = forwardRef(
 
     const row$ = useActualValue(row);
 
-    const waitForRender = useRenderWaiter([
-      row,
-    ]);
+    const rowChangeSubject = useDeepChangeSubject(row);
 
     const waitForData = useCallback(async () => {
       await Promise.race([
-        waitForRender(),
+        rowChangeSubject.toPromise(),
         sleep(DATA_FETCH_TIMEOUT),
       ]);
     }, []);
@@ -225,6 +223,7 @@ export const ContentRow = forwardRef(
       execute();
       return () => {
         rowMark.clear(row[rowKey] || row);
+        rowColor.clear(row[rowKey] || row);
       };
     }, []);
 

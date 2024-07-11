@@ -160,6 +160,7 @@ import { useQueuedAction } from './hooks/useQueuedAction';
 import { useMediaContext } from './hooks/useMediaContext';
 import { useAudioPlayer } from './hooks/useAudioPlayer';
 import { useChangeSubject } from './hooks/useChangeSubject';
+import { useDeepChangeSubject } from './hooks/useDeepChangeSubject';
 import { useReloadTrigger } from './hooks/useReloadTrigger';
 import { useSingleton } from './hooks/useSingleton';
 import { useBehaviorSubject } from './hooks/useBehaviorSubject';
@@ -564,6 +565,7 @@ export { isOneArray };
 export { toOneArray };
 
 export { useChangeSubject };
+export { useDeepChangeSubject };
 export { useReloadTrigger };
 
 export { useSinglerunAction };
