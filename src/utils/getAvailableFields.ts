@@ -24,13 +24,13 @@ const buildCommonResult = (
     payload: Record<string, any>,
     hidden = false
   ) => {
-    const { isVisible = () => true, isDisabled = () => false } = entry;
+    const { isVisible = () => true } = entry;
     if (
       typeof entry.hidden === "function" ? entry.hidden(payload) : entry.hidden
     ) {
       hidden = true;
     }
-    if (!isVisible(data, payload) || isDisabled(data, payload)) {
+    if (!isVisible(data, payload)) {
       hidden = true;
     }
     if (hidden) {
