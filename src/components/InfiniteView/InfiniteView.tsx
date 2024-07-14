@@ -10,7 +10,7 @@ import useActualCallback from "../../hooks/useActualCallback";
 import useActualValue from "../../hooks/useActualValue";
 import useSubject from "../../hooks/useSubject";
 
-import TSubject from "../../model/TSubject";
+import type TSubject from "../../model/TSubject";
 
 import classNames from "../../utils/classNames";
 import sleep from "../../utils/sleep";

@@ -1,6 +1,6 @@
 import Observer, { LISTEN_CONNECT, LISTEN_DISCONNECT } from "./Observer";
 
-import TObserver from "../../model/TObserver";
+import type TObserver from "../../model/TObserver";
 import Subject, { TSubject } from "./Subject";
 import { TBehaviorSubject } from "./BehaviorSubject";
 

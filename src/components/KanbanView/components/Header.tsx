@@ -21,7 +21,7 @@ import useFetchLabel from "../hooks/useFetchLabel";
 
 import { IBoardColumnInternal } from "../model/IBoardColumn";
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import IBoardItem from "../model/IBoardItem";
 
 /**

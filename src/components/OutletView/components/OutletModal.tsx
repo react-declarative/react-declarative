@@ -21,9 +21,9 @@ import OutletView from "../OutletView";
 import IOutletModal, { ModalOtherProps } from "../model/IOutletModal";
 
 import IOutletViewProps from "../model/IOutletViewProps";
-import TBehaviorSubject from "../../../model/TBehaviorSubject";
+import type TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import ISize from "../../../model/ISize";
 import Id from "../model/Id";
 

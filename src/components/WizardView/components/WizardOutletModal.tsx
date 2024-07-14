@@ -20,10 +20,10 @@ import WizardView from "../WizardView";
 
 import IWizardModal from "../model/IWizardModal";
 
-import TBehaviorSubject from "../../../model/TBehaviorSubject";
+import type TBehaviorSubject from "../../../model/TBehaviorSubject";
 import IWizardViewProps from "../model/IWizardViewProps";
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import ISize from "../../../model/ISize";
 
 import classNames from "../../../utils/classNames";

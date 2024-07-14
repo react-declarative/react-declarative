@@ -13,7 +13,7 @@ import Content, { IContentProps } from "./Content";
 import useAsyncValue from "../../../hooks/useAsyncValue";
 
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import IBoardRow from "../model/IBoardRow";
 
 import useFetchRows from "../hooks/useFetchRows";

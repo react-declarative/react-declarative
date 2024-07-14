@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material";
 
 import IAnything from "../../../model/IAnything";
 import SelectionMode from '../../../model/SelectionMode';
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 import ITile from "./ITile";
 import TileMode from "./TileMode";

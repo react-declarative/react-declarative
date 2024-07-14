@@ -3,7 +3,7 @@ import * as React from 'react';
 import { SxProps } from "@mui/material";
 
 import IFeatureGroup from "./IFeatureGroup";
-import TSubject from '../../../model/TSubject';
+import type TSubject from '../../../model/TSubject';
 
 /**
  * Represents the props for the FeatureView component.

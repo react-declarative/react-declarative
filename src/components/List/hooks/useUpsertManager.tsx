@@ -7,7 +7,7 @@ import useActualState from '../../../hooks/useActualState';
 import useSubject from '../../../hooks/useSubject';
 
 import { IListState } from "../../../model/IListProps";
-import TSubject from '../../../model/TSubject';
+import type TSubject from '../../../model/TSubject';
 
 import sleep from '../../../utils/sleep';
 

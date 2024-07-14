@@ -13,7 +13,7 @@ import useChangeSubject from '../../hooks/useChangeSubject';
 import useActualValue from '../../hooks/useActualValue';
 import useOnce from '../../hooks/useOnce';
 
-import TSubject from '../../model/TSubject';
+import type TSubject from '../../model/TSubject';
 
 import singleshot from '../../utils/hof/singleshot';
 import debounce from '../../utils/hof/debounce';

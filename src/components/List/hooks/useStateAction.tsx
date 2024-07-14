@@ -3,7 +3,7 @@ import createValueProvider from "../../../utils/createValueProvider";
 import { IRowData } from "../../../model/IRowData";
 import { ListHandlerChips, ListHandlerSortModel } from "../../../model/IListProps";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Represents an action indicating that filter data has changed.

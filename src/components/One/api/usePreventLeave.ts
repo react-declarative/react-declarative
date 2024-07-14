@@ -14,7 +14,7 @@ import useActualValue from "../../../hooks/useActualValue";
 
 import IOneProps from "../../../model/IOneProps";
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import IOneApi from "../../../model/IOneApi";
 
 /**

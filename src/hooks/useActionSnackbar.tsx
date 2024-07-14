@@ -16,7 +16,7 @@ import useRenderWaiter from './useRenderWaiter';
 
 import CloseIcon from '@mui/icons-material/Close';
 
-import TSubject from '../model/TSubject';
+import type TSubject from '../model/TSubject';
 
 const HIDE_DURATION = 6000;
 

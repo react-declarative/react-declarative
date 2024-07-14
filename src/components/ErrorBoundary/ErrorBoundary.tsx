@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { BrowserHistory, HashHistory, MemoryHistory } from 'history';
 
-import TSubject from '../../model/TSubject';
+import type TSubject from '../../model/TSubject';
 
 /**
  * Represents the props of an ErrorBoundary component.

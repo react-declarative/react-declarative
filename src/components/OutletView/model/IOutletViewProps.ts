@@ -3,7 +3,7 @@ import { IRevealProps } from "../../FetchView";
 import { BoxProps } from "@mui/material";
 
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import History from "../../../model/History";
 import IOutlet from "./IOutlet";
 import IOtherProps from "./IOtherProps";

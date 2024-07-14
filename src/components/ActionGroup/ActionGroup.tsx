@@ -26,7 +26,7 @@ import useAsyncValue from "../../hooks/useAsyncValue";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 
 import IOption from "../../model/IOption";
-import TSubject from "../../model/TSubject";
+import type TSubject from "../../model/TSubject";
 
 /**
  * Represents the properties of the ActionGroup component.

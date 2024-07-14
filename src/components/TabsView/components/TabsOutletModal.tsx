@@ -20,10 +20,10 @@ import TabsView from "../TabsView";
 
 import ITabsModal from "../model/ITabsModal";
 
-import TBehaviorSubject from "../../../model/TBehaviorSubject";
+import type TBehaviorSubject from "../../../model/TBehaviorSubject";
 import ITabsViewProps from "../model/ITabsViewProps";
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import ISize from "../../../model/ISize";
 
 import classNames from "../../../utils/classNames";

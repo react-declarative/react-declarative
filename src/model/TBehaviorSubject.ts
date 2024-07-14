@@ -1,4 +1,4 @@
-import TSubject from "./TSubject";
+import type TSubject from "./TSubject";
 
 /**
  * Represents a behavior subject.

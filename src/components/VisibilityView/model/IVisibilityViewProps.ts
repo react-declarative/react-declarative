@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material";
 
 import IVisibilityGroup from "./IVisibilityGroup";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Interface representing the props for the VisibilityView component.

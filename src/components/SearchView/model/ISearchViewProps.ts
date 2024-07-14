@@ -7,7 +7,7 @@ import IAnything from "../../../model/IAnything";
 import ISearchItemProps from "./ISearchItemProps";
 import ISearchInputProps from "./ISearchInputProps";
 import ICreateButtonProps from "./ICreateButtonProps";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Interface for the props of the SearchView component.
