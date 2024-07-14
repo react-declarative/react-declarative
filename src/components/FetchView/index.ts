@@ -1,3 +1,4 @@
 export * from './FetchView';
-export { Reveal, IRevealProps } from './components/Reveal';
+export { Reveal } from './components/Reveal';
+export type { IRevealProps } from './components/Reveal';
 export { default } from './FetchView';

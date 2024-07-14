@@ -12,7 +12,7 @@ import useSubject from "../../../hooks/useSubject";
 import IAnything from "../../../model/IAnything";
 import History from "../../../model/History";
 import Id from "../model/Id";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Interface representing the parameters for a component.

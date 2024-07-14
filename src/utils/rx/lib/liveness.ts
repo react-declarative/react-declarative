@@ -1,4 +1,4 @@
-import TObserver from "../../../model/TObserver";
+import type TObserver from "../../../model/TObserver";
 
 import Source from "../Source";
 

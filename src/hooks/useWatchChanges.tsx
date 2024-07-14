@@ -4,7 +4,7 @@ import useActualValue from "./useActualValue";
 import useSubject from "./useSubject";
 import useChange from "./useChange";
 
-import TSubject from "../model/TSubject";
+import type TSubject from "../model/TSubject";
 
 /**
  * Watches for changes in dependencies and provides a subject to track changes.

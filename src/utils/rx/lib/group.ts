@@ -1,4 +1,4 @@
-import TObserver from "../../../model/TObserver";
+import type TObserver from "../../../model/TObserver";
 
 /**
  * Groups the elements of an array in chunks of a specified size.

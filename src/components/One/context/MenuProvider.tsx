@@ -6,7 +6,7 @@ import MenuItems, { IRequest, IParams } from "../components/common/MenuItems";
 
 import useSubject from "../../../hooks/useSubject";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Represents an interface for a context object.

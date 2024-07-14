@@ -8,7 +8,7 @@ import PaperView, { IPaperViewProps } from "../PaperView";
 
 import useActualState from '../../hooks/useActualState';
 
-import TSubject from '../../model/TSubject';
+import type TSubject from '../../model/TSubject';
 import ActionState from './model/ActionState';
 
 import classNames from "../../utils/classNames";

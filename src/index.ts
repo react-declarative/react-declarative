@@ -2,7 +2,7 @@ import "./polyfills";
 
 export { SMALL_SIZE_REQUEST, LARGE_SIZE_REQUEST } from './components';
 
-export { ISize } from './model/ISize';
+export type { ISize } from './model/ISize';
 
 import { TypedField as TypedFieldInternal } from './model/TypedField';
 import { IValidation as IValidationInternal } from './model/IValidation';
@@ -317,17 +317,19 @@ export { FeatureView } from './components';
 export { CalendarView } from './components';
 export { InfiniteView } from './components';
 export { TabsView } from './components';
-export { SearchView, ISearchItem } from './components';
+export { SearchView } from './components';
 export { WizardView, WizardNavigation, WizardContainer } from './components';
 export { VirtualView, VIRTUAL_VIEW_ROOT, VIRTUAL_VIEW_CHILD } from './components';
 export { ChatView, ChatController } from './components';
+
+export type { ISearchItem } from './components';
 
 import { IBoard as IBoardInternal } from './components';
 import { IBoardColumn as IBoardColumnInternal } from './components';
 import { IBoardItem as IBoardItemInternal } from './components';
 import { IBoardRow as IBoardRowInternal } from './components';
 
-export { IBoardDivider } from './components';
+export type { IBoardDivider } from './components';
 
 export type IBoardColumn<Data = any, Payload = any> = IBoardColumnInternal<Data, Payload>;
 export type IBoard<Data = any, Payload = any> = IBoardInternal<Data, Payload>;
@@ -367,7 +369,7 @@ export type IFeatureGroup<Data = IAnything, Payload = IAnything> = IFeatureGroup
 export type IFeature<Data = IAnything, Payload = IAnything> = IFeatureInternal<Data, Payload>;
 export { FeatureType } from './components/FeatureView';
 
-export { IVisibilityGroup } from './components/VisibilityView';
+export type { IVisibilityGroup } from './components/VisibilityView';
 
 import { recordToExcelExport } from './components/RecordView';
 export { recordToExcelExport };
@@ -782,7 +784,7 @@ export { flatArray } from './utils/flatArray';
 export { removeExtraSpaces } from './utils/removeExtraSpaces';
 export { replaceSubstring } from './utils/replaceSubstring';
 
-import TSubjectInternal from './model/TSubject';
+import type TSubjectInternal from './model/TSubject';
 import TBehaviorSubjectInternal from './model/TBehaviorSubject';
 import TObserverInternal, { TObservable as TObservableInternal } from './model/TObserver';
 

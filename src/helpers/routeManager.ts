@@ -1,7 +1,9 @@
 import { BrowserHistory, HashHistory, MemoryHistory } from "history";
 
 import getRouteItem from "../utils/getRouteItem";
-import getRouteParams, { ISwitchItem } from "../utils/getRouteParams";
+import getRouteParams from "../utils/getRouteParams";
+
+import type { ISwitchItem } from "../utils/getRouteParams";
 
 import Subject from "../utils/rx/Subject";
 

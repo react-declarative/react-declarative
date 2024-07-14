@@ -1,6 +1,6 @@
 import ISearchViewProps from "./ISearchViewProps";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Represents the properties for the SearchInput component.

@@ -23,7 +23,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Fab from "@mui/material/Fab";
 
 import IOption from "../../model/IOption";
-import TSubject from "../../model/TSubject";
+import type TSubject from "../../model/TSubject";
 
 /**
  * Represents the properties of the ActionMenu component.

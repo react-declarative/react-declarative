@@ -8,7 +8,7 @@ import ICalendarTile from "./ICalendarTile";
 import { stamp } from "../../../utils/getMomentStamp";
 
 import IAnything from "../../../model/IAnything";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 import { TileMode } from "../../Tile";
 

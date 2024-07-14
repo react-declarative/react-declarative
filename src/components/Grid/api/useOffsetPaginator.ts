@@ -8,7 +8,7 @@ import useSubject from "../../../hooks/useSubject";
 
 import sleep from "../../../utils/sleep";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 import RowData from "../model/RowData";
 
 const DEFAULT_LIMIT = 25;

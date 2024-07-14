@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import TSubject from '../../model/TSubject';
+import type TSubject from '../../model/TSubject';
 
 /**
  * Interface for the props of a ReloadView component.

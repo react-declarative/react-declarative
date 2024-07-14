@@ -1,7 +1,7 @@
 export * from './TabsView';
-export { ITabsOutlet } from './model/ITabsOutlet';
-export { ITabsOutletProps } from './model/ITabsOutletProps';
-export { ITabsStep } from './model/ITabsStep';
-export { ITabsModal } from './model/ITabsModal';
-export { ITabsModalProps } from './model/ITabsModalProps';
+export type { ITabsOutlet } from './model/ITabsOutlet';
+export type { ITabsOutletProps } from './model/ITabsOutletProps';
+export type { ITabsStep } from './model/ITabsStep';
+export type { ITabsModal } from './model/ITabsModal';
+export type { ITabsModalProps } from './model/ITabsModalProps';
 export { default } from './TabsView';

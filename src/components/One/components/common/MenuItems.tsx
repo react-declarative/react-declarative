@@ -21,7 +21,7 @@ import { useOnePayload } from "../../context/PayloadProvider";
 
 import IField, { Value } from "../../../../model/IField";
 import IFieldMenu from "../../../../model/IFieldMenu";
-import TSubject from "../../../../model/TSubject";
+import type TSubject from "../../../../model/TSubject";
 import IOption from "../../../../model/IOption";
 
 import queued from "../../../../utils/hof/queued";

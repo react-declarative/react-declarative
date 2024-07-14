@@ -1,6 +1,6 @@
 import EventEmitter from "./EventEmitter";
 
-import TObserver from "../../model/TObserver";
+import type TObserver from "../../model/TObserver";
 
 import compose from '../compose';
 import sleep from "../sleep";

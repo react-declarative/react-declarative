@@ -18,7 +18,7 @@ import SelectionMode from "../../../../model/SelectionMode";
 import IAnything from "../../../../model/IAnything";
 import FieldType from "../../../../model/FieldType";
 import IManaged from "../../../../model/IManaged";
-import TSubject from "../../../../model/TSubject";
+import type TSubject from "../../../../model/TSubject";
 import IField from "../../../../model/IField";
 
 import compareFulltext from "../../../../utils/compareFulltext";

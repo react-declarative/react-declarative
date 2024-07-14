@@ -8,7 +8,7 @@ import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancela
 import useReloadTrigger from '../../hooks/useReloadTrigger';
 import useSubject from '../../hooks/useSubject';
 
-import TSubject from '../../model/TSubject';
+import type TSubject from '../../model/TSubject';
 
 /**
  * Represents the properties for an asynchronous component.

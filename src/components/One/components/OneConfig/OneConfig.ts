@@ -1,4 +1,5 @@
-import OneConfigInstance, { IConfig } from './OneConfigInstance';
+import OneConfigInstance from './OneConfigInstance';
+import type { IConfig } from './OneConfigInstance';
 
 export const GET_REF_SYMBOL = Symbol('get-reference');
 

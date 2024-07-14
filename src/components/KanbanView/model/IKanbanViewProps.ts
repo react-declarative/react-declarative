@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material";
 import IAnything from "../../../model/IAnything";
 import IBoardColumn from "./IBoardColumn";
 import IBoardItem from "./IBoardItem";
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 /**
  * Represents the properties for the KanbanView component.

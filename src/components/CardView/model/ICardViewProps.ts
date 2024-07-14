@@ -1,7 +1,7 @@
 import React from "react";
 import { BoxProps } from "@mui/material";
 
-import TSubject from "../../../model/TSubject";
+import type TSubject from "../../../model/TSubject";
 
 import ICardViewOperation from "./ICardViewOperation";
 import ICardViewAction from "./ICardViewAction";

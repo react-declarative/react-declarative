@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 
-import TObserver from "../model/TObserver";
+import type TObserver from "../model/TObserver";
 
 import useSingleton from "./useSingleton";
 

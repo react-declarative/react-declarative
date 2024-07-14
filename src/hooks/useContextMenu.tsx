@@ -18,7 +18,7 @@ import useAsyncAction from "./useAsyncAction";
 import useActualValue from "./useActualValue";
 
 import IOption from "../model/IOption";
-import TSubject from "../model/TSubject";
+import type TSubject from "../model/TSubject";
 
 import { sleep } from "../utils/sleep";
 
