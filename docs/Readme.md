@@ -34,7 +34,7 @@ That means AI cannot debug the hooks when changing JSX. The declarative view eng
 
 **The prompt**
 
-Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these samples. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/)
+Open [https://www.bing.com/chat](https://www.bing.com/chat) and select one of these samples. Use the next prompt. Check the code with [the playground](https://react-declarative-playground.github.io/). [ClaudeAI](https://claude.ai) works well too ([proof](./images/claudeai.png))
 
 ```html
 Read the code from the markdown file and make me a sign in form by using same schema
