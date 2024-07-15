@@ -3,16 +3,16 @@ import { useMemo } from 'react';
 
 import { Selector } from "../components/Selector";
 
+import useChange from '../../../hooks/useChange';
 import useActualValue from '../../../hooks/useActualValue';
+import useReloadTrigger from '../../../hooks/useReloadTrigger';
 
 import debounce from '../../../utils/hof/debounce';
-import compareCords from '../utils/compareCords';
-import cached from '../../../utils/hof/cached';
 import isValidCord from '../utils/isValidCord';
 
 import ICord, { ICordInternal } from '../model/ICord';
 
-const CHANGE_DEBOUNCE = 850;
+const CHANGE_DEBOUNCE = 100;
 
 interface IContentProps {
     src: string;
@@ -38,6 +38,10 @@ export const Content = ({
 
     const cords$ = useActualValue(cords);
 
+    const { reloadTrigger, doReload } = useReloadTrigger();
+
+    useChange(doReload, [readonly]);
+
     const handleChange = useMemo(() => debounce((change: ICordInternal) => {
         onChange(cords$.current.map((cord) => cord.id === change.id ? {
             ...change,
@@ -46,26 +50,21 @@ export const Content = ({
         } : cord));
     }, CHANGE_DEBOUNCE), []);
 
-    const managedCords = useMemo(() => cached(
-        ([cords1]: [ICord[]], [cords2]: [ICord[]]) => {
-            return !compareCords(cords1, cords2);
-        },
-        (cords: ICord[]) => cords
-    ), []);
-
     return (
         <Selector
-            key={`${src}-${readonly}`}
-            cords={managedCords(cords)}
+            key={reloadTrigger}
+            cords={cords}
             readonly={readonly}
             src={src}
             id={src}
             naturalHeight={naturalHeight}
             naturalWidth={naturalWidth}
             onChange={(cord) => {
-                if (isValidCord(cord)) {
-                    handleChange(cord);
+                if (!isValidCord(cord)) {
+                    doReload();
+                    return;
                 }
+                handleChange(cord);
             }}
             onClick={onClick}
             onHover={onHover}

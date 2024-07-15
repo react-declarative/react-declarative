@@ -5,6 +5,8 @@ import { makeStyles } from '../../../styles';
 
 import { areaSelector } from '../js/area-selector';
 
+import useCordCache from '../hooks/useCordCache';
+
 import ICord, { ICordInternal } from '../model/ICord';
 
 import lowLevelCords from '../utils/lowLevelCords';
@@ -30,7 +32,7 @@ interface ISelectorProps {
 export const Selector = ({
   src = 'image.png',
   id = 'unset',
-  cords = [],
+  cords: upperCords = [],
   readonly,
   naturalHeight,
   naturalWidth,
@@ -43,36 +45,51 @@ export const Selector = ({
   const parentRef = useRef<HTMLDivElement>(null as never);
   const mountRef = useRef(true);
 
+  const cordManager = useCordCache(upperCords);
+
+  const cords = cordManager.getValue();
+
   useLayoutEffect(() => {
     const {current} = parentRef;
     current.innerHTML = `
       <react-declarative-area-selector
         imageSrc="${src}"
         id="${id}">
-      </area-selector>
+      </react-declarative-area-selector>
     `;
     const roi = (args: any[]) => {
       const [top, left, right, bottom] = args;
       const {current} = mountRef;
-      if (current)
-        onChange({
-          type: 'roi', id: 'roi', top, left,
+      if (current) {
+        const dto: ICordInternal = {
+          type: 'roi', id: 'roi', 
+          top, 
+          left,
           height: naturalHeight - top - bottom,
           width: naturalWidth - left - right,
-        });
+        };
+        cordManager.commitChange(dto);
+        onChange(dto);
+      }
     };
     const rect = (args: any[]) => {
       const [id, top, left, height, width] = args;
       const {current} = mountRef;
-      if (current)
-        onChange({type: 'rect', id, top, left, height, width});
+      if (current) {
+        const dto: ICordInternal = { type: 'rect', id, top, left, height, width };
+        cordManager.commitChange(dto);
+        onChange(dto);
+      }
     };
     const square = (args: any[]) => {
       const [id, top, left, side] = args;
       const [height, width] = [...new Array(2)].map(() => side);
       const {current} = mountRef;
-      if (current)
-        onChange({type: 'square', id, top, left, height, width});
+      if (current) {
+        const dto: ICordInternal = {type: 'square', id, top, left, height, width};
+        cordManager.commitChange(dto);
+        onChange(dto);
+      }
     };
     const click = (args: any[]) => {
       const [id, e] = args;

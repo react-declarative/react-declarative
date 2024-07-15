@@ -1,10 +1,8 @@
-import ICord from "../model/ICord";
+import { ICordInternal } from "../model/ICord";
 
-const compare = (obj1: ICord, obj2: ICord) => {
+const compare = (obj1: ICordInternal, obj2: ICordInternal) => {
     let isEqual = true;
     isEqual = isEqual && obj1.type === obj2.type;
-    isEqual = isEqual && obj1.color === obj2.color;
-    isEqual = isEqual && obj1.label === obj2.label;
     isEqual = isEqual && obj1.id === obj2.id;
     isEqual = isEqual && obj1.top === obj2.top;
     isEqual = isEqual && obj1.left === obj2.left;
@@ -13,7 +11,7 @@ const compare = (obj1: ICord, obj2: ICord) => {
     return isEqual
 }
 
-export const compareCords = (arr1: ICord[], arr2: ICord[]) => {
+export const compareCords = (arr1: ICordInternal[], arr2: ICordInternal[]) => {
     if (arr1.length !== arr2.length) {
         return false;
     }
@@ -21,7 +19,7 @@ export const compareCords = (arr1: ICord[], arr2: ICord[]) => {
     const copyArr1 = [...arr1];
     const copyArr2 = [...arr2];
 
-    const sortKey = (cord: ICord) => `${cord.type}-${cord.color}-${cord.id}`;
+    const sortKey = (cord: ICordInternal) => `${cord.type}-${cord.id}`;
     copyArr1.sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
     copyArr2.sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
 
