@@ -43,3 +43,9 @@ width: number
 ```ts
 height: number
 ```
+
+### label
+
+```ts
+label: string
+```

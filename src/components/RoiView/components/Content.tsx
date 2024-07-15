@@ -39,6 +39,7 @@ export const Content = ({
         onChange(cords$.current.map((cord) => cord.id === change.id ? {
             ...change,
             color: cord.color,
+            label: cord.label,
         } : cord));
     }, CHANGE_DEBOUNCE), []);
 

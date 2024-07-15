@@ -27403,12 +27403,14 @@ declare module "react-declarative/components/RoiView/model/ICord" {
     left: number;
     width: number;
     height: number;
+    label: string;
   }
   export interface ICordInternal
     extends Omit<
       ICord,
       keyof {
         color: never;
+        label: never;
       }
     > {}
   export default ICord;

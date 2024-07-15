@@ -4,6 +4,7 @@ const compare = (obj1: ICord, obj2: ICord) => {
     let isEqual = true;
     isEqual = isEqual && obj1.type === obj2.type;
     isEqual = isEqual && obj1.color === obj2.color;
+    isEqual = isEqual && obj1.label === obj2.label;
     isEqual = isEqual && obj1.id === obj2.id;
     isEqual = isEqual && obj1.top === obj2.top;
     isEqual = isEqual && obj1.left === obj2.left;

@@ -1,9 +1,11 @@
 export const CONTROL_RECT = 'react-declarative__roiControlRect';
+export const LABEL_RECT = 'react-declarative__roiAreaLabel';
 export const AREA_RECT = 'react-declarative__roiAreaRect';
 
 const debug = new class {
   log(...args) {
-    console.log(...args);
+    void args;
+    // console.log(...args);
   }
 };
 
@@ -64,6 +66,19 @@ const un = (ref, event, callback) => {
   }
 };
 
+const createLabel = (text) => {
+  const label = document.createElement('label');
+  label.classList.add(LABEL_RECT);
+  label.style.position = 'absolute';
+  label.style.top = '50%';
+  label.style.left = '50%';
+  label.style.transform = 'translate(-50%, -50%)';
+  label.style.userSelect = 'none';
+  label.style.pointerEvents = 'none';
+  label.innerText = text;
+  return label;
+};
+
 const createRect = (
   RUN_OUTSIDE_ANGULAR = (c) => c(),
   AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args }),
@@ -75,6 +90,7 @@ const createRect = (
   WIDTH = 125,
   IMAGE_SRC = '',
   LINE_COLOR = 'cyan',
+  LABEL = '',
   BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.5)',
 ) => {
 
@@ -121,6 +137,10 @@ const createRect = (
   const div = document.createElement('div');
   div.style.position = 'relative';
   div.style.flexGrow = '1';
+
+  if (LABEL) {
+    div.appendChild(createLabel(LABEL));
+  }
 
   const redraw = (top = TOP, left = LEFT, width = WIDTH, height = HEIGHT) => {
     area.style.top = `${top}px`;
@@ -472,6 +492,7 @@ const createSquare = (
   SIDE = 125,
   IMAGE_SRC = '',
   LINE_COLOR = 'cyan',
+  LABEL = '',
   BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.5)',
   MOVE_DELTA = 25,
 ) => {
@@ -518,6 +539,10 @@ const createSquare = (
   const div = document.createElement('div');
   div.style.position = 'relative';
   div.style.flexGrow = '1';
+
+  if (LABEL) {
+    div.appendChild(createLabel(LABEL));
+  }
 
   const redraw = (top = TOP, left = LEFT, side = SIDE) => {
     area.style.top = `${top}px`;
@@ -907,10 +932,11 @@ export const rect = (
   height = 125,
   width = 125,
   lineColor = 'cyan',
+  label = "",
   imageSrc = '',
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
 ) => [
-    'rect', entityId, top, left, height, width, imageSrc, lineColor, backgroundColor
+    'rect', entityId, top, left, height, width, imageSrc, lineColor, label, backgroundColor
   ];
 
 export const roi = (
@@ -930,11 +956,12 @@ export const square = (
   left = 10,
   side = 125,
   lineColor = 'cyan',
+  label = "",
   imageSrc = '',
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
   moveDelta = 25,
 ) => [
-    'square', entityId, top, left, side, imageSrc, lineColor, backgroundColor, moveDelta,
+    'square', entityId, top, left, side, imageSrc, lineColor, label, backgroundColor, moveDelta,
   ];
 
 AreaSelector.prototype = Object.create(HTMLElement.prototype);
