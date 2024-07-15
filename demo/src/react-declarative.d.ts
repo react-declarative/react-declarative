@@ -10673,6 +10673,7 @@ declare module "react-declarative/utils/createLsSet" {
 }
 
 declare module "react-declarative/utils/createCustomTag" {
+  type Destructor = () => void;
   /**
    * Interface representing a configuration object.
    *
@@ -10684,7 +10685,7 @@ declare module "react-declarative/utils/createCustomTag" {
    */
   interface IConfig {
     onClick: (e: MouseEvent) => void;
-    onInit: (element: HTMLDivElement) => void;
+    onInit: (element: HTMLDivElement) => void | Destructor;
   }
   /**
    * Creates a custom HTML tag element with the given name, style, and optional event handlers.

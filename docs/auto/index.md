@@ -725,6 +725,7 @@
 - [Value](types/Value.md)
 - [TObservable](types/TObservable.md)
 - [TPaginator](types/TPaginator.md)
+- [Destructor](types/Destructor.md)
 - [Function](types/Function.md)
 - [stamp](types/stamp.md)
 - [IHeroRegistry](types/IHeroRegistry.md)
