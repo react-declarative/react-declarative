@@ -8,6 +8,7 @@ import useActualValue from '../../../hooks/useActualValue';
 import debounce from '../../../utils/hof/debounce';
 import compareCords from '../utils/compareCords';
 import cached from '../../../utils/hof/cached';
+import isValidCord from '../utils/isValidCord';
 
 import ICord, { ICordInternal } from '../model/ICord';
 
@@ -61,7 +62,11 @@ export const Content = ({
             id={src}
             naturalHeight={naturalHeight}
             naturalWidth={naturalWidth}
-            onChange={handleChange}
+            onChange={(cord) => {
+                if (isValidCord(cord)) {
+                    handleChange(cord);
+                }
+            }}
             onClick={onClick}
             onHover={onHover}
         />

@@ -89,9 +89,7 @@ export const Selector = ({
         }
       },
       areaEvent: (refId, type, ...args) => {
-        if (args.find((v) => typeof v === 'number' && isNaN(v)) !== undefined) {
-          return;
-        } else if (refId === id) {
+        if (refId === id) {
           switch (type) {
             case 'rect-area-changed':
               rect(args);
