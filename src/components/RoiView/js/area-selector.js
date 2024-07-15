@@ -1,5 +1,5 @@
 export const CONTROL_RECT = 'react-declarative__roiControlRect';
-export const AREA_RECT = 'react-declarative__roiControlRect';
+export const AREA_RECT = 'react-declarative__roiAreaRect';
 
 const debug = new class {
   log(...args) {
@@ -95,6 +95,12 @@ const createRect = (
     width = round(WIDTH / KX),
     height = round(HEIGHT / KY),
   ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width);
+
+  if (AREA_READONLY_FLAG) {
+    area.addEventListener('click', (e) => {
+      AREA_EVENT_CALLBACK(ID, 'rect-area-click', ENTITY_ID, e);
+    });
+  }
 
   area.style.position = 'absolute';
   area.style.display = 'flex';
@@ -492,6 +498,12 @@ const createSquare = (
   area.style.alignItems = 'stretch';
   area.style.justifyContent = 'stretch';
   area.style.zIndex = '9999';
+
+  if (AREA_READONLY_FLAG) {
+    area.addEventListener('click', (e) => {
+      AREA_EVENT_CALLBACK(ID, 'square-area-click', ENTITY_ID, e);
+    });
+  }
 
   if (IMAGE_SRC) {
     area.style.backgroundRepeat = 'no-repeat';

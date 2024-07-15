@@ -27363,6 +27363,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
       IPaperViewProps,
       keyof {
         onChange: never;
+        onClick: never;
       }
     > {
     withNaturalSize?: boolean;
@@ -27370,6 +27371,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
     readonly: boolean;
     cords: ICord[];
     onChange?: (cords: ICord[]) => void;
+    onClick?: (e: MouseEvent, id: string) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
   }
@@ -27384,6 +27386,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
       onLoadEnd,
       sx,
       onChange,
+      onClick,
       ...otherProps
     }: IRoiViewProps,
     ref: React.Ref<HTMLDivElement>,

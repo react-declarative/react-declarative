@@ -32,6 +32,12 @@ cords: ICord[]
 onChange: (cords: ICord[]) => void
 ```
 
+### onClick
+
+```ts
+onClick: (e: MouseEvent, id: string) => void
+```
+
 ### onLoadStart
 
 ```ts

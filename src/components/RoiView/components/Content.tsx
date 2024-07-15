@@ -11,6 +11,8 @@ import cached from '../../../utils/hof/cached';
 
 import ICord, { ICordInternal } from '../model/ICord';
 
+const CHANGE_DEBOUNCE = 850;
+
 interface IContentProps {
     src: string;
     readonly: boolean;
@@ -18,6 +20,7 @@ interface IContentProps {
     naturalHeight: number;
     naturalWidth: number;
     onChange: (cords: ICord[]) => void;
+    onClick: (e: MouseEvent, id: string) => void;
 }
 
 export const Content = ({
@@ -27,6 +30,7 @@ export const Content = ({
     naturalHeight = 100,
     naturalWidth = 100,
     onChange = (cords) => console.log({ cords }),
+    onClick,
 }: IContentProps) => {
 
     const cords$ = useActualValue(cords);
@@ -36,7 +40,7 @@ export const Content = ({
             ...change,
             color: cord.color,
         } : cord));
-    }, 200), []);
+    }, CHANGE_DEBOUNCE), []);
 
     const managedCords = useMemo(() => cached(
         ([cords1]: [ICord[]], [cords2]: [ICord[]]) => {
@@ -55,6 +59,7 @@ export const Content = ({
             naturalHeight={naturalHeight}
             naturalWidth={naturalWidth}
             onChange={handleChange}
+            onClick={onClick}
         />
     );
 };

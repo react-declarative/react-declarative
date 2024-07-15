@@ -19,12 +19,14 @@ import readSize from "./utils/readSize";
 
 interface IRoiViewProps extends Omit<IPaperViewProps, keyof {
     onChange: never;
+    onClick: never;
 }> {
     withNaturalSize?: boolean;
     src: string;
     readonly: boolean;
     cords: ICord[];
     onChange?: (cords: ICord[]) => void;
+    onClick?: (e: MouseEvent, id: string) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
 }
@@ -53,12 +55,14 @@ const RoiViewInternal = ({
     onLoadEnd,
     sx,
     onChange = () => undefined,
+    onClick = () => undefined,
     ...otherProps
 }: IRoiViewProps, ref: React.Ref<HTMLDivElement>) => {
 
     const { classes } = useStyles();
 
     const onChange$ = useActualCallback(onChange);
+    const onClick$ = useActualCallback(onClick);
 
     const [value, { error }] = useAsyncValue(async () => await readSize(src), {
         onLoadStart,
@@ -80,6 +84,7 @@ const RoiViewInternal = ({
                     naturalHeight={value.naturalHeight}
                     naturalWidth={value.naturalWidth}
                     onChange={onChange$}
+                    onClick={onClick$}
                     readonly={readonly}
                     src={src}
                 />
