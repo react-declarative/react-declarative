@@ -328,6 +328,7 @@ declare module "react-declarative" {
   export { CalendarView } from "react-declarative/components";
   export { InfiniteView } from "react-declarative/components";
   export { TabsView } from "react-declarative/components";
+  export { RoiView, ICord } from "react-declarative/components";
   export { SearchView, ISearchItem } from "react-declarative/components";
   export {
     WizardView,
@@ -764,6 +765,7 @@ declare module "react-declarative" {
   export { copyToClipboard } from "react-declarative/utils/copyToClipboard";
   export { downloadBlank } from "react-declarative/utils/downloadBlank";
   export { removeSubstring } from "react-declarative/utils/removeSubstring";
+  export { randomString } from "react-declarative/utils/randomString";
   export { chooseFile } from "react-declarative/utils/chooseFile";
   export { loadScript } from "react-declarative/utils/loadScript";
   export { reloadPage } from "react-declarative/utils/reloadPage";
@@ -1069,6 +1071,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/TreeView";
   export * from "react-declarative/components/GridView";
   export * from "react-declarative/components/ChatView";
+  export * from "react-declarative/components/RoiView";
   export * from "react-declarative/components/Grid";
   export * from "react-declarative/components/Tile";
   export * from "react-declarative/components/Spinner";
@@ -7518,6 +7521,16 @@ declare module "react-declarative/utils/removeSubstring" {
   export default removeSubstring;
 }
 
+declare module "react-declarative/utils/randomString" {
+  /**
+   * Generates a random string using the UUID library.
+   *
+   * @returns A randomly generated string.
+   */
+  export const randomString: () => string;
+  export default randomString;
+}
+
 declare module "react-declarative/utils/chooseFile" {
   /**
    * Opens a file chooser dialog and allows the user to select a file.
@@ -11537,6 +11550,12 @@ declare module "react-declarative/components/ChatView" {
   export { TextActionRequest } from "react-declarative/components/ChatView/model/TextActionRequest";
   export * from "react-declarative/components/ChatView/ChatView";
   export { default } from "react-declarative/components/ChatView/ChatView";
+}
+
+declare module "react-declarative/components/RoiView" {
+  export * from "react-declarative/components/RoiView/RoiView";
+  export type { ICord } from "react-declarative/components/RoiView/model/ICord";
+  export { default } from "react-declarative/components/RoiView/RoiView";
 }
 
 declare module "react-declarative/components/Grid" {
@@ -27333,6 +27352,63 @@ declare module "react-declarative/components/ChatView/ChatView" {
     sx,
   }: IChatViewProps) => JSX.Element;
   export default ChatView;
+}
+
+declare module "react-declarative/components/RoiView/RoiView" {
+  import * as React from "react";
+  import { IPaperViewProps } from "react-declarative/components/PaperView";
+  import ICord from "react-declarative/components/RoiView/model/ICord";
+  interface IRoiViewProps
+    extends Omit<
+      IPaperViewProps,
+      keyof {
+        onChange: never;
+      }
+    > {
+    withNaturalSize?: boolean;
+    src: string;
+    readonly: boolean;
+    cords: ICord[];
+    onChange?: (cords: ICord[]) => void;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+  }
+  export const RoiView: (
+    {
+      withNaturalSize,
+      className,
+      src,
+      cords: upperCords,
+      readonly,
+      onLoadStart,
+      onLoadEnd,
+      sx,
+      onChange,
+      ...otherProps
+    }: IRoiViewProps,
+    ref: React.Ref<HTMLDivElement>,
+  ) => JSX.Element;
+  export default RoiView;
+}
+
+declare module "react-declarative/components/RoiView/model/ICord" {
+  export interface ICord {
+    type: "rect" | "square" | "roi";
+    color: string;
+    id: string;
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  }
+  export interface ICordInternal
+    extends Omit<
+      ICord,
+      keyof {
+        color: never;
+      }
+    > {}
+  export default ICord;
 }
 
 declare module "react-declarative/components/Grid/Grid" {

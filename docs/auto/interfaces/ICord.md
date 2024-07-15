@@ -1,0 +1,45 @@
+# ICord
+
+## Properties
+
+### type
+
+```ts
+type: "rect" | "square" | "roi"
+```
+
+### color
+
+```ts
+color: string
+```
+
+### id
+
+```ts
+id: string
+```
+
+### top
+
+```ts
+top: number
+```
+
+### left
+
+```ts
+left: number
+```
+
+### width
+
+```ts
+width: number
+```
+
+### height
+
+```ts
+height: number
+```
