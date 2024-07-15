@@ -129,6 +129,7 @@ const createRect = (
       AREA_EVENT_CALLBACK(ID, 'rect-area-click', ENTITY_ID, e);
     });
     area.addEventListener('mouseover', (e) => {
+      e.stopPropagation();
       AREA_EVENT_CALLBACK(ID, 'rect-area-hover', ENTITY_ID, e);
     });
   }
@@ -540,6 +541,7 @@ const createSquare = (
       AREA_EVENT_CALLBACK(ID, 'square-area-click', ENTITY_ID, e);
     });
     area.addEventListener('mouseover', (e) => {
+      e.stopPropagation();
       AREA_EVENT_CALLBACK(ID, 'rect-area-hover', ENTITY_ID, e);
     });
   }
@@ -869,6 +871,13 @@ function AreaSelector(resize = resizeHandler) {
   area.style.zIndex = '999';
   area.style.left = '0px';
 
+  if (AREA_READONLY_FLAG) {
+    area.addEventListener('mouseover', (e) => {
+      e.stopPropagation();
+      AREA_EVENT_CALLBACK(ID, 'root-area-hover', "", e)
+    });
+  }
+  
   const observer = new ResizeObserver(() => resizePipeline.exec([img, area, root]));
   RUN_OUTSIDE_ANGULAR(() => observer.observe(root));
   RUN_OUTSIDE_ANGULAR(() => observer.observe(img));

@@ -129,6 +129,9 @@ export const Selector = ({
             case 'square-area-hover': 
               hover(args);
               break;
+            case 'root-area-hover': 
+              hover(args);
+              break;
             default:
               throw new Error('Selector unknown event type');
           }
