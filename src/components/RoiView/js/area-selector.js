@@ -9,6 +9,12 @@ const debug = new class {
   }
 };
 
+let RUN_OUTSIDE_ANGULAR = (c) => c();
+let AREA_REFERENCE_CALLBACK = (id, ref) => debug.log({ id, ref });
+let AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args });
+let RESIZE_CALLBACK = (id, img) => debug.log({ id, img });
+let AREA_READONLY_FLAG = false;
+
 const touchManager = new class {
   _wrappers = new Map();
   applyTouchWrapper(callback, passive = false) {
@@ -31,6 +37,9 @@ const touchManager = new class {
 }
 
 const on = (ref, event, callback) => {
+  if (AREA_READONLY_FLAG) {
+    return;
+  }
   if (event === 'mousemove') {
     const wrapped = touchManager.applyTouchWrapper(callback, true);
     ref.addEventListener('mousemove', callback);
@@ -49,6 +58,9 @@ const on = (ref, event, callback) => {
 };
 
 const un = (ref, event, callback) => {
+  if (AREA_READONLY_FLAG) {
+    return;
+  }
   if (event === 'mousemove') {
     const wrapped = touchManager.disposeTouchWrapper(callback);
     ref.removeEventListener('mousemove', callback);
@@ -115,6 +127,9 @@ const createRect = (
   if (AREA_READONLY_FLAG) {
     area.addEventListener('click', (e) => {
       AREA_EVENT_CALLBACK(ID, 'rect-area-click', ENTITY_ID, e);
+    });
+    area.addEventListener('mouseover', (e) => {
+      AREA_EVENT_CALLBACK(ID, 'rect-area-hover', ENTITY_ID, e);
     });
   }
 
@@ -524,6 +539,9 @@ const createSquare = (
     area.addEventListener('click', (e) => {
       AREA_EVENT_CALLBACK(ID, 'square-area-click', ENTITY_ID, e);
     });
+    area.addEventListener('mouseover', (e) => {
+      AREA_EVENT_CALLBACK(ID, 'rect-area-hover', ENTITY_ID, e);
+    });
   }
 
   if (IMAGE_SRC) {
@@ -740,12 +758,6 @@ const createSquare = (
 
   return [area, resize];
 };
-
-let RUN_OUTSIDE_ANGULAR = (c) => c();
-let AREA_REFERENCE_CALLBACK = (id, ref) => debug.log({ id, ref });
-let AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args });
-let RESIZE_CALLBACK = (id, img) => debug.log({ id, img });
-let AREA_READONLY_FLAG = false;
 
 const AREA_SELECTORS = {
   roi: createRoi,

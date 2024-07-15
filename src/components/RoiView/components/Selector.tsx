@@ -24,6 +24,7 @@ interface ISelectorProps {
   naturalWidth: number;
   onChange: (cord: ICordInternal) => void;
   onClick: (e: MouseEvent, id: string) => void;
+  onHover: (e: MouseEvent, id: string) => void;
 }
 
 export const Selector = ({
@@ -35,6 +36,7 @@ export const Selector = ({
   naturalWidth,
   onChange,
   onClick,
+  onHover,
 }: ISelectorProps) => {
   const { classes } = useStyles();
 
@@ -76,6 +78,10 @@ export const Selector = ({
       const [id, e] = args;
       onClick(e, id);
     };
+    const hover = (args: any[]) => {
+      const [id, e] = args;
+      onHover(e, id);
+    };
     areaSelector({
       areaRef: (refId, ref) => {
         if (refId === id) {
@@ -101,6 +107,12 @@ export const Selector = ({
               break;
             case 'square-area-click': 
               click(args);
+              break;
+            case 'rect-area-hover':
+              hover(args);
+              break;
+            case 'square-area-hover': 
+              hover(args);
               break;
             default:
               throw new Error('Selector unknown event type');

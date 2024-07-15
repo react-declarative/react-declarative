@@ -38,6 +38,12 @@ onChange: (cords: ICord[]) => void
 onClick: (e: MouseEvent, id: string) => void
 ```
 
+### onHover
+
+```ts
+onHover: (e: MouseEvent, id: string) => void
+```
+
 ### onLoadStart
 
 ```ts

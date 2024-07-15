@@ -27,6 +27,7 @@ interface IRoiViewProps extends Omit<IPaperViewProps, keyof {
     cords: ICord[];
     onChange?: (cords: ICord[]) => void;
     onClick?: (e: MouseEvent, id: string) => void;
+    onHover?: (e: MouseEvent, id: string) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
 }
@@ -56,6 +57,7 @@ const RoiViewInternal = ({
     sx,
     onChange = () => undefined,
     onClick = () => undefined,
+    onHover = () => undefined,
     ...otherProps
 }: IRoiViewProps, ref: React.Ref<HTMLDivElement>) => {
 
@@ -63,6 +65,7 @@ const RoiViewInternal = ({
 
     const onChange$ = useActualCallback(onChange);
     const onClick$ = useActualCallback(onClick);
+    const onHover$ = useActualCallback(onHover);
 
     const [value, { error }] = useAsyncValue(async () => await readSize(src), {
         onLoadStart,
@@ -85,6 +88,7 @@ const RoiViewInternal = ({
                     naturalWidth={value.naturalWidth}
                     onChange={onChange$}
                     onClick={onClick$}
+                    onHover={onHover$}
                     readonly={readonly}
                     src={src}
                 />

@@ -21,6 +21,7 @@ interface IContentProps {
     naturalWidth: number;
     onChange: (cords: ICord[]) => void;
     onClick: (e: MouseEvent, id: string) => void;
+    onHover: (e: MouseEvent, id: string) => void;
 }
 
 export const Content = ({
@@ -31,6 +32,7 @@ export const Content = ({
     naturalWidth = 100,
     onChange = (cords) => console.log({ cords }),
     onClick,
+    onHover,
 }: IContentProps) => {
 
     const cords$ = useActualValue(cords);
@@ -61,6 +63,7 @@ export const Content = ({
             naturalWidth={naturalWidth}
             onChange={handleChange}
             onClick={onClick}
+            onHover={onHover}
         />
     );
 };

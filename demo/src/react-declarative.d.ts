@@ -27372,6 +27372,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
     cords: ICord[];
     onChange?: (cords: ICord[]) => void;
     onClick?: (e: MouseEvent, id: string) => void;
+    onHover?: (e: MouseEvent, id: string) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
   }
@@ -27387,6 +27388,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
       sx,
       onChange,
       onClick,
+      onHover,
       ...otherProps
     }: IRoiViewProps,
     ref: React.Ref<HTMLDivElement>,
