@@ -40,6 +40,18 @@ outlined: boolean
 actions: IBreadcrumbs2Action<Data>[]
 ```
 
+### buttonVariant
+
+```ts
+buttonVariant: "text" | "outlined" | "contained"
+```
+
+### buttonColor
+
+```ts
+buttonColor: "inherit" | "primary" | "secondary" | "error" | "info" | "success" | "warning"
+```
+
 ### compute
 
 ```ts

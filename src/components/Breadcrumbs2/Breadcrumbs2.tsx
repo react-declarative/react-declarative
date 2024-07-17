@@ -328,6 +328,8 @@ export const Breadcrumbs2 = <T extends any = any>({
                   isDisabled = () => false,
                   isVisible = () => true,
                   sx,
+                  buttonColor,
+                  buttonVariant,
                 }) => ({
                   visible: await isVisible(payload!),
                   disabled: await isDisabled(payload!),
@@ -335,6 +337,8 @@ export const Breadcrumbs2 = <T extends any = any>({
                   action,
                   label,
                   sx,
+                  buttonColor,
+                  buttonVariant,
                 })
               )
           );
@@ -344,12 +348,13 @@ export const Breadcrumbs2 = <T extends any = any>({
                 .filter(({ visible }) => visible)
                 .map(
                   (
-                    { action = "unknown-action", label, disabled, icon: Icon, sx },
+                    { action = "unknown-action", label, buttonColor, buttonVariant = "contained", disabled, icon: Icon, sx },
                     idx
                   ) => (
                     <ActionButton
                       key={`${action}-${idx}`}
-                      variant="contained"
+                      color={buttonColor}
+                      variant={buttonVariant}
                       startIcon={Icon && <Icon />}
                       disabled={disabled}
                       onClick={() => onAction$(action)}

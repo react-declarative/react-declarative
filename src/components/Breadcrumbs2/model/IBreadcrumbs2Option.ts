@@ -25,6 +25,15 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
     sx?: SxProps<any>;
     outlined?: boolean;
     actions?: IBreadcrumbs2Action<Data>[];
+    buttonVariant?: "text" | "outlined" | "contained";
+    buttonColor?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
