@@ -129,7 +129,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 ## Migrate
 
 > [!NOTE]
-> A lightweight version with only `<One />` component and dependencies published in [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) package
+> A lightweight version with only the `<One />` component and dependencies published in [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) npm package
 
 <img src="./assets/icons/world.svg" height="35px" align="right">
 
