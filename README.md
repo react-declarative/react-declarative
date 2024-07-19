@@ -74,7 +74,7 @@ Each field can be statically [hidden by settings dictionary](https://github.com/
 
 3. **Extendable**
 
-It allow you to override any field type by slot context or [inject custom JSX](./demo/src/pages/GalleryPage.tsx#L206) directly into form without additional boilerplate. Also that lib can be used with all React ecosystem, for example, try with [million@3.0.3](https://million.dev/blog/million-3), It makes `react-declarative` extreamly performant even on 2016 devices
+It allow you to override any field type by slot context or [inject custom JSX](./demo/src/pages/GalleryPage.tsx#L206) directly into form without additional boilerplate. Also that lib can be used with all React ecosystem, for example, try with (Million.js)[https://dev.to/tobysolutions/million-30-all-you-need-to-know-3d2], It makes `react-declarative` extreamly performant even on 2016 devices
 
 4. **Maintainable**
 
