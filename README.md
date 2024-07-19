@@ -129,7 +129,7 @@ npm install --save react-declarative tss-react @mui/material @emotion/react @emo
 ## Migrate
 
 > [!NOTE]
-> A lightweight version with only the `<One />` component and dependencies published in [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) npm package
+> A lightweight version with only the `<One />` component and dependencies published in [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) npm package. Useful when you want to use <One /> forms in existing app
 
 ```bash
 npm install --save react-declarative-lite
