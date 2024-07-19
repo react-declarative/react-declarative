@@ -124,6 +124,13 @@ npx create-react-app . --template=react-declarative
 npm install --save react-declarative tss-react @mui/material @emotion/react @emotion/styled
 ```
 
+<img src="./assets/icons/watch.svg" height="40px" align="right">
+
+## Migrate
+
+> [!NOTE]
+> A lightweight version with only `<One />` component and dependencies published in [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) package
+
 <img src="./assets/icons/world.svg" height="35px" align="right">
 
 ## Demos
