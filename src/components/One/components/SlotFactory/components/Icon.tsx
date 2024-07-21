@@ -6,6 +6,9 @@ import ActionIcon from '../../../../ActionIcon';
 
 import { IIconSlot } from '../../../slots/IconSlot';
 
+import { useOnePayload } from "../../../context/PayloadProvider";
+import { useOneState } from "../../../context/StateProvider";
+
 import classNames from '../../../../../utils/classNames';
 
 import ArrowForward from '@mui/icons-material/ArrowForward';
@@ -55,7 +58,9 @@ export const Icon = ({
     iconColor,
     iconBackground,
 }: IIconSlot) => {
-    const { classes } = useStyles();
+    const { classes } = useStyles();  
+    const payload = useOnePayload();
+    const { object: data } = useOneState();
     return (
         <div className={classes.root}>
             <div
@@ -74,7 +79,10 @@ export const Icon = ({
                     disabled={disabled}
                     onClick={click}
                 >
-                    <Icon />
+                    <Icon 
+                        data={data}
+                        payload={payload}
+                    />
                 </ActionIcon>
             </div>
         </div>
