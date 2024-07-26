@@ -14,7 +14,7 @@ const cords: ICord[] = [
         left: 214,
         height: 190,
         width: 320,
-        angle: 0,
+        angle: 30,
         color: "green",
         label: "ROOM №1 ",
     },
