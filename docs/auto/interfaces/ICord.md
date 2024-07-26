@@ -49,3 +49,9 @@ height: number
 ```ts
 label: string
 ```
+
+### angle
+
+```ts
+angle: number
+```

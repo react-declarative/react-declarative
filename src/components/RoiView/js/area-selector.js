@@ -102,6 +102,45 @@ const createLabel = (text) => {
   return label;
 };
 
+function rotatePoint(px, py, cx, cy, angle) {
+  const radians = angle * Math.PI / 180;
+  
+  // Translate point to origin
+  const translatedX = px - cx;
+  const translatedY = py - cy;
+  
+  // Perform rotation
+  const rotatedX = translatedX * Math.cos(radians) - translatedY * Math.sin(radians);
+  const rotatedY = translatedX * Math.sin(radians) + translatedY * Math.cos(radians);
+  
+  // Translate point back to the original center
+  const newX = rotatedX + cx;
+  const newY = rotatedY + cy;
+  
+  return [newX, newY];
+}
+
+function getRotatePos([newTop, newLeft, newWidth, newHeight], [currentTop, currentLeft, currentWidth, currentHeight], angle) {
+  if (!angle) {
+    return [newTop, newLeft, newWidth, newHeight];
+  }
+  const widthDifference = newWidth - currentWidth;
+  const heightDifference = newHeight - currentHeight;
+  const topAdjustment = heightDifference / 2;
+  const leftAdjustment = widthDifference / 2;
+  const top = currentTop - topAdjustment;
+  const left = currentLeft - leftAdjustment;
+  return [top, left, newWidth, newHeight];
+}
+
+const getElementCenter = (element) => {
+  const rect = element.getBoundingClientRect();
+  const {scrollX, scrollY } = window;
+  const centerX = rect.left + rect.width / 2 + scrollX;
+  const centerY = rect.top + rect.height / 2 + scrollY;
+  return [centerX, centerY];
+};
+
 const createRect = (
   RUN_OUTSIDE_ANGULAR = (c) => c(),
   AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args }),
@@ -111,6 +150,7 @@ const createRect = (
   LEFT = 10,
   HEIGHT = 125,
   WIDTH = 125,
+  ANGLE = 0,
   IMAGE_SRC = '',
   LINE_COLOR = 'cyan',
   LABEL = '',
@@ -120,6 +160,10 @@ const createRect = (
   const { max, round } = Math;
 
   const area = document.createElement('div');
+
+  if (ANGLE) {
+    area.style.transform = `rotate(${ANGLE}deg)`;
+  }
 
   area.classList.add(AREA_RECT);
 
@@ -133,7 +177,7 @@ const createRect = (
     left = round(LEFT / KX),
     width = round(WIDTH / KX),
     height = round(HEIGHT / KY),
-  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width);
+  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width, ANGLE);
 
   if (AREA_READONLY_FLAG) {
     area.addEventListener('click', (e) => {
@@ -207,6 +251,10 @@ const createRect = (
       pageX -= scrollX;
       pageY -= scrollY;
 
+      const [cx, cy] = getElementCenter(area);
+
+      [pageX, pageY] = rotatePoint(pageX, pageY, cx, cy, -ANGLE);
+
       let areaHeight = null;
       let areaWidth = null;
 
@@ -218,10 +266,10 @@ const createRect = (
         [dx, dy] = [LEFT - x1, TOP - y1];
       }
 
-      const moveTopLeft = () => [y1, x1, WIDTH + dx, HEIGHT + dy];
-      const moveTopRight = () => [y1, LEFT, x1 - LEFT, HEIGHT + dy];
-      const moveBottomLeft = () => [TOP, x1, WIDTH + dx, y1 - TOP];
-      const moveBottomRight = () => [TOP, LEFT, x1 - LEFT, y1 - TOP];
+      const moveTopLeft = () => getRotatePos([y1, x1, WIDTH + dx, HEIGHT + dy], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveTopRight = () => getRotatePos([y1, LEFT, x1 - LEFT, HEIGHT + dy], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveBottomLeft = () => getRotatePos([TOP, x1, WIDTH + dx, y1 - TOP], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveBottomRight = () => getRotatePos([TOP, LEFT, x1 - LEFT, y1 - TOP], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
 
       let [top, left, width, height] = [null, null, null, null];
 
@@ -517,6 +565,7 @@ const createSquare = (
   TOP = 10,
   LEFT = 10,
   SIDE = 125,
+  ANGLE = 0,
   IMAGE_SRC = '',
   LINE_COLOR = 'cyan',
   LABEL = '',
@@ -527,6 +576,10 @@ const createSquare = (
   const { max, min, round, abs } = Math;
 
   const area = document.createElement('div');
+
+  if (ANGLE) {
+    area.style.transform = `rotate(${ANGLE}deg)`;
+  }
 
   area.classList.add(AREA_RECT);
 
@@ -539,7 +592,7 @@ const createSquare = (
     top = round(TOP / KY),
     left = round(LEFT / KX),
     side = round(SIDE / max(KX, KY))
-  ) => AREA_EVENT_CALLBACK(ID, 'square-area-changed', ENTITY_ID, top, left, side);
+  ) => AREA_EVENT_CALLBACK(ID, 'square-area-changed', ENTITY_ID, top, left, side, ANGLE);
 
   area.style.position = 'absolute';
   area.style.display = 'flex';
@@ -615,6 +668,10 @@ const createSquare = (
       const {scrollX, scrollY} = window;
       pageX -= scrollX;
       pageY -= scrollY;
+
+      const [cx, cy] = getElementCenter(area);
+
+      [pageX, pageY] = rotatePoint(pageX, pageY, cx, cy, -ANGLE);
 
       let move = null;
       let check = null;
@@ -967,12 +1024,13 @@ export const rect = (
   left = 10,
   height = 125,
   width = 125,
+  angle = 0,
   lineColor = 'cyan',
   label = "",
   imageSrc = '',
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
 ) => [
-    'rect', entityId, top, left, height, width, imageSrc, lineColor, label, backgroundColor
+    'rect', entityId, top, left, height, width, angle, imageSrc, lineColor, label, backgroundColor
   ];
 
 export const roi = (
@@ -991,13 +1049,14 @@ export const square = (
   top = 10,
   left = 10,
   side = 125,
+  angle = 0,
   lineColor = 'cyan',
   label = "",
   imageSrc = '',
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
   moveDelta = 25,
 ) => [
-    'square', entityId, top, left, side, imageSrc, lineColor, label, backgroundColor, moveDelta,
+    'square', entityId, top, left, side, angle, imageSrc, lineColor, label, backgroundColor, moveDelta,
   ];
 
 AreaSelector.prototype = Object.create(HTMLElement.prototype);
