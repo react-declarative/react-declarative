@@ -35,13 +35,13 @@ onChange: (cords: ICord[]) => void
 ### onClick
 
 ```ts
-onClick: (e: MouseEvent, id: string) => void
+onClick: (e: MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void
 ```
 
 ### onHover
 
 ```ts
-onHover: (e: MouseEvent, id: string) => void
+onHover: (e: MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void
 ```
 
 ### onLoadStart

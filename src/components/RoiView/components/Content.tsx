@@ -21,8 +21,8 @@ interface IContentProps {
     naturalHeight: number;
     naturalWidth: number;
     onChange: (cords: ICord[]) => void;
-    onClick: (e: MouseEvent, id: string) => void;
-    onHover: (e: MouseEvent, id: string) => void;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
+    onHover?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
 
 export const Content = ({

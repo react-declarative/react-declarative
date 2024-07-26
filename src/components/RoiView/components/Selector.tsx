@@ -25,8 +25,8 @@ interface ISelectorProps {
   naturalHeight: number;
   naturalWidth: number;
   onChange: (cord: ICordInternal) => void;
-  onClick: (e: MouseEvent, id: string) => void;
-  onHover: (e: MouseEvent, id: string) => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
+  onHover?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
 }
 
 export const Selector = ({
@@ -93,11 +93,11 @@ export const Selector = ({
     };
     const click = (args: any[]) => {
       const [id, e] = args;
-      onClick(e, id);
+      onClick && onClick(e, id);
     };
     const hover = (args: any[]) => {
       const [id, e] = args;
-      onHover(e, id);
+      onHover && onHover(e, id);
     };
     areaSelector({
       areaRef: (refId, ref) => {

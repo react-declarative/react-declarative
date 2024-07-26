@@ -138,7 +138,7 @@ const createRect = (
   area.style.display = 'flex';
   area.style.alignItems = 'stretch';
   area.style.justifyContent = 'stretch';
-  area.style.zIndex = '9999';
+  area.style.zIndex = '99';
 
   if (IMAGE_SRC) {
     area.style.backgroundRepeat = 'no-repeat';
@@ -370,7 +370,7 @@ const createRoi = (
     area.style.left = '0px';
     area.style.right = '0px';
     area.style.bottom = '0px';
-    area.style.zIndex = '999';
+    area.style.zIndex = '98';
     area.style.display = 'flex';
     area.style.alignItems = 'stretch';
     area.style.justifyContent = 'stretch';
@@ -534,7 +534,7 @@ const createSquare = (
   area.style.display = 'flex';
   area.style.alignItems = 'stretch';
   area.style.justifyContent = 'stretch';
-  area.style.zIndex = '9999';
+  area.style.zIndex = '99';
 
   if (AREA_READONLY_FLAG) {
     area.addEventListener('click', (e) => {
@@ -868,7 +868,7 @@ function AreaSelector(resize = resizeHandler) {
   const area = document.createElement('div');
   area.style.position = 'relative';
   area.style.width = '100%';
-  area.style.zIndex = '999';
+  area.style.zIndex = '98';
   area.style.left = '0px';
 
   if (AREA_READONLY_FLAG) {

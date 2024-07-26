@@ -23,11 +23,11 @@ interface IRoiViewProps extends Omit<IPaperViewProps, keyof {
 }> {
     withNaturalSize?: boolean;
     src: string;
-    readonly: boolean;
+    readonly?: boolean;
     cords: ICord[];
     onChange?: (cords: ICord[]) => void;
-    onClick?: (e: MouseEvent, id: string) => void;
-    onHover?: (e: MouseEvent, id: string) => void;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
+    onHover?: (e: React.MouseEvent<HTMLDivElement>, id: string) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
 }
@@ -43,6 +43,9 @@ const useStyles = makeStyles()({
         '& > *': {
             width: '100%',
         },
+        '& .react-declarative__roiAreaRect': {
+            color: 'white',
+        }
     }
 })
 
@@ -51,7 +54,7 @@ const RoiViewInternal = ({
     className,
     src,
     cords: upperCords,
-    readonly,
+    readonly = false,
     onLoadStart,
     onLoadEnd,
     sx,
