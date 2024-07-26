@@ -370,7 +370,7 @@ const createRoi = (
     area.style.left = '0px';
     area.style.right = '0px';
     area.style.bottom = '0px';
-    area.style.zIndex = '98';
+    area.style.zIndex = '100';
     area.style.display = 'flex';
     area.style.alignItems = 'stretch';
     area.style.justifyContent = 'stretch';
@@ -862,7 +862,7 @@ function AreaSelector(resize = resizeHandler) {
   img.style.position = 'absolute';
   img.crossOrigin = 'anonymous';
   img.style.width = '100%';
-  img.style.zIndex = '99';
+  img.style.zIndex = '97';
   img.src = IMAGE_SOURCE;
 
   const area = document.createElement('div');
