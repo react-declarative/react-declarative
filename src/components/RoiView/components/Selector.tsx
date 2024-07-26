@@ -82,16 +82,6 @@ export const Selector = ({
         onChange(dto);
       }
     };
-    const square = (args: any[]) => {
-      const [id, top, left, side, angle] = args;
-      const [height, width] = [...new Array(2)].map(() => side);
-      const {current} = mountRef;
-      if (current) {
-        const dto: ICordInternal = {type: 'square', id, top, left, height, width, angle};
-        cordManager.commitChange(dto);
-        onChange(dto);
-      }
-    };
     const click = (args: any[]) => {
       const [id, e] = args;
       onClick && onClick(e, id);
@@ -114,9 +104,6 @@ export const Selector = ({
               break;
             case 'roi-area-changed':
               roi(args);
-              break;
-            case 'square-area-changed':
-              square(args);
               break;
             case 'rect-area-click':
               click(args);

@@ -5,7 +5,7 @@
 ### type
 
 ```ts
-type: "rect" | "square" | "roi"
+type: "rect" | "roi"
 ```
 
 ### color

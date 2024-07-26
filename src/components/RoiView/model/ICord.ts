@@ -1,5 +1,5 @@
 export interface ICord {
-    type: 'rect' | 'square' | 'roi';
+    type: 'rect' | 'roi';
     color: string;
     id: string;
     top: number;
