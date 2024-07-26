@@ -15,6 +15,17 @@ let AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args });
 let RESIZE_CALLBACK = (id, img) => debug.log({ id, img });
 let AREA_READONLY_FLAG = false;
 
+const createInitHandler = (fn) => {
+  let isComplete = false;
+  return () => {
+    if (isComplete) {
+      return;
+    }
+    fn();
+    isComplete = true;
+  }
+};
+
 const touchManager = new class {
   _wrappers = new Map();
   applyTouchWrapper(callback, passive = false) {
@@ -871,13 +882,17 @@ function AreaSelector(resize = resizeHandler) {
   area.style.zIndex = '98';
   area.style.left = '0px';
 
-  if (AREA_READONLY_FLAG) {
-    area.addEventListener('mouseover', (e) => {
-      e.stopPropagation();
-      AREA_EVENT_CALLBACK(ID, 'root-area-hover', "", e)
-    });
-  }
-  
+  const initHandler = createInitHandler(() => {
+    if (AREA_READONLY_FLAG) {
+      area.addEventListener('mouseover', (e) => {
+        e.stopPropagation();
+        AREA_EVENT_CALLBACK(ID, 'root-area-hover', "", e)
+      });
+    }  
+  });
+
+  resizePipeline.addHandler(initHandler)
+
   const observer = new ResizeObserver(() => resizePipeline.exec([img, area, root]));
   RUN_OUTSIDE_ANGULAR(() => observer.observe(root));
   RUN_OUTSIDE_ANGULAR(() => observer.observe(img));
