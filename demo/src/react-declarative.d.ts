@@ -27408,7 +27408,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
 
 declare module "react-declarative/components/RoiView/model/ICord" {
   export interface ICord {
-    type: "rect" | "square" | "roi";
+    type: "rect" | "roi";
     color: string;
     id: string;
     top: number;
@@ -27416,6 +27416,7 @@ declare module "react-declarative/components/RoiView/model/ICord" {
     width: number;
     height: number;
     label: string;
+    angle: number;
   }
   export interface ICordInternal
     extends Omit<

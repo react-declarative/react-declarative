@@ -5,7 +5,7 @@
 ### type
 
 ```ts
-type: "rect" | "square" | "roi"
+type: "rect" | "roi"
 ```
 
 ### color
@@ -48,4 +48,10 @@ height: number
 
 ```ts
 label: string
+```
+
+### angle
+
+```ts
+angle: number
 ```

@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ModalProvider, SnackProvider, OneConfig } from 'react-declarative';
 
-import App from './App'
+import App from './App.RoiView'
 
 const theme = createTheme({
     /*palette: {

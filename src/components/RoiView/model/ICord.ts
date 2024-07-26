@@ -1,5 +1,5 @@
 export interface ICord {
-    type: 'rect' | 'square' | 'roi';
+    type: 'rect' | 'roi';
     color: string;
     id: string;
     top: number;
@@ -7,6 +7,7 @@ export interface ICord {
     width: number;
     height: number;
     label: string;
+    angle: number;
 };
 
 export interface ICordInternal extends Omit<ICord, keyof {

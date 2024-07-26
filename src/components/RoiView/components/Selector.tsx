@@ -67,26 +67,17 @@ export const Selector = ({
           left,
           height: naturalHeight - top - bottom,
           width: naturalWidth - left - right,
+          angle: 0,
         };
         cordManager.commitChange(dto);
         onChange(dto);
       }
     };
     const rect = (args: any[]) => {
-      const [id, top, left, height, width] = args;
+      const [id, top, left, height, width, angle] = args;
       const {current} = mountRef;
       if (current) {
-        const dto: ICordInternal = { type: 'rect', id, top, left, height, width };
-        cordManager.commitChange(dto);
-        onChange(dto);
-      }
-    };
-    const square = (args: any[]) => {
-      const [id, top, left, side] = args;
-      const [height, width] = [...new Array(2)].map(() => side);
-      const {current} = mountRef;
-      if (current) {
-        const dto: ICordInternal = {type: 'square', id, top, left, height, width};
+        const dto: ICordInternal = { type: 'rect', id, top, left, height, width, angle };
         cordManager.commitChange(dto);
         onChange(dto);
       }
@@ -113,9 +104,6 @@ export const Selector = ({
               break;
             case 'roi-area-changed':
               roi(args);
-              break;
-            case 'square-area-changed':
-              square(args);
               break;
             case 'rect-area-click':
               click(args);

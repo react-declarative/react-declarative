@@ -8,6 +8,7 @@ const compare = (obj1: ICordInternal, obj2: ICordInternal) => {
     isEqual = isEqual && obj1.left === obj2.left;
     isEqual = isEqual && obj1.width === obj2.width;
     isEqual = isEqual && obj1.height === obj2.height;
+    isEqual = isEqual && (obj1.angle || 0) === (obj2.angle || 0);
     return isEqual
 }
 

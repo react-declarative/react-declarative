@@ -102,6 +102,45 @@ const createLabel = (text) => {
   return label;
 };
 
+function rotatePoint(px, py, cx, cy, angle) {
+  const radians = angle * Math.PI / 180;
+  
+  // Translate point to origin
+  const translatedX = px - cx;
+  const translatedY = py - cy;
+  
+  // Perform rotation
+  const rotatedX = translatedX * Math.cos(radians) - translatedY * Math.sin(radians);
+  const rotatedY = translatedX * Math.sin(radians) + translatedY * Math.cos(radians);
+  
+  // Translate point back to the original center
+  const newX = rotatedX + cx;
+  const newY = rotatedY + cy;
+  
+  return [newX, newY];
+}
+
+function getRotatePos([newTop, newLeft, newWidth, newHeight], [currentTop, currentLeft, currentWidth, currentHeight], angle) {
+  if (!angle) {
+    return [newTop, newLeft, newWidth, newHeight];
+  }
+  const widthDifference = newWidth - currentWidth;
+  const heightDifference = newHeight - currentHeight;
+  const topAdjustment = heightDifference / 2;
+  const leftAdjustment = widthDifference / 2;
+  const top = currentTop - topAdjustment;
+  const left = currentLeft - leftAdjustment;
+  return [top, left, newWidth, newHeight];
+}
+
+const getElementCenter = (element) => {
+  const rect = element.getBoundingClientRect();
+  const {scrollX, scrollY } = window;
+  const centerX = rect.left + rect.width / 2 + scrollX;
+  const centerY = rect.top + rect.height / 2 + scrollY;
+  return [centerX, centerY];
+};
+
 const createRect = (
   RUN_OUTSIDE_ANGULAR = (c) => c(),
   AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args }),
@@ -111,6 +150,7 @@ const createRect = (
   LEFT = 10,
   HEIGHT = 125,
   WIDTH = 125,
+  ANGLE = 0,
   IMAGE_SRC = '',
   LINE_COLOR = 'cyan',
   LABEL = '',
@@ -120,6 +160,10 @@ const createRect = (
   const { max, round } = Math;
 
   const area = document.createElement('div');
+
+  if (ANGLE) {
+    area.style.transform = `rotate(${ANGLE}deg)`;
+  }
 
   area.classList.add(AREA_RECT);
 
@@ -133,7 +177,7 @@ const createRect = (
     left = round(LEFT / KX),
     width = round(WIDTH / KX),
     height = round(HEIGHT / KY),
-  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width);
+  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width, ANGLE);
 
   if (AREA_READONLY_FLAG) {
     area.addEventListener('click', (e) => {
@@ -207,6 +251,10 @@ const createRect = (
       pageX -= scrollX;
       pageY -= scrollY;
 
+      const [cx, cy] = getElementCenter(area);
+
+      [pageX, pageY] = rotatePoint(pageX, pageY, cx, cy, -ANGLE);
+
       let areaHeight = null;
       let areaWidth = null;
 
@@ -218,10 +266,10 @@ const createRect = (
         [dx, dy] = [LEFT - x1, TOP - y1];
       }
 
-      const moveTopLeft = () => [y1, x1, WIDTH + dx, HEIGHT + dy];
-      const moveTopRight = () => [y1, LEFT, x1 - LEFT, HEIGHT + dy];
-      const moveBottomLeft = () => [TOP, x1, WIDTH + dx, y1 - TOP];
-      const moveBottomRight = () => [TOP, LEFT, x1 - LEFT, y1 - TOP];
+      const moveTopLeft = () => getRotatePos([y1, x1, WIDTH + dx, HEIGHT + dy], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveTopRight = () => getRotatePos([y1, LEFT, x1 - LEFT, HEIGHT + dy], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveBottomLeft = () => getRotatePos([TOP, x1, WIDTH + dx, y1 - TOP], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
+      const moveBottomRight = () => getRotatePos([TOP, LEFT, x1 - LEFT, y1 - TOP], [TOP, LEFT, WIDTH, HEIGHT], ANGLE);
 
       let [top, left, width, height] = [null, null, null, null];
 
@@ -509,273 +557,9 @@ const createRoi = (
   return [area, resize, content];
 }
 
-const createSquare = (
-  RUN_OUTSIDE_ANGULAR = (c) => c(),
-  AREA_EVENT_CALLBACK = (id, type, ...args) => debug.log({ id, type, args }),
-  ID = 'unset',
-  ENTITY_ID = 'unset-rect',
-  TOP = 10,
-  LEFT = 10,
-  SIDE = 125,
-  IMAGE_SRC = '',
-  LINE_COLOR = 'cyan',
-  LABEL = '',
-  BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.5)',
-  MOVE_DELTA = 25,
-) => {
-
-  const { max, min, round, abs } = Math;
-
-  const area = document.createElement('div');
-
-  area.classList.add(AREA_RECT);
-
-  area.dataset.data_area_id = ID;
-
-  let KY = 1.0;
-  let KX = 1.0;
-
-  const changed = (
-    top = round(TOP / KY),
-    left = round(LEFT / KX),
-    side = round(SIDE / max(KX, KY))
-  ) => AREA_EVENT_CALLBACK(ID, 'square-area-changed', ENTITY_ID, top, left, side);
-
-  area.style.position = 'absolute';
-  area.style.display = 'flex';
-  area.style.alignItems = 'stretch';
-  area.style.justifyContent = 'stretch';
-  area.style.zIndex = '99';
-
-  if (AREA_READONLY_FLAG) {
-    area.addEventListener('click', (e) => {
-      AREA_EVENT_CALLBACK(ID, 'square-area-click', ENTITY_ID, e);
-    });
-    area.addEventListener('mouseover', (e) => {
-      e.stopPropagation();
-      AREA_EVENT_CALLBACK(ID, 'rect-area-hover', ENTITY_ID, e);
-    });
-  }
-
-  if (IMAGE_SRC) {
-    area.style.backgroundRepeat = 'no-repeat';
-    area.style.backgroundPosition = 'center';
-    area.style.backgroundSize = 'contain';
-    area.style.backgroundImage = `url('${IMAGE_SRC}')`;
-  }
-
-  area.style.backgroundColor = BACKGROUND_COLOR;
-  area.style.border = `1px solid ${LINE_COLOR}`;
-
-  const div = document.createElement('div');
-  div.style.position = 'relative';
-  div.style.flexGrow = '1';
-
-  if (LABEL) {
-    div.appendChild(createLabel(LABEL));
-  }
-
-  const redraw = (top = TOP, left = LEFT, side = SIDE) => {
-    area.style.top = `${top}px`;
-    area.style.left = `${left}px`;
-    area.style.width = `${side}px`;
-    area.style.height = `${side}px`;
-    changed();
-  };
-
-  let toRight = 0;
-  let resizing = false;
-  let moveRight = false;
-  let moveBottom = false;
-
-  const createControl = (topAnchor = true, leftAnchor = true) => {
-
-    const control = document.createElement('div');
-
-    control.classList.add(CONTROL_RECT);
-
-    control.style.top = topAnchor ? '-4px' : null;
-    control.style.left = leftAnchor ? '-4px' : null;
-    control.style.right = leftAnchor ? null : '-4px';
-    control.style.bottom = topAnchor ? null : '-4px';
-    control.style.background = LINE_COLOR;
-    control.style.position = 'absolute';
-    control.style.height = '8px';
-    control.style.width = '8px';
-
-    let [x1, y1] = [null, null]; // mouse relative to image
-    let [dx, dy] = [null, null]; // pos delta
-
-    const dragHandler = ({ pageX, pageY }) => {
-
-      if (AREA_READONLY_FLAG) {
-        return;
-      }
-
-      const {scrollX, scrollY} = window;
-      pageX -= scrollX;
-      pageY -= scrollY;
-
-      let move = null;
-      let check = null;
-
-      const moveTopLeft = () => {
-        if (moveRight) {
-          return [TOP, x1, SIDE + dx];
-        } else if (moveBottom) {
-          return [y1, LEFT, SIDE + dy];
-        }
-      };
-
-      const moveTopRight = () => {
-        if (moveRight) {
-          return [TOP, LEFT, x1 - LEFT];
-        } else if (moveBottom) {
-          return [y1, LEFT - dy, SIDE + dy];
-        }
-      };
-
-      const moveBottomLeft = () => {
-        if (moveRight) {
-          return [TOP - dx, x1, SIDE + dx];
-        } else if (moveBottom) {
-          return [TOP, LEFT, y1 - TOP];
-        }
-      };
-
-      const moveBottomRight = () => {
-        if (moveRight) {
-          return [TOP, LEFT + dy + SIDE, y1 - TOP];
-        } else if (moveBottom) {
-          return [TOP + dx + SIDE, LEFT, x1 - LEFT];
-        }
-      };
-
-      if (topAnchor && leftAnchor) {
-        move = moveTopLeft;
-        check = () => abs(dx) > abs(dy);
-      } else if (topAnchor && !leftAnchor) {
-        move = moveTopRight;
-        check = () => abs(dx + SIDE) > abs(dy);
-      } else if (!topAnchor && leftAnchor) {
-        move = moveBottomLeft;
-        check = () => abs(dx) > abs(dy + SIDE);
-      } else if (!topAnchor && !leftAnchor) {
-        move = moveBottomRight;
-        check = () => abs(dx) < abs(dy);
-      }
-
-      {
-        const { top, left } = area.parentElement.getBoundingClientRect();
-        [x1, y1] = [max(pageX - left, 0), max(pageY - top, 0)];
-        [dx, dy] = [LEFT - x1, TOP - y1];
-      }
-
-      if (abs(toRight) < MOVE_DELTA) {
-        toRight = toRight + (check() ? -1 : 1);
-        return;
-      } else {
-        moveRight = toRight < 0;
-        moveBottom = toRight > 0;
-      }
-
-      const [top, left, side] = move();
-      const { height, width } = area.parentElement.getBoundingClientRect();
-
-      if (top < 0 || left < 0 || side < 0 || top + side > height || left + side > width) {
-        return;
-      } else {
-        TOP = top;
-        LEFT = left;
-        SIDE = side;
-        redraw();
-      }
-
-    };
-
-    RUN_OUTSIDE_ANGULAR(() => on(control, 'mousedown', () => {
-      toRight = 0;
-      resizing = true;
-      RUN_OUTSIDE_ANGULAR(() => on(window, 'mousemove', dragHandler));
-      RUN_OUTSIDE_ANGULAR(() => on(window, 'mouseup', () => {
-        RUN_OUTSIDE_ANGULAR(() => un(window, 'mousemove', dragHandler));
-        toRight = 0;
-        resizing = false;
-      }));
-      return false;
-    }));
-
-    return control;
-  };
-
-  [[true, true], [true, false], [false, true], [false, false]]
-    .map((cfg) => createControl(...cfg))
-    .forEach((n) => div.appendChild(n));
-
-  let [x1, y1] = [null, null]; // mouse relative to image
-  let [dx, dy] = [null, null]; // pos delta
-
-  const dragHandler = ({ pageX, pageY }) => {
-
-    if (AREA_READONLY_FLAG) {
-      return;
-    }
-
-    const {scrollX, scrollY} = window;
-    pageX -= scrollX;
-    pageY -= scrollY;
-
-    {
-      const { top, left } = area.parentElement.getBoundingClientRect();
-      [x1, y1] = [max(pageX - left, 0), max(pageY - top, 0)];
-      [dx, dy] = [LEFT - x1, TOP - y1];
-    }
-
-    const [top, left] = [max(y1 - (SIDE / 2), 0), max(x1 - (SIDE / 2), 0)];
-    const { height, width } = area.parentElement.getBoundingClientRect();
-
-    if (resizing) {
-      return;
-    } else {
-      TOP = top + SIDE > height ? TOP : top;
-      LEFT = left + SIDE > width ? LEFT : left;
-      redraw();
-    }
-  };
-
-  RUN_OUTSIDE_ANGULAR(() => on(area, 'mousedown', () => {
-    RUN_OUTSIDE_ANGULAR(() => on(window, 'mousemove', dragHandler));
-    RUN_OUTSIDE_ANGULAR(() => on(window, 'mouseup', () =>
-      RUN_OUTSIDE_ANGULAR(() => un(window, 'mousemove', dragHandler))
-    ));
-    return false;
-  }));
-
-  const resize = ([image, area, root]) => {
-    const { naturalWidth, naturalHeight } = image;
-    const { width, height } = image.getBoundingClientRect();
-    const [
-      prevTop,
-      prevLeft,
-      prevSide
-    ] = [TOP / KY, LEFT / KX, SIDE / max(KX, KY)];
-    KX = width / naturalWidth;
-    KY = height / naturalHeight;
-    TOP = prevTop * KY;
-    LEFT = prevLeft * KX;
-    SIDE = prevSide * max(KX, KY);
-    redraw();
-  };
-
-  area.appendChild(div);
-
-  return [area, resize];
-};
-
 const AREA_SELECTORS = {
   roi: createRoi,
   rect: createRect,
-  square: createSquare,
 };
 
 const resizeHandler = ([img, area, root]) => {
@@ -967,12 +751,13 @@ export const rect = (
   left = 10,
   height = 125,
   width = 125,
+  angle = 0,
   lineColor = 'cyan',
   label = "",
   imageSrc = '',
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
 ) => [
-    'rect', entityId, top, left, height, width, imageSrc, lineColor, label, backgroundColor
+    'rect', entityId, top, left, height, width, angle, imageSrc, lineColor, label, backgroundColor
   ];
 
 export const roi = (
@@ -984,20 +769,6 @@ export const roi = (
   backgroundColor = 'rgba(0, 0, 0, 0.5)',
 ) => [
     'roi', top, left, right, bottom, lineColor, backgroundColor,
-  ];
-
-export const square = (
-  entityId = 'square-unset-id',
-  top = 10,
-  left = 10,
-  side = 125,
-  lineColor = 'cyan',
-  label = "",
-  imageSrc = '',
-  backgroundColor = 'rgba(0, 0, 0, 0.5)',
-  moveDelta = 25,
-) => [
-    'square', entityId, top, left, side, imageSrc, lineColor, label, backgroundColor, moveDelta,
   ];
 
 AreaSelector.prototype = Object.create(HTMLElement.prototype);
