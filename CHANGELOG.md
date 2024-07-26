@@ -1,3 +1,13 @@
+# RoiView (v2.6.140, 26/07/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.140)
+
+The `<RoiView />` is a special component for marking [ROI](https://en.wikipedia.org/wiki/Region_of_interest) on images. Can be used in [computer vision](https://en.wikipedia.org/wiki/Computer_vision), AI and marking [mall floor plans](https://www.edrawsoft.com/template-mall-floor-plan.html)
+
+![image](https://github.com/user-attachments/assets/c8085569-3cdf-4ac3-af27-1a65d07062cf)
+
+
+
 # Action Animation (v2.6.90, 29/06/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.90)
