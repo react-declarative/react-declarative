@@ -247,5 +247,5 @@ export default makeField(ComponentField, {
   skipDirtyClickListener: true,
   skipFocusReadonly: true,
   skipFocusBlurCall: true,
-  skipDebounce: true,
+  skipDebounce: false,
 });
