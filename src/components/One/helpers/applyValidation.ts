@@ -2,6 +2,7 @@ import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
 
 import deepFlat from "../../../utils/deepFlat";
+import * as datetime from "../../../utils/datetime";
 
 interface IValidationFn<Data extends IAnything = IAnything> {
     (data: Data): string | null;
@@ -25,6 +26,8 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
             numeric,
             minNum,
             maxNum,
+            date,
+            time,
         } = validation;
         if (required) {
             validations.push((data) => {
@@ -37,6 +40,22 @@ export const applyValidation = <Data extends IAnything = IAnything, Field extend
                 }
                 if (!value) {
                     return "Required";
+                }
+                return null;
+            });
+        }
+        if (date) {
+            validations.push((data) => {
+                if (!datetime.parseDate(data[name])?.isValid) {
+                    return "The date is invalid";
+                }
+                return null;
+            });
+        }
+        if (time) {
+            validations.push((data) => {
+                if (!datetime.parseTime(data[name])?.isValid) {
+                    return "time date is invalid";
                 }
                 return null;
             });

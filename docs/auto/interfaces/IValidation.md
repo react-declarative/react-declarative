@@ -45,3 +45,15 @@ maxNum: number
 ```ts
 pattern: RegExp
 ```
+
+### date
+
+```ts
+date: boolean
+```
+
+### time
+
+```ts
+time: boolean
+```

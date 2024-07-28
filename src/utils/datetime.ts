@@ -10,6 +10,15 @@ export const TIME_EXPR = /(?:\d\d:\d\d)/g;
  * Represents a specific point in time.
  */
 export class Time {
+    /**
+     * Check if time is valid
+     */
+    get isValid() {
+        let date = getGenesisStamp();
+        date = date.set('hour', this.hour);
+        date = date.set('minute', this.minute);
+        return date.isValid();
+    }
     constructor(
         public readonly hour: number,
         public readonly minute: number
@@ -51,6 +60,16 @@ export class Time {
  * Represents a date.
  */
 export class Date {
+    /**
+     * Check if date is valid
+     */
+    get isValid() {
+        let date = getGenesisStamp();
+        date = date.set('date', this.day);
+        date = date.set('month', this.month - 1);
+        date = date.set('year', this.year);
+        return date.isValid();
+    }
     constructor(
         public readonly day: number,
         public readonly month: number,
@@ -107,6 +126,9 @@ export const parseDate = (date: string | null): Date | null => {
     if (!date) {
         return null;
     }
+    if (typeof date !== 'string') {
+        return null;
+    }
     const [day = '', month = '', year = ''] = date.split('/');
     if (day.length === 2 && month.length === 2 && year.length === 4) {
       const d = parseInt(day, 10);
@@ -150,6 +172,9 @@ export const serializeDate = (date: Date | null) => {
  */
 export const parseTime = (time: string | null): Time | null => {
     if (!time) {
+        return null;
+    }
+    if (typeof time !== 'string') {
         return null;
     }
     const [hour, minute] = time.split(':')

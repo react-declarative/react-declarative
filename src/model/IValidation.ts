@@ -14,6 +14,8 @@ export interface IValidation {
     minNum?: number;
     maxNum?: number;
     pattern?: RegExp;
+    date?: boolean;
+    time?: boolean;
 }
 
 export default IValidation;
