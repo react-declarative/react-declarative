@@ -14,6 +14,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     readonly: boolean;
     incorrect: IManaged<Data, Payload>["incorrect"];
     invalid: IManaged<Data, Payload>["invalid"];
+    value: IManaged<Data, Payload>["value"];
     features: string[];
 };
 ```

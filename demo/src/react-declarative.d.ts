@@ -13904,6 +13904,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
   interface IComponentFieldPrivate<Data = IAnything> {
     object: PickProp<IManaged<Data>, "object">;
     disabled: PickProp<IManaged<Data>, "disabled">;
+    value: PickProp<IManaged<Data>, "value">;
     invalid: PickProp<IManaged<Data>, "invalid">;
     incorrect: PickProp<IManaged<Data>, "incorrect">;
     readonly: PickProp<IManaged<Data>, "readonly">;
@@ -13930,6 +13931,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
       invalid,
       incorrect,
       readonly,
+      value,
       watchOneContext,
       element: Element,
       outlinePaper,
@@ -17718,6 +17720,7 @@ declare module "react-declarative/model/ComponentFieldInstance" {
      * @type {boolean}
      */
     invalid: IManaged<Data, Payload>["invalid"];
+    value: IManaged<Data, Payload>["value"];
     features: string[];
   };
   /**

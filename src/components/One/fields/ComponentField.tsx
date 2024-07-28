@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
+import { useMemo } from "react";
 
 import { makeStyles } from "../../../styles";
 
@@ -119,6 +119,7 @@ export interface IComponentFieldProps<Data = IAnything, Payload = IAnything> {
 interface IComponentFieldPrivate<Data = IAnything> {
   object: PickProp<IManaged<Data>, "object">;
   disabled: PickProp<IManaged<Data>, "disabled">;
+  value: PickProp<IManaged<Data>, "value">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   incorrect: PickProp<IManaged<Data>, "incorrect">;
   readonly: PickProp<IManaged<Data>, "readonly">;
@@ -150,7 +151,7 @@ const useStyles = makeStyles()({
   },
 });
 
-const ComponentInstance = ({
+const ComponentContextInstance = ({
     Element,
     ...props
 }: ComponentFieldInstanceProps) => {
@@ -181,6 +182,7 @@ export const ComponentField = ({
   invalid,
   incorrect,
   readonly,
+  value,
   watchOneContext,
   element: Element = () => <Fragment />,
   outlinePaper,
@@ -191,18 +193,17 @@ export const ComponentField = ({
 }: IComponentFieldProps & IComponentFieldPrivate) => {
   const { classes } = useStyles();
 
-  const [node, setNode] = useState<JSX.Element | null>(null);
   const { changeObject: handleChange } = useOneState();
   const payload = useOnePayload();
   const features = useOneFeatures();
 
-  useEffect(() => {
+  const componentProps = useMemo(() => {
     const _fieldParams = Object.entries(otherProps as IField)
       .filter(
         ([key]) => !FIELD_INTERNAL_PARAMS.includes(key as FieldIgnoreParam)
       )
       .reduce((acm, [key, value]) => ({ ...acm, [key]: value }), {}) as IField;
-    const props = {
+    return {
       ...object,
       onChange: handleChange,
       onValueChange,
@@ -216,13 +217,17 @@ export const ComponentField = ({
       disabled,
       readonly,
       features,
-    };
+    } as const;
+  }, [
+    object, disabled, invalid, incorrect, readonly
+  ]);
+
+  const renderNode = () => {
     if (watchOneContext) {
-        setNode(() => <ComponentInstance {...props} Element={Element} />);
-        return;
+      return <ComponentContextInstance {...componentProps} value={value} Element={Element} />
     }
-    setNode(() => <Element {...props} context={DEFAULT_VALUE} />);
-  }, [object, disabled, invalid, incorrect, readonly]);
+    return <Element {...componentProps} value={value} context={DEFAULT_VALUE} />
+  };
 
   return (
     <Box
@@ -231,7 +236,7 @@ export const ComponentField = ({
         [classes.readonly]: readonly,
       })}
     >
-      {node}
+      {renderNode()}
     </Box>
   );
 };

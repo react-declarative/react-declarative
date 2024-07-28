@@ -14,6 +14,12 @@ object: Data
 disabled: boolean
 ```
 
+### value
+
+```ts
+value: any
+```
+
 ### invalid
 
 ```ts

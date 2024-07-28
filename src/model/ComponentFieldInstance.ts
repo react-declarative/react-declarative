@@ -102,6 +102,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
    * @type {boolean}
    */
   invalid: IManaged<Data, Payload>['invalid'];
+  value: IManaged<Data, Payload>['value'];
   features: string[];
 };
 
