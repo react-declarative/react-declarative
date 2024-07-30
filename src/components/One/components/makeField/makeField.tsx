@@ -185,6 +185,7 @@ export function makeField(
         name = '',
         title = nameToTitle(name) || undefined,
         menu = DEFAULT_MENU,
+        type,
         debug,
         focus,
         blur,
@@ -267,6 +268,7 @@ export function makeField(
             dirty: upperDirty,
         }, {
             compute,
+            type,
             readTransform,
             config: oneConfig,
             name,

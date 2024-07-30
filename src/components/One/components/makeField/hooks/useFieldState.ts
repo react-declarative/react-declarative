@@ -8,6 +8,9 @@ import IField, { Value } from "../../../../../model/IField";
 import IManaged from "../../../../../model/IManaged";
 import IAnything from "../../../../../model/IAnything";
 import IOneProps from "../../../../../model/IOneProps";
+import FieldType from "../../../../../model/FieldType";
+
+import initialValue from "../../../config/initialValue";
 
 /**
  * Represents the state of a component.
@@ -63,6 +66,7 @@ interface IInitialData
  * @interface IParams
  */
 interface IParams {
+  type: FieldType;
   name: IManaged["name"];
   payload: IAnything;
   object: IManaged["object"];
@@ -92,13 +96,13 @@ interface IParams {
  *
  * @returns - The value read from the object or false if the value cannot be computed or found.
  */
-const readValue = ({ compute, readTransform, name, object, payload, config }: IParams, visible: boolean) => {
+const readValue = ({ compute, type, readTransform, name, object, payload, config }: IParams, visible: boolean) => {
   /**
    * Используйте флаг WITH_SYNC_COMPUTE с осторожностью: может вызывать
    * тормоза рендеринга на больших формах
    */
   if (compute && config.WITH_SYNC_COMPUTE) {
-    const result = visible ? compute(object, payload) : false;
+    const result = visible ? compute(object, payload) : initialValue(type);
     return result instanceof Promise ? false : result;
   }
   /**
@@ -106,7 +110,7 @@ const readValue = ({ compute, readTransform, name, object, payload, config }: IP
    * передавать в свойство value значение null
    */
   if (!compute && name) {
-    return readTransform(get(object, name), name, object, payload) || false;
+    return readTransform(get(object, name), name, object, payload) || initialValue(type);
   }
   return false;
 };
