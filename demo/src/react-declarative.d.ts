@@ -843,6 +843,7 @@ declare module "react-declarative" {
   export { getFilterCount } from "react-declarative/utils/getFilterCount";
   export { getInvalidFields } from "react-declarative/utils/getInvalidFields";
   export { getFieldsError } from "react-declarative/utils/getFieldsError";
+  export { getFieldVariant } from "react-declarative/utils/getFieldVariant";
   export { isInvalidFieldData } from "react-declarative/utils/isInvalidFieldData";
   export { flatArray } from "react-declarative/utils/flatArray";
   export { removeExtraSpaces } from "react-declarative/utils/removeExtraSpaces";
@@ -9561,6 +9562,31 @@ declare module "react-declarative/utils/getFieldsError" {
     payload: Payload,
   ) => string | null;
   export default getFieldsError;
+}
+
+declare module "react-declarative/utils/getFieldVariant" {
+  import IField from "react-declarative/model/IField";
+  /**
+   * Retrieves a list of variants based on the given fields.
+   *
+   * @param fields - The array of fields to process.
+   * @param keyToTitle - (Optional) A function to derive the title from the field name. Default is identity function.
+   * @returns - The list of variants, each containing a label and value.
+   */
+  export const getFieldVariant: (
+    fields: IField[],
+    {
+      keyToTitle,
+      ignore,
+    }?: {
+      keyToTitle?: ((v: string) => string) | undefined;
+      ignore?: ((key: string) => boolean) | undefined;
+    },
+  ) => {
+    label: string;
+    value: string;
+  }[];
+  export default getFieldVariant;
 }
 
 declare module "react-declarative/utils/isInvalidFieldData" {
