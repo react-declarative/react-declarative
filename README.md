@@ -238,6 +238,15 @@ git clone https://github.com/react-declarative/react-pocketbase-crm.git
 git clone https://github.com/react-declarative/chatgpt-ecommerce-prompt.git
 ```
 
+**8. React Native version of that library**
+
+> [!NOTE]
+> GitHub repo: [https://github.com/react-declarative/rn-declarative](https://github.com/react-declarative/rn-declarative)
+
+```bash
+git clone https://github.com/react-declarative/rn-declarative.git
+```
+
 <img src="./assets/icons/fallen.svg" height="40px" align="right">
 
 ## Declarative Scaffold component
