@@ -238,7 +238,7 @@ git clone https://github.com/react-declarative/react-pocketbase-crm.git
 git clone https://github.com/react-declarative/chatgpt-ecommerce-prompt.git
 ```
 
-**8. React Native version of that library**
+**8. React Native lightweight version of this library**
 
 > [!NOTE]
 > GitHub repo: [https://github.com/react-declarative/rn-declarative](https://github.com/react-declarative/rn-declarative)
