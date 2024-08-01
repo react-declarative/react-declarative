@@ -1,5 +1,7 @@
 # Form schema
 
+> If you searching for the field interface defenition, seek the [src/components/One/fields](https://github.com/react-declarative/react-declarative/tree/3e6d7b6283491d77ae53164e6e3ea269f39fe80c/src/components/One/fields) folder
+
 The `<One />` template engine allows programmer to build huge forms with powerful business logic in functional + declarative style. Let's start our journey with several code snippets
 
 ## Layout description
