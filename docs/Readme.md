@@ -46,11 +46,17 @@ Read the code from the markdown file and make me a sign in form by using same sc
 
 ## Articles:
 
+**Main idea**
+
 1. [The code as the side effect](./other/code-sideeffect.md)
 2. [React components for undirected data flow](./other/react-components-for-data-flow.md)
 3. [MobX onion architecture](./other/onion-architecture-mobx.md)
 4. [DataGrid software design to reduce app cost](./other/datagrid-software-design.md)
 5. [Writing custom UI Kit in parallel with the development of the main product](./other/how-to-implement-uikit.md)
+
+**Other**
+
+6. [React Native port](./other/react-native-port.md)
 
 ## Source Description:
 
