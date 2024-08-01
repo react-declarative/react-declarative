@@ -1,6 +1,6 @@
 # Form schema
 
-> If you searching for the field interface defenition, seek for [src/components/One/fields](https://github.com/react-declarative/react-declarative/tree/3e6d7b6283491d77ae53164e6e3ea269f39fe80c/src/components/One/fields) folder. If you searching for the field implementation check the [src/components/One/components/SlotFactrory/components](https://github.com/react-declarative/react-declarative/tree/3e6d7b6283491d77ae53164e6e3ea269f39fe80c/src/components/One/components/SlotFactrory/components) folder
+> If you searching for the field interface defenition, seek for [src/components/One/fields](https://github.com/react-declarative/react-declarative/tree/3e6d7b6283491d77ae53164e6e3ea269f39fe80c/src/components/One/fields) folder. If you searching for the field implementation check the [src/components/One/components/SlotFactory/components](https://github.com/react-declarative/react-declarative/tree/3e6d7b6283491d77ae53164e6e3ea269f39fe80c/src/components/One/components/SlotFactory/components) folder
 
 The `<One />` template engine allows programmer to build huge forms with powerful business logic in functional + declarative style. Let's start our journey with several code snippets
 
