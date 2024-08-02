@@ -44,6 +44,12 @@ readonly: boolean
 onChange: (v: any, config?: { skipReadonly?: boolean; }) => void
 ```
 
+### click
+
+```ts
+click: (e: MouseEvent<any, MouseEvent>) => void | Promise<void>
+```
+
 ### outlinePaper
 
 ```ts

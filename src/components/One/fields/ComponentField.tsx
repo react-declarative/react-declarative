@@ -124,6 +124,7 @@ interface IComponentFieldPrivate<Data = IAnything> {
   incorrect: PickProp<IManaged<Data>, "incorrect">;
   readonly: PickProp<IManaged<Data>, "readonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
+  click: PickProp<IManaged<Data>, 'click'>;
   outlinePaper?: PickProp<IField<Data>, "outlinePaper">;
   transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
 }
@@ -189,6 +190,7 @@ export const ComponentField = ({
   transparentPaper,
   object,
   onChange: onValueChange,
+  click: onClick,
   ...otherProps
 }: IComponentFieldProps & IComponentFieldPrivate) => {
   const { classes } = useStyles();
@@ -207,6 +209,7 @@ export const ComponentField = ({
       ...object,
       onChange: handleChange,
       onValueChange,
+      onClick,
       _fieldParams,
       _fieldData: object,
       outlinePaper,

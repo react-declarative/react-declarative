@@ -16,6 +16,7 @@ export type ComponentFieldInstance<Data = any, Payload = any> = Data & {
     invalid: IManaged<Data, Payload>["invalid"];
     value: IManaged<Data, Payload>["value"];
     features: string[];
+    onClick: (e: React.MouseEvent<any>) => void | Promise<void>;
 };
 ```
 

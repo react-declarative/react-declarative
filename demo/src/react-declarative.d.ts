@@ -13950,6 +13950,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
     incorrect: PickProp<IManaged<Data>, "incorrect">;
     readonly: PickProp<IManaged<Data>, "readonly">;
     onChange: PickProp<IManaged<Data>, "onChange">;
+    click: PickProp<IManaged<Data>, "click">;
     outlinePaper?: PickProp<IField<Data>, "outlinePaper">;
     transparentPaper?: PickProp<IField<Data>, "transparentPaper">;
   }
@@ -13979,6 +13980,7 @@ declare module "react-declarative/components/One/fields/ComponentField" {
       transparentPaper,
       object,
       onChange: onValueChange,
+      click: onClick,
       ...otherProps
     }: IComponentFieldProps & IComponentFieldPrivate): JSX.Element;
     displayName: string;
@@ -17780,6 +17782,7 @@ declare module "react-declarative/model/ComponentFieldInstance" {
     invalid: IManaged<Data, Payload>["invalid"];
     value: IManaged<Data, Payload>["value"];
     features: string[];
+    onClick: (e: React.MouseEvent<any>) => void | Promise<void>;
   };
   /**
    * Interface representing a debug object.
