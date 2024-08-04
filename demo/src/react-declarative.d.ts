@@ -579,6 +579,11 @@ declare module "react-declarative" {
     OneDefaultSlots,
   } from "react-declarative/components";
   export {
+    isBaseline,
+    isBaselineSimple,
+    isBaselineForRoot,
+  } from "react-declarative/components";
+  export {
     ListSlotFactory,
     ListDefaultSlots,
   } from "react-declarative/components";
@@ -11270,6 +11275,9 @@ declare module "react-declarative/components/One" {
   export { usePreventLeave } from "react-declarative/components/One/api/usePreventLeave";
   export { default as OneSlotFactory } from "react-declarative/components/One/components/SlotFactory";
   export { defaultSlots as OneDefaultSlots } from "react-declarative/components/One/components/SlotFactory";
+  export { isBaseline } from "react-declarative/components/One/config/isBaseline";
+  export { isBaselineSimple } from "react-declarative/components/One/config/isBaselineSimple";
+  export { isBaselineForField as isBaselineForRoot } from "react-declarative/components/One/config/isBaseline";
   export { default } from "react-declarative/components/One/One";
 }
 
@@ -21593,6 +21601,28 @@ declare module "react-declarative/components/One/api/usePreventLeave" {
     changeSubject: upperChangeSubject,
   }?: IPreventLeaveParams<Data, ID>) => IPreventLeaveReturn<Data>;
   export default usePreventLeave;
+}
+
+declare module "react-declarative/components/One/config/isBaseline" {
+  import FieldType from "react-declarative/model/FieldType";
+  import IField from "react-declarative/model/IField";
+  /**
+   * Set of FieldType values representing the baseline fields.
+   */
+  export const baselineFields: Set<FieldType>;
+  /**
+   * Для поля нужно проверить флаги и наличие в списке. Флаги baseline компоновок
+   * действуют только на потомков и на родительский элемент не распространяются
+   */
+  export const isBaselineForField: (field: IField) => boolean;
+  export const isBaseline: (field: IField) => boolean;
+  export default isBaseline;
+}
+
+declare module "react-declarative/components/One/config/isBaselineSimple" {
+  import IField from "react-declarative/model/IField";
+  export const isBaselineSimple: ({ noBaseline }: IField) => boolean;
+  export default isBaselineSimple;
 }
 
 declare module "react-declarative/components/OneIcon/OneIcon" {

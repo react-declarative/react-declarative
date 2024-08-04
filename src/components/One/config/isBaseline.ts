@@ -49,7 +49,7 @@ export const isBaselineForField = (field: IField) => {
  * на один уровень вложенности без рекурсии
  *                             ^^^^^^^^^^^^
  */
-const isBaselineForLayout = ({ outlined, noBaseline, baseline, child, fields }: IField) => {
+const isBaselineForLayout = ({ outlined, noBaseline, baseline, child, fields }: IField): boolean => {
     if (outlined) {
         return false;
     } 

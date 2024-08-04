@@ -20,7 +20,7 @@ import useManagedProps from './hooks/useManagedProps';
 import createFieldInternal from './config/createField';
 import createLayoutInternal from './config/createLayout';
 
-import isBaselineInternal from './config/isBaseline';
+import isBaselineInternal, { isBaselineForField } from './config/isBaseline';
 
 const DEFAULT_ONFOCUS = () => null;
 const DEFAULT_ONBLUR = () => null;
@@ -65,7 +65,7 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         createField = createFieldInternal,
         createLayout = createLayoutInternal,
         isBaseline = isBaselineInternal,
-        isBaselineForRoot = isBaselineInternal,
+        isBaselineForRoot = isBaselineForField,
         apiRef,
         changeSubject,
         reloadSubject,

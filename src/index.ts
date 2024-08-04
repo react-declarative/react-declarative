@@ -501,6 +501,9 @@ export { Chip } from './components';
 export { Map } from './components';
 
 export { OneSlotFactory, OneDefaultSlots } from './components';
+
+export { isBaseline, isBaselineSimple, isBaselineForRoot } from './components';
+
 export { ListSlotFactory, ListDefaultSlots } from './components';
 export { Breadcrumbs } from './components';
 export { Breadcrumbs2 } from './components';

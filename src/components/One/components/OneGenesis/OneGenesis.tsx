@@ -32,7 +32,7 @@ import Container from "../common/Container";
 import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
-import isBaselineInternal from "../../config/isBaseline";
+import { isBaselineForField } from "../../config/isBaseline";
 
 const BASE_CLASS = "react-declarative__oneGenesis";
 const READY_CLASS = "react-declarative__oneGenesisReady";
@@ -84,7 +84,7 @@ export const OneGenesis = <
   const { classes } = useStyles();
 
   const {
-    isBaselineForRoot = isBaselineInternal,
+    isBaselineForRoot = isBaselineForField,
     change = DEFAULT_CHANGE,
     ready = DEFAULT_READY,
     fields = [],
