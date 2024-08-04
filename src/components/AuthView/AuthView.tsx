@@ -15,7 +15,7 @@ import RevealView from '../RevealView';
 import ActionButton from '../ActionButton';
 import One from '../One';
 
-import { OneHandler } from '../../model/IOneProps';
+import IOneProps, { OneHandler } from '../../model/IOneProps';
 import FieldType from '../../model/FieldType';
 import IAnything from '../../model/IAnything';
 import IField from '../../model/IField';
@@ -91,6 +91,8 @@ interface IAuthViewProps<Data extends IAnything = IAnything, Payload = IAnything
     appName?: string;
     fields?: Field[];
     handler?: OneHandler<Data, Payload>;
+    isBaseline?: IOneProps["isBaseline"];
+    isBaselineForRoot?: IOneProps["isBaselineForRoot"];
     Logo?: React.ComponentType<any>;
     onAuth?: (data: Data) => (void | Promise<void>);
     onLoadStart?: () => void;
@@ -177,6 +179,8 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
     throwError,
     handler,
     fallback,
+    isBaseline,
+    isBaselineForRoot,
     onAuth = () => undefined,
     BeforeSubmit,
     AfterSubmit,
@@ -250,6 +254,8 @@ export const AuthView = <Data extends IAnything = IAnything, Payload = IAnything
                     onLoadStart={onLoadStart}
                     onLoadEnd={onLoadEnd}
                     fallback={fallback}
+                    isBaseline={isBaseline}
+                    isBaselineForRoot={isBaselineForRoot}
                 />
                 {BeforeSubmit && (
                     <div className={classes.beforeSubmit}>

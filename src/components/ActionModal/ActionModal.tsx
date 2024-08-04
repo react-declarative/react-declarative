@@ -61,6 +61,8 @@ export interface IActionModalProps<
   title?: string;
   dirty?: boolean;
   param?: Param;
+  isBaselineForRoot?: IOneProps<Data, Payload>["isBaselineForRoot"];
+  isBaseline?: IOneProps<Data, Payload>["isBaseline"];
   features?: IOnePublicProps<Data, Payload>["features"];
   outlinePaper?: IOneProps<Data, Payload>["outlinePaper"];
   transparentPaper?: IOneProps<Data, Payload>["transparentPaper"];
@@ -263,6 +265,8 @@ export const ActionModal = <
   features,
   changeSubject,
   reloadSubject,
+  isBaselineForRoot,
+  isBaseline,
   outlinePaper = false,
   transparentPaper = false,
   open = true,
@@ -503,6 +507,8 @@ export const ActionModal = <
             className={classNames({
               [classes.disabled]: !!loading.current,
             })}
+            isBaselineForRoot={isBaselineForRoot}
+            isBaseline={isBaseline}
             readonly={!!loading.current || readonly}
             outlinePaper={outlinePaper}
             transparentPaper={transparentPaper}

@@ -47,6 +47,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onInvalid?: IOneProps<Data, Payload>['invalidity'];
   onFocus?: IOneProps<Data, Payload>['focus'];
   onBlur?: IOneProps<Data, Payload>['blur'];
+  isBaseline?: IOneProps<Data, Payload>['isBaseline'];
+  isBaselineForRoot?: IOneProps<Data, Payload>['isBaselineForRoot'];
   readTransform?: IOnePublicProps<Data, Payload>['readTransform'];
   writeTransform?: IOnePublicProps<Data, Payload>['writeTransform'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';

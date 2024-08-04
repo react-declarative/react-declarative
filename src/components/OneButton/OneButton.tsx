@@ -89,6 +89,8 @@ export const OneButton = <
   onChange,
   onFocus,
   onBlur,
+  isBaseline,
+  isBaselineForRoot,
   onInvalid,
   readTransform,
   writeTransform,
@@ -254,6 +256,8 @@ export const OneButton = <
           payload={payload}
           handler={() => data}
           readonly={readonly}
+          isBaseline={isBaseline}
+          isBaselineForRoot={isBaselineForRoot}
           onChange={(data, initial) => {
             if (!initial) {
               setData(data);

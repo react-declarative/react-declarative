@@ -160,6 +160,14 @@ noBaseline: boolean
 
 Отключает нижний baseline для текущей компоновки
 
+### baseline
+
+```ts
+baseline: boolean
+```
+
+Принудительно включает нижний baseline для текущей компоновки
+
 ### labelShrink
 
 ```ts

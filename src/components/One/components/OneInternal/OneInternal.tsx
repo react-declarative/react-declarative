@@ -4,7 +4,7 @@ import { memo, useRef, useCallback, useEffect, Fragment, useMemo } from "react";
 import isStatefull, { isLayout } from "../../config/isStatefull";
 import createFieldInternal from "../../config/createField";
 import createLayoutInternal from "../../config/createLayout";
-import isBaseline from "../../config/isBaseline";
+import isBaselineInternal from "../../config/isBaseline";
 
 import { useOneState } from "../../context/StateProvider";
 import { useOneCache } from "../../context/CacheProvider";
@@ -144,6 +144,8 @@ export const OneInternal = <
   transparentPaper: upperTransparentPaper = false,
   readonly,
   disabled,
+  baseline,
+  noBaseline,
   readTransform,
   writeTransform,
   focus,
@@ -152,6 +154,7 @@ export const OneInternal = <
   menu,
   createField = createFieldInternal,
   createLayout = createLayoutInternal,
+  isBaseline = isBaselineInternal,
   withNamedPlaceholders,
 }: IOneInternalProps<Data, Payload, Field>) => {
 
@@ -275,7 +278,7 @@ export const OneInternal = <
             isBaselineAlign:
               baselineMap.get(field) === undefined
                 ? !!baselineMap
-                    .set(field, !field.noBaseline && fields.some(isBaseline))
+                    .set(field, baseline ? true : noBaseline ? false : isBaseline(field))
                     .get(field)
                 : !!baselineMap.get(field),
             ...field,
@@ -418,6 +421,8 @@ export const OneInternal = <
             outlinePaper: entity.outlinePaper,
             transparentPaper: entity.transparentPaper,
             withNamedPlaceholders,
+            baseline,
+            noBaseline,
             createField,
             createLayout,
             fields,

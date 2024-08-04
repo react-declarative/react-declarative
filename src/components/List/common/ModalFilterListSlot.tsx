@@ -113,7 +113,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 }: IFilterListSlot) => {
   const payload = usePayload();
 
-  const { filterLabel, readTransform, writeTransform, modalSizeRequest } = useProps();
+  const { filterLabel, readTransform, writeTransform, modalSizeRequest, isBaseline, isBaselineForRoot } = useProps();
 
   const {
     inputRef,
@@ -136,6 +136,8 @@ export const ModalFilterListSlot = <FilterData extends {}>({
       </IconButton>
     ),
     sizeRequest: modalSizeRequest,
+    isBaseline,
+    isBaselineForRoot,
     fullScreen: true,
     outlinePaper: true,
     handler: filterData,

@@ -8,6 +8,7 @@ import ActionType from './ActionType';
 import SelectionMode from './SelectionMode';
 
 import IAnything from './IAnything';
+import IOneProps from './IOneProps';
 import IRowData, { RowId } from './IRowData';
 import IColumn from './IColumn';
 import IListOperation from './IListOperation';
@@ -408,6 +409,8 @@ export interface IListProps<
   Payload extends IAnything= IAnything,
   Field extends IField = IField<FilterData, Payload>,
 > {
+  isBaseline?: IOneProps["isBaseline"];
+  isBaselineForRoot?: IOneProps["isBaselineForRoot"];
   apiRef?: Ref<IListApi<FilterData, RowData>>;
   /**
    * Represents a React component that will be rendered after the chip list.

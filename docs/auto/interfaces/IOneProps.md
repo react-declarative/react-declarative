@@ -4,6 +4,22 @@ Properties of the &lt;One /&gt; template engine component
 
 ## Properties
 
+### baseline
+
+```ts
+baseline: boolean
+```
+
+Привязывет поля к нижнему краю
+
+### noBaseline
+
+```ts
+noBaseline: boolean
+```
+
+Привязывает поля и компоновки к верхнему краю
+
 ### apiRef
 
 ```ts
@@ -52,6 +68,24 @@ updateSubject: TSubject<Data>
 ```
 
 Эмиттер для изменения данных. Вызывает change(data, false)
+
+### isBaseline
+
+```ts
+isBaseline: (field: IField<any, any>) => boolean
+```
+
+Функция, определяющая, нужно ли включить baseline зависимо от
+расположения поля в иерархии композиции потомков
+
+### isBaselineForRoot
+
+```ts
+isBaselineForRoot: (field: IField<any, any>) => boolean
+```
+
+Корневой компонент привязывает поля к нижнему краю только если
+нет ни одной компоновки
 
 ### createField
 

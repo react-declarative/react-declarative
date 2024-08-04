@@ -126,6 +126,11 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     noBaseline?: boolean;
 
     /**
+     * Принудительно включает нижний baseline для текущей компоновки
+     */
+    baseline?: boolean;
+
+    /**
      * Флаг, удерживающий подпись текстового поля при пустом
      * значении
      */

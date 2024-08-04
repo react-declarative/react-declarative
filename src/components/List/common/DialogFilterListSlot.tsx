@@ -122,6 +122,8 @@ export const DialogFilterListSlot = <FilterData extends {}>({
     readTransform,
     writeTransform,
     modalSizeRequest,
+    isBaseline,
+    isBaselineForRoot,
   } = useProps();
 
   const {
@@ -146,6 +148,8 @@ export const DialogFilterListSlot = <FilterData extends {}>({
     ),
     readTransform,
     writeTransform,
+    isBaseline,
+    isBaselineForRoot,
     sizeRequest: modalSizeRequest,
     outlinePaper: true,
     handler: filterData,
