@@ -119,6 +119,8 @@ export const DenseFilterListSlot = ({
     readTransform,
     writeTransform,
     modalSizeRequest,
+    isBaseline,
+    isBaselineForRoot,
     actions = [],
   } = useProps();
 
@@ -128,6 +130,8 @@ export const DenseFilterListSlot = ({
         <Close />
       </IconButton>
     ),
+    isBaseline,
+    isBaselineForRoot,
     sizeRequest: modalSizeRequest,
     fullScreen: true,
     outlinePaper: true,

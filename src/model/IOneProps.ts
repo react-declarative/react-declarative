@@ -25,6 +25,14 @@ export type OneHandler<Data = IAnything, Payload = IAnything> = Data | ((payload
  */
 export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField<Data, Payload>> {
   /**
+   * Привязывет поля к нижнему краю
+   */
+  baseline?: boolean;
+  /**
+   * Привязывает поля и компоновки к верхнему краю
+   */
+  noBaseline?: boolean;
+  /**
    * Ссылка на объект API
    */
   apiRef?: React.Ref<IOneApi>;
@@ -49,6 +57,16 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
    * Эмиттер для изменения данных. Вызывает change(data, false)
    */
   updateSubject?: TSubject<Data>;
+  /**
+   * Функция, определяющая, нужно ли включить baseline зависимо от
+   * расположения поля в иерархии композиции потомков
+   */
+  isBaseline?: (field: IField) => boolean;
+  /**
+   * Корневой компонент привязывает поля к нижнему краю только если
+   * нет ни одной компоновки
+   */
+  isBaselineForRoot?: (field: IField) => boolean;
   /**
    * Фабрика для создания полей пользователя
    */

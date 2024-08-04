@@ -38,6 +38,18 @@ fields: Field[]
 handler: OneHandler<Data, Payload>
 ```
 
+### isBaseline
+
+```ts
+isBaseline: (field: IField<any, any>) => boolean
+```
+
+### isBaselineForRoot
+
+```ts
+isBaselineForRoot: (field: IField<any, any>) => boolean
+```
+
 ### Logo
 
 ```ts

@@ -75,6 +75,8 @@ export const OneIcon = <
   badgeOverlap,
   badgeSx,
   oneSx,
+  isBaseline,
+  isBaselineForRoot,
   onChange,
   onFocus,
   onBlur,
@@ -204,6 +206,8 @@ export const OneIcon = <
           fields={fields}
           payload={payload}
           handler={() => data}
+          isBaseline={isBaseline}
+          isBaselineForRoot={isBaselineForRoot}
           onChange={(data, initial) => {
             if (!initial) {
               setData(data);

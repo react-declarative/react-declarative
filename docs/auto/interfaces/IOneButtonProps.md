@@ -68,6 +68,18 @@ onFocus: (name: string, data: Data, payload: Payload, onValueChange: (value: Val
 onBlur: (name: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+### isBaseline
+
+```ts
+isBaseline: (field: IField<any, any>) => boolean
+```
+
+### isBaselineForRoot
+
+```ts
+isBaselineForRoot: (field: IField<any, any>) => boolean
+```
+
 ### readTransform
 
 ```ts

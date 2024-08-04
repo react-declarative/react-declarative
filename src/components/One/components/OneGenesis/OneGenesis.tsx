@@ -32,7 +32,7 @@ import Container from "../common/Container";
 import useSingleton from "../../../../hooks/useSingleton";
 import useActualValue from "../../../../hooks/useActualValue";
 
-import isBaseline from "../../config/isBaseline";
+import isBaselineInternal from "../../config/isBaseline";
 
 const BASE_CLASS = "react-declarative__oneGenesis";
 const READY_CLASS = "react-declarative__oneGenesisReady";
@@ -84,6 +84,7 @@ export const OneGenesis = <
   const { classes } = useStyles();
 
   const {
+    isBaselineForRoot = isBaselineInternal,
     change = DEFAULT_CHANGE,
     ready = DEFAULT_READY,
     fields = [],
@@ -92,6 +93,8 @@ export const OneGenesis = <
     fieldDebounce = 0,
     features,
     context,
+    baseline,
+    noBaseline,
   } = props;
 
   const payload = useSingleton(upperPayload);
@@ -185,11 +188,18 @@ export const OneGenesis = <
   };
 
   /**
-   * Determines if the baseline alignment is true.
-   *
-   * @typedef isBaselineAlign
+   * Корневой компонент привязывает поля к нижнему краю только если
+   * нет ни одной компоновки
    */
-  const isBaselineAlign = useMemo(() => fieldsSnapshot.some(isBaseline), []);
+  const isBaselineAlign = useMemo(() => {
+    if (baseline) {
+      return true;
+    }
+    if (noBaseline) {
+      return false;
+    }
+    return fieldsSnapshot.some(isBaselineForRoot);
+  }, []);
 
   return (
     <ThemeProvider>

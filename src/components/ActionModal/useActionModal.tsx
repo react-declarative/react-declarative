@@ -107,6 +107,8 @@ export const useActionModal = <
   onInvalid,
   readTransform,
   writeTransform,
+  isBaseline,
+  isBaselineForRoot,
   AfterTitle,
   outlinePaper,
   transparentPaper,
@@ -196,6 +198,8 @@ export const useActionModal = <
         withActionButton={withActionButton}
         withStaticAction={withStaticAction}
         waitForChangesDelay={waitForChangesDelay}
+        isBaselineForRoot={isBaselineForRoot}
+        isBaseline={isBaseline}
         readonly={readonly}
         fullScreen={fullScreen}
         apiRef={apiRef}

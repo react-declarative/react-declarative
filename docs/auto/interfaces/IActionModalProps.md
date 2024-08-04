@@ -82,6 +82,18 @@ dirty: boolean
 param: Param
 ```
 
+### isBaselineForRoot
+
+```ts
+isBaselineForRoot: (field: IField<any, any>) => boolean
+```
+
+### isBaseline
+
+```ts
+isBaseline: (field: IField<any, any>) => boolean
+```
+
 ### features
 
 ```ts

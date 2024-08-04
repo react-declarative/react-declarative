@@ -75,3 +75,9 @@ hidden: boolean | ((payload: Payload) => boolean)
 ```ts
 noBaseline: boolean
 ```
+
+### baseline
+
+```ts
+baseline: boolean
+```

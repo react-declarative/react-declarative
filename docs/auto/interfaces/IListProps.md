@@ -4,6 +4,18 @@ Interface for the List datagrid component props.
 
 ## Properties
 
+### isBaseline
+
+```ts
+isBaseline: (field: IField<any, any>) => boolean
+```
+
+### isBaselineForRoot
+
+```ts
+isBaselineForRoot: (field: IField<any, any>) => boolean
+```
+
 ### apiRef
 
 ```ts
