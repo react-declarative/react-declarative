@@ -19196,7 +19196,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode;
+      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;

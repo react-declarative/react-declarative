@@ -425,6 +425,7 @@ export const OneInternal = <
             noBaseline,
             createField,
             createLayout,
+            isBaseline,
             fields,
             features,
             handler: object,
