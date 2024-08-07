@@ -29,6 +29,7 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   large?: boolean;
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
+  canCancel?: boolean;
   isBaseline?: IOneProps<Data, Payload>["isBaseline"];
   isBaselineForRoot?: IOneProps<Data, Payload>["isBaselineForRoot"];
   payload?: IOneProps<Data, Payload>["payload"];
@@ -68,6 +69,7 @@ export const OnePicker = <
   fields,
   handler,
   payload,
+  canCancel = true,
   features,
   large,
   title,
@@ -146,6 +148,7 @@ export const OnePicker = <
     <ModalDialog
       open={open}
       disabled={disabled}
+      canCancel={canCancel}
       invalid={!data || invalid}
       onAccept={handleAccept}
       onDismiss={handleDismiss}

@@ -33,6 +33,7 @@ interface IParams<
   fields: Field[];
   title?: string;
   large?: boolean;
+  canCancel?: boolean;
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>["payload"];
   isBaseline?: IOneProps<Data, Payload, Field>["isBaseline"];
@@ -79,6 +80,7 @@ export const useOne = <
 >({
   fields,
   large,
+  canCancel,
   title: defaultTitle,
   handler: defaultHandler,
   payload: defaultPayload,
@@ -140,6 +142,7 @@ export const useOne = <
       <OnePicker
         open
         large={large}
+        canCancel={canCancel}
         waitForChangesDelay={waitForChangesDelay}
         fields={fields as unknown as IField[]}
         title={state$.current.currentTitle}
