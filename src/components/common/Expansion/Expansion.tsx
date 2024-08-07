@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import { makeStyles } from '../../../styles';
 

@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 import debounce from "../../utils/hof/debounce";
 import copyToClipboard from "../../utils/copyToClipboard";
 
-import { ContentCopy } from "@mui/icons-material";
+import ContentCopy from "@mui/icons-material/ContentCopy";
 
 const TOOLTIP_CLOSE_DELAY = 800;
 
