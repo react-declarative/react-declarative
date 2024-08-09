@@ -1,4 +1,4 @@
-import { nbsp } from "./typo";
+import * as typo from "./typo";
 
 /**
  * Formats the given value to a specific scale and separates the thousands with a separator.
@@ -13,9 +13,10 @@ export const formatAmount = (
     scale = 2,
     separator = ','
 ) => {
-    const str = Number(value).toFixed(scale);
+    const num = typeof value === "string" ? Number(value.replaceAll(typo.nbsp, "")) : value;
+    const str = num.toFixed(scale);
     const formatted =
-        Number(value) < 10000 ? str : str.replace(/(\d)(?=(\d{3})+(\.|$))/g, `$1${nbsp}`)
+        num < 10000 ? str : str.replace(/(\d)(?=(\d{3})+(\.|$))/g, `$1${typo.nbsp}`)
     return formatted.replace(/.00$/, '').replace('.', separator)
 };
 
