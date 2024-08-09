@@ -53,7 +53,7 @@ Link to [the playground](https://react-declarative-playground.github.io/)
 
 ## Using with AI
 
-![prompt](./assets/images/gpt.png)
+![prompt](./docs/images/claudeai.png)
 
 There is a guide to make GPT-4 generate form schemas automatically. Check [the docs folder for guide](./docs/Readme.md#using-with-ai)
 
