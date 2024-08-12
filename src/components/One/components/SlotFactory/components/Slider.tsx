@@ -38,11 +38,13 @@ const createIcon = (
   onChange: (data: IAnything) => void,
   onValueChange: PickProp<IManaged, "onChange">,
   click: PickProp<IManaged, "leadingIconClick">,
+  tabIndex: PickProp<IManaged, "leadingIconTabIndex">,
   edge: "start" | "end",
   ripple: boolean,
 ) => (
   <IconButton
     disableRipple={!ripple}
+    tabIndex={tabIndex}
     onClick={() => {
       if (click) {
         click(
@@ -88,6 +90,8 @@ export const Slider = ({
   trailingIcon: ti,
   leadingIconClick: lic,
   trailingIconClick: tic,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
   leadingIconRipple: lir = true,
   trailingIconRipple: tir = true,
   labelFormatSlider,
@@ -114,6 +118,7 @@ export const Slider = ({
               handleChange,
               onChange,
               lic,
+              leadingIconTabIndex,
               "start",
               lir,
             )}
@@ -145,6 +150,7 @@ export const Slider = ({
               handleChange,
               onChange,
               tic,
+              trailingIconTabIndex,
               "end",
               tir,
             )}

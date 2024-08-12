@@ -46,6 +46,8 @@ const icons = (
   trailingIcon: React.ComponentType<any> | undefined,
   leadingIconClick: PickProp<IField, "leadingIconClick">,
   trailingIconClick: PickProp<IField, "trailingIconClick">,
+  leadingIconTabIndex: PickProp<IField, "leadingIconTabIndex">,
+  trailingIconTabIndex: PickProp<IField, "trailingIconTabIndex">,
   loading: boolean,
   disabled: boolean,
   readonly: boolean,
@@ -63,6 +65,7 @@ const icons = (
               edge="start"
               disabled={disabled}
               disableRipple={!leadingIconRipple}
+              tabIndex={leadingIconTabIndex}
               onClick={() => {
                 if (leadingIconClick) {
                   leadingIconClick(
@@ -97,6 +100,7 @@ const icons = (
               edge="end"
               disabled={disabled}
               disableRipple={!trailingIconRipple}
+              tabIndex={trailingIconTabIndex}
               onClick={() => {
                 if (trailingIconClick) {
                   trailingIconClick(
@@ -210,6 +214,8 @@ export const Text = ({
   trailingIcon: ti,
   leadingIconClick: lic,
   trailingIconClick: tic,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
   leadingIconRipple: lir = true,
   trailingIconRipple: tir = true,
   inputRows: rows = 1,
@@ -337,6 +343,8 @@ export const Text = ({
           ti,
           lic,
           tic,
+          leadingIconTabIndex,
+          trailingIconTabIndex,
           loading,
           disabled,
           !!readonly,

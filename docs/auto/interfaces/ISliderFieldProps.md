@@ -111,3 +111,15 @@ Retrieves the `readonly` property value from the provided object.
 ```ts
 disabled: boolean
 ```
+
+### leadingIconTabIndex
+
+```ts
+leadingIconTabIndex: number
+```
+
+### trailingIconTabIndex
+
+```ts
+trailingIconTabIndex: number
+```

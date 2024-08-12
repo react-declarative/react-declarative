@@ -2009,6 +2009,11 @@ declare module "react-declarative/model/IField" {
       onChange: (data: Data) => void,
     ) => void;
     /**
+     * Если нужно убрать фокус после нажатия tab
+     */
+    leadingIconTabIndex?: number;
+    trailingIconTabIndex?: number;
+    /**
      * Максимальное число для высчитывания процента
      * (минимальное число всегда ноль)
      */
@@ -14969,6 +14974,14 @@ declare module "react-declarative/components/One/fields/SliderField" {
      * @typedef DisabledValue
      */
     disabled?: PickProp<IField<Data, Payload>, "disabled">;
+    leadingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "leadingIconTabIndex"
+    >;
+    trailingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "trailingIconTabIndex"
+    >;
   }
   /**
    * Represents a private interface for a slider field component.
@@ -15011,6 +15024,8 @@ declare module "react-declarative/components/One/fields/SliderField" {
       maxSlider,
       minSlider,
       labelFormatSlider,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
     }: ISliderFieldProps & ISliderFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -15473,6 +15488,14 @@ declare module "react-declarative/components/One/fields/TextField" {
      * @property labelShrink - Whether to apply shrink option to labels.
      */
     labelShrink?: PickProp<IField<Data, Payload>, "labelShrink">;
+    leadingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "leadingIconTabIndex"
+    >;
+    trailingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "trailingIconTabIndex"
+    >;
   }
   /**
    * Represents a private interface for an input field.
@@ -15555,6 +15578,8 @@ declare module "react-declarative/components/One/fields/TextField" {
       autoFocus,
       inputRef,
       name,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
     }: ITextFieldProps & ITextFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -17352,6 +17377,14 @@ declare module "react-declarative/components/One/fields/DictField" {
      * The `trailingIconClick` property accepts a function that will be executed when the trailing icon of a field is clicked.
      */
     trailingIconClick?: PickProp<IField<Data, Payload>, "trailingIconClick">;
+    leadingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "leadingIconTabIndex"
+    >;
+    trailingIconTabIndex?: PickProp<
+      IField<Data, Payload>,
+      "trailingIconTabIndex"
+    >;
   }
   export interface IDictFieldPrivate<Data = IAnything> {
     onChange: PickProp<IManaged<Data>, "onChange">;
@@ -17452,6 +17485,8 @@ declare module "react-declarative/components/One/fields/DictField" {
       trailingIconClick,
       leadingIconRipple,
       trailingIconRipple,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
     }: IDictFieldProps & IDictFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -29192,6 +29227,8 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       trailingIcon: ti,
       leadingIconClick: lic,
       trailingIconClick: tic,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
       leadingIconRipple: lir,
       trailingIconRipple: tir,
       inputRows: rows,
@@ -29265,6 +29302,8 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       trailingIcon: ti,
       leadingIconClick: lic,
       trailingIconClick: tic,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
       leadingIconRipple: lir,
       trailingIconRipple: tir,
       labelFormatSlider,
@@ -29398,6 +29437,8 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       trailingIconClick: tic,
       leadingIconRipple: lir,
       trailingIconRipple: tir,
+      leadingIconTabIndex,
+      trailingIconTabIndex,
     }: import("../..").IDictSlot) => JSX.Element;
     Tree: ({
       invalid,

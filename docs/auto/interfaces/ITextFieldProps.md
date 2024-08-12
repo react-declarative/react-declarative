@@ -189,3 +189,15 @@ inputRef: (element?: HTMLInputElement) => void
 ```ts
 labelShrink: boolean
 ```
+
+### leadingIconTabIndex
+
+```ts
+leadingIconTabIndex: number
+```
+
+### trailingIconTabIndex
+
+```ts
+trailingIconTabIndex: number
+```

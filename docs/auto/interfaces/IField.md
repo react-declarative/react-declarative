@@ -470,6 +470,20 @@ leadingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v
 trailingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void
 ```
 
+### leadingIconTabIndex
+
+```ts
+leadingIconTabIndex: number
+```
+
+Если нужно убрать фокус после нажатия tab
+
+### trailingIconTabIndex
+
+```ts
+trailingIconTabIndex: number
+```
+
 ### maxPercent
 
 ```ts

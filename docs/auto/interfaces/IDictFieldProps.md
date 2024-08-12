@@ -236,3 +236,15 @@ trailingIconClick: (value: Value, data: Data, payload: Payload, onValueChange: (
 ```
 
 The `trailingIconClick` property defines the action to be performed when the trailing icon of a field is clicked.
+
+### leadingIconTabIndex
+
+```ts
+leadingIconTabIndex: number
+```
+
+### trailingIconTabIndex
+
+```ts
+trailingIconTabIndex: number
+```

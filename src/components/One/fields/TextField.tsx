@@ -244,6 +244,8 @@ export interface ITextFieldProps<Data = IAnything, Payload = IAnything> {
    * @property labelShrink - Whether to apply shrink option to labels.
    */
   labelShrink?: PickProp<IField<Data, Payload>, 'labelShrink'>;
+  leadingIconTabIndex?: PickProp<IField<Data, Payload>, 'leadingIconTabIndex'>;
+  trailingIconTabIndex?: PickProp<IField<Data, Payload>, 'trailingIconTabIndex'>;
 }
 
 /**
@@ -327,6 +329,8 @@ export const TextField = ({
   autoFocus,
   inputRef,
   name,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
 }: ITextFieldProps & ITextFieldPrivate) => (
   <Text
     autoFocus={autoFocus}
@@ -358,6 +362,8 @@ export const TextField = ({
     loading={loading}
     onChange={onChange}
     name={name}
+    leadingIconTabIndex={leadingIconTabIndex}
+    trailingIconTabIndex={trailingIconTabIndex}
   />
 );
 

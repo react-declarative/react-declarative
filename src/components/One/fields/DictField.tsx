@@ -353,6 +353,8 @@ export interface IDictFieldProps<Data = IAnything, Payload = IAnything> {
    * The `trailingIconClick` property accepts a function that will be executed when the trailing icon of a field is clicked.
    */
   trailingIconClick?: PickProp<IField<Data, Payload>, 'trailingIconClick'>;
+  leadingIconTabIndex?: PickProp<IField<Data, Payload>, 'leadingIconTabIndex'>;
+  trailingIconTabIndex?: PickProp<IField<Data, Payload>, 'trailingIconTabIndex'>;
 }
 
 export interface IDictFieldPrivate<Data = IAnything> {
@@ -454,6 +456,8 @@ export const DictField = ({
   trailingIconClick,
   leadingIconRipple,
   trailingIconRipple,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
 }: IDictFieldProps & IDictFieldPrivate) => (
   <Dict
     inputRef={inputRef}
@@ -496,6 +500,8 @@ export const DictField = ({
     trailingIconClick={trailingIconClick}
     leadingIconRipple={leadingIconRipple}
     trailingIconRipple={trailingIconRipple}
+    leadingIconTabIndex={leadingIconTabIndex}
+    trailingIconTabIndex={trailingIconTabIndex}
   />
 );
 

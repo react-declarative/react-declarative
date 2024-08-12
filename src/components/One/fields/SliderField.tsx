@@ -128,6 +128,8 @@ export interface ISliderFieldProps<Data = IAnything, Payload = IAnything>  {
    * @typedef DisabledValue
    */
   disabled?: PickProp<IField<Data, Payload>, "disabled">;
+  leadingIconTabIndex?: PickProp<IField<Data, Payload>, 'leadingIconTabIndex'>;
+  trailingIconTabIndex?: PickProp<IField<Data, Payload>, 'trailingIconTabIndex'>;
 }
 
 /**
@@ -171,6 +173,8 @@ export const SliderField = ({
   maxSlider,
   minSlider,
   labelFormatSlider,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
 }: ISliderFieldProps & ISliderFieldPrivate) => (
   <Slider
     value={value}
@@ -185,6 +189,8 @@ export const SliderField = ({
     stepSlider={stepSlider}
     maxSlider={maxSlider}
     minSlider={minSlider}
+    leadingIconTabIndex={leadingIconTabIndex}
+    trailingIconTabIndex={trailingIconTabIndex}
   />
 );
 

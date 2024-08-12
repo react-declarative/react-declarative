@@ -331,6 +331,12 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     trailingIconClick?: (value: Value, data: Data, payload: Payload, onValueChange: (v: Value) => void, onChange: (data: Data) => void) => void;
 
     /**
+     * Если нужно убрать фокус после нажатия tab
+     */
+    leadingIconTabIndex?: number;
+    trailingIconTabIndex?: number;
+
+    /**
      * Максимальное число для высчитывания процента
      * (минимальное число всегда ноль)
      */

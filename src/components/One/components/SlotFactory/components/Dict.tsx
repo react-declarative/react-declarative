@@ -86,11 +86,13 @@ const createIcon = (
   onChange: (data: IAnything) => void,
   onValueChange: PickProp<IManaged, "onChange">,
   click: PickProp<IManaged, "leadingIconClick">,
+  leadingIconTabIndex: PickProp<IManaged, "leadingIconTabIndex">,
   edge: "start" | "end",
   ripple: boolean
 ) => (
   <IconButton
     disableRipple={!ripple}
+    tabIndex={leadingIconTabIndex}
     onClick={() => {
       if (click) {
         click(
@@ -196,6 +198,8 @@ export const Dict = ({
   trailingIconClick: tic,
   leadingIconRipple: lir = true,
   trailingIconRipple: tir = true,
+  leadingIconTabIndex,
+  trailingIconTabIndex,
 }: IDictSlot) => {
   const payload = useOnePayload();
   const { object, changeObject: handleChange } = useOneState<object>();
@@ -428,6 +432,7 @@ export const Dict = ({
           handleChange,
           onChange,
           lic,
+          leadingIconTabIndex,
           "start",
           lir
         )
@@ -444,6 +449,7 @@ export const Dict = ({
           handleChange,
           onChange,
           tic,
+          trailingIconTabIndex,
           "end",
           tir
         )
