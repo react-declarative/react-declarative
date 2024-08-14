@@ -6,4 +6,4 @@ The hands of free masonry must act automatic even if he blindfolded. This is acc
 
 ## For employers
 
-Take a look on [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) for `MUI` web development and [rn-declarative](https://github.com/react-declarative/rn-declarative) for zero dependency reimplementation with custom ui kit and usage with `react-native`
+Take a look on [react-declarative-lite](https://github.com/react-declarative/react-declarative-lite) for `MUI` web development and [rn-declarative](https://github.com/react-declarative/rn-declarative) for zero dependency reimplementation with custom ui kit or usage with `react-native`
