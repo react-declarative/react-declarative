@@ -2,7 +2,7 @@
 
 > Developer tools are the only way to preserve democracy because they force the techie to run the business. Without your tools, you are just an NFT for market speculation. ~~Thats the reason of bundle size reducion~~
 
-The hands of free masonry must act automatic even if he blindfolded. This is done through his tools
+The hands of free masonry must act automatic even if he blindfolded. This is accomplished through tools
 
 ## For employers
 
