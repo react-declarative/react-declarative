@@ -1,6 +1,6 @@
 # Assets - master rights
 
-> Developer tools are the only way to preserve democracy because they force the techie to run the business. Without them, any employee is just an NFT for market speculation. ~~Thats the reason of bundle size reducion~~
+> Developer tools are the only way to preserve democracy because they allow the techie to run the business. Without them, any employee is just an NFT for market speculation. ~~Thats the reason of bundle size reducion~~
 
 The hands of free masonry must act automatic even if he blindfolded. This is accomplished through tools
 
