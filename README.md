@@ -98,7 +98,8 @@ Easy internationalization with translation dictionaries for Combobox field. [JSX
 
 9. **Integrable**
 
-Consolidates multiple aspects of the development process into one cohesive tool, providing a streamlined and efficient workflow for developers. It unifies state management and ui building into a single approach, managing project code modules dependency resolution, asset sharing, and software design, as a result eliminates the heterogeneous made by usage of separate tools.
+<!--Consolidates multiple aspects of the development process into one cohesive tool, providing a streamlined and efficient workflow for developers. It unifies state management and ui building into a single approach, managing project code modules dependency resolution, asset sharing, and software design, as a result eliminates the heterogeneous made by usage of separate tools.-->
+It combines various development tasks into one tool, making the process simpler and faster. It manages app state, user interface, code dependencies, asset sharing, and software design all in one place.
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
