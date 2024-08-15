@@ -57,6 +57,7 @@ Read the code from the markdown file and make me a sign in form by using same sc
 **Other**
 
 6. [React Native port](./other/react-native-port.md)
+7. [Reducing bundle size](./other/reduce-bundle-size.md)
 
 ## Source Description:
 
