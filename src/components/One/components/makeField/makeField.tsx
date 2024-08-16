@@ -44,7 +44,7 @@ import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
 
-const APPLY_ATTEMPTS = 35;
+const APPLY_ATTEMPTS = 25;
 const APPLY_DELAY = 10;
 
 /**
@@ -548,6 +548,8 @@ export function makeField(
                 }
                 sleep(APPLY_DELAY);
             }
+            memory.inputUpdate = false;
+            memory.objectUpdate = false;
         }, []);
 
         /**
