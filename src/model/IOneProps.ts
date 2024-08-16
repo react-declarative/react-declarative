@@ -126,6 +126,12 @@ export interface IOneProps<Data = IAnything, Payload = IAnything, Field = IField
   readTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
   writeTransform?: (value: Value, name: string, data: Data, payload: Payload) => Value;
   /**
+   * Методы для преобразования целевого объекта, например сериализации/десереализации,
+   * чтобы хранить в data страницы строку, синхронизируемую через AJAX
+   */
+  incomingTransform?: (data: IAnything, payload: Payload) => Data;
+  outgoingTransform?: (data: IAnything, payload: Payload) => Data;
+  /**
    * Коллбек для управления контекстным меню
    */
   menu?: (name: string, action: string, data: Data, payload: Payload, onValueChange: (value: Value) => void, onChange: (data: Data) => void) => void;

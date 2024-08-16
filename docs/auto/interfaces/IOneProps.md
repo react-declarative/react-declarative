@@ -207,6 +207,21 @@ crypt/decrypt значения, получаемого в `makeField` из
 writeTransform: (value: Value, name: string, data: Data, payload: Payload) => Value
 ```
 
+### incomingTransform
+
+```ts
+incomingTransform: (data: any, payload: Payload) => Data
+```
+
+Методы для преобразования целевого объекта, например сериализации/десереализации,
+чтобы хранить в data страницы строку, синхронизируемую через AJAX
+
+### outgoingTransform
+
+```ts
+outgoingTransform: (data: any, payload: Payload) => Data
+```
+
 ### menu
 
 ```ts

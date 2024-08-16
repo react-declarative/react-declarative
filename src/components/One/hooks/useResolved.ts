@@ -27,6 +27,7 @@ import FieldType from '../../../model/FieldType';
 import { useApiRef } from '../context/ApiProvider';
 
 const LOAD_SOURCE = 'one-resolve';
+const DEFAULT_INCOMING_TRANSFORM = (data: IAnything) => data;
 
 /**
  * Represents the resolved properties for a hook.
@@ -42,6 +43,7 @@ interface IResolvedHookProps<Data = IAnything, Payload = IAnything> {
     features: PickProp<IOneProps<Data, Payload>, 'features'>;
     change: PickProp<IOneProps<Data, Payload>, 'change'>;
     loadStart: PickProp<IOneProps<Data, Payload>, 'loadStart'>;
+    incomingTransform: PickProp<IOneProps<Data, Payload>, 'incomingTransform'>;
     loadEnd: PickProp<IOneProps<Data, Payload>, 'loadEnd'>;
 }
 
@@ -93,6 +95,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
     change,
     loadStart,
     loadEnd,
+    incomingTransform = DEFAULT_INCOMING_TRANSFORM,
 }: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
     const [data, setData] = useState<Data | null>(null);
     const data$ = useActualValue(data);
@@ -119,11 +122,11 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     if (result instanceof Promise) {
                         const newData = assign({}, buildObj<Data>(fields, payload, features), deepClone(await result));
                         change!(newData, true);
-                        isMounted.current && setData(newData);
+                        isMounted.current && setData(incomingTransform(newData, payload));
                     } else {
                         const newData = assign({}, buildObj<Data>(fields, payload, features), deepClone(result));
                         change!(newData, true);
-                        isMounted.current && setData(newData);
+                        isMounted.current && setData(incomingTransform(newData, payload));
                     }
                 } catch (e) {
                     isOk = false;
@@ -137,7 +140,8 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     isRoot.current = true;
                 }
             } else if (handler && !deepCompare(data, handler)) {
-                isMounted.current && setData(assign({}, buildObj(fields, payload, features), deepClone(handler)));
+                const newData = assign({}, buildObj(fields, payload, features), deepClone(handler));
+                isMounted.current && setData(incomingTransform(newData, payload));
             }
         };
         /**
@@ -152,7 +156,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
             const instance: IOneApi<Data> = {
                 reload: tryResolve,
                 change: (data, initial = false) => {
-                    setData(data);
+                    setData(incomingTransform(data, payload));
                     change!(data, initial);
                 },
                 getData: () => ({...data$.current || ({} as Data)}),

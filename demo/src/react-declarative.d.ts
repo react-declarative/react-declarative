@@ -5328,6 +5328,12 @@ declare module "react-declarative/model/IOneProps" {
       payload: Payload,
     ) => Value;
     /**
+     * Методы для преобразования целевого объекта, например сериализации/десереализации,
+     * чтобы хранить в data страницы строку, синхронизируемую через AJAX
+     */
+    incomingTransform?: (data: IAnything, payload: Payload) => Data;
+    outgoingTransform?: (data: IAnything, payload: Payload) => Data;
+    /**
      * Коллбек для управления контекстным меню
      */
     menu?: (

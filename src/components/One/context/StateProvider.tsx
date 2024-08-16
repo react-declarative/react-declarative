@@ -74,6 +74,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         payload,
         loadStart,
         loadEnd,
+        incomingTransform,
     } = otherProps;
 
     const [object, setObjectHook] = useResolved<Data, Payload>({
@@ -85,6 +86,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         change,
         loadStart,
         loadEnd,
+        incomingTransform,
     });
 
     const object$ = useActualValue(object as unknown as object);
