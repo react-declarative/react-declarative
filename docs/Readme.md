@@ -2,6 +2,12 @@
 
 > `<One />` is a component of the `react-declarative` library, representing a form with various fields (text, images, rating, etc.) and a css-grid layout. This allows for convenient storage, creation, and modification of data, such as a user's profile.
 
+## Ask AI for everything
+
+This documentation is made for text embedding vectors instead of manual reading. Actually, you can read It too, but it quite difficult in compasion with using [Nomic LocalDocs](https://docs.gpt4all.io/gpt4all_desktop/localdocs.html). Setup the ai chat by following [this article](./other/ask_ai.md)
+
+![ask_ai](../assets/images/ask_ai.png)
+
 ## Playground
 
 Try without installing directly [in your web browser](https://react-declarative-playground.github.io/)
