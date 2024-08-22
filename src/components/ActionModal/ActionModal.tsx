@@ -72,6 +72,8 @@ export interface IActionModalProps<
   reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
   readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
   writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
+  incomingTransform?: IOnePublicProps<Data, Payload>["incomingTransform"];
+  outgoingTransform?: IOnePublicProps<Data, Payload>["outgoingTransform"];
   onSubmit?: (
     data: Data | null,
     payload: Payload,
@@ -280,6 +282,8 @@ export const ActionModal = <
   BeforeTitle,
   readTransform,
   writeTransform,
+  incomingTransform,
+  outgoingTransform,
 }: IActionModalProps<Data, Payload, Field>) => {
   const { classes } = useStyles();
 
@@ -521,6 +525,8 @@ export const ActionModal = <
             features={features}
             readTransform={readTransform}
             writeTransform={writeTransform}
+            incomingTransform={incomingTransform}
+            outgoingTransform={outgoingTransform}
             loadStart={(source) => {
               if (source === "one-resolve") {
                 handleLoadStart();

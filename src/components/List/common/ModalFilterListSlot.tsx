@@ -113,7 +113,7 @@ export const ModalFilterListSlot = <FilterData extends {}>({
 }: IFilterListSlot) => {
   const payload = usePayload();
 
-  const { filterLabel, readTransform, writeTransform, modalSizeRequest, isBaseline, isBaselineForRoot } = useProps();
+  const { filterLabel, readTransform, writeTransform, incomingTransform, outgoingTransform, modalSizeRequest, isBaseline, isBaselineForRoot } = useProps();
 
   const {
     inputRef,
@@ -144,6 +144,8 @@ export const ModalFilterListSlot = <FilterData extends {}>({
     title: filterLabel,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     payload,
     fields: filters,
     onSubmit: (data) => {

@@ -94,6 +94,8 @@ export const OneButton = <
   onInvalid,
   readTransform,
   writeTransform,
+  incomingTransform,
+  outgoingTransform,
   ...buttonProps
 }: IOneButtonProps<Data, Payload>) => {
   const { classes } = useStyles();
@@ -272,6 +274,8 @@ export const OneButton = <
           }}
           readTransform={readTransform}
           writeTransform={writeTransform}
+          incomingTransform={incomingTransform}
+          outgoingTransform={outgoingTransform}
           onFocus={onFocus}
           onBlur={onBlur}
         />

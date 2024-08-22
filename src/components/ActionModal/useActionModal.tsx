@@ -107,6 +107,8 @@ export const useActionModal = <
   onInvalid,
   readTransform,
   writeTransform,
+  incomingTransform,
+  outgoingTransform,
   isBaseline,
   isBaselineForRoot,
   AfterTitle,
@@ -223,6 +225,8 @@ export const useActionModal = <
         features={features}
         readTransform={readTransform}
         writeTransform={writeTransform}
+        incomingTransform={incomingTransform}
+        outgoingTransform={outgoingTransform}
         title={title}
         dirty={dirty}
         param={param}

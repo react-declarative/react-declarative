@@ -40,6 +40,8 @@ interface IParams<
   isBaselineForRoot?: IOneProps<Data, Payload, Field>["isBaselineForRoot"];
   readTransform?: IOnePublicProps<Data, Payload, Field>["readTransform"];
   writeTransform?: IOnePublicProps<Data, Payload, Field>["writeTransform"];
+  incomingTransform?: IOnePublicProps<Data, Payload, Field>["incomingTransform"];
+  outgoingTransform?: IOnePublicProps<Data, Payload, Field>["outgoingTransform"];
   features?: IOnePublicProps<Data, Payload, Field>["features"];
   waitForChangesDelay?: number;
 }
@@ -87,6 +89,8 @@ export const useOne = <
   waitForChangesDelay,
   readTransform,
   writeTransform,
+  incomingTransform,
+  outgoingTransform,
   isBaseline,
   isBaselineForRoot,
   features,
@@ -150,6 +154,8 @@ export const useOne = <
         payload={state$.current.currentPayload}
         readTransform={readTransform}
         writeTransform={writeTransform}
+        incomingTransform={incomingTransform}
+        outgoingTransform={outgoingTransform}
         onChange={handleChange}
         isBaseline={isBaseline}
         isBaselineForRoot={isBaselineForRoot}

@@ -51,6 +51,8 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   isBaselineForRoot?: IOneProps<Data, Payload>['isBaselineForRoot'];
   readTransform?: IOnePublicProps<Data, Payload>['readTransform'];
   writeTransform?: IOnePublicProps<Data, Payload>['writeTransform'];
+  incomingTransform?: IOnePublicProps<Data, Payload>['incomingTransform'];
+  outgoingTransform?: IOnePublicProps<Data, Payload>['outgoingTransform'];
   badgeColor?: 'primary' | 'secondary' | 'default' | 'error' | 'info' | 'success' | 'warning';
   badgeOverlap?: "rectangular" | "circular";
   badgeSx?: SxProps<any>;

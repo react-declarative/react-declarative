@@ -92,6 +92,18 @@ readTransform: (value: string | string[], name: string, data: Data, payload: Pay
 writeTransform: (value: string | string[], name: string, data: Data, payload: Payload) => Value
 ```
 
+### incomingTransform
+
+```ts
+incomingTransform: (data: any, payload: Payload) => Data
+```
+
+### outgoingTransform
+
+```ts
+outgoingTransform: (data: any, payload: Payload) => Data
+```
+
 ### badgeColor
 
 ```ts

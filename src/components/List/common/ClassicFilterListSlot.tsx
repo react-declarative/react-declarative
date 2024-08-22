@@ -123,7 +123,7 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
   onCollapsedChange = () => null,
 }: IFilterListSlot<FilterData>) => {
   const payload = usePayload();
-  const { features, readTransform, writeTransform, isBaseline, isBaselineForRoot } = useProps();
+  const { features, readTransform, writeTransform, incomingTransform, outgoingTransform, isBaseline, isBaselineForRoot } = useProps();
 
   const { classes } = useStyles();
 
@@ -277,6 +277,8 @@ export const ClassicFilterListSlot = <FilterData extends {}>({
               features={features}
               readTransform={readTransform}
               writeTransform={writeTransform}
+              incomingTransform={incomingTransform}
+              outgoingTransform={outgoingTransform}
               isBaseline={isBaseline}
               isBaselineForRoot={isBaselineForRoot}
               handler={filterData}

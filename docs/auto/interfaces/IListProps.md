@@ -213,6 +213,18 @@ readTransform: (value: string | string[], name: string, data: FilterData, payloa
 writeTransform: (value: string | string[], name: string, data: FilterData, payload: any) => Value
 ```
 
+### incomingTransform
+
+```ts
+incomingTransform: (data: any, payload: any) => FilterData
+```
+
+### outgoingTransform
+
+```ts
+outgoingTransform: (data: any, payload: any) => FilterData
+```
+
 ### heightRequest
 
 ```ts

@@ -118,6 +118,8 @@ export const DenseFilterListSlot = ({
     filterLabel,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     modalSizeRequest,
     isBaseline,
     isBaselineForRoot,
@@ -139,6 +141,8 @@ export const DenseFilterListSlot = ({
     title: filterLabel,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     payload,
     fields: filters,
     onSubmit: (data) => {

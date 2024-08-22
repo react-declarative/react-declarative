@@ -4179,6 +4179,8 @@ declare module "react-declarative/model/IListProps" {
     features?: IOnePublicProps<FilterData>["features"];
     readTransform?: IOnePublicProps<FilterData>["readTransform"];
     writeTransform?: IOnePublicProps<FilterData>["writeTransform"];
+    incomingTransform?: IOnePublicProps<FilterData>["incomingTransform"];
+    outgoingTransform?: IOnePublicProps<FilterData>["outgoingTransform"];
     /**
      * Represents a function that calculates the desired height based on the provided input height.
      *
@@ -7028,6 +7030,16 @@ declare module "react-declarative/hooks/useOne" {
     isBaselineForRoot?: IOneProps<Data, Payload, Field>["isBaselineForRoot"];
     readTransform?: IOnePublicProps<Data, Payload, Field>["readTransform"];
     writeTransform?: IOnePublicProps<Data, Payload, Field>["writeTransform"];
+    incomingTransform?: IOnePublicProps<
+      Data,
+      Payload,
+      Field
+    >["incomingTransform"];
+    outgoingTransform?: IOnePublicProps<
+      Data,
+      Payload,
+      Field
+    >["outgoingTransform"];
     features?: IOnePublicProps<Data, Payload, Field>["features"];
     waitForChangesDelay?: number;
   }
@@ -7063,6 +7075,8 @@ declare module "react-declarative/hooks/useOne" {
     waitForChangesDelay,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     isBaseline,
     isBaselineForRoot,
     features,
@@ -21764,6 +21778,8 @@ declare module "react-declarative/components/OneButton/OneButton" {
     onInvalid,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     ...buttonProps
   }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
   export default OneButton;
@@ -23182,6 +23198,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     reloadSubject?: IOneProps<Data, Payload>["reloadSubject"];
     readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
     writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
+    incomingTransform?: IOnePublicProps<Data, Payload>["incomingTransform"];
+    outgoingTransform?: IOnePublicProps<Data, Payload>["outgoingTransform"];
     onSubmit?: (
       data: Data | null,
       payload: Payload,
@@ -23316,6 +23334,8 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
     BeforeTitle,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
   }: IActionModalProps<Data, Payload, Field, any>) => JSX.Element;
   export default ActionModal;
 }
@@ -23418,6 +23438,8 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     onInvalid,
     readTransform,
     writeTransform,
+    incomingTransform,
+    outgoingTransform,
     isBaseline,
     isBaselineForRoot,
     AfterTitle,
@@ -30684,6 +30706,8 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
     isBaselineForRoot?: IOneProps<Data, Payload>["isBaselineForRoot"];
     readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
     writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
+    incomingTransform?: IOnePublicProps<Data, Payload>["incomingTransform"];
+    outgoingTransform?: IOnePublicProps<Data, Payload>["outgoingTransform"];
     badgeColor?:
       | "primary"
       | "secondary"

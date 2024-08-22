@@ -35,6 +35,8 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   payload?: IOneProps<Data, Payload>["payload"];
   readTransform?: IOnePublicProps<Data, Payload>["readTransform"];
   writeTransform?: IOnePublicProps<Data, Payload>["writeTransform"];
+  incomingTransform?: IOnePublicProps<Data, Payload>["incomingTransform"];
+  outgoingTransform?: IOnePublicProps<Data, Payload>["outgoingTransform"];
   features?: IOnePublicProps<Data, Payload>["features"];
   title?: string;
   fields: IField[];
@@ -77,6 +79,8 @@ export const OnePicker = <
   isBaselineForRoot,
   readTransform,
   writeTransform,
+  incomingTransform,
+  outgoingTransform,
   open = true,
 }: IOnePickerProps<Data, Payload>) => {
   const [data, setData] = useState<Data | null>(null);
@@ -170,6 +174,8 @@ export const OnePicker = <
           invalidity={handleInvalid}
           readTransform={readTransform}
           writeTransform={writeTransform}
+          incomingTransform={incomingTransform}
+          outgoingTransform={outgoingTransform}
           isBaseline={isBaseline}
           isBaselineForRoot={isBaselineForRoot}
           handler={handler}

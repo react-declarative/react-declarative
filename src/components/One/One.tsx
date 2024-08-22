@@ -33,6 +33,9 @@ const DEFAULT_ONLOADSTART = () => null;
 const DEFAULT_ONLOADEND = () => null;
 const DEFAULT_READTRANSFORM = (value: Value) => value;
 const DEFAULT_WRITETRANSFORM = (value: Value) => value;
+const DEFAULT_INCOMINGTRANSFORM = (data: IAnything) => data;
+const DEFAULT_OUTGOINGTRANSFORM = (data: IAnything) => data;
+
 
 /**
  * Creates a json template engine called `One` with the given props.
@@ -98,6 +101,9 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
 
     const readTransform = useActualCallback(props.readTransform || DEFAULT_READTRANSFORM);
     const writeTransform = useActualCallback(props.writeTransform || DEFAULT_WRITETRANSFORM);
+
+    const incomingTransform = useActualCallback(props.incomingTransform || DEFAULT_INCOMINGTRANSFORM);
+    const outgoingTransform = useActualCallback(props.outgoingTransform || DEFAULT_OUTGOINGTRANSFORM);
 
     /**
      * The `memoizedProps` object stores memoized transformations for reading and writing values.
@@ -202,6 +208,8 @@ export const One = <Data extends IAnything = IAnything, Payload = IAnything, Fie
         ...otherProps,
         ...wrappedProps,
         ...memoizedProps,
+        incomingTransform,
+        outgoingTransform,
         createField,
         createLayout,
         isBaseline,

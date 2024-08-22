@@ -522,6 +522,8 @@ export interface IListProps<
   features?: IOnePublicProps<FilterData>['features'];
   readTransform?: IOnePublicProps<FilterData>['readTransform'];
   writeTransform?: IOnePublicProps<FilterData>['writeTransform'];
+  incomingTransform?: IOnePublicProps<FilterData>['incomingTransform'];
+  outgoingTransform?: IOnePublicProps<FilterData>['outgoingTransform'];
   /**
    * Represents a function that calculates the desired height based on the provided input height.
    *
