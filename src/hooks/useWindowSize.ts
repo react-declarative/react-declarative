@@ -62,7 +62,9 @@ export const useWindowSize = <Size extends ISize = ISize>({
             }
         }, delay);
         window.addEventListener('resize', handler);
+        window.visualViewport && window.visualViewport.addEventListener('resize', handler);
         return () => {
+            window.visualViewport && window.visualViewport.removeEventListener('resize', handler);
             window.removeEventListener('resize', handler);
             handler.clear();
         };

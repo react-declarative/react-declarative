@@ -154,7 +154,15 @@ export const useElementSize = <T extends HTMLElement, Size extends ISize = ISize
 
         observer.observe(element);
 
+        const handleResize = () => {
+            const { height, width } = element!.getBoundingClientRect();
+            handler({ height, width });
+        };
+
+        window.visualViewport && window.visualViewport.addEventListener('resize', handleResize);
+
         return () => {
+            window.visualViewport && window.visualViewport.removeEventListener('resize', handleResize);
             observer.disconnect();
             handler.clear();
         };
