@@ -20,6 +20,7 @@ export const iterateUnion = <T extends IRowData = IRowData>(iterators: AsyncGene
                         limit -= 1;
                         continue;
                     }
+                    return;
                 }
             }
         }
