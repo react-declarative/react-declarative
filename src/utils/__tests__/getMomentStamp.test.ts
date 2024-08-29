@@ -11,14 +11,6 @@ const EXTRA_HOUR = 60 * 60 * 1_000;
 const START_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 0, 1, 0, 0).getTime() + START_FROM_LONDON + EXTRA_HOUR;
 const END_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 23, 59, 0, 0).getTime();
 
-const debug = new class {
-    log(...args: any[]) {
-        if (false) {
-            console.log(...args);
-        }
-    }
-}
-
 describe('Check getMomentStamp London dimension', () => {
 
     let DATE_STAMP: number;
@@ -40,19 +32,19 @@ describe('Check getMomentStamp London dimension', () => {
         jest.useRealTimers()
     });
 
-    let iter = 0;
-
-    for (let i = START_OF_DAY; i <= END_OF_DAY; i += STEP) {
-        test(`Expect moment stamp to be London`, () => {
+    test(`Expect moment stamp to be London`, () => {
+        let iter = 0;
+        let isOk = true;
+        for (let i = START_OF_DAY; i <= END_OF_DAY; i += STEP) {
             const currentStamp = getMomentStamp();
-            const isOk = currentStamp === EXPECT_MOMENT_STAMP;
-            debug.log(`ok=${isOk} iter=${iter} unix_stamp=${DATE_STAMP} date=${new Date()} current_stamp=${currentStamp} expect_stamp=${EXPECT_MOMENT_STAMP}`);
+            isOk = isOk && currentStamp === EXPECT_MOMENT_STAMP;
             iter++;
             if (!isOk) {
-                process.exit(-1);
+                console.log(`Test failed on iter=${iter} unix_stamp=${DATE_STAMP} date=${new Date()} current_stamp=${currentStamp} expect_stamp=${EXPECT_MOMENT_STAMP}`);
+                break;
             }
-            expect(isOk).toBeTruthy();
-        });
-    }
+        }
+        expect(isOk).toBe(true);
+    });
 
 });
