@@ -47,7 +47,7 @@ export const FragmentLayout = <Data extends IAnything = IAnything>({
     isVisible = () => true,
     ready,
 }: IFragmentLayoutProps<Data> & IFragmentLayoutPrivate<Data>) => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const payload = useOnePayload();
     const { object } = useOneState<Data>();
     useEffect(() => {
