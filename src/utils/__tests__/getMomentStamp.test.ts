@@ -3,10 +3,10 @@ import toUtcDate from "../toUtcDate";
 
 const NOW = new Date();
 
-const STEP = 60 * 1_000; // 1 minute
+const STEP = 1_000; // 1 second
 
-const START_FROM_LONDON = new Date().getTimezoneOffset() * 60 * 1_000 * -1;
-const EXTRA_HOUR = 60 * 60 * 1_000;
+const START_FROM_LONDON = new Date().getTimezoneOffset() * 60 * 1_000 * -1; 
+const EXTRA_HOUR = -1 * Math.sign(new Date().getTimezoneOffset()) * 60 * 60 * 1_000;
 
 const START_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 0, 1, 0, 0).getTime() + START_FROM_LONDON + EXTRA_HOUR;
 const END_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 23, 59, 0, 0).getTime();
@@ -44,6 +44,7 @@ describe('Check getMomentStamp London dimension', () => {
                 break;
             }
         }
+        console.log(`Total: ${iter} iters`);
         expect(isOk).toBe(true);
     });
 
