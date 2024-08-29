@@ -3,14 +3,21 @@ import toUtcDate from "../toUtcDate";
 
 const NOW = new Date();
 
-const STEP = 60 * 60 * 1_000; // 1 second
+const STEP = 60 * 1_000; // 1 minute
 
 const START_FROM_LONDON = new Date().getTimezoneOffset() * 60 * 1_000 * -1;
+const EXTRA_HOUR = 60 * 60 * 1_000;
 
-console.log({ START_FROM_LONDON })
-
-const START_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 0, 1, 0, 0).getTime() + START_FROM_LONDON;
+const START_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 0, 1, 0, 0).getTime() + START_FROM_LONDON + EXTRA_HOUR;
 const END_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 23, 59, 0, 0).getTime();
+
+const debug = new class {
+    log(...args: any[]) {
+        if (false) {
+            console.log(...args);
+        }
+    }
+}
 
 describe('Check getMomentStamp London dimension', () => {
 
@@ -39,8 +46,11 @@ describe('Check getMomentStamp London dimension', () => {
         test(`Expect moment stamp to be London`, () => {
             const currentStamp = getMomentStamp();
             const isOk = currentStamp === EXPECT_MOMENT_STAMP;
-            console.log(`ok=${isOk} iter=${iter} unix_stamp=${DATE_STAMP} date=${new Date()} current_stamp=${currentStamp} expect_stamp=${EXPECT_MOMENT_STAMP}`);
+            debug.log(`ok=${isOk} iter=${iter} unix_stamp=${DATE_STAMP} date=${new Date()} current_stamp=${currentStamp} expect_stamp=${EXPECT_MOMENT_STAMP}`);
             iter++;
+            if (!isOk) {
+                process.exit(-1);
+            }
             expect(isOk).toBeTruthy();
         });
     }
