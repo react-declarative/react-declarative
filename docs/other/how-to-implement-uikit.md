@@ -128,6 +128,96 @@ test("Will show readonly state", async ({ page }) => {
 
 ```
 
+## An easier way to implement custom fields
+
+The purpose of `<OneSlotFactory />` is when you provide a slot it will override each field on a form. This is quite usefull If you need to customize core functionality like text fields or checkboxes. But this will not allow you to add custom fields like banking card number input or range fields cause react-declarative provide only core functionality and does not dictate you how you should write the app.
+
+```tsx
+<One
+  slots={{
+    Date: DateSlot,
+  }}
+```
+
+or
+
+```tsx
+<OneSlotFactory Date={DateSlot}>
+
+  ...
+
+  <One ... />
+
+  ...
+
+</OneSlotFactory>
+```
+
+That meas by default each field in `<One />` component emits primitive value to the form data object like `string`, `number`, `boolean`. If you want `FieldType.Date` to emit `window.Date` object you should use a [factory pattern](https://en.wikipedia.org/wiki/Factory_method_pattern).
+
+```tsx
+export const createDateField = (name, format = 'DD/MM/YYYY') => ({
+  type: FieldType.Component,
+  name,
+  element: ({ value, onValueChange }) => (
+    <DatePicker value={value} format={format} onChange={onValueChange} />
+  ),
+})
+```
+
+For additional information check [this issue](https://github.com/react-declarative/react-declarative/issues/55) and [the google forms demo app](../sample/google_forms.md).
+
+```bash
+├───api
+├───assets
+│   ├───***
+│   ├───***
+│   └───***
+├───components
+│   ├───***
+│   ├───***
+│   └───***
+├───config
+├───db
+├───fields <------------------------------------
+│   ├───createRangeField
+│   ├───createTextField
+│   └───createDepositField
+├───handler
+├───hooks
+│   ├───***
+│   ├───***
+│   └───***
+├───i18n
+│   ├───***
+│   ├───***
+│   └───***
+├───lib
+│   ├───***
+│   ├───***
+│   └───***
+├───pages
+│   ├───***
+│   ├───***
+│   └───***
+├───styles
+├───tools
+├───types
+├───ui
+│   ├───***
+│   ├───***
+│   └───***
+├───utils
+├───view
+│   └───***
+│   ├───***
+│   └───***
+└───widgets
+    ├───***
+    ├───***
+    └───***
+```
+
 ## Code Samples
 
 ### Overriding `FieldType.Date` with [MUI-X](https://mui.com/x/) date picker
