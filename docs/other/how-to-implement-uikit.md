@@ -183,7 +183,6 @@ For additional information check [this issue](https://github.com/react-declarati
 │   ├───createRangeField
 │   ├───createTextField
 │   └───createDepositField
-├───handler
 ├───hooks
 │   ├───***
 │   ├───***
