@@ -156,7 +156,7 @@ or
 That meas by default each field in `<One />` component emits primitive value to the form data object like `string`, `number`, `boolean`. If you want `FieldType.Date` to emit `window.Date` object you should use a [factory pattern](https://en.wikipedia.org/wiki/Factory_method_pattern).
 
 ```tsx
-export const createDateField = (name, format = 'DD/MM/YYYY') => ({
+export const createDateField = (name, format = 'DD/MM/YYYY'): TypedField => ({
   type: FieldType.Component,
   name,
   element: ({ value, onValueChange }) => (
