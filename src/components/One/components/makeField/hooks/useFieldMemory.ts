@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import IAnything from '../../../../../model/IAnything';
 import { Value } from '../../../../../model/IField';
 
 /**
@@ -21,7 +20,6 @@ interface IMemory {
     focusReadonly$: boolean;
     debouncedValue$: Value;
     invalid$: string | null;
-    object$: IAnything;
     value$: Value;
     groupRef$: HTMLDivElement;
 }
@@ -54,7 +52,6 @@ interface IMemoryData extends Omit<IMemory, keyof {
  * @param memoryData.fieldReadonly$ - The observable for the readonly state of the memory field.
  * @param memoryData.focusReadonly$ - The observable for the readonly state of the focus.
  * @param memoryData.invalid$ - The observable for the invalid state of the memory field.
- * @param memoryData.object$ - The observable for the object of the memory field.
  * @param memoryData.upperReadonly$ - The observable for the readonly state of the upper field.
  * @param memoryData.value$ - The observable for the value of the memory field.
  * @param memoryData.groupRef$ - The observable for the group reference of the memory field.
@@ -69,7 +66,6 @@ export const useFieldMemory = ({
     fieldReadonly$,
     focusReadonly$,
     invalid$,
-    object$,
     upperReadonly$,
     value$,
     groupRef$,
@@ -88,7 +84,6 @@ export const useFieldMemory = ({
      * @property fieldReadonly$ - Represents the field readonly value.
      * @property focusReadonly$ - Represents the focus readonly value.
      * @property invalid$ - Represents the invalid value.
-     * @property object$ - Represents the object value.
      * @property upperReadonly$ - Represents the upper readonly value.
      * @property value$ - Represents the value.
      * @property groupRef$ - Represents the group reference value.
@@ -105,7 +100,6 @@ export const useFieldMemory = ({
         fieldReadonly$: null as never,
         focusReadonly$: null as never,
         invalid$: null as never,
-        object$: null as never,
         upperReadonly$: null as never,
         value$: null as never,
         groupRef$: null as never,
@@ -114,7 +108,6 @@ export const useFieldMemory = ({
     memory.fieldReadonly$ = fieldReadonly$;
     memory.focusReadonly$ = focusReadonly$;
     memory.invalid$ = invalid$;
-    memory.object$ = object$;
     memory.upperReadonly$ = upperReadonly$;
     memory.value$ = value$;
     memory.groupRef$ = groupRef$;

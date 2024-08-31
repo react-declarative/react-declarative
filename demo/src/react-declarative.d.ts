@@ -19253,7 +19253,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
+      children: import("react").ReactNode;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;
@@ -21244,6 +21244,7 @@ declare module "react-declarative/components/One/context/StateProvider" {
   interface IState<Data = IAnything> {
     object: Data | null;
     setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
+    getObjectRef: () => Data;
     changeObject: (data: Data) => void;
   }
   /**

@@ -16,6 +16,12 @@ object: Data
 setObject: (data: Data, invalidMap: Record<string, boolean>) => void
 ```
 
+### getObjectRef
+
+```ts
+getObjectRef: () => Data
+```
+
 ### changeObject
 
 ```ts

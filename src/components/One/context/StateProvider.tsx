@@ -32,6 +32,7 @@ interface IStateProviderProps<Data = IAnything, Payload = IAnything, Field exten
 interface IState<Data = IAnything> {
     object: Data | null;
     setObject: (data: Data, invalidMap: Record<string, boolean>) => void;
+    getObjectRef: () => Data;
     changeObject: (data: Data) => void;
 }
 
@@ -77,7 +78,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         incomingTransform,
     } = otherProps;
 
-    const [object, setObjectHook] = useResolved<Data, Payload>({
+    const [object, setObjectHook, getObjectRef] = useResolved<Data, Payload>({
         handler,
         fallback,
         fields,
@@ -146,6 +147,7 @@ export const StateProvider = <Data extends IAnything, Payload extends IAnything,
         object,
         setObject,
         changeObject,
+        getObjectRef,
     }), [object]);
 
     return (
