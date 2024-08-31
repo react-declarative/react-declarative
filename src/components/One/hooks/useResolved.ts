@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect, useEffect } from 'react';
+import { useRef, useLayoutEffect, useEffect, useCallback } from 'react';
 
 import IField from '../../../model/IField';
 
@@ -18,7 +18,7 @@ import IAnything from '../../../model/IAnything';
 import IOneProps from '../../../model/IOneProps';
 import IOneApi from '../../../model/IOneApi';
 
-import useActualValue from '../../../hooks/useActualValue';
+import useActualState from '../../../hooks/useActualState';
 import useSubject from '../../../hooks/useSubject';
 
 import { PickProp } from '../../../model/IManaged';
@@ -96,9 +96,8 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
     loadStart,
     loadEnd,
     incomingTransform = DEFAULT_INCOMING_TRANSFORM,
-}: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void] => {
-    const [data, setData] = useState<Data | null>(null);
-    const data$ = useActualValue(data);
+}: IResolvedHookProps<Data, Payload>): [Data | null, (v: Data) => void, () => Data] => {
+    const [data$, setData] = useActualState<Data | null>(null);
     const { 
         apiRef, 
         changeSubject: upperChangeSubject,
@@ -139,7 +138,7 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
                     loadEnd && loadEnd(isOk, LOAD_SOURCE);
                     isRoot.current = true;
                 }
-            } else if (handler && !deepCompare(data, handler)) {
+            } else if (handler && !deepCompare(data$.current, handler)) {
                 const newData = assign({}, buildObj(fields, payload, features), deepClone(handler));
                 isMounted.current && setData(incomingTransform(newData, payload));
             }
@@ -187,7 +186,8 @@ export const useResolved = <Data = IAnything, Payload = IAnything>({
     useLayoutEffect(() => () => {
         isMounted.current = false;
     }, []);
-    return [data, setData];
+    const getObjectRef = useCallback(() => data$.current!, []);
+    return [data$.current, setData, getObjectRef];
 };
 
 export default useResolved;

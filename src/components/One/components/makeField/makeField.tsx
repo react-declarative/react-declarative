@@ -44,7 +44,7 @@ import nameToTitle from '../../helpers/nameToTitle';
 
 import OneConfig, { GET_REF_SYMBOL } from '../OneConfig';
 
-const APPLY_ATTEMPTS = 25;
+const APPLY_ATTEMPTS = 60;
 const APPLY_DELAY = 10;
 
 /**
@@ -205,7 +205,7 @@ export function makeField(
         testId = name,
         ...otherProps
     }: IEntity<Data>) => {
-        const { object: stateObject, changeObject } = useOneState<Data>();
+        const { object: stateObject, changeObject, getObjectRef } = useOneState<Data>();
         const payload = useOnePayload();
         const { createContextMenu } = useOneMenu();
 
@@ -300,7 +300,6 @@ export function makeField(
             fieldReadonly$: fieldReadonly,
             focusReadonly$: focusReadonly,
             invalid$: invalid,
-            object$: object,
             upperReadonly$: upperReadonly,
             groupRef$: groupRef,
             value$: value,
@@ -357,8 +356,8 @@ export function makeField(
          * Коллбек входящего изменения.
          */
         const handleIncomingObject = useCallback(() => {
+            const object = getObjectRef();
             const { invalid$: invalid } = memory;
-            const { object$: object } = memory;
             const { value$: value } = memory;
             const wasInvalid = !!invalid;
             memory.objectUpdate = true;
@@ -425,9 +424,9 @@ export function makeField(
          * Коллбек исходящего изменения
          */
         const handleOutgoingObject = useCallback(() => {
+            const object = getObjectRef();
             const { debouncedValue$: debouncedValue } = memory;
             const { invalid$: invalid } = memory;
-            const { object$: object } = memory;
             const wasInvalid = !!invalid;
             if (memory.inputUpdate) {
                 memory.inputUpdate = false;
@@ -470,9 +469,10 @@ export function makeField(
             if (memory.inputUpdate) {
                 return;
             }
-            const { invalid$: wasInvalid, value$, object$ } = memory;
-            const copy = deepClone(object$);
-            set(copy, name, writeTransform(value$, name, object$, payload));
+            const object = getObjectRef();
+            const { invalid$: wasInvalid, value$ } = memory;
+            const copy = deepClone(object);
+            set(copy, name, writeTransform(value$, name, object, payload));
             const invalid = isInvalid(copy, payload) || null;
             const incorrect = isIncorrect(copy, payload) || null;
             if (!invalid && wasInvalid) {
@@ -483,7 +483,7 @@ export function makeField(
             }
             if (invalid && !wasInvalid) {
                 setInvalid(invalid);
-                change(object$, {
+                change(object, {
                     [memory.fieldName]: !!invalid,
                 });
             }
@@ -627,6 +627,7 @@ export function makeField(
          * фокуса
          */
         const handleFocus = useCallback(() => {
+            const object = getObjectRef();
             const { fieldReadonly$: fieldReadonly } = memory;
             const { upperReadonly$: upperReadonly } = memory;
             const { groupRef$: groupRef } = memory;
@@ -642,14 +643,14 @@ export function makeField(
                         flush();
                     }
                     if (blur) {
-                        blur(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                        blur(name, object, payload, (value) => managedProps.onChange(value, {
                             skipReadonly: true,
                         }), changeObject);
                     }
                     setFocusReadonly(true);
                 });
                 if (focus) {
-                    focus(name, memory.object$, payload, (value) => managedProps.onChange(value, {
+                    focus(name, object, payload, (value) => managedProps.onChange(value, {
                         skipReadonly: true,
                     }), changeObject);
                 }
@@ -676,7 +677,8 @@ export function makeField(
             if (memory.clickDisabled) {
                 return;
             }
-            await click(name, e, memory.object$, payload, (value) => managedProps.onChange(value, {
+            const object = getObjectRef();
+            await click(name, e, object, payload, (value) => managedProps.onChange(value, {
                 skipReadonly: true,
             }), changeObject);
         }, []);
