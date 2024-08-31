@@ -72,6 +72,9 @@ export const Drawer = ({
                     overflowX: 'hidden',
                     overflowY: 'auto',
                     scrollbarWidth: 'none',
+                    "&::-webkit-scrollbar": {
+                        display: "none",
+                    },
                     maxHeight: '100vh',
                     minHeight: '100vh',
                     background: (theme) => theme.palette.background.paper,

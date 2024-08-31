@@ -53,6 +53,9 @@ const useStyles = makeStyles()({
     scrollbarWidth: 'none',
     overflowY: 'auto',
     overflowX: 'hidden',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 });
 
@@ -409,7 +412,7 @@ export const SearchView = <
                 >
                   <CloseIcon />
                 </IconButton>
-              ): endAdornment}
+              ) : endAdornment}
             </InputAdornment>
           ),
         }}
@@ -456,9 +459,9 @@ export const SearchView = <
               onCreate={
                 onCreate
                   ? (value: string) => {
-                      onCreate(value);
-                      setOpen(false);
-                    }
+                    onCreate(value);
+                    setOpen(false);
+                  }
                   : undefined
               }
             />

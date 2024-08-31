@@ -106,6 +106,9 @@ const useStyles = makeStyles()({
     scrollbarWidth: 'none',
     overflowY: 'auto',
     overflowX: 'hidden',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
   content: {
     flex: 1,
@@ -144,7 +147,7 @@ export const MenuItems = ({ requestSubject }: IMenuItemsProps) => {
   const [params$, setParams] = useActualRef<IParams>(INITIAL_STATE);
   const [counter$, setCounter] = useActualRef(0);
 
-  const { object, changeObject} = useOneState<object>();
+  const { object, changeObject } = useOneState<object>();
   const payload = useOnePayload();
 
   /**

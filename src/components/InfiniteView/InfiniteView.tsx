@@ -45,6 +45,9 @@ const useStyles = makeStyles()({
   },
   hideScrollbar: {
     scrollbarWidth: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
   container: {
     position: 'absolute',

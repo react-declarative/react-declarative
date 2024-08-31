@@ -187,6 +187,9 @@ export const ActionFilter = ({
                         overflowY:'auto',
                         overflowX: 'hidden',
                         scrollbarWidth: 'none',
+                        "&::-webkit-scrollbar": {
+                            display: "none",
+                        },
                     },
                 }}
             >

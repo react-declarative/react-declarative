@@ -57,6 +57,9 @@ export const NavigatorDense = ({
             sx={{
                 position: 'relative',
                 scrollbarWidth: 'none',
+                "&::-webkit-scrollbar": {
+                    display: "none",
+                },
                 overflowX: 'hidden',
                 overflowY: 'auto',
                 maxWidth: CLOSED_WIDTH,

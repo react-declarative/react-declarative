@@ -76,6 +76,9 @@ const useStyles = makeStyles()({
     overflowX: 'hidden',
     maxHeight: '45vh',
     scrollbarWidth: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
   content: {
     flex: 1,
@@ -330,11 +333,11 @@ export const ActionGroup = <T extends any = object>({
         open={!!anchorEl && !disabled}
         onClose={handleClose}
         MenuListProps={{
-            disablePadding: true,
-            sx: {
-                pt: BeforeContent ? 0 : 1,
-                pb: AfterContent ? 0 : 1,
-            },
+          disablePadding: true,
+          sx: {
+            pt: BeforeContent ? 0 : 1,
+            pb: AfterContent ? 0 : 1,
+          },
         }}
       >
         <Box className={classes.container}>
@@ -411,7 +414,7 @@ export const ActionGroup = <T extends any = object>({
                             disabled={disabled}
                             onClick={handleClick(action)}
                             sx={{
-                                minWidth: MENU_MIN_WIDTH,
+                              minWidth: MENU_MIN_WIDTH,
                             }}
                           >
                             {!!Icon && (
