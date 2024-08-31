@@ -13,7 +13,7 @@ id: string
 ### label
 
 ```ts
-label: string
+label: ReactNode
 ```
 
 ### lifted

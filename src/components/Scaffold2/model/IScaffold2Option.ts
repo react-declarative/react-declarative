@@ -10,7 +10,7 @@ import Payload from "./Payload";
  */
 export interface IScaffold2Option<T = Payload> {
     id: string;
-    label?: string;
+    label?: React.ReactNode;
     lifted?: boolean;
     pin?: boolean;
     sx?: SxProps<any>;

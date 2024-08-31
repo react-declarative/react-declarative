@@ -20438,7 +20438,7 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
    */
   export interface IScaffold2Option<T = Payload> {
     id: string;
-    label?: string;
+    label?: React.ReactNode;
     lifted?: boolean;
     pin?: boolean;
     sx?: SxProps<any>;
