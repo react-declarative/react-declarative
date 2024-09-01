@@ -18,6 +18,8 @@ import countDots from '../../utils/countDots';
 import useActualCallback from '../../../../hooks/useActualCallback';
 import useActualValue from '../../../../hooks/useActualValue';
 
+import IRecordViewProps from '../../model/IRecordViewProps';
+
 const SearchContext = createContext<Context>(null as never);
 
 /**
@@ -63,6 +65,7 @@ export interface Props {
   withExpandRoot: boolean;
   withExpandLevel: number;
   expandList?: string[];
+  formatSearch?: IRecordViewProps['formatSearch'];
   children: React.ReactNode;
   onSearchChanged?: (search: string) => void;
 }
@@ -101,6 +104,7 @@ export const SearchProvider = ({
   expandList,
   data: upperData,
   onSearchChanged = () => undefined,
+  formatSearch = () => "",
 }: Props) => {
 
   const onSearchChanged$ = useActualCallback(onSearchChanged);
@@ -221,15 +225,18 @@ export const SearchProvider = ({
   useEffect(() => {
     const data: IData = {};
     const rawNamespaces = deepFlat(upperData)
-      .map(({ value, path }) => ({
+      .map(({ value, path, name, }) => ({
         path: path.startsWith('root.') ? path.replace('root.', '') : path,
+        pathOriginal: path,
         value,
+        name,
       }))
-      .filter(({ value, path }) => {
+      .filter(({ value, path, pathOriginal, name }) => {
         const search = state.search.toLowerCase();
         let isOk = false;
         isOk = isOk || value.toLowerCase().includes(search);
         isOk = isOk || path.toLowerCase().includes(search);
+        isOk = isOk || formatSearch(name, value, pathOriginal).toLowerCase().includes(search);
         isOk = isOk || keyToTitle(replaceString(path, '.', ' ')).toLowerCase().includes(search);
         return isOk;
       })

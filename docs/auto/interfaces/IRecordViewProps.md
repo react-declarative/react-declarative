@@ -76,6 +76,12 @@ formatValue: (key: string, value: string | number | boolean, path: string) => Re
 formatKey: (key: string, path: string) => ReactNode
 ```
 
+### formatSearch
+
+```ts
+formatSearch: (key: string, value: string | number | boolean, path: string) => string
+```
+
 ### onSearchChanged
 
 ```ts

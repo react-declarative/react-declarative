@@ -47,6 +47,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
   onSearchChanged,
   formatValue = (_, value) => value,
   formatKey = (key) => `${keyToTitle(key)}: `,
+  formatSearch,
   withExpandAll = false,
   withExpandRoot = false,
   withExpandLevel = 0,
@@ -73,6 +74,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
       withExpandAll={withExpandAll}
       withExpandRoot={withExpandRoot}
       withExpandLevel={withExpandLevel}
+      formatSearch={formatSearch}
       expandList={expandList}
       onSearchChanged={onSearchChanged}
     >

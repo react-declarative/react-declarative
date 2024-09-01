@@ -31,6 +31,11 @@ export interface IRecordViewProps<Data = IData, Payload = IAnything> extends Box
         key: string,
         path: string,
     ) => React.ReactNode;
+    formatSearch?: (
+        key: string,
+        value: boolean | number | string | null,
+        path: string,
+    ) => string;
     onSearchChanged?: (search: string) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;

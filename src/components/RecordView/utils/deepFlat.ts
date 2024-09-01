@@ -19,6 +19,7 @@ type IDataRecords = Array<[keyof IData, IData[keyof IData]]>;
 type Entry = {
   path: string;
   value: string;
+  name: string;
   deepIndex: number;
 };
 
@@ -36,12 +37,13 @@ export const deepFlat = (record: IData) => {
       const [key, value] = entry;
       const name = `${prefix}.${String(key)}`;
       if (isObject(value)) {
-        result.push({ path: name, value: '', deepIndex: pendingDeepIndex });
+        result.push({ path: name, name: String(key), value: '', deepIndex: pendingDeepIndex });
         pendingDeepIndex += 1;
         process(Object.entries(value), name);
       } else {
         result.push({
           path: name,
+          name: String(key),
           value: String(value),
           deepIndex: pendingDeepIndex,
         });

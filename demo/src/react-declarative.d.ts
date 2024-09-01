@@ -20271,6 +20271,7 @@ declare module "react-declarative/components/RecordView/RecordView" {
       onSearchChanged,
       formatValue,
       formatKey,
+      formatSearch,
       withExpandAll,
       withExpandRoot,
       withExpandLevel,
@@ -29850,6 +29851,11 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
       path: string,
     ) => React.ReactNode;
     formatKey?: (key: string, path: string) => React.ReactNode;
+    formatSearch?: (
+      key: string,
+      value: boolean | number | string | null,
+      path: string,
+    ) => string;
     onSearchChanged?: (search: string) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
