@@ -179,6 +179,7 @@ export const Content = ({
                   BeforeCollapseLabel={BeforeCollapseLabel}
                   AfterCollapseLabel={AfterCollapseLabel}
                   EmptyItem={EmptyItem}
+                  CustomItem={CustomItem}
                   path={prefix}
                   {...otherProps}
                 />

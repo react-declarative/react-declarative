@@ -82,6 +82,18 @@ export interface Hook extends Omit<Context, keyof {
   isSearching: boolean;
 }
 
+const filterFulltext = (text: string, search: string) => {
+  const target = String(search || "")
+    .toLowerCase()
+    .split(" ");
+  const source = String(text)
+    .toLowerCase()
+    .split(" ");
+  return target.every(function (term) {
+    return source.some((word) => word.includes(term));
+  });
+};
+
 /**
  * SearchProvider is a component that provides search functionality for a data set.
  *
@@ -224,19 +236,27 @@ export const SearchProvider = ({
 
   useEffect(() => {
     const data: IData = {};
-    const rawNamespaces = deepFlat(upperData)
+    const allNamespaces = deepFlat(upperData)
+    const allowedNames = new Set(allNamespaces
+      .filter(({ name, value, path }) => {
+        return filterFulltext(formatSearch(name, value, path), state.search);
+      })
+      .map(({ path }) => path.startsWith('root.') ? path.replace('root.', '') : path)
+      .join('.')
+      .split('.')
+    );
+    const rawNamespaces = allNamespaces
       .map(({ value, path, name, }) => ({
         path: path.startsWith('root.') ? path.replace('root.', '') : path,
-        pathOriginal: path,
         value,
         name,
       }))
-      .filter(({ value, path, pathOriginal, name }) => {
+      .filter(({ value, path, name }) => {
         const search = state.search.toLowerCase();
         let isOk = false;
         isOk = isOk || value.toLowerCase().includes(search);
         isOk = isOk || path.toLowerCase().includes(search);
-        isOk = isOk || formatSearch(name, value, pathOriginal).toLowerCase().includes(search);
+        isOk = isOk || allowedNames.has(name)
         isOk = isOk || keyToTitle(replaceString(path, '.', ' ')).toLowerCase().includes(search);
         return isOk;
       })
