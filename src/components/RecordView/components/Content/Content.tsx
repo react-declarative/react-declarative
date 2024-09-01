@@ -44,8 +44,9 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   sx?: SxProps<any>;
   payload?: IAnything;
   withDarkParent?: boolean;
-  BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
-  AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
+  itemKey: string;
+  BeforeCollapseLabel?: React.ComponentType<{ itemKey: string; payload: IAnything; path: string; }>;
+  AfterCollapseLabel?: React.ComponentType<{ itemKey: string; payload: IAnything; path: string; }>;
   EmptyItem?: React.ComponentType<any>;
   CustomItem?: React.ComponentType<IItemProps>;
 }
@@ -102,6 +103,7 @@ export const Content = ({
   AfterCollapseLabel = Fragment,
   withDarkParent = false,
   background,
+  itemKey,
   EmptyItem = Empty,
   CustomItem = Item,
   ...otherProps
@@ -116,8 +118,8 @@ export const Content = ({
     setIsChecked(path, checked);
   }, [path, checked]);
 
-  const BeforeCollapseLabelInternal = useMemo(() => () => <BeforeCollapseLabel payload={payload} path={path} />, [path]);
-  const AfterCollapseLabelInternal = useMemo(() => () => <AfterCollapseLabel payload={payload} path={path} />, [path]);
+  const BeforeCollapseLabelInternal = useMemo(() => () => <BeforeCollapseLabel itemKey={itemKey} payload={payload} path={path} />, [path]);
+  const AfterCollapseLabelInternal = useMemo(() => () => <AfterCollapseLabel itemKey={itemKey}  payload={payload} path={path} />, [path]);
 
   /**
    * Sets the checked value based on the provided boolean flag,
@@ -174,6 +176,7 @@ export const Content = ({
                   data={value as IData}
                   keyWidth={keyWidth}
                   payload={payload}
+                  itemKey={key}
                   valueWidth={valueWidth}
                   totalWidth={totalWidth}
                   BeforeCollapseLabel={BeforeCollapseLabel}

@@ -29873,10 +29873,12 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
     BeforeCollapseLabel?: React.ComponentType<{
+      itemKey: string;
       payload: Payload;
       path: string;
     }>;
     AfterCollapseLabel?: React.ComponentType<{
+      itemKey: string;
       payload: Payload;
       path: string;
     }>;

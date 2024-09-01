@@ -115,13 +115,13 @@ AfterSearch: ComponentType<any>
 ### BeforeCollapseLabel
 
 ```ts
-BeforeCollapseLabel: ComponentType<{ payload: Payload; path: string; }>
+BeforeCollapseLabel: ComponentType<{ itemKey: string; payload: Payload; path: string; }>
 ```
 
 ### AfterCollapseLabel
 
 ```ts
-AfterCollapseLabel: ComponentType<{ payload: Payload; path: string; }>
+AfterCollapseLabel: ComponentType<{ itemKey: string; payload: Payload; path: string; }>
 ```
 
 ### payload
