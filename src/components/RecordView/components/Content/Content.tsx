@@ -9,7 +9,7 @@ import { alpha, SxProps } from '@mui/material';
 
 import Collapse from '../../../common/Collapse';
 
-import Item from '../Item';
+import Item, { IItemProps } from '../Item';
 
 import IRecordViewProps from '../../model/IRecordViewProps';
 
@@ -47,6 +47,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   EmptyItem?: React.ComponentType<any>;
+  CustomItem?: React.ComponentType<IItemProps>;
 }
 
 const useStyles = makeStyles<{
@@ -102,6 +103,7 @@ export const Content = ({
   withDarkParent = false,
   background,
   EmptyItem = Empty,
+  CustomItem = Item,
   ...otherProps
 }: IContentProps) => {
   const { classes } = useStyles({ background });
@@ -185,7 +187,7 @@ export const Content = ({
           );
         }
         return (
-          <Item
+          <CustomItem
             background={background}
             withDarkParent={withDarkParent}
             formatValue={formatValue}

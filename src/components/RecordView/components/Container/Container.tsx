@@ -20,6 +20,7 @@ import useSearch from '../../context/SearchContext';
 import usePreventAutofill from '../../../../hooks/usePreventAutofill';
 
 import classNames from '../../../../utils/classNames';
+import { IItemProps } from '../Item';
 
 /**
  * Interface for ContainerProps which extends BoxProps
@@ -37,6 +38,7 @@ export interface IContainerProps extends BoxProps {
   BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   EmptyItem?: React.ComponentType<any>;
+  CustomItem?: React.ComponentType<IItemProps>;
   payload?: IRecordViewProps['payload'];
 }
 
@@ -97,6 +99,7 @@ export const Container = ({
   BeforeCollapseLabel,
   AfterCollapseLabel,
   EmptyItem,
+  CustomItem,
   payload,
   className,
   style,
@@ -159,6 +162,7 @@ export const Container = ({
         totalWidth={totalWidth}
         background={background}
         EmptyItem={EmptyItem}
+        CustomItem={CustomItem}
         BeforeCollapseLabel={BeforeCollapseLabel}
         AfterCollapseLabel={AfterCollapseLabel}
       />

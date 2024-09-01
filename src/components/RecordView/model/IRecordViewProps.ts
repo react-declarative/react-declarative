@@ -3,6 +3,7 @@ import { GridSize, BoxProps } from "@mui/material";
 
 import IData from './IData';
 import IAnything from "../../../model/IAnything";
+import { IItemProps } from "../components/Item";
 
 /**
  * Interface for the props of the RecordView component.
@@ -23,6 +24,7 @@ export interface IRecordViewProps<Data = IData, Payload = IAnything> extends Box
     expandList?: Array<string>;
     withExpandLevel?: number;
     EmptyItem?: React.ComponentType<any>;
+    CustomItem?: React.ComponentType<IItemProps>;
     formatValue?: (
         key: string,
         value: boolean | number | string | null,

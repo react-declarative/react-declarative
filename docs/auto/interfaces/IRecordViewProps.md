@@ -70,6 +70,12 @@ withExpandLevel: number
 EmptyItem: ComponentType<any>
 ```
 
+### CustomItem
+
+```ts
+CustomItem: ComponentType<IItemProps>
+```
+
 ### formatValue
 
 ```ts

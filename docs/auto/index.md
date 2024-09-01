@@ -517,6 +517,8 @@
 - [ICheckboxCellProps](interfaces/ICheckboxCellProps.md)
 - [IButtonSlot](interfaces/IButtonSlot.md)
 - [IIconSlot](interfaces/IIconSlot.md)
+- [IItemProps](interfaces/IItemProps.md)
+- [IItemProps](interfaces/IItemProps.md)
 
 ## Types
 

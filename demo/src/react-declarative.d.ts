@@ -20293,6 +20293,7 @@ declare module "react-declarative/components/RecordView/RecordView" {
       style,
       sx,
       EmptyItem,
+      CustomItem,
       ...otherProps
     }: IRecordViewProps<Data, Payload>): JSX.Element;
     excelExport: (data: IData, sheetName?: string) => void;
@@ -29835,6 +29836,7 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
   import { GridSize, BoxProps } from "@mui/material";
   import IData from "react-declarative/components/RecordView/model/IData";
   import IAnything from "react-declarative/model/IAnything";
+  import { IItemProps } from "react-declarative/components/RecordView/components/Item";
   /**
    * Interface for the props of the RecordView component.
    *
@@ -29855,6 +29857,7 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
     expandList?: Array<string>;
     withExpandLevel?: number;
     EmptyItem?: React.ComponentType<any>;
+    CustomItem?: React.ComponentType<IItemProps>;
     formatValue?: (
       key: string,
       value: boolean | number | string | null,
@@ -32645,6 +32648,11 @@ declare module "react-declarative/components/One/slots/IconSlot" {
   export { default } from "react-declarative/components/One/slots/IconSlot/IconSlot";
 }
 
+declare module "react-declarative/components/RecordView/components/Item" {
+  export * from "react-declarative/components/RecordView/components/Item/Item";
+  export { default } from "react-declarative/components/RecordView/components/Item/Item";
+}
+
 declare module "react-declarative/components/One/slots/CheckBoxSlot/ICheckBoxSlot" {
   import {
     ICheckboxFieldPrivate,
@@ -33312,4 +33320,87 @@ declare module "react-declarative/components/One/slots/IconSlot/IconSlot" {
    */
   export const IconSlot: (props: IIconSlot) => JSX.Element;
   export default IconSlot;
+}
+
+declare module "react-declarative/components/RecordView/components/Item/Item" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import IRecordViewProps from "react-declarative/components/RecordView/model/IRecordViewProps";
+  /**
+   * Represents the properties of an item in a record view.
+   */
+  export interface IItemProps
+    extends Pick<
+      IRecordViewProps,
+      keyof {
+        keyWidth: never;
+        valueWidth: never;
+        totalWidth: never;
+      }
+    > {
+    background?: IRecordViewProps["background"];
+    formatValue: Exclude<IRecordViewProps["formatValue"], undefined>;
+    formatKey: Exclude<IRecordViewProps["formatKey"], undefined>;
+    index: number;
+    path: string;
+    itemKey: string;
+    value: unknown;
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps<any>;
+    withDarkParent?: boolean;
+  }
+  /**
+   * Represents the props for an item in a record view.
+   */
+  export interface IItemProps
+    extends Pick<
+      IRecordViewProps,
+      keyof {
+        keyWidth: never;
+        valueWidth: never;
+        totalWidth: never;
+      }
+    > {
+    formatValue: Exclude<IRecordViewProps["formatValue"], undefined>;
+    index: number;
+    path: string;
+    itemKey: string;
+    value: unknown;
+    className?: string;
+    style?: React.CSSProperties;
+    sx?: SxProps<any>;
+    withDarkParent?: boolean;
+  }
+  /**
+   * Represents an item component.
+   *
+   * @param ItemProps - The props for the item component.
+   * @param ItemProps.formatValue - The formatting function for the item's value.
+   * @param ItemProps.formatKey - The formatting function for the item's key.
+   * @param ItemProps.keyWidth - The width of the item's key column.
+   * @param ItemProps.valueWidth - The width of the item's value column.
+   * @param ItemProps.totalWidth - The total width of the item component.
+   * @param ItemProps.value - The value of the item.
+   * @param ItemProps.itemKey - The key of the item.
+   * @param ItemProps.path - The path of the item.
+   * @param ItemProps.index - The index of the item.
+   * @param ItemProps.background - The background color of the item.
+   * @param ItemProps.withDarkParent - Indicates if the item has a dark parent.
+   * @returns The rendered item component.
+   */
+  export const Item: ({
+    formatValue,
+    formatKey,
+    keyWidth,
+    valueWidth,
+    totalWidth,
+    value: upperValue,
+    itemKey,
+    path,
+    index,
+    background,
+    withDarkParent,
+  }: IItemProps) => JSX.Element;
+  export default Item;
 }
