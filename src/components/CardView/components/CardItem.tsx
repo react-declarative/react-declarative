@@ -51,8 +51,6 @@ const defaultFormatter = (value: React.ReactNode) => {
     return "—";
   } else if (typeof value === "boolean") {
     return String(value);
-  } else if (isObject(value)) {
-    return <pre>{JSON.stringify(value, null, 2)}</pre>;
   } else if (value.toString().startsWith("http")) {
     return (
       <a
@@ -64,6 +62,10 @@ const defaultFormatter = (value: React.ReactNode) => {
         {value}
       </a>
     );
+  } else if (React.isValidElement(value)) {
+    return value;
+  } else if (isObject(value)) {
+    return <pre>{JSON.stringify(value, null, 2)}</pre>;
   } else {
     return value;
   }
