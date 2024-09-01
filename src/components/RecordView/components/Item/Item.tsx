@@ -188,7 +188,7 @@ export const Item = ({
       )}
     >
       <Grid item xs={keyWidth}>
-        <Typography variant="body1" sx={{ ml: 1 }}>{formatKey(itemKey, path)}</Typography>
+        <Typography variant="body1" sx={{ ml: 1, overflow: 'hidden' }}>{formatKey(itemKey, path)}</Typography>
       </Grid>
       <Grid item zeroMinWidth xs={valueWidth}>
         <Typography

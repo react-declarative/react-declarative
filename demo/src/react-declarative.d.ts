@@ -398,8 +398,11 @@ declare module "react-declarative" {
   > = IFeatureInternal<Data, Payload>;
   export { FeatureType } from "react-declarative/components/FeatureView";
   export { IVisibilityGroup } from "react-declarative/components/VisibilityView";
-  import { recordToExcelExport } from "react-declarative/components/RecordView";
-  export { recordToExcelExport };
+  import {
+    recordToExcelExport,
+    RECORD_NEVER_VALUE,
+  } from "react-declarative/components/RecordView";
+  export { recordToExcelExport, RECORD_NEVER_VALUE };
   export { ErrorBoundary } from "react-declarative/components";
   export { AutoSizer } from "react-declarative/components";
   export { ActionStopIcon } from "react-declarative/components";
@@ -7209,6 +7212,7 @@ declare module "react-declarative/components/VisibilityView" {
 
 declare module "react-declarative/components/RecordView" {
   export * from "react-declarative/components/RecordView/RecordView";
+  export { RECORD_NEVER_VALUE } from "react-declarative/components/RecordView/constant/RECORD_NEVER_VALUE";
   export { excelExport as recordToExcelExport } from "react-declarative/components/RecordView/helpers/excelExport";
   export { default } from "react-declarative/components/RecordView/RecordView";
 }
@@ -20288,11 +20292,16 @@ declare module "react-declarative/components/RecordView/RecordView" {
       className,
       style,
       sx,
+      EmptyItem,
       ...otherProps
     }: IRecordViewProps<Data, Payload>): JSX.Element;
     excelExport: (data: IData, sheetName?: string) => void;
   };
   export default RecordView;
+}
+
+declare module "react-declarative/components/RecordView/constant/RECORD_NEVER_VALUE" {
+  export const RECORD_NEVER_VALUE = "react-declarative__recordView_never_value";
 }
 
 declare module "react-declarative/components/RecordView/helpers/excelExport" {
@@ -29845,6 +29854,7 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
     withExpandRoot?: boolean;
     expandList?: Array<string>;
     withExpandLevel?: number;
+    EmptyItem?: React.ComponentType<any>;
     formatValue?: (
       key: string,
       value: boolean | number | string | null,

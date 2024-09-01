@@ -21,6 +21,9 @@ import useSearch from '../../context/SearchContext';
 import IData from '../../model/IData';
 import IAnything from '../../../../model/IAnything';
 
+import { RECORD_NEVER_VALUE } from '../../constant/RECORD_NEVER_VALUE';
+import Empty from '../Empty';
+
 const Fragment = () => <></>
 
 /**
@@ -43,6 +46,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   withDarkParent?: boolean;
   BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
+  EmptyItem?: React.ComponentType<any>;
 }
 
 const useStyles = makeStyles<{
@@ -97,6 +101,7 @@ export const Content = ({
   AfterCollapseLabel = Fragment,
   withDarkParent = false,
   background,
+  EmptyItem = Empty,
   ...otherProps
 }: IContentProps) => {
   const { classes } = useStyles({ background });
@@ -133,6 +138,11 @@ export const Content = ({
     () =>
       Object.entries(data).map(([key, value], index) => {
         const prefix = `${path}.${key}`;
+        if (key === RECORD_NEVER_VALUE) {
+          return (
+            <EmptyItem />
+          );
+        }
         if (isObject(value)) {
           return (
             <Grid
@@ -146,7 +156,7 @@ export const Content = ({
             >
               <Grid item xs={keyWidth}>
                 <Typography
-                  sx={{ mt: 3, ml: 1 }}
+                  sx={{ mt: 3, ml: 1, overflow: 'hidden' }}
                   className={classes.groupKey}
                   variant="body1"
                 >
@@ -166,6 +176,7 @@ export const Content = ({
                   totalWidth={totalWidth}
                   BeforeCollapseLabel={BeforeCollapseLabel}
                   AfterCollapseLabel={AfterCollapseLabel}
+                  EmptyItem={EmptyItem}
                   path={prefix}
                   {...otherProps}
                 />

@@ -22,6 +22,7 @@ export interface IRecordViewProps<Data = IData, Payload = IAnything> extends Box
     withExpandRoot?: boolean;
     expandList?: Array<string>;
     withExpandLevel?: number;
+    EmptyItem?: React.ComponentType<any>;
     formatValue?: (
         key: string,
         value: boolean | number | string | null,

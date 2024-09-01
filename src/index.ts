@@ -370,8 +370,8 @@ export { FeatureType } from './components/FeatureView';
 
 export { IVisibilityGroup } from './components/VisibilityView';
 
-import { recordToExcelExport } from './components/RecordView';
-export { recordToExcelExport };
+import { recordToExcelExport, RECORD_NEVER_VALUE } from './components/RecordView';
+export { recordToExcelExport, RECORD_NEVER_VALUE };
 
 export { ErrorBoundary } from './components';
 

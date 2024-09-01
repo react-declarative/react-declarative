@@ -36,6 +36,7 @@ export interface IContainerProps extends BoxProps {
   AfterSearch?: IRecordViewProps['AfterSearch'];
   BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
+  EmptyItem?: React.ComponentType<any>;
   payload?: IRecordViewProps['payload'];
 }
 
@@ -95,6 +96,7 @@ export const Container = ({
   AfterSearch,
   BeforeCollapseLabel,
   AfterCollapseLabel,
+  EmptyItem,
   payload,
   className,
   style,
@@ -156,6 +158,7 @@ export const Container = ({
         valueWidth={valueWidth}
         totalWidth={totalWidth}
         background={background}
+        EmptyItem={EmptyItem}
         BeforeCollapseLabel={BeforeCollapseLabel}
         AfterCollapseLabel={AfterCollapseLabel}
       />

@@ -64,6 +64,12 @@ expandList: string[]
 withExpandLevel: number
 ```
 
+### EmptyItem
+
+```ts
+EmptyItem: ComponentType<any>
+```
+
 ### formatValue
 
 ```ts

@@ -64,6 +64,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
   className,
   style,
   sx,
+  EmptyItem,
   ...otherProps
 }: IRecordViewProps<Data, Payload>) => {
   const data = useMemo(() => objectToEntries(upperData as IData), [upperData]);
@@ -81,6 +82,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
       <Container
         formatValue={formatValue}
         formatKey={formatKey}
+        EmptyItem={EmptyItem}
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}
