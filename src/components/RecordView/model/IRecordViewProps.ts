@@ -34,6 +34,8 @@ export interface IRecordViewProps<Data = IData, Payload = IAnything> extends Box
     onSearchChanged?: (search: string) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
+    BeforeCollapseLabel?: React.ComponentType<{ payload: Payload; path: string; }>;
+    AfterCollapseLabel?: React.ComponentType<{ payload: Payload; path: string; }>;
     payload?: Payload;
 }
 

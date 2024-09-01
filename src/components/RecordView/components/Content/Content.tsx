@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -19,6 +19,9 @@ import isObject from '../../../../utils/isObject';
 import useSearch from '../../context/SearchContext';
 
 import IData from '../../model/IData';
+import IAnything from '../../../../model/IAnything';
+
+const Fragment = () => <></>
 
 /**
  * Represents the properties for the `Content` component.
@@ -36,7 +39,10 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   className?: string;
   style?: React.CSSProperties;
   sx?: SxProps<any>;
+  payload?: IAnything;
   withDarkParent?: boolean;
+  BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
+  AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
 }
 
 const useStyles = makeStyles<{
@@ -86,6 +92,9 @@ export const Content = ({
   totalWidth,
   formatValue,
   formatKey,
+  payload,
+  BeforeCollapseLabel = Fragment,
+  AfterCollapseLabel = Fragment,
   withDarkParent = false,
   background,
   ...otherProps
@@ -99,6 +108,9 @@ export const Content = ({
   useEffect(() => {
     setIsChecked(path, checked);
   }, [path, checked]);
+
+  const BeforeCollapseLabelInternal = useMemo(() => () => <BeforeCollapseLabel payload={payload} path={path} />, [path]);
+  const AfterCollapseLabelInternal = useMemo(() => () => <AfterCollapseLabel payload={payload} path={path} />, [path]);
 
   /**
    * Sets the checked value based on the provided boolean flag,
@@ -149,8 +161,11 @@ export const Content = ({
                   formatKey={formatKey}
                   data={value as IData}
                   keyWidth={keyWidth}
+                  payload={payload}
                   valueWidth={valueWidth}
                   totalWidth={totalWidth}
+                  BeforeCollapseLabel={BeforeCollapseLabel}
+                  AfterCollapseLabel={AfterCollapseLabel}
                   path={prefix}
                   {...otherProps}
                 />
@@ -196,7 +211,12 @@ export const Content = ({
   }
 
   return (
-    <Collapse checked={checked || isSearching} onCheck={handleCheck}>
+    <Collapse
+      checked={checked || isSearching}
+      onCheck={handleCheck}
+      BeforeLabel={BeforeCollapseLabelInternal}
+      AfterLabel={AfterCollapseLabelInternal}
+    >
       {renderInner()}
     </Collapse>
   );

@@ -57,7 +57,12 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
   background,
   BeforeSearch,
   AfterSearch,
+  BeforeCollapseLabel,
+  AfterCollapseLabel,
   payload,
+  className,
+  style,
+  sx,
   ...otherProps
 }: IRecordViewProps<Data, Payload>) => {
   const data = useMemo(() => objectToEntries(upperData as IData), [upperData]);
@@ -80,7 +85,12 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
         background={background}
         BeforeSearch={BeforeSearch}
         AfterSearch={AfterSearch}
+        BeforeCollapseLabel={BeforeCollapseLabel}
+        AfterCollapseLabel={AfterCollapseLabel}
         payload={payload}
+        className={className}
+        style={style}
+        sx={sx}
         {...otherProps}
       />
     </SearchProvider>

@@ -7,6 +7,7 @@ import MuiCollapse from '@mui/material/Collapse';
 import Box, { BoxProps } from '@mui/material/Box';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Stack from '@mui/material/Stack';
 
 /**
  * Returns the styles for a component using the makeStyles hook.
@@ -19,6 +20,9 @@ const useStyles = makeStyles()((theme) => ({
     cursor: 'pointer',
     color: theme.palette.primary.main,
   },
+  stretch: {
+    flex: 1,
+  },
 }));
 
 /**
@@ -29,6 +33,8 @@ export interface ICollapseProps extends Omit<BoxProps, keyof {
 }> {
   title?: React.ReactNode;
   checked?: boolean;
+  BeforeLabel?: React.ComponentType<any>;
+  AfterLabel?: React.ComponentType<any>;
   onCheck?: (checked: boolean) => void;
 };
 
@@ -49,6 +55,8 @@ export const Collapse = ({
   title,
   checked: upperChecked,
   onCheck,
+  BeforeLabel,
+  AfterLabel,
   ...otherProps
 }: ICollapseProps) => {
   const { classes } = useStyles();
@@ -76,9 +84,14 @@ export const Collapse = ({
 
   return (
     <Box {...otherProps}>
-      <Box className={classes.label} role="none" onClick={handleChange}>
-        <strong>{title || 'Show details'}</strong> <ArrowDropDownIcon />
-      </Box>
+      <Stack direction="row" alignItems="center" justifyContent="stretch" gap={1}>
+        {BeforeLabel && <BeforeLabel />}
+        <Box className={classes.label} role="none" onClick={handleChange}>
+          <strong>{title || 'Show details'}</strong> <ArrowDropDownIcon />
+        </Box>
+        <div className={classes.stretch} />
+        {AfterLabel && <AfterLabel />}
+      </Stack>
       <MuiCollapse in={checked}>
         {children}
       </MuiCollapse>

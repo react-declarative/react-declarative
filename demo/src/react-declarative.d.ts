@@ -20281,7 +20281,12 @@ declare module "react-declarative/components/RecordView/RecordView" {
       background,
       BeforeSearch,
       AfterSearch,
+      BeforeCollapseLabel,
+      AfterCollapseLabel,
       payload,
+      className,
+      style,
+      sx,
       ...otherProps
     }: IRecordViewProps<Data, Payload>): JSX.Element;
     excelExport: (data: IData, sheetName?: string) => void;
@@ -29848,6 +29853,14 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
     onSearchChanged?: (search: string) => void;
     BeforeSearch?: React.ComponentType<any>;
     AfterSearch?: React.ComponentType<any>;
+    BeforeCollapseLabel?: React.ComponentType<{
+      payload: Payload;
+      path: string;
+    }>;
+    AfterCollapseLabel?: React.ComponentType<{
+      payload: Payload;
+      path: string;
+    }>;
     payload?: Payload;
   }
   export default IRecordViewProps;

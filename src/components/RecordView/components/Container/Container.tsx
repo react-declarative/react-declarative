@@ -14,9 +14,12 @@ import Search from '@mui/icons-material/Search';
 import { Content } from '../Content';
 
 import IRecordViewProps from '../../model/IRecordViewProps';
+import IAnything from '../../../../model/IAnything';
 
 import useSearch from '../../context/SearchContext';
 import usePreventAutofill from '../../../../hooks/usePreventAutofill';
+
+import classNames from '../../../../utils/classNames';
 
 /**
  * Interface for ContainerProps which extends BoxProps
@@ -31,10 +34,16 @@ export interface IContainerProps extends BoxProps {
   background?: IRecordViewProps['background'];
   BeforeSearch?: IRecordViewProps['BeforeSearch'];
   AfterSearch?: IRecordViewProps['AfterSearch'];
+  BeforeCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
+  AfterCollapseLabel?: React.ComponentType<{ payload: IAnything; path: string; }>;
   payload?: IRecordViewProps['payload'];
 }
 
 const useStyles = makeStyles()({
+  root: {
+    position: 'relative', 
+    maxWidth: '100%'
+  },
   beforeSearch: {
     width: 'calc(100% - 10px)',
     margin: '5px',
@@ -84,7 +93,12 @@ export const Container = ({
   background,
   BeforeSearch,
   AfterSearch,
+  BeforeCollapseLabel,
+  AfterCollapseLabel,
   payload,
+  className,
+  style,
+  sx,
   ...otherProps
 }: IContainerProps) => {
   const { classes } = useStyles();
@@ -92,8 +106,10 @@ export const Container = ({
   const preventAutofill = usePreventAutofill();
   return (
     <Box
+      className={classNames(className, classes.root)}
+      style={style}
+      sx={sx}
       {...otherProps}
-      sx={{ ...otherProps.sx, position: 'relative', maxWidth: '100%' }}
     >
       {BeforeSearch && (
         <Box className={classes.beforeSearch}>
@@ -133,12 +149,15 @@ export const Container = ({
       )}
       <Content
         data={data}
+        payload={payload}
         formatValue={formatValue}
         formatKey={formatKey}
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}
         background={background}
+        BeforeCollapseLabel={BeforeCollapseLabel}
+        AfterCollapseLabel={AfterCollapseLabel}
       />
     </Box>
   );
