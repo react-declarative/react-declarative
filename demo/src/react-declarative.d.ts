@@ -715,6 +715,7 @@ declare module "react-declarative" {
   import { ITextSlot as ITextSlotInternal } from "react-declarative/components";
   import { ICompleteSlot as ICompleteSlotInternal } from "react-declarative/components";
   import { ITypographySlot as ITypographySlotInternal } from "react-declarative/components";
+  import { IButtonSlot as IButtonSlotInternal } from "react-declarative/components";
   import { IActionAddSlot as IActionAddSlotInternal } from "react-declarative/components";
   import { IActionFabSlot as IActionFabSlotInternal } from "react-declarative/components";
   import { IActionMenuSlot as IActionMenuSlotInternal } from "react-declarative/components";
@@ -731,6 +732,7 @@ declare module "react-declarative" {
   import { History as HistoryInternal } from "react-declarative/model/History";
   export type History = HistoryInternal;
   export type ICheckBoxSlot = ICheckBoxSlotInternal;
+  export type IButtonSlot = IButtonSlotInternal;
   export type IComboSlot = IComboSlotInternal;
   export type IYesNoSlot = IYesNoSlotInternal;
   export type IItemsSlot = IItemsSlotInternal;
@@ -764,7 +766,6 @@ declare module "react-declarative" {
   export type IPositionActionListSlot = IPositionActionListSlotInternal;
   import type { IAwaiter as IAwaiterInternal } from "react-declarative/utils/createAwaiter";
   export type IAwaiter<T extends IAnything> = IAwaiterInternal<T>;
-  export { VirtualListBox } from "react-declarative/components/One/components/common/VirtualListBox";
   export { list2grid } from "react-declarative/utils/list2grid";
   export { openBlank } from "react-declarative/utils/openBlank";
   export { createDict } from "react-declarative/utils/createDict";
@@ -979,6 +980,11 @@ declare module "react-declarative" {
   export { iterateList } from "react-declarative/api/iterateList";
   export { useOpenDocument } from "react-declarative/view/useOpenDocument";
   export { heavy } from "react-declarative/utils/heavy";
+  export { useDebounce } from "react-declarative/components/One/hooks/useDebounce";
+  export { useDebouncedCallback } from "react-declarative/components/One/hooks/useDebouncedCallback";
+  export { DatePicker } from "react-declarative/components/common/DatePicker/DatePicker";
+  export { TimePicker } from "react-declarative/components/common/TimePicker/TimePicker";
+  export { VirtualListBox } from "react-declarative/components/One/components/common/VirtualListBox";
 }
 
 declare module "react-declarative/components" {
@@ -7461,33 +7467,6 @@ declare module "react-declarative/utils/createAwaiter" {
   export default createAwaiter;
 }
 
-declare module "react-declarative/components/One/components/common/VirtualListBox" {
-  import * as React from "react";
-  /**
-   * Interface for the props of the VirtualListBox component.
-   */
-  interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
-    children?: React.ReactNode;
-  }
-  /**
-   * A virtual list box component that renders a list of items in a virtualized manner.
-   *
-   * @component
-   *
-   * @param props - The props object.
-   * @param props.className - The class name to apply to the list box container.
-   * @param props.children - The children to render within the list box.
-   * @param props.role - The role attribute value for the list box container.
-   * @param ref - The ref object for accessing the underlying HTMLDivElement.
-   *
-   * @returns The rendered list box component.
-   */
-  export const VirtualListBox: React.ForwardRefExoticComponent<
-    IVirtualListBoxProps & React.RefAttributes<HTMLDivElement>
-  >;
-  export default VirtualListBox;
-}
-
 declare module "react-declarative/utils/list2grid" {
   import { IGridColumn } from "react-declarative/components/Grid";
   import IColumn from "react-declarative/model/IColumn";
@@ -11281,6 +11260,162 @@ declare module "react-declarative/utils/heavy" {
     { loaderSize }?: Partial<IParams>,
   ) => (props: P) => JSX.Element;
   export default heavy;
+}
+
+declare module "react-declarative/components/One/hooks/useDebounce" {
+  import { DebouncedControlFunctions } from "react-declarative/components/One/hooks/useDebouncedCallback";
+  import { Value } from "react-declarative/model/IField";
+  /**
+   * Debounces the given value with the specified delay.
+   *
+   * @param value - The value to be debounced.
+   * @param delay - The delay in milliseconds before invoking the debounced value.
+   * @param options - The optional configuration options for debounce behavior.
+   * @param options.maxWait - The maximum wait time in milliseconds before invoking the debounced value.
+   * @param options.leading - Determines if the debounced value should be invoked on the leading edge.
+   * @param options.trailing - Determines if the debounced value should be invoked on the trailing edge.
+   * @param options.equalityFn - The custom equality function to compare previous and current values.
+   * @returns An array containing the debounced value and control functions for the debounced callback.
+   */
+  export function useDebounce<T extends any = Value>(
+    value: T,
+    delay: number,
+    options?: {
+      maxWait?: number;
+      leading?: boolean;
+      trailing?: boolean;
+      equalityFn?: (left: T, right: T) => boolean;
+    },
+  ): [T, DebouncedControlFunctions];
+  export default useDebounce;
+}
+
+declare module "react-declarative/components/One/hooks/useDebouncedCallback" {
+  /**
+   * Represents the options for a class.
+   */
+  export interface Options {
+    maxWait?: number;
+    leading?: boolean;
+    trailing?: boolean;
+  }
+  /**
+   * Interface for DebouncedControlFunctions.
+   *
+   * @interface
+   */
+  export interface DebouncedControlFunctions {
+    cancel: () => void;
+    flush: () => void;
+    pending: () => boolean;
+  }
+  type value = object | string | number | boolean;
+  /**
+   * Subsequent calls to the debounced function `debounced.callback` return the result of the last func invocation.
+   * Note, that if there are no previous invocations it's mean you will get undefined. You should check it in your
+   * code properly.
+   */
+  export interface DebouncedState<T extends (...args: value[]) => ReturnType<T>>
+    extends DebouncedControlFunctions {
+    callback: (...args: Parameters<T>) => ReturnType<T>;
+  }
+  /**
+   * Returns a debounced version of the provided callback function.
+   *
+   * @template T - The type of the original callback function.
+   * @param func - The original callback function.
+   * @param [wait] - The debounce wait time in milliseconds (default: 0).
+   * @param [options] - Additional options for debouncing (default: {}).
+   * @returns - An object containing the debounced callback and utility functions.
+   */
+  export function useDebouncedCallback<
+    T extends (...args: value[]) => ReturnType<T>,
+  >(func: T, wait?: number, options?: Options): DebouncedState<T>;
+  export default useDebouncedCallback;
+}
+
+declare module "react-declarative/components/common/DatePicker/DatePicker" {
+  import dayjs from "dayjs";
+  /**
+   * A customizable date picker component.
+   *
+   * @param props - The component props.
+   * @param props.date - The initial date to display in the date picker.
+   * @param props.minDate - The minimum selectable date in the date picker. Defaults to '1900-01-01'.
+   * @param props.maxDate - The maximum selectable date in the date picker. Defaults to '2100-01-01'.
+   * @param props.onChange - The callback function triggered when the selected date is changed.
+   * @param props.disableFuture - Boolean indicating whether future dates should be disabled. Defaults to false.
+   * @param props.animateYearScrolling - Boolean indicating whether to animate the year scrolling. Defaults to true.
+   * @param props.openToYearSelection - Boolean indicating whether to open the date picker in year selection mode. Defaults to false.
+   *
+   * @returns The date picker component.
+   */
+  export const DatePicker: ({
+    date: upperDate,
+    minDate,
+    maxDate,
+    onChange,
+    disableFuture,
+    animateYearScrolling,
+    openToYearSelection,
+  }: {
+    date?: dayjs.Dayjs | undefined;
+    minDate?: string | undefined;
+    maxDate?: string | undefined;
+    onChange?: ((change: any) => void) | undefined;
+    disableFuture?: boolean | undefined;
+    animateYearScrolling?: boolean | undefined;
+    openToYearSelection?: boolean | undefined;
+  }) => JSX.Element;
+  export default DatePicker;
+}
+
+declare module "react-declarative/components/common/TimePicker/TimePicker" {
+  import dayjs from "dayjs";
+  /**
+   * A TimePicker component that allows users to select a time.
+   *
+   * @param [options] - The options for the TimePicker.
+   * @param [options.onChange] - The callback function triggered when the selected time changes.
+   * @param [options.date] - The initial date and time to display in the TimePicker.
+   *
+   * @returns The TimePicker component.
+   */
+  export const TimePicker: ({
+    onChange,
+    date: upperDate,
+  }: {
+    onChange?: ((change: any) => void) | undefined;
+    date?: dayjs.Dayjs | undefined;
+  }) => JSX.Element;
+  export default TimePicker;
+}
+
+declare module "react-declarative/components/One/components/common/VirtualListBox" {
+  import * as React from "react";
+  /**
+   * Interface for the props of the VirtualListBox component.
+   */
+  interface IVirtualListBoxProps extends React.HTMLAttributes<HTMLElement> {
+    children?: React.ReactNode;
+  }
+  /**
+   * A virtual list box component that renders a list of items in a virtualized manner.
+   *
+   * @component
+   *
+   * @param props - The props object.
+   * @param props.className - The class name to apply to the list box container.
+   * @param props.children - The children to render within the list box.
+   * @param props.role - The role attribute value for the list box container.
+   * @param ref - The ref object for accessing the underlying HTMLDivElement.
+   *
+   * @returns The rendered list box component.
+   */
+  export const VirtualListBox: React.ForwardRefExoticComponent<
+    IVirtualListBoxProps & React.RefAttributes<HTMLDivElement>
+  >;
+  export default VirtualListBox;
 }
 
 declare module "react-declarative/components/One" {
@@ -21119,6 +21254,7 @@ declare module "react-declarative/components/One/slots" {
   export * from "react-declarative/components/One/slots/YesNoSlot";
   export * from "react-declarative/components/One/slots/DictSlot";
   export * from "react-declarative/components/One/slots/TreeSlot";
+  export * from "react-declarative/components/One/slots/ButtonSlot";
 }
 
 declare module "react-declarative/components/One/components/OneConfig" {
@@ -29254,7 +29390,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       buttonVariant,
       buttonSize,
       buttonColor,
-    }: import("../../slots/ButtonSlot").IButtonSlot) => JSX.Element;
+    }: import("../..").IButtonSlot) => JSX.Element;
     Text: ({
       invalid,
       incorrect,
@@ -30451,6 +30587,12 @@ declare module "react-declarative/components/One/slots/TreeSlot" {
   export * from "react-declarative/components/One/slots/TreeSlot/ITreeSlot";
   export * from "react-declarative/components/One/slots/TreeSlot/TreeSlot";
   export { default } from "react-declarative/components/One/slots/TreeSlot/TreeSlot";
+}
+
+declare module "react-declarative/components/One/slots/ButtonSlot" {
+  export * from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
+  export * from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
+  export { default } from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
 }
 
 declare module "react-declarative/components/One/components/OneConfig/OneConfig" {
@@ -32638,12 +32780,6 @@ declare module "react-declarative/components/One/slots/FileSlot/IFileSlot" {
   export default IFileSlot;
 }
 
-declare module "react-declarative/components/One/slots/ButtonSlot" {
-  export * from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
-  export * from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
-  export { default } from "react-declarative/components/One/slots/ButtonSlot/ButtonSlot";
-}
-
 declare module "react-declarative/components/One/slots/IconSlot" {
   export * from "react-declarative/components/One/slots/IconSlot/IIconSlot";
   export * from "react-declarative/components/One/slots/IconSlot/IconSlot";
@@ -33170,6 +33306,34 @@ declare module "react-declarative/components/One/slots/TreeSlot/TreeSlot" {
   export default TreeSlot;
 }
 
+declare module "react-declarative/components/One/slots/ButtonSlot/IButtonSlot" {
+  import {
+    IButtonFieldPrivate,
+    IButtonFieldProps,
+  } from "react-declarative/components/One/fields/ButtonField";
+  /**
+   * Represents a checkbox slot for a checkbox field.
+   *
+   * @interface IButtonSlot
+   * @extends IButtonFieldProps
+   * @extends IButtonFieldPrivate
+   */
+  export interface IButtonSlot extends IButtonFieldProps, IButtonFieldPrivate {}
+  export default IButtonSlot;
+}
+
+declare module "react-declarative/components/One/slots/ButtonSlot/ButtonSlot" {
+  import IButtonSlot from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
+  /**
+   * Represents a checkbox slot component.
+   *
+   * @param props - The props for the checkbox slot component.
+   * @returns - The rendered checkbox element.
+   */
+  export const ButtonSlot: (props: IButtonSlot) => JSX.Element;
+  export default ButtonSlot;
+}
+
 declare module "react-declarative/components/One/components/OneConfig/OneConfigInstance" {
   /**
    * Represents a configuration object for the one component.
@@ -33266,34 +33430,6 @@ declare module "react-declarative/components/List/components/SlotFactory/compone
     disabled,
   }: ICheckboxCellProps<RowData>) => JSX.Element;
   export default CheckboxCell;
-}
-
-declare module "react-declarative/components/One/slots/ButtonSlot/IButtonSlot" {
-  import {
-    IButtonFieldPrivate,
-    IButtonFieldProps,
-  } from "react-declarative/components/One/fields/ButtonField";
-  /**
-   * Represents a checkbox slot for a checkbox field.
-   *
-   * @interface IButtonSlot
-   * @extends IButtonFieldProps
-   * @extends IButtonFieldPrivate
-   */
-  export interface IButtonSlot extends IButtonFieldProps, IButtonFieldPrivate {}
-  export default IButtonSlot;
-}
-
-declare module "react-declarative/components/One/slots/ButtonSlot/ButtonSlot" {
-  import IButtonSlot from "react-declarative/components/One/slots/ButtonSlot/IButtonSlot";
-  /**
-   * Represents a checkbox slot component.
-   *
-   * @param props - The props for the checkbox slot component.
-   * @returns - The rendered checkbox element.
-   */
-  export const ButtonSlot: (props: IButtonSlot) => JSX.Element;
-  export default ButtonSlot;
 }
 
 declare module "react-declarative/components/One/slots/IconSlot/IIconSlot" {
