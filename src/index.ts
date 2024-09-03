@@ -632,6 +632,7 @@ import { ISwitchSlot as ISwitchSlotInternal } from './components';
 import { ITextSlot as ITextSlotInternal } from './components';
 import { ICompleteSlot as ICompleteSlotInternal } from './components';
 import { ITypographySlot as ITypographySlotInternal } from './components';
+import { IButtonSlot as IButtonSlotInternal } from './components';
 
 import { IActionAddSlot as IActionAddSlotInternal } from './components';
 import { IActionFabSlot as IActionFabSlotInternal } from './components';
@@ -652,6 +653,7 @@ import { History as HistoryInternal } from './model/History';
 export type History = HistoryInternal;
 
 export type ICheckBoxSlot = ICheckBoxSlotInternal;
+export type IButtonSlot = IButtonSlotInternal;
 export type IComboSlot = IComboSlotInternal;
 export type IYesNoSlot = IYesNoSlotInternal;
 export type IItemsSlot = IItemsSlotInternal;

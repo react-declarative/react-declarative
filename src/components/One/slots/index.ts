@@ -17,3 +17,4 @@ export * from './CompleteSlot';
 export * from './YesNoSlot';
 export * from './DictSlot';
 export * from './TreeSlot';
+export * from './ButtonSlot';
