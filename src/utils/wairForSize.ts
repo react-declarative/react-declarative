@@ -7,9 +7,15 @@
 export const waitForSize = (ref: HTMLElement) => new Promise<void>((res) => {
     const interval = setInterval(() => {
         const { height, width } = ref.getBoundingClientRect();
+        if (!document.body.contains(ref)) {
+            clearInterval(interval);
+            res();
+            return;
+        }
         if (height || width) {
             clearInterval(interval);
             res();
+            return;
         }
     }, 50);
 });
