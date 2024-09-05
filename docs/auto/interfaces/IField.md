@@ -661,6 +661,14 @@ watchItemList: boolean
 
 Включает change-detection для выпадающих меню. По умолчанию выключено
 
+### watchItemTree
+
+```ts
+watchItemTree: boolean
+```
+
+Включает change-detection для выпадающих меню. По умолчанию выключено
+
 ### watchOneContext
 
 ```ts

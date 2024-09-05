@@ -28,6 +28,12 @@ dirty: boolean
 invalid: string
 ```
 
+### loading
+
+```ts
+loading: boolean
+```
+
 ### incorrect
 
 ```ts

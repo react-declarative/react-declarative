@@ -99,6 +99,7 @@ export const Combo = ({
   labelShrink,
   noDeselect,
   freeSolo,
+  loading: upperLoading,
   title = "",
   dirty,
   invalid,
@@ -345,7 +346,7 @@ export const Combo = ({
     changeSubject.next();
   };
 
-  if (loading || !initComplete.current) {
+  if (loading || !initComplete.current || upperLoading) {
     return (
       <Autocomplete
         disableCloseOnSelect

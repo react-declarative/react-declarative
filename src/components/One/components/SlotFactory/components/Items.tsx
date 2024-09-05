@@ -90,6 +90,7 @@ export const Items = ({
     virtualListBox,
     watchItemList,
     labelShrink,
+    loading: upperLoading,
     dirty,
     invalid,
     incorrect,
@@ -362,7 +363,7 @@ export const Items = ({
         );
     };
 
-    if (loading || !initComplete.current) {
+    if (loading || !initComplete.current || upperLoading) {
         return (
             <Autocomplete
                 multiple

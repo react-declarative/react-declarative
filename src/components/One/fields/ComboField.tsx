@@ -141,6 +141,7 @@ export interface IComboFieldPrivate<Data = IAnything>  {
   fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
   onChange: PickProp<IManaged<Data>, "onChange">;
   dirty: PickProp<IManaged<Data>, "dirty">;
+  loading: PickProp<IManaged<Data>, "loading">;
   invalid: PickProp<IManaged<Data>, "invalid">;
   incorrect: PickProp<IManaged<Data>, "incorrect">;
   withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
@@ -187,6 +188,7 @@ export const ComboField = ({
   labelShrink,
   title = "",
   dirty,
+  loading,
   invalid,
   incorrect,
   fieldReadonly,
@@ -210,6 +212,7 @@ export const ComboField = ({
     title={title}
     dirty={dirty}
     invalid={invalid}
+    loading={loading}
     incorrect={incorrect}
     fieldReadonly={fieldReadonly}
     withContextMenu={withContextMenu}

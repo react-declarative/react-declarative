@@ -2118,6 +2118,10 @@ declare module "react-declarative/model/IField" {
      */
     watchItemList?: boolean;
     /**
+     * Включает change-detection для выпадающих меню. По умолчанию выключено
+     */
+    watchItemTree?: boolean;
+    /**
      * Включает change-detection для поля компонента. По умолчанию выключено
      */
     watchOneContext?: boolean;
@@ -13965,6 +13969,7 @@ declare module "react-declarative/components/One/fields/ComboField" {
     fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
     onChange: PickProp<IManaged<Data>, "onChange">;
     dirty: PickProp<IManaged<Data>, "dirty">;
+    loading: PickProp<IManaged<Data>, "loading">;
     invalid: PickProp<IManaged<Data>, "invalid">;
     incorrect: PickProp<IManaged<Data>, "incorrect">;
     withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
@@ -14011,6 +14016,7 @@ declare module "react-declarative/components/One/fields/ComboField" {
       labelShrink,
       title,
       dirty,
+      loading,
       invalid,
       incorrect,
       fieldReadonly,
@@ -14409,6 +14415,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
     value: PickProp<IManaged<Data>, "value">;
     dirty: PickProp<IManaged<Data>, "dirty">;
     invalid: PickProp<IManaged<Data>, "invalid">;
+    loading: PickProp<IManaged<Data>, "loading">;
     incorrect: PickProp<IManaged<Data>, "incorrect">;
     fieldReadonly: PickProp<IManaged<Data>, "fieldReadonly">;
     withContextMenu: PickProp<IManaged<Data>, "withContextMenu">;
@@ -14446,6 +14453,7 @@ declare module "react-declarative/components/One/fields/ItemsField" {
       readonly,
       description,
       placeholder,
+      loading,
       outlined,
       itemList,
       freeSolo,
@@ -17791,6 +17799,12 @@ declare module "react-declarative/components/One/fields/TreeField" {
      * @typedef ItemTree
      */
     itemTree?: PickProp<IField<Data, Payload>, "itemTree">;
+    /**
+     * Represents the change detection flag for item tree
+     *
+     * @typedef boolean
+     */
+    watchItemTree?: PickProp<IField<Data, Payload>, "watchItemTree">;
   }
   /**
    * Represents the private interface for the TreeField component.
@@ -17847,6 +17861,7 @@ declare module "react-declarative/components/One/fields/TreeField" {
       onChange,
       name,
       withContextMenu,
+      watchItemTree,
     }: ITreeFieldProps & ITreeFieldPrivate): JSX.Element;
     displayName: string;
   };
@@ -29320,6 +29335,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       labelShrink,
       noDeselect,
       freeSolo,
+      loading: upperLoading,
       title,
       dirty,
       invalid,
@@ -29342,6 +29358,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       virtualListBox,
       watchItemList,
       labelShrink,
+      loading: upperLoading,
       dirty,
       invalid,
       incorrect,

@@ -61,3 +61,9 @@ disabled: boolean
 ```ts
 itemTree: ITreeNode[] | ((data: Data, payload: Payload) => ITreeNode[]) | ((data: Data, payload: Payload) => Promise<ITreeNode[]>)
 ```
+
+### watchItemTree
+
+```ts
+watchItemTree: boolean
+```

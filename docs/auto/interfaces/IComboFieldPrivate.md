@@ -34,6 +34,12 @@ onChange: (v: any, config?: { skipReadonly?: boolean; }) => void
 dirty: boolean
 ```
 
+### loading
+
+```ts
+loading: boolean
+```
+
 ### invalid
 
 ```ts
