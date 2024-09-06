@@ -109,7 +109,7 @@ It combines various development tasks into one tool, making the process simpler 
 
 10. **Customisable**
 
-A game-changer for your app look is the `react-declarative-mantine`. This library provides `<OneSlotFactory />` with all fields redesigned. Check out [how your app can look like](https://react-declarative-mantine.github.io/) without changing any JSON schemas.
+A game-changer for your app look is the `react-declarative-mantine`. That library provides `<OneSlotFactory />` with all fields redesigned. Check out [how your app can look like](https://react-declarative-mantine.github.io/) without changing any JSON schemas.
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 
