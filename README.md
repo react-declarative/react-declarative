@@ -51,6 +51,12 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 Link to [the playground](https://react-declarative-playground.github.io/)
 
+![mantine](./assets/images/mantine.png)
+
+Check out how your app will look with the [Mantine theme](https://mantine.dev/) installed. You don't have to change any JSON schemas.
+
+The [Mantine theme playground](https://react-declarative-mantine.github.io/)
+
 ## Using with AI
 
 ![prompt](./docs/images/claudeai.png)
@@ -100,6 +106,10 @@ Easy internationalization with translation dictionaries for Combobox field. [JSX
 
 <!--Consolidates multiple aspects of the development process into one cohesive tool, providing a streamlined and efficient workflow for developers. It unifies state management and ui building into a single approach, managing project code modules dependency resolution, asset sharing, and software design, as a result eliminates the heterogeneous made by usage of separate tools.-->
 It combines various development tasks into one tool, making the process simpler and faster. It manages app state, user interface building, code dependencies, asset sharing, and software design all in one place.
+
+10. **Customisable**
+
+A game-changer for your app look is the `react-declarative-mantine`. This library provides `<OneSlotFactory />` with all fields redesigned. Check out [how your app can look like](https://react-declarative-mantine.github.io/) without changing any JSON schemas.
 
 <img src="./assets/icons/masonry.svg" height="35px" align="right">
 

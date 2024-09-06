@@ -128,6 +128,33 @@ test("Will show readonly state", async ({ page }) => {
 
 ```
 
+## A starter kit for complete field redesign
+
+Take a look at [react-declarative-mantine](https://github.com/react-declarative/react-declarative-mantine). This is the best starter kit for making custom design
+
+![mantine](../../assets/images/mantine.png)
+
+```tsx
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
+
+import { MantineProvider } from "@mantine/core";
+import { OneSlotFactory } from "react-declarative-mantine";
+
+const wrappedApp = (
+  <MantineProvider>
+    <OneSlotFactory>
+      <App />
+    </OneSlotFactory>
+  </MantineProvider>
+);
+
+ReactDOM.render(     
+  wrappedApp,
+  document.getQuerySelector('#root')        
+);
+```
+
 ## An easier way to implement custom fields
 
 The purpose of `<OneSlotFactory />` is when you provide a slot it will override each field on a form. This is quite usefull If you need to customize core functionality like text fields or checkboxes. But this will not allow you to add custom fields like banking card number input or range fields cause react-declarative provide only core functionality and does not dictate you how you should write the app.
