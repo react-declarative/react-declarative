@@ -20549,6 +20549,7 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Group" {
     id: string;
     label?: string;
     icon?: React.ComponentType;
+    iconColor?: string;
     noHeader?: boolean;
     /**
      * Checks if the element is visible.
@@ -20609,6 +20610,7 @@ declare module "react-declarative/components/Scaffold2/model/IScaffold2Option" {
     pin?: boolean;
     sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
+    iconColor?: string;
     /**
      * Represents an array of `IScaffold2Tab` objects.
      * @template T - The type of the `IScaffold2Tab` object.
@@ -20789,6 +20791,7 @@ declare module "react-declarative/components/Scaffold3/model/IScaffold3Group" {
     id: string;
     label?: string;
     icon?: React.ComponentType;
+    iconColor?: string;
     noHeader?: boolean;
     /**
      * Checks if the element is visible.
@@ -20849,6 +20852,7 @@ declare module "react-declarative/components/Scaffold3/model/IScaffold3Option" {
     pin?: boolean;
     sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
+    iconColor?: string;
     /**
      * Represents an array of `IScaffold3Tab` objects.
      * @template T - The type of the `IScaffold3Tab` object.

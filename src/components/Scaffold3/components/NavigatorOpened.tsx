@@ -165,6 +165,7 @@ export const NavigatorOpened = <T extends Payload = Payload>({
               disabled: upperDisabled,
               noHeader = false,
               icon: Icon,
+              iconColor,
               children,
             },
             idx,
@@ -201,7 +202,14 @@ export const NavigatorOpened = <T extends Payload = Payload>({
                     disableGutters
                   >
                     {!!Icon && (
-                      <ListItemIcon>
+                      <ListItemIcon
+                        sx={{
+                          '& *': {
+                            color: iconColor,
+                          },
+                          color: iconColor,
+                        }}
+                      >
                         <Icon />
                       </ListItemIcon>
                     )}

@@ -20,6 +20,7 @@ export interface IScaffold3Group<T = Payload> {
     id: string;
     label?: string;
     icon?: React.ComponentType;
+    iconColor?: string;
     noHeader?: boolean;
     /**
      * Checks if the element is visible.

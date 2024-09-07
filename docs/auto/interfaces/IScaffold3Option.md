@@ -40,6 +40,12 @@ sx: SxProps<any>
 icon: ComponentType<any>
 ```
 
+### iconColor
+
+```ts
+iconColor: string
+```
+
 ### tabs
 
 ```ts

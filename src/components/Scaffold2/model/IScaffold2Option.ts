@@ -15,6 +15,7 @@ export interface IScaffold2Option<T = Payload> {
     pin?: boolean;
     sx?: SxProps<any>;
     icon?: React.ComponentType<any>;
+    iconColor?: string;
     /**
      * Represents an array of `IScaffold2Tab` objects.
      * @template T - The type of the `IScaffold2Tab` object.

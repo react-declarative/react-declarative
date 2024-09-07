@@ -6,8 +6,6 @@ import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 
-import useMediaContext from "../../../hooks/useMediaContext";
-
 import debounce from "../../../utils/hof/debounce";
 
 import { IScaffold3GroupInternal } from "../model/IScaffold3Group";
@@ -37,7 +35,6 @@ export const NavigatorDense = ({
 }: INavigatorDenseProps) => {
     const { classes, cx } = useStyles();
     const [tooltip, setTooltip] = useState(false);
-    const { isMobile } = useMediaContext();
 
     const handleClose = useMemo(() => debounce(() => {
         setTooltip(false);
@@ -84,6 +81,7 @@ export const NavigatorDense = ({
             >
                 {options.flatMap(({ children }) => children).filter(({ visible }) => visible).map(({
                     icon: Icon = OutlinedFlag,
+                    iconColor,
                     disabled,
                     id,
                     path,
@@ -106,12 +104,19 @@ export const NavigatorDense = ({
                         key={`${id}-${idx}`}
                         title={label || id}
                         PopperProps={{style:{zIndex:1000}}}
-                        enterTouchDelay={isMobile ? 0 : undefined}
+                        enterTouchDelay={0}
                     >
                         <Fab
                             disabled={disabled}
                             color="primary"
                             size="small"
+                            sx={{
+                                '& *': {
+                                    color: "white",
+                                },
+                                color: "white",
+                                background: iconColor,
+                            }}
                             onClick={() => {
                                 if (options?.some(({ visible }) => visible)) {
                                     onOptionGroupClick(path, id);

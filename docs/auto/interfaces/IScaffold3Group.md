@@ -22,6 +22,12 @@ label: string
 icon: React.ComponentType
 ```
 
+### iconColor
+
+```ts
+iconColor: string
+```
+
 ### noHeader
 
 ```ts

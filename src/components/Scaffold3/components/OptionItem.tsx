@@ -80,7 +80,14 @@ export const OptionItem = ({
       >
         <Box style={{ paddingLeft }} />
         {!!Icon && (
-          <ListItemIcon>
+          <ListItemIcon
+            sx={{
+              '& *': {
+                color: option.iconColor,
+              },
+              color: option.iconColor,
+            }}
+          >
             <Icon />
           </ListItemIcon>
         )}
