@@ -196,6 +196,7 @@ export class Source {
             ...createObserver(() => {
                 if (!observer) {
                     observer = factory();
+                    // @ts-ignore
                     observer[LISTEN_DISCONNECT](() => {
                         observer = undefined;
                     });

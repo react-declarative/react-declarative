@@ -10,6 +10,7 @@ export const errorData = (error: Error) => {
     propertyNames.forEach((property) => {
         const descriptor = Object.getOwnPropertyDescriptor(error, property) || {};
         if ('value' in descriptor) {
+            // @ts-ignore
             result[property] = descriptor.value;
         }
     })

@@ -57,6 +57,7 @@ type InitialValue = typeof initialValueMap;
  * @returns - The initial value.
  */
 export const initialValue = (type: FieldType): InitialValue[keyof InitialValue] | string => {
+  // @ts-ignore
   const initialValue = initialValueMap[type];
   if (initialValue === undefined) {
     console.warn(`react-declarative One initialValue unknown type ${String(type)}`);

@@ -33,22 +33,11 @@ interface IActionFabProps extends Omit<FabProps, keyof {
     noProgress?: boolean;
 };
 
-const useStyles = makeStyles<{
-    size: number;
-    thickness: number;
-}>()((_, { size }) => ({
+const useStyles = makeStyles()(() => ({
     root: {
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        height: size,
-        width: size,
-    },
-    container: {
-        position: 'relative',
-        height: size,
-        width: size,
-        flex: 1,
     },
     icon: {
         position: 'absolute',
@@ -114,17 +103,14 @@ export const ActionFab = ({
     ...otherProps
 }: IActionFabProps) => {
 
-    const { classes } = useStyles({
-        size,
-        thickness,
-    });
+    const { classes } = useStyles();
 
     const [loading, setLoading] = useState(0);
 
     const isMounted = useRef(true);
 
     useLayoutEffect(() => () => {
-      isMounted.current = false;
+        isMounted.current = false;
     }, []);
 
     const loading$ = useActualValue(loading);
@@ -163,25 +149,40 @@ export const ActionFab = ({
             style={style}
             sx={sx}
         >
-            <Fab
-                {...otherProps}
-                className={classes.container}
-                disabled={!!loading || disabled}
-                onClick={handleClick}
-                color={color}
+            <Box
+                sx={{
+                    display: 'inline-flex',
+                    alignItems: 'stretch',
+                    justifyContent: 'stretch',
+                    height: size,
+                    width: size,
+                }}
             >
-                {(!!loading && !noProgress) && (
-                    <div className={classes.spinner}>
-                        <CircularProgress
-                            size={size}
-                            thickness={thickness}
-                        />
-                    </div>
-                )}
-                <Box className={classes.icon}>
-                    {children}
-                </Box>
-            </Fab>
+                <Fab
+                    {...otherProps}
+                    sx={{
+                        position: 'relative',
+                        height: size,
+                        width: size,
+                        flex: 1,
+                    }}
+                    disabled={!!loading || disabled}
+                    onClick={handleClick}
+                    color={color}
+                >
+                    {(!!loading && !noProgress) && (
+                        <div className={classes.spinner}>
+                            <CircularProgress
+                                size={size}
+                                thickness={thickness}
+                            />
+                        </div>
+                    )}
+                    <Box className={classes.icon}>
+                        {children}
+                    </Box>
+                </Fab>
+            </Box>
         </Box>
     );
 };

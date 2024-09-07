@@ -118,6 +118,7 @@ export const memoize = <T extends (...args: A) => any, A extends any[], K = stri
      *
      * @return The value map containing key-value pairs.
      */
+    // @ts-ignore
     executeFn[GET_VALUE_MAP] = () => valueMap;
 
     /**

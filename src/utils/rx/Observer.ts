@@ -78,9 +78,11 @@ export class Observer<Data = any> implements TObserver<Data> {
      */
     private _subscribe = <T = any>(observer: TObserver<T>, callback: Fn) => {
         this.broadcast.subscribe(OBSERVER_EVENT, callback);
+        // @ts-ignore
         observer[LISTEN_CONNECT](() => {
             this.broadcast.emit(CONNECT_EVENT);
         });
+        // @ts-ignore
         observer[LISTEN_DISCONNECT](() => {
             if (!this.hasListeners) {
                 this.broadcast.emit(DISCONNECT_EVENT);

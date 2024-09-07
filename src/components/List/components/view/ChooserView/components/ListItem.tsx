@@ -69,6 +69,7 @@ const ColumnContent = <RowData extends IRowData = IAnything>({
         } else if (column && column.compute) {
           return column.compute(row, payload);
         } else if (column && column.field) {
+          // @ts-ignore
           return row[column.field];
         } else {
           return "empty";

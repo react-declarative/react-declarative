@@ -40,6 +40,7 @@ export const strideTricks = <T = any>(strideSize: number, step = Math.floor(stri
 
       if (needExtraStep) {
         const lastStep = buffer.slice(windowSize - strideSize, windowSize);
+        // @ts-ignore
         lastStep["lastStep"] = true;
         strides.push(lastStep);
       }

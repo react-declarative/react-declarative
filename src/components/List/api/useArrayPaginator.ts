@@ -163,6 +163,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         const tmp: RowData[][] = [];
         Object.entries(chips).forEach(([chip, enabled]) => {
             if (enabled) {
+                // @ts-ignore
                 tmp.push(rows.filter((row) => row[chip]));
             }
         });
@@ -185,6 +186,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
     },
     searchHandler = (rows, search) => {
         if (rows.length && search) {
+            // @ts-ignore
             const hasEntries = searchEntries.every((entry) => rows[0][entry] !== undefined);
             const searchQuery = filterString(search.toLowerCase(), ...searchFilterChars).split(' ');
             if (hasEntries) {
@@ -192,6 +194,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                     let isOk = true;
                     searchQuery.forEach((search) => {
                         isOk = isOk && searchEntries.some((searchEntry: string) => {
+                            // @ts-ignore
                             let rowValue: any = row[searchEntry] ? String(row[searchEntry]).toLowerCase() : '';
                             rowValue = filterString(rowValue, ...searchFilterChars);
                             return rowValue ? rowValue.includes(search) : false;

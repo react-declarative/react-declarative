@@ -19,7 +19,7 @@ style: CSSProperties
 ### itemSx
 
 ```ts
-itemSx: SxProps<{}>
+itemSx: SxProps
 ```
 
 ### tileMode

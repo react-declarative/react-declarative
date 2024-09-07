@@ -87,6 +87,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
     const handleLoadEnd = (isOk: boolean) => onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
 
     if (column.type === ColumnType.Text) {
+        // @ts-ignore
         return row[column.field!];
     } else if (column.type === ColumnType.Compute) {
         return (
@@ -115,6 +116,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
             <Checkbox
                 color="primary"
                 disabled
+                // @ts-ignore
                 checked={row[column.field!]}
             />
         );

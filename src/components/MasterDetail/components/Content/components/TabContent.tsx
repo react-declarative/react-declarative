@@ -19,10 +19,7 @@ import { MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from "../../../config";
 const TAB_HEIGHT = 54;
 const HEADER_HEIGHT = 64;
 
-const useStyles = makeStyles<{
-  headerAdjust: number;
-  width: string | number;
-}>()((theme, { headerAdjust: top, width }) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",
     width: "100%",
@@ -33,7 +30,6 @@ const useStyles = makeStyles<{
     display: "flex",
     alignItems: "center",
     zIndex: 9,
-    width,
   },
   headerAbsolute: {
     position: "absolute",
@@ -42,7 +38,6 @@ const useStyles = makeStyles<{
   },
   headerFixed: {
     position: "fixed",
-    top,
   },
   headerNone: {
     visibility: "hidden",
@@ -52,7 +47,6 @@ const useStyles = makeStyles<{
     paddingBottom: HEADER_HEIGHT,
   },
   paper: {
-    width,
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -111,10 +105,7 @@ export const TabContent = ({
 
   const [fixedPos, setFixedPos] = useState(false);
 
-  const { classes } = useStyles({
-    headerAdjust,
-    width: width || "100%",
-  });
+  const { classes } = useStyles();
 
   useEffect(() => {
     const { current: sideMenu } = menuRef;
@@ -197,8 +188,14 @@ export const TabContent = ({
           [classes.headerAbsolute]: !fixedPos,
           [classes.headerFixed]: fixedPos,
         })}
+        sx={{
+          ...(fixedPos && {
+            top: `${headerAdjust}px`,
+          }),
+          width: width || "100%",
+        }}
       >
-        <Paper className={classes.paper}>{renderTabs()}</Paper>
+        <Paper className={classes.paper} sx={{ width: width || "100%" }}>{renderTabs()}</Paper>
       </Box>
     );
   };

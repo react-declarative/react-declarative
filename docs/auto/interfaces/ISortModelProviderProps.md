@@ -13,5 +13,5 @@ children: React.ReactNode
 ### sortModel
 
 ```ts
-sortModel: ListHandlerSortModel<any>
+sortModel: ListHandlerSortModel
 ```

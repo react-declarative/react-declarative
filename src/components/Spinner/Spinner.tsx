@@ -14,6 +14,15 @@ interface ISpinnerProps extends Omit<BoxProps, keyof {
   children: never;
 }> {}
 
+const rotateAnimation = keyframes({
+  '0%': {
+      transform: 'rotate(0deg)',
+  },
+  '100%': {
+      transform: 'rotate(360deg)',
+  }
+});
+
 /**
  * Represents a function that creates a spin animation.
  * @param [ms=1000] - The duration in milliseconds for the animation.
@@ -25,14 +34,7 @@ interface ISpinnerProps extends Omit<BoxProps, keyof {
 const createSpin = (ms = 1_000) => ({
   transformBox: 'fill-box',
   transformOrigin: 'center',
-  animation: `${keyframes`
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  `} ${ms}ms infinite linear`,
+  animation: `${rotateAnimation} ${ms}ms infinite linear`,
 } as const);
 
 /**

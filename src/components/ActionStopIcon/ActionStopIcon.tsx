@@ -45,25 +45,11 @@ interface IActionStopIconProps extends Omit<IconButtonProps, keyof {
     throwError?: boolean;
 };
 
-const useStyles = makeStyles<{
-    size: number;
-    thickness: number;
-}>()((_, {
-    size,
-    // thickness,
-}) => ({
+const useStyles = makeStyles()(() => ({
     root: {
-        display: 'inline-flex',
+        display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        height: size,
-        width: size,
-    },
-    container: {
-        position: 'relative',
-        height: size,
-        width: size,
-        flex: 1,
     },
     icon: {
         position: 'absolute',
@@ -126,16 +112,13 @@ export const ActionStopIcon = ({
     ...otherProps
 }: IActionStopIconProps) => {
 
-    const { classes } = useStyles({
-        size,
-        thickness,
-    });
+    const { classes } = useStyles();
     const [loading, setLoading] = useState(0);
 
     const isMounted = useRef(true);
 
     useLayoutEffect(() => () => {
-      isMounted.current = false;
+        isMounted.current = false;
     }, []);
 
     const loading$ = useActualValue(loading);
@@ -174,24 +157,39 @@ export const ActionStopIcon = ({
             style={style}
             sx={sx}
         >
-            <IconButton
-                {...otherProps}
-                className={classes.container}
-                disabled={!!loading || disabled}
-                onClick={handleClick}
+            <Box
+                sx={{
+                    display: 'inline-flex',
+                    alignItems: 'stretch',
+                    justifyContent: 'stretch',
+                    height: size,
+                    width: size,
+                }}
             >
-                {!noProgress && (
-                    <div className={classes.spinner}>
-                        <CircularProgress
-                            size={size}
-                            thickness={thickness}
-                        />
-                    </div>
-                )}
-                <Box className={classes.icon}>
-                    {children}
-                </Box>
-            </IconButton>
+                <IconButton
+                    {...otherProps}
+                    disabled={!!loading || disabled}
+                    onClick={handleClick}
+                    sx={{
+                        position: 'relative',
+                        height: size,
+                        width: size,
+                        flex: 1,
+                    }}
+                >
+                    {!noProgress && (
+                        <div className={classes.spinner}>
+                            <CircularProgress
+                                size={size}
+                                thickness={thickness}
+                            />
+                        </div>
+                    )}
+                    <Box className={classes.icon}>
+                        {children}
+                    </Box>
+                </IconButton>
+            </Box>
         </Box>
     );
 };

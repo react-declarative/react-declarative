@@ -13,7 +13,7 @@ origin: string
 ### fetch
 
 ```ts
-fetch: ((input: RequestInfo, init?: RequestInit) => Promise<Response>) & ((input: RequestInfo, init?: RequestInit) => Promise<...>)
+fetch: ((input: RequestInfo | URL, init?: RequestInit) => Promise<Response>) & ((input: RequestInfo | URL, init?: RequestInit) => Promise<...>)
 ```
 
 ### requestMap

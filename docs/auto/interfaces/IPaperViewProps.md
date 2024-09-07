@@ -4,12 +4,6 @@ Interface representing the props for the PaperView component.
 
 ## Properties
 
-### component
-
-```ts
-component: ElementType<any>
-```
-
 ### outlinePaper
 
 ```ts

@@ -13,7 +13,6 @@ import { IItemProps } from "../components/Item";
  * @extends BoxProps - Props for the Box component.
  */
 export interface IRecordViewProps<Data = IData, Payload = IAnything> extends BoxProps {
-    background?: string;
     data: Data;
     search?: string;
     keyWidth?: GridSize;

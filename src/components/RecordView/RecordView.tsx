@@ -55,7 +55,6 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
   keyWidth = 2,
   valueWidth = 10,
   totalWidth,
-  background,
   BeforeSearch,
   AfterSearch,
   BeforeCollapseLabel,
@@ -88,7 +87,6 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}
-        background={background}
         BeforeSearch={BeforeSearch}
         AfterSearch={AfterSearch}
         BeforeCollapseLabel={BeforeCollapseLabel}

@@ -36,7 +36,9 @@ const useStyles = makeStyles()((theme) => ({
     color: theme.palette.text.primary,
   },
   selected: {
+    // @ts-ignore
     color: theme.palette.primary[700],
+    // @ts-ignore
     backgroundColor: theme.palette.primary[200],
   },
   disabled: {
