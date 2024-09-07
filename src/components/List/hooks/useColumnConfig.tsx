@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMemo, useState } from "react";
 
 import { makeStyles } from "../../../styles";
-import { alpha } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -65,7 +64,7 @@ interface ISortModalProps {
  * @property dialog.width - The width property for the dialog element.
  * @property dialog.boxSizing - The box sizing property for the dialog element.
  */
-const useStyles = makeStyles()((theme, _, classes: any) => ({
+const useStyles = makeStyles()(() => ({
   inactive: {
     opacity: 0.5,
   },
@@ -77,12 +76,6 @@ const useStyles = makeStyles()((theme, _, classes: any) => ({
   list: {
     boxSizing: "border-box",
     width: "100%",
-    [`& > .${classes["item"]}:nth-of-type(2n)`]: {
-      background: alpha(
-        theme.palette.getContrastText(theme.palette.background.paper),
-        0.04
-      ),
-    },
   },
   item: {
     "& .MuiListItemText-root > .MuiTypography-root": {

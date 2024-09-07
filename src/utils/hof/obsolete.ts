@@ -13,6 +13,7 @@ const getMethodName = (fn: Function, self: object | undefined): string => {
         return "unknown";
     }
     for (const key of Object.keys(self)) {
+        // @ts-ignore
         if (self[key] === fn) {
             return key;
         }

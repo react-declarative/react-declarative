@@ -137,6 +137,7 @@ export const YesNoField = ({
    */
   const getOptionLabel = (v: string) => {
     const { current: labels } = labels$;
+    // @ts-ignore
     return labels[v] || v;
   };
 
@@ -212,6 +213,7 @@ export const YesNoField = ({
           style={{ marginRight: 8 }}
           checked={state.selected}
         />
+        {/* @ts-ignore */}
         {labels[option] || option}
       </li>
     );

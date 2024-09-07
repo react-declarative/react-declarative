@@ -15,7 +15,6 @@ import ModalLoader from './components/ModalLoader';
 import ActionButton from '../../ActionButton';
 import Tile from '../../Tile';
 
-import ISize from '../../../model/ISize';
 import IField from '../../../model/IField';
 import IManaged from '../../../model/IManaged';
 import IAnything from '../../../model/IAnything';
@@ -42,7 +41,7 @@ export interface IItemModalProps {
     itemList: IField['itemList'];
 }
 
-const useStyles = makeStyles<ISize>()((theme, { height }) => ({
+const useStyles = makeStyles()((theme) => ({
     root: {
         marginTop: '10px',
         marginLeft: '10px',
@@ -50,7 +49,6 @@ const useStyles = makeStyles<ISize>()((theme, { height }) => ({
         gap: theme.spacing(1),
         height: 'calc(min(50vh, 60dvh) - 20px)',
         width: 'calc(100vw - 20px)',
-        minHeight: `${Math.floor(height / 2) - 20}px`,
         maxWidth: '450px',
         display: 'flex',
         alignItems: 'stretch',
@@ -92,10 +90,10 @@ export const ItemModal = ({
     placeholder,
     onValueChange,
 }: IItemModalProps) => {
-    const { classes } = useStyles(window.screen);
+    const { classes } = useStyles();
 
     const { elementRef, size } = useElementSize();
-    
+
     const inputRef = useRef<HTMLInputElement>(null);
 
     const {
@@ -134,7 +132,9 @@ export const ItemModal = ({
 
     return (
         <Modal className={classes.modal} open onClose={cancelSubmit}>
-            <Paper className={classes.root}>
+            <Paper className={classes.root} sx={{
+                minHeight: `${Math.floor(size.height / 2) - 20}px`
+            }}>
                 <TextField
                     value={searchText}
                     inputRef={inputRef}

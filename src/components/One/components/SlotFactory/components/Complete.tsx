@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import MatTextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import CircularProgress from "@mui/material/CircularProgress";
-import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -486,7 +485,6 @@ export const Complete = ({
       >
         {!!anchorEl && (
           <VirtualView
-            component={List}
             sx={{
               width: size.width,
               height: items.length

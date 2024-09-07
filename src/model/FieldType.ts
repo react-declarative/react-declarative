@@ -42,6 +42,7 @@ export enum FieldType {
 };
 
 Object.entries(FieldType).forEach(([key, value]) => {
+    // @ts-ignore
     FieldType[key] = Symbol.for(value) as unknown as string;
 });
 

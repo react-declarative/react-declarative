@@ -59,7 +59,7 @@ const ROWS_PER_PAGE = [10, 25, 50];
  * console.log(styles.noBorder); // { border: 'none !important' }
  * console.log(styles.tableHead); // { position: 'sticky', top: -1, zIndex: 5, background: theme.palette.background.paper }
  */
-const useStyles = makeStyles()((theme, _, classes) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",
   },
@@ -68,13 +68,11 @@ const useStyles = makeStyles()((theme, _, classes) => ({
     top: 0,
     left: 0,
     background: theme.palette.background.paper,
-    [`& .${classes["noBorder"]}`]: {
-      paddingLeft: "0 !important",
-      paddingRight: "0 !important",
-    },
   },
   noBorder: {
     border: "none !important",
+    paddingLeft: "0 !important",
+    paddingRight: "0 !important",
   },
   tableHead: {
     position: "sticky",

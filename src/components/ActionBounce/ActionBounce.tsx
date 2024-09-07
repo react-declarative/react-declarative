@@ -25,61 +25,61 @@ interface IActionBounceProps extends Omit<IPaperViewProps, keyof {
 
 const useStyles = makeStyles()((theme) => {
 
-    const activeAnimation = keyframes`
-        0% {
-            transform: scale(1,1);
+    const activeAnimation = keyframes({
+        '0%': {
+            transform: "scale(1,1)",
+        },
+        '100%': {
+            transform: 'scale(0.9, 1.1) translateY(-200px)',
         }
-        100% {
-            transform: scale(0.9, 1.1) translateY(-200px);
-        }
-    `;
+    });
 
-    const abortAnimation = keyframes`
-        0% {
-            transform: scale(1.05, 0.95) translateY(0);
+    const abortAnimation = keyframes({
+        '0%': {
+            transform: 'scale(1.05, 0.95) translateY(0)',
+        },
+        '10%': {
+            transform: 'scale(1.05, 0.95) translateY(0)',
+        },
+        '20%': {
+            transform: 'scale(1, 1) translateY(-7px)',
+        },
+        '30%': {
+            transform: 'scale(1, 1) translateY(0)',
+        },
+        '40%': {
+            transform: 'scale(1.05, 0.95) translateY(0)',
+        },
+        '50%': {
+            transform: 'scale(1, 1) translateY(-7px)',
+        },
+        '60%': {
+            transform: 'scale(1, 1) translateY(0)',
+        },
+        '70%': {
+            transform: 'scale(1.05, 0.95) translateY(0)',
+        },
+        '80%': {
+            transform: 'scale(1, 1) translateY(-7px)',
+        },
+        '90%': {
+            transform: 'scale(1, 1) translateY(0)',
+        },
+        '100%': {
+            transform: 'scale(1, 1) translateY(0)',
         }
-        10% {
-            transform: scale(1.05, 0.95) translateY(0);
-        }
-        20% {
-            transform: scale(1,1) translateY(-7px);
-        }
-        30% {
-            transform: scale(1,1) translateY(0);
-        }
-        40% {
-            transform: scale(1.05, 0.95) translateY(0);
-        }
-        50% {
-            transform: scale(1,1) translateY(-7px);
-        }
-        60% {
-            transform: scale(1,1) translateY(0);
-        }
-        70% {
-            transform: scale(1.05, 0.95) translateY(0);
-        }
-        80% {
-            transform: scale(1,1) translateY(-7px);
-        }
-        90% {
-            transform: scale(1,1) translateY(0);
-        }
-        100% {
-            transform: scale(1,1) translateY(0);
-        }
-    `;
+    });
 
-    const succeedAnimation = keyframes`
-        0% {
-            opacity: 1;
-            transform: scale(0.9, 1.1) translateY(-200px);
+    const succeedAnimation = keyframes({
+        '0%': {
+            opacity: '1',
+            transform: 'scale(0.9, 1.1) translateY(-200px)',
+        },
+        '100%': {
+            opacity: '0',
+            transform: 'scale(0.9, 1.1) translateY(-400px)',
         }
-        100% {
-            opacity: 0;
-            transform: scale(0.9, 1.1) translateY(-400px);
-        }
-    `;
+    });
 
     return {
         initial: {},

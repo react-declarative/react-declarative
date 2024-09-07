@@ -20,6 +20,24 @@ interface IDefaultFadeProps {
     none: boolean;
 }
 
+const fadeInAnimation = keyframes({
+    '0%': {
+        opacity: '0',
+    },
+    '100%': {
+        opacity: '1',
+    }
+});
+
+const fadeOutAnimation = keyframes({
+    '0%': {
+        opacity: '1',
+    },
+    '100%': {
+        opacity: '0',
+    }
+});
+
 /**
  * Creates a useStyles object that can be used to access CSS styles.
  *
@@ -33,25 +51,11 @@ const useStyles = makeStyles()(() => ({
         display: "none",
     },
     visible: {
-        animation: `${keyframes`
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        `} 500ms ease-in-out`,
+        animation: `${fadeInAnimation} 500ms ease-in-out`,
         opacity: 1,
     },
     hidden: {
-        animation: `${keyframes`
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        `} 500ms ease-in-out`,
+        animation: `${fadeOutAnimation} 500ms ease-in-out`,
         opacity: 0,
     },
 }));

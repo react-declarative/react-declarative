@@ -4,12 +4,6 @@ Interface for the props of the RecordView component.
 
 ## Properties
 
-### background
-
-```ts
-background: string
-```
-
 ### data
 
 ```ts

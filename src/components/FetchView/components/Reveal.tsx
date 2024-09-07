@@ -18,6 +18,35 @@ export interface IRevealProps extends BoxProps {
     appear?: boolean;
 }
 
+const fadeInUpAnimation = keyframes({
+    '0%': {
+        opacity: '0',
+        transform: 'translateY(-10px)',
+    },
+    '100%': {
+        opacity: '1',
+        transform: 'translateY(0)',
+    }
+});
+
+const fadeInAnimation = keyframes({
+    '0%': {
+        opacity: '0',
+    },
+    '100%': {
+        opacity: '1',
+    }
+});
+
+const scaleUpAnimation = keyframes({
+    '0%': {
+        transform: 'scale(0.4)',
+    },
+    '100%': {
+        transform: 'scale(1)',
+    }
+});
+
 /**
  * The useStyles variable is assigned a function call to makeStyles().
  * makeStyles() is a styling function provided by a library like Material-UI, which returns a styles object.
@@ -26,36 +55,13 @@ export interface IRevealProps extends BoxProps {
  */
 const useStyles = makeStyles()({
     slideDown: {
-        animation: `${keyframes`
-            0% {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        `} 250ms ease-out`
+        animation: `${fadeInUpAnimation} 250ms ease-out`
     },
     fadeIn: {
-        animation: `${keyframes`
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        `} 250ms ease-out`,
+        animation: `${fadeInAnimation} 250ms ease-out`,
     },
     scale: {
-        animation: `${keyframes`
-            0% {
-                transform: scale(0.4);
-            }
-            100% {
-                transform: scale(1);
-            }
-        `} 250ms ease-out`,
+        animation: `${scaleUpAnimation} 250ms ease-out`,
     },
 });
 

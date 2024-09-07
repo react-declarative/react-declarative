@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 
 import { makeStyles } from '../../../../styles';
-import { alpha } from '@mui/material';
 
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
@@ -34,21 +33,13 @@ interface ISortModalProps {
  *
  * @returns The makeStyles object with the defined CSS styles.
  */
-const useStyles = makeStyles()((theme, _, classes) => ({
+const useStyles = makeStyles()(() => ({
     inactive: {
         opacity: 0.5,
     },
     container: {
         width: 300,
         height: 340,
-    },
-    list: {
-        [`& > .${classes["item"]}:nth-of-type(2n)`]: {
-            background: alpha(
-                theme.palette.getContrastText(theme.palette.background.paper),
-                0.04
-            ),
-        },
     },
     item: {
         '& .MuiListItemText-root > .MuiTypography-root': {

@@ -149,6 +149,7 @@ export class Translate {
    */
   private applyMark = (value: string) => {
     const wrapper = new String(value);
+    // @ts-ignore
     wrapper[TRANSLATE_MARK] = true;
     return wrapper as string;
   };
@@ -167,6 +168,7 @@ export class Translate {
     if (!key) {
       return key;
     }
+    // @ts-ignore
     if (key[TRANSLATE_MARK]) {
       return key;
     }

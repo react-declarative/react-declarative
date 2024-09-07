@@ -26,6 +26,7 @@ export const getRouteParams = <T = Record<string, any>>(routes: ISwitchItem[], p
         if (match) {
             const tokens = reg.exec(pathname);
             tokens && keys.forEach((key, i) => {
+                // @ts-ignore
                 params[key.name] = tokens[i + 1];
             });
             return params;

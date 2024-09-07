@@ -19,6 +19,7 @@ import singleshot from '../../utils/hof/singleshot';
 import debounce from '../../utils/hof/debounce';
 
 declare global {
+    // @ts-ignore
     var mapboxgl: typeof mapboxglInternal;
 }
 

@@ -530,6 +530,7 @@ export const OutletView = <
       hasChanged,
       hasLoading,
       hasInvalid,
+      // @ts-ignore
       id: (params && params["id"]) || "create",
       change: (data: Data) => {
         setData((prevData) => ({
@@ -545,6 +546,7 @@ export const OutletView = <
       hasChanged,
       hasLoading,
       hasInvalid,
+      // @ts-ignore
       (params && params["id"]) || "create",
     ]
   );
@@ -565,6 +567,7 @@ export const OutletView = <
     beginSave,
     afterSave,
     formState,
+    // @ts-ignore
     data: typeof data[activeOption] === "undefined" ? {} : data[activeOption],
     params,
     onChange: (data: Data[keyof Data], initial = false) =>

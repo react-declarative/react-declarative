@@ -33,6 +33,7 @@ const useStyles = makeStyles()((theme) => ({
   selectedYear: {
     fontSize: 26,
     margin: '10px 0',
+    // @ts-ignore
     color: theme.palette.primary[500],
   },
   disabled: {

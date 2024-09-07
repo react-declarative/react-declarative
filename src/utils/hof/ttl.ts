@@ -91,6 +91,7 @@ export const ttl = <T extends (...args: A) => any, A extends any[], K = string>(
      * @returns
      */
     executeFn.gc = () => {
+        // @ts-ignore
         const valueMap: Map<K, IRef<{ ttl: number }>> = wrappedFn[GET_VALUE_MAP]();
         for (const [key, item] of valueMap.entries()) {
             const currentTtl = Date.now();

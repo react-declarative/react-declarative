@@ -20433,7 +20433,6 @@ declare module "react-declarative/components/RecordView/RecordView" {
       keyWidth,
       valueWidth,
       totalWidth,
-      background,
       BeforeSearch,
       AfterSearch,
       BeforeCollapseLabel,
@@ -24519,7 +24518,6 @@ declare module "react-declarative/components/PaperView/PaperView" {
         component: never;
       }
     > {
-    component?: React.ElementType;
     outlinePaper?: boolean;
     transparentPaper?: boolean;
   }
@@ -24797,7 +24795,6 @@ declare module "react-declarative/components/PaperView/PaperView" {
       | "onAnimationIterationCapture"
       | "onTransitionEnd"
       | "onTransitionEndCapture"
-      | "component"
       | "elevation"
       | "square"
     > &
@@ -30003,7 +30000,6 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
    */
   export interface IRecordViewProps<Data = IData, Payload = IAnything>
     extends BoxProps {
-    background?: string;
     data: Data;
     search?: string;
     keyWidth?: GridSize;
@@ -33497,7 +33493,6 @@ declare module "react-declarative/components/RecordView/components/Item/Item" {
         totalWidth: never;
       }
     > {
-    background?: IRecordViewProps["background"];
     formatValue: Exclude<IRecordViewProps["formatValue"], undefined>;
     formatKey: Exclude<IRecordViewProps["formatKey"], undefined>;
     index: number;
@@ -33558,7 +33553,6 @@ declare module "react-declarative/components/RecordView/components/Item/Item" {
     itemKey,
     path,
     index,
-    background,
     withDarkParent,
   }: IItemProps) => JSX.Element;
   export default Item;

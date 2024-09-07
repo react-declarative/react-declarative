@@ -15,7 +15,7 @@ The type of the action.
 ### sort
 
 ```ts
-sort: ListHandlerSortModel<any>
+sort: ListHandlerSortModel
 ```
 
 The updated sort model.

@@ -4,7 +4,6 @@ import { createElement } from "react";
 import { makeStyles } from "../../styles";
 
 import Box from "@mui/material/Box";
-import List from "@mui/material/List";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
@@ -117,6 +116,7 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
       )}
       {data.map((item, idx) => (
         <TileItem
+          // @ts-ignore
           key={item[rowKey] || idx}
           sx={itemSx}
           index={idx}
@@ -166,7 +166,6 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
         >
           {createElement(mode === TileMode.Virtual ? VirtualView : InfiniteView, {
             withScrollbar: true,
-            component: List,
             scrollYSubject,
             scrollXSubject,
             minRowHeight: minRowHeight as never,

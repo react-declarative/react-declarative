@@ -22,7 +22,6 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   valueWidth: never;
   totalWidth: never;
 }> {
-  background?: IRecordViewProps['background'];
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   index: number;
@@ -89,28 +88,24 @@ export interface IItemProps extends Pick<IRecordViewProps, keyof {
   withDarkParent?: boolean;
 }
 
-const useStyles = makeStyles<{
-  background?: string;
-}>()((theme, {
-  background = theme.palette.background.default,
-}) => ({
+const useStyles = makeStyles()((theme) => ({
   key: {
     borderRadius: '4px',
     '&:hover': {
       background: alpha(
-        theme.palette.getContrastText(background),
+        theme.palette.getContrastText(theme.palette.background.default),
         0.02
       ),
     },
   },
   keyBlack: {
     background: alpha(
-      theme.palette.getContrastText(background),
+      theme.palette.getContrastText(theme.palette.background.default),
       0.05
     ),
   },
   keyWhite: {
-    backgroundColor: background,
+    backgroundColor: theme.palette.background.default,
   },
 }));
 
@@ -141,10 +136,9 @@ export const Item = ({
   itemKey,
   path,
   index,
-  background,
   withDarkParent = false,
 }: IItemProps) => {
-  const { classes } = useStyles({ background });
+  const { classes } = useStyles();
 
   /**
    * Calculate and memoize the formatted value based on the given parameters.
@@ -187,10 +181,10 @@ export const Item = ({
             },
       )}
     >
-      <Grid item xs={keyWidth}>
+      <Grid item xs={keyWidth as any}>
         <Typography variant="body1" sx={{ ml: 1, overflow: 'hidden' }}>{formatKey(itemKey, path)}</Typography>
       </Grid>
-      <Grid item zeroMinWidth xs={valueWidth}>
+      <Grid item zeroMinWidth xs={valueWidth as any}>
         <Typography
           sx={{
             whiteSpace: 'break-spaces',

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
 import { makeStyles } from '../../../../../styles';
-import { Paper, alpha } from '@mui/material';
+import { Paper, alpha, useTheme } from '@mui/material';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -20,24 +20,15 @@ import IContentProps from "../IContentProps";
 
 import { MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from '../../../config';
 
-const useStyles = makeStyles<{
-  headerAdjust: number;
-}>()((theme, { headerAdjust }, classes) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: 'grid',
   },
   desktop: {
     gridTemplateColumns: '256px 1fr',
-    [`& .${classes["sideMenu"]}`]: {
-      paddingRight: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-    },
   },
   mobile: {
     gridTemplateColumns: '1fr',
-    [`& .${classes["sideMenu"]}`]: {
-      paddingBottom: theme.spacing(1),
-    },
   },
   outline: {
     border: `1px solid ${alpha(theme.palette.getContrastText(theme.palette.background.default), 0.23)}`,
@@ -64,7 +55,6 @@ const useStyles = makeStyles<{
   },
   fixedPos: {
     position: 'fixed',
-    top: headerAdjust,
     width: 240,
   },
 }));
@@ -98,9 +88,9 @@ export const CardContent = ({
   const [fixedPos, setFixedPos] = useState(false);
   const { isWide } = useMediaContext();
 
-  const { classes } = useStyles({
-    headerAdjust,
-  });
+  const theme = useTheme();
+
+  const { classes } = useStyles();
 
   useEffect(() => {
     const { current: sideMenu } = sideMenuRef;
@@ -161,19 +151,34 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Paper) {
       return (
         <>
-          <div
-            className={classes.sideMenu}>
+          <Box
+            className={classes.sideMenu}
+            sx={{
+              ...(isWide && !!items.length && {
+                paddingRight: theme.spacing(2),
+                paddingBottom: theme.spacing(2),
+              }),
+              ...(!isWide && {
+                paddingBottom: theme.spacing(1),
+              }),
+            }}
+          >
             {(!!items.length || !!loading || !withMenuCollapse) && (
               <Paper
                 className={classNames(MASTER_DETAIL_HEADER, {
                   [classes.fixedPos]: fixedPos && isWide,
                 })}
+                sx={{
+                  ...(fixedPos && isWide && {
+                    top: headerAdjust,
+                  }),
+                }}
                 ref={sideMenuRef}
               >
                 {renderList()}
               </Paper>
             )}
-          </div>
+          </Box>
           <div className={classes.content}>
             {children}
           </div>
@@ -183,8 +188,17 @@ export const CardContent = ({
     if (mode === MasterDetailMode.Outline) {
       return (
         <>
-          <div
+          <Box
             className={classes.sideMenu}
+            sx={{
+              ...(isWide && !!items.length && {
+                paddingRight: theme.spacing(2),
+                paddingBottom: theme.spacing(2),
+              }),
+              ...(!isWide && {
+                paddingBottom: theme.spacing(1),
+              }),
+            }}
           >
             {(!!items.length || !!loading || !withMenuCollapse)  && (
               <Box
@@ -196,7 +210,7 @@ export const CardContent = ({
                 {renderList()}
               </Box>
             )}
-          </div>
+          </Box>
           <div className={classes.content}>
             {children}
           </div>

@@ -32,7 +32,6 @@ export interface IContainerProps extends BoxProps {
   totalWidth: number | undefined;
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
-  background?: IRecordViewProps['background'];
   BeforeSearch?: IRecordViewProps['BeforeSearch'];
   AfterSearch?: IRecordViewProps['AfterSearch'];
   BeforeCollapseLabel?: React.ComponentType<{ itemKey: string; payload: IAnything; path: string; }>;
@@ -80,7 +79,6 @@ const useStyles = makeStyles()({
  * @param props.keyWidth - The width of the key column in pixels.
  * @param props.valueWidth - The width of the value column in pixels.
  * @param props.totalWidth - The total width of the container in pixels.
- * @param props.background - The CSS background property for the container.
  * @param props.BeforeSearch - The component to render before the search input field.
  * @param props.AfterSearch - The component to render after the search input field.
  * @param props.payload - Custom payload data to be passed to BeforeSearch and AfterSearch components.
@@ -93,7 +91,6 @@ export const Container = ({
   keyWidth,
   valueWidth,
   totalWidth,
-  background,
   BeforeSearch,
   AfterSearch,
   BeforeCollapseLabel,
@@ -160,7 +157,6 @@ export const Container = ({
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}
-        background={background}
         EmptyItem={EmptyItem}
         CustomItem={CustomItem}
         itemKey="root"

@@ -68,4 +68,5 @@ const fieldsCache = [
 
 const fieldsMap = fieldsCache.reduce<Record<symbol, string>>((acm, cur) => ({ ...acm, [Symbol.for(cur)]: cur }), {});
 
+// @ts-ignore
 export const typeToString = (type: symbol | string) => fieldsMap[type] || type.toString();

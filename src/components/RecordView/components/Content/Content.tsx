@@ -34,7 +34,6 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   valueWidth: never;
   totalWidth: never;
 }> {
-  background?: IRecordViewProps['background'];
   formatValue: Exclude<IRecordViewProps['formatValue'], undefined>;
   formatKey: Exclude<IRecordViewProps['formatKey'], undefined>;
   data: IRecordViewProps['data'];
@@ -51,11 +50,7 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   CustomItem?: React.ComponentType<IItemProps>;
 }
 
-const useStyles = makeStyles<{
-  background?: string
-}>()((theme, {
-  background = theme.palette.background.default,
-}) => ({
+const useStyles = makeStyles()((theme) => ({
   group: {
     borderRadius: '4px',
   },
@@ -65,12 +60,12 @@ const useStyles = makeStyles<{
   },
   groupBlack: {
     background: alpha(
-      theme.palette.getContrastText(background),
+      theme.palette.getContrastText(theme.palette.background.default),
       0.05
     ),
   },
   groupWrite: {
-    backgroundColor: background,
+    backgroundColor: theme.palette.background.default,
   },
 }));
 
@@ -102,13 +97,12 @@ export const Content = ({
   BeforeCollapseLabel = Fragment,
   AfterCollapseLabel = Fragment,
   withDarkParent = false,
-  background,
   itemKey,
   EmptyItem = Empty,
   CustomItem = Item,
   ...otherProps
 }: IContentProps) => {
-  const { classes } = useStyles({ background });
+  const { classes } = useStyles();
 
   const { isSearching, isChecked, setIsChecked } = useSearch();
 
@@ -158,7 +152,7 @@ export const Content = ({
                 [classes.groupWrite]: index % 2 !== 0,
               })}
             >
-              <Grid item xs={keyWidth}>
+              <Grid item xs={keyWidth as any}>
                 <Typography
                   sx={{ mt: 3, ml: 1, overflow: 'hidden' }}
                   className={classes.groupKey}
@@ -167,9 +161,8 @@ export const Content = ({
                   {formatKey(key, prefix)}
                 </Typography>
               </Grid>
-              <Grid item xs={valueWidth} sx={{ mt: 3, mb: 3 }}>
+              <Grid item xs={valueWidth as any} sx={{ mt: 3, mb: 3 }}>
                 <Content
-                  background={background}
                   withDarkParent={index % 2 === 0}
                   formatValue={formatValue}
                   formatKey={formatKey}
@@ -192,7 +185,6 @@ export const Content = ({
         }
         return (
           <CustomItem
-            background={background}
             withDarkParent={withDarkParent}
             formatValue={formatValue}
             formatKey={formatKey}
@@ -219,7 +211,6 @@ export const Content = ({
       withDarkParent,
       formatValue,
       formatKey,
-      background,
     ],
   );
 
