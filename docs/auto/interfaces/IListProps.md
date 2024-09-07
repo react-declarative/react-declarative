@@ -70,10 +70,6 @@ Represents the AfterOperationList component.
 
 This component is a React component that renders a list of actions to be displayed after a specific operation.
 It is used to render the list of available actions, typically used for filtering or manipulating data.
-Represents the AfterOperationList component.
-
-This component is a React component that renders a list of actions to be displayed after a specific operation.
-It is used to render the list of available actions, typically used for filtering or manipulating data.
 
 ### customTemplate
 

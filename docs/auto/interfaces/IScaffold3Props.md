@@ -166,8 +166,6 @@ Copyright: ComponentType<any>
 
 The Copyright component is a React component that represents a copyright notice.
 It can be used in a React application to display the copyright information.
-The Copyright component is a React component that represents a copyright notice.
-It can be used in a React application to display the copyright information.
 
 ### onAction
 
@@ -175,8 +173,6 @@ It can be used in a React application to display the copyright information.
 onAction: (name: string) => void
 ```
 
-Represents a optional callback function that is triggered when an action is performed.
-The function takes a `name` parameter of type `string` and returns `void`.
 Represents a optional callback function that is triggered when an action is performed.
 The function takes a `name` parameter of type `string` and returns `void`.
 

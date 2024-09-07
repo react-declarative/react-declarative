@@ -2,15 +2,21 @@ import { useMemo } from 'react';
 
 import { useTheme } from '@mui/material/styles';
 import { Theme } from "@mui/material";
-import { css, keyframes } from 'glamor';
+import { css, keyframes, speedy } from 'glamor';
 
 import classNames from '../utils/classNames';
+
+declare module "glamor" {
+  export function speedy(mode: boolean): void;
+}
 
 interface IStyles {
   [k1: string]: {
     [K in keyof React.CSSProperties | string]: any;
   } & Record<string, any>
 }
+
+speedy(true);
 
 type StyleFactory = IStyles | ((theme: Theme) => IStyles);
 type CompiledStyles = Record<string, string>;

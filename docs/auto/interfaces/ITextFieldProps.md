@@ -139,13 +139,6 @@ the trailing icon of a field is clicked.
 This property is of type `PickProp&lt;IField&lt;Data, Payload&gt;, "trailingIconClick"&gt;`,
 where `IField&lt;Data, Payload&gt;` is a generic type representing a field with
 `Data` and `Payload` types.
-The `trailingIconClick` property is an optional property
-that represents a callback function to be executed when
-the trailing icon of a field is clicked.
-
-This property is of type `PickProp<IField<Data, Payload>, "trailingIconClick">`,
-where `IField<Data, Payload>` is a generic type representing a field with
-`Data` and `Payload` types.
 
 ### inputRows
 

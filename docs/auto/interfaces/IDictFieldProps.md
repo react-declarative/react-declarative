@@ -82,8 +82,6 @@ dictCreateButton: ComponentType<ICreateButtonProps>
 
 Retrieves the value of the "dictCreateButton" property from the provided object,
 which is of type PickProp&lt;IField&lt;Data, Payload&gt;, "dictCreateButton"&gt;.
-Retrieves the value of the "dictCreateButton" property from the provided object,
-which is of type PickProp&lt;IField<Data, Payload&gt;, "dictCreateButton">.
 
 ### inputType
 
