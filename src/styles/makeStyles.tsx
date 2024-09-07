@@ -1,27 +1,47 @@
+import { useMemo } from 'react';
+
 import { useTheme } from '@mui/material/styles';
 import { Theme } from "@mui/material";
-
 import { css, keyframes } from 'glamor';
-import { useMemo } from 'react';
+
 import classNames from '../utils/classNames';
 
 interface IStyles {
-  [key: string]: Record<string, any>;
+  [k1: string]: {
+    [K in keyof React.CSSProperties | string]: any;
+  } & Record<string, any>
 }
 
-export const makeStyles = () => (factory: IStyles | ((theme: Theme) => IStyles)) => {
+type StyleFactory = IStyles | ((theme: Theme) => IStyles);
+type CompiledStyles = Record<string, string>;
+
+const styleCache = new WeakMap<StyleFactory, CompiledStyles>();
+
+const compileStyles = (factory: StyleFactory, theme: Theme) => {
+  const record = typeof factory === "function" ? factory(theme) : {...factory};
+  const classes: Record<string, string> = {};
+  Object.entries(record).forEach(([key, value]) => {
+    classes[key] = css(value).toString();
+  });
+  return classes;
+};
+
+const getStyles = (factory: StyleFactory, theme: Theme) =>
+  styleCache.has(factory)
+    ? styleCache.get(factory)!
+    : styleCache
+      .set(factory, compileStyles(factory, theme))
+      .get(factory)!
+
+export const makeStyles = () => (factory: StyleFactory) => {
   return () => {
     const theme = useTheme();
-    return useMemo(() => {
-      const record = typeof factory === "function" ? factory(theme) : {...factory};
-      const classes: Record<string, string> = {};
-      Object.entries(record).forEach(([key, value]) => {
-        record[key] = css(value);
-      });
-      return { classes, cx: classNames };
-    }, []);
+    return useMemo(() => ({
+      classes: getStyles(factory, theme),
+      cx: classNames,
+    }), []);
   };
-}
+};
 
 export { useTheme, keyframes };
 
