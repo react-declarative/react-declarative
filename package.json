@@ -1,6 +1,6 @@
 {
   "name": "react-declarative",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "readme": "README.md",
   "description": "A React form builder which interacts with a JSON endpoint to generate nested 12-column grids with input fields and automatic state management in a declarative style. Endpoint is typed by TypeScript guards (IntelliSense available). This tool is based on material-ui components, so your application will look beautiful on any device...",
   "private": false,
@@ -44,22 +44,22 @@
     "url": "https://github.com/react-declarative/react-declarative/issues"
   },
   "main": "dist/index.js",
-  "module": "dist/index.modern.js",
+  "module": "dist/index.esm.js",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "exports": {
     "require": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "import": "./dist/index.modern.js",
-    "default": "./dist/index.modern.js"
+    "import": "./dist/index.esm.js",
+    "default": "./dist/index.esm.js"
   },
   "engines": {
     "node": ">=10"
   },
   "scripts": {
     "start": "sh ./scripts/start.sh",
-    "build": "rimraf dist && node ./scripts/build.js && npm run typedef && npm run docs",
-    "build:nodocs": "rimraf dist && node ./scripts/build.js && npm run typedef",
+    "build": "rimraf dist && rollup -c && npm run typedef && npm run docs",
+    "build:nodocs": "rimraf dist && rollup -c && npm run typedef",
     "build:docker": "docker-compose up",
     "typedef": "tsc --emitDeclarationOnly --outDir ./dist/types && node ./scripts/dts.js",
     "postinstall": "node ./scripts/postinstall.js",
@@ -87,22 +87,24 @@
   },
   "devDependencies": {
     "@prettier/sync": "0.5.1",
+    "@rollup/plugin-typescript": "11.1.6",
     "@types/jest": "29.1.2",
+    "@types/mapbox-gl": "3.1.0",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "@types/uuid": "8.3.4",
-    "@types/mapbox-gl": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "6.5.0",
     "@typescript-eslint/parser": "6.5.0",
     "dts-bundle": "0.7.3",
-    "dts-minify": "0.3.0",
-    "esbuild-node-externals": "1.6.0",
-    "esbuild-wasm": "0.17.12",
     "eslint": "8.57.0",
     "eslint-plugin-jsdoc": "48.2.1",
     "jest": "29.1.2",
     "jest-environment-jsdom": "29.5.0",
+    "million": "^3.1.11",
     "prettier": "3.2.5",
+    "rollup": "2.79.1",
+    "rollup-plugin-peer-deps-external": "2.2.4",
+    "rollup-plugin-terser": "7.0.2",
     "ts-jest": "29.0.3",
     "typescript": "4.6.2"
   },

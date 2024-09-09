@@ -20,6 +20,8 @@ description: string
 
 Type definition for the `PickProp` function.
 Extracts a specific property `description` from a given object type `IField&lt;Data, Payload&gt;`.
+Type definition for the `PickProp` function.
+Extracts a specific property `description` from a given object type `IField&lt;Data, Payload&gt;`.
 
 ### outlined
 
@@ -96,4 +98,6 @@ view: (file: string, data: Data, payload: Payload) => void | Promise<void>
 ```
 
 This variable represents a property 'view' extracted from an object of type PickProp&lt;IField&lt;Data, Payload&gt;, 'view'&gt;.
+The 'view' property is used to specify a specific view for processing fields.
+This variable represents a property 'view' extracted from an object of type PickProp&lt;IField<Data, Payload&gt;, 'view'>.
 The 'view' property is used to specify a specific view for processing fields.
