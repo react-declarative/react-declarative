@@ -27,6 +27,7 @@ export const Radio = ({
     disabled,
     onChange,
     title,
+    readonly,
     radioValue,
     value,
     name = '',
@@ -69,6 +70,9 @@ export const Radio = ({
             <RadioGroup
                 value={value}
                 onChange={(_, value) => {
+                    if (readonly) {
+                        return;
+                    }
                     handleChange(value || null);
                 }}
             >

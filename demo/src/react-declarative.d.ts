@@ -14839,6 +14839,7 @@ declare module "react-declarative/components/One/fields/RadioField" {
       onChange,
       title,
       radioValue,
+      readonly,
       name,
     }: IRadioFieldProps & IRadioFieldPrivate): JSX.Element;
     displayName: string;
@@ -29380,6 +29381,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       disabled,
       onChange,
       title,
+      readonly,
       radioValue,
       value,
       name,

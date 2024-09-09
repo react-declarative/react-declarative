@@ -92,11 +92,13 @@ export const RadioField = ({
   onChange,
   title,
   radioValue,
+  readonly,
   name = '',
 }: IRadioFieldProps & IRadioFieldPrivate) => (
   <Radio
     value={value}
     disabled={disabled}
+    readonly={readonly}
     onChange={onChange}
     title={title}
     radioValue={radioValue}
