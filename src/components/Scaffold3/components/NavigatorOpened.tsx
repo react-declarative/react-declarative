@@ -19,6 +19,7 @@ import idToLabel from "../utils/idToLabel";
 
 import MenuOption from "./MenuOption";
 import Search from "./Search";
+import IconWrapper from "./IconWrapper";
 
 export const DRAWER_BACKGROUND = "react-declarative__scaffold2Background";
 
@@ -210,7 +211,7 @@ export const NavigatorOpened = <T extends Payload = Payload>({
                           color: iconColor,
                         }}
                       >
-                        <Icon />
+                        <IconWrapper icon={Icon} color={iconColor} />
                       </ListItemIcon>
                     )}
                     <ListItemText>{label || idToLabel(id)}</ListItemText>

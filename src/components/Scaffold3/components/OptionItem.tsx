@@ -17,6 +17,7 @@ import OutlinedFlag from "@mui/icons-material/OutlinedFlag";
 
 import { OPENED_WIDTH } from "../config";
 import usePropsContext from "../context/PropsContext";
+import IconWrapper from "./IconWrapper";
 
 /**
  * Represents the properties for an option item.
@@ -88,7 +89,7 @@ export const OptionItem = ({
               color: option.iconColor,
             }}
           >
-            <Icon />
+            <IconWrapper icon={Icon} color={option.iconColor} />
           </ListItemIcon>
         )}
         <ListItemText>{option.label || idToLabel(option.id)}</ListItemText>
