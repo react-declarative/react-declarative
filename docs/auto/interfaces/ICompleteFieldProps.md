@@ -78,6 +78,10 @@ Type definition for the "title" property picked from the "IField" object type,
 where "IField" is a generic object with properties "Data" and "Payload".
 The resulting type is determined by the "PickProp" utility, which selects the specific property
 from the provided object type.
+Type definition for the "title" property picked from the "IField" object type,
+where "IField" is a generic object with properties "Data" and "Payload".
+The resulting type is determined by the "PickProp" utility, which selects the specific property
+from the provided object type.
 
 ### tip
 

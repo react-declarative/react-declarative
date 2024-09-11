@@ -428,6 +428,7 @@ export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './compon
 
 export { Sheet } from './components';
 
+export { IntersectionAsync } from './components';
 export { Async } from './components';
 export { If } from './components';
 
@@ -880,3 +881,5 @@ export { useDebouncedCallback } from './components/One/hooks/useDebouncedCallbac
 export { DatePicker } from './components/common/DatePicker/DatePicker';
 export { TimePicker } from './components/common/TimePicker/TimePicker';
 export { VirtualListBox } from './components/One/components/common/VirtualListBox';
+
+export { useIntersection } from './hooks/useIntersection';

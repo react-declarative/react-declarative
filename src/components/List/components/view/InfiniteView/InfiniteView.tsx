@@ -32,6 +32,7 @@ import Grid from "../../../../Grid";
 import list2grid from "../../../../../utils/list2grid";
 
 const DEFAULT_ITEM_SIZE = 45;
+const MAX_BUFFER_LIMIT = 15;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -218,7 +219,7 @@ export const InfiniteView = <
               minRowHeight={DEFAULT_ITEM_SIZE}
               hasMore={hasMore}
               loading={loading}
-              bufferSize={limit * 2}
+              bufferSize={Math.min(limit * 2, MAX_BUFFER_LIMIT)}
               selectedRows={selectedRows}
               onSelectedRows={(ids, initial) => {
                 if (!initial) {

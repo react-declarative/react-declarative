@@ -101,48 +101,55 @@ export const Tile = <Data extends IAnything = IAnything, Payload = IAnything>({
 
   const payload = useSingleton(upperPayload);
 
-  const renderChildren = () => (
-    <>
-      {!loading && !errorMessage && data.length === 0 && (
+  const renderChildren = () => {
+    const child: React.ReactElement[] = [];
+    if (!loading && !errorMessage && data.length === 0) {
+      child.push(
         <Box className={classes.noData}>
           <Typography variant="body1">{noDataLabel}</Typography>
         </Box>
-      )}
-      {errorMessage && (
+      );
+    }
+    if (errorMessage) {
+      child.push(
         <Box className={classes.noData}>
           <Typography color="error" variant="body1">
             {errorMessage}
           </Typography>
         </Box>
-      )}
-      {data.map((item, idx) => (
-        <TileItem
-          key={item[rowKey] || idx}
-          sx={itemSx}
-          index={idx}
-          payload={payload}
-          data={item}
-          rowKey={rowKey}
-          selectionMode={selectionMode}
-          onItemClick={onItemClick}
-        >
-          {children}
-        </TileItem>
-      ))}
-      {data.length > 0 &&
-        !errorMessage &&
-        onButtonSkip &&
-        !onSkip &&
-        !loading &&
-        hasMore && (
-          <Box className={classes.noData}>
-            <Button variant="outlined" onClick={onButtonSkip}>
-              Show More
-            </Button>
-          </Box>
-        )}
-    </>
-  );
+      );
+    }
+    data.forEach((item, idx) => child.push(
+      <TileItem
+        key={item[rowKey] || idx}
+        sx={itemSx}
+        index={idx}
+        payload={payload}
+        data={item}
+        rowKey={rowKey}
+        selectionMode={selectionMode}
+        onItemClick={onItemClick}
+      >
+        {children}
+      </TileItem>
+    ));
+    if (data.length > 0 &&
+      !errorMessage &&
+      onButtonSkip &&
+      !onSkip &&
+      !loading &&
+      hasMore
+    ) {
+      child.push(
+        <Box className={classes.noData}>
+          <Button variant="outlined" onClick={onButtonSkip}>
+            Show More
+          </Button>
+        </Box>
+      );
+    }
+    return child;
+  };
 
   return (
     <SelectionProvider

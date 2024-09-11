@@ -32,6 +32,7 @@ import Container from "../../Container";
 import Tile from "../../../../Tile";
 
 const DEFAULT_ITEM_SIZE = 45;
+const MAX_BUFFER_LIMIT = 15;
 
 export const MOBILE_LIST_ROOT = "react-declarative__mobileListRoot";
 
@@ -208,7 +209,7 @@ export const CustomView = <
               scrollYSubject={scrollYSubject}
               minRowHeight={customTemplateMinHeight}
               hasMore={hasMore}
-              bufferSize={limit * 2}
+              bufferSize={Math.min(limit * 2, MAX_BUFFER_LIMIT)}
               selectedRows={selectedRows}
               onSelectedRows={(ids, initial) => {
                 if (!initial) {

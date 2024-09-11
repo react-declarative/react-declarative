@@ -30,6 +30,7 @@ import Container from "../../Container";
 import Tile from "../../../../Tile";
 
 const DEFAULT_ITEM_SIZE = 45;
+const MAX_BUFFER_LIMIT = 15;
 const PAGINATION_HEIGHT = 52;
 const ROWS_PER_PAGE = [10, 25, 50];
 
@@ -193,7 +194,7 @@ export const PageView = <
               minRowHeight={pageItemTemplateMinHeight}
               hasMore={false}
               loading={false}
-              bufferSize={limit * 2}
+              bufferSize={Math.min(limit * 2, MAX_BUFFER_LIMIT)}
               selectedRows={selectedRows}
               onSelectedRows={(ids, initial) => {
                 if (!initial) {
