@@ -20,6 +20,8 @@ import useReload from "../../../../hooks/useReload";
 import useSelection from "../../../../hooks/useSelection";
 import useAsyncValue from "../../../../../../hooks/useAsyncValue";
 
+import { useIntersectionConnect } from "../../../../hooks/useIntersection";
+
 import classNames from "../../../../../../utils/classNames";
 
 const CELL_PADDING_LEFT = 32;
@@ -71,6 +73,9 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   disabled,
   fullWidth,
 }: IBodyRowSlot<RowData>) => {
+
+  const connect = useIntersectionConnect<HTMLTableRowElement>(row.id);
+
   const [menuOpened, setMenuOpened] = useState(false);
   const { classes } = useStyles();
 
@@ -179,6 +184,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   return (
     <TableRow
+      ref={connect}
+      data-testId={row.id}
       className={classNames(classes.root, {
         [classes.disabled]: disabled,
       })}

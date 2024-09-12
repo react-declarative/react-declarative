@@ -27,6 +27,8 @@ import useSelection from "../../../../hooks/useSelection";
 import useReload from "../../../../hooks/useReload";
 import useAsyncValue from "../../../../../../hooks/useAsyncValue";
 
+import { useIntersectionConnect } from "../../../../hooks/useIntersection";
+
 /**
  * Returns the styles object for a component.
  * @function
@@ -80,6 +82,9 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
   columns,
   fullWidth,
 }: IBodyRowSlot<RowData>) => {
+
+  const connect = useIntersectionConnect<HTMLTableRowElement>(row.id);
+
   const [menuOpened, setMenuOpened] = useState(false);
   const { classes } = useStyles();
 
@@ -231,6 +236,8 @@ export const DesktopBodyRow = <RowData extends IRowData = IAnything>({
 
   return (
     <TableRow
+      ref={connect}
+      data-testId={row.id}
       className={classes.root}
       selected={selection.has(row.id)}
       sx={{

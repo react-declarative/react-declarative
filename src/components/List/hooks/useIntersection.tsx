@@ -11,15 +11,24 @@ import Subject from "../../../utils/rx/Subject";
 
 import createValueProvider from "../../../utils/createValueProvider";
 import createSsManager from '../../../utils/createSsManager';
+import createAwaiter from '../../../utils/createAwaiter';
+import debounce from '../../../utils/hof/debounce';
 import sleep from '../../../utils/sleep';
 
 import { RowId } from "../../../model/IRowData";
-
 const [IntersectionContext, useIntersectionContext] = createValueProvider<IntersectionManager>();
 
 const SCROLL_CHECK_DELAY = 50;
 const SCROLL_KEEP_DELAY = 100;
+const RENDER_DEBOUNCE_DELAY = 75;
+const RENDER_MAX_DELAY = 400;
+
 const POSITIVE_INFINITY = 9999999999;
+const NEGATIVE_INFINITY = -9999999999;
+
+const getMiddle = (num1: number, num2: number) => {
+    return Math.floor((num1 + num2) / 2);
+}
 
 interface IIntersectionProviderProps {
     children: React.ReactNode;
@@ -82,10 +91,8 @@ class IntersectionManager {
     scrollIntoView = (id: RowId) => {
         for (const [key, value] of this.idMap.entries()) {
             if (value === id) {
-                key.scrollIntoView({ 
-                    behavior: "auto",
+                key.scrollIntoView({
                     block: "center",
-                    inline: "center"
                 });
                 return true;
             }
@@ -109,16 +116,36 @@ export const IntersectionProvider = ({
         intersectionManager.intersectionObserver.disconnect();
     }, []);
 
+    const waitForRender = useCallback(() => {
+        const [promise, { resolve }] = createAwaiter<void>();
+        const handler = debounce(() => {
+            observer.disconnect();
+            resolve();
+        }, RENDER_DEBOUNCE_DELAY);
+        const observer = new MutationObserver(handler);
+        observer.observe(document.body, {
+            attributes: true,
+            childList: true,
+            subtree: true,
+        });
+        handler();
+        return promise;
+    }, []);
+
     const waitForRows = useCallback(async () => {
         while (true) {
             if (!isMounted.current) {
-                break;
+                return;
             }
             if (intersectionManager.getElementCount() >= limit) {
-                break
+                break;
             }
             await sleep(SCROLL_CHECK_DELAY);
         }
+        await Promise.race([
+            waitForRender(),
+            sleep(RENDER_MAX_DELAY),
+        ]);
     }, []);
 
     useEffect(() => {
@@ -127,6 +154,7 @@ export const IntersectionProvider = ({
         }
         return intersectionManager.reloadSubject.debounce(SCROLL_KEEP_DELAY).connect(() => {
             let minIdx = POSITIVE_INFINITY;
+            let maxIdx = NEGATIVE_INFINITY;
             for (const [rowId, intersecting] of intersectionManager.viewportMap.entries()) {
                 if (!intersecting) {
                     continue;
@@ -139,8 +167,10 @@ export const IntersectionProvider = ({
                     continue;
                 }
                 minIdx = Math.min(rowIdx, minIdx);
+                maxIdx = Math.max(rowIdx, maxIdx);
             }
-            const row = rows$.current[minIdx + 1] || rows$.current[minIdx];
+            const middleIdx = getMiddle(minIdx, maxIdx);
+            const row = rows$.current[middleIdx] || rows$.current[minIdx];
             row && storageManger.setValue(row.id);
         });
     });
@@ -164,7 +194,7 @@ export const IntersectionProvider = ({
 };
 
 export const useIntersectionConnect = <T extends HTMLElement = HTMLElement>(id: RowId) => {
-    const ref = useRef<T>();
+    const ref = useRef<T | null>(null);
     const intersectionManager = useIntersectionContext();
 
     useLayoutEffect(() => {

@@ -18,6 +18,7 @@ import { ICommonCellSlot } from '../../../../slots/CommonCellSlot';
 import useProps from "../../../../hooks/useProps";
 import usePayload from '../../../../hooks/usePayload';
 import useActualValue from '../../../../../../hooks/useActualValue';
+import { useIntersectionListen } from '../../../../hooks/useIntersection';
 
 const LOAD_SOURCE = 'list-item';
 
@@ -57,6 +58,8 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
     onAction,
 }: ICommonCellSlot<RowData>) => {
 
+    const isVisible = useIntersectionListen(row.id);
+
     const { classes } = useStyles();
     const _payload = usePayload();
 
@@ -91,6 +94,7 @@ export const CommonCell = <RowData extends IRowData = IAnything>({
     } else if (column.type === ColumnType.Compute) {
         return (
             <Async
+                disabled={!isVisible}
                 payload={row}
                 deps={[_payload]}
                 fallback={fallback}
