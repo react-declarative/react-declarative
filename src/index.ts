@@ -428,7 +428,6 @@ export { MasterDetail, MASTER_DETAIL_HEADER, MASTER_DETAIL_ROOT } from './compon
 
 export { Sheet } from './components';
 
-export { IntersectionAsync } from './components';
 export { Async } from './components';
 export { If } from './components';
 
@@ -529,6 +528,9 @@ export { useListDropFilters } from './components';
 export { useListStateAction } from './components';
 export { useListUpsertManager } from './components';
 export { useListToggleHandler } from './components';
+export { useListIntersectionConnect } from './components';
+export { useListIntersectionStorage } from './components';
+export { useListIntersectionListen } from './components';
 export { useApiPaginator } from './components';
 
 export { useCursorPaginator } from './components';
@@ -881,5 +883,3 @@ export { useDebouncedCallback } from './components/One/hooks/useDebouncedCallbac
 export { DatePicker } from './components/common/DatePicker/DatePicker';
 export { TimePicker } from './components/common/TimePicker/TimePicker';
 export { VirtualListBox } from './components/One/components/common/VirtualListBox';
-
-export { useIntersection } from './hooks/useIntersection';

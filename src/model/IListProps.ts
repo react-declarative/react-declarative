@@ -511,6 +511,7 @@ export interface IListProps<
   style?: React.CSSProperties;
   title?: string;
   withRawSearch?: boolean;
+  withRestorePos?: boolean;
   filterLabel?: string;
   actions?: IListAction<RowData, Payload>[];
   operations?: IListOperation<RowData, Payload>[];

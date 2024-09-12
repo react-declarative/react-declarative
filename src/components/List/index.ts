@@ -29,6 +29,10 @@ export { useStateAction as useListStateAction } from './hooks/useStateAction';
 export { useUpsertManager as useListUpsertManager } from './hooks/useUpsertManager'; 
 export { useToggleHandler as useListToggleHandler } from './hooks/useToggleHandler';
 
+export { useIntersectionConnect as useListIntersectionConnect } from './hooks/useIntersection';
+export { useIntersectionStorage as useListIntersectionStorage } from './hooks/useIntersection';
+export { useIntersectionListen as useListIntersectionListen } from './hooks/useIntersection';
+
 export { ClassicChipListSlot } from './common/ClassicChipListSlot';
 export { ClassicFilterListSlot } from './common/ClassicFilterListSlot';
 export { DialogFilterListSlot } from './common/DialogFilterListSlot';

@@ -54,6 +54,7 @@ import { RowDisabledMapProvider } from "../../hooks/useRowDisabledMap";
 import { IStateAction, StateActionProvider } from "../../hooks/useStateAction";
 import { FilterDataProvider } from "../../hooks/useFilterData";
 import { PaginationProvider } from "../../hooks/usePagination";
+import { IntersectionProvider } from "../../hooks/useIntersection";
 import { SearchProvider } from "../../hooks/useSearch";
 
 import Subject from "../../../../utils/rx/Subject";
@@ -928,39 +929,41 @@ export class Entry<
         <ThemeProvider>
           <StateActionProvider payload={this.stateActionEmitter}>
             <PropProvider {...{ ...this.props, ...this.state, ...callbacks }}>
-              <ScrollManagerProvider payload={this.scrollManager}>
-                <ConstraintManagerProvider payload={this.constraintManager}>
-                  <SelectionProvider selectedRows={this.props.selectedRows}>
-                    <CachedRowsProvider>
-                      <RowDisabledMapProvider initialState={() => new Map()}>
-                        <SortModelProvider sortModel={this.props.sortModel!}>
-                          <ChipsProvider
-                            chips={this.props.chips!}
-                            chipData={this.props.chipData!}
-                          >
-                            <FilterDataProvider value={this.state.filterData}>
-                              <PaginationProvider
-                                limit={this.state.limit}
-                                offset={this.state.offset}
-                              >
-                                <SearchProvider value={this.state.search}>
-                                  <ModalSortProvider>
-                                    <SlotFactory {...this.props.slots}>
-                                      <PayloadProvider value={this.state.payload}>
-                                        {this.renderInner()}
-                                      </PayloadProvider>
-                                    </SlotFactory>
-                                  </ModalSortProvider>
-                                </SearchProvider>
-                              </PaginationProvider>
-                            </FilterDataProvider>
-                          </ChipsProvider>
-                        </SortModelProvider>
-                      </RowDisabledMapProvider>
-                    </CachedRowsProvider>
-                  </SelectionProvider>
-                </ConstraintManagerProvider>
-              </ScrollManagerProvider>
+              <IntersectionProvider>
+                <ScrollManagerProvider payload={this.scrollManager}>
+                  <ConstraintManagerProvider payload={this.constraintManager}>
+                    <SelectionProvider selectedRows={this.props.selectedRows}>
+                      <CachedRowsProvider>
+                        <RowDisabledMapProvider initialState={() => new Map()}>
+                          <SortModelProvider sortModel={this.props.sortModel!}>
+                            <ChipsProvider
+                              chips={this.props.chips!}
+                              chipData={this.props.chipData!}
+                            >
+                              <FilterDataProvider value={this.state.filterData}>
+                                <PaginationProvider
+                                  limit={this.state.limit}
+                                  offset={this.state.offset}
+                                >
+                                  <SearchProvider value={this.state.search}>
+                                    <ModalSortProvider>
+                                      <SlotFactory {...this.props.slots}>
+                                        <PayloadProvider value={this.state.payload}>
+                                          {this.renderInner()}
+                                        </PayloadProvider>
+                                      </SlotFactory>
+                                    </ModalSortProvider>
+                                  </SearchProvider>
+                                </PaginationProvider>
+                              </FilterDataProvider>
+                            </ChipsProvider>
+                          </SortModelProvider>
+                        </RowDisabledMapProvider>
+                      </CachedRowsProvider>
+                    </SelectionProvider>
+                  </ConstraintManagerProvider>
+                </ScrollManagerProvider>
+              </IntersectionProvider>
             </PropProvider>
           </StateActionProvider>
         </ThemeProvider>

@@ -105,7 +105,6 @@ export * from './Grid';
 export * from './Tile';
 export * from './Spinner';
 export * from './Async';
-export * from './IntersectionAsync';
 export * from './Copy';
 export * from './If';
 export * from './Map';

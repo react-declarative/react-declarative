@@ -16,6 +16,7 @@ import TSubject from '../../model/TSubject';
  */
 export interface IAsyncProps<T extends any = object> {
     loading?: boolean;
+    disabled?: boolean;
     reloadSubject?: TSubject<void>;
     children: (p: T) => (Result | Promise<Result>);
     fallback?: (e: Error) => void;
@@ -50,6 +51,7 @@ type Result = React.ReactNode | void;
 export const Async = <T extends any = object>({
     reloadSubject: upperReloadSubject,
     loading: upperLoading,
+    disabled,
     children,
     fallback,
     Loader = () => null,
@@ -88,6 +90,10 @@ export const Async = <T extends any = object>({
         
         if (executionRef.current) {
             executionRef.current.cancel();
+        }
+
+        if (disabled) {
+            return;
         }
 
         /**
@@ -157,7 +163,7 @@ export const Async = <T extends any = object>({
 
         process();
 
-    }, [payload, ...deps, reloadTrigger]);
+    }, [payload, disabled, ...deps, reloadTrigger]);
 
 
     if (loading) {
