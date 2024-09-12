@@ -5,6 +5,7 @@ import { flushSync } from 'react-dom';
 
 import cancelable, { IWrappedFn, CANCELED_SYMBOL } from '../../utils/hof/cancelable';
 
+import useChangeSubject from '../../hooks/useChangeSubject';
 import useReloadTrigger from '../../hooks/useReloadTrigger';
 import useSubject from '../../hooks/useSubject';
 
@@ -51,7 +52,7 @@ type Result = React.ReactNode | void;
 export const Async = <T extends any = object>({
     reloadSubject: upperReloadSubject,
     loading: upperLoading,
-    disabled,
+    disabled: upperDisabled,
     children,
     fallback,
     Loader = () => null,
@@ -64,6 +65,16 @@ export const Async = <T extends any = object>({
 }: IAsyncProps<T>) => {
 
     const [child, setChild] = useState<Result>('');
+    const [disabled, setDisabled] = useState(upperDisabled);
+
+    const upperDisabledChanged = useChangeSubject(upperDisabled);
+
+    useEffect(() => upperDisabledChanged.subscribe((upperDisabled: boolean) => {
+        if (upperDisabled) {
+            return;
+        }
+        setDisabled(false);
+    }), []);
 
     const { reloadTrigger, doReload } = useReloadTrigger();
 
@@ -88,12 +99,12 @@ export const Async = <T extends any = object>({
 
     useEffect(() => {
         
-        if (executionRef.current) {
-            executionRef.current.cancel();
-        }
-
         if (disabled) {
             return;
+        }
+
+        if (executionRef.current) {
+            executionRef.current.cancel();
         }
 
         /**

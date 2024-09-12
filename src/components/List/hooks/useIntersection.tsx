@@ -180,7 +180,7 @@ export const useIntersectionConnect = <T extends HTMLElement = HTMLElement>(id: 
     return ref;
 };
 
-export const useIntersectionListen = (id: string) => {
+export const useIntersectionListen = (id: RowId) => {
     const intersectionManager = useIntersectionContext();
 
     const [isVisible, setIsVisible] = useState(() => intersectionManager.getIsVisible(id));
