@@ -1,3 +1,38 @@
+# List Lazy Loading (v2.7.38, 13/09/2024)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.7.38)
+
+`<List />` component now lazy load only those rows which placed in the current viewport when `withRestorePos` flag enabled. Made by using [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+
+```tsx
+const connect = useListIntersectionConnect(data.id);
+
+...
+
+<TableRow ref={connect} ...
+```
+
+The custom cell template could be also engaged for lazy loading
+
+```tsx
+{
+  type: ColumnType.Compute,
+  field: "some_field",
+  element: (data) => {
+    const isVisible = useListIntersectionListen(data.id);
+    return (
+      <Async payload={data} disabled={!isVisible}>
+        {async () => {
+          ...
+        }}
+      </Async>
+    )
+  }
+}
+```
+
+
+
 # RoiView (v2.6.140, 26/07/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.140)
