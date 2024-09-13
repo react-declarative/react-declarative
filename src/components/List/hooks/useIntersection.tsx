@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import useActualValue from '../../../hooks/useActualValue';
 import useAsyncValue from '../../../hooks/useAsyncValue';
@@ -11,24 +11,25 @@ import Subject from "../../../utils/rx/Subject";
 
 import createValueProvider from "../../../utils/createValueProvider";
 import createSsManager from '../../../utils/createSsManager';
-import createAwaiter from '../../../utils/createAwaiter';
-import debounce from '../../../utils/hof/debounce';
 import sleep from '../../../utils/sleep';
+import not from '../../../utils/math/not';
 
 import { RowId } from "../../../model/IRowData";
+
 const [IntersectionContext, useIntersectionContext] = createValueProvider<IntersectionManager>();
 
-const SCROLL_CHECK_DELAY = 50;
+const SCROLL_ROWS_DELAY = 100;
 const SCROLL_KEEP_DELAY = 100;
-const RENDER_DEBOUNCE_DELAY = 75;
-const RENDER_MAX_DELAY = 400;
+
+const SCROLL_APPLY_DELAY = 250;
+const SCROLL_APPLY_ITERS = 20;
 
 const POSITIVE_INFINITY = 9999999999;
 const NEGATIVE_INFINITY = -9999999999;
 
 const getMiddle = (num1: number, num2: number) => {
-    return Math.floor((num1 + num2) / 2);
-}
+    return Math.floor((num1 + num2) / 2) - 1;
+};
 
 interface IIntersectionProviderProps {
     children: React.ReactNode;
@@ -49,6 +50,8 @@ class IntersectionManager {
     idMap = new Map<HTMLElement, RowId>();
     viewportMap = new Map<RowId, boolean>();
     visibleMap = new Map<RowId, boolean>();
+
+    isListening = true;
 
     getIsVisible = (id: RowId) => !!this.viewportMap.get(id);
     getElementCount = () => this.idMap.size;
@@ -88,16 +91,26 @@ class IntersectionManager {
         this.visibleMap.delete(id);
     };
 
-    scrollIntoView = (id: RowId) => {
-        for (const [key, value] of this.idMap.entries()) {
-            if (value === id) {
-                key.scrollIntoView({
-                    block: "center",
-                });
+    scrollIntoView = async (id: RowId) => {
+        for (let i = 0; i !== SCROLL_APPLY_ITERS; i++) {
+            if (this.visibleMap.size && this.visibleMap.has(id)) {
                 return true;
             }
+            if (!this.visibleMap.size && this.viewportMap.has(id)) {
+                return true;
+            }
+            const element = document.querySelector<HTMLElement>(`[data-intersectionid='${id}']`);
+            element && element.scrollIntoView({
+                block: "start",
+            });
+            await sleep(SCROLL_APPLY_DELAY);
         }
         return false;
+    };
+
+    disconnect = () => {
+        this.intersectionObserver.disconnect();
+        this.isListening = false;
     };
 
 };
@@ -105,7 +118,7 @@ class IntersectionManager {
 export const IntersectionProvider = ({
     children,
 }: IIntersectionProviderProps) => {
-    const { limit, rows, withRestorePos } = useProps();
+    const { rows, withRestorePos } = useProps();
 
     const intersectionManager = useSingleton(() => new IntersectionManager(!!withRestorePos));
     const rows$ = useActualValue(rows);
@@ -113,39 +126,20 @@ export const IntersectionProvider = ({
 
     useEffect(() => () => {
         isMounted.current = false;
-        intersectionManager.intersectionObserver.disconnect();
-    }, []);
-
-    const waitForRender = useCallback(() => {
-        const [promise, { resolve }] = createAwaiter<void>();
-        const handler = debounce(() => {
-            observer.disconnect();
-            resolve();
-        }, RENDER_DEBOUNCE_DELAY);
-        const observer = new MutationObserver(handler);
-        observer.observe(document.body, {
-            attributes: true,
-            childList: true,
-            subtree: true,
-        });
-        handler();
-        return promise;
+        intersectionManager.disconnect();
     }, []);
 
     const waitForRows = useCallback(async () => {
         while (true) {
+            const elementCount = intersectionManager.getElementCount();
             if (!isMounted.current) {
                 return;
             }
-            if (intersectionManager.getElementCount() >= limit) {
+            if (elementCount !== 0 && elementCount >= rows$.current.length) {
                 break;
             }
-            await sleep(SCROLL_CHECK_DELAY);
+            await sleep(SCROLL_ROWS_DELAY);
         }
-        await Promise.race([
-            waitForRender(),
-            sleep(RENDER_MAX_DELAY),
-        ]);
     }, []);
 
     useEffect(() => {
@@ -181,7 +175,7 @@ export const IntersectionProvider = ({
             return;
         }
         await waitForRows();
-        if (!intersectionManager.scrollIntoView(id)) {
+        if (await not(intersectionManager.scrollIntoView(id))) {
             console.error(`List IntersectionProvider scrollIntoView failed: id=${id} not found`);
         }
     });
@@ -194,20 +188,25 @@ export const IntersectionProvider = ({
 };
 
 export const useIntersectionConnect = <T extends HTMLElement = HTMLElement>(id: RowId) => {
-    const ref = useRef<T | null>(null);
+    const [ref, setRef] = useState<T | null>(null);
     const intersectionManager = useIntersectionContext();
 
-    useLayoutEffect(() => {
-        const { current: element } = ref;
-        if (!element) {
-            console.error('List useIntersection element is undefined');
+    useEffect(() => {
+        if (!ref) {
             return;
         }
-        intersectionManager.observe(id, element);
-        return () => intersectionManager.unobserve(id, element);
-    }, []);
+        ref.dataset.intersectionid = String(id);
+        intersectionManager.observe(id, ref);
+        return () => intersectionManager.unobserve(id, ref);
+    }, [ref]);
 
-    return ref;
+    return useCallback((ref: T | null) => {
+        if (!intersectionManager.withRestorePos) {
+            return;
+        }
+        if (ref) { ref.dataset.intersectionid = String(id); }
+        setRef(ref);
+    }, []);
 };
 
 export const useIntersectionListen = (id: RowId) => {
