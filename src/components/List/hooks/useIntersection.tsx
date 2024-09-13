@@ -220,12 +220,18 @@ export const useIntersectionConnect = <T extends HTMLElement = HTMLElement>(id: 
         if (!ref) {
             return;
         }
+        if (!intersectionManager) {
+            return;
+        }
         ref.dataset.intersectionid = String(id);
         intersectionManager.observe(id, ref);
         return () => intersectionManager.unobserve(id, ref);
     }, [ref]);
 
     return useCallback((ref: T | null) => {
+        if (!intersectionManager) {
+            return;
+        }
         if (!intersectionManager.withRestorePos) {
             return;
         }
@@ -237,13 +243,17 @@ export const useIntersectionConnect = <T extends HTMLElement = HTMLElement>(id: 
 export const useIntersectionListen = (id: RowId) => {
     const intersectionManager = useIntersectionContext();
 
-    const [isVisible, setIsVisible] = useState(() => intersectionManager.getIsVisible(id));
+    const [isVisible, setIsVisible] = useState(() => !!intersectionManager?.getIsVisible(id));
 
-    useEffect(() => intersectionManager.reloadSubject.subscribe(([elementId, isVisible]) => {
+    useEffect(() => intersectionManager?.reloadSubject.subscribe(([elementId, isVisible]) => {
         if (id === elementId) {
             setIsVisible(isVisible);
         }
     }), []);
+
+    if (!intersectionManager) {
+        return true;
+    }
 
     if (!intersectionManager.withRestorePos) {
         return true;
