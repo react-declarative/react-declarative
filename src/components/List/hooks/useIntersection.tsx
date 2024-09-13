@@ -28,9 +28,7 @@ const SCROLL_APPLY_ITERS = 20;
 const POSITIVE_INFINITY = 9999999999;
 const NEGATIVE_INFINITY = -9999999999;
 
-const getMiddle = (num1: number, num2: number) => {
-    return Math.floor((num1 + num2) / 2) - 1;
-};
+const SCROLL_ADJUST_COUNT = 3;
 
 const getFirstParentWithScrollbar = (element: HTMLElement): HTMLElement | null => {
     let currentElement: HTMLElement | null = element.parentElement;
@@ -47,6 +45,25 @@ const getListScrollArea = (element: HTMLElement): HTMLElement | null => {
     const root = document.querySelector(`.${ROOT_MARK}`);
     const container = getFirstParentWithScrollbar(element);
     return root?.contains(container) ? container : null;
+};
+
+const createApplyScroll = (self: IntersectionManager) => {
+    let count = 0;
+    return (id: RowId, element: HTMLElement) => {
+        if (!self.viewportMap.get(id)) {
+            element.scrollIntoView({
+                block: "start",
+            });
+            return false;
+        }
+        if (count++ < SCROLL_ADJUST_COUNT) {
+            element.scrollIntoView({
+                block: "start",
+            });
+            return false;
+        }
+        return true;
+    };
 };
 
 interface IIntersectionProviderProps {
@@ -66,6 +83,8 @@ class IntersectionManager {
 
     getIsVisible = (id: RowId) => !!this.viewportMap.get(id);
     getElementCount = () => this.idMap.size;
+
+    private _applyScroll = createApplyScroll(this);
 
     constructor (public readonly withRestorePos: boolean) { }
 
@@ -110,12 +129,9 @@ class IntersectionManager {
                 await sleep(SCROLL_APPLY_DELAY);
                 continue;
             }
-            if (this.viewportMap.get(id)) {
+            if (this._applyScroll(id, element)) {
                 return true;
             }
-            element && element.scrollIntoView({
-                block: "start",
-            });
             await sleep(SCROLL_APPLY_DELAY);
         }
         return false;
@@ -173,8 +189,7 @@ export const IntersectionProvider = ({
                 minIdx = Math.min(rowIdx, minIdx);
                 maxIdx = Math.max(rowIdx, maxIdx);
             }
-            const middleIdx = getMiddle(minIdx, maxIdx);
-            const row = rows$.current[middleIdx] || rows$.current[minIdx];
+            const row = rows$.current[minIdx];
             row && storageManger.setValue(row.id);
         });
     });
