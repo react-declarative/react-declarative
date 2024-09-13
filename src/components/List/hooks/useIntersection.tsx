@@ -15,6 +15,7 @@ import sleep from '../../../utils/sleep';
 import not from '../../../utils/math/not';
 
 import { RowId } from "../../../model/IRowData";
+import { ROOT_MARK } from '../components/Container';
 
 const [IntersectionContext, useIntersectionContext] = createValueProvider<IntersectionManager>();
 
@@ -31,17 +32,28 @@ const getMiddle = (num1: number, num2: number) => {
     return Math.floor((num1 + num2) / 2) - 1;
 };
 
+const getFirstParentWithScrollbar = (element: HTMLElement): HTMLElement | null => {
+    let currentElement: HTMLElement | null = element.parentElement;
+    while (currentElement) {
+      if (currentElement.scrollHeight > currentElement.clientHeight) {
+        return currentElement;
+      }
+      currentElement = currentElement.parentElement;
+    }
+    return null;
+};
+
+const getListScrollArea = (element: HTMLElement): HTMLElement | null => {
+    const root = document.querySelector(`.${ROOT_MARK}`);
+    const container = getFirstParentWithScrollbar(element);
+    return root?.contains(container) ? container : null;
+};
+
 interface IIntersectionProviderProps {
     children: React.ReactNode;
 }
 
 const storageManger = createSsManager<RowId>("LIST_RESTORE_POS_ID");
-
-declare global {
-    interface IntersectionObserverEntry {
-        isVisible: boolean;
-    }
-}
 
 class IntersectionManager {
 
@@ -49,7 +61,6 @@ class IntersectionManager {
 
     idMap = new Map<HTMLElement, RowId>();
     viewportMap = new Map<RowId, boolean>();
-    visibleMap = new Map<RowId, boolean>();
 
     isListening = true;
 
@@ -67,7 +78,6 @@ class IntersectionManager {
                 return;
             }
             this.viewportMap.set(id, entry.isIntersecting);
-            this.visibleMap.set(id, entry.isVisible || entry.isIntersecting);
             this.reloadSubject.next([id, entry.isIntersecting]);
         });
     });
@@ -79,7 +89,6 @@ class IntersectionManager {
         this.intersectionObserver.observe(element);
         this.idMap.set(element, id);
         this.viewportMap.set(id, false);
-        this.visibleMap.set(id, false);
     };
 
     unobserve = (id: RowId, element: HTMLElement) => {
@@ -88,18 +97,22 @@ class IntersectionManager {
         }
         this.idMap.delete(element);
         this.viewportMap.delete(id);
-        this.visibleMap.delete(id);
     };
 
     scrollIntoView = async (id: RowId) => {
         for (let i = 0; i !== SCROLL_APPLY_ITERS; i++) {
-            if (this.visibleMap.size && this.visibleMap.has(id)) {
-                return true;
-            }
-            if (!this.visibleMap.size && this.viewportMap.has(id)) {
-                return true;
-            }
             const element = document.querySelector<HTMLElement>(`[data-intersectionid='${id}']`);
+            if (!element) {
+                await sleep(SCROLL_APPLY_DELAY);
+                continue;
+            }
+            if (!getListScrollArea(element)) {
+                await sleep(SCROLL_APPLY_DELAY);
+                continue;
+            }
+            if (this.viewportMap.get(id)) {
+                return true;
+            }
             element && element.scrollIntoView({
                 block: "start",
             });
@@ -151,9 +164,6 @@ export const IntersectionProvider = ({
             let maxIdx = NEGATIVE_INFINITY;
             for (const [rowId, intersecting] of intersectionManager.viewportMap.entries()) {
                 if (!intersecting) {
-                    continue;
-                }
-                if (intersectionManager.visibleMap.size && !intersectionManager.visibleMap.get(rowId)) {
                     continue;
                 }
                 const rowIdx = rows$.current.findIndex(({ id }) => id === rowId);
