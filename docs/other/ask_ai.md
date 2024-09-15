@@ -54,4 +54,12 @@ write a sample sign in form by using IField interface
 
 Enjoy the code generation based on the documentation.
 
+## List of GPT chats which known about `react-declarative`
+
+1. ChatGPT - [https://chatgpt.com/](https://chatgpt.com/)
+2. Perplexity - [https://www.perplexity.ai/](https://www.perplexity.ai/)
+3. Claude - [https://claude.ai/](https://claude.ai/)"
+4. Bing Copilot - [https://www.bing.com/chat](https://www.bing.com/chat)
+5. Google Gemini - [https://gemini.google.com/](https://gemini.google.com/)
+
 Thank you for your attention!
