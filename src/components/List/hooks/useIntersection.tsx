@@ -11,16 +11,17 @@ import Subject from "../../../utils/rx/Subject";
 
 import createValueProvider from "../../../utils/createValueProvider";
 import createSsManager from '../../../utils/createSsManager';
-import sleep from '../../../utils/sleep';
+import debounce from '../../../utils/hof/debounce';
 import not from '../../../utils/math/not';
+import sleep from '../../../utils/sleep';
 
 import { RowId } from "../../../model/IRowData";
 import { ROOT_MARK } from '../components/Container';
 
 const [IntersectionContext, useIntersectionContext] = createValueProvider<IntersectionManager>();
 
+const SCROLL_RELOAD_DELAY = 450;
 const SCROLL_ROWS_DELAY = 100;
-const SCROLL_KEEP_DELAY = 100;
 
 const SCROLL_APPLY_DELAY = 250;
 const SCROLL_APPLY_ITERS = 20;
@@ -74,7 +75,7 @@ const storageManger = createSsManager<RowId>("LIST_RESTORE_POS_ID");
 
 class IntersectionManager {
 
-    readonly reloadSubject = new Subject<[RowId, boolean]>();
+    readonly reloadSubject = new Subject<void>();
 
     idMap = new Map<HTMLElement, RowId>();
     viewportMap = new Map<RowId, boolean>();
@@ -88,6 +89,10 @@ class IntersectionManager {
 
     constructor (public readonly withRestorePos: boolean) { }
 
+    private emitSubject = debounce(() => {
+        this.reloadSubject.next();
+    }, SCROLL_RELOAD_DELAY);
+
     intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             const target = entry.target as HTMLElement;
@@ -97,7 +102,7 @@ class IntersectionManager {
                 return;
             }
             this.viewportMap.set(id, entry.isIntersecting);
-            this.reloadSubject.next([id, entry.isIntersecting]);
+            this.emitSubject();
         });
     });
 
@@ -175,7 +180,7 @@ export const IntersectionProvider = ({
         if (!withRestorePos) {
             return undefined;
         }
-        return intersectionManager.reloadSubject.debounce(SCROLL_KEEP_DELAY).connect(() => {
+        return intersectionManager.reloadSubject.subscribe(() => {
             let minIdx = POSITIVE_INFINITY;
             let maxIdx = NEGATIVE_INFINITY;
             for (const [rowId, intersecting] of intersectionManager.viewportMap.entries()) {
@@ -245,10 +250,16 @@ export const useIntersectionListen = (id: RowId) => {
 
     const [isVisible, setIsVisible] = useState(() => !!intersectionManager?.getIsVisible(id));
 
-    useEffect(() => intersectionManager?.reloadSubject.subscribe(([elementId, isVisible]) => {
-        if (id === elementId) {
-            setIsVisible(isVisible);
-        }
+    const isMounted = useRef(true);
+
+    useEffect(() => () => {
+        isMounted.current = false;
+    }, []);
+
+    useEffect(() => intersectionManager?.reloadSubject.subscribe(() => {
+        queueMicrotask(() => {
+            isMounted.current && setIsVisible(intersectionManager.getIsVisible(id));
+        });
     }), []);
 
     if (!intersectionManager) {
