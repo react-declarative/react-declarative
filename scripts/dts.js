@@ -22,11 +22,6 @@ const formatdef = prettierSync.format(fs.readFileSync('dist/react-declarative.d.
 });
 fs.writeFileSync('dist/react-declarative.d.ts', formatdef)
 
-fs.existsSync("demo") && fs.copyFileSync(
-    'dist/index.d.ts',
-    'demo/react-declarative.d.ts',
-);
-
 glob.sync("./dist/**/*.js.map").forEach((file) => {
     rimraf.sync(file);
 });
@@ -42,3 +37,7 @@ glob.sync("./dist/*").forEach((file) => {
 
 fs.renameSync("./dist/react-declarative.d.ts", "./dist/index.d.ts")
 
+fs.existsSync("demo") && fs.copyFileSync(
+    'dist/index.d.ts',
+    'demo/react-declarative.d.ts',
+);
