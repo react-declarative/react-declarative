@@ -8,7 +8,7 @@ There are two main code styles of OOP used in enterprise: `class-oriented` and `
 
 ### Class-Oriented Design 
 
-**Class-oriented design**  is a programming paradigm that revolves around the concept of classes and objects. It's a key feature of Object-Oriented Programming (OOP). In class-oriented design: 
+In class-oriented design: 
 
 1. **Classes** : Define the structure and behavior of objects. A class is a blueprint for creating objects, encapsulating data (attributes) and methods (functions) that operate on the data.
  
@@ -76,7 +76,7 @@ myTruck.loadCargo();
 
 ### Component-Oriented Design 
 
-**Component-oriented design**  focuses on building software systems using interchangeable and reusable components. Components are more granular than classes and often encapsulate a specific functionality or service. In component-oriented design:
+In component-oriented design:
 
 1. **Components** : Are self-contained units of functionality with well-defined interfaces. They can be assembled together to form complex systems.
  
