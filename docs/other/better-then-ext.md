@@ -235,7 +235,7 @@ Ext.define('KitchenSink.view.grid.ArrayGrid', {
 
 **React Declarative**
 
-In that sample, the grid schema is defined externally which makes the schema immutable: It could be reused for other features like data serialisation for Excel export. The column interface is extended with `serialize` pure function which allow excel export of images
+In that sample, the grid schema is defined externally which makes the schema immutable: It could be reused for other features like data serialization for Excel export. The column interface is extended with `serialize` pure function which allow excel export of images
 
 ```tsx
 interface ICustomColumn<T> extends IColumn<T> {
@@ -470,7 +470,7 @@ const fields: TypedField[] = [
 
 **ExtJS**
 
-Cause the can't access the classes implementation, the styling is restricted to CSS. That means you simply can't implement custom popovers for calendars, custom input pattern for banking cards, custom country select for mobile phones and more. You need to manually rewrite the fields and replace them in the whole code base which make It more difficult then rewrite from scratch the whole application
+Cause the can't access the classes implementation, the styling is restricted to `CSS`. That means you simply can't implement custom popovers for calendars, custom input pattern for banking cards, custom country select for mobile phones and more. You need to manually rewrite the fields and replace them in the whole code base which make It more difficult then rewrite from scratch the whole application
 
 ```css
 $sub-header-background-color: rgba(242,223,239,1);
@@ -544,7 +544,7 @@ $neutral-color: rgba(247,234,234,1);
 
 **React Declarative**
 
-By using slots approach you can access JS and CSS both: there are no restrictions
+By using slots approach you can access `JS` and `CSS` both: there are no restrictions
 
 ```tsx
 import { MantineProvider } from "@mantine/core";
