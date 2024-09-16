@@ -558,3 +558,7 @@ const wrappedApp = (
     </MantineProvider>
 );
 ```
+
+## Be aware of using ununified interfaces
+
+When coding common React application, even if we follow accessibility, the software design inherits the same mistate: there are no any code which can reuse the `<Breadcrumbs />` component interface. This reduce all benefits of modern code style cause the component may be reusable but interface never reused: the developers team multiply similar implementations of the same business functions
