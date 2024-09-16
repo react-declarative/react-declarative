@@ -12,7 +12,7 @@ import singleshot from "../../../../../utils/hof/singleshot";
 interface IParams {
   compute: IField["compute"];
   shouldRecompute: IField["shouldRecompute"];
-  object: IAnything;
+  getObjectRef: () => IAnything;
   payload: IAnything;
 }
 
@@ -29,7 +29,7 @@ interface IParams {
 export const useManagedCompute = ({
   compute,
   shouldRecompute = () => true,
-  object,
+  getObjectRef,
   payload,
 }: IParams): IField["compute"] => {
   const prevObject = useRef<any>(null);
@@ -69,6 +69,7 @@ export const useManagedCompute = ({
     if (!compute) {
       return;
     }
+    const object = getObjectRef();
     if (!initial.current) {
       if (!shouldRecompute(prevObject.current, object, payload)) {
         return;
@@ -77,7 +78,7 @@ export const useManagedCompute = ({
     prevObject.current = object;
     initial.current = false;
     managedCompute?.clear();
-  }, [object, payload]);
+  }, []);
 
   tickRecompute();
 
