@@ -118,7 +118,9 @@ const middleware = useCallback((state, action, defaultReducer) => {
 
 ## The same form in react-declarative way
 
-This code is shorten. This code is easier to understand. It is functionally pure. It is your choice
+This code is shorten. This code is easier to understand. It is functionally pure. It is your choice.
+
+Take a look that VSCode IntelliSense (autocomplete) available. This is a killer feature of `react-declarative` schemas: without json autocomplete the schema writing become monkey-coding with unnecessary page reloads
 
 ```tsx
 import { TypedField, FieldType, One } from "react-declarative";
