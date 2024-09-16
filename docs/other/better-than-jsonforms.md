@@ -84,7 +84,7 @@ The signifficant diffrence between `jsonforms` and `react-declarative` is the lo
 }
 ```
 
-This is bad. But if we talk about data bindings in jsonforms it become awful cause you need to implement redux-like middlewares. This is legacy way of the development which will break your app by destroying function pureness in long term [by new code addition side effect](./code-sideeffect.md)
+This is bad. But if we talk about data bindings in jsonforms it become awful cause you need to implement redux-like middlewares. This is legacy way of the development which will break your app by destroying function pureness in long term [by the new code addition side effect](./code-sideeffect.md)
 
 ```tsx
 import { INIT, UPDATE_DATA } from  '@jsonforms/core'
