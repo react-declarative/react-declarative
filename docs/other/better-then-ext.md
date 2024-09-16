@@ -1,4 +1,4 @@
-# The revolution of ExtJS approach in react-declarative
+# The revolution for ExtJS approach in react-declarative
 
 > Someone told me that `react-declarative` is ExtJS reimplementation. This is not quite right
 
