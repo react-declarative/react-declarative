@@ -28,8 +28,6 @@ description: string
 
 Returns the "description" property value of the given object.
 The object must be of type IField&lt;Data, Payload&gt;.
-Returns the "description" property value of the given object.
-The object must be of type IField&lt;Data, Payload&gt;.
 
 ### outlined
 

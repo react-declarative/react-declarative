@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 
+import { IDebouncedValueRef } from '../../../hooks/useDebounceValue';
 import { Value } from '../../../../../model/IField';
 
 /**
@@ -14,7 +15,7 @@ interface IMemory {
     clickDisabled: boolean;
     fieldName: string;
     isMounted: boolean;
-    lastDebouncedValue: Value;
+    lastDebouncedValue: IDebouncedValueRef<Value>;
     fieldReadonly$: boolean;
     upperReadonly$: boolean;
     focusReadonly$: boolean;
