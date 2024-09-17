@@ -1,3 +1,5 @@
+type Function = () => void;
+
 /**
  * Interface representing an object that can be cleared and flushed.
  */
@@ -6,6 +8,9 @@ export interface IClearable {
     flush: () => void;
     pending: () => boolean;
 }
+
+const REQUEST_ANIMATION_FRAME = (fn: Function) => requestAnimationFrame(fn);
+const CANCEL_ANIMATION_FRAME = (id: ReturnType<typeof requestAnimationFrame>) => cancelAnimationFrame(id);
 
 /**
  * Creates a debounced version of a function.
@@ -18,6 +23,9 @@ export interface IClearable {
 export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_000): T & IClearable => {
     let timeout: any;
     let lastRun: Function | null = null;
+
+    const on = delay ? setTimeout : REQUEST_ANIMATION_FRAME;
+    const un = delay ? clearTimeout : CANCEL_ANIMATION_FRAME;
   
     /**
      * Wrapper function that delays the execution of a given function
@@ -27,14 +35,14 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @returns
      */
     const wrappedFn = (...args: any[]) => {
-      timeout !== null && clearTimeout(timeout);
+      timeout !== null && un(timeout);
       const exec = () => {
         lastRun = null;
         timeout = null;
         run(...args);
       };
       lastRun = exec;
-      timeout = setTimeout(exec, delay);
+      timeout = on(exec, delay);
     };
 
     /**
@@ -43,7 +51,7 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @memberof wrappedFn
      */
     wrappedFn.clear = () => {
-      timeout !== null && clearTimeout(timeout);
+      timeout !== null && un(timeout);
       timeout = null;
       lastRun = null;
     };
@@ -55,7 +63,7 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @returns
      */
     wrappedFn.flush = () => {
-      timeout !== null && clearTimeout(timeout);
+      timeout !== null && un(timeout);
       lastRun && lastRun();
       timeout = null;
       lastRun = null;
