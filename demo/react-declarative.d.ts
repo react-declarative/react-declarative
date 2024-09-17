@@ -8354,6 +8354,7 @@ declare module "react-declarative/utils/hof/debounce" {
   export interface IClearable {
     clear: () => void;
     flush: () => void;
+    pending: () => boolean;
   }
   /**
    * Creates a debounced version of a function.

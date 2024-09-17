@@ -4,6 +4,7 @@
 export interface IClearable {
     clear: () => void;
     flush: () => void;
+    pending: () => boolean;
 }
 
 /**
@@ -26,9 +27,10 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @returns
      */
     const wrappedFn = (...args: any[]) => {
-      clearTimeout(timeout);
+      timeout !== null && clearTimeout(timeout);
       const exec = () => {
         lastRun = null;
+        timeout = null;
         run(...args);
       };
       lastRun = exec;
@@ -41,7 +43,8 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @memberof wrappedFn
      */
     wrappedFn.clear = () => {
-      clearTimeout(timeout);
+      timeout !== null && clearTimeout(timeout);
+      timeout = null;
       lastRun = null;
     };
 
@@ -52,8 +55,14 @@ export const debounce = <T extends (...args: any[]) => any>(run: T, delay = 1_00
      * @returns
      */
     wrappedFn.flush = () => {
-      clearTimeout(timeout);
+      timeout !== null && clearTimeout(timeout);
       lastRun && lastRun();
+      timeout = null;
+      lastRun = null;
+    };
+
+    wrappedFn.pending = () => {
+      return !!lastRun;
     };
 
     return wrappedFn as T & IClearable;

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
-import { IDebouncedValueRef } from '../../../hooks/useDebounceValue';
 import { Value } from '../../../../../model/IField';
+import IAnything from '../../../../../model/IAnything';
 
 /**
  * Represents the interface for managing the memory state in the application.
@@ -15,7 +15,7 @@ interface IMemory {
     clickDisabled: boolean;
     fieldName: string;
     isMounted: boolean;
-    lastDebouncedValue: IDebouncedValueRef<Value>;
+    lastObject: IAnything;
     fieldReadonly$: boolean;
     upperReadonly$: boolean;
     focusReadonly$: boolean;
@@ -48,7 +48,7 @@ interface IMemoryData extends Omit<IMemory, keyof {
  * @param memoryData - The data needed to create the memory object.
  * @param memoryData.prefix - The prefix to use for the memory field name.
  * @param memoryData.name - The name of the memory field.
- * @param memoryData.lastDebouncedValue - The last debounced value of the memory field.
+ * @param memoryData.lastObject - The last debounced value of the memory field.
  * @param memoryData.debouncedValue$ - The observable for the debounced value of the memory field.
  * @param memoryData.fieldReadonly$ - The observable for the readonly state of the memory field.
  * @param memoryData.focusReadonly$ - The observable for the readonly state of the focus.
@@ -62,7 +62,7 @@ export const useFieldMemory = ({
     prefix,
     name,
     clickDisabled,
-    lastDebouncedValue,
+    lastObject,
     debouncedValue$,
     fieldReadonly$,
     focusReadonly$,
@@ -79,7 +79,7 @@ export const useFieldMemory = ({
      * @property objectUpdate - Represents whether object has been updated.
      * @property initComplete - Represents whether initialization has been completed.
      * @property fieldName - Represents the field name.
-     * @property lastDebouncedValue - Represents the last debounced value.
+     * @property lastObject - Represents the last debounced value.
      * @property isMounted - Represents whether the component is mounted.
      * @property debouncedValue$ - Represents the debounced value.
      * @property fieldReadonly$ - Represents the field readonly value.
@@ -94,7 +94,7 @@ export const useFieldMemory = ({
         objectUpdate: false,
         initComplete: false,
         fieldName: `${prefix}(${name || 'unknown'})`,
-        lastDebouncedValue,
+        lastObject,
         isMounted: true,
         clickDisabled: false,
         debouncedValue$: null as never,

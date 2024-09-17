@@ -232,8 +232,6 @@ export function makeField(
 
         const compute = useManagedCompute({
             compute: upperCompute,
-            getObjectRef,
-            payload,
             shouldRecompute,
         });
 
@@ -296,7 +294,7 @@ export function makeField(
             prefix,
             name,
             clickDisabled: fieldDisabled || disabled,
-            lastDebouncedValue: debouncedValueRef,
+            lastObject: null,
             debouncedValue$: debouncedValueRef.value,
             fieldReadonly$: fieldReadonly,
             focusReadonly$: focusReadonly,
@@ -506,12 +504,23 @@ export function makeField(
                 flush();
                 return;
             }
-            if (memory.lastDebouncedValue === debouncedValueRef) {
+            /**
+             * Изменение любого поля меняет ссылку целевого объекта. 
+             * Это позволяет производительно определить направление изменения 
+             */
+            if (memory.lastObject !== object) {
                 handleIncomingObject();
                 handleWasInvalid();
             }
             handleOutgoingObject();
-            memory.lastDebouncedValue = debouncedValueRef;
+            memory.lastObject = object;
+            /**
+             * Объект debouncedValueRef оборачивает примитив для сохранения логики
+             * сопоставления по ссылке, а не значению.
+             * 
+             * Коллбек compute, вернувший два раза одно и тоже
+             * значение сохранит двойное срабатывание очереди
+             */
         }, [debouncedValueRef, object]);
 
         /*
