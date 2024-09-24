@@ -67,10 +67,6 @@ const useStyles = makeStyles()({
     alignItems: "stretch",
     justifyContent: "stretch",
     maxHeight: '45vh',
-    scrollbarWidth: 'none',
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
     overflowY: 'auto',
     overflowX: 'hidden',
   },

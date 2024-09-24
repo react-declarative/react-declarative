@@ -18,7 +18,9 @@ export default {
   ],
   plugins: [
     million.rollup({ auto: true }),
-    peerDepsExternal(),
+    peerDepsExternal({
+      includeDependencies: true,
+    }),
     typescript({
       tsconfig: './tsconfig.json'
     }),

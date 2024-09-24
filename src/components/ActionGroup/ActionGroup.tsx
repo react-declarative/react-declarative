@@ -75,10 +75,6 @@ const useStyles = makeStyles()({
     overflowY: 'auto',
     overflowX: 'hidden',
     maxHeight: '45vh',
-    scrollbarWidth: 'none',
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
   },
   content: {
     flex: 1,

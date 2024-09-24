@@ -78,10 +78,6 @@ export const VirtualListBox = forwardRef(
               width: size.width,
               height: `min(${computeHeight()}px, 45vh)`,
               maxHeight: '45vh',
-              scrollbarWidth: 'none',
-              "&::-webkit-scrollbar": {
-                display: "none",
-              },
             }}
             minRowHeight={MIN_ROW_HEIGHT}
           >
