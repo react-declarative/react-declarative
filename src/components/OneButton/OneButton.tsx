@@ -12,7 +12,8 @@ import Badge from "@mui/material/Badge";
 import IOneButtonProps from "./model/IOneButtonProps";
 
 import useRenderWaiter from "../../hooks/useRenderWaiter";
-import useActualValue from "../../hooks/useActualValue";
+
+import useActualCallback from "../../hooks/useActualCallback";
 import useAsyncValue from "../../hooks/useAsyncValue";
 import useSingleton from "../../hooks/useSingleton";
 import useSubject from "../../hooks/useSubject";
@@ -86,7 +87,7 @@ export const OneButton = <
   badgeOverlap,
   badgeSx,
   oneSx,
-  onChange,
+  onChange = () => undefined,
   onFocus,
   onBlur,
   isBaseline,
@@ -105,6 +106,8 @@ export const OneButton = <
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [readonly, setReadonly] = useState(false);
 
+  const onChange$ = useActualCallback(onChange);
+
   /**
    * Represents the variable `data`.
    *
@@ -114,7 +117,7 @@ export const OneButton = <
    * @property isActive - Indicates whether the data is active or not.
    * @property tags - An array of tags associated with the data.
    */
-  const [data, { loading, error }, setData] = useAsyncValue(async () => {
+  const [data, { loading, error }, setData, { data$ }] = useAsyncValue(async () => {
     const getResult = async () => {
       if (typeof handler === "function") {
         return await (handler as Function)(payload);
@@ -126,15 +129,13 @@ export const OneButton = <
       getInitialData(fields, payload),
       await getResult()
     );
-    onChange && onChange(data, true);
+    onChange$(data, true);
     return data;
   });
 
   const [invalid, setInvalid] = useState(false);
 
   const waitForRender = useRenderWaiter([data], 10);
-
-  const data$ = useActualValue(data);
 
   /**
    * Waits for changes to occur by executing a Promise race between waitForRender()
@@ -180,7 +181,7 @@ export const OneButton = <
       singlerun(async () => {
         setReadonly(true);
         await waitForChanges();
-        onChange && onChange(data$.current, false);
+        onChange$(data$.current, false);
         setAnchorEl(null);
         setReadonly(false);
       }),
@@ -264,7 +265,7 @@ export const OneButton = <
             if (!initial) {
               setData(data);
               setInvalid(false);
-              onChange && onChange(data, false);
+              onChange$(data, false);
               changeSubject.next();
             }
           }}

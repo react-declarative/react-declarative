@@ -5669,6 +5669,7 @@ declare module "react-declarative/hooks/useAsyncAction" {
 }
 
 declare module "react-declarative/hooks/useAsyncValue" {
+  import { MutableRefObject } from "react";
   import { IResult } from "react-declarative/hooks/useAsyncAction";
   /**
    * Represents the options for configuring various parameters.
@@ -5698,6 +5699,7 @@ declare module "react-declarative/hooks/useAsyncValue" {
     (data: Data) => void,
     {
       waitForResult: () => Promise<Data>;
+      data$: MutableRefObject<Data | null>;
     },
   ];
   export default useAsyncValue;

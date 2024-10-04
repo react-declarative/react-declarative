@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback, MutableRefObject } from "react";
 
 import useAsyncAction, { IResult } from "./useAsyncAction";
-import useActualValue from "./useActualValue";
 
 import sleep from "../utils/sleep";
+import useActualState from "./useActualState";
 
 /**
  * Represents the options for configuring various parameters.
@@ -28,9 +28,8 @@ interface IParams {
 export const useAsyncValue = <Data extends any = any>(
   run: () => Data | Promise<Data>,
   params: IParams = {}
-): [Data | null, IResult<void, void>, (data: Data) => void, { waitForResult: () => Promise<Data> }] => {
-  const [result, setResult] = useState<Data | null>(null);
-  const result$ = useActualValue(result);
+): [Data | null, IResult<void, void>, (data: Data) => void, { waitForResult: () => Promise<Data>, data$: MutableRefObject<Data | null> }] => {
+  const [result$, setResult] = useActualState<Data | null>(null);
 
   /**
    * Executes an asynchronous action with parameters.
@@ -56,7 +55,7 @@ export const useAsyncValue = <Data extends any = any>(
     return result$.current!;
   }, []);
 
-  return [result, action, setResult, { waitForResult }];
+  return [result$.current, action, setResult, { waitForResult, data$: result$ }];
 };
 
 export default useAsyncValue;
