@@ -280,7 +280,7 @@ export class Entry<
    */
   public componentDidMount = () => {
     this.isMountedFlag = true;
-    this.handleReady();
+    this.handleReady(true);
     this.handleUpdateRef();
   };
 
@@ -476,19 +476,12 @@ export class Entry<
   };
 
   /**
-   * Handles empty filters by checking if filters exist and if they are custom filters
+   * Applies initial filters
    *
    * @function handleEmptyFilters
    */
-  private handleReady = () => {
-    let hasFilters = true;
-    hasFilters = hasFilters && Array.isArray(this.props.filters);
-    hasFilters = hasFilters && !!this.props.filters?.length;
-    if (hasFilters) {
-      this.handleDefault(true);
-    } else {
-      this.handleDefault(false);
-    }
+  private handleReady = (withKeepFilters = false) => {
+    this.handleDefault(withKeepFilters);
     this.prevState.filtersCollapsed = this.state.filtersCollapsed;
   };
 
