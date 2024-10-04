@@ -82,7 +82,6 @@ const LOAD_SOURCE = "list-columns";
  * @returns - The head row component.
  */
 export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
-  fullWidth,
   columns,
 }: IHeadRowSlot) => {
   const { classes } = useStyles();
@@ -253,7 +252,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
    * @param columns - The array of table columns.
    * @returns - The rendered content of the table columns.
    */
-  const content = useMemo(() => {
+  const renderContent = () => {
     /**
      * Renders a column in a table.
      *
@@ -347,7 +346,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
 
     return content;
 
-  }, [fullWidth]);
+  };
 
   /**
    * Computes the tooltip label based on the current state.
@@ -372,7 +371,7 @@ export const DesktopHeadRow = <RowData extends IRowData = IAnything>({
           <Tooltip title={computeTooltipLabel()}>{renderCheckbox()}</Tooltip>
         )}
       </TableCell>
-      {content}
+      {renderContent()}
       <TableCell className={classes.cellStretch} />
     </TableRow>
   );
