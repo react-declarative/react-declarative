@@ -59,7 +59,7 @@ The [Mantine theme playground](https://react-declarative-mantine.github.io/)
 
 ## Using with AI
 
-![prompt](./docs/images/claudeai.png)
+![screencast](./assets/images/claude.gif)
 
 There is a guide to make GPT-4 generate form schemas automatically. Check [the docs folder for guide](./docs/Readme.md#using-with-ai)
 
