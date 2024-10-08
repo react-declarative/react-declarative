@@ -19,8 +19,26 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
 }> {
     fullScreen?: boolean;
     transparentHeader?: boolean;
-    BeforeTabs?: React.ComponentType<any>;
-    AfterTabs?: React.ComponentType<any>;
+    BeforePaper?: React.ComponentType<{
+        payload: Payload;
+        history: History;
+        activeTab: ITabsStep<Payload>;
+    }>;
+    AfterPaper?: React.ComponentType<{
+        payload: Payload;
+        history: History;
+        activeTab: ITabsStep<Payload>;
+    }>;
+    BeforeTabs?: React.ComponentType<{
+        payload: Payload;
+        history: History;
+        activeTab: ITabsStep<Payload>;
+    }>;
+    AfterTabs?: React.ComponentType<{
+        payload: Payload;
+        history: History;
+        activeTab: ITabsStep<Payload>;
+    }>;
     className?: string;
     outlinePaper?: boolean;
     transparentPaper?: boolean;

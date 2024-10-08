@@ -15,6 +15,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import ITabsViewProps from "./model/ITabsViewProps";
 import { OtherProps } from "./model/ITabsOutlet";
 import IAnything from "../../model/IAnything";
+import ITabsStep from "./model/ITabsStep";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useLocalHistory from "../../hooks/useLocalHistory";
@@ -35,6 +36,12 @@ const LOADER_HEIGHT = 4;
  */
 const useStyles = makeStyles()((theme) => ({
   root: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+  },
+  container: {
     position: "relative",
     overflow: "hidden",
     display: "flex",
@@ -42,7 +49,7 @@ const useStyles = makeStyles()((theme) => ({
     justifyContent: "stretch",
     flexDirection: "column",
     width: "100%",
-    minHeight: 365,
+    flex: 1,
   },
   header: {
     position: "absolute",
@@ -139,6 +146,8 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   onSubmit = () => true,
   BeforeTabs,
   AfterTabs,
+  BeforePaper,
+  AfterPaper,
   fullScreen,
   otherProps: upperOtherProps = {} as unknown as OtherProps,
   ...outletProps
@@ -179,27 +188,24 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
    * @property setProgress - Function to set the progress of the props loading
    * @property upperOtherProps - Additional props to be included
    */
-  const otherProps = useMemo(
-    () => {
-      return Object.assign(
-        {
-          size,
-          loading: !!loading,
-          progress,
-          setLoading: (isLoading: boolean) => {
-            setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
-            setProgress(0);
-          },
-          setProgress: (progress: number) => {
-            setLoading(0);
-            setProgress(progress);
-          },
+  const otherProps = useMemo(() => {
+    return Object.assign(
+      {
+        size,
+        loading: !!loading,
+        progress,
+        setLoading: (isLoading: boolean) => {
+          setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
+          setProgress(0);
         },
-        upperOtherProps,
-      );
-    },
-    [size.height, size.width]
-  );
+        setProgress: (progress: number) => {
+          setLoading(0);
+          setProgress(progress);
+        },
+      },
+      upperOtherProps
+    );
+  }, [size.height, size.width]);
 
   useEffect(
     () =>
@@ -235,6 +241,19 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
     }
     return (lastActiveStep.current = activeStep);
   }, [path]);
+
+  /**
+   * Computes the active tab  based on the activeStep index
+   *
+   * @function
+   * @name activeTab
+   * @returns The current step. Returns null if not found
+   * @param activeStep - The current active tab step.
+   *
+   */
+  const activeTab = useMemo((): ITabsStep<Payload> | null => {
+    return tabs[activeStep] ?? null;
+  }, [activeStep]);
 
   /**
    * Renders a loader component based on the state of loading and progress.
@@ -284,57 +303,103 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
         return false;
       }
       return await onSubmit(data, payload, config);
-    },
+    }
   );
 
+  const renderOutlet = () => (
+    <OutletView<Data, Payload>
+      fullScreen={fullScreen}
+      history={history}
+      routes={routes as IOutlet<Data, Payload>[]}
+      otherProps={otherProps}
+      payload={payload}
+      onSubmit={handleSubmit}
+      {...outletProps}
+    />
+  );
+
+  if (activeTab?.passthrough) {
+    return <>{renderOutlet()}</>;
+  }
+
   return (
-    <PaperView
-      outlinePaper={outlinePaper}
-      transparentPaper={transparentPaper}
+    <Box
       className={classNames(classes.root, className)}
       style={style}
       sx={sx}
     >
-      <Tabs
-        variant="standard"
-        className={classNames(classes.header, {
-          [classes.headerBg]: !transparentHeader,
-        })}
-        classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
-        value={activeStep}
-        sx={{ background: outlinePaper || transparentPaper ? "transparent !important" : "inherit" }}
-        onChange={(_, idx) => {
-          onTabChange(tabs[idx].id!, history, payload);
-        }}
-      >
-        {BeforeTabs && <BeforeTabs />}
-        {tabs.map(({ label, icon: Icon }, idx) => (
-          <Tab
-            key={idx}
-            classes={{
-              root: classes.tabRoot,
-              selected: classes.tabSelected,
-            }}
-            label={label}
-            icon={Icon && <Icon />}
-          />
-        ))}
-        {AfterTabs && <AfterTabs />}
-      </Tabs>
-      {renderLoader()}
-      <div className={classes.adjust} />
-      <Box ref={elementRef} className={classes.content}>
-        <OutletView<Data, Payload>
-          fullScreen={fullScreen}
+      {BeforePaper && (
+        <BeforePaper
+          activeTab={activeTab!}
           history={history}
-          routes={routes as IOutlet<Data, Payload>[]}
-          otherProps={otherProps}
           payload={payload}
-          onSubmit={handleSubmit}
-          {...outletProps}
         />
-      </Box>
-    </PaperView>
+      )}
+      <PaperView
+        className={classes.container}
+        outlinePaper={outlinePaper}
+        transparentPaper={transparentPaper}
+      >
+        <Tabs
+          variant="standard"
+          className={classNames(classes.header, {
+            [classes.headerBg]: !transparentHeader,
+          })}
+          classes={{ root: classes.tabsRoot, indicator: classes.indicator }}
+          value={activeStep}
+          sx={{
+            background:
+              outlinePaper || transparentPaper
+                ? "transparent !important"
+                : "inherit",
+          }}
+          onChange={(_, idx) => {
+            onTabChange(tabs[idx].id!, history, payload);
+          }}
+        >
+          {BeforeTabs && (
+            <BeforeTabs
+              activeTab={activeTab!}
+              history={history}
+              payload={payload}
+            />
+          )}
+          {tabs.map(({ id, label, icon: Icon, passthrough }, idx) => (
+            <Tab
+              key={idx}
+              classes={{
+                root: classes.tabRoot,
+                selected: classes.tabSelected,
+              }}
+              sx={{
+                display: passthrough ? "none" : "inherit",
+              }}
+              label={label || id}
+              icon={Icon && <Icon />}
+            />
+          ))}
+          {AfterTabs && (
+            <AfterTabs
+              activeTab={activeTab!}
+              history={history}
+              payload={payload}
+            />
+          )}
+        </Tabs>
+        {renderLoader()}
+        <div className={classes.adjust} />
+        <Box ref={elementRef} className={classes.content}>
+          {renderOutlet()}
+        </Box>
+      </PaperView>
+      {AfterPaper && (
+        <AfterPaper
+          activeTab={activeTab!}
+          history={history}
+          payload={payload}
+        />
+      )}
+    </Box>
   );
 };
 

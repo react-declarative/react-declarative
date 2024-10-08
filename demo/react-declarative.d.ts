@@ -25403,6 +25403,8 @@ declare module "react-declarative/components/TabsView/TabsView" {
     onSubmit,
     BeforeTabs,
     AfterTabs,
+    BeforePaper,
+    AfterPaper,
     fullScreen,
     otherProps: upperOtherProps,
     ...outletProps
@@ -25479,7 +25481,8 @@ declare module "react-declarative/components/TabsView/model/ITabsStep" {
     id?: string;
     isMatch?: (id: string) => boolean;
     isVisible?: (payload: Payload) => boolean;
-    label: string;
+    label?: string;
+    passthrough?: boolean;
     icon?: React.ComponentType<any>;
   }
   export default ITabsStep;
@@ -31402,8 +31405,26 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
     > {
     fullScreen?: boolean;
     transparentHeader?: boolean;
-    BeforeTabs?: React.ComponentType<any>;
-    AfterTabs?: React.ComponentType<any>;
+    BeforePaper?: React.ComponentType<{
+      payload: Payload;
+      history: History;
+      activeTab: ITabsStep<Payload>;
+    }>;
+    AfterPaper?: React.ComponentType<{
+      payload: Payload;
+      history: History;
+      activeTab: ITabsStep<Payload>;
+    }>;
+    BeforeTabs?: React.ComponentType<{
+      payload: Payload;
+      history: History;
+      activeTab: ITabsStep<Payload>;
+    }>;
+    AfterTabs?: React.ComponentType<{
+      payload: Payload;
+      history: History;
+      activeTab: ITabsStep<Payload>;
+    }>;
     className?: string;
     outlinePaper?: boolean;
     transparentPaper?: boolean;

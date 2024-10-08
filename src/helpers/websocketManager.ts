@@ -32,6 +32,9 @@ export const websocketManager = new class {
                 this.addEventListener('close', (e) => {
                     self._closeSubject.next(e);
                 });
+                this.addEventListener('error', (e: any) => {
+                    self._closeSubject.next(e);
+                });
             }
         };
         /**

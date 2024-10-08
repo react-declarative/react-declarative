@@ -19,13 +19,13 @@ transparentHeader: boolean
 ### BeforeTabs
 
 ```ts
-BeforeTabs: React.ComponentType<any>
+BeforeTabs: React.ComponentType<{ payload: Payload; history: History; activeTab: ITabsStep<Payload>; }>
 ```
 
 ### AfterTabs
 
 ```ts
-AfterTabs: React.ComponentType<any>
+AfterTabs: React.ComponentType<{ payload: Payload; history: History; activeTab: ITabsStep<Payload>; }>
 ```
 
 ### className
