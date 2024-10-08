@@ -21,6 +21,7 @@ export type OtherProps = {
     setLoading: (loading: boolean) => void;
     progress: number;
     setProgress: (progress: number) => void;
+    onClose: () => void;
 };
 
 /**

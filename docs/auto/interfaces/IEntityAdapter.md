@@ -38,6 +38,10 @@ Refreshes the view or data associated with the current state.
 This method internally handles the logic to update the view or fetch the latest data
 based on the current state of the application.
 Note that this method does not return any value.
+Refreshes the view or data associated with the current state.
+This method internally handles the logic to update the view or fetch the latest data
+based on the current state of the application.
+Note that this method does not return any value.
 
 ### toObject
 

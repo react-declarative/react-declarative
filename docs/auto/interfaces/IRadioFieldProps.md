@@ -12,6 +12,8 @@ title: string
 
 Type definition for the "title" property of an object.
 It is a generic type that picks the "title" property from a given object type.
+Type definition for the "title" property of an object.
+It is a generic type that picks the "title" property from a given object type.
 
 ### radioValue
 

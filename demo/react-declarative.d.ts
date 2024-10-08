@@ -25406,7 +25406,7 @@ declare module "react-declarative/components/TabsView/TabsView" {
     fullScreen,
     otherProps: upperOtherProps,
     ...outletProps
-  }: ITabsViewProps<Data, Payload>) => JSX.Element;
+  }: ITabsViewProps<Data, Payload, any>) => JSX.Element;
   export default TabsView;
 }
 
@@ -25431,6 +25431,7 @@ declare module "react-declarative/components/TabsView/model/ITabsOutlet" {
     progress: number;
     setLoading: (loading: boolean) => void;
     setProgress: (progress: number) => void;
+    onClose: () => void;
   };
   /**
    * Represents a tab outlet component.
@@ -26188,7 +26189,11 @@ declare module "react-declarative/components/WizardView/WizardView" {
    *
    * @returns The rendered WizardView component.
    */
-  export const WizardView: <Data extends {} = any, Payload = any>({
+  export const WizardView: <
+    Data extends {} = any,
+    Payload = any,
+    Params = any,
+  >({
     className,
     style,
     sx,
@@ -26205,7 +26210,7 @@ declare module "react-declarative/components/WizardView/WizardView" {
     onSubmit,
     otherProps: upperOtherProps,
     ...outletProps
-  }: IWizardViewProps<Data, Payload>) => JSX.Element;
+  }: IWizardViewProps<Data, Payload, Params>) => JSX.Element;
   export default WizardView;
 }
 
@@ -26331,6 +26336,7 @@ declare module "react-declarative/components/WizardView/model/IWizardOutlet" {
     setLoading: (loading: boolean) => void;
     progress: number;
     setProgress: (progress: number) => void;
+    onClose: () => void;
   };
   /**
    * Represents an interface for a wizard outlet.
@@ -31386,8 +31392,9 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
   export interface ITabsViewProps<
     Data extends {} = IAnything,
     Payload = IAnything,
+    Params = IAnything,
   > extends Omit<
-      IOutletViewProps<Data, Payload, OtherProps>,
+      IOutletViewProps<Data, Payload, Params, Partial<OtherProps>>,
       keyof {
         history: never;
         routes: never;
@@ -31429,8 +31436,9 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
   export interface IWizardViewProps<
     Data extends {} = IAnything,
     Payload = IAnything,
+    Params = IAnything,
   > extends Omit<
-      IOutletViewProps<Data, Payload, OtherProps>,
+      IOutletViewProps<Data, Payload, Params, Partial<OtherProps>>,
       keyof {
         history: never;
         routes: never;

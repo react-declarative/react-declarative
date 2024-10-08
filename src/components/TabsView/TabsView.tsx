@@ -140,7 +140,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   BeforeTabs,
   AfterTabs,
   fullScreen,
-  otherProps: upperOtherProps = {},
+  otherProps: upperOtherProps = {} as unknown as OtherProps,
   ...outletProps
 }: ITabsViewProps<Data, Payload>) => {
   const { elementRef, size } = useElementSize();
@@ -180,20 +180,24 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
    * @property upperOtherProps - Additional props to be included
    */
   const otherProps = useMemo(
-    (): OtherProps => ({
-      size,
-      loading: !!loading,
-      progress,
-      setLoading: (isLoading) => {
-        setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
-        setProgress(0);
-      },
-      setProgress: (progress) => {
-        setLoading(0);
-        setProgress(progress);
-      },
-      ...upperOtherProps,
-    }),
+    () => {
+      return Object.assign(
+        {
+          size,
+          loading: !!loading,
+          progress,
+          setLoading: (isLoading: boolean) => {
+            setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
+            setProgress(0);
+          },
+          setProgress: (progress: number) => {
+            setLoading(0);
+            setProgress(progress);
+          },
+        },
+        upperOtherProps,
+      );
+    },
     [size.height, size.width]
   );
 

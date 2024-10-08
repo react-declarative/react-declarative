@@ -13,7 +13,7 @@ import { MemoryHistory } from "history";
  * @template Data - The data type.
  * @template Payload - The payload type.
  */
-export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
+export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params, Partial<OtherProps>>, keyof {
     history: never;
     routes: never;
 }> {

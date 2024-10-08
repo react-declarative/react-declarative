@@ -12,7 +12,7 @@ import IWizardStep from "./IWizardStep";
  * @template Data - Type of data object.
  * @template Payload - Type of payload object.
  */
-export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything> extends Omit<IOutletViewProps<Data, Payload, OtherProps>, keyof {
+export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnything, Params = IAnything> extends Omit<IOutletViewProps<Data, Payload, Params, Partial<OtherProps>>, keyof {
     history: never;
     routes: never;
 }> {

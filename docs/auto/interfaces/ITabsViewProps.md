@@ -59,6 +59,7 @@ sx: SxProps<any>
 ```
 
 The system prop that allows defining system overrides as well as additional CSS styles.
+The system prop that allows defining system overrides as well as additional CSS styles.
 
 ### onTabChange
 

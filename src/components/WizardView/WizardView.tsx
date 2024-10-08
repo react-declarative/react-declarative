@@ -99,7 +99,7 @@ const useStyles = makeStyles()((theme) => ({
  *
  * @returns The rendered WizardView component.
  */
-export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
+export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Params = IAnything>({
   className,
   style,
   sx,
@@ -114,9 +114,9 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
   onLoadStart,
   onLoadEnd,
   onSubmit = () => true,
-  otherProps: upperOtherProps = {},
+  otherProps: upperOtherProps = {} as unknown as OtherProps,
   ...outletProps
-}: IWizardViewProps<Data, Payload>) => {
+}: IWizardViewProps<Data, Payload, Params>) => {
   const { elementRef, size } = useElementSize();
 
   const payload = useSingleton(upperPayload);
@@ -165,20 +165,24 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything>({
    * @property setProgress - A function to set the progress of the component.
    */
   const otherProps = useMemo(
-    (): OtherProps => ({
-      size,
-      loading: !!loading,
-      progress,
-      setLoading: (isLoading) => {
-        setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
-        setProgress(0);
-      },
-      setProgress: (progress) => {
-        setLoading(0);
-        setProgress(progress);
-      },
-      ...upperOtherProps,
-    }),
+    () => {
+      return Object.assign(
+        {
+          size,
+          loading: !!loading,
+          progress,
+          setLoading: (isLoading: boolean) => {
+            setLoading((loading) => Math.max(loading + (isLoading ? 1 : -1), 0));
+            setProgress(0);
+          },
+          setProgress: (progress: number) => {
+            setLoading(0);
+            setProgress(progress);
+          },
+        },
+        upperOtherProps
+      );
+    },
     [size.height, size.width, loading]
   );
 
