@@ -25389,6 +25389,7 @@ declare module "react-declarative/components/TabsView/TabsView" {
     className,
     style,
     sx,
+    withScroll,
     outlinePaper,
     transparentPaper,
     transparentHeader,
@@ -25520,10 +25521,12 @@ declare module "react-declarative/components/TabsView/model/ITabsModalProps" {
    * @template Data The type of data.
    * @template Payload The type of payload.
    */
-  export type ITabsModalProps<
-    Data = IAnything,
-    Payload = IAnything,
-  > = ITabsOutletProps<Data, Payload, ModalOtherProps> &
+  export type ITabsModalProps<Data = IAnything, Payload = IAnything> = Omit<
+    ITabsOutletProps<Data, Payload, ModalOtherProps>,
+    keyof {
+      withScroll: never;
+    }
+  > &
     ModalOtherProps &
     OtherProps;
   export default ITabsModalProps;
@@ -31403,6 +31406,7 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
         routes: never;
       }
     > {
+    withScroll?: boolean;
     fullScreen?: boolean;
     transparentHeader?: boolean;
     BeforePaper?: React.ComponentType<{

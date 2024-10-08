@@ -78,10 +78,12 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    overflowY: 'auto',
     "& > *:nth-of-type(1)": {
       flex: 1,
     },
+  },
+  contentScroll: {
+    overflowY: 'auto',
   },
   adjust: {
     minHeight: HEADER_HEIGHT,
@@ -133,6 +135,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   className,
   style,
   sx,
+  withScroll,
   outlinePaper = false,
   transparentPaper = false,
   transparentHeader = false,
@@ -389,7 +392,12 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
         </Tabs>
         {renderLoader()}
         <div className={classes.adjust} />
-        <Box ref={elementRef} className={classes.content}>
+        <Box 
+          ref={elementRef}
+          className={classNames(classes.content, {
+            [classes.contentScroll]: withScroll,
+          })}
+        >
           {renderOutlet()}
         </Box>
       </PaperView>

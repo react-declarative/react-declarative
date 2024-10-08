@@ -14,7 +14,9 @@ type ModalOtherProps = {
 export type ITabsModalProps<
   Data = IAnything,
   Payload = IAnything
-> = ITabsOutletProps<Data, Payload, ModalOtherProps> &
+> = Omit<ITabsOutletProps<Data, Payload, ModalOtherProps>, keyof {
+  withScroll: never;
+}> &
   ModalOtherProps &
   OtherProps;
 

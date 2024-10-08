@@ -17,6 +17,7 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
     history: never;
     routes: never;
 }> {
+    withScroll?: boolean;
     fullScreen?: boolean;
     transparentHeader?: boolean;
     BeforePaper?: React.ComponentType<{
