@@ -78,6 +78,7 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
+    overflowY: 'auto',
     "& > *:nth-of-type(1)": {
       flex: 1,
     },
