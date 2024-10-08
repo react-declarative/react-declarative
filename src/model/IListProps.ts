@@ -413,6 +413,10 @@ export interface IListProps<
   isBaselineForRoot?: IOneProps["isBaselineForRoot"];
   apiRef?: Ref<IListApi<FilterData, RowData>>;
   /**
+   * Subject for trigger action externally
+   */
+  actionSubject?: TSubject<string>;
+  /**
    * Represents a React component that will be rendered after the chip list.
    */
   AfterChips?: React.ComponentType<IChipListSlot>;  

@@ -4081,6 +4081,10 @@ declare module "react-declarative/model/IListProps" {
     isBaselineForRoot?: IOneProps["isBaselineForRoot"];
     apiRef?: Ref<IListApi<FilterData, RowData>>;
     /**
+     * Subject for trigger action externally
+     */
+    actionSubject?: TSubject<string>;
+    /**
      * Represents a React component that will be rendered after the chip list.
      */
     AfterChips?: React.ComponentType<IChipListSlot>;
@@ -19663,7 +19667,7 @@ declare module "react-declarative/components/List/components/common/ListActionMe
   export const ListActionMenu: ({
     options,
     deps,
-  }: IActionMenuSlot) => JSX.Element;
+  }: IActionMenuSlot) => JSX.Element | null;
   export default ListActionMenu;
 }
 
@@ -29122,7 +29126,7 @@ declare module "react-declarative/components/List/components/SlotFactory/SlotCon
     ActionMenu: ({
       options,
       deps,
-    }: import("../..").IActionMenuSlot) => JSX.Element;
+    }: import("../..").IActionMenuSlot) => JSX.Element | null;
     ActionFab: ({
       action,
       label,

@@ -7,14 +7,15 @@ import Refresh from "@mui/icons-material/Refresh";
 import Sort from "@mui/icons-material/Sort";
 import Add from "@mui/icons-material/Add";
 
+import useActualCallback from "../../../../../../hooks/useActualCallback";
+import useOnce from "../../../../../../hooks/useOnce";
+
 import useProps from "../../../../hooks/useProps";
 import usePayload from "../../../../hooks/usePayload";
 import useModalSort from "../../../../hooks/useModalSort";
 import useReload from "../../../../hooks/useReload";
 import useCachedRows from "../../../../hooks/useCachedRows";
 import useDropFilters from "../../../../hooks/useDropFilters";
-
-import useActualCallback from "../../../../../../hooks/useActualCallback";
 
 import IActionMenuSlot from "../../../../slots/ActionMenuSlot/IActionMenuSlot";
 
@@ -34,7 +35,7 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
   const reloadList = useReload();
   const payload = usePayload();
 
-  const { onAction, fallback, onLoadStart, onLoadEnd, loading } = useProps();
+  const { onAction, fallback, onLoadStart, onLoadEnd, loading, actionSubject } = useProps();
 
   /**
    * Executes an action based on the given input.
@@ -52,6 +53,8 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
     onAction && onAction(action, selectedRows, reloadList);
   });
 
+  useOnce(() => actionSubject && actionSubject.subscribe(handleAction));
+
   /**
    * Callback function for handling load start event.
    *
@@ -67,6 +70,10 @@ export const ActionMenu = ({ options = [], deps = [] }: IActionMenuSlot) => {
    */
   const handleLoadEnd = (isOk: boolean) =>
     onLoadEnd && onLoadEnd(isOk, LOAD_SOURCE);
+
+  if (actionSubject) {
+    return null;
+  }
 
   return (
     <BaseActionMenu
