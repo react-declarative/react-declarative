@@ -26211,6 +26211,7 @@ declare module "react-declarative/components/WizardView/WizardView" {
     fullScreen,
     outlinePaper,
     transparentPaper,
+    withScroll,
     history: upperHistory,
     pathname,
     steps: upperSteps,
@@ -31474,6 +31475,7 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
         routes: never;
       }
     > {
+    withScroll?: boolean;
     className?: string;
     outlinePaper?: boolean;
     fullScreen?: boolean;

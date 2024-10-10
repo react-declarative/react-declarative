@@ -45,13 +45,17 @@ const useStyles = makeStyles()((theme) => ({
     top: 0,
     left: 0,
     height: `${HEADER_HEIGHT}px`,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
     background:
       theme.palette.mode === "dark"
         ? darken(theme.palette.background.paper, 0.06)
         : alpha("#000", 0.05),
     width: "100%",
+    '& > :first-of-type': {
+      paddingLeft: theme.spacing(3),
+    },
+    '& > :last-of-type': {
+      paddingRight: theme.spacing(3),
+    }
   },
   loader: {
     position: "absolute",
@@ -66,9 +70,13 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
+    overflowX: "hidden",
     "& > *:nth-of-type(1)": {
       flex: 1,
     },
+  },
+  contentScroll: {
+    overflowY: 'auto',
   },
   adjust: {
     minHeight: HEADER_HEIGHT,
@@ -108,6 +116,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
   fullScreen,
   outlinePaper = false,
   transparentPaper = false,
+  withScroll,
   history: upperHistory,
   pathname = "/",
   steps: upperSteps,
@@ -327,7 +336,12 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
       </Stepper>
       {renderLoader()}
       <div className={classes.adjust} />
-      <Box ref={elementRef} className={classes.content}>
+      <Box 
+        ref={elementRef}
+        className={classNames(classes.content, {
+          [classes.contentScroll]: withScroll,
+        })}
+      >
         {renderOutlet()}
       </Box>
     </PaperView>

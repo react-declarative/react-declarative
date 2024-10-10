@@ -16,6 +16,7 @@ export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnythi
     history: never;
     routes: never;
 }> {
+    withScroll?: boolean;
     className?: string;
     outlinePaper?: boolean;
     fullScreen?: boolean;
