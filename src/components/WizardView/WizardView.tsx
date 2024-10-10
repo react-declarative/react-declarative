@@ -49,13 +49,14 @@ const useStyles = makeStyles()((theme) => ({
       theme.palette.mode === "dark"
         ? darken(theme.palette.background.paper, 0.06)
         : alpha("#000", 0.05),
+    padding: '0px !important',
     width: "100%",
-    '& > :first-of-type': {
-      paddingLeft: theme.spacing(3),
-    },
-    '& > :last-of-type': {
-      paddingRight: theme.spacing(3),
-    }
+  },
+  firstStep: {
+    paddingLeft: theme.spacing(3),
+  },
+  lastStep: {
+    paddingRight: theme.spacing(3),
   },
   loader: {
     position: "absolute",
@@ -326,6 +327,10 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
           <Step 
             key={idx}
             completed={activeStep > idx}
+            className={classNames({
+              [classes.firstStep]: idx === 0,
+              [classes.lastStep]: idx === Math.max(steps.length - 1, 0),
+            })}
             sx={{
               display: passthrough ? "none" : "inherit",
             }}
