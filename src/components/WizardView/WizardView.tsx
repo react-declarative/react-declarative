@@ -15,6 +15,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 
 import IWizardViewProps from "./model/IWizardViewProps";
 import { OtherProps } from "./model/IWizardOutlet";
+import IWizardStep from "./model/IWizardStep";
 import IAnything from "../../model/IAnything";
 
 import useActualCallback from "../../hooks/useActualCallback";
@@ -223,6 +224,10 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
     return (lastActiveStep.current = activeStep);
   }, [path]);
 
+  const activeStepItem = useMemo((): IWizardStep<Payload> | null => {
+    return steps[activeStep] ?? null;
+  }, [activeStep]);
+
   /**
    * Render a loader component based on the state of `loading` and `progress`.
    *
@@ -274,6 +279,22 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
     }
   );
 
+  const renderOutlet = () => (
+    <OutletView<Data, Payload>
+      history={history}
+      fullScreen={fullScreen}
+      routes={routes as IOutlet<Data, Payload>[]}
+      otherProps={otherProps}
+      payload={payload}
+      onSubmit={handleSubmit}
+      {...outletProps}
+    />
+  );
+
+  if (activeStepItem?.passthrough) {
+    return <>{renderOutlet()}</>;
+  }
+
   return (
     <PaperView
       outlinePaper={outlinePaper}
@@ -292,24 +313,22 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
               : "inherit",
         }}
       >
-        {steps.map(({ label, icon: Icon }, idx) => (
-          <Step key={idx} completed={activeStep > idx}>
-            <StepLabel StepIconComponent={Icon}>{label}</StepLabel>
+        {steps.map(({ id, label, icon: Icon, passthrough }, idx) => (
+          <Step 
+            key={idx}
+            completed={activeStep > idx}
+            sx={{
+              display: passthrough ? "none" : "inherit",
+            }}
+          >
+            <StepLabel StepIconComponent={Icon}>{label || id}</StepLabel>
           </Step>
         ))}
       </Stepper>
       {renderLoader()}
       <div className={classes.adjust} />
       <Box ref={elementRef} className={classes.content}>
-        <OutletView<Data, Payload>
-          history={history}
-          fullScreen={fullScreen}
-          routes={routes as IOutlet<Data, Payload>[]}
-          otherProps={otherProps}
-          payload={payload}
-          onSubmit={handleSubmit}
-          {...outletProps}
-        />
+        {renderOutlet()}
       </Box>
     </PaperView>
   );

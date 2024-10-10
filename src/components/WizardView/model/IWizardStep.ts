@@ -8,7 +8,8 @@ export interface IWizardStep<Payload extends IAnything = IAnything> {
     id?: string;
     isMatch?: (id: string) => boolean;
     isVisible?: (payload: Payload) => boolean;
-    label: string;
+    passthrough?: boolean;
+    label?: string;
     icon?: React.ComponentType<any>;
 }
 

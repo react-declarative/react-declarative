@@ -26394,7 +26394,8 @@ declare module "react-declarative/components/WizardView/model/IWizardStep" {
     id?: string;
     isMatch?: (id: string) => boolean;
     isVisible?: (payload: Payload) => boolean;
-    label: string;
+    passthrough?: boolean;
+    label?: string;
     icon?: React.ComponentType<any>;
   }
   export default IWizardStep;
