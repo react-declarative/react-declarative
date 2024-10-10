@@ -5,6 +5,7 @@ import IAnything from "../../../model/IAnything";
 import IOutletViewProps from "../../OutletView/model/IOutletViewProps";
 import IWizardOutlet, { OtherProps } from "./IWizardOutlet";
 import IWizardStep from "./IWizardStep";
+import { Update } from "history";
 
 /**
  * Interface representing the props for the WizardView component.
@@ -16,6 +17,7 @@ export interface IWizardViewProps<Data extends {} = IAnything, Payload = IAnythi
     history: never;
     routes: never;
 }> {
+    onNavigate?: (update: Update) => void;
     withScroll?: boolean;
     className?: string;
     outlinePaper?: boolean;

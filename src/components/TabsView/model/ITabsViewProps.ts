@@ -5,7 +5,7 @@ import IAnything from "../../../model/IAnything";
 import IOutletViewProps from "../../OutletView/model/IOutletViewProps";
 import ITabsOutlet, { OtherProps } from "./ITabsOutlet";
 import ITabsStep from "./ITabsStep";
-import { MemoryHistory } from "history";
+import { MemoryHistory, Update } from "history";
 
 /**
  * Represents the props for the ITabsView component.
@@ -20,6 +20,7 @@ export interface ITabsViewProps<Data extends {} = IAnything, Payload = IAnything
     withScroll?: boolean;
     fullScreen?: boolean;
     transparentHeader?: boolean;
+    onNavigate?: (update: Update) => void;
     BeforePaper?: React.ComponentType<{
         payload: Payload;
         history: History;

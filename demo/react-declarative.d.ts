@@ -5078,6 +5078,7 @@ declare module "react-declarative/hooks/usePointer" {
 }
 
 declare module "react-declarative/hooks/useLocalHistory" {
+  import { Update } from "history";
   import History from "react-declarative/model/History";
   /**
    * Represents the parameters for navigating to a specific pathname in a web application.
@@ -5087,6 +5088,7 @@ declare module "react-declarative/hooks/useLocalHistory" {
   interface IParams {
     history?: History;
     pathname: string;
+    onNavigate?: (update: Update) => void;
   }
   /**
    * Initializes and manages a local history object.
@@ -5100,6 +5102,7 @@ declare module "react-declarative/hooks/useLocalHistory" {
   export const useLocalHistory: ({
     history: upperHistory,
     pathname,
+    onNavigate,
   }?: Partial<IParams>) => {
     history: import("history").MemoryHistory;
   };
@@ -25411,6 +25414,7 @@ declare module "react-declarative/components/TabsView/TabsView" {
     BeforePaper,
     AfterPaper,
     fullScreen,
+    onNavigate,
     otherProps: upperOtherProps,
     ...outletProps
   }: ITabsViewProps<Data, Payload, any>) => JSX.Element;
@@ -26218,6 +26222,7 @@ declare module "react-declarative/components/WizardView/WizardView" {
     routes,
     onLoadStart,
     onLoadEnd,
+    onNavigate,
     onSubmit,
     otherProps: upperOtherProps,
     ...outletProps
@@ -31394,7 +31399,7 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
     OtherProps,
   } from "react-declarative/components/TabsView/model/ITabsOutlet";
   import ITabsStep from "react-declarative/components/TabsView/model/ITabsStep";
-  import { MemoryHistory } from "history";
+  import { MemoryHistory, Update } from "history";
   /**
    * Represents the props for the ITabsView component.
    *
@@ -31415,6 +31420,7 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
     withScroll?: boolean;
     fullScreen?: boolean;
     transparentHeader?: boolean;
+    onNavigate?: (update: Update) => void;
     BeforePaper?: React.ComponentType<{
       payload: Payload;
       history: History;
@@ -31458,6 +31464,7 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
     OtherProps,
   } from "react-declarative/components/WizardView/model/IWizardOutlet";
   import IWizardStep from "react-declarative/components/WizardView/model/IWizardStep";
+  import { Update } from "history";
   /**
    * Interface representing the props for the WizardView component.
    *
@@ -31475,6 +31482,7 @@ declare module "react-declarative/components/WizardView/model/IWizardViewProps" 
         routes: never;
       }
     > {
+    onNavigate?: (update: Update) => void;
     withScroll?: boolean;
     className?: string;
     outlinePaper?: boolean;

@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from "react";
-import { createMemoryHistory } from "history";
+import { Update, createMemoryHistory } from "history";
+
+import useActualCallback from "./useActualCallback";
 
 import History from "../model/History";
 
@@ -11,6 +13,7 @@ import History from "../model/History";
 interface IParams {
   history?: History;
   pathname: string;
+  onNavigate?: (update: Update) => void;
 }
 
 /**
@@ -24,24 +27,30 @@ interface IParams {
  */
 export const useLocalHistory = ({
   history: upperHistory,
-  pathname = "/"
+  pathname = "/",
+  onNavigate = () => undefined,
 }: Partial<IParams> = {}) => {
+
+  const onNavigate$ = useActualCallback(onNavigate);
+
   const history = useMemo(() => {
     return createMemoryHistory({
       initialEntries: [upperHistory?.location.pathname || pathname],
     });
   }, []);
 
-  useEffect(() => upperHistory?.listen(({
-    action,
-    location,
-  }) => {
+  useEffect(() => upperHistory?.listen((update) => {
+    const {
+      action,
+      location,
+    } = update;
     if (action === "PUSH") {
       history.push(location);
     }
     if (action === "REPLACE") {
       history.replace(location);
     }
+    onNavigate$(update);
   }), [upperHistory]);
 
   return {

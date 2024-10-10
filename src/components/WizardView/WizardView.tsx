@@ -124,6 +124,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
   routes,
   onLoadStart,
   onLoadEnd,
+  onNavigate,
   onSubmit = () => true,
   otherProps: upperOtherProps = {} as unknown as OtherProps,
   ...outletProps
@@ -157,6 +158,7 @@ export const WizardView = <Data extends {} = IAnything, Payload = IAnything, Par
   const { history } = useLocalHistory({
     history: upperHistory,
     pathname,
+    onNavigate,
   });
 
   const [path, setPath] = useState(history.location.pathname);

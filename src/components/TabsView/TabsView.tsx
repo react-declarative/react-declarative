@@ -154,6 +154,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   BeforePaper,
   AfterPaper,
   fullScreen,
+  onNavigate,
   otherProps: upperOtherProps = {} as unknown as OtherProps,
   ...outletProps
 }: ITabsViewProps<Data, Payload>) => {
@@ -176,6 +177,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
   const { history } = useLocalHistory({
     history: upperHistory,
     pathname,
+    onNavigate,
   });
 
   const [path, setPath] = useState(history.location.pathname);
