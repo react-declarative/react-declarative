@@ -10,12 +10,14 @@ export const fromEvent = (event: keyof DocumentEventMap): TObserver<DocumentEven
     const observer = new Observer<DocumentEventMap[typeof event]>(() => {
         document.removeEventListener(event, observer.emit);
     });
-    const process = () => {
-        document.addEventListener(event, observer.emit);
-    };
-    observer[LISTEN_CONNECT](() => {
-        process();
-    });
+    if ("document" in globalThis) {
+        const process = () => {
+            document.addEventListener(event, observer.emit);
+        };
+        observer[LISTEN_CONNECT](() => {
+            process();
+        });
+    }
     return observer;
 };
 
