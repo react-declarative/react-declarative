@@ -93,8 +93,10 @@ export const createCustomTag = (name = "bgcolor-red", style = "", {
         }
         return self;
     }
-    CustomTagFactory.prototype = Object.create(HTMLElement.prototype);
-    customElements.define(name, CustomTagFactory as any);
+    if ("HTMLElement" in globalThis) {
+        CustomTagFactory.prototype = Object.create(HTMLElement.prototype);
+        customElements.define(name, CustomTagFactory as any);
+    }
 };
 
 export default createCustomTag;

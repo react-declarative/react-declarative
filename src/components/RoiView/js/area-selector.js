@@ -771,5 +771,7 @@ export const roi = (
     'roi', top, left, right, bottom, lineColor, backgroundColor,
   ];
 
-AreaSelector.prototype = Object.create(HTMLElement.prototype);
-customElements.define('react-declarative-area-selector', AreaSelector);
+if ("HTMLElement" in globalThis) {
+  AreaSelector.prototype = Object.create(HTMLElement.prototype);
+  customElements.define('react-declarative-area-selector', AreaSelector);
+}
