@@ -39,6 +39,8 @@ import Container from "../../Container";
 const PAGINATION_HEIGHT = 52;
 const RESIZE_DELAY = 100;
 
+const CHECKBOX_COLUMN_WIDTH = 65;
+
 const ROWS_PER_PAGE = [10, 25, 50];
 
 /**
@@ -203,7 +205,7 @@ export const GridView = <
           position: "sticky",
           top: 0,
           left: 0,
-          width,
+          width: width - CHECKBOX_COLUMN_WIDTH,
         }}
         direction="row"
         alignItems="center"
