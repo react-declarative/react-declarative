@@ -1,3 +1,5 @@
+import IAnything from '../../../model/IAnything';
+
 import Dimension from './Dimension';
 import RowData from './RowData';
 
@@ -6,11 +8,11 @@ import RowData from './RowData';
  *
  * @template T - The type of the row data.
  */
-export interface IColumn<T = RowData> {
+export interface IColumn<T = RowData, Payload = IAnything> {
   field?: keyof T;
   label: string;
   align?: 'center' | 'left' | 'right' | 'stretch';
-  format?: (row: T) => React.ReactElement | string;
+  format?: (row: T, payload: Payload) => React.ReactElement | string;
   minWidth?: number;
   width?: Dimension | ((containerWidth: number) => Dimension);
 }

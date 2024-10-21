@@ -340,7 +340,7 @@ export const ContentRow = forwardRef(
                 idx={idx}
               >
                 {column.format
-                  ? column.format(row)
+                  ? column.format(row, payload)
                   : column.field
                   ? String(get(row, column.field))
                   : null}

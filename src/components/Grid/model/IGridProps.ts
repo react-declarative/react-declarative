@@ -27,7 +27,7 @@ export interface IGridProps<T = RowData, P = IAnything> {
   sx?: SxProps<any>;
   header?: React.ReactNode;
   data: Array<T>;
-  columns: Array<IColumn<T>>;
+  columns: Array<IColumn<T, P>>;
   scrollXSubject?: TSubject<number>;
   scrollYSubject?: TSubject<number>; 
   onTableRowClick?: (evt: React.MouseEvent, row: T) => void;

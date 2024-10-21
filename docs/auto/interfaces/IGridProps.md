@@ -55,7 +55,7 @@ data: T[]
 ### columns
 
 ```ts
-columns: IColumn<T>[]
+columns: IColumn<T, P>[]
 ```
 
 ### scrollXSubject

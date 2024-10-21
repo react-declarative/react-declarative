@@ -25,7 +25,7 @@ align: "left" | "right" | "center" | "stretch"
 ### format
 
 ```ts
-format: (row: T) => string | ReactElement<any, string | JSXElementConstructor<any>>
+format: (row: T, payload: Payload) => string | ReactElement<any, string | JSXElementConstructor<any>>
 ```
 
 ### minWidth

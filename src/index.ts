@@ -262,7 +262,7 @@ import {
 export type ITile<RowData extends IRowData = any, Payload extends IAnything = IAnything> = ITileInternal<RowData, Payload>;
 
 export type TGridSort<RowData extends IRowData = any> = TGridSortInternal<RowData>;
-export type IGridColumn<RowData extends IRowData = any> = IGridColumnInternal<RowData>;
+export type IGridColumn<RowData extends IRowData = any, Payload = any> = IGridColumnInternal<RowData, Payload>;
 export type IGridAction<RowData extends IRowData = any> = IGridActionInternal<RowData>;
 
 export type IBreadcrumbsOption<Data = any> = IBreadcrumbsOptionInternal<Data>;

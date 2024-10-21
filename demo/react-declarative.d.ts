@@ -281,8 +281,10 @@ declare module "react-declarative" {
   > = ITileInternal<RowData, Payload>;
   export type TGridSort<RowData extends IRowData = any> =
     TGridSortInternal<RowData>;
-  export type IGridColumn<RowData extends IRowData = any> =
-    IGridColumnInternal<RowData>;
+  export type IGridColumn<
+    RowData extends IRowData = any,
+    Payload = any,
+  > = IGridColumnInternal<RowData, Payload>;
   export type IGridAction<RowData extends IRowData = any> =
     IGridActionInternal<RowData>;
   export type IBreadcrumbsOption<Data = any> = IBreadcrumbsOptionInternal<Data>;
@@ -7502,7 +7504,6 @@ declare module "react-declarative/utils/list2grid" {
    */
   export const list2grid: (
     columns: IColumn[],
-    payload: Record<string, any>,
     { minWidth }?: Partial<IConfig>,
   ) => IGridColumn[];
   export default list2grid;
@@ -28141,7 +28142,7 @@ declare module "react-declarative/components/Grid/model/IGridProps" {
     sx?: SxProps<any>;
     header?: React.ReactNode;
     data: Array<T>;
-    columns: Array<IColumn<T>>;
+    columns: Array<IColumn<T, P>>;
     scrollXSubject?: TSubject<number>;
     scrollYSubject?: TSubject<number>;
     onTableRowClick?: (evt: React.MouseEvent, row: T) => void;
@@ -28175,6 +28176,7 @@ declare module "react-declarative/components/Grid/model/RowData" {
 }
 
 declare module "react-declarative/components/Grid/model/IColumn" {
+  import IAnything from "react-declarative/model/IAnything";
   import Dimension from "react-declarative/components/Grid/model/Dimension";
   import RowData from "react-declarative/components/Grid/model/RowData";
   /**
@@ -28182,11 +28184,11 @@ declare module "react-declarative/components/Grid/model/IColumn" {
    *
    * @template T - The type of the row data.
    */
-  export interface IColumn<T = RowData> {
+  export interface IColumn<T = RowData, Payload = IAnything> {
     field?: keyof T;
     label: string;
     align?: "center" | "left" | "right" | "stretch";
-    format?: (row: T) => React.ReactElement | string;
+    format?: (row: T, payload: Payload) => React.ReactElement | string;
     minWidth?: number;
     width?: Dimension | ((containerWidth: number) => Dimension);
   }

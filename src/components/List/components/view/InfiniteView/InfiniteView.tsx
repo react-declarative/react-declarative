@@ -134,7 +134,7 @@ export const InfiniteView = <
    * @returns The grid columns array
    */
   const gridColumns = useMemo(() => {
-    return list2grid(listColumns, payload);
+    return list2grid(listColumns);
   }, []);
 
   /**

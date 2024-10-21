@@ -25,7 +25,6 @@ interface IConfig {
  */
 export const list2grid = (
   columns: IColumn[],
-  payload: Record<string, any>,
   {
     minWidth = DEFAULT_MIN_WIDTH,
   }: Partial<IConfig> = {},
@@ -54,7 +53,7 @@ export const list2grid = (
         width: column.width,
         field: column.field,
         minWidth,
-        format(row) {
+        format(row, payload) {
           if (column.compute || column.element) {
             return (
               <Async payload={row}>
