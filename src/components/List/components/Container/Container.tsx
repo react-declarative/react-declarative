@@ -16,13 +16,19 @@ import IListProps, {
 import IAnything from "../../../../model/IAnything";
 import IRowData from "../../../../model/IRowData";
 
+import useReload from "../../hooks/useReload";
 import usePayload from "../../hooks/usePayload";
+import useModalSort from "../../hooks/useModalSort";
+import useCachedRows from "../../hooks/useCachedRows";
 import usePagination from "../../hooks/usePagination";
+import useDropFilters from "../../hooks/useDropFilters";
 import useConstraintManager from "../../hooks/useConstraintManager";
 import useRowDisabledMap from "../../hooks/useRowDisabledMap";
 
+import useOnce from "../../../../hooks/useOnce";
 import useElementSize from "../../../../hooks/useElementSize";
 import useMediaContext from "../../../../hooks/useMediaContext";
+import useActualCallback from "../../../../hooks/useActualCallback";
 
 import OperationListSlot from "../../slots/OperationListSlot";
 import ActionListSlot from "../../slots/ActionListSlot";
@@ -216,6 +222,7 @@ export const Container = <
     withToggledFilters,
     onFilterChange,
     onResize,
+    onAction,
     withSearch = false,
     search,
     sortModel = EMPTY_ARRAY,
@@ -231,6 +238,8 @@ export const Container = <
     BeforeOperationList,
     AfterOperationList,
   } = props;
+
+  const { selectedRows } = useCachedRows();
 
   const { elementRef: rootElementRef, size: rootElementSize } = useElementSize({
     target: sizeByElement ? undefined : document.body,
@@ -276,6 +285,26 @@ export const Container = <
     constraintManager.clear();
     rowDisabledMap.clear();
   }, [filterData, pagination, sortModel, chips, search, payload]);
+
+  const showSortModal = useModalSort();
+  const dropFilters = useDropFilters();
+  const reloadList = useReload();
+
+  const handleAction = useActualCallback((action: string) => {
+    if (!!actions?.length) {
+      return;
+    }
+    if (action === "update-now") {
+      reloadList();
+    } else if (action === "resort-action") {
+      showSortModal();
+    } else if (action === "drop-filters") {
+      dropFilters();
+    }
+    onAction && onAction(action, selectedRows, reloadList);
+  });
+
+  useOnce(() => actionSubject && actionSubject.subscribe(handleAction));
 
   return (
     <Box
@@ -325,7 +354,7 @@ export const Container = <
           )}
 
           <div>
-            {(!!actions?.length || actionSubject) && (
+            {!!actions?.length && (
               <ActionListSlot
                 height={rootElementSize.height}
                 width={rootElementSize.width}
