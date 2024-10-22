@@ -72,7 +72,7 @@ const useStyles = makeStyles()((theme) => ({
  */
 export const ActionListSlot = <FilterData extends {}>({
   className,
-  actions,
+  actions = [],
   style,
   title,
   height,

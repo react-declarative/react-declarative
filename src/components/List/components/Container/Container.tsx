@@ -110,7 +110,6 @@ const useStyles = makeStyles()({
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    overflow: "hidden",
   },
   inner: {
     position: "absolute",
@@ -190,6 +189,7 @@ export const Container = <
     style,
     filters = [],
     actions = [],
+    actionSubject,
     listChips,
     denseHeight,
     isDense: isDenseProp,
@@ -325,7 +325,7 @@ export const Container = <
           )}
 
           <div>
-            {Array.isArray(actions) && !!actions.length && (
+            {(!!actions?.length || actionSubject) && (
               <ActionListSlot
                 height={rootElementSize.height}
                 width={rootElementSize.width}
