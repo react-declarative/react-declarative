@@ -114,3 +114,5 @@ export * from './Countdown';
 export * from './Chip';
 export * from './ScrollAdjust';
 export * from './MasterDetail';
+
+export * from './OneStrictMode';
