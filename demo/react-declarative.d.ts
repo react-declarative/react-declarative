@@ -27817,6 +27817,10 @@ declare module "react-declarative/components/RoiView/RoiView" {
       }
     > {
     withNaturalSize?: boolean;
+    imageSize?: {
+      naturalHeight: number;
+      naturalWidth: number;
+    };
     src: string;
     readonly?: boolean;
     cords: ICord[];
@@ -27829,6 +27833,7 @@ declare module "react-declarative/components/RoiView/RoiView" {
   export const RoiView: (
     {
       withNaturalSize,
+      imageSize,
       className,
       src,
       cords: upperCords,

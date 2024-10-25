@@ -22,6 +22,10 @@ interface IRoiViewProps extends Omit<IPaperViewProps, keyof {
     onClick: never;
 }> {
     withNaturalSize?: boolean;
+    imageSize?: {
+        naturalHeight: number;
+        naturalWidth: number;
+    };
     src: string;
     readonly?: boolean;
     cords: ICord[];
@@ -51,6 +55,7 @@ const useStyles = makeStyles()({
 
 const RoiViewInternal = ({
     withNaturalSize = false,
+    imageSize,
     className,
     src,
     cords: upperCords,
@@ -70,7 +75,12 @@ const RoiViewInternal = ({
     const onClick$ = useActualCallback(onClick);
     const onHover$ = useActualCallback(onHover);
 
-    const [value, { error }] = useAsyncValue(async () => await readSize(src), {
+    const [value, { error }] = useAsyncValue(async () => {
+        if (imageSize) {
+            return imageSize;
+        }
+        return await readSize(src);
+    }, {
         onLoadStart,
         onLoadEnd,
     });
@@ -111,8 +121,8 @@ const RoiViewInternal = ({
             })}
             sx={{
                 ...(withNaturalSize && {
-                    height: value?.naturalHeight,
-                    width: value?.naturalWidth,
+                    height: imageSize ? imageSize.naturalHeight : value?.naturalHeight,
+                    width: imageSize ? imageSize.naturalWidth : value?.naturalWidth,
                 }),
                 ...sx
             }}
