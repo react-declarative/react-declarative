@@ -80,7 +80,7 @@ export const Expansion = ({
   sx,
   style,
   children,
-  expansionOpened,
+  expansionOpened = false,
 }: IExpansionProps & IExpansionPrivate) => {
   const { classes } = useStyles();
   const [expanded, setExpanded] = useState(expansionOpened);

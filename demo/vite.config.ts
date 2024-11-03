@@ -33,7 +33,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "react-declarative": path.resolve(__dirname, "../dist/index.modern.js"),
+      "react-declarative": path.resolve(__dirname, "../dist/index.esm.js"),
       "react/jsx-runtime": path.resolve(__dirname, "./src/jsx-runtime"),
       "react/jsx-dev-runtime": path.resolve(__dirname, "./src/jsx-dev-runtime"),
     },

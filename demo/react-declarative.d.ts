@@ -19426,7 +19426,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
+      children: import("react").ReactNode;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;
@@ -21073,6 +21073,7 @@ declare module "react-declarative/components/Breadcrumbs2/model/Breadcrumbs2Type
   export enum Breadcrumbs2Type {
     Link = "breadcrumbs2-link",
     Button = "breadcrumbs2-button",
+    Fab = "breadcrumbs2-fab",
     ActionGroup = "breadcrumbs2-actiongroup",
     Component = "breadcrumbs2-component",
   }
@@ -21131,6 +21132,14 @@ declare module "react-declarative/components/Breadcrumbs2/model/IBreadcrumbs2Opt
     actions?: IBreadcrumbs2Action<Data>[];
     buttonVariant?: "text" | "outlined" | "contained";
     buttonColor?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
+    fabColor?:
       | "inherit"
       | "primary"
       | "secondary"

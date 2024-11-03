@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Fragment, useState } from 'react';
 
-import { Email } from '@mui/icons-material';
+import { Email, Flag } from '@mui/icons-material';
 
 import { OneTyped, FieldType, TypedField, IOption, Breadcrumbs2, usePreventLeave, IBreadcrumbs2Option, IBreadcrumbs2Action, Breadcrumbs2Type } from 'react-declarative';
 
@@ -139,6 +139,12 @@ const items: IBreadcrumbs2Option<IOneData>[] = [
         label: 'Save',
         action: 'button-action',
     },
+    {
+        type: Breadcrumbs2Type.Fab,
+        icon: Flag,
+        action: "test-action",
+        label: "123"
+    }
 ];
 
 interface IOneData {

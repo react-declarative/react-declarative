@@ -1,17 +1,19 @@
 import * as React from "react";
 import { makeStyles } from "../../styles";
 
-import { SxProps } from "@mui/material";
+import { SxProps, Tooltip } from "@mui/material";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import MatBreadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
+import Fab from "@mui/material/Fab";
 
 import useActualCallback from "../../hooks/useActualCallback";
 import useActualState from "../../hooks/useActualState";
 
 import ActionButton from "../ActionButton";
+import ActionGroup from "../ActionGroup";
 import ActionMenu from "../ActionMenu";
 import Async from "../Async";
 
@@ -20,7 +22,6 @@ import classNames from "../../utils/classNames";
 import IBreadcrumbs2Action from "./model/IBreadcrumbs2Action";
 import IBreadcrumbs2Option from "./model/IBreadcrumbs2Option";
 import Breadcrumbs2Type from "./model/Breadcrumbs2Type";
-import ActionGroup from "../ActionGroup";
 
 const Loader = () => <CircularProgress size={20} />;
 const Fragment = () => <></>;
@@ -366,6 +367,58 @@ export const Breadcrumbs2 = <T extends any = any>({
                     >
                       {label}
                     </ActionButton>
+                  )
+                )}
+            </>
+          );
+        }}
+      </Async>
+      <Async payload={payload} Loader={Fragment}>
+        {async () => {
+          const itemList = await Promise.all(
+            items
+              .filter(({ type }) => type === Breadcrumbs2Type.Fab)
+              .map(
+                async ({
+                  action,
+                  icon,
+                  isDisabled = () => false,
+                  isVisible = () => true,
+                  label,
+                  sx,
+                  fabColor = "primary",
+                }) => ({
+                  visible: await isVisible(payload!),
+                  disabled: await isDisabled(payload!),
+                  icon,
+                  action,
+                  label,
+                  sx,
+                  fabColor,
+                })
+              )
+          );
+          return (
+            <>
+              {itemList
+                .filter(({ visible }) => visible)
+                .map(
+                  (
+                    { action = "unknown-action", label, fabColor, disabled, icon: Icon, sx },
+                    idx
+                  ) => (
+                    <Tooltip title={label}>
+                      <Fab
+                        key={`${action}-${idx}`}
+                        size="small"
+                        color={fabColor}
+                        disabled={disabled}
+                        onClick={() => onAction$(action)}
+                        sx={sx}
+                      >
+                        {Icon && <Icon />}
+                      </Fab>
+                    </Tooltip>
                   )
                 )}
             </>

@@ -34,6 +34,14 @@ export interface IBreadcrumbs2Option<Data = IAnything> extends Omit<IOption, key
       | "error"
       | "info"
       | "warning";
+    fabColor?:
+      | "inherit"
+      | "primary"
+      | "secondary"
+      | "success"
+      | "error"
+      | "info"
+      | "warning";
     compute?: (payload: Data) => (Promise<string> | string);
     isVisible?: (payload: Data) => (Promise<boolean> | boolean);
     isDisabled?: (payload: Data) => (Promise<boolean> | boolean);
