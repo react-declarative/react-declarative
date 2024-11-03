@@ -63,6 +63,8 @@ const on = (ref, event, callback) => {
     const wrapped = touchManager.applyTouchWrapper(callback, true);
     ref.addEventListener('mouseup', callback);
     ref.addEventListener('touchend', wrapped);
+  } else if (event === "wheel") {
+    ref.addEventListener('wheel', callback);
   } else {
     throw new Error(`area-selector on unknown event: ${event}`);
   }
@@ -84,6 +86,8 @@ const un = (ref, event, callback) => {
     const wrapped = touchManager.disposeTouchWrapper(callback);
     ref.removeEventListener('mouseup', callback);
     ref.removeEventListener('touchend', wrapped);
+  } else if (event === "wheel") {
+    ref.removeEventListener('wheel', callback);
   } else {
     throw new Error(`area-selector un unknown event: ${event}`);
   }
@@ -161,9 +165,7 @@ const createRect = (
 
   const area = document.createElement('div');
 
-  if (ANGLE) {
-    area.style.transform = `rotate(${ANGLE}deg)`;
-  }
+  area.style.transform = `rotate(${ANGLE}deg)`;
 
   area.classList.add(AREA_RECT);
 
@@ -177,7 +179,8 @@ const createRect = (
     left = round(LEFT / KX),
     width = round(WIDTH / KX),
     height = round(HEIGHT / KY),
-  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width, ANGLE);
+    angle = ANGLE,
+  ) => AREA_EVENT_CALLBACK(ID, 'rect-area-changed', ENTITY_ID, top, left, height, width, angle);
 
   if (AREA_READONLY_FLAG) {
     area.addEventListener('click', (e) => {
@@ -213,7 +216,8 @@ const createRect = (
     div.appendChild(createLabel(LABEL));
   }
 
-  const redraw = (top = TOP, left = LEFT, width = WIDTH, height = HEIGHT) => {
+  const redraw = (top = TOP, left = LEFT, width = WIDTH, height = HEIGHT, angle = ANGLE) => {
+    area.style.transform = `rotate(${ANGLE || 0}deg)`;
     area.style.top = `${top}px`;
     area.style.left = `${left}px`;
     area.style.width = `${width}px`;
@@ -348,6 +352,17 @@ const createRect = (
       RUN_OUTSIDE_ANGULAR(() => un(window, 'mousemove', dragHandler))
     ));
     return false;
+  }));
+
+  RUN_OUTSIDE_ANGULAR(() => on(area, 'wheel', (e) => {
+    if (AREA_READONLY_FLAG) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    ANGLE += Math.sign(e.deltaY) + 360;
+    ANGLE = ANGLE % 360;
+    redraw();
   }));
 
   const resize = ([image, area, root]) => {
