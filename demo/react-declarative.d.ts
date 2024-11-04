@@ -990,6 +990,12 @@ declare module "react-declarative" {
   export { DatePicker } from "react-declarative/components/common/DatePicker/DatePicker";
   export { TimePicker } from "react-declarative/components/common/TimePicker/TimePicker";
   export { VirtualListBox } from "react-declarative/components/One/components/common/VirtualListBox";
+  export {
+    MetroView,
+    IMetroGroup,
+    IMetroRoute,
+  } from "react-declarative/components";
+  export { OneStrictMode } from "react-declarative/components";
 }
 
 declare module "react-declarative/components" {
@@ -1070,6 +1076,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/PingView";
   export * from "react-declarative/components/HtmlView";
   export * from "react-declarative/components/OfflineView";
+  export * from "react-declarative/components/MetroView";
   export * from "react-declarative/components/RevealView";
   export * from "react-declarative/components/SecretView";
   export * from "react-declarative/components/VisibilityView";
@@ -1105,6 +1112,7 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/Chip";
   export * from "react-declarative/components/ScrollAdjust";
   export * from "react-declarative/components/MasterDetail";
+  export * from "react-declarative/components/OneStrictMode";
 }
 
 declare module "react-declarative/model/ISize" {
@@ -11720,6 +11728,13 @@ declare module "react-declarative/components/OfflineView" {
   export { default } from "react-declarative/components/OfflineView/OfflineView";
 }
 
+declare module "react-declarative/components/MetroView" {
+  export * from "react-declarative/components/MetroView/MetroView";
+  export * from "react-declarative/components/MetroView/model/IMetroGroup";
+  export * from "react-declarative/components/MetroView/model/IMetroRoute";
+  export { default } from "react-declarative/components/MetroView/MetroView";
+}
+
 declare module "react-declarative/components/RevealView" {
   export * from "react-declarative/components/RevealView/RevealView";
   export { default } from "react-declarative/components/RevealView/RevealView";
@@ -11911,6 +11926,11 @@ declare module "react-declarative/components/MasterDetail" {
   export { IMasterDetailOption } from "react-declarative/components/MasterDetail/model/IMasterDetailOption";
   export { MasterDetailMode } from "react-declarative/components/MasterDetail/model/MasterDetailMode";
   export { default } from "react-declarative/components/MasterDetail/MasterDetail";
+}
+
+declare module "react-declarative/components/OneStrictMode" {
+  export * from "react-declarative/components/OneStrictMode/OneStrictMode";
+  export { default } from "react-declarative/components/OneStrictMode/OneStrictMode";
 }
 
 declare module "react-declarative/components/One/layouts/FragmentLayout" {
@@ -26106,6 +26126,40 @@ declare module "react-declarative/components/OfflineView/OfflineView" {
   export default OfflineView;
 }
 
+declare module "react-declarative/components/MetroView/MetroView" {
+  import IMetroGroup from "react-declarative/components/MetroView/model/IMetroGroup";
+  import IAnything from "react-declarative/model/IAnything";
+  interface IMetroViewProps<Payload = IAnything> {
+    routes: IMetroGroup[];
+    payload: Payload | (() => Payload);
+    onNavigate?: (to: string, payload: Payload) => void;
+  }
+  export const MetroView: <Payload extends object = any>({
+    routes,
+    payload: upperPayload,
+    onNavigate,
+  }: IMetroViewProps<Payload>) => JSX.Element;
+  export default MetroView;
+}
+
+declare module "react-declarative/components/MetroView/model/IMetroGroup" {
+  import IMetroRoute from "react-declarative/components/MetroView/model/IMetroRoute";
+  export interface IMetroGroup {
+    label: string;
+    routes?: IMetroRoute[];
+  }
+  export default IMetroGroup;
+}
+
+declare module "react-declarative/components/MetroView/model/IMetroRoute" {
+  export interface IMetroRoute {
+    label: string;
+    icon?: React.ComponentType<any>;
+    to: string;
+  }
+  export default IMetroRoute;
+}
+
 declare module "react-declarative/components/RevealView/RevealView" {
   import * as React from "react";
   import { IRevealProps } from "react-declarative/components/FetchView/components/Reveal";
@@ -28945,6 +28999,21 @@ declare module "react-declarative/components/MasterDetail/model/MasterDetailMode
     Tabs = "tabs",
   }
   export default MasterDetailMode;
+}
+
+declare module "react-declarative/components/OneStrictMode/OneStrictMode" {
+  import React from "react";
+  interface IOneStrictModeProps {
+    enable: boolean;
+    children: React.ReactNode;
+  }
+  export const OneStrictMode: {
+    ({ enable, children }: IOneStrictModeProps): JSX.Element | null;
+    useEffect: typeof React.useEffect;
+    useLayoutEffect: typeof React.useLayoutEffect;
+    install(): void;
+  };
+  export default OneStrictMode;
 }
 
 declare module "react-declarative/components/common/Group" {
