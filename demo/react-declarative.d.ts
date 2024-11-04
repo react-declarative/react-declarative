@@ -995,7 +995,6 @@ declare module "react-declarative" {
     IMetroGroup,
     IMetroRoute,
   } from "react-declarative/components";
-  export { OneStrictMode } from "react-declarative/components";
 }
 
 declare module "react-declarative/components" {
@@ -1112,7 +1111,6 @@ declare module "react-declarative/components" {
   export * from "react-declarative/components/Chip";
   export * from "react-declarative/components/ScrollAdjust";
   export * from "react-declarative/components/MasterDetail";
-  export * from "react-declarative/components/OneStrictMode";
 }
 
 declare module "react-declarative/model/ISize" {
@@ -11928,11 +11926,6 @@ declare module "react-declarative/components/MasterDetail" {
   export { default } from "react-declarative/components/MasterDetail/MasterDetail";
 }
 
-declare module "react-declarative/components/OneStrictMode" {
-  export * from "react-declarative/components/OneStrictMode/OneStrictMode";
-  export { default } from "react-declarative/components/OneStrictMode/OneStrictMode";
-}
-
 declare module "react-declarative/components/One/layouts/FragmentLayout" {
   import * as React from "react";
   import IField from "react-declarative/model/IField";
@@ -19446,7 +19439,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode;
+      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;
@@ -28999,21 +28992,6 @@ declare module "react-declarative/components/MasterDetail/model/MasterDetailMode
     Tabs = "tabs",
   }
   export default MasterDetailMode;
-}
-
-declare module "react-declarative/components/OneStrictMode/OneStrictMode" {
-  import React from "react";
-  interface IOneStrictModeProps {
-    enable: boolean;
-    children: React.ReactNode;
-  }
-  export const OneStrictMode: {
-    ({ enable, children }: IOneStrictModeProps): JSX.Element | null;
-    useEffect: typeof React.useEffect;
-    useLayoutEffect: typeof React.useLayoutEffect;
-    install(): void;
-  };
-  export default OneStrictMode;
 }
 
 declare module "react-declarative/components/common/Group" {
