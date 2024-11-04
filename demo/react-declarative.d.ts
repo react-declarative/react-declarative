@@ -26120,34 +26120,43 @@ declare module "react-declarative/components/OfflineView/OfflineView" {
 }
 
 declare module "react-declarative/components/MetroView/MetroView" {
+  import { OneHandler } from "react-declarative/model/IOneProps";
   import IMetroGroup from "react-declarative/components/MetroView/model/IMetroGroup";
   import IAnything from "react-declarative/model/IAnything";
-  interface IMetroViewProps<Payload = IAnything> {
-    routes: IMetroGroup[];
-    payload: Payload | (() => Payload);
+  interface IMetroViewProps<Data = IAnything, Payload = IAnything> {
+    routes: IMetroGroup<Data, Payload>[];
+    data?: OneHandler<Data>;
+    payload?: Payload | (() => Payload);
     onNavigate?: (to: string, payload: Payload) => void;
   }
-  export const MetroView: <Payload extends object = any>({
+  export const MetroView: <Data = any, Payload extends object = any>({
     routes,
+    data,
     payload: upperPayload,
     onNavigate,
-  }: IMetroViewProps<Payload>) => JSX.Element;
+  }: IMetroViewProps<Data, Payload>) => JSX.Element;
   export default MetroView;
 }
 
 declare module "react-declarative/components/MetroView/model/IMetroGroup" {
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
   import IMetroRoute from "react-declarative/components/MetroView/model/IMetroRoute";
-  export interface IMetroGroup {
+  export interface IMetroGroup<Data = IAnything, Payload = IAnything> {
     label: string;
-    routes?: IMetroRoute[];
+    isVisible?: IField<Data, Payload>["isVisible"];
+    routes?: IMetroRoute<Data, Payload>[];
   }
   export default IMetroGroup;
 }
 
 declare module "react-declarative/components/MetroView/model/IMetroRoute" {
-  export interface IMetroRoute {
+  import IAnything from "react-declarative/model/IAnything";
+  import IField from "react-declarative/model/IField";
+  export interface IMetroRoute<Data = IAnything, Payload = IAnything> {
     label: string;
     icon?: React.ComponentType<any>;
+    isVisible?: IField<Data, Payload>["isVisible"];
     to: string;
   }
   export default IMetroRoute;

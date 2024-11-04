@@ -15,18 +15,22 @@ import Box from "@mui/material/Box";
 import useActualCallback from "../../hooks/useActualCallback";
 import useSingleton from "../../hooks/useSingleton";
 
-import FieldType from "../../model/FieldType";
+import { OneHandler } from "../../model/IOneProps";
+
 import TypedField from "../../model/TypedField";
+import FieldType from "../../model/FieldType";
 import IMetroRoute from "./model/IMetroRoute";
 import IMetroGroup from "./model/IMetroGroup";
 import IAnything from "../../model/IAnything";
+import IField from "../../model/IField";
 
 const NAVIGATE_CALLBACK = Symbol("navigate-callback");
 
 const createButton = (
   to: string,
   label: React.ReactNode,
-  Icon?: React.ComponentType
+  Icon?: React.ComponentType,
+  isVisible?: IField['isVisible'],
 ): TypedField => ({
   type: FieldType.Component,
   desktopColumns: "6",
@@ -34,6 +38,7 @@ const createButton = (
   phoneColumns: "12",
   fieldRightMargin: "1",
   fieldBottomMargin: "1",
+  isVisible,
   element: ({ payload }) => (
     <Paper
       component={ButtonBase}
@@ -62,7 +67,8 @@ const createButton = (
         transition: "background 500ms",
       }}
     >
-      <Stack direction="row" alignItems="center">
+      <Stack direction="row" alignItems="center" gap={2}>
+        <Box flex={1} />
         {Icon && <Icon />}
         <Typography textAlign="center">{label}</Typography>
         <Box flex={1} />
@@ -71,8 +77,9 @@ const createButton = (
   ),
 });
 
-const createGroup = (label: string, routes: IMetroRoute[]): TypedField => ({
+const createGroup = (label: string, routes: IMetroRoute[], isVisible: IField['isVisible']): TypedField => ({
   type: FieldType.Group,
+  isVisible,
   sx: {
     p: 2,
   },
@@ -93,15 +100,16 @@ const createGroup = (label: string, routes: IMetroRoute[]): TypedField => ({
     },
     {
       type: FieldType.Group,
-      fields: routes.map(({ label, to, icon }) =>
-        createButton(to, label, icon)
+      fields: routes.map(({ label, to, icon, isVisible }) =>
+        createButton(to, label, icon, isVisible)
       ),
     },
   ],
 });
 
-const createTitle = (title: string): TypedField => ({
+const createTitle = (title: string, isVisible: IField['isVisible']): TypedField => ({
   type: FieldType.Component,
+  isVisible,
   element: () => (
     <Stack direction="row" alignItems="center" gap={3} sx={{ mt: 3, mb: 3 }}>
       <Typography variant="h4" fontWeight="bold" sx={{ opacity: 0.5 }}>
@@ -112,22 +120,24 @@ const createTitle = (title: string): TypedField => ({
   ),
 });
 
-interface IMetroViewProps<Payload = IAnything> {
-  routes: IMetroGroup[];
-  payload: Payload | (() => Payload);
+interface IMetroViewProps<Data = IAnything, Payload = IAnything> {
+  routes: IMetroGroup<Data, Payload>[];
+  data?: OneHandler<Data>;
+  payload?: Payload | (() => Payload);
   onNavigate?: (to: string, payload: Payload) => void;
 }
 
-export const MetroView = <Payload extends object = IAnything>({
+export const MetroView = <Data = IAnything, Payload extends object = IAnything>({
   routes,
+  data,
   payload: upperPayload = {} as Payload,
   onNavigate = () => undefined,
-}: IMetroViewProps<Payload>) => {
+}: IMetroViewProps<Data, Payload>) => {
   const payload = useSingleton(upperPayload);
 
   const fields = useMemo(() => {
-    return routes.map(({ label, routes }) =>
-      routes ? createGroup(label, routes) : createTitle(label)
+    return routes.map(({ label, routes, isVisible }) =>
+      routes ? createGroup(label, routes, isVisible) : createTitle(label, isVisible)
     );
   }, []);
 
@@ -136,6 +146,7 @@ export const MetroView = <Payload extends object = IAnything>({
   return (
     <One
       fields={fields}
+      handler={() => data}
       payload={() => ({
         [NAVIGATE_CALLBACK]: onNavigate$,
         ...payload,
