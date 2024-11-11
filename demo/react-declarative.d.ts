@@ -817,6 +817,8 @@ declare module "react-declarative" {
     scaleToSize,
     createScaleToSize,
   } from "react-declarative/utils/scaleToSize";
+  export { timeout, TimeoutError } from "react-declarative/utils/hof/timeout";
+  export { waitForNext } from "react-declarative/utils/hof/waitForNext";
   export { obsolete } from "react-declarative/utils/hof/obsolete";
   export { singleshot } from "react-declarative/utils/hof/singleshot";
   export { singletick } from "react-declarative/utils/hof/singletick";
@@ -8134,6 +8136,25 @@ declare module "react-declarative/utils/scaleToSize" {
     [blob: Blob | File]
   >;
   export default scaleToSize;
+}
+
+declare module "react-declarative/utils/hof/timeout" {
+  export class TimeoutError extends Error {}
+  export const timeout: <T extends (...args: any[]) => any>(
+    run: T,
+    delay?: number,
+  ) => Promise<Awaited<T>>;
+  export default timeout;
+}
+
+declare module "react-declarative/utils/hof/waitForNext" {
+  import { TSubject } from "react-declarative/utils/rx/Subject";
+  export const waitForNext: <T = any>(
+    subject: TSubject<T>,
+    condition: (t: T) => boolean,
+    delay?: number,
+  ) => Promise<T>;
+  export default waitForNext;
 }
 
 declare module "react-declarative/utils/hof/obsolete" {

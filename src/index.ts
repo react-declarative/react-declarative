@@ -741,6 +741,9 @@ export { wordForm } from './utils/wordForm';
 export { scaleRect, createScaleRect } from './utils/scaleRect';
 export { scaleToSize, createScaleToSize } from './utils/scaleToSize';
 
+export { timeout, TimeoutError } from './utils/hof/timeout';
+export { waitForNext } from './utils/hof/waitForNext';
+
 export { obsolete } from './utils/hof/obsolete';
 export { singleshot } from './utils/hof/singleshot';
 export { singletick } from './utils/hof/singletick';
