@@ -8143,7 +8143,7 @@ declare module "react-declarative/utils/hof/timeout" {
   export const timeout: <T extends (...args: any[]) => any>(
     run: T,
     delay?: number,
-  ) => Promise<Awaited<T>>;
+  ) => T;
   export default timeout;
 }
 

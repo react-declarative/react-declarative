@@ -12,8 +12,6 @@ data: Data
 
 Represents an alternative way to provide data into
 component except `handler`. The casual way more native to React developers
-Represents an alternative way to provide data into
-component except `handler`. The casual way more native to React developers
 
 ### onFocus
 
@@ -38,9 +36,6 @@ onMenu: (name: string, action: string, data: Data, payload: Payload, onValueChan
 Represents the optional 'onMenu' property of type `IOneProps&lt;Data, Payload, Field&gt;['menu']`.
 This property is used to define the event handler function when a menu action is triggered.
 The event handler will receive three arguments: `data`, `payload`, and `field`.
-Represents the optional 'onMenu' property of type `IOneProps&lt;Data, Payload, Field&gt;['menu']`.
-This property is used to define the event handler function when a menu action is triggered.
-The event handler will receive three arguments: `data`, `payload`, and `field`.
 
 ### onReady
 
@@ -56,8 +51,6 @@ Represents the `onReady` property of `IOneProps`.
 onChange: (Data: Data, initial: boolean) => void
 ```
 
-The `onChange` function is an optional property of the `IOneProps` interface.
-It represents the callback function that is invoked when a change event occurs.
 The `onChange` function is an optional property of the `IOneProps` interface.
 It represents the callback function that is invoked when a change event occurs.
 
@@ -77,8 +70,6 @@ onInvalid: (name: string, msg: string, payload: Payload) => void
 
 Represents the onInvalid callback function, an optional property of the IOneProps interface.
 This function is executed when the invalidity condition is met.
-Represents the onInvalid callback function, an optional property of the IOneProps interface.
-This function is executed when the invalidity condition is met.
 
 ### onLoadStart
 
@@ -94,9 +85,6 @@ Represents the `onLoadStart` event handler of a component.
 onLoadEnd: (isOk: boolean, source: string) => void
 ```
 
-Represents the optional `onLoadEnd` property of the `IOneProps` interface.
-
-This property defines a callback function that is invoked when the loading of data ends.
 Represents the optional `onLoadEnd` property of the `IOneProps` interface.
 
 This property defines a callback function that is invoked when the loading of data ends.

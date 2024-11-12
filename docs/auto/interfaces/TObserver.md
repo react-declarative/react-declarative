@@ -2,8 +2,6 @@
 
 TObserver is an interface that represents an observable object.
 It provides various methods to transform, filter, merge, and consume data emitted by the observable.
-TObserver is an interface that represents an observable object.
-It provides various methods to transform, filter, merge, and consume data emitted by the observable.
 
 ## Properties
 
@@ -69,8 +67,6 @@ merge: <T = unknown>(observer: TObserver<T>) => TObserver<Data | T>
 
 Merges the provided observer with another observer of type T, returning a new observer that emits values
 of type `Data &vert; T`.
-Merges the provided observer with another observer of type T, returning a new observer that emits values
-of type `Data | T`.
 
 ### tap
 

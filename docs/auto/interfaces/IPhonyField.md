@@ -3,9 +3,6 @@
 Represents a phony field interface with additional properties.
  - Phony fields are not serializable, so they will not affect form data
  - Phony fields are reflectable, `getAvailableFields()` and `&lt;VisibilityView /&gt;` will detect them.
-Represents a phony field interface with additional properties.
- - Phony fields are not serializable, so they will not affect form data
- - Phony fields are reflectable, `getAvailableFields()` and `&lt;VisibilityView /&gt;` will detect them.
 
 ## Properties
 

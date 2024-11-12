@@ -36,8 +36,6 @@ outlined: boolean
 
 Type declaration for the `outlined` property of the `PickProp` utility.
 This utility allows you to pick a specific property from a given type and create a new type with only that property.
-Type declaration for the `outlined` property of the `PickProp` utility.
-This utility allows you to pick a specific property from a given type and create a new type with only that property.
 
 ### noDeselect
 
