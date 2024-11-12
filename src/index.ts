@@ -741,7 +741,7 @@ export { wordForm } from './utils/wordForm';
 export { scaleRect, createScaleRect } from './utils/scaleRect';
 export { scaleToSize, createScaleToSize } from './utils/scaleToSize';
 
-export { timeout, TimeoutError } from './utils/hof/timeout';
+export { timeout, TIMEOUT_SYMBOL } from './utils/hof/timeout';
 export { waitForNext } from './utils/hof/waitForNext';
 
 export { obsolete } from './utils/hof/obsolete';

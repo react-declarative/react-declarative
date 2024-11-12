@@ -817,7 +817,7 @@ declare module "react-declarative" {
     scaleToSize,
     createScaleToSize,
   } from "react-declarative/utils/scaleToSize";
-  export { timeout, TimeoutError } from "react-declarative/utils/hof/timeout";
+  export { timeout, TIMEOUT_SYMBOL } from "react-declarative/utils/hof/timeout";
   export { waitForNext } from "react-declarative/utils/hof/waitForNext";
   export { obsolete } from "react-declarative/utils/hof/obsolete";
   export { singleshot } from "react-declarative/utils/hof/singleshot";
@@ -8139,21 +8139,22 @@ declare module "react-declarative/utils/scaleToSize" {
 }
 
 declare module "react-declarative/utils/hof/timeout" {
-  export class TimeoutError extends Error {}
-  export const timeout: <T extends (...args: any[]) => any>(
-    run: T,
+  export const TIMEOUT_SYMBOL: unique symbol;
+  export const timeout: <T extends unknown = any, P extends any[] = any[]>(
+    run: (...args: P) => Promise<T>,
     delay?: number,
-  ) => T;
+  ) => (...args: P) => Promise<symbol | T>;
   export default timeout;
 }
 
 declare module "react-declarative/utils/hof/waitForNext" {
+  import { TIMEOUT_SYMBOL } from "react-declarative/utils/hof/timeout";
   import { TSubject } from "react-declarative/utils/rx/Subject";
   export const waitForNext: <T = any>(
     subject: TSubject<T>,
     condition: (t: T) => boolean,
     delay?: number,
-  ) => Promise<T>;
+  ) => Promise<typeof TIMEOUT_SYMBOL | T>;
   export default waitForNext;
 }
 
