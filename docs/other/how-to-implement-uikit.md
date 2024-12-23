@@ -157,7 +157,7 @@ ReactDOM.render(
 
 ## An alternative starter kit for custom figma design implementation
 
-Take a look at [react-declarative-shadcn](https://github.com/react-declarative/react-declarative-shadcn). Quite usefull if you need [shadcn](https://ui.shadcn.com/) components
+Take a look at [react-declarative-shadcn](https://github.com/react-declarative/react-declarative-shadcn). Quite usefull if you need [shadcn](https://ui.shadcn.com/) components with [tailwind](https://tailwindcss.com/) css modules
 
 ![shadcn](../../assets/images/shadcn.png)
 
