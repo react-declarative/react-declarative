@@ -155,6 +155,12 @@ ReactDOM.render(
 );
 ```
 
+## An alternative starter kit for custom figma design implementation
+
+Take a look at [react-declarative-shadcn](https://github.com/react-declarative/react-declarative-shadcn). Quite usefull if you need [shadcn](https://ui.shadcn.com/) components
+
+![shadcn](../../assets/images/shadcn.png)
+
 ## An easier way to implement custom fields
 
 The purpose of `<OneSlotFactory />` is when you provide a slot it will override each field on a form. This is quite usefull If you need to customize core functionality like text fields or checkboxes. But this will not allow you to add custom fields like banking card number input or range fields cause react-declarative provide only core functionality and does not dictate you how you should write the app.
