@@ -1317,3 +1317,4 @@ MIT [@tripolskypetr](https://github.com/tripolskypetr)
 
 Dude, you reached that point, omg. Could you 
 [Star it on GitHub](https://github.com/react-declarative/react-declarative) plz)
+
