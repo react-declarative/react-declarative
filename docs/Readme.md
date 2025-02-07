@@ -448,3 +448,21 @@ In this example, the Rating element will occupy 20% of the width, and the second
 `phoneColumns` used for smartphone layout;
 
 You can adjust the bottom and right margin using `fieldBottomMargin` and `fieldRightMargin`, respectively.
+
+## Custom label for id list in FieldType.Items and FieldType.Combo
+
+The `itemList` property can accept callback which return `Promise<string[]>`. The ids can be translated with `tr` async function
+
+```tsx
+{
+  type: FieldType.Items,
+  name: "user_ids",
+  title: "Users",
+  itemList: async () => {
+    const users = await ioc.userViewService.findAll();
+    return users.map(({ $id }) => $id);
+  },
+  tr: async (userId) => {
+    return await ioc.userRequestService.getUserLabel(userId);
+  },
+```
