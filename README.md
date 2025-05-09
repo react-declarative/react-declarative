@@ -5,6 +5,7 @@
 > [MUI](https://mui.com/) json endpoint form builder. Check this [Storybook](https://github.com/react-declarative/react-declarative-storybook), the [Playground](https://react-declarative-playground.github.io/) and the [Docs Folder](./docs/Readme.md) for more samples. Also [Playwright End-to-End Testbed](https://github.com/react-declarative/react-declarative-e2e) available
 
 [![npm](https://img.shields.io/npm/v/react-declarative.svg?style=flat-square)](https://npmjs.org/package/react-declarative)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/react-declarative/react-declarative)
 
 ![meme](./meme.png)
 
