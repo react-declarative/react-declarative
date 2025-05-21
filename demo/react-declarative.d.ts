@@ -635,6 +635,7 @@ declare module "react-declarative" {
   export { useFilesView } from "react-declarative/components";
   export { useOutletModal } from "react-declarative/components";
   export { useWizardModal } from "react-declarative/components";
+  export { useTabsModal } from "react-declarative/components";
   export { createField, makeField } from "react-declarative/components";
   export { createLayout, makeLayout } from "react-declarative/components";
   export {
@@ -11716,6 +11717,7 @@ declare module "react-declarative/components/TabsView" {
   export { ITabsStep } from "react-declarative/components/TabsView/model/ITabsStep";
   export { ITabsModal } from "react-declarative/components/TabsView/model/ITabsModal";
   export { ITabsModalProps } from "react-declarative/components/TabsView/model/ITabsModalProps";
+  export { useTabsModal } from "react-declarative/components/TabsView/hooks/useTabsModal";
   export { default } from "react-declarative/components/TabsView/TabsView";
 }
 
@@ -25585,6 +25587,92 @@ declare module "react-declarative/components/TabsView/model/ITabsModalProps" {
   export default ITabsModalProps;
 }
 
+declare module "react-declarative/components/TabsView/hooks/useTabsModal" {
+  import { ITabsModalProps } from "react-declarative/components/TabsView/components/TabsOutletModal";
+  import IAnything from "react-declarative/model/IAnything";
+  import History from "react-declarative/model/History";
+  /**
+   * Interface representing the parameter options for a class or function.
+   * @template Data The type of data to be submitted.
+   * @template Payload The type of payload to be submitted.
+   */
+  interface IParams<Data extends {} = Record<string, any>, Payload = IAnything>
+    extends Omit<
+      ITabsModalProps<Data, Payload>,
+      keyof {
+        openSubject: never;
+        history: never;
+        onSubmit: never;
+        className: never;
+      }
+    > {
+    onSubmit?: (
+      data: Data | null,
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+    fullScreen?: boolean;
+    history?: History;
+    pathname?: string;
+  }
+  /**
+   * Provides a modal component for displaying tabs with content and handling user interactions.
+   *
+   * @template Data - The type of data to be submitted to the modal.
+   * @template Payload - The type of payload to be passed to the onSubmit function.
+   *
+   * @param params - The configuration parameters for the modal.
+   * @param params.fallback - The fallback content to be displayed when the modal content is not available.
+   * @param [params.pathname="/"] - The pathname to be used for history navigation.
+   * @param [params.history] - The history object to be used for navigation. If not provided, a new memory history object will be created.
+   * @param [params.fullScreen=true] - Whether the modal should be displayed in full screen mode.
+   * @param [params.onLoadEnd] - The function to be called when the modal content finishes loading.
+   * @param [params.onLoadStart] - The function to be called when the modal content starts loading.
+   * @param [params.throwError] - Whether to throw an error if the onSubmit function returns false.
+   * @param params.onChange - The function to be called when the value of the modal's content changes.
+   * @param [params.onSubmit] - The function to be called when the modal is submitted. Returns a boolean indicating whether the submission was successful.
+   * @param [params.onMount] - The function to be called when the modal is mounted.
+   * @param [params.onUnmount] - The function to be called when the modal is unmounted.
+   * @param [params.onClose] - The function to be called when the modal is closed.
+   * @param [params.submitLabel] - The label to be used for the submit button in the modal.
+   * @param [params.title] - The title of the modal.
+   * @param [params.hidden] - Whether the modal should be hidden initially.
+   * @param outletProps - Additional props to be passed to the TabsOutletModal component.
+   *
+   * @returns - An object containing the following methods:
+   *    - open: A behavior subject representing the open state of the modal.
+   *    - render: A function that renders the modal component.
+   *    - pickData: A function that triggers the opening of the modal.
+   *    - close: A function that closes the modal.
+   */
+  export const useTabsModal: <
+    Data extends {} = Record<string, any>,
+    Payload = any,
+  >({
+    fallback,
+    pathname,
+    history: upperHistory,
+    fullScreen,
+    onLoadEnd,
+    onLoadStart,
+    throwError,
+    onChange,
+    onSubmit,
+    onMount,
+    onUnmount,
+    onClose,
+    submitLabel,
+    title,
+    hidden,
+    ...outletProps
+  }: IParams<Data, Payload>) => {
+    readonly open: typeof open;
+    readonly render: () => JSX.Element;
+    readonly pickData: () => void;
+    readonly close: Promise<boolean>;
+  };
+  export default useTabsModal;
+}
+
 declare module "react-declarative/components/FetchView/FetchView" {
   import * as React from "react";
   import { IAsyncProps } from "react-declarative/components/Async";
@@ -31547,6 +31635,141 @@ declare module "react-declarative/components/TabsView/model/ITabsViewProps" {
     pathname?: string;
   }
   export default ITabsViewProps;
+}
+
+declare module "react-declarative/components/TabsView/components/TabsOutletModal" {
+  import * as React from "react";
+  import { SxProps } from "@mui/material";
+  import { IFetchViewProps } from "react-declarative/components/FetchView";
+  import ITabsModal from "react-declarative/components/TabsView/model/ITabsModal";
+  import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
+  import ITabsViewProps from "react-declarative/components/TabsView/model/ITabsViewProps";
+  import IAnything from "react-declarative/model/IAnything";
+  import TSubject from "react-declarative/model/TSubject";
+  import ISize from "react-declarative/model/ISize";
+  /**
+   * Represents the props for the ITabsModal component.
+   *
+   * @template Data - The type of data being passed to the ITabsModal component.
+   * @template Payload - The type of payload being passed to the ITabsModal component.
+   *
+   * @property sizeRequest - A function that determines the size of the ITabsModal.
+   * @property openSubject - The behavior subject that determines if the ITabsModal is open or closed.
+   * @property fullScreen - Determines if the ITabsModal should be full screen or not.
+   * @property withActionButton - Determines if the ITabsModal has an action button or not.
+   * @property withStaticAction - Determines if the ITabsModal has a static action or not.
+   * @property title - The title of the ITabsModal.
+   * @property fetchState - The fetch state of the ITabsModal.
+   * @property reloadSubject - The subject that triggers a reload of the ITabsModal.
+   * @property onSubmit - A function that handles the submission of data and payload.
+   * @property AfterTitle - A component that is rendered after the title of the ITabsModal.
+   * @property BeforeTitle - A component that is rendered before the title of the ITabsModal.
+   * @property routes - The routes of the ITabsModal.
+   * @property data - The data of the ITabsModal.
+   * @property onLoadStart - A function that is called when the ITabsModal starts loading.
+   * @property onLoadEnd - A function that is called when the ITabsModal finishes loading.
+   * @property fallback - A function that is called when an error occurs in the ITabsModal.
+   * @property throwError - Determines if the ITabsModal should throw an error or not.
+   * @property hidden - Determines if the ITabsModal should be hidden or not.
+   * @property submitLabel - The label for the submit button of the ITabsModal.
+   * @property mapPayload - A function that maps the data to the payload.
+   * @property mapInitialData - A function that maps the data to the initialData.
+   * @property onMount - A function that is called when the ITabsModal is mounted.
+   * @property onUnmount - A function that is called when the ITabsModal is unmounted.
+   * @property onClose - A function that is called when the ITabsModal is closed.
+   */
+  export interface ITabsModalProps<
+    Data extends {} = Record<string, any>,
+    Payload = IAnything,
+  > extends Omit<
+      ITabsViewProps<Data, Payload>,
+      keyof {
+        otherProps: never;
+        onSubmit: never;
+        initialData: never;
+        payload: never;
+        params: never;
+        routes: never;
+        data: never;
+        id: never;
+        outlinePaper: never;
+        transparentPaper: never;
+      }
+    > {
+    sizeRequest?: (size: ISize) => {
+      height: number;
+      width: number;
+      sx?: SxProps<any>;
+    };
+    openSubject: TBehaviorSubject<boolean>;
+    fullScreen?: boolean;
+    withActionButton?: boolean;
+    withStaticAction?: boolean;
+    title?: string;
+    fetchState?: IFetchViewProps["state"];
+    reloadSubject?: TSubject<void>;
+    onSubmit?: (
+      data: Data | null,
+      payload: Payload,
+    ) => Promise<boolean> | boolean;
+    AfterTitle?: React.ComponentType<{
+      onClose: () => void;
+      data: Data | null;
+    }>;
+    BeforeTitle?: React.ComponentType<{
+      onClose: () => void;
+      data: Data | null;
+    }>;
+    routes: ITabsModal<Data, Payload>[];
+    data?: Data | null;
+    onLoadStart?: () => void;
+    onLoadEnd?: (isOk: boolean) => void;
+    fallback?: (e: Error) => void;
+    throwError?: boolean;
+    hidden?: boolean;
+    submitLabel?: string;
+    submitIcon?: React.ComponentType<any>;
+    mapPayload?: (data: Record<string, any>[]) => Payload | Promise<Payload>;
+    mapInitialData?: (data: Record<string, any>[]) => Data | Promise<Data>;
+    onMount?: () => void;
+    onUnmount?: () => void;
+    onClose?: () => void;
+  }
+  export const OutletModal: <
+    Data extends {} = Record<string, any>,
+    Payload = any,
+  >({
+    withActionButton,
+    hidden,
+    onSubmit,
+    onChange,
+    mapInitialData,
+    mapPayload,
+    onLoadStart,
+    onLoadEnd,
+    fallback,
+    fullScreen,
+    sizeRequest,
+    reloadSubject,
+    fetchState,
+    AfterTitle,
+    BeforeTitle,
+    title,
+    data: upperData,
+    withStaticAction,
+    throwError,
+    submitLabel,
+    submitIcon: SubmitIcon,
+    waitForChangesDelay,
+    openSubject,
+    readonly,
+    routes,
+    onMount,
+    onUnmount,
+    onClose,
+    ...outletProps
+  }: ITabsModalProps<Data, Payload>) => JSX.Element;
+  export default OutletModal;
 }
 
 declare module "react-declarative/components/WizardView/model/IWizardViewProps" {

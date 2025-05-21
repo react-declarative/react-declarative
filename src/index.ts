@@ -554,6 +554,7 @@ export { useFilesView } from './components';
 
 export { useOutletModal } from './components';
 export { useWizardModal } from './components';
+export { useTabsModal } from "./components";
 
 export { createField, makeField } from './components';
 export { createLayout, makeLayout } from './components';
