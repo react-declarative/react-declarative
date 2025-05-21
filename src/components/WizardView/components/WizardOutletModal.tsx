@@ -28,6 +28,7 @@ import ISize from "../../../model/ISize";
 
 import classNames from "../../../utils/classNames";
 import sleep from "../../../utils/sleep";
+import useChange from "../../../hooks/useChange";
 
 const Loader = () => (
   <LoaderView size={24} sx={{ height: "100%", width: "100%" }} />
@@ -45,7 +46,7 @@ const RESIZE_DEBOUNCE = 10;
  */
 export interface IWizardModalProps<
   Data extends {} = Record<string, any>,
-  Payload = IAnything
+  Payload = IAnything,
 > extends Omit<
     IWizardViewProps<Data, Payload>,
     keyof {
@@ -103,13 +104,13 @@ export interface IWizardModalProps<
 
 const useStyles = makeStyles()((theme) => ({
   root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     overflow: "hidden",
   },
   container: {
-    position: 'static',
+    position: "static",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -137,9 +138,9 @@ const useStyles = makeStyles()((theme) => ({
     },
   },
   inner: {
-    minHeight: '100% !important',
-    maxHeight: '100% !important',
-    border: 'unset !important',
+    minHeight: "100% !important",
+    maxHeight: "100% !important",
+    border: "unset !important",
   },
   submit: {
     paddingTop: 15,
@@ -165,7 +166,7 @@ const useStyles = makeStyles()((theme) => ({
  * @property sx.maxWidth - The maximum width of the wizard modal as a CSS value.
  * @property sx.margin - The margin of the wizard modal as a CSS value.
  */
-const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
+const SMALL_SIZE_REQUEST: IWizardModalProps["sizeRequest"] = () => ({
   height: 0,
   width: 0,
   sx: {
@@ -181,7 +182,7 @@ const SMALL_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = () => ({
  * @param sizeRequest - The original size request object.
  * @returns - The modified size request object.
  */
-const LARGE_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = ({
+const LARGE_SIZE_REQUEST: IWizardModalProps["sizeRequest"] = ({
   height,
   width,
 }) => ({
@@ -228,14 +229,14 @@ const LARGE_SIZE_REQUEST: IWizardModalProps['sizeRequest'] = ({
  */
 export const OutletModal = <
   Data extends {} = Record<string, any>,
-  Payload = IAnything
+  Payload = IAnything,
 >({
   withActionButton = false,
   hidden = false,
   onSubmit = () => true,
   onChange = () => undefined,
-  mapInitialData = () => ({} as Data),
-  mapPayload = () => ({} as Payload),
+  mapInitialData = () => ({}) as Data,
+  mapPayload = () => ({}) as Payload,
   onLoadStart,
   onLoadEnd,
   fallback,
@@ -262,7 +263,13 @@ export const OutletModal = <
 }: IWizardModalProps<Data, Payload>) => {
   const { classes } = useStyles();
 
-  const open = useSubjectValue(openSubject, !!openSubject.data)
+  const open = useSubjectValue(openSubject, !!openSubject.data);
+
+  useChange(() => {
+    if (!open) {
+      onClose && onClose();
+    }
+  }, [open]);
 
   /**
    * Compute the requested size based on the current window size.
@@ -278,7 +285,7 @@ export const OutletModal = <
         height: request.height,
         width: request.width,
         sx: request.sx,
-      }
+      };
     },
     debounce: RESIZE_DEBOUNCE,
   });
@@ -377,7 +384,10 @@ export const OutletModal = <
     try {
       handleLoadStart();
       await waitForChanges();
-      await onSubmit(withStaticAction ? {} as Data : data, payloadRef.current);
+      await onSubmit(
+        withStaticAction ? ({} as Data) : data,
+        payloadRef.current
+      );
     } catch (e: any) {
       isOk = false;
       if (!throwError) {
