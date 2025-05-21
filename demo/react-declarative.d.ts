@@ -25668,7 +25668,7 @@ declare module "react-declarative/components/TabsView/hooks/useTabsModal" {
     readonly open: typeof open;
     readonly render: () => JSX.Element;
     readonly pickData: () => void;
-    readonly close: Promise<boolean>;
+    readonly close: () => Promise<boolean>;
   };
   export default useTabsModal;
 }

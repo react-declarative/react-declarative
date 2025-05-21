@@ -180,7 +180,7 @@ export const useTabsModal = <
     open,
     render,
     pickData,
-    close: handleSubmit(null, {} as Payload),
+    close: () => handleSubmit(null, {} as Payload),
   } as const;
 };
 
