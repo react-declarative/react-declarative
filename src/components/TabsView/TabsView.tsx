@@ -348,7 +348,7 @@ export const TabsView = <Data extends {} = IAnything, Payload = IAnything>({
         transparentPaper={transparentPaper}
       >
         <Tabs
-          variant="standard"
+          variant="scrollable"
           className={classNames(classes.header, {
             [classes.headerBg]: !transparentHeader,
           })}
