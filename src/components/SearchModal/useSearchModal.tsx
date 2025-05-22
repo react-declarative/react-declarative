@@ -11,6 +11,7 @@ import TypedField from "../../model/TypedField";
 import IAnything from "../../model/IAnything";
 import IField from "../../model/IField";
 import IRowData from "../../model/IRowData";
+import useBehaviorSubject from "../../hooks/useBehaviorSubject";
 
 type Param = IRowData['id'][];
 
@@ -31,7 +32,7 @@ interface IParams<
   extends Omit<
     ISearchModalProps<FilterData, RowData, Payload, Field>,
     keyof {
-      open: never;
+      openSubject: never;
       onSubmit: never;
       className: never;
       isChooser: never;
@@ -106,7 +107,8 @@ export const useSearchModal = <
 
   const payload = useSingleton(upperPayload);
 
-  const [open, setOpen] = useState(false);
+  const openSubject = useBehaviorSubject<boolean>();
+
   const [param, setParam] = useState<Param>(upperParam || []);
 
   useEffect(() => {
@@ -124,7 +126,7 @@ export const useSearchModal = <
    */
   const handleSubmit = useCallback(async (data: IRowData['id'][] | null) => {
     const result = await onSubmit$(data?.length ? data : null, payload, param$.current);
-    setOpen(!result);
+    openSubject.next(!result);
     return result;
   }, []);
 
@@ -157,7 +159,7 @@ export const useSearchModal = <
   const render = useCallback(
     () => (
       <SearchModal
-        open={open}
+        openSubject={openSubject}
         hidden={hidden}
         data={param}
         title={title}
@@ -206,7 +208,7 @@ export const useSearchModal = <
    */
   const pickData = useCallback((param: Param = []) => {
     setParam(param);
-    setOpen(true);
+    openSubject.next(true);
   }, []);
 
   return {

@@ -23736,6 +23736,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
   import IRowData from "react-declarative/model/IRowData";
   import IField from "react-declarative/model/IField";
   import ISize from "react-declarative/model/ISize";
+  import TBehaviorSubject from "react-declarative/model/TBehaviorSubject";
   /**
    * Represents the properties for the Search Modal component.
    * @template FilterData - The type for the filter data.
@@ -23786,7 +23787,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
-    open?: boolean;
+    openSubject: TBehaviorSubject<boolean>;
     hidden?: boolean;
     submitLabel?: string;
     submitIcon?: React.ComponentType<any>;
@@ -23839,11 +23840,11 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     AfterTitle,
     BeforeTitle,
     title,
+    openSubject,
     payload: upperPayload,
     withInitialLoader,
     selectionMode,
     data: upperData,
-    open,
     throwError,
     submitLabel,
     submitIcon: SubmitIcon,
@@ -23875,7 +23876,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
   > extends Omit<
       ISearchModalProps<FilterData, RowData, Payload, Field>,
       keyof {
-        open: never;
+        openSubject: never;
         onSubmit: never;
         className: never;
         isChooser: never;
@@ -23950,7 +23951,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     hidden,
     ...listProps
   }: IParams<FilterData, RowData, Payload, Field>) => {
-    readonly open: boolean;
+    readonly open: typeof open;
     readonly render: () => JSX.Element;
     readonly pickData: (param?: Param) => void;
     readonly close: () => Promise<boolean>;
@@ -23975,7 +23976,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
   >(
     params: IParams<FilterData, RowData, Payload, Field>,
   ) => {
-    readonly open: boolean;
+    readonly open: typeof open;
     readonly render: () => JSX.Element;
     readonly pickData: (param?: Param) => void;
     readonly close: () => Promise<boolean>;

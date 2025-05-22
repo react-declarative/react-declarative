@@ -23,6 +23,8 @@ import IAnything from "../../model/IAnything";
 import IRowData from "../../model/IRowData";
 import IField from "../../model/IField";
 import ISize from "../../model/ISize";
+import TBehaviorSubject from "../../model/TBehaviorSubject";
+import useSubjectValue from "../../hooks/useSubjectValue";
 
 const MODAL_ROOT = "search-modal__root";
 const RESIZE_DEBOUNCE = 10;
@@ -74,7 +76,7 @@ export interface ISearchModalProps<
   onLoadEnd?: (isOk: boolean) => void;
   fallback?: (e: Error) => void;
   throwError?: boolean;
-  open?: boolean;
+  openSubject: TBehaviorSubject<boolean>;
   hidden?: boolean;
   submitLabel?: string;
   submitIcon?: React.ComponentType<any>;
@@ -200,17 +202,19 @@ export const SearchModal = <
   AfterTitle,
   BeforeTitle,
   title,
+  openSubject,
   payload: upperPayload = {} as Payload,
   withInitialLoader = true,
   selectionMode = SelectionMode.Multiple,
   data: upperData,
-  open = true,
   throwError = false,
   submitLabel = "Submit",
   submitIcon: SubmitIcon,
   ...listProps
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
+
+  const open = useSubjectValue(openSubject, !!openSubject.data);
 
   const requestedSize = useWindowSize({
     compute: (size) => {
