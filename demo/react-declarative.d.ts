@@ -7064,6 +7064,7 @@ declare module "react-declarative/hooks/useOne" {
     title?: string;
     large?: boolean;
     canCancel?: boolean;
+    slots?: IOneProps["slots"];
     handler?: OneHandler<Data, Payload>;
     payload?: IOneProps<Data, Payload, Field>["payload"];
     isBaseline?: IOneProps<Data, Payload, Field>["isBaseline"];
@@ -7108,6 +7109,7 @@ declare module "react-declarative/hooks/useOne" {
   >({
     fields,
     large,
+    slots,
     canCancel,
     title: defaultTitle,
     handler: defaultHandler,

@@ -30,6 +30,7 @@ interface IOnePickerProps<Data = IAnything, Payload = IAnything> {
   onChange: (data: Data | null) => void;
   handler?: OneHandler<Data, Payload>;
   canCancel?: boolean;
+  slots?: IOneProps<Data, Payload>["slots"];
   isBaseline?: IOneProps<Data, Payload>["isBaseline"];
   isBaselineForRoot?: IOneProps<Data, Payload>["isBaselineForRoot"];
   payload?: IOneProps<Data, Payload>["payload"];
@@ -73,6 +74,7 @@ export const OnePicker = <
   payload,
   canCancel = true,
   features,
+  slots,
   large,
   title,
   isBaseline,
@@ -180,6 +182,7 @@ export const OnePicker = <
           isBaselineForRoot={isBaselineForRoot}
           handler={handler}
           payload={payload}
+          slots={slots}
           fields={fields}
           features={features}
         />

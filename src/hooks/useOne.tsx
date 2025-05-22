@@ -34,6 +34,7 @@ interface IParams<
   title?: string;
   large?: boolean;
   canCancel?: boolean;
+  slots?: IOneProps['slots'];
   handler?: OneHandler<Data, Payload>;
   payload?: IOneProps<Data, Payload, Field>["payload"];
   isBaseline?: IOneProps<Data, Payload, Field>["isBaseline"];
@@ -82,6 +83,7 @@ export const useOne = <
 >({
   fields,
   large,
+  slots,
   canCancel,
   title: defaultTitle,
   handler: defaultHandler,
@@ -146,6 +148,7 @@ export const useOne = <
       <OnePicker
         open
         large={large}
+        slots={slots}
         canCancel={canCancel}
         waitForChangesDelay={waitForChangesDelay}
         fields={fields as unknown as IField[]}
