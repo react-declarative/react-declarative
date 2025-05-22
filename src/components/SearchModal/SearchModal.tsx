@@ -25,6 +25,7 @@ import IField from "../../model/IField";
 import ISize from "../../model/ISize";
 import TBehaviorSubject from "../../model/TBehaviorSubject";
 import useSubjectValue from "../../hooks/useSubjectValue";
+import useChange from "../../hooks/useChange";
 
 const MODAL_ROOT = "search-modal__root";
 const RESIZE_DEBOUNCE = 10;
@@ -74,6 +75,7 @@ export interface ISearchModalProps<
   onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
   onLoadStart?: () => void;
   onLoadEnd?: (isOk: boolean) => void;
+  onClose?: () => void;
   fallback?: (e: Error) => void;
   throwError?: boolean;
   openSubject: TBehaviorSubject<boolean>;
@@ -210,11 +212,18 @@ export const SearchModal = <
   throwError = false,
   submitLabel = "Submit",
   submitIcon: SubmitIcon,
+  onClose,
   ...listProps
 }: ISearchModalProps<FilterData, RowData, Payload, Field>) => {
   const { classes } = useStyles();
 
   const open = useSubjectValue(openSubject, !!openSubject.data);
+
+  useChange(() => {
+    if (!open) {
+      onClose && onClose();
+    }
+  }, [open]);
 
   const requestedSize = useWindowSize({
     compute: (size) => {

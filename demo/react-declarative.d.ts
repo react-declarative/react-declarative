@@ -23785,6 +23785,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     onChange?: (data: IRowData["id"][] | null, initial: boolean) => void;
     onLoadStart?: () => void;
     onLoadEnd?: (isOk: boolean) => void;
+    onClose?: () => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
     openSubject: TBehaviorSubject<boolean>;
@@ -23848,6 +23849,7 @@ declare module "react-declarative/components/SearchModal/SearchModal" {
     throwError,
     submitLabel,
     submitIcon: SubmitIcon,
+    onClose,
     ...listProps
   }: ISearchModalProps<FilterData, RowData, Payload, Field>) => JSX.Element;
   export default SearchModal;
@@ -23944,6 +23946,7 @@ declare module "react-declarative/components/SearchModal/useSearchModal" {
     onSubmit,
     onLoadEnd,
     onLoadStart,
+    onClose,
     submitLabel,
     submitIcon,
     throwError,

@@ -97,6 +97,7 @@ export const useSearchModal = <
   onSubmit = () => true,
   onLoadEnd,
   onLoadStart,
+  onClose,
   submitLabel,
   submitIcon,
   throwError,
@@ -169,6 +170,7 @@ export const useSearchModal = <
         handler={handler}
         payload={payload}
         fallback={fallback}
+        onClose={onClose}
         onChange={onChange}
         onLoadEnd={onLoadEnd}
         onLoadStart={onLoadStart}
