@@ -6,6 +6,16 @@ import ModalDialog from "../ModalDialog";
 import Box from "@mui/material/Box";
 import InputBase from "@mui/material/InputBase";
 import DialogTitle from "@mui/material/DialogTitle";
+import { makeStyles } from "../../../styles";
+import classNames from "../../../utils/classNames";
+
+const useStyles = makeStyles()({
+  password: {
+    fontFamily: "text-security-disc",
+    "-webkit-text-security": "disc",
+    textSecurity: "disc",
+  },
+});
 
 /**
  * Represents the properties of the PromptPicker component.
@@ -42,6 +52,9 @@ export const PromptPicker = ({
   open = true,
   large,
 }: IPromptPickerProps) => {
+
+  const { classes } = useStyles();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState(defaultValue);
   useEffect(() => setValue(defaultValue), [defaultValue]);
@@ -93,6 +106,9 @@ export const PromptPicker = ({
       </DialogTitle>
       <Box p={3}>
         <InputBase
+          className={classNames({
+            [classes.password]: inputType === "password",
+          })}
           inputRef={inputRef}
           type={inputType}
           autoFocus
