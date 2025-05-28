@@ -6,6 +6,8 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 
+import useAsyncValue from "../../../../../hooks/useAsyncValue";
+
 import CloseIcon from "@mui/icons-material/Close";
 
 import ActionButton from "../../../../ActionButton";
@@ -16,7 +18,6 @@ import { useOnePayload } from "../../../context/PayloadProvider";
 import { useOneState } from "../../../context/StateProvider";
 
 import chooseFile from "../../../../../utils/chooseFile";
-import openBlank from "../../../../../utils/openBlank";
 
 const LOADING_LABEL = "Loading";
 
@@ -49,7 +50,7 @@ const LOADING_LABEL = "Loading";
 export const FileField = ({
   invalid,
   incorrect,
-  value,
+  value: upperValue,
   disabled,
   readonly,
   description = "",
@@ -69,15 +70,22 @@ export const FileField = ({
     }
     return name;
   },
-  view = (filePath) => {
-    openBlank(filePath);
-  },
+  view,
+  tr = (value: string) => value,
 }: IFileSlot) => {
-  const [currentLoading, setCurrentLoading] = useState(false);
+  const [currentLoading, setCurrentLoading] = useState(0);
   const payload = useOnePayload();
   const { object } = useOneState();
 
-  const loading = upperLoading || currentLoading;
+  const loading = !!upperLoading || !!currentLoading;
+
+  const [value] = useAsyncValue(async () => {
+    return await tr(upperValue, object, payload);
+  }, {
+    onLoadStart: () => setCurrentLoading(c => c + 1),
+    onLoadEnd: () => setCurrentLoading(c => c - 1),
+    deps: [upperValue],
+  })
 
   return (
     <Stack
@@ -129,11 +137,11 @@ export const FileField = ({
         label={title}
         disabled={disabled}
       />
-      {!!value && (
+      {!!value && !!view && (
         <ActionButton
           variant="outlined"
-          onLoadStart={() => setCurrentLoading(true)}
-          onLoadEnd={() => setCurrentLoading(false)}
+          onLoadStart={() => setCurrentLoading(c => c + 1)}
+          onLoadEnd={() => setCurrentLoading(c => c - 1)}
           onClick={async () => {
             await view(value, object, payload);
           }}
@@ -143,8 +151,8 @@ export const FileField = ({
       )}
       <ActionButton
         variant="outlined"
-        onLoadStart={() => setCurrentLoading(true)}
-        onLoadEnd={() => setCurrentLoading(false)}
+        onLoadStart={() => setCurrentLoading(c => c + 1)}
+        onLoadEnd={() => setCurrentLoading(c => c - 1)}
         onClick={async () => {
           const fileBlob = await chooseFile(fileAccept);
           if (fileBlob) {

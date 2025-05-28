@@ -13776,6 +13776,10 @@ declare module "react-declarative/components/One/fields/FileField" {
      *
      */
     view?: PickProp<IField<Data, Payload>, "view">;
+    /**
+     * The translate label for FieldType.File
+     */
+    tr?: PickProp<IField<Data, Payload>, "tr">;
   }
   /**
    * Interface representing a private file field.
@@ -13832,6 +13836,7 @@ declare module "react-declarative/components/One/fields/FileField" {
       loading,
       onChange,
       inputRef,
+      tr,
       name,
     }: IFileFieldProps & IFileFieldPrivate): JSX.Element;
     displayName: string;
@@ -29763,7 +29768,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
     File: ({
       invalid,
       incorrect,
-      value,
+      value: upperValue,
       disabled,
       readonly,
       description,
@@ -29779,6 +29784,7 @@ declare module "react-declarative/components/One/components/SlotFactory/SlotCont
       name,
       upload,
       view,
+      tr,
     }: import("../..").IFileSlot) => JSX.Element;
     Choose: ({
       invalid,

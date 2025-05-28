@@ -133,6 +133,10 @@ export interface IFileFieldProps<Data = IAnything, Payload = IAnything> {
    *
    */
   view?: PickProp<IField<Data, Payload>, 'view'>;
+  /**
+   * The translate label for FieldType.File
+   */
+  tr?: PickProp<IField<Data, Payload>, 'tr'>;
 }
 
 /**
@@ -190,6 +194,7 @@ export const FileField = ({
   loading,
   onChange,
   inputRef,
+  tr,
   name,
 }: IFileFieldProps & IFileFieldPrivate) => (
   <File
@@ -206,6 +211,7 @@ export const FileField = ({
     placeholder={placeholder}
     upload={upload}
     view={view}
+    tr={tr}
     dirty={dirty}
     loading={loading}
     onChange={onChange}
