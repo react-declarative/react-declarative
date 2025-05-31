@@ -29,6 +29,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   fields: IField<Data, Payload>[];
   payload?: (Payload | (() => Payload));
   handler: OneHandler<Data, Payload>;
+  onClose?: (data: Data) => void;
   onChange?: IOneProps<Data, Payload>['change'];
   onInvalid?: IOneProps<Data, Payload>['invalidity'];
   onFocus?: IOneProps<Data, Payload>['focus'];

@@ -79,6 +79,7 @@ export const OneIcon = <
   oneSx,
   isBaseline,
   isBaselineForRoot,
+  onClose,
   onChange,
   onFocus,
   onBlur,
@@ -164,6 +165,7 @@ export const OneIcon = <
       singlerun(async () => {
         await waitForChanges();
         onChange && onChange(data$.current, false);
+        onClose && onClose(data$.current);
         setAnchorEl(null);
       }),
     []

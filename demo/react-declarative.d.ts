@@ -21982,6 +21982,7 @@ declare module "react-declarative/components/OneIcon/OneIcon" {
     oneSx,
     isBaseline,
     isBaselineForRoot,
+    onClose,
     onChange,
     onFocus,
     onBlur,
@@ -22036,6 +22037,7 @@ declare module "react-declarative/components/OneButton/OneButton" {
     badgeSx,
     oneSx,
     onChange,
+    onClose,
     onFocus,
     onBlur,
     isBaseline,
@@ -31073,6 +31075,7 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
     fields: IField<Data, Payload>[];
     payload?: Payload | (() => Payload);
     handler: OneHandler<Data, Payload>;
+    onClose?: (data: Data) => void;
     onChange?: IOneProps<Data, Payload>["change"];
     onInvalid?: IOneProps<Data, Payload>["invalidity"];
     onFocus?: IOneProps<Data, Payload>["focus"];
@@ -31153,6 +31156,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
     fields: IField<Data, Payload>[];
     payload?: Payload | (() => Payload);
     handler: OneHandler<Data, Payload>;
+    onClose?: (data: Data) => void;
     onChange?: IOneProps<Data, Payload>["change"];
     onInvalid?: IOneProps<Data, Payload>["invalidity"];
     onFocus?: IOneProps<Data, Payload>["focus"];

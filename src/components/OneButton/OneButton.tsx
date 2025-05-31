@@ -89,6 +89,7 @@ export const OneButton = <
   badgeSx,
   oneSx,
   onChange = () => undefined,
+  onClose,
   onFocus,
   onBlur,
   isBaseline,
@@ -188,6 +189,7 @@ export const OneButton = <
         setReadonly(true);
         await waitForChanges();
         onChange$(data$.current, false);
+        onClose && onClose(data$.current);
         setAnchorEl(null);
         setReadonly(false);
       }),
