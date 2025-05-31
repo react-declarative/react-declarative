@@ -27,6 +27,7 @@ import deepMerge from "../../utils/deepMerge";
 import sleep from "../../utils/sleep";
 
 import IAnything from "../../model/IAnything";
+import useOnce from "../../hooks/useOnce";
 
 const ONEBUTTON_CONTENT = 'react-declarative__oneButtonContent';
 const WAIT_FOR_CHANGES_DELAY = 600;
@@ -97,6 +98,7 @@ export const OneButton = <
   writeTransform,
   incomingTransform,
   outgoingTransform,
+  reloadSubject: upperReloadSubject,
   ...buttonProps
 }: IOneButtonProps<Data, Payload>) => {
   const { classes } = useStyles();
@@ -108,6 +110,8 @@ export const OneButton = <
 
   const onChange$ = useActualCallback(onChange);
 
+  const reloadSubject = useSubject(upperReloadSubject);
+
   /**
    * Represents the variable `data`.
    *
@@ -117,7 +121,7 @@ export const OneButton = <
    * @property isActive - Indicates whether the data is active or not.
    * @property tags - An array of tags associated with the data.
    */
-  const [data, { loading, error }, setData, { data$ }] = useAsyncValue(async () => {
+  const [data, { loading, error, execute }, setData, { data$ }] = useAsyncValue(async () => {
     const getResult = async () => {
       if (typeof handler === "function") {
         return await (handler as Function)(payload);
@@ -132,6 +136,8 @@ export const OneButton = <
     onChange$(data, true);
     return data;
   });
+
+  useOnce(() => reloadSubject.subscribe(execute));
 
   const [invalid, setInvalid] = useState(false);
 

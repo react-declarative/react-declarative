@@ -7,6 +7,7 @@ import { ButtonProps } from "@mui/material/Button";
 import IOnePublicProps from "../../../model/IOnePublicProps";
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
+import TSubject from "../../../model/TSubject";
 
 /**
  * @interface IOneButtonProps
@@ -36,6 +37,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onBlur: never;
   color: never;
 }> {
+  reloadSubject?: TSubject<void>;
   withCloseAfterChange?: boolean;
   noBadge?: boolean;
   fieldDebounce?: number;

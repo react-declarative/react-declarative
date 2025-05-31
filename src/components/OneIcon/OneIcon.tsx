@@ -23,6 +23,8 @@ import deepMerge from "../../utils/deepMerge";
 import sleep from "../../utils/sleep";
 
 import IAnything from "../../model/IAnything";
+import useSubject from "../../hooks/useSubject";
+import useOnce from "../../hooks/useOnce";
 
 const WAIT_FOR_CHANGES_DELAY = 600;
 
@@ -81,15 +83,18 @@ export const OneIcon = <
   onFocus,
   onBlur,
   onInvalid,
+  reloadSubject: upperReloadSubject,
   ...buttonProps
 }: IOneIconProps<Data, Payload>) => {
   const { classes } = useStyles();
 
   const payload = useSingleton(upperPayload);
 
+  const reloadSubject = useSubject(upperReloadSubject);
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
-  const [data, { loading, error }, setData] = useAsyncValue(async () => {
+  const [data, { loading, error, execute }, setData] = useAsyncValue(async () => {
     const getResult = async () => {
       if (typeof handler === "function") {
         return await (handler as Function)(payload);
@@ -104,6 +109,8 @@ export const OneIcon = <
     onChange && onChange(data, true);
     return data;
   });
+
+  useOnce(() => reloadSubject.subscribe(execute));
 
   const [invalid, setInvalid] = useState(false);
 

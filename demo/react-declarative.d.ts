@@ -21986,6 +21986,7 @@ declare module "react-declarative/components/OneIcon/OneIcon" {
     onFocus,
     onBlur,
     onInvalid,
+    reloadSubject: upperReloadSubject,
     ...buttonProps
   }: IOneIconProps<Data, Payload>) => JSX.Element | null;
   export default OneIcon;
@@ -22044,6 +22045,7 @@ declare module "react-declarative/components/OneButton/OneButton" {
     writeTransform,
     incomingTransform,
     outgoingTransform,
+    reloadSubject: upperReloadSubject,
     ...buttonProps
   }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
   export default OneButton;
@@ -31043,6 +31045,7 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
   import { IconButtonProps } from "@mui/material/IconButton";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  import TSubject from "react-declarative/model/TSubject";
   /**
    * Represents the properties of a context menu button component.
    *
@@ -31063,6 +31066,7 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
         color: never;
       }
     > {
+    reloadSubject?: TSubject<void>;
     noBadge?: boolean;
     fieldDebounce?: number;
     waitForChangesDelay?: number;
@@ -31106,6 +31110,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
   import IOnePublicProps from "react-declarative/model/IOnePublicProps";
   import IAnything from "react-declarative/model/IAnything";
   import IField from "react-declarative/model/IField";
+  import TSubject from "react-declarative/model/TSubject";
   /**
    * @interface IOneButtonProps
    * @template Data - The data type of the IField object's data property
@@ -31140,6 +31145,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
         color: never;
       }
     > {
+    reloadSubject?: TSubject<void>;
     withCloseAfterChange?: boolean;
     noBadge?: boolean;
     fieldDebounce?: number;

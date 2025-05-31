@@ -6,6 +6,7 @@ import { IconButtonProps } from "@mui/material/IconButton";
 
 import IAnything from "../../../model/IAnything";
 import IField from "../../../model/IField";
+import TSubject from "../../../model/TSubject";
 
 /**
  * Represents the properties of a context menu button component.
@@ -21,6 +22,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   onBlur: never;
   color: never;
 }> {
+  reloadSubject?: TSubject<void>;
   noBadge?: boolean;
   fieldDebounce?: number;
   waitForChangesDelay?: number;
