@@ -38,6 +38,7 @@ export interface IOneButtonProps<Data extends {} = IAnything, Payload extends IA
   color: never;
 }> {
   reloadSubject?: TSubject<void>;
+  closeSubject?: TSubject<void>;
   withCloseAfterChange?: boolean;
   noBadge?: boolean;
   fieldDebounce?: number;

@@ -21988,6 +21988,7 @@ declare module "react-declarative/components/OneIcon/OneIcon" {
     onBlur,
     onInvalid,
     reloadSubject: upperReloadSubject,
+    closeSubject: upperCloseSubject,
     ...buttonProps
   }: IOneIconProps<Data, Payload>) => JSX.Element | null;
   export default OneIcon;
@@ -22048,6 +22049,7 @@ declare module "react-declarative/components/OneButton/OneButton" {
     incomingTransform,
     outgoingTransform,
     reloadSubject: upperReloadSubject,
+    closeSubject: upperCloseSubject,
     ...buttonProps
   }: IOneButtonProps<Data, Payload>) => JSX.Element | null;
   export default OneButton;
@@ -31069,6 +31071,7 @@ declare module "react-declarative/components/OneIcon/model/IOneIconProps" {
       }
     > {
     reloadSubject?: TSubject<void>;
+    closeSubject?: TSubject<void>;
     noBadge?: boolean;
     fieldDebounce?: number;
     waitForChangesDelay?: number;
@@ -31149,6 +31152,7 @@ declare module "react-declarative/components/OneButton/model/IOneButtonProps" {
       }
     > {
     reloadSubject?: TSubject<void>;
+    closeSubject?: TSubject<void>;
     withCloseAfterChange?: boolean;
     noBadge?: boolean;
     fieldDebounce?: number;

@@ -85,6 +85,7 @@ export const OneIcon = <
   onBlur,
   onInvalid,
   reloadSubject: upperReloadSubject,
+  closeSubject: upperCloseSubject,
   ...buttonProps
 }: IOneIconProps<Data, Payload>) => {
   const { classes } = useStyles();
@@ -92,6 +93,8 @@ export const OneIcon = <
   const payload = useSingleton(upperPayload);
 
   const reloadSubject = useSubject(upperReloadSubject);
+
+  const closeSubject = useSubject(upperCloseSubject);
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
@@ -112,6 +115,7 @@ export const OneIcon = <
   });
 
   useOnce(() => reloadSubject.subscribe(execute));
+  useOnce(() => closeSubject.subscribe(() => setAnchorEl(null)));
 
   const [invalid, setInvalid] = useState(false);
 

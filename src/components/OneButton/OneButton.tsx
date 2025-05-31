@@ -100,6 +100,7 @@ export const OneButton = <
   incomingTransform,
   outgoingTransform,
   reloadSubject: upperReloadSubject,
+  closeSubject: upperCloseSubject,
   ...buttonProps
 }: IOneButtonProps<Data, Payload>) => {
   const { classes } = useStyles();
@@ -112,6 +113,7 @@ export const OneButton = <
   const onChange$ = useActualCallback(onChange);
 
   const reloadSubject = useSubject(upperReloadSubject);
+  const closeSubject = useSubject(upperCloseSubject);
 
   /**
    * Represents the variable `data`.
@@ -139,6 +141,7 @@ export const OneButton = <
   });
 
   useOnce(() => reloadSubject.subscribe(execute));
+  useOnce(() => closeSubject.subscribe(() => setAnchorEl(null)));
 
   const [invalid, setInvalid] = useState(false);
 
