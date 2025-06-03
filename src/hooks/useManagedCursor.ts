@@ -111,14 +111,14 @@ export const useManagedCursor = ({
     }, [elementRef.current]);
 
     useLayoutEffect(() => {
-        if (template) {
+        if (template || replace || allowed) {
             caretManager.render();
         }
     }, [value]);
 
     const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         let result = e.target.value;
-        if (template) {
+        if (template || replace || allowed) {
             result = "";
             for (let i = 0; i < e.target.value.length; i++) {
                 result += e.target.value[i];

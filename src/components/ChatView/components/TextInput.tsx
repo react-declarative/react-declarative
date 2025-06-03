@@ -106,7 +106,8 @@ export const TextInput = ({
         multiline
         inputProps={{ onKeyDown: handleKeyDown }}
         variant="outlined"
-        maxRows={10}
+        maxRows={1}
+        minRows={1}
       />
       <Button
         type="button"
