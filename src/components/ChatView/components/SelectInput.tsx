@@ -60,6 +60,7 @@ export const SelectInput = ({
       sx={{
         flex: '1 1 auto',
         display: 'flex',
+        gap: 1,
         flexDirection: 'column',
         '& > *': {
           flex: '0 0 auto',

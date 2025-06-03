@@ -88,7 +88,7 @@ export const ChatMessage = ({
             {message.username && ChatUsername}
             <Box
               maxWidth="100%"
-              py={1}
+              py={3}
               px={2}
               bgcolor={message.self ? 'primary.main' : 'background.paper'}
               color={message.self ? 'primary.contrastText' : 'text.primary'}

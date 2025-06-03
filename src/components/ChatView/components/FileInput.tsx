@@ -99,6 +99,7 @@ export const FileInput = ({
         flex: '1 1 auto',
         maxWidth: '100%',
         display: 'flex',
+        gap: 1,
         flexDirection: 'column',
         '& > *': {
           flex: '0 0 auto',
