@@ -24,7 +24,7 @@ export const formatText = (raw: string, template: string, {
     allowed,
     replace,
 }: IParams = {}) => {
-    if (!template || !raw) {
+    if (!raw) {
         return raw;
     }
     if (replace) {
@@ -55,6 +55,9 @@ export const formatText = (raw: string, template: string, {
             }
         }
         raw = raw.split('').filter((_, idx) => !pendingRemoveIdx.has(idx)).join('');
+    }
+    if (!template) {
+        return raw;
     }
     let idx = 0;
     let result = '';

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Avatar, Box, Grow, Typography } from '@mui/material';
+import { Avatar, Box, Grow, Typography } from "@mui/material";
 
-import Message from '../model/Message';
-import MessageContent from '../model/MessageContent';
+import Message from "../model/Message";
+import MessageContent from "../model/MessageContent";
 
-/** 
+/**
  * @interface IChatMessageProps - Interface representing props for a chat message component.
  * @property id - The unique identifier of the message.
  * @property message - The message object.
@@ -44,7 +44,7 @@ export const ChatMessage = ({
 
   const ChatUsername = (
     <Box maxWidth="100%" mx={1}>
-      <Typography variant="body2" align={message.self ? 'right' : 'left'}>
+      <Typography variant="body2" align={message.self ? "right" : "left"}>
         {message.username}
       </Typography>
     </Box>
@@ -54,12 +54,12 @@ export const ChatMessage = ({
     <Box maxWidth="100%" mx={1}>
       <Typography
         variant="body2"
-        align={message.self ? 'right' : 'left'}
+        align={message.self ? "right" : "left"}
         color="textSecondary"
       >
         {dispDate?.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
+          hour: "2-digit",
+          minute: "2-digit",
         })}
       </Typography>
     </Box>
@@ -67,7 +67,7 @@ export const ChatMessage = ({
 
   return (
     <Grow in>
-      <Box maxWidth="100%" display="flex" flexDirection="column">
+      <Box maxWidth="100%" display="flex" flexDirection="column" pb={1}>
         {showDate && (
           <Typography align="center">
             {dispDate?.toLocaleDateString()}
@@ -76,12 +76,11 @@ export const ChatMessage = ({
         <Box
           id={id}
           maxWidth="100%"
-          my={1}
-          pl={message.self ? '20%' : 0}
-          pr={message.self ? 0 : '20%'}
+          pl={message.self ? "20%" : 0}
+          pr={message.self ? 0 : "20%"}
           display="flex"
-          justifyContent={message.self ? 'flex-end' : 'flex-start'}
-          style={{ overflowWrap: 'break-word' }}
+          justifyContent={message.self ? "flex-end" : "flex-start"}
+          style={{ overflowWrap: "break-word" }}
         >
           {message.avatar && !message.self && ChatAvator}
           <Box minWidth={0} display="flex" flexDirection="column">
@@ -90,17 +89,17 @@ export const ChatMessage = ({
               maxWidth="100%"
               py={3}
               px={2}
-              bgcolor={message.self ? 'primary.main' : 'background.paper'}
-              color={message.self ? 'primary.contrastText' : 'text.primary'}
+              bgcolor={message.self ? "primary.main" : "background.paper"}
+              color={message.self ? "primary.contrastText" : "text.primary"}
               borderRadius={4}
               boxShadow={2}
             >
-              {message.type === 'text' && (
-                <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
+              {message.type === "text" && (
+                <Typography variant="body1" style={{ whiteSpace: "pre-wrap" }}>
                   {message.content}
                 </Typography>
               )}
-              {message.type === 'jsx' && <div>{message.content}</div>}
+              {message.type === "jsx" && <div>{message.content}</div>}
             </Box>
             {showTime && ChatDate}
           </Box>
@@ -109,6 +108,6 @@ export const ChatMessage = ({
       </Box>
     </Grow>
   );
-}
+};
 
 export default ChatMessage;
