@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { Box, Button, Icon } from '@mui/material';
+import { Box, Button } from '@mui/material';
+
+import SendIcon from "@mui/icons-material/Send";
+import StopIcon from "@mui/icons-material/Stop";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 
 import ChatController from '../helpers/ChatController';
 import AudioActionRequest from '../model/AudioActionRequest';
@@ -142,7 +146,7 @@ export const AudioInput = ({
           disabled={!stopped}
           variant="contained"
           color="primary"
-          startIcon={<Icon>keyboard_voice</Icon>}
+          startIcon={<KeyboardVoiceIcon />}
         >
           Rec start
         </Button>
@@ -154,7 +158,7 @@ export const AudioInput = ({
           disabled={stopped}
           variant="contained"
           color="primary"
-          startIcon={<Icon>stop</Icon>}
+          startIcon={<StopIcon />}
         >
           Rec stop
         </Button>
@@ -165,7 +169,7 @@ export const AudioInput = ({
         disabled={!audio}
         variant="contained"
         color="primary"
-        startIcon={<Icon>send</Icon>}
+        startIcon={<SendIcon />}
       >
         {sendButtonText}
       </Button>

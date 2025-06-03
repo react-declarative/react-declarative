@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { Box, Button, Icon, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
+
+import SendIcon from "@mui/icons-material/Send";
 
 import ChatController from '../helpers/ChatController';
 import TextActionRequest from '../model/TextActionRequest';
@@ -111,7 +113,7 @@ export const TextInput = ({
         disabled={!value}
         variant="contained"
         color="primary"
-        startIcon={<Icon>send</Icon>}
+        startIcon={<SendIcon />}
       >
         {sendButtonText}
       </Button>

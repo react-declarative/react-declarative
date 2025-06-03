@@ -5,6 +5,7 @@ interface IParams {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
+    deps?: any[];
 }
 
 const execute = async (promise: Promise<any>, {
@@ -37,7 +38,7 @@ export const useOnce = (fn: () => (void | Promise<any> | (() => void)), params: 
             return undefined;
         }
         return result;
-    }, []);
+    }, params.deps || []);
 };
 
 export default useOnce;

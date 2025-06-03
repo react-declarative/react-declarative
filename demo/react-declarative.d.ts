@@ -4970,6 +4970,7 @@ declare module "react-declarative/hooks/useOnce" {
     onLoadEnd?: (isOk: boolean) => void;
     fallback?: (e: Error) => void;
     throwError?: boolean;
+    deps?: any[];
   }
   export const useOnce: (
     fn: () => void | Promise<any> | (() => void),
@@ -19470,7 +19471,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
+      children: import("react").ReactNode;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;

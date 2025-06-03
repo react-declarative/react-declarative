@@ -4,12 +4,15 @@ import {
   Box,
   Button,
   Divider,
-  Icon,
   List,
   ListItem,
   ListItemIcon,
   Typography,
 } from '@mui/material';
+
+import AttachFileIcon from "@mui/icons-material/AttachFile"
+import FolderIcon from "@mui/icons-material/Folder"
+import SendIcon from "@mui/icons-material/Send"
 
 import ChatController from '../helpers/ChatController';
 import FileActionRequest from '../model/FileActionRequest';
@@ -112,7 +115,7 @@ export const FileInput = ({
             <Divider />
             <ListItem key={f.name}>
               <ListItemIcon>
-                <Icon>attach_file</Icon>
+                <AttachFileIcon />
               </ListItemIcon>
               <Typography style={{ overflowWrap: 'break-word', minWidth: 0 }}>
                 {f.name}
@@ -139,7 +142,7 @@ export const FileInput = ({
           component="label"
           variant="contained"
           color="primary"
-          startIcon={<Icon>folder</Icon>}
+          startIcon={<FolderIcon />}
         >
           Select file
           <input
@@ -156,7 +159,7 @@ export const FileInput = ({
           disabled={files.length === 0}
           variant="contained"
           color="primary"
-          startIcon={<Icon>send</Icon>}
+          startIcon={<SendIcon />}
         >
           {sendButtonText}
         </Button>

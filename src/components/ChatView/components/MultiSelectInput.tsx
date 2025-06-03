@@ -1,6 +1,8 @@
 import * as React from 'react';
 
-import { Box, Button, Icon } from '@mui/material';
+import { Box, Button } from '@mui/material';
+
+import SendIcon from "@mui/icons-material/Send";
 
 import ChatController from '../helpers/ChatController';
 import MultiSelectActionRequest from '../model/MultiSelectActionRequest';
@@ -114,7 +116,7 @@ export const MultiSelectInput = ({
         disabled={values.length === 0}
         variant="contained"
         color="primary"
-        startIcon={<Icon>send</Icon>}
+        startIcon={<SendIcon />}
       >
         {sendButtonText}
       </Button>
