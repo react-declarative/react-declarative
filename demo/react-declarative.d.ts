@@ -2068,6 +2068,13 @@ declare module "react-declarative/model/IField" {
     sliderTrackColor?: (v: number) => string;
     sliderRailColor?: (v: number) => string;
     /**
+     * Шаги для слайдера
+     */
+    sliderSteps?: {
+      value: number;
+      label: string;
+    }[];
+    /**
      *  - Коллбеки, позволяющие перекрасить ProgressField.
      * Работают только если заданы все вместе
      *  - ВНИМАНИЕ! Потенциально возможна просадка производительности,
@@ -15186,6 +15193,14 @@ declare module "react-declarative/components/One/fields/SliderField" {
      */
     sliderRailColor?: PickProp<IField<Data, Payload>, "sliderRailColor">;
     /**
+     * Defines custom steps for the slider component.
+     *
+     * @typedef sliderSteps
+     * @property [sliderSteps] - An array of values representing the discrete steps the slider can take.
+     * If provided, the slider will only allow selection of these specific values.
+     */
+    sliderSteps?: PickProp<IField<Data, Payload>, "sliderSteps">;
+    /**
      * Represents the optional property 'groupRef' of an object of type `IField<Data, Payload>`.
      *
      * @typedef groupRef
@@ -15252,6 +15267,7 @@ declare module "react-declarative/components/One/fields/SliderField" {
       leadingIconClick,
       trailingIconClick,
       stepSlider,
+      sliderSteps,
       maxSlider,
       minSlider,
       labelFormatSlider,
@@ -19471,7 +19487,7 @@ declare module "react-declarative/components/List/hooks/useStateAction" {
       children,
       payload,
     }: {
-      children: import("react").ReactNode;
+      children: import("react").ReactNode /** The total number of rows, or null if unknown. */;
       payload: TSubject<IStateAction>;
     }) => JSX.Element,
     useStateAction: () => TSubject<IStateAction>;

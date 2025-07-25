@@ -374,6 +374,14 @@ export interface IField<Data = IAnything, Payload = IAnything> {
     sliderRailColor?: (v: number) => string,
 
     /**
+     * Шаги для слайдера
+     */
+    sliderSteps?: {
+      value: number;
+      label: string;
+    }[];
+
+    /**
      *  - Коллбеки, позволяющие перекрасить ProgressField.
      * Работают только если заданы все вместе
      *  - ВНИМАНИЕ! Потенциально возможна просадка производительности,
