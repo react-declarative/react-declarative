@@ -20305,6 +20305,7 @@ declare module "react-declarative/components/FeatureView/hooks/useFeatureView" {
     withStaticAction,
   }: IParams) => {
     open: boolean;
+    setOpen: import("react").Dispatch<import("react").SetStateAction<boolean>>;
     render: () => JSX.Element;
     pickData: (param?: any) => void;
   };
@@ -20482,6 +20483,7 @@ declare module "react-declarative/components/VisibilityView/hooks/useVisibilityV
     submitLabel,
   }: IParams) => {
     open: boolean;
+    setOpen: import("react").Dispatch<import("react").SetStateAction<boolean>>;
     render: () => JSX.Element;
     pickData: (param?: any) => void;
   };
@@ -23628,6 +23630,7 @@ declare module "react-declarative/components/ActionModal/ActionModal" {
 }
 
 declare module "react-declarative/components/ActionModal/useActionModal" {
+  import * as React from "react";
   import { IActionModalProps } from "react-declarative/components/ActionModal/ActionModal";
   import TypedField from "react-declarative/model/TypedField";
   import IAnything from "react-declarative/model/IAnything";
@@ -23742,6 +23745,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     title,
   }: IParams<Data, Payload, Field, Param>) => {
     open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     render: () => JSX.Element;
     pickData: (param?: Param | undefined) => void;
   };
@@ -23749,6 +23753,7 @@ declare module "react-declarative/components/ActionModal/useActionModal" {
     params: IParams<Data, TypedField<Data, any>, IField<Data, any>, any>,
   ) => {
     open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     render: () => JSX.Element;
     pickData: (param?: any) => void;
   };

@@ -269,6 +269,7 @@ export const useActionModal = <
 
   return {
     open,
+    setOpen,
     render,
     pickData,
   };
