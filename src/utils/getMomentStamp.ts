@@ -1,7 +1,12 @@
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 import getGenesisStamp from "./getGenesisStamp";
 import { addUtcOffset, removeUtcOffset } from "./addUtcOffset";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const DIMENSION = "day";
 
@@ -15,7 +20,8 @@ export type stamp = number;
  * @param [dimension=DIMENSION] - The dimension to calculate the difference in. Defaults to DIMENSION.
  * @returns - The moment stamp representing the difference between the end date and the start date.
  */
-export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
+export const getMomentStamp = (end = dayjs().tz('Europe/London'), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
+  
   return Math.floor(removeUtcOffset(end).diff(getGenesisStamp(), dimension, true));
 };
 

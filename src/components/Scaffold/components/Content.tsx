@@ -145,7 +145,7 @@ const useStyles = makeStyles()((theme) => ({
  * @returns - The flattened menu items.
  */
 const flatifyMenu = (items: IScaffoldGroup[]) => {
-  const result = [];
+  const result: IScaffoldGroup<any>[] = [];
   while (items.length) {
     const [item, ...last] = items;
     item.options?.forEach((i) => last.push(i));

@@ -168,7 +168,7 @@ operations: IListOperation<RowData, Payload>[]
 ### itemSx
 
 ```ts
-itemSx: SxProps<{}>
+itemSx: SxProps
 ```
 
 ### limit

@@ -17,7 +17,7 @@ import classNames from '../../utils/classNames';
  * @typedef ResultType
  * @typedef VoidType
  */
-type Result = React.ReactNode | void;
+type Result = React.ComponentProps<typeof Async> extends { children: (p: any) => infer R } ? R : never;
 
 /**
  * Represents the state of an object with optional payload and result.

@@ -13,7 +13,7 @@ reloadSubject: TSubject<void>
 ### itemSx
 
 ```ts
-itemSx: SxProps<{}>
+itemSx: SxProps
 ```
 
 ### dotSide

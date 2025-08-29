@@ -19,11 +19,11 @@ onAction: (action: string) => void | Promise<void>
 ### variant
 
 ```ts
-variant: "text" | "outlined" | "contained"
+variant: OverridableStringUnion<"text" | "outlined" | "contained", ButtonPropsVariantOverrides>
 ```
 
 ### size
 
 ```ts
-size: "small" | "medium" | "large"
+size: OverridableStringUnion<"small" | "medium" | "large", ButtonPropsSizeOverrides>
 ```
