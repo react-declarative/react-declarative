@@ -83,7 +83,7 @@
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
     "tss-react": ">=4.3.4",
-    "xlsx": ">=0.18.5"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@prettier/sync": "0.5.1",
@@ -102,7 +102,7 @@
     "jest-environment-jsdom": "29.5.0",
     "million": "3.1.11",
     "prettier": "3.2.5",
-    "rollup": "2.79.1",
+    "rollup": "2.79.2",
     "rollup-plugin-peer-deps-external": "2.2.4",
     "rollup-plugin-terser": "7.0.2",
     "ts-jest": "29.0.3",
@@ -110,8 +110,9 @@
   },
   "dependencies": {
     "dayjs": "1.11.5",
+    "form-data": "^4.0.4",
     "history": "5.3.0",
-    "path-to-regexp": "6.2.0",
+    "path-to-regexp": "^6.2.3",
     "rimraf": "3.0.2",
     "uuid": "9.0.0"
   },
@@ -120,5 +121,8 @@
       "type": "MIT",
       "url": "https://github.com/react-declarative/react-declarative#license"
     }
-  ]
+  ],
+  "overrides": {
+    "minimist": "1.2.8"
+  }
 }
