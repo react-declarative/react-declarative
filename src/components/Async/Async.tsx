@@ -30,7 +30,7 @@ export interface IAsyncProps<T extends any = object> {
     throwError?: boolean;
 }
 
-type Result = React.ReactNode | void;
+type Result = React.ReactNode | null;
 
 /**
  * Async

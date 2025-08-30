@@ -18,9 +18,9 @@ import TSubject from '../../model/TSubject';
 import singleshot from '../../utils/hof/singleshot';
 import debounce from '../../utils/hof/debounce';
 
-declare global {
-    var mapboxgl: typeof mapboxglInternal;
-}
+import mapboxgl from "mapbox-gl";
+
+declare global {}
 
 const DEFAULT_ZOOM = 15;
 const CHANGE_DEBOUNCE = 500;

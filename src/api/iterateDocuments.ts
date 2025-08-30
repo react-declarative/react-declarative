@@ -61,7 +61,7 @@ export const iterateDocuments = async function* <Data extends IRowData = IRowDat
   };
 
   let counter = 0;
-  let lastId = null;
+  let lastId: RowId | null = null;
 
   /**
    * Represents the last query made to the server.

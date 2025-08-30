@@ -25,5 +25,5 @@ style: CSSProperties
 ### children
 
 ```ts
-children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => Result | Promise<Result>
+children: (a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H, i: I, j: J) => ReactNode | Promise<ReactNode> | Promise<ReactNode | Promise<...>>
 ```

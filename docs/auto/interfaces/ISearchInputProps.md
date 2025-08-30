@@ -13,7 +13,7 @@ placeholder: string
 ### type
 
 ```ts
-type: HTMLInputTypeAttribute & ("number" | "text" | "date" | "email" | "search" | "tel" | "time" | "url" | "week")
+type: "number" | "text" | "date" | "email" | "search" | "tel" | "time" | "url" | "week"
 ```
 
 ### mode

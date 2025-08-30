@@ -7,5 +7,5 @@ Represents an interface for a wizard outlet.
 ### element
 
 ```ts
-element: (props: IWizardOutletProps<Data, Payload, {}>) => ReactElement<any, string | JSXElementConstructor<any>>
+element: (props: IWizardOutletProps<Data, Payload>) => ReactElement<any, string | JSXElementConstructor<any>>
 ```

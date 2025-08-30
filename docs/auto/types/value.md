@@ -1,7 +1,7 @@
-# Value
+# value
 
 ```ts
-export type Value = boolean | number | string;
+type value = object | string | number | boolean;
 ```
 
 
