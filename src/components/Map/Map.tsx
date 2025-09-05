@@ -18,9 +18,10 @@ import TSubject from '../../model/TSubject';
 import singleshot from '../../utils/hof/singleshot';
 import debounce from '../../utils/hof/debounce';
 
-import mapboxgl from "mapbox-gl";
-
-declare global {}
+declare global {
+    // @ts-ignore
+    var mapboxgl: typeof mapboxglInternal;
+}
 
 const DEFAULT_ZOOM = 15;
 const CHANGE_DEBOUNCE = 500;
@@ -110,9 +111,9 @@ export const Map = ({
             return;
         }
 
-        mapboxgl.accessToken = token;
+        window.mapboxgl.accessToken = token;
 
-        const map = new mapboxgl.Map({
+        const map = new window.mapboxgl.Map({
             container: container,
             style: 'mapbox://styles/mapbox/streets-v12',
             center: pos,
@@ -123,7 +124,7 @@ export const Map = ({
             map.resize()
         });
 
-        let marker = new mapboxgl.Marker();
+        let marker = new window.mapboxgl.Marker();
 
         if (pos) {
             marker = marker.setLngLat(pos);
