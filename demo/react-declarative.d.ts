@@ -13,6 +13,7 @@
 //   ../@mui/material/Stack
 //   ../@mui/material/Paper
 //   ../@mui/material/styles
+//   ../mapbox-gl
 
 declare module "react-declarative" {
   import "./polyfills";
@@ -399,11 +400,8 @@ declare module "react-declarative" {
   > = IFeatureInternal<Data, Payload>;
   export { FeatureType } from "react-declarative/components/FeatureView";
   export { IVisibilityGroup } from "react-declarative/components/VisibilityView";
-  import {
-    recordToExcelExport,
-    RECORD_NEVER_VALUE,
-  } from "react-declarative/components/RecordView";
-  export { recordToExcelExport, RECORD_NEVER_VALUE };
+  import { RECORD_NEVER_VALUE } from "react-declarative/components/RecordView";
+  export { RECORD_NEVER_VALUE };
   export { ErrorBoundary } from "react-declarative/components";
   export { AutoSizer } from "react-declarative/components";
   export { ActionStopIcon } from "react-declarative/components";
@@ -7262,7 +7260,6 @@ declare module "react-declarative/components/VisibilityView" {
 declare module "react-declarative/components/RecordView" {
   export * from "react-declarative/components/RecordView/RecordView";
   export { RECORD_NEVER_VALUE } from "react-declarative/components/RecordView/constant/RECORD_NEVER_VALUE";
-  export { excelExport as recordToExcelExport } from "react-declarative/components/RecordView/helpers/excelExport";
   export { default } from "react-declarative/components/RecordView/RecordView";
 }
 
@@ -20223,6 +20220,7 @@ declare module "react-declarative/components/VisibilityView/hooks/useVisibilityV
 declare module "react-declarative/components/RecordView/RecordView" {
   import IData from "react-declarative/components/RecordView/model/IData";
   import IRecordViewProps from "react-declarative/components/RecordView/model/IRecordViewProps";
+  import IAnything from "react-declarative/model/IAnything";
   /**
    * Renders a view to display record data with search capabilities.
    *
@@ -20250,53 +20248,38 @@ declare module "react-declarative/components/RecordView/RecordView" {
    *
    * @returns The rendered component.
    */
-  export const RecordView: {
-    <Data extends unknown = IData, Payload = any>({
-      data: upperData,
-      search,
-      onSearchChanged,
-      formatValue,
-      formatKey,
-      formatSearch,
-      withExpandAll,
-      withExpandRoot,
-      withExpandLevel,
-      expandList,
-      keyWidth,
-      valueWidth,
-      totalWidth,
-      background,
-      BeforeSearch,
-      AfterSearch,
-      BeforeCollapseLabel,
-      AfterCollapseLabel,
-      payload,
-      className,
-      style,
-      sx,
-      EmptyItem,
-      CustomItem,
-      ...otherProps
-    }: IRecordViewProps<Data, Payload>): JSX.Element;
-    excelExport: (data: IData, sheetName?: string) => void;
-  };
+  export const RecordView: <Data extends any = IData, Payload = IAnything>({
+    data: upperData,
+    search,
+    onSearchChanged,
+    formatValue,
+    formatKey,
+    formatSearch,
+    withExpandAll,
+    withExpandRoot,
+    withExpandLevel,
+    expandList,
+    keyWidth,
+    valueWidth,
+    totalWidth,
+    background,
+    BeforeSearch,
+    AfterSearch,
+    BeforeCollapseLabel,
+    AfterCollapseLabel,
+    payload,
+    className,
+    style,
+    sx,
+    EmptyItem,
+    CustomItem,
+    ...otherProps
+  }: IRecordViewProps<Data, Payload>) => JSX.Element;
   export default RecordView;
 }
 
 declare module "react-declarative/components/RecordView/constant/RECORD_NEVER_VALUE" {
   export const RECORD_NEVER_VALUE = "react-declarative__recordView_never_value";
-}
-
-declare module "react-declarative/components/RecordView/helpers/excelExport" {
-  import IData from "react-declarative/components/RecordView/model/IData";
-  /**
-   * Export data to Excel.
-   *
-   * @param data - The data to export to Excel.
-   * @param [sheetName="Records"] - The name of the sheet in the Excel file. Default is "Records".
-   */
-  export const excelExport: (data: IData, sheetName?: string) => void;
-  export default excelExport;
 }
 
 declare module "react-declarative/components/Scaffold2/Scaffold2" {
@@ -28633,8 +28616,11 @@ declare module "react-declarative/components/If/If" {
 }
 
 declare module "react-declarative/components/Map/Map" {
+  import type mapboxglInternal from "mapbox-gl";
   import { BoxProps } from "@mui/material/Box";
-  global {}
+  global {
+    var mapboxgl: typeof mapboxglInternal;
+  }
   interface IPosition {
     lng: number;
     lat: number;

@@ -9,7 +9,6 @@ import IData from "./model/IData";
 import IRecordViewProps from "./model/IRecordViewProps";
 
 import keyToTitle from "./utils/keyToTitle";
-import excelExport from "./helpers/excelExport";
 import objectToEntries from "./utils/objectToEntries";
 
 import IAnything from "../../model/IAnything";
@@ -102,7 +101,5 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
     </SearchProvider>
   );
 };
-
-RecordView.excelExport = excelExport;
 
 export default RecordView;

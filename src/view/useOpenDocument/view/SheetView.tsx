@@ -1,14 +1,18 @@
-import * as React from 'react';
+import * as React from "react";
 import { useEffect, useRef, useState } from "react";
-
-import * as XLSX from "xlsx";
 
 import Box from "@mui/material/Box";
 
 import DownloadButton from "../components/DownloadButton";
-import Sheet from '../../../components/Sheet';
+import Sheet from "../../../components/Sheet";
 
-import { IOutletModalProps } from '../../../components/OutletView';
+import { IOutletModalProps } from "../../../components/OutletView";
+
+declare global {
+  interface Window {
+    XLSX: any;
+  }
+}
 
 /**
  * Renders an XLSX with a download button.
@@ -22,7 +26,6 @@ import { IOutletModalProps } from '../../../components/OutletView';
  * @returns The rendered PdfView component.
  */
 export const SheetView = ({ formState, history }: IOutletModalProps) => {
-
   const [aoa, setAoa] = useState<string[][]>([]);
   const errorRef = useRef(false);
 
@@ -32,18 +35,32 @@ export const SheetView = ({ formState, history }: IOutletModalProps) => {
         URL.revokeObjectURL(formState.data.main.url);
       }
     },
-    [],
+    []
   );
 
   useEffect(() => {
     const process = async () => {
       try {
-        const workbook = XLSX.read(await formState.data.main.blob.arrayBuffer(), { 
-          type: 'binary',
-        });
-        const sheetName = workbook.SheetNames[0]; 
+        if (!window.XLSX) {
+          console.warn("Looks like XLSX library is not provided");
+          console.warn("It being linked using global object");
+          console.warn("Use the next code in index to use SheetView");
+          console.warn(`import * as XLSX from "xlsx"`);
+          console.warn(`Object.assign(globalThis, { XLSX })`);
+          errorRef.current = true;
+          history.replace("/file");
+          return;
+        }
+
+        const workbook = window.XLSX.read(
+          await formState.data.main.blob.arrayBuffer(),
+          {
+            type: "binary",
+          }
+        );
+        const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const aoo = XLSX.utils.sheet_to_json<object>(worksheet, { header: 1 });
+        const aoo = window.XLSX.utils.sheet_to_json(worksheet, { header: 1 });
         const aoa = aoo.map(Object.values);
         setAoa(aoa);
       } catch {
@@ -56,11 +73,7 @@ export const SheetView = ({ formState, history }: IOutletModalProps) => {
 
   return (
     <Box mt={1} mb={2}>
-      <Sheet
-        withFullScreen
-        data={aoa}
-        sx={{ height: 275, width: "100%" }}
-      />
+      <Sheet withFullScreen data={aoa} sx={{ height: 275, width: "100%" }} />
       <DownloadButton
         primary={formState.data.main.fileName}
         secondary={formState.data.main.placeholder || formState.data.main.mime}
