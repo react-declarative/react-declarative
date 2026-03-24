@@ -30,7 +30,7 @@ const useStyles = makeStyles()((theme) => ({
   calendar: {
     flex: 1,
     display: "grid",
-    overflow: "hidden",
+    overflow: "clip",
     background: theme.palette.background.paper,
     gridTemplateColumns: "repeat(7, 2fr)",
     gridRowGap: "2px",

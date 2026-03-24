@@ -31,7 +31,7 @@ const LOADER_HEIGHT = 4;
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",
-    overflow: "hidden",
+    overflow: "clip",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",

@@ -42,13 +42,13 @@ const useStyles = makeStyles()((theme) => ({
     gap: theme.spacing(1),
   },
   content: {
-    overflow: "hidden",
+    overflow: "clip",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
   },
   icon: {
     marginRight: theme.spacing(2),
-    overflow: 'hidden',
+    overflow: 'clip',
   },
   stretch: {
     flex: 1,

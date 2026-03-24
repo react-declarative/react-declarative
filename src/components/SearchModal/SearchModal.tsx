@@ -89,7 +89,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: "hidden",
+    overflow: "clip",
   },
   container: {
     position: 'static',
@@ -117,7 +117,7 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: "stretch",
     justifyContent: "stretch",
     maxWidth: '100%',
-    overflow: 'hidden',
+    overflow: 'clip',
     "& > * > * > * > .MuiPaper-root": {
       background: "transparent",
       boxShadow: "none",

@@ -30,7 +30,7 @@ const useStyles = makeStyles()((theme) => ({
       "& > *": {
         flex: 1,
       },
-      overflow: "hidden",
+      overflow: "clip",
     },
   },
   row: {

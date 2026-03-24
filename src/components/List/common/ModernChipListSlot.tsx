@@ -90,7 +90,7 @@ export const ModernChipListSlot = (props: IChipListSlot) => {
           "& span:last-of-type": {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
-            overflow: "hidden",
+            overflow: "clip",
             maxWidth: "125px",
           },
         }}

@@ -101,7 +101,7 @@ const useStyles = makeStyles()((theme) => ({
     whiteSpace: "break-spaces",
     overflowWrap: "anywhere",
     textOverflow: "ellipsis",
-    overflow: "hidden",
+    overflow: "clip",
     fontWeight: "bold",
   },
   headerCellOpacity: {
@@ -127,7 +127,7 @@ const useStyles = makeStyles()((theme) => ({
   noWrap: {
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
-    overflow: "hidden",
+    overflow: "clip",
   },
 }));
 

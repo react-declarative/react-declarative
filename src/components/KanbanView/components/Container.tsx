@@ -53,7 +53,7 @@ const useStyles = makeStyles()((theme) => ({
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    overflow: "hidden",
+    overflow: "clip",
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
     maxWidth: 255,

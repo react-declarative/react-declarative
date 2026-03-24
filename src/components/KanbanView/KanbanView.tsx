@@ -67,7 +67,7 @@ const useStyles = makeStyles()((theme) => ({
   },
   group: {
     position: "relative",
-    overflow: "hidden",
+    overflow: "clip",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",

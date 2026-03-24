@@ -48,7 +48,7 @@ const useStyles = makeStyles()((theme) => ({
     fontWeight: 'bold',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    overflow: 'clip',
   },
 }));
 

@@ -27,7 +27,7 @@ const MAX_POPUP_HEIGHT = 300;
  */
 const useStyles = makeStyles()({
   listBox: {
-    overflow: "hidden !important",
+    overflow: "clip !important",
   },
 });
 

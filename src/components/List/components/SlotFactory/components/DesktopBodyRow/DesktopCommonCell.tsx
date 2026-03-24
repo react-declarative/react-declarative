@@ -15,7 +15,7 @@ import ColumnType from '../../../../../../model/ColumnType';
 const useStyles = makeStyles()({
     root: {
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'clip',
         paddingLeft: '0px !important',
         paddingRight: '0 !important',
         overflowWrap: 'break-word',

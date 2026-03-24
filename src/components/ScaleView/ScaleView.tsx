@@ -33,7 +33,7 @@ interface IScaleViewProps {
 const useStyles = makeStyles()({
     root: {
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'clip',
     },
     container: {
         position: 'absolute',

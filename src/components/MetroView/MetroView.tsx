@@ -92,7 +92,7 @@ const createGroup = (label: string, routes: IMetroRoute[], isVisible: IField['is
       style: {
         whiteSpace: "nowrap",
         minWidth: "195px",
-        overflow: "hidden",
+        overflow: "clip",
         textOverflow: "ellipsis",
       },
       typoVariant: "h6",

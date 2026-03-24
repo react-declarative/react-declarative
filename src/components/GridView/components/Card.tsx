@@ -27,7 +27,7 @@ const useStyles = makeStyles()((theme) => ({
     justifyContent: "stretch",
     height: "100%",
     width: "100%",
-    overflow: "hidden",
+    overflow: "clip",
     background: theme.palette.background.paper,
   },
   label: {

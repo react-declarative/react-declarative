@@ -53,7 +53,7 @@ interface IImageViewProps<T extends any = object> extends BoxProps, Omit<IAction
 const useStyles = makeStyles()((theme) => ({
     root: {
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'clip',
         background: theme.palette.mode === 'light'
             ? theme.palette.background.paper
             : darken(theme.palette.background.paper, 0.06),

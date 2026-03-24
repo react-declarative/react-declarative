@@ -38,7 +38,7 @@ interface Props {
 const useStyles = makeStyles()((theme) => ({
   root: {
     width: "100%",
-    overflow: "hidden",
+    overflow: "clip",
     display: 'flex',
     alignItems: 'stretch',
     justifyContent: 'stretch',

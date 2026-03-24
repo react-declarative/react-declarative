@@ -15,7 +15,7 @@ const useStyles = makeStyles()((theme) => ({
         flexDirection: 'column',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        overflow: "hidden",
+        overflow: "clip",
         background: theme.palette.background.paper,
     },
     label: {

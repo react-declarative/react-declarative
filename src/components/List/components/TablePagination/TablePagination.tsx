@@ -294,7 +294,7 @@ export const TablePagination = ({
                     }
                 }),
                 width,
-                overflow: 'hidden',
+                overflow: 'clip',
                 overflowX: 'auto',
             }}
             component={TablePaginationContainer}

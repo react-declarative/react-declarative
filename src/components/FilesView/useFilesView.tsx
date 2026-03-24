@@ -33,7 +33,7 @@ const useStyles = makeStyles()((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: "hidden",
+    overflow: "clip",
   },
   container: {
     position: 'static',

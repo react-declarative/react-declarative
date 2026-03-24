@@ -23,7 +23,7 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',
-        overflow: 'hidden',
+        overflow: 'clip',
     },
     container: {
         flex: 1,

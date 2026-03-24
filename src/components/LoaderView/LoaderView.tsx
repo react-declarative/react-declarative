@@ -34,7 +34,7 @@ interface ILoaderViewProps
 const useStyles = makeStyles()({
   root: {
     display: "flex",
-    overflow: "hidden",
+    overflow: "clip",
   },
 });
 

@@ -60,7 +60,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
         display: "flex",
         alignItems: "stretch",
         justifyContent: "stretch",
-        overflow: "hidden",
+        overflow: "clip",
         '& > *': {
             flex: 1,
         },
@@ -71,7 +71,7 @@ const useStyles = makeStyles()((theme, _, classes) => ({
             position: 'static !important' as any,
         },
         [`& .${classes["content"]}`]: {
-            overflow: 'hidden !important' as any,
+            overflow: 'clip !important' as any,
         },
     },
     minSize: {

@@ -160,7 +160,7 @@ export const Content = ({
             >
               <Grid item xs={keyWidth}>
                 <Typography
-                  sx={{ mt: 3, ml: 1, overflow: 'hidden' }}
+                  sx={{ mt: 3, ml: 1, overflow: 'clip' }}
                   className={classes.groupKey}
                   variant="body1"
                 >

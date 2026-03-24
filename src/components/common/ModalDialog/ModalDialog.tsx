@@ -16,7 +16,7 @@ const useStyles = makeStyles()({
     '&:first-of-type': {
       padding: 0,
     },
-    overflow: 'hidden',
+    overflow: 'clip',
   },
 });
 

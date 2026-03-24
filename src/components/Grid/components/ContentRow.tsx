@@ -103,7 +103,7 @@ const useStyles = makeStyles()((theme) => ({
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
-    overflow: "hidden",
+    overflow: "clip",
     minHeight: "50px",
     borderBottom: `1px solid ${alpha(
       theme.palette.getContrastText(theme.palette.background.default),
@@ -125,7 +125,7 @@ const useStyles = makeStyles()((theme) => ({
     whiteSpace: "break-spaces",
     overflowWrap: "anywhere",
     textOverflow: "ellipsis",
-    overflow: "hidden",
+    overflow: "clip",
   },
   alignLeft: {
     alignItems: "flex-start",

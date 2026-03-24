@@ -59,7 +59,7 @@ const useStyles = makeStyles<ISize>()((theme, { height }) => ({
     },
     container: {
         position: 'relative',
-        overflow: "hidden",
+        overflow: "clip",
         display: 'flex',
         alignItems: 'stretch',
         justifyContent: 'stretch',

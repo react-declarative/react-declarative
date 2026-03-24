@@ -125,7 +125,7 @@ const useStyles = makeStyles()({
     alignItems: "stretch",
     justifyContent: "stretch",
     flexDirection: "column",
-    overflow: "hidden",
+    overflow: "clip",
     "& > :nth-of-type(1)": {
       flex: 1,
     },

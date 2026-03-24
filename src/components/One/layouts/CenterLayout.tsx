@@ -63,7 +63,7 @@ const useStyles = makeStyles()({
         flex: 1,
     },
     content: {
-        overflow: 'hidden',
+        overflow: 'clip',
         flex: 1,
         minHeight: '100%',
         display: 'flex',

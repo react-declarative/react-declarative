@@ -42,7 +42,7 @@ export const ACCEPT_DEFAULT = ".csv, application/vnd.openxmlformats-officedocume
 const useStyles = makeStyles()((theme) => ({
   root: {
     position: "relative",
-    overflow: "hidden",
+    overflow: "clip",
     width: '100%',
     minHeight: 225,
     border: `1px solid ${alpha(

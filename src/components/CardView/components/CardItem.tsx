@@ -86,7 +86,7 @@ const useStyles = makeStyles()((theme) => ({
   container: {
     flex: 1,
     position: "relative",
-    overflow: "hidden",
+    overflow: "clip",
     display: "flex",
     alignItems: "stretch",
     justifyContent: "stretch",
@@ -152,7 +152,7 @@ const useStyles = makeStyles()((theme) => ({
     fontWeight: "bold",
   },
   titleLabel: {
-    overflow: "hidden",
+    overflow: "clip",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
     maxWidth: "calc(100% - 80px)",

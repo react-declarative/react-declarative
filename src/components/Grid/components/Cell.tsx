@@ -89,7 +89,7 @@ export const Cell = ({
       sx={{
         ...sx,
         position: 'relative',
-        overflow: 'hidden',
+        overflow: 'clip',
         minWidth: computedWidth,
         maxWidth: computedWidth,
       }}

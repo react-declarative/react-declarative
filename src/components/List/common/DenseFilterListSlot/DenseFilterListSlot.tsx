@@ -49,7 +49,7 @@ const useStyles = makeStyles()((theme) => ({
     flex: 1,
     minHeight: "45px",
     maxHeight: "50vh",
-    overflow: "hidden",
+    overflow: "clip",
     overflowY: "auto",
   },
   controls: {

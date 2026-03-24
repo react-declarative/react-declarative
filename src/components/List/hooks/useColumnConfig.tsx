@@ -87,7 +87,7 @@ const useStyles = makeStyles()((theme, _, classes: any) => ({
   item: {
     "& .MuiListItemText-root > .MuiTypography-root": {
       width: "100%",
-      overflow: "hidden",
+      overflow: "clip",
       textOverflow: "ellipsis",
     },
   },
