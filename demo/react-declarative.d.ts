@@ -20273,6 +20273,7 @@ declare module "react-declarative/components/RecordView/RecordView" {
     sx,
     EmptyItem,
     CustomItem,
+    maxItems,
     ...otherProps
   }: IRecordViewProps<Data, Payload>) => JSX.Element;
   export default RecordView;
@@ -30095,6 +30096,7 @@ declare module "react-declarative/components/RecordView/model/IRecordViewProps" 
       payload: Payload;
       path: string;
     }>;
+    maxItems?: number;
     payload?: Payload;
   }
   export default IRecordViewProps;

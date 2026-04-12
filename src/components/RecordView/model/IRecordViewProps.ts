@@ -44,6 +44,7 @@ export interface IRecordViewProps<Data = IData, Payload = IAnything> extends Box
     AfterSearch?: React.ComponentType<any>;
     BeforeCollapseLabel?: React.ComponentType<{ itemKey: string; payload: Payload; path: string; }>;
     AfterCollapseLabel?: React.ComponentType<{ itemKey: string; payload: Payload; path: string; }>;
+    maxItems?: number;
     payload?: Payload;
 }
 

@@ -49,6 +49,8 @@ export interface IContentProps extends Pick<IRecordViewProps, keyof {
   AfterCollapseLabel?: React.ComponentType<{ itemKey: string; payload: IAnything; path: string; }>;
   EmptyItem?: React.ComponentType<any>;
   CustomItem?: React.ComponentType<IItemProps>;
+  allowedPaths?: Set<string>;
+  allowedGroups?: Set<string>;
 }
 
 const useStyles = makeStyles<{
@@ -106,6 +108,8 @@ export const Content = ({
   itemKey,
   EmptyItem = Empty,
   CustomItem = Item,
+  allowedPaths,
+  allowedGroups,
   ...otherProps
 }: IContentProps) => {
   const { classes } = useStyles({ background });
@@ -148,6 +152,9 @@ export const Content = ({
           );
         }
         if (isObject(value)) {
+          if (allowedGroups !== undefined && !allowedGroups.has(prefix)) {
+            return null;
+          }
           return (
             <Grid
               key={prefix}
@@ -183,12 +190,17 @@ export const Content = ({
                   AfterCollapseLabel={AfterCollapseLabel}
                   EmptyItem={EmptyItem}
                   CustomItem={CustomItem}
+                  allowedPaths={allowedPaths}
+                  allowedGroups={allowedGroups}
                   path={prefix}
                   {...otherProps}
                 />
               </Grid>
             </Grid>
           );
+        }
+        if (allowedPaths !== undefined && !allowedPaths.has(prefix)) {
+          return null;
         }
         return (
           <CustomItem
@@ -220,6 +232,8 @@ export const Content = ({
       formatValue,
       formatKey,
       background,
+      allowedPaths,
+      allowedGroups,
     ],
   );
 

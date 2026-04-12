@@ -65,6 +65,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
   sx,
   EmptyItem,
   CustomItem,
+  maxItems,
   ...otherProps
 }: IRecordViewProps<Data, Payload>) => {
   const data = useMemo(() => objectToEntries(upperData as IData), [upperData]);
@@ -84,6 +85,7 @@ export const RecordView = <Data extends any = IData, Payload = IAnything>({
         formatKey={formatKey}
         EmptyItem={EmptyItem}
         CustomItem={CustomItem}
+        maxItems={maxItems}
         keyWidth={keyWidth}
         valueWidth={valueWidth}
         totalWidth={totalWidth}

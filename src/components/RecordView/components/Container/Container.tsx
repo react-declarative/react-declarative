@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useMemo } from 'react';
 import { GridSize, BoxProps } from '@mui/material';
 
 import { makeStyles } from '../../../../styles';
@@ -18,6 +19,10 @@ import IAnything from '../../../../model/IAnything';
 
 import useSearch from '../../context/SearchContext';
 import usePreventAutofill from '../../../../hooks/usePreventAutofill';
+import deepFlat from '../../utils/deepFlat';
+import getNamespaces from '../../utils/getNamespaces';
+import isObject from '../../../../utils/isObject';
+import get from '../../../../utils/get';
 
 import classNames from '../../../../utils/classNames';
 import { IItemProps } from '../Item';
@@ -39,6 +44,7 @@ export interface IContainerProps extends BoxProps {
   AfterCollapseLabel?: React.ComponentType<{ itemKey: string; payload: IAnything; path: string; }>;
   EmptyItem?: React.ComponentType<any>;
   CustomItem?: React.ComponentType<IItemProps>;
+  maxItems?: number;
   payload?: IRecordViewProps['payload'];
 }
 
@@ -100,6 +106,7 @@ export const Container = ({
   AfterCollapseLabel,
   EmptyItem,
   CustomItem,
+  maxItems,
   payload,
   className,
   style,
@@ -109,6 +116,14 @@ export const Container = ({
   const { classes } = useStyles();
   const { data, search, isSearching, setSearch } = useSearch();
   const preventAutofill = usePreventAutofill();
+
+  const { allowedPaths, allowedGroups } = useMemo(() => {
+    if (maxItems === undefined) return { allowedPaths: undefined, allowedGroups: undefined };
+    const leaves = deepFlat(data).filter(({ path }) => !isObject(get(data, path.slice(5)))).slice(0, maxItems);
+    const allowedPaths = new Set(leaves.map(({ path }) => path));
+    const allowedGroups = new Set(leaves.flatMap(({ path }) => getNamespaces(path)));
+    return { allowedPaths, allowedGroups };
+  }, [data, maxItems]);
   return (
     <Box
       className={classNames(className, classes.root)}
@@ -163,6 +178,8 @@ export const Container = ({
         background={background}
         EmptyItem={EmptyItem}
         CustomItem={CustomItem}
+        allowedPaths={allowedPaths}
+        allowedGroups={allowedGroups}
         itemKey="root"
         BeforeCollapseLabel={BeforeCollapseLabel}
         AfterCollapseLabel={AfterCollapseLabel}
