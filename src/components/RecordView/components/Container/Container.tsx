@@ -118,12 +118,13 @@ export const Container = ({
   const preventAutofill = usePreventAutofill();
 
   const { allowedPaths, allowedGroups } = useMemo(() => {
+    if (isSearching) return { allowedPaths: undefined, allowedGroups: undefined };
     if (maxItems === undefined) return { allowedPaths: undefined, allowedGroups: undefined };
     const leaves = deepFlat(data).filter(({ path }) => !isObject(get(data, path.slice(5)))).slice(0, maxItems);
     const allowedPaths = new Set(leaves.map(({ path }) => path));
     const allowedGroups = new Set(leaves.flatMap(({ path }) => getNamespaces(path)));
     return { allowedPaths, allowedGroups };
-  }, [data, maxItems]);
+  }, [data, isSearching, maxItems]);
   return (
     <Box
       className={classNames(className, classes.root)}
