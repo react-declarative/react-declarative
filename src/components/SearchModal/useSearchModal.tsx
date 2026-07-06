@@ -214,7 +214,9 @@ export const useSearchModal = <
   }, []);
 
   return {
-    open,
+    get open() {
+      return !!openSubject.data;
+    },
     render,
     pickData,
     close: () => handleSubmit(null),

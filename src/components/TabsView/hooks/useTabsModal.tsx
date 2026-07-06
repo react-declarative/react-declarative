@@ -177,7 +177,9 @@ export const useTabsModal = <
   }, []);
 
   return {
-    open,
+    get open() {
+      return !!openSubject.data;
+    },
     render,
     pickData,
     close: () => handleSubmit(null, {} as Payload),

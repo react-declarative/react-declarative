@@ -225,6 +225,58 @@ usePointer, usePreventAutofill (косметика: deps [onFocus] в handleTouc
 useSingleshot, useUserAgent, useWatchChanges, useDeepChangeSubject, useManagedCursor.
 src/hooks и utils/mvvm — аудит ЗАВЕРШЁН.
 
+## Этап 7: повторный прицельный аудит подписок в src/components/One
+
+Проверены ВСЕ вхождения `.subscribe(` / `.once(` / `.connect(` / `useSubject` / `useChangeSubject` в поддереве
+(полная карта grep, 25 call-sites) + все `addEventListener` + таймеры. Вердикт: новых багов не найдено.
+
+Верифицировано по точкам:
+- useResolved: unsubscribeAll+subscribe на ЛОКАЛЬНЫХ subject'ах (useSubject создаёт приватный мост) — чужих
+  подписчиков не задевает; ре-подписка на смену handler корректна; cleanup моста в useSubject.
+- usePreventLeave: подписка updateSubject с dtor; changeSubject-мост в One консистентен (drop/update/reload).
+- useManagedProps: условные хуки стабилизированы useSingleton(UNCONTROLLED_STATE) — порядок хуков не ломается;
+  controlled-мост data → propsChangeSubject корректен.
+- Слоты Combo/Items/YesNo: once-паттерн с переприсвоением unsubscribeRef + cleanup [opened] — корректен;
+  Time/Date/Complete/Items/Combo: `withContextMenu && requestSubject.subscribe(...)` возвращает dtor в effect.
+- MenuProvider/MenuItems: один requestSubject на форму, подписка с dtor; queued-обёртка безвредна.
+- Dict/SearchInput: reloadSubject-подписка с dtor; debounce с flush в cleanup.
+- makeField: waitForMove/Tab/Touch — dtor'ы connect возвращаются из effect'ов; touchstart/click на groupRef
+  с removeEventListener; условные хуки на oneConfig — модульная константа, порядок стабилен.
+- CenterLayout: MutationObserver/ResizeObserver/resize — полный cleanup.
+
+Сверка семантики kit vs старый локальный rx (критично после этапа 1):
+- Subject.next ПРИВЯЗАН в конструкторе kit (bind) — мост `target.subscribe(result.next)` в useSubject работает;
+- emit async в обоих; kit даже «синхроннее» (не await'ит не-промисы);
+- once в kit отписывается ДО колбэка (старый — после) — безопаснее к реентерабельности;
+- BehaviorSubject.subscribe не реплеит ни там, ни там (эталон для фикса №24).
+
+## Этап 8: аудит FetchView, SearchView, OutletView, WizardView, Tile, RecordView
+
+### Исправлено (этап 8)
+27. **OutletModal.tsx** — `useEffect(() => setData(upperData), [open])`: `open` в компоненте НЕ определён,
+    зависимость резолвилась в `window.open` (константа) — данные не сбрасывались при повторном открытии
+    модалки. Открытость OutletModal — это `!!id`, зависимость исправлена на `[id]`
+    (зеркально WizardOutletModal/SearchModal, где `open` определён и паттерн корректен).
+28. **useOutletModal / useWizardModal / useTabsModal / useSearchModal** — все четыре хука возвращали
+    `{ open, ... }` с НЕОПРЕДЕЛЁННЫМ `open` — наружу утекал `window.open` (всегда truthy функция),
+    хотя документирован как «булево открытости». Теперь `get open()` от соответствующего subject'а
+    (outletIdSubject/openSubject) — честное значение на момент чтения. useActionModal/useColumnConfig
+    имеют настоящий useState open — не тронуты.
+29. **Tile/TileItem.tsx** — на анмаунте строки чистился только кэш `rowMark`, но не `rowColor` —
+    утечка memoize-кэша на длинных виртуальных списках.
+
+### Осмотрено без правок (этап 8)
+- FetchView — чисто (тонкая обёртка Async+Reveal).
+- SearchView + SearchInput/SearchList — подписки с dtor; двойной reloadSubject.next при выборе item
+  (useChange по value и item) — безвредное дублирование запроса… нет, queued в паginator гасит; не тронуто.
+- OutletView — сложный, но консистентный: history.listen игнорирует PUSH (навигация аутлетов через
+  REPLACE — соглашение, WizardView слушает только REPLACE); `readonly: readonly || hasChanged` в
+  outletProps — семантика на стороне консюмера; waitForChanges вызывает handleLoadEnd(false) — похоже
+  на осознанное «не рапортовать успех».
+- WizardView/WizardOutletModal/WizardNavigation, useLocalHistory — чисто.
+- Tile/TileContainer/useRowMark — подписки recomputeSubject/redrawAction с dtor.
+- RecordView — свой deepFlat (path-ориентированный, НЕ kit-овский — не путать), SearchContext/Content/Item — чисто.
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

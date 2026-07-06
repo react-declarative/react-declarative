@@ -177,7 +177,9 @@ export const useOutletModal = <
   useEffect(() => pickDataSubject.subscribe(pickData), []);
 
   return {
-    open,
+    get open() {
+      return !!outletIdSubject.data;
+    },
     render,
     pickData,
     close: () => handleSubmit(outletIdSubject.data!, null, {} as Payload),

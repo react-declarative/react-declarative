@@ -85,6 +85,7 @@ export const TileItem = forwardRef(
       execute();
       return () => {
         rowMark.clear(data[rowKey] || data);
+        rowColor.clear(data[rowKey] || data);
       };
     }, []);
 

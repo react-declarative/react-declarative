@@ -385,7 +385,7 @@ export const OutletModal = <
 
   useEffect(() => {
     setData(upperData);
-  }, [open]);
+  }, [id]);
 
   /**
    * Updates the data and triggers a change event.
