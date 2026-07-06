@@ -1,9 +1,5 @@
-import IRowData from "../model/IRowData";
+import { iteratePromise } from "functools-kit";
 
-export async function* iteratePromise<T extends IRowData = IRowData>(fn: () => Promise<T[]>) {
-    for (const row of await fn()) {
-        yield row;
-    }
-};
+export { iteratePromise };
 
 export default iteratePromise;

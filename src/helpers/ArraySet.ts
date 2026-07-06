@@ -6,9 +6,20 @@ export class ArraySet<T = any> extends Array<T> implements IArraySet<T> {
 
     private _sourceHash: Set<T>;
 
-    constructor(_source: T[]) {
-        super(..._source);
-        this._sourceHash = new Set(_source);
+    constructor(_source: T[] | number = []) {
+        /**
+         * super(...arr) для одноэлементного числового массива — это Array(n),
+         * разреженный массив; нативные методы Array (filter/map/slice) к тому же
+         * создают результат через species-конструктор, передавая длину числом
+         */
+        super();
+        if (typeof _source === "number") {
+            this.length = _source;
+            this._sourceHash = new Set<T>();
+        } else {
+            super.push(..._source);
+            this._sourceHash = new Set(_source);
+        }
     };
 
     includes = (searchElement: T) => {
@@ -63,7 +74,7 @@ export class ArraySet<T = any> extends Array<T> implements IArraySet<T> {
         return new ArraySet(super.concat(...args));
     }
 
-    toArray = () => new Array(...this);
+    toArray = () => Array.from(this);
 
 }
 

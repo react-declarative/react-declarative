@@ -1,9 +1,5 @@
-import IRowData from "../model/IRowData";
+import { iterateList } from "functools-kit";
 
-export async function* iterateList<T extends IRowData = IRowData>(rows: T[], map = (row: T) => Promise.resolve(row)) {
-    for (const row of rows) {
-        yield await map(row);
-    }
-};
+export { iterateList };
 
 export default iterateList;

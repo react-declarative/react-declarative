@@ -42,8 +42,8 @@ export class RouteManager<T extends Record<string, any> = Record<string, any>, I
             this._item = getRouteItem<I>(routes, location.pathname);
             this.next();
         });
-        this._params = getRouteParams<T>(routes, location.pathname);
-        this._item = getRouteItem<I>(routes, location.pathname);
+        this._params = getRouteParams<T>(routes, history.location.pathname);
+        this._item = getRouteItem<I>(routes, history.location.pathname);
     };
 
     /**
@@ -75,7 +75,7 @@ export class RouteManager<T extends Record<string, any> = Record<string, any>, I
 export const createRouteParamsManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
     const routeManager = new RouteManager<T, I>(routes, history);
     const fn = () => routeManager.params;
-    fn.clear = routeManager.dispose();
+    fn.clear = routeManager.dispose;
     return fn;
 };
 
@@ -90,7 +90,7 @@ export const createRouteParamsManager = <T extends Record<string, any> = Record<
 export const createRouteItemManager = <T extends Record<string, any> = Record<string, any>, I extends ISwitchItem = ISwitchItem>(routes: I[], history: MemoryHistory | BrowserHistory | HashHistory) => {
     const routeManager = new RouteManager<T, I>(routes, history);
     const fn = () => routeManager.item;
-    fn.clear = routeManager.dispose();
+    fn.clear = routeManager.dispose;
     return fn;
 };
 

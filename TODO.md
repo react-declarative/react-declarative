@@ -325,6 +325,43 @@ src/hooks и utils/mvvm — аудит ЗАВЕРШЁН.
 - Остальные компоненты без подписок/таймеров (Action*, Dot, Center, Square, PaperView, PortalView и т.д.) —
   проверены grep-сканом: stateful-кода нет.
 
+## Этап 11 (финальный): src/api → шимы, src/helpers, хвост src/utils, src/view
+
+### src/api — завершение исходной задачи functools-kit
+Все 10 файлов (paginateDocuments, distinctDocuments, filterDocuments, iterateDocuments, iterateList,
+iteratePromise, iterateUnion, mapDocuments, pickDocuments, resolveDocuments) дублировали kit —
+превращены в реэкспорт-шимы (kit-версии — супермножество: distinct/union получили optional getId).
+Каталог был пропущен на этапе 1 (фильтровался только src/utils).
+
+### Исправлено (этап 11)
+38. **helpers/ArraySet.ts** — ТРИ бага, подтверждены в node:
+    (а) species-конструктор нативных filter/map/slice вызывает `new ArraySet(длина)` → `super(...число)` →
+        TypeError «not iterable» — .filter()/.map()/.slice()/.concat() КИДАЛИ всегда;
+    (б) `super(..._source)` для одноэлементного числового массива — это Array(n): `new ArraySet([5])`
+        создавал разреженный массив длины 5;
+    (в) `toArray = new Array(...this)` — та же ловушка для одноэлементного числового содержимого.
+    Конструктор переписан через `super() + super.push(...)` с веткой для number, toArray → Array.from.
+    Потребителей в src нет (мёртвый экспортируемый код), но починен и проверен в рантайме.
+39. **helpers/routeManager.ts** — (а) `fn.clear = routeManager.dispose()` в ОБЕИХ фабриках
+    (createRouteParamsManager/createRouteItemManager): dispose вызывался немедленно — менеджер отписывался
+    от history в момент создания (params/item замораживались), а clear становился undefined. Теперь без вызова.
+    (б) initial-значения в конструкторе RouteManager читались из глобального window.location вместо
+    history.location — ломало MemoryHistory/HashHistory.
+
+### Осмотрено без правок (этап 11)
+- helpers: serviceManager (DI-механика консистентна), websocketManager (патч window.WebSocket — by design),
+  hashstateManager, abortManager (разобран ранее).
+- utils-хвост: crypt.js (XOR-«шифр», не крипта — но так и задумано), heavy.tsx, list2grid.tsx,
+  createStateProvider/createValueProvider, createLsSet/createSsSet/createSsManager (quota→clear+reload — by design),
+  createManagedHistory/createWindowHistory, createCustomTag (dismount через MutationObserver-синглтон),
+  copyToClipboard, chooseMultipleFiles (edge: пустой files в onchange подвесит промис — практически недостижимо),
+  preventBrowserHistorySwipeGestures.
+- view/useOpenDocument: все вью с revoke на unmount; downloadBlob шлёт запросный заголовок
+  Access-Control-Allow-Origin (это response-header, бессмысленно и может дёргать preflight) — сетевое
+  поведение не менял, отмечено.
+
+АУДИТ src ЗАВЕРШЁН ПОЛНОСТЬЮ. Итого исправлено 39 багов + 64 шима functools-kit (54 utils + 10 api).
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат
