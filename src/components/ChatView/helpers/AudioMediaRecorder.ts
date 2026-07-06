@@ -52,6 +52,13 @@ export class AudioMediaRecorder {
             video: false,
         });
         this.md = new MediaRecorder(stream);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this.md.addEventListener('dataavailable', (e: BlobEvent) => {
+            if (e.data.size > 0) {
+                this.recordChunks.push(e.data);
+            }
+        });
         this.recordChunks = [];
         return this;
     }
@@ -69,14 +76,7 @@ export class AudioMediaRecorder {
             this.recordChunks = [];
             this.md.addEventListener('start', () => {
                 resolve();
-            });
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.md.addEventListener('dataavailable', (e: BlobEvent) => {
-                if (e.data.size > 0) {
-                    this.recordChunks.push(e.data);
-                }
-            });
+            }, { once: true });
             this.md.start();
         });
     }
@@ -93,7 +93,7 @@ export class AudioMediaRecorder {
             }
             this.md.addEventListener('stop', () => {
                 resolve(new Blob(this.recordChunks));
-            });
+            }, { once: true });
             this.md.stop();
         });
     }

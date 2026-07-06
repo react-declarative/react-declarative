@@ -152,9 +152,10 @@ export const useModal: IHook = (renderer: IRenderer, deps = []) => {
     useEffect(() => {
         if (open) {
             handleRender();
-        } else {
-            handleClear();
+            return () => handleClear();
         }
+        handleClear();
+        return undefined;
     }, [open]);
 
     useEffect(() => {

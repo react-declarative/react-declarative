@@ -175,7 +175,9 @@ export class ChatController {
      */
     removeOnMessagesChanged(callback: OnMessagesChanged): void {
         const idx = this.state.onMessagesChanged.indexOf(callback);
-        this.state.onActionChanged[idx] = (): void => { };
+        if (idx !== -1) {
+            this.state.onMessagesChanged[idx] = (): void => { };
+        }
     }
 
     /**
@@ -307,7 +309,9 @@ export class ChatController {
      */
     removeOnActionChanged(callback: OnActionChanged): void {
         const idx = this.state.onActionChanged.indexOf(callback);
-        this.state.onActionChanged[idx] = (): void => { };
+        if (idx !== -1) {
+            this.state.onActionChanged[idx] = (): void => { };
+        }
     }
 
     /**

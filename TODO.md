@@ -277,6 +277,29 @@ src/hooks и utils/mvvm — аудит ЗАВЕРШЁН.
 - Tile/TileContainer/useRowMark — подписки recomputeSubject/redrawAction с dtor.
 - RecordView — свой deepFlat (path-ориентированный, НЕ kit-овский — не путать), SearchContext/Content/Item — чисто.
 
+## Этап 9: аудит ModalManager/ModalProvider, Scaffold2/3, ChatView, ActionMenu, VisibilityView/FeatureView
+
+### Исправлено (этап 9)
+30. **ChatView/helpers/ChatController.ts `removeOnMessagesChanged`** — нейтрализовал обработчик в ЧУЖОМ
+    массиве (`onActionChanged[idx]` вместо `onMessagesChanged[idx]`): отписка от сообщений ломала случайный
+    action-обработчик, а подписчик сообщений оставался жить. Плюс guard idx !== -1 в обоих remove-методах.
+31. **ChatView/ChatView.tsx** — подписки на ChatController добавлялись в effect БЕЗ cleanup (контроллер
+    живёт вне React — на ремоунте слушатели копились; сломанный removeOnMessagesChanged это маскировал).
+32. **ChatView/helpers/AudioMediaRecorder.ts** — накопление слушателей на синглтоне MediaRecorder:
+    каждый startRecord вешал нового 'dataavailable' (со 2-й записи чанки аудио дублировались N раз),
+    start/stop-слушатели тоже копились. dataavailable перенесён в initialize (однократно),
+    start/stop — с { once: true }.
+33. **ModalProvider useModal** — при анмаунте компонента с открытой модалкой элемент оставался в провайдере
+    навсегда (у effect [open] не было cleanup). Добавлен cleanup handleClear на unmount открытого состояния.
+
+### Осмотрено без правок (этап 9)
+- ModalManagerProvider: `clearSubject` — МОДУЛЬНЫЙ синглтон, clear() в одном инстансе чистит стеки всех
+  провайдеров приложения (One оборачивает каждую форму в свой ModalManagerProvider) — похоже на осознанный
+  «глобальный сброс», не тронуто; Bootstrap ремоунтится через key в спреде {...modal} — корректно (неочевидно!).
+- Scaffold2/StateContext — чисто; Scaffold3/StateContext — ПОБАЙТОВО идентичен (diff по нормализованным именам пуст).
+- ActionMenu — подписок нет, loading-логика корректна.
+- VisibilityView/FeatureView — декларативные обёртки над One, эффектов нет.
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

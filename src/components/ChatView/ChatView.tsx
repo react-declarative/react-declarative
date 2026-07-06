@@ -113,6 +113,10 @@ export const ChatView = ({
         chatCtl.addOnActionChanged(handleActionChanged);
         setMessages(chatCtl.getMessages());
         setActReq(chatCtl.getActionRequest());
+        return () => {
+            chatCtl.removeOnMessagesChanged(handleMassagesChanged);
+            chatCtl.removeOnActionChanged(handleActionChanged);
+        };
     }, [chatCtl, scroll]);
 
     type CustomComponentType = React.FC<{
