@@ -1,25 +1,32 @@
 import dayjs from "dayjs";
 
-/**
- * Calculates the timestamp in minutes based on the given source.
- *
- * @param [source] - The source date and time. Defaults to the current date and time.
- * @returns - The timestamp in minutes.
- */
-export const getTimeStamp = (source = dayjs()) => {
-  const hour = source.get("hour");
-  const minute = source.get("minute");
-  return hour * 60 + minute;
-};
+import {
+  getTimeStamp as getTimeStampBase,
+  fromTimeStamp as fromTimeStampBase,
+} from "get-moment-stamp";
 
 /**
- * Converts a timestamp to a date and time using dayjs library.
+ * Calculates the timestamp in minutes based on the wall-clock time of the
+ * given source. The hour and minute components are normalized to UTC before
+ * being passed to `get-moment-stamp`, so the result depends only on the
+ * wall-clock time and not on the timezone of the machine running the code.
+ *
+ * @param [source=dayjs()] - The source date and time. Defaults to the current date and time.
+ * @returns - The timestamp in minutes.
+ */
+export const getTimeStamp = (source: dayjs.Dayjs = dayjs()) =>
+  getTimeStampBase(new Date(Date.UTC(1970, 0, 1, source.hour(), source.minute())));
+
+/**
+ * Converts a timestamp in minutes back to a date and time: today with the
+ * hour and minute taken from the timestamp.
+ *
  * @param stamp - The timestamp to convert.
  * @returns The date and time corresponding to the given timestamp.
  */
 export const fromTimeStamp = (stamp: number) => {
-  const genesis = dayjs().set("hour", 0).set("minute", 0);
-  return genesis.add(stamp, "minute");
+  const date = fromTimeStampBase(stamp, new Date(0));
+  return dayjs().set("hour", date.getUTCHours()).set("minute", date.getUTCMinutes());
 };
 
 export default getTimeStamp;

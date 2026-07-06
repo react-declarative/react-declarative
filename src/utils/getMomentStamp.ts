@@ -1,43 +1,36 @@
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
-
-const DIMENSION = "day";
-const TIMEZONE = "Europe/London";
+import {
+  getMomentStamp as getMomentStampBase,
+  fromMomentStamp as fromMomentStampBase,
+} from "get-moment-stamp";
 
 export type stamp = number;
 
 /**
- * Calculates the moment stamp based on the given end date and dimension.
- * The stamp is the number of whole `dimension` units elapsed since the Unix
- * epoch as seen on the Europe/London wall clock (DST aware), so the result
- * does not depend on the timezone of the machine running the code.
+ * Calculates the moment stamp for the given end date: the number of whole
+ * days since the Unix epoch for the calendar date of `end`.
+ *
+ * The wall-clock date components of the dayjs object are normalized to UTC
+ * before being passed to `get-moment-stamp`, so the result depends only on
+ * the calendar date and not on the timezone of the machine running the code.
  *
  * @param [end=dayjs()] - The end date. Defaults to the current date and time.
- * @param [dimension=DIMENSION] - The dimension to calculate the difference in. Defaults to DIMENSION.
- * @returns - The moment stamp representing the difference between the end date and the start date.
+ * @returns - The moment stamp for the calendar date of `end`.
  */
-export const getMomentStamp = (end = dayjs(), dimension: dayjs.ManipulateType = DIMENSION): stamp => {
-  const offsetMinutes = dayjs(end).tz(TIMEZONE).utcOffset();
-  const wallClock = dayjs.utc(end.valueOf()).add(offsetMinutes, "minute");
-  return Math.floor(wallClock.diff(dayjs.utc(0), dimension, true));
-};
+export const getMomentStamp = (end: dayjs.Dayjs = dayjs()): stamp =>
+  getMomentStampBase(new Date(Date.UTC(end.year(), end.month(), end.date())));
 
 /**
- * Converts a moment stamp back to a moment in time.
- * The returned moment points to the start of the given `dimension` unit
- * on the Europe/London wall clock.
+ * Converts a moment stamp back to a moment in time: the start of the
+ * corresponding calendar date in the local timezone.
  *
- * @param stamp - The timestamp to convert.
- * @param dimension - The dimension to add to the timestamp. Defaults to `DIMENSION`.
- * @returns - The moment in time corresponding to the timestamp.
+ * @param stamp - The moment stamp to convert.
+ * @returns - The dayjs object pointing to the start of the calendar date.
  */
-export const fromMomentStamp = (stamp: number, dimension: dayjs.ManipulateType = DIMENSION) => {
-  const wallClock = dayjs.utc(0).add(stamp, dimension);
-  return dayjs.tz(wallClock.format("YYYY-MM-DDTHH:mm:ss"), TIMEZONE);
+export const fromMomentStamp = (stamp: number) => {
+  const date = fromMomentStampBase(stamp);
+  return dayjs(new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 };
 
 export default getMomentStamp;

@@ -23,6 +23,7 @@ import getInitialData from "../../utils/getInitialData";
 import singlerun from "../../utils/hof/singlerun";
 import debounce from "../../utils/hof/debounce";
 import classNames from "../../utils/classNames";
+import deepCompare from "../../utils/deepCompare";
 import deepMerge from "../../utils/deepMerge";
 import sleep from "../../utils/sleep";
 
@@ -143,6 +144,13 @@ export const OneButton = <
   useOnce(() => reloadSubject.subscribe(execute));
   useOnce(() => closeSubject.subscribe(() => setAnchorEl(null)));
 
+  /**
+   * Канал доставки новых данных во внутренний One: корневой One
+   * разрешает handler только один раз, поэтому смена объектного
+   * handler снаружи прокидывается через changeSubject
+   */
+  const oneChangeSubject = useSubject<Data>();
+
   const [invalid, setInvalid] = useState(false);
 
   const waitForRender = useRenderWaiter([data], 10);
@@ -161,7 +169,12 @@ export const OneButton = <
 
   useChange(() => {
     if (typeof handler !== "function") {
-      setData(handler);
+      if (!handler) {
+        setData(handler);
+      } else if (!deepCompare(data$.current, handler)) {
+        setData(handler);
+        oneChangeSubject.next(handler);
+      }
     }
   }, [handler]);
 
@@ -269,6 +282,7 @@ export const OneButton = <
           fields={fields}
           payload={payload}
           handler={() => data}
+          changeSubject={oneChangeSubject}
           readonly={readonly}
           isBaseline={isBaseline}
           isBaselineForRoot={isBaselineForRoot}

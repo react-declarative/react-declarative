@@ -1,3 +1,9 @@
+import {
+    getMomentStamp as getMomentStampBase,
+    fromMomentStamp as fromMomentStampBase,
+    fromTimeStamp as fromTimeStampBase,
+} from 'get-moment-stamp';
+
 import getGenesisStamp from './getGenesisStamp';
 
 export const DATE_PLACEHOLDER = 'DD/MM/YYYY';
@@ -49,10 +55,8 @@ export class Time {
         if (stamp === null) {
             return null;
         }
-        const source = getGenesisStamp().set("hour", 0).set("minute", 0).add(stamp, "minute");
-        const hour = source.get('hour');
-        const minute = source.get('minute');
-        return new Time(hour, minute);
+        const source = fromTimeStampBase(stamp, new window.Date(0));
+        return new Time(source.getUTCHours(), source.getUTCMinutes());
     };
 };
 
@@ -89,16 +93,11 @@ export class Date {
      * @returns The number of days from 1970-01-01 to the specified date.
      */
     toStamp = () => {
-        const start = getGenesisStamp();
-        let now = getGenesisStamp().set('hour', 0);
-        now = now.set('date', this.day);
-        now = now.set('month', this.month - 1);
-        now = now.set('year', this.year);
-        if (now.isValid()) {
-            return Math.max(Math.floor(now.diff(start, 'day', true)), -1);
-        } else {
+        const source = new window.Date(window.Date.UTC(this.year, this.month - 1, this.day));
+        if (Number.isNaN(source.getTime())) {
             return -1;
         }
+        return Math.max(getMomentStampBase(source), -1);
     };
     /**
      * Converts a stamp value to a date object.
@@ -110,8 +109,8 @@ export class Date {
         if (stamp === null) {
             return null;
         }
-        const now = getGenesisStamp().add(stamp, 'days').toDate();
-        return new Date(now.getDate(), now.getMonth() + 1, now.getFullYear());
+        const now = fromMomentStampBase(stamp);
+        return new Date(now.getUTCDate(), now.getUTCMonth() + 1, now.getUTCFullYear());
     };
 };
 

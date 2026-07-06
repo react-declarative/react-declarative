@@ -76,6 +76,55 @@ isEmpty, isObject, isUndefined, randomString, set, sleep, typo (деструкт
 - utils/cacheSrc.ts — `URL.createObjectURL` без revoke (утечка object URL).
 - utils/deepClone (теперь kit) — массивы объектов копируются поверхностно (slice), это поведение kit тоже.
 
+## Этап 2: аудит src/components/One, OneButton, OneIcon
+
+### Как устроен стейт One (конспект)
+- `One.tsx` → `ApiProvider`/`PropsProvider` → `OneGenesis` → провайдеры (Cache/Debounce/OneContext/Radio/Feature/Payload/**State**/Menu/SlotFactory) → `OneInternal` (рекурсивно по layout'ам) → `createField` → `makeField(Component)`.
+- `StateProvider` держит объект формы через `useResolved`; `useResolved` разрешает handler **только один раз** на корне (`isRoot`), дальше обновления идут через `changeSubject`/`updateSubject`/`apiRef` (ApiProvider) либо через объектный (не функциональный) handler + deepCompare.
+- `makeField` — вся жизнь поля: `useFieldState` (единый useState), `useFieldMemory` (мутируемые refs `*$`), направление изменений определяется по смене ссылки `object` (incoming) vs `debouncedValueRef` (outgoing) в одном `useEffect [debouncedValueRef, object]`; флаги `memory.inputUpdate`/`objectUpdate` гасят эхо.
+- `CacheProvider` — Map-кэши по ссылке field/fields для мемоизации коллбеков между рендерами; `waitingReady` в OneInternal — счётчик ready от statefull-полей, форма показывается после нуля.
+- OneButton/OneIcon: `useAsyncValue` держит data, внутрь One передаётся `handler={() => data}` (→ resolve однократный), во время reload `loading` размонтирует всё дерево → ремоунт даёт свежий resolve; редактирование синхронизируется через onChange → setData.
+
+### Исправленные баги (этап 2)
+8. **makeField.tsx `waitForApply`** — `sleep(APPLY_DELAY)` в цикле ожидания вызывался БЕЗ `await`: цикл из 60 «попыток» прокручивался синхронно и мгновенно, очередь применения изменений (`withApplyQueue`) фактически не ждала сброса флагов inputUpdate/objectUpdate. Добавлен `await`.
+9. **OneGenesis.tsx RadioProvider initialState** — `acm[name] || String(defaultValue) || null`: при отсутствии defaultValue radio-группа инициализировалась строкой `"undefined"` (String(undefined) — truthy). Теперь `defaultValue != null ? String(defaultValue) : null`.
+10. **OneButton.tsx / OneIcon.tsx** — смена объектного `handler` снаружи обновляла бейдж (`setData`), но внутренняя форма One оставалась на старых данных навсегда: корневой One разрешает функциональный handler один раз (`isRoot`), а `handler={() => data}` — функция. Добавлен внутренний `oneChangeSubject` (`useSubject`), который прокидывается в One как `changeSubject` и эмитится в `useChange([handler])`. Reload через `reloadSubject` работал и раньше (через unmount/remount на `loading`).
+    Про производительность пассфроу: subject стабилен (useSingleton) — проп не меняется, лишних рендеров нет; в `useResolved` локальный subject создаётся всегда, добавляется лишь одна подписка. Эмиссия защищена `deepCompare(data$.current, handler)` — инлайн-литерал `handler={{...}}` на каждый рендер родителя стоит один deepCompare, а не ре-рендер формы. Семантика `setData(null)` для falsy handler сохранена.
+
+### Осмотрено без правок (этап 2)
+One.tsx, OneGenesis, OneInternal (+CacheProvider), StateProvider, useResolved, makeField + hooks (useFieldState, useFieldMemory, useFieldGuard, useManagedCompute), useDebounceValue, useDebouncedCallback (порт lodash — ок), usePreventLeave, useItemList, useOnce/useSubject/useAsyncValue (в src/hooks), Radio slot.
+Замечания без правок:
+- makeField: коллбеки `useCallback([])` замыкают `managedProps` первого рендера — работает, потому что onChange/handleChange стабильны и ходят через memory-refs; менять не стал.
+- OneInternal `handleReady`: счётчик уходит в минус при повторных ready от полей — безвредно (срабатывание только на === 0).
+- usePreventLeave: `handleNavigate` не сбрасывает подписку при отказе от confirm — так и задумано (блокировка остаётся).
+
+## Этап 3: даты переведены на get-moment-stamp@2.0.0 (pure-UTC библиотека)
+
+Библиотека оперирует чистыми UTC-инстантами: `getMomentStamp(date) = floor(epoch/день)`, `getTimeStamp = UTC часы*60+минуты`.
+Обёртки в src/utils нормализуют wall-clock компоненты dayjs в UTC (`Date.UTC(year, month, date)`) перед вызовом —
+стамп зависит ТОЛЬКО от календарной даты/времени на часах, одинаково на любой машине. Это и убирает конфликт таймзон:
+Day.tsx и CalendarHeader теперь стампуют симметрично без компенсаций.
+
+- utils/getMomentStamp.ts — обёртка над get-moment-stamp; `dimension`-параметр удалён (нигде не использовался);
+  fromMomentStamp возвращает dayjs локальной полуночи календарной даты (обратная операция, roundtrip точный)
+- utils/getTimeStamp.ts — обёртка; семантика прежняя (wall-clock минуты)
+- utils/getGenesisStamp.ts — `dayjs(fromMomentStamp(stamp = 0))`, ровно epoch; сигнатура сменилась с dayjs на число
+- utils/datetime.ts — Date.toStamp/fromStamp и Time.fromStamp переведены на библиотеку (UTC-компоненты, machine-independent;
+  починен old-баг: west-таймзоны получали off-by-one в Date.toStamp)
+- utils/addUtcOffset.ts — УДАЛЁН (вместе с removeUtcOffset); из index.ts экспорт заменён на реэкспорт
+  `isCurrentDate, isCurrentTime, fromTimeStampWithMoment` из get-moment-stamp
+- CalendarView/Day.tsx — `getMomentStamp(addUtcOffset(day))` → `getMomentStamp(day)` (компенсация больше не нужна)
+- rollup: менять не нужно, get-moment-stamp бандлится как dayjs/functools-kit (external только react/react-dom)
+- Тесты: __tests__/getMomentStamp.test.ts переписан (9 тестов: календарная семантика, roundtrip'ы, genesis=epoch,
+  getTimeStamp, datetime Date/Time стампы)
+
+Breaking changes публичного API (осознанные, по указанию):
+- удалены `addUtcOffset`/`removeUtcOffset`
+- у getMomentStamp/fromMomentStamp пропал параметр `dimension`
+- `getGenesisStamp(stamp)` теперь принимает число (moment stamp), не dayjs
+- `getTimeStamp`/`fromMomentStamp` больше не тянут за собой сдвиги — значения стампов совпадают со старыми
+  для восточных таймзон, для западных исправлен off-by-one
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

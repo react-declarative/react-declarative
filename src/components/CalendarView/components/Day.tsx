@@ -23,7 +23,6 @@ import usePropsContext from "../context/PropsContext";
 import useAsyncAction from "../../../hooks/useAsyncAction";
 
 import getMomentStamp from "../../../utils/getMomentStamp";
-import { addUtcOffset } from "../../../utils/addUtcOffset";
 import classNames from "../../../utils/classNames";
 import isToday from "../utils/isToday";
 
@@ -99,8 +98,8 @@ export const Day = ({ onChange, day }: IDayProps) => {
    *
    * @returns The current timestamp.
    */
-  const currentStamp = useMemo(() => { 
-    return getMomentStamp(addUtcOffset(day));
+  const currentStamp = useMemo(() => {
+    return getMomentStamp(day);
   }, []);
 
   /**

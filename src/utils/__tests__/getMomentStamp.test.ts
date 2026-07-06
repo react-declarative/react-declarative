@@ -1,54 +1,77 @@
 import dayjs from "dayjs";
 
 import getMomentStamp, { fromMomentStamp } from "../getMomentStamp";
+import getTimeStamp, { fromTimeStamp } from "../getTimeStamp";
+import getGenesisStamp from "../getGenesisStamp";
+import { Date as DateChunk, Time as TimeChunk } from "../datetime";
 
 const DAY_MS = 24 * 60 * 60 * 1_000;
 
-describe('Check getMomentStamp London dimension', () => {
+describe('Check getMomentStamp', () => {
 
-    afterEach(() => {
-        jest.useRealTimers();
+    test('Expect stamp to depend only on the calendar date', () => {
+        const expected = Date.UTC(2026, 6, 6) / DAY_MS;
+        expect(getMomentStamp(dayjs(new Date(2026, 6, 6, 0, 0, 0)))).toBe(expected);
+        expect(getMomentStamp(dayjs(new Date(2026, 6, 6, 12, 30, 0)))).toBe(expected);
+        expect(getMomentStamp(dayjs(new Date(2026, 6, 6, 23, 59, 59)))).toBe(expected);
+        expect(getMomentStamp(dayjs(new Date(2026, 6, 5, 23, 59, 59)))).toBe(expected - 1);
+        expect(getMomentStamp(dayjs(new Date(2026, 6, 7, 0, 0, 0)))).toBe(expected + 1);
     });
 
-    test('Expect moment stamp to be stable for the whole London day (BST, summer)', () => {
-        // London day 2026-07-06 lasts from 2026-07-05T23:00Z to 2026-07-06T23:00Z (UTC+1)
-        const startOfLondonDay = Date.UTC(2026, 6, 5, 23, 0, 0);
-        const expectedStamp = Date.UTC(2026, 6, 6) / DAY_MS;
-        for (let hour = 0; hour !== 24; hour++) {
-            const instant = dayjs(startOfLondonDay + hour * 60 * 60 * 1_000);
-            expect(getMomentStamp(instant)).toBe(expectedStamp);
-        }
-        expect(getMomentStamp(dayjs(startOfLondonDay - 1))).toBe(expectedStamp - 1);
-        expect(getMomentStamp(dayjs(startOfLondonDay + DAY_MS))).toBe(expectedStamp + 1);
-    });
-
-    test('Expect moment stamp to be stable for the whole London day (GMT, winter)', () => {
-        // London day 2026-01-06 lasts from 2026-01-06T00:00Z to 2026-01-07T00:00Z (UTC+0)
-        const startOfLondonDay = Date.UTC(2026, 0, 6, 0, 0, 0);
-        const expectedStamp = Date.UTC(2026, 0, 6) / DAY_MS;
-        for (let hour = 0; hour !== 24; hour++) {
-            const instant = dayjs(startOfLondonDay + hour * 60 * 60 * 1_000);
-            expect(getMomentStamp(instant)).toBe(expectedStamp);
-        }
-        expect(getMomentStamp(dayjs(startOfLondonDay - 1))).toBe(expectedStamp - 1);
-        expect(getMomentStamp(dayjs(startOfLondonDay + DAY_MS))).toBe(expectedStamp + 1);
-    });
-
-    test('Expect default argument to use current time', () => {
-        jest.useFakeTimers();
-        jest.setSystemTime(Date.UTC(2026, 6, 6, 12, 0, 0));
-        expect(getMomentStamp()).toBe(Date.UTC(2026, 6, 6) / DAY_MS);
+    test('Expect default argument to use current calendar date', () => {
+        const now = new Date();
+        const expected = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / DAY_MS;
+        expect(getMomentStamp()).toBe(expected);
     });
 
     test('Expect fromMomentStamp to be the inverse of getMomentStamp', () => {
-        const summerStamp = Date.UTC(2026, 6, 6) / DAY_MS;
-        const winterStamp = Date.UTC(2026, 0, 6) / DAY_MS;
-        for (const stamp of [summerStamp, winterStamp]) {
-            const moment = fromMomentStamp(stamp);
-            expect(getMomentStamp(moment)).toBe(stamp);
-            // start of the London day
-            expect(getMomentStamp(moment.subtract(1, "millisecond"))).toBe(stamp - 1);
-        }
+        const stamp = Date.UTC(2026, 6, 6) / DAY_MS;
+        const moment = fromMomentStamp(stamp);
+        expect(moment.format("YYYY-MM-DD")).toBe("2026-07-06");
+        expect(getMomentStamp(moment)).toBe(stamp);
+    });
+
+    test('Expect genesis stamp to be the unix epoch', () => {
+        expect(getGenesisStamp().valueOf()).toBe(0);
+    });
+
+});
+
+describe('Check getTimeStamp', () => {
+
+    test('Expect time stamp to be wall-clock minutes', () => {
+        expect(getTimeStamp(dayjs(new Date(2026, 6, 6, 13, 45, 0)))).toBe(13 * 60 + 45);
+        expect(getTimeStamp(dayjs(new Date(2026, 6, 6, 0, 0, 59)))).toBe(0);
+    });
+
+    test('Expect fromTimeStamp to be the inverse of getTimeStamp', () => {
+        const moment = fromTimeStamp(13 * 60 + 45);
+        expect(moment.hour()).toBe(13);
+        expect(moment.minute()).toBe(45);
+    });
+
+});
+
+describe('Check datetime stamps', () => {
+
+    test('Expect date stamp to match days since epoch', () => {
+        const date = new DateChunk(6, 7, 2026);
+        expect(date.toStamp()).toBe(Date.UTC(2026, 6, 6) / DAY_MS);
+    });
+
+    test('Expect Date.fromStamp to be the inverse of toStamp', () => {
+        const date = new DateChunk(6, 7, 2026);
+        const restored = DateChunk.fromStamp(date.toStamp())!;
+        expect(restored.day).toBe(6);
+        expect(restored.month).toBe(7);
+        expect(restored.year).toBe(2026);
+    });
+
+    test('Expect Time.fromStamp to restore hours and minutes', () => {
+        const time = new TimeChunk(13, 45);
+        const restored = TimeChunk.fromStamp(time.toStamp())!;
+        expect(restored.hour).toBe(13);
+        expect(restored.minute).toBe(45);
     });
 
 });

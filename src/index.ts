@@ -863,7 +863,7 @@ export { getMomentStamp, fromMomentStamp } from './utils/getMomentStamp';
 export { getTimeStamp, fromTimeStamp } from './utils/getTimeStamp';
 export { getGenesisStamp } from './utils/getGenesisStamp';
 export { toUtcDate } from './utils/toUtcDate';
-export { addUtcOffset, removeUtcOffset } from './utils/addUtcOffset';
+export { isCurrentDate, isCurrentTime, fromTimeStampWithMoment } from 'get-moment-stamp';
 
 export { paginateDocuments } from './api/paginateDocuments';
 export { distinctDocuments } from './api/distinctDocuments';

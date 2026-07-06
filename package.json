@@ -111,6 +111,7 @@
     "dayjs": "1.11.5",
     "form-data": "^4.0.4",
     "functools-kit": "^4.0.0",
+    "get-moment-stamp": "^2.0.0",
     "history": "5.3.0",
     "path-to-regexp": "^6.2.3",
     "rimraf": "3.0.2",

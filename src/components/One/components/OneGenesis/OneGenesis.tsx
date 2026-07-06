@@ -216,7 +216,7 @@ export const OneGenesis = <
                   .reduce<Record<string, string | null>>(
                     (acm, { name, defaultValue }) => ({
                       ...acm,
-                      [name!]: acm[name!] || String(defaultValue) || null,
+                      [name!]: acm[name!] || (defaultValue != null ? String(defaultValue) : null),
                     }),
                     {}
                   )

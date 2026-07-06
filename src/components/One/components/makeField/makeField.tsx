@@ -557,7 +557,7 @@ export function makeField(
                 if (!memory.inputUpdate && !memory.objectUpdate) {
                     break;
                 }
-                sleep(APPLY_DELAY);
+                await sleep(APPLY_DELAY);
             }
             memory.inputUpdate = false;
             memory.objectUpdate = false;

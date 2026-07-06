@@ -19,6 +19,7 @@ import useChange from "../../hooks/useChange";
 
 import getInitialData from "../../utils/getInitialData";
 import singlerun from "../../utils/hof/singlerun";
+import deepCompare from "../../utils/deepCompare";
 import deepMerge from "../../utils/deepMerge";
 import sleep from "../../utils/sleep";
 
@@ -117,6 +118,13 @@ export const OneIcon = <
   useOnce(() => reloadSubject.subscribe(execute));
   useOnce(() => closeSubject.subscribe(() => setAnchorEl(null)));
 
+  /**
+   * Канал доставки новых данных во внутренний One: корневой One
+   * разрешает handler только один раз, поэтому смена объектного
+   * handler снаружи прокидывается через changeSubject
+   */
+  const oneChangeSubject = useSubject<Data>();
+
   const [invalid, setInvalid] = useState(false);
 
   /**
@@ -142,7 +150,12 @@ export const OneIcon = <
 
   useChange(() => {
     if (typeof handler !== "function") {
-      setData(handler);
+      if (!handler) {
+        setData(handler);
+      } else if (!deepCompare(data$.current, handler)) {
+        setData(handler);
+        oneChangeSubject.next(handler);
+      }
     }
   }, [handler]);
 
@@ -219,6 +232,7 @@ export const OneIcon = <
           fields={fields}
           payload={payload}
           handler={() => data}
+          changeSubject={oneChangeSubject}
           isBaseline={isBaseline}
           isBaselineForRoot={isBaselineForRoot}
           onChange={(data, initial) => {
