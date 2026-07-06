@@ -90,7 +90,7 @@ export const CalendarHeader = ({
    */
   const fromStamp = useMemo(
     () => getMomentStamp(currentMonth.clone().startOf("week")),
-    []
+    [currentMonth]
   );
 
   /**
@@ -100,7 +100,7 @@ export const CalendarHeader = ({
    */
   const toStamp = useMemo(
     () => getMomentStamp(currentMonth.clone().endOf("month").endOf("week")),
-    []
+    [currentMonth]
   );
 
   return (

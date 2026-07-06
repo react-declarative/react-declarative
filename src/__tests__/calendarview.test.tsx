@@ -129,4 +129,51 @@ describe('CalendarView on get-moment-stamp api', () => {
         expect(document.body.textContent).toContain("На этот день задач не назначено");
     });
 
+    test('Expect header slots to receive the range of the newly selected month', async () => {
+        let capturedRequest: ICalendarRequest | null = null;
+        let slotStamps: { fromStamp: number; toStamp: number } | null = null;
+
+        const handler = jest.fn(async (request: ICalendarRequest) => {
+            capturedRequest = request;
+            return [];
+        });
+
+        const BeforeCalendarHeader = ({ fromStamp, toStamp }: { fromStamp: number; toStamp: number }) => {
+            slotStamps = { fromStamp, toStamp };
+            return null;
+        };
+
+        await act(async () => {
+            ReactDOM.render(
+                <CalendarView
+                    {...commonProps}
+                    handler={handler}
+                    BeforeCalendarHeader={BeforeCalendarHeader}
+                />,
+                div,
+            );
+            await sleep(100);
+        });
+
+        // на маунте слот видит тот же диапазон, что и запрос
+        expect(slotStamps).not.toBeNull();
+        const initialStamps = { ...slotStamps! };
+        expect(initialStamps.fromStamp).toBe(capturedRequest!.fromStamp);
+        expect(initialStamps.toStamp).toBe(capturedRequest!.toStamp);
+
+        // листаем на следующий месяц
+        const nextButton = div
+            .querySelector('svg[data-testid="KeyboardArrowRightIcon"]')!
+            .closest('button')!;
+        await act(async () => {
+            nextButton.click();
+            await sleep(100);
+        });
+
+        // запрос ушёл на новый месяц, слот обязан видеть новый диапазон, не диапазон маунта
+        expect(capturedRequest!.fromStamp).toBeGreaterThan(initialStamps.fromStamp);
+        expect(slotStamps!.fromStamp).toBe(capturedRequest!.fromStamp);
+        expect(slotStamps!.toStamp).toBe(capturedRequest!.toStamp);
+    });
+
 });
