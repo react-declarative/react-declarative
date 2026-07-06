@@ -7,7 +7,7 @@ import { compile } from "path-to-regexp";
  * @returns The generated route URL.
  */
 export const toRouteUrl = (template: string, params: object) => {
-    const toPath = compile(template, { encode: decodeURIComponent });
+    const toPath = compile(template, { encode: encodeURIComponent });
     return toPath(params);
 };
 

@@ -1,6 +1,10 @@
-export const thinsp = '\u2009'
-export const nbsp = '\u00a0'
-export const emdash = '—'
-export const endash = '–'
-export const terminator = '\x00';
-export const bullet = `\u2022`;
+import { typo } from "functools-kit";
+
+export const {
+    thinsp,
+    nbsp,
+    emdash,
+    endash,
+    terminator,
+    bullet,
+} = typo;

@@ -25,8 +25,9 @@ export const wordForm = (value: number, {
 }: IWordForm) => {
 
   const getWord = () => {
-    if (value === 0 || (value >= 11 && value < 20)) return many
-    let lastDigit = value % 10
+    const lastTwoDigits = Math.abs(value) % 100
+    if (lastTwoDigits >= 11 && lastTwoDigits < 20) return many
+    const lastDigit = lastTwoDigits % 10
     if (lastDigit === 0) return many
     if (lastDigit === 1) return one
     if (lastDigit < 5) return two

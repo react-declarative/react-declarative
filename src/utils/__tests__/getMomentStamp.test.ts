@@ -1,51 +1,54 @@
-import getMomentStamp from "../getMomentStamp";
-import toUtcDate from "../toUtcDate";
+import dayjs from "dayjs";
 
-const NOW = new Date();
+import getMomentStamp, { fromMomentStamp } from "../getMomentStamp";
 
-const STEP = 1_000; // 1 second
-
-const START_FROM_LONDON = new Date().getTimezoneOffset() * 60 * 1_000 * -1; 
-const EXTRA_HOUR = -1 * Math.sign(new Date().getTimezoneOffset()) * 60 * 60 * 1_000;
-
-const START_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 0, 1, 0, 0).getTime() + START_FROM_LONDON + EXTRA_HOUR;
-const END_OF_DAY = new Date(NOW.getFullYear(), NOW.getMonth(), NOW.getDate(), 23, 59, 0, 0).getTime();
+const DAY_MS = 24 * 60 * 60 * 1_000;
 
 describe('Check getMomentStamp London dimension', () => {
 
-    let DATE_STAMP: number;
-    let EXPECT_MOMENT_STAMP: number;
-
-    beforeAll(() => {
-        DATE_STAMP = START_OF_DAY;
-        EXPECT_MOMENT_STAMP = getMomentStamp();
-        jest.useFakeTimers()
-        jest.setSystemTime(toUtcDate(new Date(DATE_STAMP)))
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
-    beforeEach(() => {
-        DATE_STAMP += STEP;
-        jest.setSystemTime(DATE_STAMP)
-    });
-
-    afterAll(() => {
-        jest.useRealTimers()
-    });
-
-    test(`Expect moment stamp to be London`, () => {
-        let iter = 0;
-        let isOk = true;
-        for (let i = START_OF_DAY; i <= END_OF_DAY; i += STEP) {
-            const currentStamp = getMomentStamp();
-            isOk = isOk && currentStamp === EXPECT_MOMENT_STAMP;
-            iter++;
-            if (!isOk) {
-                console.log(`Test failed on iter=${iter} unix_stamp=${DATE_STAMP} date=${new Date()} current_stamp=${currentStamp} expect_stamp=${EXPECT_MOMENT_STAMP}`);
-                break;
-            }
+    test('Expect moment stamp to be stable for the whole London day (BST, summer)', () => {
+        // London day 2026-07-06 lasts from 2026-07-05T23:00Z to 2026-07-06T23:00Z (UTC+1)
+        const startOfLondonDay = Date.UTC(2026, 6, 5, 23, 0, 0);
+        const expectedStamp = Date.UTC(2026, 6, 6) / DAY_MS;
+        for (let hour = 0; hour !== 24; hour++) {
+            const instant = dayjs(startOfLondonDay + hour * 60 * 60 * 1_000);
+            expect(getMomentStamp(instant)).toBe(expectedStamp);
         }
-        console.log(`Total: ${iter} iters`);
-        expect(isOk).toBe(true);
+        expect(getMomentStamp(dayjs(startOfLondonDay - 1))).toBe(expectedStamp - 1);
+        expect(getMomentStamp(dayjs(startOfLondonDay + DAY_MS))).toBe(expectedStamp + 1);
+    });
+
+    test('Expect moment stamp to be stable for the whole London day (GMT, winter)', () => {
+        // London day 2026-01-06 lasts from 2026-01-06T00:00Z to 2026-01-07T00:00Z (UTC+0)
+        const startOfLondonDay = Date.UTC(2026, 0, 6, 0, 0, 0);
+        const expectedStamp = Date.UTC(2026, 0, 6) / DAY_MS;
+        for (let hour = 0; hour !== 24; hour++) {
+            const instant = dayjs(startOfLondonDay + hour * 60 * 60 * 1_000);
+            expect(getMomentStamp(instant)).toBe(expectedStamp);
+        }
+        expect(getMomentStamp(dayjs(startOfLondonDay - 1))).toBe(expectedStamp - 1);
+        expect(getMomentStamp(dayjs(startOfLondonDay + DAY_MS))).toBe(expectedStamp + 1);
+    });
+
+    test('Expect default argument to use current time', () => {
+        jest.useFakeTimers();
+        jest.setSystemTime(Date.UTC(2026, 6, 6, 12, 0, 0));
+        expect(getMomentStamp()).toBe(Date.UTC(2026, 6, 6) / DAY_MS);
+    });
+
+    test('Expect fromMomentStamp to be the inverse of getMomentStamp', () => {
+        const summerStamp = Date.UTC(2026, 6, 6) / DAY_MS;
+        const winterStamp = Date.UTC(2026, 0, 6) / DAY_MS;
+        for (const stamp of [summerStamp, winterStamp]) {
+            const moment = fromMomentStamp(stamp);
+            expect(getMomentStamp(moment)).toBe(stamp);
+            // start of the London day
+            expect(getMomentStamp(moment.subtract(1, "millisecond"))).toBe(stamp - 1);
+        }
     });
 
 });

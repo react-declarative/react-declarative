@@ -416,8 +416,8 @@ const KanbanViewInternal = <
                           return;
                         }
                         setDragColumn(null);
-                        fetchLabel.clear(dragId.current);
-                        fetchRows.clear(dragId.current);
+                        fetchLabel.clear(dragId.current!);
+                        fetchRows.clear(dragId.current!);
                         onChangeColumn &&
                           onChangeColumn(
                             dragId.current!,

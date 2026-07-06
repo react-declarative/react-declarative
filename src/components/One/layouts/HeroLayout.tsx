@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useLayoutEffect, useRef } from 'react';
 
 import classNames from '../../../utils/classNames';
-import waitForSize from '../../../utils/wairForSize';
+import waitForSize from '../../../utils/waitForSize';
 
 import { makeStyles, useTheme } from '../../../styles';
 

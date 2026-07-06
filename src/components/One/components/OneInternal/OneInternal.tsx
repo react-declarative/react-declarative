@@ -81,8 +81,8 @@ const makeItemList = (field: IField, payload: IAnything) => {
   }
   return Array.isArray(itemList)
     ? itemList
-    : cached<any, any>(
-        (prevArgs, currentArgs) =>
+    : cached<any>(
+        (prevArgs: any, currentArgs: any) =>
           shouldUpdateItemList(prevArgs[0], currentArgs[0], payload),
         itemList
       );
@@ -97,8 +97,8 @@ const makeTr = (field: IField, payload: IAnything) => {
   if (!tr) {
     return undefined;
   }
-  return cached<any, any>(
-    (prevArgs, currentArgs) => shouldUpdateTr(prevArgs, currentArgs, payload),
+  return cached<any>(
+    (prevArgs: any, currentArgs: any) => shouldUpdateTr(prevArgs as [string, any], currentArgs as [string, any], payload),
     tr
   );
 };

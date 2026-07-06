@@ -1,10 +1,5 @@
-import { v4 as uuid } from 'uuid';
+import { randomString } from "functools-kit";
 
-/**
- * Generates a random string using the UUID library.
- *
- * @returns A randomly generated string.
- */
-export const randomString = () => uuid();
+export { randomString };
 
 export default randomString;

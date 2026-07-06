@@ -40,8 +40,10 @@ export const normalizeText = (
       }),
   }: Partial<IConfig> = {}
 ) => {
-  let result = typeof text === "string" ? text : "";
-  result = "";
+  if (typeof text !== "string") {
+    return "";
+  }
+  let result = "";
   for (let i = 0; i < text.length; i++) {
     result += text[i];
     result = inputFormatter(result);

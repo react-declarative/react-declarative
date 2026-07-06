@@ -17,7 +17,7 @@ export const formatAmount = (
     const str = num.toFixed(scale);
     const formatted =
         num < 10000 ? str : str.replace(/(\d)(?=(\d{3})+(\.|$))/g, `$1${typo.nbsp}`)
-    return formatted.replace(/.00$/, '').replace('.', separator)
+    return formatted.replace(/\.00$/, '').replace('.', separator)
 };
 
 export default formatAmount;

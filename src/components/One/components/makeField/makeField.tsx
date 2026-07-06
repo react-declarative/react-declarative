@@ -9,7 +9,7 @@ import set from '../../../../utils/set';
 import get from '../../../../utils/get';
 import deepCompare from '../../../../utils/deepCompare';
 
-import waitForBlur from '../../../../utils/wairForBlur';
+import waitForBlur from '../../../../utils/waitForBlur';
 import waitForMove from '../../../../utils/waitForMove';
 import waitForTab from '../../../../utils/waitForTab';
 import waitForTouch from '../../../../utils/waitForTouch';
