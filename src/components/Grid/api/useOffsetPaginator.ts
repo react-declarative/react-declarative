@@ -85,7 +85,7 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
 
   const [state, setState] = useActualState<IState<Data>>(() => ({
     data: initialData$.current,
-    prevOffset: -limit - initialData$.current.length,
+    prevOffset: -limit,
     hasMore: true,
   }));
 
@@ -125,9 +125,10 @@ export const useOffsetPaginator = <Data extends RowData = RowData>({
       return;
     }
     setState({
-      prevOffset:
-        state.current.prevOffset + limit + initialData$.current.length,
-      data: initial ? nextData : [...state.current.data, ...nextData],
+      prevOffset: state.current.prevOffset + limit,
+      data: initial
+        ? [...initialData$.current, ...nextData]
+        : [...state.current.data, ...nextData],
       hasMore: nextData.length >= limit,
     });
     await sleep(delay);

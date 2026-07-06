@@ -54,7 +54,7 @@ const EMPTY_RESPONSE = null;
 export const useApiHandler = <Data extends IAnything = IAnything>(path: string, {
     fetch = window.fetch,
     origin = window.location.origin,
-    abortSignal: signal = abortManager.signal,
+    abortSignal: upperSignal,
     requestMap = (url) => url,
     responseMap = (json) => json as never,
     onLoadBegin,
@@ -87,7 +87,7 @@ export const useApiHandler = <Data extends IAnything = IAnything>(path: string, 
         onLoadBegin && onLoadBegin();
         let isOk = true;
         try {
-            const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            const data = await queuedFetch(url.toString(), { signal: upperSignal || abortManager.signal, ...(fetchParams && fetchParams()) });
             if (data === CANCELED_SYMBOL) {
                 return null;
             }

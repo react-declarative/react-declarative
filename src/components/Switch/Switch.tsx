@@ -160,8 +160,8 @@ export const Switch = ({
       ({ path: path_a = "" }, { path: path_b = "" }) => {
         const a_dot = path_a.match(/\:/g)?.length || 0;
         const b_dot = path_b.match(/\:/g)?.length || 0;
-        const a_slash = path_a.match(/\\/g)?.length || 0;
-        const b_slash = path_b.match(/\\/g)?.length || 0;
+        const a_slash = path_a.match(/\//g)?.length || 0;
+        const b_slash = path_b.match(/\//g)?.length || 0;
         const a = Math.max(a_slash - a_dot, 0);
         const b = Math.max(b_slash - b_dot, 0);
         return b - a;

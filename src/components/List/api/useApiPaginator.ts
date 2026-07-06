@@ -85,7 +85,7 @@ const EMPTY_RESPONSE = {
 export const useApiPaginator = <FilterData extends {} = IAnything, RowData extends IRowData = IAnything>(path: string, {
     fetch = window.fetch,
     origin = window.location.origin,
-    abortSignal: signal = abortManager.signal,
+    abortSignal: upperSignal,
     removeEmptyFilters = removeEmptyFiltersDefault,
     fetchParams,
     fallback,
@@ -179,7 +179,7 @@ export const useApiPaginator = <FilterData extends {} = IAnything, RowData exten
         url = requestMap(new URL(url));
         onLoadBegin && onLoadBegin();
         try {
-            const data = await queuedFetch(url.toString(), { signal, ...(fetchParams && fetchParams()) });
+            const data = await queuedFetch(url.toString(), { signal: upperSignal || abortManager.signal, ...(fetchParams && fetchParams()) });
             if (data === CANCELED_SYMBOL) {
                 return {
                     rows: [],

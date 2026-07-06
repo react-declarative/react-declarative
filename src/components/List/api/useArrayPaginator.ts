@@ -166,7 +166,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
                 tmp.push(rows.filter((row) => row[chip]));
             }
         });
-        return tmp.flat();
+        return [...new Set(tmp.flat())];
     },
     sortHandler = (rows, sort) => {
         sort.forEach(({
@@ -211,7 +211,7 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         limit,
         offset,
     }) => {
-        if (rows.length > limit) {
+        if (rows.length > limit || offset > 0) {
             return rows.slice(offset, limit + offset);
         } else {
             return rows;

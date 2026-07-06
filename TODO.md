@@ -136,6 +136,42 @@ Breaking changes публичного API (осознанные, по указа
 - `getTimeStamp`/`fromMomentStamp` больше не тянут за собой сдвиги — значения стампов совпадают со старыми
   для восточных таймзон, для западных исправлен off-by-one
 
+## Этап 4: аудит KanbanView, InfiniteView, Grid, List, ScrollView, Switch, AutoSizer, Async
+
+### Исправленные баги (этап 4)
+11. **InfiniteView.tsx + VirtualView.tsx** — обработчик `scrollYSubject` был копипастой X-обработчика:
+    проверял `scrollLeft` и скроллил по горизонтали (`scrollWidth`). Вертикальный скролл через subject не работал.
+12. **Switch.tsx** — сортировка маршрутов по специфичности считала `path.match(/\\/g)` (обратные слэши,
+    которых в путях нет) вместо `/\//g` — компаратор всегда сравнивал нули, сортировка не работала;
+    маршрут `/user/:id` мог перехватывать `/user/settings` при "неудачном" порядке в items.
+13. **Grid/api/useOffsetPaginator.ts** — с непустым `initialData` offset прибавлял `initialData.length`
+    на каждой странице (пропуск строк), а initial-фетч затирал предзагруженные строки. Теперь initialData —
+    «продолжение»: initial-фетч идёт с offset=len и конкатенируется, прирост prevOffset — ровно limit.
+    Внутренние потребители (SearchView, ItemModal) initialData не передают — без регрессий.
+14. **Grid/hooks/useSelection.tsx + List/hooks/useSelection.tsx** — синхронизация входящего пропа selectedRows
+    эхом вызывала `onSelectedRows(..., initialChange=false)` — родитель получал собственное изменение как
+    пользовательское. Теперь initialChange=true.
+15. **List/api/useArrayPaginator.ts** — (а) `paginationHandler` при `rows.length <= limit` игнорировал offset:
+    на infinite-scroll вторая страница дублировала первую, когда набор строк ровно равен limit;
+    (б) `chipsHandler` задваивал строки, подходящие под несколько включённых чипов (`tmp.flat()` без дедупа).
+16. **List/api/useApiPaginator.ts + One/api/useApiHandler.ts** — `abortSignal: signal = abortManager.signal`
+    захватывал сигнал один раз на маунте; после любого `abortManager.abort()` (анмаунт другого списка/формы)
+    компонент навсегда оставался с уже abort-нутым сигналом: каждый запрос мгновенно обрывался и молча
+    возвращал пустой ответ. Теперь сигнал берётся из менеджера на каждый запрос.
+
+Тесты: src/__tests__/arrayPaginator.test.tsx (4 теста — offset за пределами набора, частичная страница, дедуп чипов).
+
+### Осмотрено без правок (этап 4)
+- Async.tsx — `disabled` после первого включения не возвращается в true (похоже на замысел «once enabled»); flushSync в микротаске.
+- ScrollView, AutoSizer (порт react-virtualized), KanbanView (вкл. enableScrollOnDrag: dispose по первому touchstart —
+  осознанное отключение на тач-устройствах), Grid.tsx/Content/useCursorPaginator, List.tsx/useCachedRows/useUpsertManager.
+- ПОДОЗРЕНИЯ БЕЗ ПРАВОК (меняют wire-формат, нужно решение):
+  - useApiPaginator: дефолтный filterHandler шлёт `$lte:` для всех фильтров (ожидался бы `$eq`);
+    `page = offset/limit` даёт 0-базные страницы, а nestjs-paginate (судя по синтаксису) ждёт 1-базные.
+  - useArrayPaginator sortHandler: при мультисортировке последний столбец получает наивысший приоритет
+    (последовательные .sort), обычно ожидается первый.
+  - useCachedRows: selectedRows может содержать undefined для id, отсутствующих в rows.
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

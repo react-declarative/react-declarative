@@ -231,11 +231,11 @@ export const InfiniteView = ({
       }
     });
     scrollYSubject.unsubscribeAll();
-    scrollYSubject.subscribe((scrollX) => {
-      if (node.scrollLeft !== scrollX) {
+    scrollYSubject.subscribe((scrollY) => {
+      if (node.scrollTop !== scrollY) {
         node.scrollTo(
-          Math.min(scrollX, node.scrollWidth),
-          node.scrollTop,
+          node.scrollLeft,
+          Math.min(scrollY, node.scrollHeight),
         );
       }
     });

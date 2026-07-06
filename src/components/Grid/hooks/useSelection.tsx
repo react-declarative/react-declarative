@@ -99,7 +99,7 @@ export const SelectionProvider = ({
         }
         const pendingSelection = new Set(selectedRows);
         if (!compareSelection(pendingSelection, selection)) {
-            handleSelectionChange(pendingSelection);
+            handleSelectionChange(pendingSelection, true);
         }
     }, [selectedRows]);
 

@@ -460,11 +460,11 @@ export const VirtualView = ({
         }
       });
       scrollYSubject.unsubscribeAll();
-      scrollYSubject.subscribe((scrollX) => {
-        if (element.scrollLeft !== scrollX) {
+      scrollYSubject.subscribe((scrollY) => {
+        if (element.scrollTop !== scrollY) {
           element.scrollTo(
-            Math.min(scrollX, element.scrollWidth),
-            element.scrollTop
+            element.scrollLeft,
+            Math.min(scrollY, element.scrollHeight)
           );
         }
       });
