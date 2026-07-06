@@ -3,7 +3,6 @@ import { useRef, useState, useMemo, useEffect, useLayoutEffect, useCallback } fr
 
 import Model, { CHANGE_DEBOUNCE, IModelAdapter } from "../utils/mvvm/Model";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
-import Subject from '../utils/rx/Subject';
 
 import sleep from '../utils/sleep';
 
@@ -32,7 +31,7 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
      * @returns A promise that resolves to `true` if the model was disposed before listeners were added, otherwise `false`.
      */
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
-        let isDisposed = false;
+        let isDisposed = !!this._dispose.data;
         const cleanup = this._dispose.subscribe(() => isDisposed = true);
         /** react-18 prevent batching */
         await sleep(0);
@@ -46,7 +45,7 @@ export class ModelAdapter<T extends {} = any> implements IModelAdapter<T> {
         };
         process();
     });
-    constructor(private _model$: React.MutableRefObject<Model<T>>, private _dispose: Subject<true>) { }
+    constructor(private _model$: React.MutableRefObject<Model<T>>, private _dispose: BehaviorSubject<true>) { }
     /**
      * Retrieves the current data value from the model.
      *

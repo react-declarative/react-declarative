@@ -20,9 +20,7 @@ export const downloadBlank = async (url: string, name: string) => {
     overrideRef(url, name);
     return;
   }
-  fetch(url, {
-    mode: 'no-cors'
-  })
+  fetch(url)
     .then((response) => response.blob())
     .then(async (blob) => {
       const blobType = await fileTypeFromBlob(blob);
@@ -42,12 +40,23 @@ export const downloadBlank = async (url: string, name: string) => {
         () =>
           queueMicrotask(() => {
             URL.revokeObjectURL(uri);
+            document.body.removeChild(a);
           }),
         {
           once: true,
         }
       );
       a.click();
+    })
+    .catch(() => {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.style.display = "none";
+      a.target = "_blank";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     });
 };
 

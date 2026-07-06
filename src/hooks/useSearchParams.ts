@@ -37,7 +37,7 @@ export const useSearchParams = <T = Record<string, Value>>(
                 set(result, key.replace(begin, ""), null);
             } else {
                 if (value && !isNaN(value as unknown as number)) {
-                    set(result, key.replace(begin, ""), parseInt(value));
+                    set(result, key.replace(begin, ""), parseFloat(value));
                 } else {
                     set(result, key.replace(begin, ""), value);
                 }

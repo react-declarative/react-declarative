@@ -47,10 +47,10 @@ const dispatchState = queued(
     mountRef: React.RefObject<boolean>,
   ) => {
     await sleep(updateDelay);
-    if (!mountRef.current) {
-      return;
-    }
     if (action === "update") {
+      if (!mountRef.current) {
+        return;
+      }
       const url = new URL(window.location.href, window.location.origin);
       Object.entries(state).forEach(([key, value]) => {
         if (Array.isArray(value)) {
@@ -78,7 +78,9 @@ const dispatchState = queued(
         return;
       }
       for (const key of [...url.searchParams.keys()]) {
-        url.searchParams.delete(key);
+        if (key.startsWith(`${prefix}_`)) {
+          url.searchParams.delete(key);
+        }
       }
       if (!noCleanupExtra) {
         for (const key of [...url.searchParams.keys()]) {

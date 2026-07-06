@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } fr
 // import { flushSync } from 'react-dom';
 
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
-import Subject from '../utils/rx/Subject';
 
 import sleep from '../utils/sleep';
 
@@ -35,7 +34,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
      * @throws If any error occurs during the process.
      */
     private _waitForListeners = () => new Promise<boolean>(async (res, rej) => {
-        let isDisposed = false;
+        let isDisposed = !!this._dispose.data;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
         /** react-18 prevent batching */
         await sleep(0);
@@ -54,7 +53,7 @@ export class CollectionEntityAdapter<T extends IEntity = any> implements IEntity
         };
         process();
     });
-    constructor(public readonly id: IEntity['id'], private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: Subject<true>) { }
+    constructor(public readonly id: IEntity["id"], private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: BehaviorSubject<true>) { }
     public get data() {
         try {
             const entity = this._collection$.current.findById(this.id);
@@ -171,7 +170,7 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
      * @returns A promise that resolves with a boolean indicating if the collection is disposed.
      */
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
-        let isDisposed = false;
+        let isDisposed = !!this._dispose.data;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
         /** react-18 prevent batching */
         await sleep(0);
@@ -191,7 +190,7 @@ export class CollectionAdapter<T extends IEntity = any> implements ICollectionAd
      * @param _collection$ - The mutable reference object for the collection.
      * @param _dispose - The subject used for disposing.
      */
-    constructor(private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: Subject<true>) { }
+    constructor(private _collection$: React.MutableRefObject<Collection<T>>, private _dispose: BehaviorSubject<true>) { }
     /**
      * Retrieves the IDs from the current collection.
      *

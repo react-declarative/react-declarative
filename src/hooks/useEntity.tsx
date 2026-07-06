@@ -3,7 +3,6 @@ import { useRef, useState, useEffect, useMemo, useLayoutEffect, useCallback } fr
 
 import Entity, { IEntity, CHANGE_DEBOUNCE, IEntityAdapter } from "../utils/mvvm/Entity";
 import BehaviorSubject from '../utils/rx/BehaviorSubject';
-import Subject from '../utils/rx/Subject';
 
 import sleep from '../utils/sleep';
 
@@ -34,7 +33,7 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
      * @returns A promise that resolves to a boolean indicating if the object is disposed or not.
      */
     private _waitForListeners = () => new Promise<boolean>(async (res) => {
-        let isDisposed = false;
+        let isDisposed = !!this._dispose.data;
         const cleanup = this._dispose.subscribe((value) => isDisposed = value);
         /** react-18 prevent batching */
         await sleep(0);
@@ -55,7 +54,7 @@ export class EntityAdapter<T extends IEntity = any> implements IEntityAdapter<T>
      * @param _dispose - The _dispose parameter.
      * @constructor
      */
-    constructor(private _entity$: React.MutableRefObject<Entity<T>>, private _dispose: Subject<true>) { }
+    constructor(private _entity$: React.MutableRefObject<Entity<T>>, private _dispose: BehaviorSubject<true>) { }
     /**
      * Retrieves the data associated with the current entity.
      *

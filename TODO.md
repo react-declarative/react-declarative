@@ -172,6 +172,59 @@ Breaking changes публичного API (осознанные, по указа
     (последовательные .sort), обычно ожидается первый.
   - useCachedRows: selectedRows может содержать undefined для id, отсутствующих в rows.
 
+## Этап 5: закрытие хвостов + аудит src/hooks и utils/mvvm
+
+### Решения по этапу 4 (подтверждены)
+- useApiPaginator `$lte:`/`page` — НЕ баг: бэкенд в итоге appwrite, `$lte` — осознанный фильтр по get-moment-stamp. Снято.
+
+### Исправлено (этап 5)
+17. **tsconfig.json: target es5 → es2017.** КРИТИЧНО: functools-kit@4 поставляется нативными ES2015-классами;
+    ES5-транспилированный `extends` (Model/Collection extends EventEmitter, RouteManager extends Subject)
+    падает в рантайме с "Class constructor cannot be invoked without 'new'" — т.е. сборка с kit v4 при es5
+    была сломана для mvvm/routeManager. `makeExtendable` из kit не спасает ES5-подклассы (теряется прототип).
+    tsc/jest/rollup с es2017 проходят.
+18. **utils/mvvm/Entity.ts setData** — частичный `setData({поле})` без id генерировал НОВЫЙ случайный id
+    (терялась идентичность, протухала `_ids`-карта Collection). Теперь id сохраняется, генерация — только
+    если id не было вовсе. Тесты: src/utils/__tests__/mvvm.test.ts (6 шт.).
+19. **utils/cacheSrc.ts** — revoke object URL по событию load картинки (утечка).
+20. **utils/downloadBlank.ts** — убран `mode: 'no-cors'` (opaque response → пустой файл), добавлен
+    `.catch`-фолбэк на прямую ссылку, якорь убирается из body после клика.
+21. **utils/filterArray.ts → filterString.ts** (git mv, имя файла = имя функции), импорт в useArrayPaginator обновлён.
+22. **useArrayPaginator sortHandler** — мультисортировка применяется в обратном порядке модели:
+    приоритет у первого столбца (последовательные стабильные сорты).
+23. **List/hooks/useCachedRows.tsx** — из selectedRows отфильтровываются undefined (id вне rows).
+
+### Осмотрено без правок (этап 5)
+- src/hooks: useActualState/Value/Callback/Ref, useSingleton, useChange, useChangeSubject, useForceUpdate,
+  useReloadTrigger, useRenderWaiter, useChangeDelay, useAsyncAction, useQueuedAction, useSinglerunAction,
+  useSubjectValue, useBehaviorSubject, useSource, useSubscription, useElementSize — чисто.
+- utils/mvvm/Model.ts, Collection.ts (кроме Entity-фикса), oop/Pointer, createLsManager — чисто.
+  Заметка: Collection._ids не обновляется при явной смене id сущности через setData({id: другой}) — краевой случай.
+- НЕ аудировано глубоко: useSwipable (557), useCollection/useEntity/useModel биндинги, useContextMenu,
+  useMediaStreamBuilder, useAsyncProgress, useSearchState, crypt.js, heavy.tsx, list2grid,
+  createManagedHistory/createWindowHistory, FetchView/SearchView/OutletView/WizardView/Tile.
+
+## Этап 6: полный аудит src/hooks (остаток ~40 хуков)
+
+### Исправлено (этап 6)
+24. **useModel/useEntity/useCollection (4 адаптера)** — `_waitForListeners` после dispose крутил 10мс-поллинг
+    вечно: подписка на `_dispose` происходит после эмита, а BehaviorSubject не реплеит. Теперь `isDisposed`
+    инициализируется текущим значением `_dispose.data` (тип параметра уточнён до BehaviorSubject<true>).
+25. **useSearchState** — (а) unmount-ветка dispatchState была МЁРТВЫМ кодом: `mountRef.current = false`
+    ставится синхронно после вызова, а guard `!mountRef.current → return` стоял до разбора action;
+    guard перенесён внутрь "update". (б) unmount-очистка удаляла ВСЕ query-параметры страницы, включая
+    чужие — добавлен фильтр по `${prefix}_`. Тест: src/__tests__/searchState.test.tsx.
+26. **useSearchParams** — `parseInt` для числовых значений терял дробную часть ("1.5" → 1) — заменён на parseFloat.
+
+### Осмотрено без правок (этап 6)
+useSwipable (порт react-swipeable), useContextMenu, useAsyncProgress, useMediaStreamBuilder (spot-check),
+useCollectionBinding/useEntityBinding/useModelBinding, useConfirm/usePrompt/useAlert/useDate/useTime,
+useRequestSnackbar/useActionSnackbar (spot-check), useAudioPlayer, useFile, useItemModal, useList, useOne,
+useListEditor, useLocalHistory, useRouteItem/useRouteParams, useMediaContext, useOneArray, useOneInput,
+usePointer, usePreventAutofill (косметика: deps [onFocus] в handleTouchStart/handleContextMenu),
+useSingleshot, useUserAgent, useWatchChanges, useDeepChangeSubject, useManagedCursor.
+src/hooks и utils/mvvm — аудит ЗАВЕРШЁН.
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

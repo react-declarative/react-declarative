@@ -91,11 +91,11 @@ export class Entity<T extends IEntity = any> extends Model<T> implements IEntity
         if (typeof data === 'function') {
             data = data(this._prevData());
         }
-        if (data.id === undefined) {
-            data.id = randomString();
-        }
         super.setData({
             ...data,
+            ...(data.id === undefined && {
+                id: this.id === undefined ? randomString() : this.id,
+            }),
         });
     };
 

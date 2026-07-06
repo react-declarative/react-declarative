@@ -42,7 +42,9 @@ export const cacheSrc = (url: string) => ({
             element.style.visibility = 'hidden';
             cacheManager.createPromise(url).then((blob) => {
                 if (document.contains(element)) {
-                    element.src = URL.createObjectURL(blob);
+                    const objectUrl = URL.createObjectURL(blob);
+                    element.addEventListener('load', () => URL.revokeObjectURL(objectUrl), { once: true });
+                    element.src = objectUrl;
                     element.style.visibility = 'visible';
                 }
             })

@@ -18,7 +18,7 @@ import { IState as ILastPaginationState } from './useLastPagination';
 import removeEmptyFiltersDefault from '../helpers/removeEmptyFilters';
 
 import { CANCELED_SYMBOL } from '../../../utils/hof/cancelable';
-import filterString from '../../../utils/filterArray';
+import filterString from '../../../utils/filterString';
 import queued from '../../../utils/hof/queued';
 
 const FILTER_CHARS = [',', ';', '-', '@'];
@@ -169,7 +169,11 @@ export const useArrayPaginator = <FilterData extends {} = IAnything, RowData ext
         return [...new Set(tmp.flat())];
     },
     sortHandler = (rows, sort) => {
-        sort.forEach(({
+        /**
+         * Последовательные стабильные сортировки: чтобы приоритет был у первого
+         * столбца модели, применяем сортировки в обратном порядке
+         */
+        [...sort].reverse().forEach(({
             field,
             sort,
         }) => {

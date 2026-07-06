@@ -87,7 +87,7 @@ export const CachedRowsProvider = <RowData extends IRowData = IAnything>({
      * @param cachedRows - The cached rows with their corresponding IDs.
      * @returns - The selected rows.
      */
-    const selectedRows = useMemo(() => [...selection].map((id) => cachedRows.get(id)), [cachedRows])
+    const selectedRows = useMemo(() => [...selection].map((id) => cachedRows.get(id)).filter((row): row is RowData => !!row), [cachedRows])
 
     /**
      * Represents the value of a variable.
