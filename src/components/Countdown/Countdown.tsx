@@ -63,7 +63,7 @@ export const Countdown = ({
   const { classes } = useStyles();
 
   const [count, setCount] = useState<number>();
-  const intervalRef = useRef<number>();
+  const intervalRef = useRef<ReturnType<typeof setInterval>>();
 
   const onExpire$ = useActualCallback(onExpire);
 
@@ -80,16 +80,16 @@ export const Countdown = ({
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setCount(Date.now());
-    });
+    }, 1_000);
     return () => {
-      clearInterval(intervalRef.current);
+      intervalRef.current && clearInterval(intervalRef.current);
     };
   }, []);
 
   useEffect(() => {
     if (+timeout < 0) {
       onExpire$();
-      clearInterval(intervalRef.current);
+      intervalRef.current && clearInterval(intervalRef.current);
     }
   }, [timeout]);
 

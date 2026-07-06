@@ -300,6 +300,7 @@ export class Entry<
     this.unSetLimitSubject && this.unSetLimitSubject();
     this.unSetPageSubject && this.unSetPageSubject();
     this.unSetRowsSubject && this.unSetRowsSubject();
+    this.unSetFilterDataSubject && this.unSetFilterDataSubject();
   };
 
   /**

@@ -193,9 +193,10 @@ export const CardView = <ItemData extends IItemData = any>(
     handleDataRequest(true);
   }, [state.search]);
   useEffect(
-    reloadSubject.subscribe(() => {
-      handleDataRequest(true);
-    }),
+    () =>
+      reloadSubject.subscribe(() => {
+        handleDataRequest(true);
+      }),
     [reloadSubject]
   );
   /**

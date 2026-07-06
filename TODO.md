@@ -300,6 +300,31 @@ src/hooks и utils/mvvm — аудит ЗАВЕРШЁН.
 - ActionMenu — подписок нет, loading-логика корректна.
 - VisibilityView/FeatureView — декларативные обёртки над One, эффектов нет.
 
+## Этап 10: остаток src/components (List views/слоты + мелкие stateful-компоненты)
+
+### Исправлено (этап 10)
+34. **CardView.tsx** — `useEffect(reloadSubject.subscribe(...), [reloadSubject])`: в useEffect передан
+    РЕЗУЛЬТАТ subscribe (функция отписки), а не колбэк — подписка происходила в рендере, а эффект тут же
+    её снимал. reloadSubject у CardView фактически не работал. Обёрнуто в `() => ...`.
+    Проверено (python-скан по multiline-паттерну): вхождение единственное во всём src.
+35. **Countdown.tsx** — `setInterval(...)` БЕЗ задержки: тикал каждые ~4мс, ре-рендеря компонент на полной
+    скорости до истечения таймера. Теперь 1_000 (отображаются минуты:секунды) + тип рефа под Timer.
+36. **ErrorBoundary.tsx** — в componentDidUpdate при hasError на КАЖДЫЙ апдейт вешался новый history-слушатель
+    без снятия предыдущего. Добавлен guard `!this.unHistory` + сброс после срабатывания.
+37. **List/components/Entry/Entry.tsx** — componentWillUnmount снимал 5 подписок из 6:
+    `unSetFilterDataSubject` забыт (внешний setFilterDataSubject держал обработчик анмаунченного списка).
+
+### Осмотрено без правок (этап 10)
+- List views (PageView/ChooserView/CustomView — scrollYSubject с dtor), ListActionMenu/Container/ActionMenu-слот
+  (useOnce возвращает dtor подписки), TablePagination (keydown с cleanup), Entry (пере-подписка в didUpdate
+  с guard'ами — корректно).
+- ReloadView, SubjectBinding (класс-компоненты с отпиской), ScrollTopView, OfflineView, ActionBounce,
+  SecretView (keydown с cleanup), DropAreaView (cleanup через ref-callback контракт), TreeView (once-паттерн),
+  MasterDetail Tab/CardContent (scroll с cleanup), FadeContainer (полный cleanup), Map (dispose через
+  singleshot + useOnce-деструктор), usePreventNavigate (жёсткий блок при loading — by design), CardView/Search.
+- Остальные компоненты без подписок/таймеров (Action*, Dot, Center, Square, PaperView, PortalView и т.д.) —
+  проверены grep-сканом: stateful-кода нет.
+
 ## Прочитано (аудит)
 - package.json, node_modules/functools-kit/types.d.ts (все экспорты)
 - Все файлы src/utils/hof, src/utils/math, src/utils/rx (+ бывшие подпапки), 21 top-level дубликат

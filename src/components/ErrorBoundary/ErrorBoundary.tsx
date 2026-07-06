@@ -81,12 +81,13 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
    * @returns
    */
   componentDidUpdate = () => {
-    if (this.state.hasError) {
+    if (this.state.hasError && !this.unHistory) {
       this.unHistory = this.props.history?.listen(() => {
         this.setState({
           hasError: false,
         });
         this.unHistory && this.unHistory();
+        this.unHistory = undefined;
       })
     }
   };
