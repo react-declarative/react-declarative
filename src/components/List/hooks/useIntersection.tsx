@@ -119,6 +119,7 @@ class IntersectionManager {
         if (!this.withRestorePos) {
             return;
         }
+        this.intersectionObserver.unobserve(element);
         this.idMap.delete(element);
         this.viewportMap.delete(id);
     };

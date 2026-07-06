@@ -111,7 +111,7 @@ export const useMediaStreamBuilder = ({
             const prevTrack = mediaStream.getVideoTracks().find(({ id }) => id === screenCaptureId);
             prevTrack && mediaStream.removeTrack(prevTrack);
             const [currentTrack] = stream.getVideoTracks();
-            currentTrack.addEventListener('inactive', () => {
+            currentTrack.addEventListener('ended', () => {
                 const prevTrack = mediaStream.getVideoTracks().find(({ id }) => id === screenCaptureId);
                 prevTrack && mediaStream.removeTrack(prevTrack);
                 setScreenCaptureId("");
@@ -156,7 +156,7 @@ export const useMediaStreamBuilder = ({
             const prevTrack = mediaStream.getVideoTracks().find(({ id }) => id === cameraCaptureId);
             prevTrack && mediaStream.removeTrack(prevTrack);
             const [currentTrack] = stream.getVideoTracks();
-            currentTrack.addEventListener('inactive', () => {
+            currentTrack.addEventListener('ended', () => {
                 const prevTrack = mediaStream.getVideoTracks().find(({ id }) => id === cameraCaptureId);
                 prevTrack && mediaStream.removeTrack(prevTrack);
                 setCameraCaptureId("");
@@ -199,7 +199,7 @@ export const useMediaStreamBuilder = ({
             const prevTrack = mediaStream.getAudioTracks().find(({ id }) => id === audioCaptureId);
             prevTrack && mediaStream.removeTrack(prevTrack);
             const [currentTrack] = stream.getAudioTracks();
-            currentTrack.addEventListener('inactive', () => {
+            currentTrack.addEventListener('ended', () => {
                 const prevTrack = mediaStream.getAudioTracks().find(({ id }) => id === audioCaptureId);
                 prevTrack && mediaStream.removeTrack(prevTrack);
                 setAudioCaptureId("");
