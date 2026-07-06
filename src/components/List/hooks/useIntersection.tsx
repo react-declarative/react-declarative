@@ -198,7 +198,7 @@ export const IntersectionProvider = ({
             const row = rows$.current[minIdx];
             row && storageManger.setValue(row.id);
         });
-    });
+    }, [withRestorePos]);
 
     useAsyncValue(async () => {
         const id = storageManger.getValue();

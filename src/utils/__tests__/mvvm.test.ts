@@ -49,6 +49,21 @@ describe('mvvm Collection', () => {
         expect(collection.ids).toEqual([1, 2]);
     });
 
+    test('Expect _ids remap after explicit id change through setData', () => {
+        const collection = new Collection<IItem>([
+            { id: 1, name: 'one' },
+            { id: 2, name: 'two' },
+        ]);
+        collection.findById(1).setData({ id: 10 });
+        expect(collection.findById(10).data.name).toBe('one');
+        expect(() => collection.findById(1)).toThrow();
+        expect(collection.ids.sort()).toEqual([10, 2].sort());
+        // removeById по новому id тоже работает
+        collection.removeById(10);
+        expect(collection.items.length).toBe(1);
+        expect(collection.findById(2).data.name).toBe('two');
+    });
+
     test('Expect upsert to update existing and append new', () => {
         const collection = new Collection<IItem>([
             { id: 1, name: 'one' },

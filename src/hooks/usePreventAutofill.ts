@@ -66,7 +66,7 @@ export const usePreventAutofill = <T = HTMLInputElement>({
     const handleTouchStart = useCallback<React.TouchEventHandler<T>>((e) => {
         setReadOnly(false);
         onTouchStart && onTouchStart(e);
-    }, [onFocus]);
+    }, [onTouchStart]);
 
     /**
      * Callback function to handle the context menu event.
@@ -79,7 +79,7 @@ export const usePreventAutofill = <T = HTMLInputElement>({
         e.preventDefault();
         e.stopPropagation();
         onContextMenu && onContextMenu(e);
-    }, [onFocus]);
+    }, [onContextMenu]);
 
     return {
         readOnly: upperReadOnly || readOnly,

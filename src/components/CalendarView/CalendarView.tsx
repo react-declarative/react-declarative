@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
 
 import isToday from "dayjs/plugin/isToday";
@@ -89,7 +89,7 @@ export const CalendarView = <
    */
   const onYearChange = (date: dayjs.Dayjs) => {
     setShowYearSelection(false);
-    setDate(date.clone().set("year", date.get("year")));
+    setDate(date);
   };
 
   /**
@@ -100,7 +100,7 @@ export const CalendarView = <
    */
   const onMonthChange = (date: dayjs.Dayjs) => {
     setShowMonthSelection(false);
-    setDate(date.clone().set("month", date.get("month")));
+    setDate(date);
   };
 
   const renderInner = () => {
@@ -140,13 +140,10 @@ export const CalendarView = <
     );
   };
 
-  const context = useMemo(
-    () => ({
-      ...props,
-      payload,
-    }),
-    []
-  );
+  const context = {
+    ...props,
+    payload,
+  };
 
   return (
     <PropsProvider payload={context}>

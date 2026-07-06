@@ -176,4 +176,30 @@ describe('CalendarView on get-moment-stamp api', () => {
         expect(slotStamps!.toStamp).toBe(capturedRequest!.toStamp);
     });
 
+    test('Expect props changes after mount to reach consumers', async () => {
+        const handler = jest.fn(async () => []);
+        const MarkerA = () => <span>marker-a</span>;
+        const MarkerB = () => <span>marker-b</span>;
+
+        await act(async () => {
+            ReactDOM.render(
+                <CalendarView {...commonProps} handler={handler} BeforeCalendarHeader={MarkerA} />,
+                div,
+            );
+            await sleep(100);
+        });
+        expect(div.textContent).toContain('marker-a');
+
+        // смена пропа после маунта: контекст обязан отдать консюмерам новое значение
+        await act(async () => {
+            ReactDOM.render(
+                <CalendarView {...commonProps} handler={handler} BeforeCalendarHeader={MarkerB} />,
+                div,
+            );
+            await sleep(100);
+        });
+        expect(div.textContent).toContain('marker-b');
+        expect(div.textContent).not.toContain('marker-a');
+    });
+
 });

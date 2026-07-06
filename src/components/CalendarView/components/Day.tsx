@@ -34,6 +34,9 @@ const useStyles = makeStyles()((theme) => ({
   buttonAccient: {
     background: theme.palette.action.hover,
   },
+  buttonActive: {
+    background: alpha(theme.palette.primary.main, 0.18),
+  },
   button: {
     minWidth: "unset !important",
     height: '100%',
@@ -68,7 +71,7 @@ interface IDayProps {
  *
  * @returns The rendered Day component.
  */
-export const Day = ({ onChange, day }: IDayProps) => {
+export const Day = ({ onChange, day, isActive }: IDayProps) => {
   const { classes } = useStyles();
 
   const { BeforeDayHeader, AfterDayHeader, onItemClick, tileMode, itemSx } = usePropsContext();
@@ -234,6 +237,7 @@ export const Day = ({ onChange, day }: IDayProps) => {
         onClick={({ currentTarget }) => setAnchorEl(currentTarget)}
         className={classNames(classes.button, {
           [classes.buttonAccient]: isToday(day),
+          [classes.buttonActive]: isActive,
         })}
       >
         <Center

@@ -219,6 +219,17 @@ export class Collection<T extends IEntity = any> extends EventEmitter implements
      * @param target - The target entity to be emitted with the change event.
      */
     private _change = (target: Entity<T>) => {
+        const knownIdx = this._ids.get(target.id);
+        if (knownIdx === undefined || this._items.get(knownIdx) !== target) {
+            // id сущности изменился через setData({id}): перепривязываем _ids
+            for (const [id, idx] of this._ids.entries()) {
+                if (this._items.get(idx) === target) {
+                    this._ids.delete(id);
+                    this._ids.set(target.id, idx);
+                    break;
+                }
+            }
+        }
         this.emit(CHANGE_SYMBOL, this, target);
     };
 
