@@ -9786,27 +9786,32 @@ declare module "react-declarative/utils/getMomentStamp" {
   import { type Dimension } from "get-moment-stamp";
   export type stamp = number;
   /**
-   * Calculates the moment stamp for the given end date: the number of whole
-   * days since the Unix epoch for the calendar date of `end`.
+   * Encodes a moment in time as an integer stamp at the requested granularity:
+   * whole `dimension` units (minute | hour | day) elapsed since the Unix epoch,
+   * measured on the UTC timeline.
    *
-   * The wall-clock date components of the dayjs object are normalized to UTC
-   * before being passed to `get-moment-stamp`, so the result depends only on
-   * the calendar date and not on the timezone of the machine running the code.
+   * The dayjs instant is passed straight through as its absolute epoch value
+   * (`end.toDate()`), so the stamp is a pure function of the instant and is
+   * identical on any machine regardless of its local timezone. For
+   * `dimension: "minute"` consecutive minute candles yield strictly
+   * increasing, +1-per-candle stamps — exactly what lightweight-charts needs.
    *
-   * @param [end=dayjs()] - The end date. Defaults to the current date and time.
-   * @returns - The moment stamp for the calendar date of `end`.
+   * @param end - The instant to encode. Defaults to now.
+   * @param dimension - Granularity of the axis. Defaults to "day".
+   * @returns The stamp for `end` at the given dimension.
    */
   export const getMomentStamp: (
     end?: dayjs.Dayjs,
     dimension?: Dimension,
   ) => stamp;
   /**
-   * Converts a moment stamp back to a moment in time: the start of the
-   * corresponding calendar date in the local timezone.
+   * Inverse of {@link getMomentStamp}: reconstructs the instant at the start of
+   * the given stamp's `dimension` bucket on the UTC timeline, returned as a
+   * dayjs object wrapping that exact epoch instant.
    *
-   * @param stamp - The moment stamp to convert.
-   * @param dimension - The dimension for the conversion. Defaults to "day".
-   * @returns - The dayjs object pointing to the start of the calendar date.
+   * @param stamp - The stamp to decode.
+   * @param dimension - Granularity the stamp was produced at. Defaults to "day".
+   * @returns A dayjs object at the reconstructed instant.
    */
   export const fromMomentStamp: (
     stamp: number,
