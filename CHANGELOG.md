@@ -1,3 +1,30 @@
+# 🔮 Fable Full-Codebase Audit (v3.0.0, 07/07/2026)
+
+> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/3.0.0)
+
+
+### Breaking changes
+
+- **`tsconfig` target `es5` → `es2017`.** `functools-kit@4` ships native ES2015 classes; ES5-transpiled `extends` (Model/Collection, RouteManager) crashed at runtime with *"Class constructor cannot be invoked without 'new'"*.
+- Date utilities migrated to the pure-UTC `get-moment-stamp`. `addUtcOffset`/`removeUtcOffset` were **removed** (replaced in the public API by `isCurrentDate`, `isCurrentTime`, `fromTimeStampWithMoment`); `getMomentStamp`/`fromMomentStamp` lost their `dimension` parameter; `getGenesisStamp(stamp)` now takes a number (moment stamp) instead of a dayjs object. Stamps are now machine-timezone-independent, and an off-by-one for western timezones in `Date.toStamp` is fixed.
+
+### Re-export shims
+
+**64 modules** became thin re-export shims (files kept for import-path stability): all of `src/utils/hof` (18), `src/utils/math` (9), `src/utils/rx` (Subject/Observer/Source/…, with the `lib`/`source`/`helpers` subfolders removed), 21 top-level utils, and all of `src/api` (10).
+
+### Notable fixes
+
+- **`promiseState`/`promiseValue`** always returned `'async'`/`null` (the `.then` callback is a microtask that runs after `return`), so `<If />` always started with `pass=false` even for synchronous conditions — now a synchronous `instanceof Promise` check.
+- **`useApiPaginator` / `useApiHandler`** captured `abortManager.signal` once on mount; after any unrelated `abort()` the component was stuck with an already-aborted signal and every request silently returned empty — the signal is now read per-request.
+- **`ArraySet`** — three bugs (the species constructor made `.filter()`/`.map()`/`.slice()` throw; single-element numeric arrays produced sparse arrays) rewritten via `super() + super.push(...)`.
+- **`useOutletModal` / `useWizardModal` / `useTabsModal` / `useSearchModal`** leaked `window.open` (always truthy) as their documented `open` boolean — now derived from the backing subject.
+- **`ChatView`** — a mis-indexed `removeOnMessagesChanged` disabled a random action handler; missing effect cleanups and singleton `MediaRecorder` listeners caused duplicated audio chunks.
+- **`CalendarView`** — `useMemo([])` froze props/context and header stamp ranges at mount, so paging months or changing handlers after mount was ignored; the selected day is now visually marked.
+- Plus fixes across `Countdown`, `ErrorBoundary`, `useSearchState`, `useSearchParams`, `useSelection`, `useIntersection`, `useMediaStreamBuilder`, `useArrayPaginator`, `Grid` offset pagination, MVVM `Entity`/`Collection` identity, `routeManager`, `Switch` route sorting, `InfiniteView`/`VirtualView` vertical scroll, `wordForm`, `normalizeText`, `formatAmount`, `toRouteUrl`, and `cacheSrc`/`downloadBlank` resource leaks.
+
+
+
+
 # List Lazy Loading (v2.7.38, 13/09/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.7.38)
@@ -33,6 +60,7 @@ The custom cell template could be also engaged for lazy loading
 
 
 
+
 # RoiView (v2.6.140, 26/07/2024)
 
 > Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/2.6.140)
@@ -40,6 +68,7 @@ The custom cell template could be also engaged for lazy loading
 The `<RoiView />` is a special component for marking [region of interest](https://en.wikipedia.org/wiki/Region_of_interest) on images. Can be used in [computer vision](https://en.wikipedia.org/wiki/Computer_vision), AI and marking [mall floor plans](https://www.edrawsoft.com/template-mall-floor-plan.html)
 
 ![image](https://github.com/user-attachments/assets/c8085569-3cdf-4ac3-af27-1a65d07062cf)
+
 
 
 
@@ -281,6 +310,7 @@ export const fields: TypedField[] = [
 Try without installing directly [in your web browser](https://react-declarative-playground.github.io/)
 
 ![playground](https://github.com/react-declarative/react-declarative/assets/19227776/0365021d-7dad-4487-8d46-cd6a2348d741)
+
 
 
 
@@ -1891,203 +1921,6 @@ The Compute and Component columns for List
 ```
 
 ![image](https://user-images.githubusercontent.com/19227776/144725489-c7a74fb4-d04a-4e35-bbfd-ec1290ebf899.png)
-
-
-
-# List Component Autoreload (v1.5.73, 01/12/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.73)
-
-The auto reload feature of the List Components will keep the data inside the datagrid always updated (ajax auto refresh)
-
-![image](https://user-images.githubusercontent.com/19227776/144229649-74434324-4f89-4786-929e-fc57c8d6eb45.png)
-
-```tsx
-const actions: IListAction[] = [
-  {
-    type: ActionType.Add,
-  },
-  {
-    type: ActionType.Menu,
-    options: [
-      {
-        action: 'add-action',
-        label: 'Create new row',
-        icon: Add,
-      },
-      {
-        action: 'update-now',
-      },
-      {
-        action: 'auto-reload',
-      },
-    ],
-  }
-];
-```
-
-
-
-# Minor changes (v1.5.71, 29/11/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.71)
-
-Additional props, several new fields
-
-
-
-# CenterLayout Field (v1.5.44, 16/11/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.44)
-
-A layout which centers the responsive grid by reducing empty cells width and enables scroll when there is a lack on free space
-
-
-
-# Async List Pickers (v1.5.26, 08/10/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.26)
-
-The most advanced item pickers)
-
-```tsx
-{
-    type: FieldType.Combo,
-    name: 'gender',
-    title: 'Gender',
-    description: 'Your gender',
-    async itemList() {
-        await sleep(1e3);
-        return [
-            'male-unique-key',
-            'female-unique-key',
-            'other-unique-key',
-        ];
-    },
-    async tr(current) {
-        await sleep(5e2);
-        if (current === 'male-unique-key') {
-            return 'Male';
-        } else if (current === 'female-unique-key') {
-            return 'Female';
-        } else if (current === 'other-unique-key') {
-            return 'Other';
-        } else {
-            return "";
-        }
-    },
-    defaultValue: 'male-unique-key',
-},
-{
-    type: FieldType.Items,
-    name: 'lists',
-    title: 'User lists',
-    description: 'Multiple input',
-    async itemList() {
-        await sleep(1e3);
-        return [
-            'vip-value',
-            'allow-value',
-            'other-value',
-        ];
-    },
-    async tr(current) {
-        await sleep(5e2);
-        if (current === 'vip-value') {
-            return 'Vip';
-        } else if (current === 'allow-value') {
-            return 'Allow';
-        } else if (current === 'other-value') {
-            return 'Other';
-        } else {
-            return "";
-        }
-    },
-    defaultValue: ['vip-value', 'allow-value'],
-}
-```
-
-![ezgif-2-90fe6416bafe](https://user-images.githubusercontent.com/19227776/136573875-8e6adebb-bc34-48e7-b3b5-4a12fcb1c661.gif)
-
-
-
-
-
-
-# List Row Color (v1.5.25, 03/10/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.25)
-
-Colored indication on List Component rows will help you briefly classify inner information based on importance
-
-
-
-# Switch Component Features (v1.5.19, 09/09/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.19)
-
-Switch Component redirect, bug fixes
-
-
-
-# Switch Component (v1.5.17, 06/09/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.17)
-
-Minimal router based on [history](https://www.npmjs.com/package/history)
-
-
-
-# Breadcrumbs Component (v1.5.15, 31/08/2021)
-
-> Github [release link](https://github.com/react-declarative/react-declarative/releases/tag/1.5.15)
-
-The most advanced component for the list item form
-
-
-
-
-# Small patches (v1.6, 04/01/2021)
-
-> Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.6)
-
-Group columns priority, input debounce value flush after lost focus, new samples
-
-[https://theonekit.com](https://theonekit.com)
-
-
-
-# Validity callback (v1.5, 01/01/2021)
-
-> Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.5)
-
-You can now easily control whether the form save button is disabled using `validity` and `change` callbacks
-
-[https://theonekit.com](https://theonekit.com)
-
-
-
-# Strict typed JSON (v1.4, 25/12/2020)
-
-> Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.4)
-
-Try OneTyped component. Site with [demos](https://theonekit.com) by the link
-
-
-
-# Upgrades (v1.3, 23/12/2020)
-
-> Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.3)
-
-Few new modal dialog pickers, insignificant changes. See the [demo](https://theonekit.com) by the link
-
-
-
-# Ready to use (v1.2, 28/11/2020)
-
-> Github [release link](https://github.com/tripolskypetr/material-ui-umd/releases/tag/1.2)
-
-It looks like this toolkit has become as mach stable as required to make student projects. See the [demo](https://theonekit.github.io/) by the link
 
 
 
