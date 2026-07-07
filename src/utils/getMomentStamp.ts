@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import {
   getMomentStamp as getMomentStampBase,
   fromMomentStamp as fromMomentStampBase,
+  type Dimension,
 } from "get-moment-stamp";
 
 export type stamp = number;
@@ -18,18 +19,19 @@ export type stamp = number;
  * @param [end=dayjs()] - The end date. Defaults to the current date and time.
  * @returns - The moment stamp for the calendar date of `end`.
  */
-export const getMomentStamp = (end: dayjs.Dayjs = dayjs()): stamp =>
-  getMomentStampBase(new Date(Date.UTC(end.year(), end.month(), end.date())));
+export const getMomentStamp = (end: dayjs.Dayjs = dayjs(), dimension: Dimension = "day"): stamp =>
+  getMomentStampBase(new Date(Date.UTC(end.year(), end.month(), end.date())), dimension);
 
 /**
  * Converts a moment stamp back to a moment in time: the start of the
  * corresponding calendar date in the local timezone.
  *
  * @param stamp - The moment stamp to convert.
+ * @param dimension - The dimension for the conversion. Defaults to "day".
  * @returns - The dayjs object pointing to the start of the calendar date.
  */
-export const fromMomentStamp = (stamp: number) => {
-  const date = fromMomentStampBase(stamp);
+export const fromMomentStamp = (stamp: number, dimension: Dimension = "day") => {
+  const date = fromMomentStampBase(stamp, dimension);
   return dayjs(new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 };
 

@@ -9783,6 +9783,7 @@ declare module "react-declarative/utils/compose" {
 
 declare module "react-declarative/utils/getMomentStamp" {
   import dayjs from "dayjs";
+  import { type Dimension } from "get-moment-stamp";
   export type stamp = number;
   /**
    * Calculates the moment stamp for the given end date: the number of whole
@@ -9795,15 +9796,22 @@ declare module "react-declarative/utils/getMomentStamp" {
    * @param [end=dayjs()] - The end date. Defaults to the current date and time.
    * @returns - The moment stamp for the calendar date of `end`.
    */
-  export const getMomentStamp: (end?: dayjs.Dayjs) => stamp;
+  export const getMomentStamp: (
+    end?: dayjs.Dayjs,
+    dimension?: Dimension,
+  ) => stamp;
   /**
    * Converts a moment stamp back to a moment in time: the start of the
    * corresponding calendar date in the local timezone.
    *
    * @param stamp - The moment stamp to convert.
+   * @param dimension - The dimension for the conversion. Defaults to "day".
    * @returns - The dayjs object pointing to the start of the calendar date.
    */
-  export const fromMomentStamp: (stamp: number) => dayjs.Dayjs;
+  export const fromMomentStamp: (
+    stamp: number,
+    dimension?: Dimension,
+  ) => dayjs.Dayjs;
   export default getMomentStamp;
 }
 
