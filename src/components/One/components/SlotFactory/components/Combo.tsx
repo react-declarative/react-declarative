@@ -152,7 +152,10 @@ export const Combo = ({
     payload,
     itemList,
     keepRaw: false,
-    onValueChange: onChange,
+    onValueChange: (value, config) => {
+      const [first] = Array.isArray(value) ? value : [value];
+      onChange(first || null, config);
+    },
     placeholder,
     tip: undefined,
     title,
