@@ -13,6 +13,9 @@ A React view builder which interacts with a JSON endpoint to generate nested 12-
 
 **More than Forms:** can be used for build any UI like dashboards, CRM and ERP, mobile apps. Solving your problems.  *⭐Star* and *💻Fork* It will be appreciated
 
+📚 **[API Reference](https://react-declarative.github.io/)** · 📌 **[Reference implementation](https://github.com/react-declarative/react-pocketbase-crm)** 
+
+
 <!--
 
 ## Contents
